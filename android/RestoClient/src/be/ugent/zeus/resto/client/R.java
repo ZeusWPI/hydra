@@ -18,6 +18,9 @@ public final class R {
         public static final int line=0x7f020004;
         public static final int red=0x7f020005;
     }
+    public static final class id {
+        public static final int day=0x7f050000;
+    }
     public static final class layout {
         public static final int main=0x7f030000;
     }

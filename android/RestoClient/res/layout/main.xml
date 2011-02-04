@@ -3,7 +3,7 @@
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:orientation="vertical">
-  <TextView android:text="Vandaag" android:textSize="30sp" android:gravity="center"
+  <TextView android:id="@+id/day" android:text="Vandaag" android:textSize="30sp" android:gravity="center"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content" />
 
