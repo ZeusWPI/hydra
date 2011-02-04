@@ -1,6 +1,5 @@
-"""
+""" Parse the weekly menu from a webpage into a json struct and write it to a file. """
 
-"""
 import json, urllib, libxml2
 
 def get_menu_page (week):
@@ -22,11 +21,9 @@ def parse_menu_from_html (page):
 	
 	doc = libxml2.htmlParseDoc(page, 'utf-8')
 	menuElement = doc.xpathEval("//div[@id='parent-fieldname-text']")
-	rows = menuElement[0].xpathEval('.//tr')
-	rows = rows[1:-2]
+	rows = menuElement[0].xpathEval('.//tr')[1:-2]
 	
 	day = None
-	current = None
 	for row in rows:
 		fields = row.xpathEval('.//td')
 		if len(fields[0].content) != 0:
