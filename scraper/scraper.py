@@ -1,6 +1,8 @@
 """ Parse the weekly menu from a webpage into a json struct and write it to a file. """
 
-import json, urllib, libxml2
+import json, urllib, libxml2, os, os.path
+
+API_VERSION = "0.1"
 
 def get_menu_page (week):
 	f = urllib.urlopen("http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm" % week)
@@ -15,7 +17,6 @@ def get_meat_and_price (meat):
 	return result
 
 def parse_menu_from_html (page):
-	menu = {}
 	# replace those pesky non-breakable spaces
 	page = page.replace('&nbsp;', '')
 	
@@ -23,6 +24,10 @@ def parse_menu_from_html (page):
 	menuElement = doc.xpathEval("//div[@id='parent-fieldname-text']")
 	rows = menuElement[0].xpathEval('.//tr')[1:-2]
 	
+	week = doc.xpathEval("//span[@id='parent-fieldname-title']")[0].content.strip().split()
+	#monday = datetime.datetime.strptime("%s %s %s" % (week[2], week[3], week[7]), "%d %B %Y")
+	
+	menu = {}
 	day = None
 	for row in rows:
 		fields = row.xpathEval('.//td')
@@ -50,8 +55,12 @@ def parse_menu_from_html (page):
 	return menu
 
 def dump_menu_to_file (week, menu):
-	f = open ('./resto/week/%s.json' % week, 'w')
+	path = './resto/api/%s/week/' % API_VERSION
+	if not os.path.isdir(path):
+		os.makedirs(path)
+	f = open ('%s/%s.json' % (path, week), 'w')
 	json.dump(menu, f, sort_keys=True, indent=4)
+	f.close()
 
 if __name__ == "__main__":
 	week = 6
