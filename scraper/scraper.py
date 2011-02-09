@@ -1,22 +1,31 @@
 """ Parse the weekly menu from a webpage into a json struct and write it to a file. """
 
-import json, urllib, libxml2, os, os.path
+import json, urllib, libxml2, os, os.path, datetime, locale
+from datetime import datetime, timedelta
 
 API_VERSION = "0.1"
 
 def get_menu_page (week):
+	print "Fetching weekmenu webpage"
 	f = urllib.urlopen("http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm" % week)
 	return f.read()
 
 def get_meat_and_price (meat):
-	content = meat.content.split(' - ')
+	# splitting on '-' doesn't work, FAIL!
+	name = meat.content[8:]
+	try:
+		name = name[name.index('-')+1:]
+	except:
+		pass
+	
 	result = {}
 	result['recommended'] = len(meat.xpathEval('.//u')) > 0
-	result['price'] = content[0]
-	result['name'] = content[1]
+	result['price'] = meat.content[:8]
+	result['name'] = name.strip()
 	return result
 
 def parse_menu_from_html (page):
+	print "Parsing weekmenu webpage to an object tree"
 	# replace those pesky non-breakable spaces
 	page = page.replace('&nbsp;', '')
 	
@@ -25,15 +34,21 @@ def parse_menu_from_html (page):
 	rows = menuElement[0].xpathEval('.//tr')[1:-2]
 	
 	week = doc.xpathEval("//span[@id='parent-fieldname-title']")[0].content.strip().split()
-	#monday = datetime.datetime.strptime("%s %s %s" % (week[2], week[3], week[7]), "%d %B %Y")
+	if len(week) == 7:
+		# start and end of week are in the same month
+		monday = datetime.strptime("%s %s %s" % (week[2], week[5], week[6]), "%d %B %Y")
+	else:
+		# start and end of week are in different months
+		monday = datetime.strptime("%s %s %s" % (week[2], week[3], week[7]), "%d %B %Y")
 	
 	menu = {}
-	day = None
+	dayOfWeek = 0
 	for row in rows:
 		fields = row.xpathEval('.//td')
 		if len(fields[0].content) != 0:
 			# first row of a day
-			day = fields[0].content
+			day = str(monday.date() + timedelta(dayOfWeek))
+			dayOfWeek += 1
 			menu[day] = {}
 			if fields[2].content == 'Gesloten':
 				menu[day]['open'] = False
@@ -55,6 +70,7 @@ def parse_menu_from_html (page):
 	return menu
 
 def dump_menu_to_file (week, menu):
+	print "Writing object tree to file in json format"
 	path = './resto/api/%s/week/' % API_VERSION
 	if not os.path.isdir(path):
 		os.makedirs(path)
@@ -63,7 +79,8 @@ def dump_menu_to_file (week, menu):
 	f.close()
 
 if __name__ == "__main__":
-	week = 6
+	locale.setlocale(locale.LC_ALL, ('nl_BE.UTF-8'))
+	week = 8
 	page = get_menu_page(week)
 	menu = parse_menu_from_html(page)
 	dump_menu_to_file(week, menu)
