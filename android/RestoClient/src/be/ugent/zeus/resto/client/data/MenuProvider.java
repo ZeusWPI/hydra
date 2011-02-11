@@ -1,9 +1,12 @@
 package be.ugent.zeus.resto.client.data;
 
 import android.util.Log;
+import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -17,15 +20,23 @@ import org.json.JSONObject;
  */
 public class MenuProvider {
 
-  private static String URL = "http://zeus.ugent.be/~blackskad/resto/today/menu.json";
+  private static String URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/week/6.json";
 
-  public MenuProvider(Date today) {
+  private Cache<Menu> cache;
+
+  public MenuProvider(File cacheDir) {
+    cache = new Cache<Menu>(cacheDir);
   }
 
-  public Menu getMenu(int offset) {
-    Thread fetcher = new MenuFetcherThread(URL);
-    fetcher.run();
-    return null;
+  private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+  public Menu getMenu (Date day) {
+    Menu menu = cache.get(format.format(day));
+    if (menu == null) {
+      Thread fetcher = new MenuFetcherThread(URL);
+      fetcher.start();
+    }
+    return menu;
   }
 
   private class MenuFetcherThread extends Thread {
@@ -82,11 +93,13 @@ public class MenuProvider {
       try {
         JSONObject tmp = new JSONObject(fetch());
 
-        Menu menu = parseJsonObject(tmp, Menu.class);
-        for (Product meat : menu.meat) {
-          Log.i("[RestoMenu]", "meat: " + meat);
+        Iterator<String> it = tmp.keys();
+        while (it.hasNext()) {
+          String name = it.next();
+          cache.put(name, parseJsonObject(tmp.getJSONObject(name), Menu.class));
         }
       } catch (Exception e) {
+        Log.i("[RestoMenu]", e.toString());
         e.printStackTrace();
       }
     }

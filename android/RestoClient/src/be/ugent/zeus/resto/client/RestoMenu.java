@@ -4,6 +4,7 @@ import be.ugent.zeus.resto.client.data.MenuProvider;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import java.util.Date;
 
@@ -22,9 +23,11 @@ public class RestoMenu extends Activity {
     // set the layout, initializes all widgets
     setContentView(R.layout.main);
 
-    provider = new MenuProvider(new Date());
+    Log.i("[RestoMenu]", "onCreate");
+
+    provider = new MenuProvider(getCacheDir());
     // get the menu for today,
-    provider.getMenu(0);
+    provider.getMenu(new Date());
 
     int index = 0;
 
