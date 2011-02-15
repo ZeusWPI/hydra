@@ -24,6 +24,7 @@ public class Cache<T extends Serializable> {
     Log.i("[Cache]", dir.getAbsolutePath());
     for (File f : dir.listFiles()) {
       Log.i("[Cache]", "Found cached file " + f.getAbsolutePath());
+      //f.delete();
     }
     this.dir = dir;
   }

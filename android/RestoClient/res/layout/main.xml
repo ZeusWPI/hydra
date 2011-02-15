@@ -44,15 +44,13 @@ android:orientation="vertical">
         <TableRow
           android:layout_width="fill_parent"
           android:layout_height="wrap_content">
-          <TextView
+          <TextView android:id="@+id/soup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+          <TextView android:id="@+id/soup_price"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Kervelsoep" />
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="€ 0.50" />
+            android:gravity="right" />
         </TableRow>
       </TableLayout>
 
@@ -75,66 +73,13 @@ android:orientation="vertical">
       </LinearLayout>
       <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@drawable/line" />
 
-      <TableLayout
+      <TableLayout android:id="@+id/meat"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:stretchColumns="1">
-        <TableRow
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content">
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Steak#" />
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="€ 3.60" />
-        </TableRow>
-        <TableRow
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content">
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Viscubes provençales" />
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="€ 2.90" />
-        </TableRow>
-        <TableRow
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content">
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Gegratineerde macaroni" />
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="€ 3.20" />
-        </TableRow>
-        <TableRow
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content">
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Veg. gierst kaasschnitzel" />
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="€ 3.60" />
-        </TableRow>
-      </TableLayout>
+        android:stretchColumns="1" />
 
       <LinearLayout
         android:orientation="horizontal"
@@ -155,30 +100,13 @@ android:orientation="vertical">
       </LinearLayout>
       <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@drawable/line" />
 
-      <TableLayout
+      <TableLayout android:id="@+id/vegetables"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:stretchColumns="1">
-        <TableRow
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content">
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Brocolli" />
-        </TableRow>
-        <TableRow
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content">
-          <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Lentegroenten" />
-        </TableRow>
-      </TableLayout>
+        android:stretchColumns="1" />
     </LinearLayout>
   </ScrollView>
 </LinearLayout>

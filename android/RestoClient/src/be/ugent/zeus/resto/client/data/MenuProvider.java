@@ -46,10 +46,11 @@ public class MenuProvider {
     Menu menu = cache.get(format.format(c.getTime()));
 
     if (menu == null) {
+      Log.i("[MenuProvider]", "Menu was null!");
       Thread fetcher = new MenuFetcherThread(URL, c.get(Calendar.WEEK_OF_YEAR));
       fetcher.start();
     } else {
-      Log.i("MenuProvider", menu.toString());
+      Log.i("[MenuProvider]", menu.toString());
     }
     return menu;
   }
@@ -107,7 +108,8 @@ public class MenuProvider {
     @Override
     public void run() {
       try {
-        JSONObject tmp = new JSONObject(fetch());
+        String content = fetch();
+        JSONObject tmp = new JSONObject(content);
 
         Iterator<String> it = tmp.keys();
         while (it.hasNext()) {
@@ -115,7 +117,7 @@ public class MenuProvider {
           cache.put(name, parseJsonObject(tmp.getJSONObject(name), Menu.class));
         }
       } catch (Exception e) {
-        Log.i("[RestoMenu]", e.toString());
+        Log.i("[MenuFetcherThread]", e.getMessage());
         e.printStackTrace();
       }
     }
