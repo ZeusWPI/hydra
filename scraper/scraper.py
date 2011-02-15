@@ -3,7 +3,8 @@
 import json, urllib, libxml2, os, os.path, datetime, locale
 from datetime import datetime, timedelta
 
-API_VERSION = "0.1"
+API_VERSION = '0.1'
+API_PATH = './resto/api/%s/week/'
 
 def get_menu_page (week):
 	print "Fetching weekmenu webpage"
@@ -58,12 +59,12 @@ def parse_menu_from_html (page):
 				menu[day]['meat'] = []
 				menu[day]['meat'].append(get_meat_and_price(fields[2]))
 				menu[day]['vegetables'] = []
-				menu[day]['vegetables'].append(fields[3].content)
+				menu[day]['vegetables'].append(fields[3].content.strip())
 		elif len(fields[1].content) != 0:
 			# second row of a day
 			menu[day]['soup']['price'] = fields[1].content
 			menu[day]['meat'].append(get_meat_and_price(fields[2]))
-			menu[day]['vegetables'].append(fields[3].content)
+			menu[day]['vegetables'].append(fields[3].content.strip())
 		else:
 			# the third and forth row of a day
 			menu[day]['meat'].append(get_meat_and_price(fields[2]))
@@ -78,10 +79,20 @@ def dump_menu_to_file (week, menu):
 	json.dump(menu, f, sort_keys=True, indent=4)
 	f.close()
 
-if __name__ == "__main__":
-	locale.setlocale(locale.LC_ALL, ('nl_BE.UTF-8'))
-	week = 8
+def menu_already_downloaded(week):
+	return os.path.exists(API_PATH % API_VERSION + '/%s.json' % week)
+
+def download_menu(week):
 	page = get_menu_page(week)
 	menu = parse_menu_from_html(page)
 	dump_menu_to_file(week, menu)
+
+if __name__ == "__main__":
+	locale.setlocale(locale.LC_ALL, ('nl_BE.UTF-8'))
+	week = datetime.today().isocalendar()[1]
+	# fetch the menu for the next to weeks, if not already downloaded
+	if not menu_already_downloaded(week+1):
+		download_menu(week+1)
+	if not menu_already_downloaded(week+2):
+		download_menu(week+2)
 
