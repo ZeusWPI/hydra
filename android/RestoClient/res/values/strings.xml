@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="app_name">RestoClient</string>
     <drawable name="red">#F00</drawable>
+
+    <string name="app_name">Resto Menu</string>
+
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+
+    <string name="soup">Soup</string>
+    <string name="meat">Meat &amp; Veggie</string>
+    <string name="vegetables">Vegetables</string>
 </resources>

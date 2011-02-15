@@ -29,7 +29,7 @@ android:orientation="vertical">
           android:layout_marginLeft="5dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Soep"
+          android:text="@string/soup"
           android:textSize="20dp" />
       </LinearLayout>
       <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@drawable/line" />
@@ -70,7 +70,7 @@ android:orientation="vertical">
           android:layout_marginLeft="5dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Vlees &amp; Veggie"
+          android:text="@string/meat"
           android:textSize="20dp" />
       </LinearLayout>
       <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@drawable/line" />
@@ -150,7 +150,7 @@ android:orientation="vertical">
           android:layout_marginLeft="5dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Groenten"
+          android:text="@string/vegetables"
           android:textSize="20dp" />
       </LinearLayout>
       <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@drawable/line" />

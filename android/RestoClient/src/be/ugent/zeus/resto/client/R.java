@@ -26,5 +26,10 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int meat=0x7f040004;
+        public static final int soup=0x7f040003;
+        public static final int today=0x7f040001;
+        public static final int tomorrow=0x7f040002;
+        public static final int vegetables=0x7f040005;
     }
 }

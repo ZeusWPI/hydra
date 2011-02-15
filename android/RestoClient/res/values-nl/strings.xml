@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <drawable name="red">#F00</drawable>
+
+    <string name="app_name">Resto Menu</string>
+
+    <string name="today">Vandaag</string>
+    <string name="tomorrow">Morgen</string>
+
+    <string name="soup">Soep</string>
+    <string name="meat">Vlees &amp; Veggie</string>
+    <string name="vegetables">Groenten</string>
+</resources>

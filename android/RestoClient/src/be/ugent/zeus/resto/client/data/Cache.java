@@ -21,29 +21,29 @@ public class Cache<T extends Serializable> {
   private File dir;
 
   public Cache(File dir) {
-    Log.i("[SoftCache]", dir.getAbsolutePath());
-    for(File f : dir.listFiles()) {
-      Log.i("[RestoMenuCache]", "Found cached file " + f.getAbsolutePath());
+    Log.i("[Cache]", dir.getAbsolutePath());
+    for (File f : dir.listFiles()) {
+      Log.i("[Cache]", "Found cached file " + f.getAbsolutePath());
     }
     this.dir = dir;
   }
 
   public T get(String key) {
     long start = System.currentTimeMillis();
-    Log.i("[SoftCache]", "Retrieving item: " + key);
+    Log.i("[Cache]", "Retrieving item: " + key);
     File cached = new File(dir, key);
-    
+
     ObjectInputStream stream = null;
-    
+
     try {
       stream = new ObjectInputStream(new FileInputStream(cached));
       T value = (T) stream.readObject();
       stream.close();
-      Log.i("RestoMenuCache", "Retrieval took " + (System.currentTimeMillis() - start));
+      Log.i("[Cache]", "Retrieval took " + (System.currentTimeMillis() - start));
       return value;
     } catch (Exception ex) {
-      Log.i("[RestoMenuCache]", "Error reading object to cache " + key);
-      Log.i("[RestoMenuCache]", ex.getMessage());
+      Log.i("[Cache]", "Error reading object to cache " + key);
+      Log.i("[Cache]", ex.getMessage());
     }
     return null;
   }

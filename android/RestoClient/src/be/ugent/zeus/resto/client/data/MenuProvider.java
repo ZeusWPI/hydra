@@ -38,7 +38,7 @@ public class MenuProvider {
     if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
       // saturday? show the menu for next monday
       c.add(Calendar.DATE, 2);
-    } else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+    } else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
       // sunday? show the menu for next monday
       c.add(Calendar.DATE, 1);
     }
