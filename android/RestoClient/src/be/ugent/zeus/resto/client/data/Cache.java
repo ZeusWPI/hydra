@@ -1,18 +1,19 @@
 package be.ugent.zeus.resto.client.data;
 
 import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
+ * TODO:
+ *  - purge old entries from the cache
+ * 
  * @author Thomas Meire
  */
 public class Cache<T extends Serializable> {
@@ -43,10 +44,6 @@ public class Cache<T extends Serializable> {
     } catch (Exception ex) {
       Log.i("[RestoMenuCache]", "Error reading object to cache " + key);
       Log.i("[RestoMenuCache]", ex.getMessage());
-    } finally {
-      try {
-        stream.close();
-      } catch (IOException ex) {}
     }
     return null;
   }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import org.apache.http.client.HttpClient;
@@ -20,21 +21,35 @@ import org.json.JSONObject;
  */
 public class MenuProvider {
 
-  private static String URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/week/6.json";
+  private static String URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/week/%s.json";
 
   private Cache<Menu> cache;
 
   public MenuProvider(File cacheDir) {
     cache = new Cache<Menu>(cacheDir);
   }
-
   private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-  public Menu getMenu (Date day) {
-    Menu menu = cache.get(format.format(day));
+  public Menu getMenu(Date day) {
+    Calendar c = Calendar.getInstance();
+    c.setTime(day);
+
+
+    if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+      // saturday? show the menu for next monday
+      c.add(Calendar.DATE, 2);
+    } else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+      // sunday? show the menu for next monday
+      c.add(Calendar.DATE, 1);
+    }
+
+    Menu menu = cache.get(format.format(c.getTime()));
+
     if (menu == null) {
-      Thread fetcher = new MenuFetcherThread(URL);
+      Thread fetcher = new MenuFetcherThread(URL, c.get(Calendar.WEEK_OF_YEAR));
       fetcher.start();
+    } else {
+      Log.i("MenuProvider", menu.toString());
     }
     return menu;
   }
@@ -43,16 +58,17 @@ public class MenuProvider {
 
     private String url;
 
-    public MenuFetcherThread(String url) {
-      this.url = url;
+    public MenuFetcherThread(String url, int week) {
+      this.url = String.format(url, week);
+      Log.i("[MenuFetcherThread]", "Downloading menu from " + this.url);
     }
 
     private String fetch() throws Exception {
       HttpClient httpclient = new DefaultHttpClient();
-      HttpGet request = new HttpGet(URL);
+      HttpGet request = new HttpGet(url);
 
       return httpclient.execute(request, new BasicResponseHandler());
-   }
+    }
 
     private <T> T parseJsonObject(JSONObject object, Class<T> klass) throws Exception {
       T instance = klass.newInstance();
