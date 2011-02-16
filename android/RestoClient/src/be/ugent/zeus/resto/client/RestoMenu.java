@@ -1,13 +1,15 @@
-
 package be.ugent.zeus.resto.client;
 
 import be.ugent.zeus.resto.client.data.MenuProvider;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -90,6 +92,27 @@ public class RestoMenu extends Activity {
         row.addView(vegetableView);
         vegetables.addView(row);
       }
+    }
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    Log.i("[RestoMenu]", "" + menu);
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.viewmap, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle item selection
+    switch (item.getItemId()) {
+      case R.id.show_map:
+        // trigger intent for RestoMap Activity
+        startActivity(new Intent(this, RestoMap.class));
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
   }
 }

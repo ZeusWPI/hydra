@@ -10,4 +10,6 @@
     <string name="soup">Soep</string>
     <string name="meat">Vlees &amp; Veggie</string>
     <string name="vegetables">Groenten</string>
+
+    <string name="show_map">Toon restos op kaart</string>
 </resources>

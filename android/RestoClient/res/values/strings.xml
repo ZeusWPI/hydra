@@ -10,4 +10,6 @@
     <string name="soup">Soup</string>
     <string name="meat">Meat &amp; Veggie</string>
     <string name="vegetables">Vegetables</string>
+
+    <string name="show_map">Show restos on map</string>
 </resources>

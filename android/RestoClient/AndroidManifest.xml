@@ -7,6 +7,13 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <activity android:name=".RestoMap" android:theme="@android:style/Theme.NoTitleBar">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+    <uses-library android:name="com.google.android.maps" />
   </application>
   <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
