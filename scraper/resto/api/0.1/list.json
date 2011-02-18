@@ -2,42 +2,42 @@
 	{
 		'name' : 'Astrid',
 		'address' : 'Krijgslaan 250',
-		'longitude' : 51026952,
-		'latitude' : 3712086,
+		'latitude' : 51026952,
+		'longitude' : 3712086
 	}, {
 		'name' : 'Boudewijn', 
 		'address' : 'Harelbekestraat 70',
-		'longitude' : 51026508,
-		'latitude' : 3730189,
+		'latitude' : 51026508,
+		'longitude' : 3730189
 	}, {
 		'name' : 'De Brug',
 		'address' : 'Sint-Pietersnieuwstraat 45',
-		'longitude' : 51045613,
-		'latitude' :  3727147,
+		'latitude' : 51045613,
+		'longitude' :  3727147
 	}, {
 		'name' : 'Dierengeneeskunde',
 		'address' : 'Salisburylaan 133, Merelbeke',
-		'longitude' : 50998369,
-		'latitude' : 3766454,
+		'latitude' : 50998369,
+		'longitude' : 3766454
 	}, {
 		'name' : 'FPPW',
 		'address' : 'Henri Dunantlaan 2',
-		'longitude' : 51049023,
-		'latitude' : 3704017,
+		'latitude' : 51049023,
+		'longitude' : 3704017
 	}, {
 		'name' : 'Campus Coupure',
 		'address' : 'Coupure Links 653', 
-		'longitude' : 51053252,
-		'latitude' : 3707671,
+		'latitude' : 51053252,
+		'longitude' : 3707671
 	}, {
 		'name' : 'Overpoort',
 		'address' : 'Stalhof 2',
-		'longitude' : 51039456,
-		'latitude' : 3726245,
+		'latitude' : 51039456,
+		'longitude' : 3726245
 	}, {
 		'name' : 'Sint-Jansvest',
 		'address' : 'Sint-Jansvest 24',
-		'longitude' : 51049773,
-		'latitude' : 3727377,
+		'latitude' : 51049773,
+		'longitude' : 3727377
 	}
 ]
