@@ -3,4 +3,7 @@
     <item android:id="@+id/show_map"
           android:icon="@android:drawable/ic_menu_mapmode"
           android:title="@string/show_map" />
+    <item android:id="@+id/show_about"
+          android:icon="@android:drawable/ic_menu_info_details"
+          android:title="@string/about" />
 </menu>

@@ -3,9 +3,19 @@ package be.ugent.zeus.resto.client;
 import be.ugent.zeus.resto.client.data.MenuProvider;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
@@ -111,8 +121,45 @@ public class RestoMenu extends Activity {
         // trigger intent for RestoMap Activity
         startActivity(new Intent(this, RestoMap.class));
         return true;
+      case R.id.show_about:
+        showAboutDialog();
       default:
         return super.onOptionsItemSelected(item);
+    }
+  }
+
+  /**
+   * About dialog based on code from Mobile Vikings for Android by Ben Van Daele
+   */
+  public void showAboutDialog() {
+    Builder builder = new Builder(this);
+    builder.setIcon(android.R.drawable.ic_dialog_info);
+    builder.setTitle(getString(R.string.about));
+    builder.setMessage(getAboutMessage());
+    builder.setPositiveButton(getString(android.R.string.ok), null);
+    AlertDialog dialog = builder.create();
+    dialog.show();
+  }
+
+  public CharSequence getAboutMessage() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(getString(R.string.app_name));
+    stringBuilder.append(" ");
+    stringBuilder.append(getVersionName());
+    stringBuilder.append("\n\n");
+    stringBuilder.append("http://github.com/blackskad/Resto-menu\n\n");
+
+    return stringBuilder;
+  }
+
+  private String getVersionName() {
+    try {
+      ComponentName componentName = new ComponentName(this, RestoMenu.class);
+      PackageInfo info = getPackageManager().getPackageInfo(componentName.getPackageName(), 0);
+      return info.versionName;
+    } catch (NameNotFoundException e) {
+      // Won't happen, versionName is present in the manifest!
+      return "";
     }
   }
 }

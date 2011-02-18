@@ -2,7 +2,6 @@ package be.ugent.zeus.resto.client;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import be.ugent.zeus.resto.client.map.RestoItemizedOverlay;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -32,7 +31,7 @@ public class RestoMap extends MapActivity {
     GeoPoint point = new GeoPoint(19240000, -99120000);
     OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!", "I'm in Mexico City!");
 
-    Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
+    Drawable drawable = this.getResources().getDrawable(android.R.drawable.star_on);
     RestoItemizedOverlay overlay = new RestoItemizedOverlay(drawable);
 
     overlay.addOverlay(overlayitem);

@@ -1,0 +1,43 @@
+[
+	{
+		'name' : 'Astrid',
+		'address' : 'Krijgslaan 250',
+		'longitude' : 51.026952,
+		'latitude' : 3.712086,
+	}, {
+		'name' : 'Boudewijn', 
+		'address' : 'Harelbekestraat 70',
+		'longitude' : 51.026508,
+		'latitude' : 3.730189,
+	}, {
+		'name' : 'De Brug',
+		'address' : 'Sint-Pietersnieuwstraat 45',
+		'longitude' : 51.045613,
+		'latitude' :  3.727147,
+	}, {
+		'name' : 'Dierengeneeskunde',
+		'address' : 'Salisburylaan 133, Merelbeke',
+		'longitude' : 50.998369,
+		'latitude' : 3.766454,
+	}, {
+		'name' : 'FPPW',
+		'address' : 'Henri Dunantlaan 2',
+		'longitude' : 51.049023,
+		'latitude' : 3.704017,
+	}, {
+		'name' : 'Campus Coupure',
+		'address' : 'Coupure Links 653', 
+		'longitude' : 51.053252,
+		'latitude' : 3.707671,
+	}, {
+		'name' : 'Overpoort',
+		'address' : 'Stalhof 2',
+		'longitude' : 51.039456,
+		'latitude' : 3.726245,
+	}, {
+		'name : 'Sint-Jansvest',
+		'address' : 'Sint-Jansvest 24',
+		'longitude' : 51.049773,
+		'latitude' : 3.727377,
+	}
+]

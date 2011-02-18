@@ -23,6 +23,7 @@ public final class R {
         public static final int day=0x7f060000;
         public static final int mapview=0x7f060005;
         public static final int meat=0x7f060003;
+        public static final int show_about=0x7f060007;
         public static final int show_map=0x7f060006;
         public static final int soup=0x7f060001;
         public static final int soup_price=0x7f060002;
@@ -37,6 +38,7 @@ public final class R {
         public static final int viewmap=0x7f050000;
     }
     public static final class string {
+        public static final int about=0x7f040007;
         public static final int app_name=0x7f040000;
         public static final int meat=0x7f040004;
         public static final int show_map=0x7f040006;
