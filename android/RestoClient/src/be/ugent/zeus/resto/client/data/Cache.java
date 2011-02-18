@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO:
@@ -22,6 +24,9 @@ public class Cache<T extends Serializable> {
 
   public Cache(File dir) {
     Log.i("[Cache]", dir.getAbsolutePath());
+    if (!dir.exists()) {
+      dir.mkdir();
+    }
     for (File f : dir.listFiles()) {
       Log.i("[Cache]", "Found cached file " + f.getAbsolutePath());
       //f.delete();
@@ -50,7 +55,7 @@ public class Cache<T extends Serializable> {
   }
 
   public void put(String key, T value) {
-    Log.i("[SoftCache]", "Putting new item: " + key);
+    Log.i("[Cache]", "Putting new item: " + key);
     File cached = new File(dir, key);
 
     ObjectOutputStream stream = null;
@@ -59,8 +64,16 @@ public class Cache<T extends Serializable> {
       stream.writeObject(value);
       stream.close();
     } catch (IOException ex) {
-      Log.i("[RestoMenuCache]", "Error writing object to cache " + key);
-      Log.i("[RestoMenuCache]", ex.getMessage());
+      Log.i("[Cache]", "Error writing object to cache " + key);
+      Log.i("[Cache]", ex.getMessage());
     }
+  }
+
+  public List<T> getAll() {
+    List<T> cached = new ArrayList<T>();
+    for (File f : dir.listFiles()) {
+      cached.add(get(f.getName()));
+    }
+    return cached;
   }
 }
