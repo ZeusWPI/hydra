@@ -11,11 +11,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.method.LinkMovementMethod;
-import android.text.style.URLSpan;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
@@ -27,6 +22,7 @@ import be.ugent.zeus.resto.client.data.Menu;
 import be.ugent.zeus.resto.client.data.Product;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -37,15 +33,34 @@ public class RestoMenu extends Activity {
 
   public MenuProvider provider;
 
-  private String getStringFromDate(Date date) {
+  private String getStringFromDate(Calendar calendar) {
+    int date = calendar.get(Calendar.DATE);
+    Log.i("[jkdfh]", "" + date);
+    Log.i("[jkdfh]", "" + new Date().getDate());
+
 
     Date today = new Date();
-    if (date.getDay() == today.getDay()) {
+    if (date == today.getDay()) {
       return getString(R.string.today);
-    } else if (date.getDay() == today.getDay() + 1) {
+    } else if (date == today.getDay() + 1) {
       return getString(R.string.tomorrow);
     }
     return new SimpleDateFormat("EEEE").format(date);
+  }
+
+  private Calendar getActualDisplayDate() {
+    Calendar c = Calendar.getInstance();
+    c.setTime(new Date());
+
+
+    if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+      // saturday? show the menu for next monday
+      c.add(Calendar.DATE, 2);
+    } else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+      // sunday? show the menu for next monday
+      c.add(Calendar.DATE, 1);
+    }
+    return c;
   }
 
   /** Called when the activity is first created. */
@@ -56,8 +71,8 @@ public class RestoMenu extends Activity {
     provider = new MenuProvider(getCacheDir());
 
     // get the menu for today,
-    Date date = new Date();
-    Menu menu = provider.getMenu(date);
+    Calendar cal = getActualDisplayDate();
+    Menu menu = provider.getMenu(cal);
 
     if (menu == null) {
       setContentView(R.layout.unavailable);
@@ -65,7 +80,7 @@ public class RestoMenu extends Activity {
       setContentView(R.layout.main);
 
       TextView day = (TextView) findViewById(R.id.day);
-      day.setText(getStringFromDate(date));
+      day.setText(getStringFromDate(cal));
 
       TextView soup = (TextView) findViewById(R.id.soup);
       soup.setText(menu.soup.name);

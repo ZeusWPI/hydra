@@ -32,7 +32,7 @@ android:orientation="vertical">
           android:text="@string/soup"
           android:textSize="20dp" />
       </LinearLayout>
-      <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@drawable/line" />
+      <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@android:drawable/divider_horizontal_dim_dark" />
 
       <TableLayout
         android:layout_width="fill_parent"
@@ -71,7 +71,7 @@ android:orientation="vertical">
           android:text="@string/meat"
           android:textSize="20dp" />
       </LinearLayout>
-      <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@drawable/line" />
+      <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@android:drawable/divider_horizontal_dim_dark" />
 
       <TableLayout android:id="@+id/meat"
         android:layout_width="fill_parent"
@@ -98,7 +98,7 @@ android:orientation="vertical">
           android:text="@string/vegetables"
           android:textSize="20dp" />
       </LinearLayout>
-      <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@drawable/line" />
+      <View android:layout_width="fill_parent" android:layout_height="2dp" android:background="@android:drawable/divider_horizontal_dim_dark" />
 
       <TableLayout android:id="@+id/vegetables"
         android:layout_width="fill_parent"

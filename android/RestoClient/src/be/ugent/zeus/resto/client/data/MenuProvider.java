@@ -38,19 +38,7 @@ public class MenuProvider {
   }
   private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-  public Menu getMenu(Date day) {
-    Calendar c = Calendar.getInstance();
-    c.setTime(day);
-
-
-    if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-      // saturday? show the menu for next monday
-      c.add(Calendar.DATE, 2);
-    } else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-      // sunday? show the menu for next monday
-      c.add(Calendar.DATE, 1);
-    }
-
+  public Menu getMenu(Calendar c) {
     Menu menu = menuCache.get(format.format(c.getTime()));
 
     if (menu == null) {
