@@ -45,7 +45,7 @@ public class RestoMenu extends Activity {
     } else if (date == today.getDay() + 1) {
       return getString(R.string.tomorrow);
     }
-    return new SimpleDateFormat("EEEE").format(date);
+    return new SimpleDateFormat("EEEE").format(new Date(calendar.getTimeInMillis()));
   }
 
   private Calendar getActualDisplayDate() {
