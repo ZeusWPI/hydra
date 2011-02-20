@@ -35,9 +35,6 @@ public class RestoMenu extends Activity {
 
   private String getStringFromDate(Calendar calendar) {
     int date = calendar.get(Calendar.DATE);
-    Log.i("[jkdfh]", "" + date);
-    Log.i("[jkdfh]", "" + new Date().getDate());
-
 
     Date today = new Date();
     if (date == today.getDay()) {
