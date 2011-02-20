@@ -36,24 +36,21 @@ public class RestoMap extends MapActivity {
     map.setBuiltInZoomControls(true);
     List<Overlay> overlays = map.getOverlays();
 
+    // Add an overlay containing all resto markers
     RestoItemizedOverlay restoOverlay = new RestoItemizedOverlay(drawable, this);
 
     for (Resto resto : provider.getRestos()) {
-      restoOverlay.add(createOverlayItem(resto.name, resto.address, resto.latitude, resto.longitude));
+      GeoPoint userPoint = new GeoPoint(resto.latitude, resto.longitude);
+      restoOverlay.add(new OverlayItem(userPoint, resto.name, resto.address));
     }
     overlays.add(restoOverlay);
 
-    // Acquire a reference to the system Location Manager
+    // Add a standard overlay containing the users location
     MyLocationOverlay myLocOverlay = new MyLocationOverlay(this, map);
 		myLocOverlay.enableMyLocation();
 
     overlays.add(restoOverlay);
     overlays.add(myLocOverlay);
-  }
-
-  private OverlayItem createOverlayItem(String x, String y, int latitude, int longitude) {
-    GeoPoint userPoint = new GeoPoint(latitude, longitude);
-    return new OverlayItem(userPoint, x, y);
   }
 
   @Override
