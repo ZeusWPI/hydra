@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewFlipper  xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/flipper"
 android:layout_width="fill_parent"
-android:layout_height="fill_parent"
+android:layout_height="fill_parent" />
+
+<!---<LinearLayout
 android:orientation="vertical">
   <TextView android:id="@+id/day" android:text="Vandaag" android:textSize="30sp" android:gravity="center"
   android:layout_width="fill_parent"
@@ -110,3 +113,4 @@ android:orientation="vertical">
     </LinearLayout>
   </ScrollView>
 </LinearLayout>
+-->

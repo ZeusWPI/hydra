@@ -1,5 +1,6 @@
 package be.ugent.zeus.resto.client;
 
+import be.ugent.zeus.resto.client.menu.MenuView;
 import be.ugent.zeus.resto.client.data.MenuProvider;
 
 import android.app.Activity;
@@ -9,21 +10,20 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import be.ugent.zeus.resto.client.data.Menu;
-import be.ugent.zeus.resto.client.data.Product;
-
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ViewFlipper;
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
@@ -31,34 +31,25 @@ import java.util.Date;
  */
 public class RestoMenu extends Activity {
 
-  public MenuProvider provider;
+  private static final int SWIPE_MIN_DISTANCE = 120;
 
-  private String getStringFromDate(Calendar calendar) {
-    int date = calendar.get(Calendar.DATE);
+  private static final int SWIPE_MAX_OFF_PATH = 250;
 
-    Date today = new Date();
-    if (date == today.getDay()) {
-      return getString(R.string.today);
-    } else if (date == today.getDay() + 1) {
-      return getString(R.string.tomorrow);
-    }
-    return new SimpleDateFormat("EEEE").format(new Date(calendar.getTimeInMillis()));
-  }
+  private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
-  private Calendar getActualDisplayDate() {
-    Calendar c = Calendar.getInstance();
-    c.setTime(new Date());
+  private MenuProvider provider;
 
+  private GestureDetector gestureDetector;
 
-    if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-      // saturday? show the menu for next monday
-      c.add(Calendar.DATE, 2);
-    } else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-      // sunday? show the menu for next monday
-      c.add(Calendar.DATE, 1);
-    }
-    return c;
-  }
+  private ViewFlipper flipper;
+
+  private Animation slideLeftIn;
+
+  private Animation slideLeftOut;
+
+  private Animation slideRightIn;
+
+  private Animation slideRightOut;
 
   /** Called when the activity is first created. */
   @Override
@@ -67,54 +58,30 @@ public class RestoMenu extends Activity {
 
     provider = new MenuProvider(getCacheDir());
 
-    // get the menu for today,
-    Calendar cal = getActualDisplayDate();
-    Menu menu = provider.getMenu(cal);
+    setContentView(R.layout.main);
 
-    if (menu == null) {
-      setContentView(R.layout.unavailable);
-    } else {
-      setContentView(R.layout.main);
+    flipper = (ViewFlipper) findViewById(R.id.flipper);
 
-      TextView day = (TextView) findViewById(R.id.day);
-      day.setText(getStringFromDate(cal));
+    Calendar calendar = Calendar.getInstance();
+    for (int i = 0; i < 5; i++) {
+      Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
+      MenuView view = new MenuView(this, calendar, provider.getMenu(calendar));
+      view.addTouchListener(new View.OnTouchListener() {
 
-      TextView soup = (TextView) findViewById(R.id.soup);
-      soup.setText(menu.soup.name);
-      TextView soupPrice = (TextView) findViewById(R.id.soup_price);
-      soupPrice.setText(menu.soup.price);
-
-      TableLayout meats = (TableLayout) findViewById(R.id.meat);
-      meats.removeAllViews();
-      TableRow row;
-      TextView meatView, priceView;
-      for (Product meat : menu.meat) {
-        row = new TableRow(this);
-
-        meatView = new TextView(this);
-        meatView.setText(meat.name);
-        if (meat.recommended) {
-          meatView.setTypeface(Typeface.DEFAULT_BOLD);
+        public boolean onTouch(View v, MotionEvent event) {
+          return gestureDetector.onTouchEvent(event);
         }
-        row.addView(meatView);
-
-        priceView = new TextView(this);
-        priceView.setText(meat.price);
-        priceView.setGravity(Gravity.RIGHT);
-        row.addView(priceView);
-        meats.addView(row);
-      }
-
-      TableLayout vegetables = (TableLayout) findViewById(R.id.vegetables);
-      TextView vegetableView;
-      for (String vegetable : menu.vegetables) {
-        row = new TableRow(this);
-        vegetableView = new TextView(this);
-        vegetableView.setText(vegetable);
-        row.addView(vegetableView);
-        vegetables.addView(row);
-      }
+      });
+      flipper.addView(view);
+      calendar.add(Calendar.DATE, 1);
     }
+
+    gestureDetector = new GestureDetector(new MyGestureDetector());
+
+    slideLeftIn = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
+    slideLeftOut = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
+    slideRightIn = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
+    slideRightOut = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
   }
 
   @Override
@@ -173,5 +140,43 @@ public class RestoMenu extends Activity {
       // Won't happen, versionName is present in the manifest!
       return "";
     }
+  }
+
+  private boolean canFlipLeft() {
+    return flipper.indexOfChild(flipper.getCurrentView()) > 0;
+  }
+  private boolean canFlipRight() {
+    return flipper.indexOfChild(flipper.getCurrentView()) < flipper.getChildCount() - 1;
+  }
+
+  class MyGestureDetector extends SimpleOnGestureListener {
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+      // only catch horizontal flings
+      try {
+        if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
+          return false;
+        }
+        // right to left swipe
+        if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && canFlipRight()) {
+          flipper.setInAnimation(slideLeftIn);
+          flipper.setOutAnimation(slideLeftOut);
+          flipper.showNext();
+        } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && canFlipLeft()) {
+          flipper.setInAnimation(slideRightIn);
+          flipper.setOutAnimation(slideRightOut);
+          flipper.showPrevious();
+        }
+      } catch (Exception e) {
+        // nothing
+      }
+      return false;
+    }
+  }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event) {
+    return gestureDetector.onTouchEvent(event);
   }
 }
