@@ -21,9 +21,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ViewFlipper;
+import be.ugent.zeus.resto.client.data.Menu;
+import be.ugent.zeus.resto.client.menu.MenuUnavailableView;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -51,6 +55,21 @@ public class RestoMenu extends Activity {
 
   private Animation slideRightOut;
 
+  private List<Calendar> getViewableDates () {
+    List<Calendar> days = new ArrayList<Calendar>();
+
+    Calendar instance = Calendar.getInstance();
+    for (int i = 0; i < 5; i++){
+      if (instance.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+        instance.add(Calendar.DATE, 2);
+      }
+      days.add((Calendar) instance.clone());
+      instance.add(Calendar.DATE, 1);
+    }
+    return days;
+  }
+
+
   /** Called when the activity is first created. */
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -62,18 +81,23 @@ public class RestoMenu extends Activity {
 
     flipper = (ViewFlipper) findViewById(R.id.flipper);
 
-    Calendar calendar = Calendar.getInstance();
-    for (int i = 0; i < 5; i++) {
+    for (Calendar calendar : getViewableDates()) {
       Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
-      MenuView view = new MenuView(this, calendar, provider.getMenu(calendar));
-      view.addTouchListener(new View.OnTouchListener() {
+      Menu menu = provider.getMenu(calendar);
+      if (menu != null) {
+        MenuView view = new MenuView(this, calendar, menu);
+        view.addTouchListener(new View.OnTouchListener() {
 
-        public boolean onTouch(View v, MotionEvent event) {
-          return gestureDetector.onTouchEvent(event);
-        }
-      });
-      flipper.addView(view);
-      calendar.add(Calendar.DATE, 1);
+          public boolean onTouch(View v, MotionEvent event) {
+            return gestureDetector.onTouchEvent(event);
+          }
+        });
+        flipper.addView(view);
+      } else {
+        // maybe use a simple inflated view
+        MenuUnavailableView view = new MenuUnavailableView(this, calendar);
+        flipper.addView(view);
+      }
     }
 
     gestureDetector = new GestureDetector(new MyGestureDetector());

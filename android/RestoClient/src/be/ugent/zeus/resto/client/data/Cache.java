@@ -49,7 +49,7 @@ public class Cache<T extends Serializable> {
       return value;
     } catch (Exception ex) {
       Log.i("[Cache]", "Error reading object to cache " + key);
-      Log.i("[Cache]", ex.getMessage());
+      Log.i("[Cache]", ex.toString());
     }
     return null;
   }
