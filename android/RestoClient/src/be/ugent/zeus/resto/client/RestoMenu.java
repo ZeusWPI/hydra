@@ -80,6 +80,7 @@ public class RestoMenu extends Activity {
     setContentView(R.layout.main);
 
     flipper = (ViewFlipper) findViewById(R.id.flipper);
+    flipper.setAnimateFirstView(true);
 
     for (Calendar calendar : getViewableDates()) {
       Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));

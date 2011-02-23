@@ -45,7 +45,7 @@ public class MenuView extends LinearLayout {
     } else if (isTodayWithOffset(calendar, 1)) {
       return getContext().getString(R.string.tomorrow);
     }
-    return new SimpleDateFormat("EEEE").format(calendar.getTime());
+    return new SimpleDateFormat("EEEE dd MMM").format(calendar.getTime());
   }
 
   private View getSubtitle(int id, int drawable) {
