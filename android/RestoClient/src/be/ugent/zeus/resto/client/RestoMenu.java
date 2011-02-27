@@ -63,6 +63,9 @@ public class RestoMenu extends Activity {
       if (instance.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
         instance.add(Calendar.DATE, 2);
       }
+      if (instance.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+        instance.add(Calendar.DATE, 1);
+      }
       days.add((Calendar) instance.clone());
       instance.add(Calendar.DATE, 1);
     }
