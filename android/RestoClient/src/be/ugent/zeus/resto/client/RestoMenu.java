@@ -23,6 +23,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ViewFlipper;
 import be.ugent.zeus.resto.client.data.Menu;
 import be.ugent.zeus.resto.client.menu.MenuUnavailableView;
+import be.ugent.zeus.resto.client.menu.RestoClosedView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -89,14 +90,20 @@ public class RestoMenu extends Activity {
       Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
       Menu menu = provider.getMenu(calendar);
       if (menu != null) {
-        MenuView view = new MenuView(this, calendar, menu);
-        view.addTouchListener(new View.OnTouchListener() {
+        if (menu.open) {
+          MenuView view = new MenuView(this, calendar, menu);
+          view.addTouchListener(new View.OnTouchListener() {
 
-          public boolean onTouch(View v, MotionEvent event) {
-            return gestureDetector.onTouchEvent(event);
-          }
-        });
-        flipper.addView(view);
+            public boolean onTouch(View v, MotionEvent event) {
+              return gestureDetector.onTouchEvent(event);
+            }
+          });
+          flipper.addView(view);
+        } else {
+          // Add "resto closed" view
+          RestoClosedView view = new RestoClosedView(this, calendar);
+          flipper.addView(view);
+        }
       } else {
         // maybe use a simple inflated view
         MenuUnavailableView view = new MenuUnavailableView(this, calendar);
