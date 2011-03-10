@@ -1,6 +1,11 @@
 package be.ugent.zeus.resto.client;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import be.ugent.zeus.resto.client.data.MenuProvider;
 import be.ugent.zeus.resto.client.map.RestoOverlay;
 import com.google.android.maps.MapActivity;
@@ -15,24 +20,52 @@ import java.util.List;
  */
 public class RestoMap extends MapActivity {
 
+  private MapView map;
+
+  private MenuProvider provider;
+
+  private ServiceConnection connection = new ServiceConnection() {
+
+    public void onServiceConnected(ComponentName cn, IBinder service) {
+      provider = ((MenuProvider.LocalBinder) service).getService();
+      addRestoOverlay();
+    }
+
+    public void onServiceDisconnected(ComponentName cn) {
+      provider = null;
+    }
+  };
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    // start & bind to the data providere service
+    bindService(new Intent("be.ugent.zeus.resto.client.data.MenuProvider"), connection, Context.BIND_AUTO_CREATE);
+
     setContentView(R.layout.restomap);
 
-    MapView map = (MapView) findViewById(R.id.mapview);
+    map = (MapView) findViewById(R.id.mapview);
     map.setBuiltInZoomControls(true);
-
-    // Add an overlay containing all resto markers
-    RestoOverlay restoOverlay = new RestoOverlay(this, new MenuProvider(getCacheDir()));
 
     // Add a standard overlay containing the users location
     MyLocationOverlay myLocOverlay = new MyLocationOverlay(this, map);
     myLocOverlay.enableMyLocation();
 
     List<Overlay> overlays = map.getOverlays();
-    overlays.add(restoOverlay);
     overlays.add(myLocOverlay);
+
+    addRestoOverlay();
+  }
+
+  /**
+   * Add an overlay containing all resto markers
+   */
+  private void addRestoOverlay() {
+    if (provider != null) {
+      List<Overlay> overlays = map.getOverlays();
+      overlays.add(new RestoOverlay(this, provider));
+    }
   }
 
   @Override

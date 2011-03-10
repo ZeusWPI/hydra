@@ -7,10 +7,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -56,11 +59,81 @@ public class RestoMenu extends Activity {
 
   private Animation slideRightOut;
 
-  private List<Calendar> getViewableDates () {
+  private ServiceConnection connection = new ServiceConnection() {
+
+    public void onServiceConnected(ComponentName cn, IBinder service) {
+      provider = ((MenuProvider.LocalBinder) service).getService();
+      updateMenuViews();
+    }
+
+    public void onServiceDisconnected(ComponentName cn) {
+      provider = null;
+    }
+  };
+
+  /** Called when the activity is first created. */
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    // start & bind to the data providere service
+    bindService(new Intent("be.ugent.zeus.resto.client.data.MenuProvider"), connection, Context.BIND_AUTO_CREATE);
+
+    setContentView(R.layout.main);
+
+    flipper = (ViewFlipper) findViewById(R.id.flipper);
+    flipper.setAnimateFirstView(true);
+
+    gestureDetector = new GestureDetector(new MyGestureDetector());
+
+    slideLeftIn = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
+    slideLeftOut = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
+    slideRightIn = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
+    slideRightOut = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
+  }
+
+  private void updateMenuViews() {
+    flipper.removeAllViews();
+
+    if (provider != null) {
+      for (Calendar calendar : getViewableDates()) {
+        Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
+        Menu menu = provider.getMenu(calendar);
+
+        if (menu != null) {
+          if (menu.open) {
+            MenuView view = new MenuView(this, calendar, menu);
+            view.addTouchListener(new View.OnTouchListener() {
+              public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+              }
+            });
+            flipper.addView(view);
+          } else {
+            // Add "resto closed" view
+            RestoClosedView view = new RestoClosedView(this, calendar);
+            flipper.addView(view);
+          }
+        } else {
+          // maybe use a simple inflated view
+          MenuUnavailableView view = new MenuUnavailableView(this, calendar);
+          flipper.addView(view);
+        }
+      }
+    } else {
+      Log.i("[MENU]", "OH CRAP, DA WAS NULL!");
+      // TODO: add a view here
+    }
+  }
+
+  private List<Calendar> getViewableDates() {
     List<Calendar> days = new ArrayList<Calendar>();
 
     Calendar instance = Calendar.getInstance();
-    for (int i = 0; i < 5; i++){
+
+
+    for (int i = 0; i
+            < 5; i++) {
       if (instance.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
         instance.add(Calendar.DATE, 2);
       }
@@ -73,55 +146,8 @@ public class RestoMenu extends Activity {
     return days;
   }
 
-
-  /** Called when the activity is first created. */
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    provider = new MenuProvider(getCacheDir());
-
-    setContentView(R.layout.main);
-
-    flipper = (ViewFlipper) findViewById(R.id.flipper);
-    flipper.setAnimateFirstView(true);
-
-    for (Calendar calendar : getViewableDates()) {
-      Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
-      Menu menu = provider.getMenu(calendar);
-      if (menu != null) {
-        if (menu.open) {
-          MenuView view = new MenuView(this, calendar, menu);
-          view.addTouchListener(new View.OnTouchListener() {
-
-            public boolean onTouch(View v, MotionEvent event) {
-              return gestureDetector.onTouchEvent(event);
-            }
-          });
-          flipper.addView(view);
-        } else {
-          // Add "resto closed" view
-          RestoClosedView view = new RestoClosedView(this, calendar);
-          flipper.addView(view);
-        }
-      } else {
-        // maybe use a simple inflated view
-        MenuUnavailableView view = new MenuUnavailableView(this, calendar);
-        flipper.addView(view);
-      }
-    }
-
-    gestureDetector = new GestureDetector(new MyGestureDetector());
-
-    slideLeftIn = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
-    slideLeftOut = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
-    slideRightIn = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
-    slideRightOut = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
-  }
-
   @Override
   public boolean onCreateOptionsMenu(android.view.Menu menu) {
-    Log.i("[RestoMenu]", "" + menu);
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.viewmap, menu);
     return true;
@@ -162,7 +188,6 @@ public class RestoMenu extends Activity {
     stringBuilder.append(getVersionName());
     stringBuilder.append("\n\n");
     stringBuilder.append("http://github.com/blackskad/Resto-menu\n\n");
-
     return stringBuilder;
   }
 
@@ -180,6 +205,7 @@ public class RestoMenu extends Activity {
   private boolean canFlipLeft() {
     return flipper.indexOfChild(flipper.getCurrentView()) > 0;
   }
+
   private boolean canFlipRight() {
     return flipper.indexOfChild(flipper.getCurrentView()) < flipper.getChildCount() - 1;
   }

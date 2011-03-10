@@ -1,12 +1,15 @@
 package be.ugent.zeus.resto.client.data;
 
+import android.app.Service;
+import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
 import android.util.Log;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.http.client.HttpClient;
@@ -20,23 +23,41 @@ import org.json.JSONObject;
  *
  * @author Thomas Meire
  */
-public class MenuProvider {
+public class MenuProvider extends Service {
 
-  private static String MENU_URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/week/%s.json";
+  public class LocalBinder extends Binder {
+    public MenuProvider getService() {
+      return MenuProvider.this;
+    }
+  }
 
-  private static String RESTO_URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/list.json";
+  private final IBinder mBinder = new LocalBinder();
+
+  private static final String MENU_URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/week/%s.json";
+
+  private static final String RESTO_URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/list.json";
+
+  private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
   private Cache<Menu> menuCache;
+
   private Cache<Resto> restoCache;
 
-  public MenuProvider(File cacheDir) {
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    File cacheDir = getCacheDir();
     File menuCacheDir = new File(cacheDir, "menu");
     menuCache = new Cache<Menu>(menuCacheDir);
 
     File restoCacheDir = new File(cacheDir, "resto");
     restoCache = new Cache<Resto>(restoCacheDir);
   }
-  private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+  @Override
+  public IBinder onBind(Intent intent) {
+    return mBinder;
+  }
 
   public Menu getMenu(Calendar c) {
     Menu menu = menuCache.get(format.format(c.getTime()));
