@@ -28,7 +28,7 @@ def get_meat_and_price (meat):
 def parse_menu_from_html (page):
 	print "Parsing weekmenu webpage to an object tree"
 	# replace those pesky non-breakable spaces
-	page = page.replace('&nbsp;', '')
+	page = page.replace('&nbsp;', ' ')
 	
 	doc = libxml2.htmlParseDoc(page, 'utf-8')
 	menuElement = doc.xpathEval("//div[@id='parent-fieldname-text']")
