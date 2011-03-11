@@ -12,8 +12,10 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -28,11 +30,11 @@ import org.json.JSONObject;
 public class MenuProvider extends Service {
 
   public class LocalBinder extends Binder {
+
     public MenuProvider getService() {
       return MenuProvider.this;
     }
   }
-
   private final IBinder mBinder = new LocalBinder();
 
   private static final String MENU_URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/week/%s.json";
@@ -142,30 +144,41 @@ public class MenuProvider extends Service {
       }
     }
   }
+  private final Object menuFetchLock = new Object();
 
   private class MenuFetcherThread extends Thread {
 
     private String url;
+    private int week;
 
     public MenuFetcherThread(String url, int week) {
       this.url = String.format(url, week);
+      this.week = week;
     }
 
     @Override
     public void run() {
-      try {
-        String content = fetch(url);
-        JSONObject tmp = new JSONObject(content);
-
-        Iterator<String> it = tmp.keys();
-        while (it.hasNext()) {
-          String name = it.next();
-          menuCache.put(name, parseJsonObject(tmp.getJSONObject(name), Menu.class));
+      synchronized (menuFetchLock) {
+        File f = new File(getCacheDir(), "week-" + week);
+        if (f.exists()) {
+          Log.i("MenuFetcher", "Menu for week " + week + " was already downloaded, nothing to do!");
+          return;
         }
-        sendBroadcast(new Intent(RestoMenu.MenuUpdateReceiver.class.getName()));
-      } catch (Exception e) {
-        Log.i("[MenuFetcherThread]", e.getMessage());
-        e.printStackTrace();
+        try {
+          String content = fetch(url);
+          JSONObject tmp = new JSONObject(content);
+
+          Iterator<String> it = tmp.keys();
+          while (it.hasNext()) {
+            String name = it.next();
+            menuCache.put(name, parseJsonObject(tmp.getJSONObject(name), Menu.class));
+          }
+          f.createNewFile();
+          sendBroadcast(new Intent(RestoMenu.MenuUpdateReceiver.class.getName()));
+        } catch (Exception e) {
+          Log.i("[MenuFetcherThread]", e.getMessage());
+          e.printStackTrace();
+        }
       }
     }
   }
