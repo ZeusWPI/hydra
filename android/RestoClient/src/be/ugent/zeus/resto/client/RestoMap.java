@@ -61,6 +61,12 @@ public class RestoMap extends MapActivity {
     registerReceiver(new MapUpdateReceiver(), new IntentFilter(RestoMap.MapUpdateReceiver.class.getName()));
   }
 
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    unbindService(connection);
+  }
+
   /**
    * Add an overlay containing all resto markers
    */

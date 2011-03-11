@@ -97,6 +97,12 @@ public class RestoMenu extends Activity {
     registerReceiver(new MenuUpdateReceiver(), new IntentFilter(RestoMenu.MenuUpdateReceiver.class.getName()));
   }
 
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    unbindService(connection);
+  }
+
   private void updateMenuViews() {
     flipper.removeAllViews();
 
@@ -125,9 +131,6 @@ public class RestoMenu extends Activity {
           flipper.addView(view);
         }
       }
-    } else {
-      Log.i("[MENU]", "OH CRAP, DA WAS NULL!");
-      // TODO: add a view here
     }
   }
 
@@ -249,7 +252,6 @@ public class RestoMenu extends Activity {
   public class MenuUpdateReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context cntxt, Intent intent) {
-      Log.i("RestoMenu", "UPDATE RECEIVED!");
       updateMenuViews();
     }
   }
