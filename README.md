@@ -13,7 +13,7 @@ A list of all UGent resto's. For each resto a struct with 4 values is provided: 
 * ./week/[O-9]{2}.json
 This resource contains the menu's for a whole week. The number in the URL is the number of the week. The list will at most contain 5 entries, one for each day of the week. Each of those entries contains 1 or 4 keys. If the `open` key is false, all resto's are closed that day and no other keys are provided. If `open` is true, the keys `meat`, `soup` and `vegetables` are also provided. An example structure is provided below. This is a typical structure with 4 meat entries, 1 soup entry and 2 vegetable entries.
 
-	{
+		{
 		"2011-03-21": {
 			"open": true, 
 			"meat": [
@@ -47,7 +47,7 @@ This resource contains the menu's for a whole week. The number in the URL is the
 				"Appelcomote"
 			]
 		}
-	}
+		}
 
 
 Copyright
