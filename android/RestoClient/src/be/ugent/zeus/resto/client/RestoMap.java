@@ -1,8 +1,10 @@
 package be.ugent.zeus.resto.client;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -56,6 +58,7 @@ public class RestoMap extends MapActivity {
     overlays.add(myLocOverlay);
 
     addRestoOverlay();
+    registerReceiver(new MapUpdateReceiver(), new IntentFilter(RestoMap.MapUpdateReceiver.class.getName()));
   }
 
   /**
@@ -71,5 +74,12 @@ public class RestoMap extends MapActivity {
   @Override
   protected boolean isRouteDisplayed() {
     return false;
+  }
+
+  public class MapUpdateReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context cntxt, Intent intent) {
+      addRestoOverlay();
+    }
   }
 }

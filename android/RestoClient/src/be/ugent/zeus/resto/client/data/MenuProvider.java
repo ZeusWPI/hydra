@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import be.ugent.zeus.resto.client.RestoMap;
+import be.ugent.zeus.resto.client.RestoMenu;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -133,6 +135,7 @@ public class MenuProvider extends Service {
         for (Resto r : parseJsonArray(data, Resto.class)) {
           restoCache.put(r.name, r);
         }
+        sendBroadcast(new Intent(RestoMap.MapUpdateReceiver.class.getName()));
       } catch (Exception e) {
         Log.i("[RestoFetcherThread]", e.getMessage());
         e.printStackTrace();
@@ -159,6 +162,7 @@ public class MenuProvider extends Service {
           String name = it.next();
           menuCache.put(name, parseJsonObject(tmp.getJSONObject(name), Menu.class));
         }
+        sendBroadcast(new Intent(RestoMenu.MenuUpdateReceiver.class.getName()));
       } catch (Exception e) {
         Log.i("[MenuFetcherThread]", e.getMessage());
         e.printStackTrace();

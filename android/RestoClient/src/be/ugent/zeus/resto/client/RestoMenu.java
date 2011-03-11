@@ -6,9 +6,11 @@ import be.ugent.zeus.resto.client.data.MenuProvider;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -90,6 +92,9 @@ public class RestoMenu extends Activity {
     slideLeftOut = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
     slideRightIn = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
     slideRightOut = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
+
+    // register a broadcast receiver to get updated menu's
+    registerReceiver(new MenuUpdateReceiver(), new IntentFilter(RestoMenu.MenuUpdateReceiver.class.getName()));
   }
 
   private void updateMenuViews() {
@@ -239,5 +244,13 @@ public class RestoMenu extends Activity {
   @Override
   public boolean onTouchEvent(MotionEvent event) {
     return gestureDetector.onTouchEvent(event);
+  }
+
+  public class MenuUpdateReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context cntxt, Intent intent) {
+      Log.i("RestoMenu", "UPDATE RECEIVED!");
+      updateMenuViews();
+    }
   }
 }
