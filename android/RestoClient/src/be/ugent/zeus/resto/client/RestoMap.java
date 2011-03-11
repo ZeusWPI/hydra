@@ -25,6 +25,7 @@ public class RestoMap extends MapActivity {
   private MapView map;
 
   private MenuProvider provider;
+  private MyLocationOverlay myLocOverlay;
 
   private ServiceConnection connection = new ServiceConnection() {
 
@@ -51,7 +52,7 @@ public class RestoMap extends MapActivity {
     map.setBuiltInZoomControls(true);
 
     // Add a standard overlay containing the users location
-    MyLocationOverlay myLocOverlay = new MyLocationOverlay(this, map);
+    myLocOverlay = new MyLocationOverlay(this, map);
     myLocOverlay.enableMyLocation();
 
     List<Overlay> overlays = map.getOverlays();
@@ -65,6 +66,18 @@ public class RestoMap extends MapActivity {
   public void onDestroy() {
     super.onDestroy();
     unbindService(connection);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    myLocOverlay.enableMyLocation();
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    myLocOverlay.disableMyLocation();
   }
 
   /**
