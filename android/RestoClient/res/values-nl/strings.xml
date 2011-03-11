@@ -12,4 +12,10 @@
     <string name="vegetables">Groenten</string>
 
     <string name="show_map">Toon restos op kaart</string>
+    <string name="about">Over</string>
+    <string name="legend">Legende</string>
+    <string name="legend_bold">Vet : Aanbevolen menu, € -0,50 korting reeds verrekend in de prijs</string>
+    <string name="legend_star">* : Niet beschikbaar in resto Dierengeneeskunde, Boudewijn &amp; St. Jansvest</string>
+    <string name="legend_hash"># : Niet beschikbaar in resto Boudewijn</string>
+    <string name="legend_swiping">Je kan het menu voor de volgende dagen bekijken door naar links te swipen.</string>
 </resources>

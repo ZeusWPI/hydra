@@ -13,4 +13,9 @@
 
     <string name="show_map">Show restos on map</string>
     <string name="about">About</string>
+    <string name="legend">Legend</string>
+    <string name="legend_bold">Bold : Recommended menu, € -0.5 discount already included</string>
+    <string name="legend_star">* : Not available in resto Dierengeneeskunde, Boudewijn &amp; St. Jansvest</string>
+    <string name="legend_hash"># : Not available in resto Boudewijn</string>
+    <string name="legend_swiping">You can see the menu for the coming days by swiping to the left.</string>
 </resources>
