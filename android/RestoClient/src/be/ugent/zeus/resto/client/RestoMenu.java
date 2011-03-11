@@ -92,15 +92,30 @@ public class RestoMenu extends Activity {
     slideLeftOut = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
     slideRightIn = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
     slideRightOut = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
-
-    // register a broadcast receiver to get updated menu's
-    registerReceiver(new MenuUpdateReceiver(), new IntentFilter(RestoMenu.MenuUpdateReceiver.class.getName()));
   }
 
   @Override
   public void onDestroy() {
     super.onDestroy();
     unbindService(connection);
+  }
+
+  private MenuUpdateReceiver menuUpdateReceiver = new MenuUpdateReceiver();
+
+  @Override
+  public void onResume() {
+    super.onResume();
+
+    // register a broadcast receiver to get updated menu's
+    registerReceiver(menuUpdateReceiver, new IntentFilter(RestoMenu.MenuUpdateReceiver.class.getName()));
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+
+    // register a broadcast receiver to get updated menu's
+    unregisterReceiver(menuUpdateReceiver);
   }
 
   private void updateMenuViews() {

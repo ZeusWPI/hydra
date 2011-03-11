@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import be.ugent.zeus.resto.client.data.MenuProvider;
 import be.ugent.zeus.resto.client.map.RestoOverlay;
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
@@ -39,6 +40,8 @@ public class RestoMap extends MapActivity {
     }
   };
 
+  private MapUpdateReceiver mapUpdateReceiver = new MapUpdateReceiver();
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -51,6 +54,10 @@ public class RestoMap extends MapActivity {
     map = (MapView) findViewById(R.id.mapview);
     map.setBuiltInZoomControls(true);
 
+    // center the map somewhere in Ghent
+    map.getController().setCenter(new GeoPoint(51045792, 3722391));
+    map.getController().setZoom(13);
+
     // Add a standard overlay containing the users location
     myLocOverlay = new MyLocationOverlay(this, map);
     myLocOverlay.enableMyLocation();
@@ -59,7 +66,6 @@ public class RestoMap extends MapActivity {
     overlays.add(myLocOverlay);
 
     addRestoOverlay();
-    registerReceiver(new MapUpdateReceiver(), new IntentFilter(RestoMap.MapUpdateReceiver.class.getName()));
   }
 
   @Override
@@ -71,12 +77,14 @@ public class RestoMap extends MapActivity {
   @Override
   public void onResume() {
     super.onResume();
+    registerReceiver(mapUpdateReceiver, new IntentFilter(RestoMap.MapUpdateReceiver.class.getName()));
     myLocOverlay.enableMyLocation();
   }
 
   @Override
   public void onPause() {
     super.onPause();
+    unregisterReceiver(mapUpdateReceiver);
     myLocOverlay.disableMyLocation();
   }
 
