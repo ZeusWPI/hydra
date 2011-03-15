@@ -22,19 +22,16 @@
 		'address' : 'Salisburylaan 133, Merelbeke',
 		'latitude' : 50998369,
 		'longitude' : 3766454,
-		'fsid' : -1
 	}, {
 		'name' : 'FPPW',
 		'address' : 'Henri Dunantlaan 2',
 		'latitude' : 51049023,
 		'longitude' : 3704017,
-		'fsid' : -1
 	}, {
 		'name' : 'Campus Coupure',
 		'address' : 'Coupure Links 653', 
 		'latitude' : 51053252,
 		'longitude' : 3707671,
-		'fsid' : -1
 	}, {
 		'name' : 'Overpoort',
 		'address' : 'Stalhof 2',
