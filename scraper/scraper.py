@@ -46,23 +46,23 @@ def parse_menu_from_html (page):
 	dayOfWeek = 0
 	for row in rows:
 		fields = row.xpathEval('.//td')
-		if len(fields[0].content) != 0:
+		if len(fields[0].content.strip()) != 0:
 			# first row of a day
 			day = str(monday.date() + timedelta(dayOfWeek))
 			dayOfWeek += 1
 			menu[day] = {}
-			if fields[2].content == 'Gesloten':
+			if fields[2].content.strip() == 'Gesloten':
 				menu[day]['open'] = False
 			else:
 				menu[day]['open'] = True
-				menu[day]['soup'] = {'name' : fields[1].content}
+				menu[day]['soup'] = {'name' : fields[1].content.strip()}
 				menu[day]['meat'] = []
 				menu[day]['meat'].append(get_meat_and_price(fields[2]))
 				menu[day]['vegetables'] = []
 				menu[day]['vegetables'].append(fields[3].content.strip())
-		elif len(fields[1].content) != 0 and menu[day]['open']:
+		elif len(fields[1].content.strip()) != 0 and menu[day]['open']:
 			# second row of a day
-			menu[day]['soup']['price'] = fields[1].content
+			menu[day]['soup']['price'] = fields[1].content.strip()
 			menu[day]['meat'].append(get_meat_and_price(fields[2]))
 			menu[day]['vegetables'].append(fields[3].content.strip())
 		elif menu[day]['open']:
