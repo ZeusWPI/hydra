@@ -72,7 +72,10 @@ public class Cache<T extends Serializable> {
   public List<T> getAll() {
     List<T> cached = new ArrayList<T>();
     for (File f : dir.listFiles()) {
-      cached.add(get(f.getName()));
+      T item = get(f.getName());
+      if (item != null) {
+        cached.add(item);
+      }
     }
     return cached;
   }
