@@ -12,6 +12,7 @@
     <string name="vegetables">Vegetables</string>
 
     <string name="show_map">Show restos on map</string>
+    <string name="refresh">Refresh</string>
     <string name="about">About</string>
     <string name="legend">Legend</string>
     <string name="legend_bold">Bold : Recommended menu, € -0.5 discount already included</string>

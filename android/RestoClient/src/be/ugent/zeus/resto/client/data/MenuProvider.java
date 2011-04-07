@@ -12,10 +12,8 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -74,6 +72,18 @@ public class MenuProvider extends Service {
       Log.i("[MenuProvider]", menu.toString());
     }
     return menu;
+  }
+
+  public void clearCaches () {
+    menuCache.clear();
+    restoCache.clear();
+    File cache = getCacheDir();
+    for (File file : cache.listFiles()) {
+      if (file.getName().startsWith("week-")) {
+        Log.i("[MenuProvider]", "Deleting week file " + file.getName());
+        file.delete();
+      }
+    }
   }
 
   public List<Resto> getRestos() {

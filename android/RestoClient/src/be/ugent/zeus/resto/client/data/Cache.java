@@ -27,11 +27,10 @@ public class Cache<T extends Serializable> {
     if (!dir.exists()) {
       dir.mkdir();
     }
+    this.dir = dir;
     for (File f : dir.listFiles()) {
       Log.i("[Cache]", "Found cached file " + f.getAbsolutePath());
-      //f.delete();
     }
-    this.dir = dir;
   }
 
   public T get(String key) {
@@ -78,5 +77,11 @@ public class Cache<T extends Serializable> {
       }
     }
     return cached;
+  }
+
+  public void clear() {
+    for (File f : dir.listFiles()) {
+      f.delete();
+    }
   }
 }

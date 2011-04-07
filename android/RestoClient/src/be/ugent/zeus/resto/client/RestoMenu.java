@@ -12,10 +12,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -41,11 +44,15 @@ import java.util.List;
  */
 public class RestoMenu extends Activity {
 
+  private static final String VERSION = "be.ugent.zeus.resto.client.version";
+
   private static final int SWIPE_MIN_DISTANCE = 120;
 
   private static final int SWIPE_MAX_OFF_PATH = 250;
 
   private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+  private SharedPreferences prefs;
 
   private MenuProvider provider;
 
@@ -65,6 +72,15 @@ public class RestoMenu extends Activity {
 
     public void onServiceConnected(ComponentName cn, IBinder service) {
       provider = ((MenuProvider.LocalBinder) service).getService();
+      int old = prefs.getInt(VERSION, 0);
+      int current = getVersionCode();
+      if (old < current) {
+        Log.i("[RestoMenu]", "New version code " + current + " (Old code was: " + old + ")");
+        provider.clearCaches();
+        Editor editor = prefs.edit();
+        editor.putInt(VERSION, current);
+        editor.commit();
+      }
       updateMenuViews();
     }
 
@@ -77,6 +93,8 @@ public class RestoMenu extends Activity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
     // start & bind to the data providere service
     bindService(new Intent("be.ugent.zeus.resto.client.data.MenuProvider"), connection, Context.BIND_AUTO_CREATE);
@@ -99,7 +117,6 @@ public class RestoMenu extends Activity {
     super.onDestroy();
     unbindService(connection);
   }
-
   private MenuUpdateReceiver menuUpdateReceiver = new MenuUpdateReceiver();
 
   @Override
@@ -130,6 +147,7 @@ public class RestoMenu extends Activity {
           if (menu.open) {
             MenuView view = new MenuView(this, calendar, menu);
             view.addTouchListener(new View.OnTouchListener() {
+
               public boolean onTouch(View v, MotionEvent event) {
                 return gestureDetector.onTouchEvent(event);
               }
@@ -184,6 +202,10 @@ public class RestoMenu extends Activity {
         // trigger intent for RestoMap Activity
         startActivity(new Intent(this, RestoMap.class));
         return true;
+      case R.id.clear_menu_cache:
+        provider.clearCaches();
+        updateMenuViews();
+        return true;
       case R.id.show_about:
         showAboutDialog();
       default:
@@ -232,6 +254,17 @@ public class RestoMenu extends Activity {
     }
   }
 
+  private int getVersionCode() {
+    try {
+      ComponentName componentName = new ComponentName(this, RestoMenu.class);
+      PackageInfo info = getPackageManager().getPackageInfo(componentName.getPackageName(), 0);
+      return info.versionCode;
+    } catch (NameNotFoundException e) {
+      // Won't happen, versionCode is present in the manifest!
+      return 0;
+    }
+  }
+
   private boolean canFlipLeft() {
     return flipper.indexOfChild(flipper.getCurrentView()) > 0;
   }
@@ -272,6 +305,7 @@ public class RestoMenu extends Activity {
   }
 
   public class MenuUpdateReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context cntxt, Intent intent) {
       updateMenuViews();
