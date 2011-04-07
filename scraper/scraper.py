@@ -37,10 +37,10 @@ def parse_menu_from_html (page):
 	week = doc.xpathEval("//span[@id='parent-fieldname-title']")[0].content.strip().split()
 	if len(week) == 7:
 		# start and end of week are in the same month
-		monday = datetime.strptime("%s %s %s" % (week[2], week[5], week[6]), "%d %B %Y")
+		monday = datetime.strptime("%s %s %s" % (week[2], week[5], datetime.datetime.now().year), "%d %B %Y")
 	else:
 		# start and end of week are in different months
-		monday = datetime.strptime("%s %s %s" % (week[2], week[3], week[7]), "%d %B %Y")
+		monday = datetime.strptime("%s %s %s" % (week[2], week[3], datetime.datetime.now().year), "%d %B %Y")
 	
 	menu = {}
 	dayOfWeek = 0
