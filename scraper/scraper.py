@@ -13,7 +13,8 @@ def get_menu_page (week):
 
 def get_meat_and_price (meat):
 	# splitting on '-' doesn't work, FAIL!
-	name = meat.content[8:]
+	content = meat.content.strip()
+	name = content[8:]
 	try:
 		name = name[name.index('-')+1:]
 	except:
@@ -21,7 +22,7 @@ def get_meat_and_price (meat):
 	
 	result = {}
 	result['recommended'] = len(meat.xpathEval('.//u')) > 0
-	result['price'] = meat.content[:8]
+	result['price'] = content[:8]
 	result['name'] = name.strip()
 	return result
 
@@ -37,10 +38,10 @@ def parse_menu_from_html (page):
 	week = doc.xpathEval("//span[@id='parent-fieldname-title']")[0].content.strip().split()
 	if len(week) == 7:
 		# start and end of week are in the same month
-		monday = datetime.strptime("%s %s %s" % (week[2], week[5], datetime.datetime.now().year), "%d %B %Y")
+		monday = datetime.strptime("%s %s %s" % (week[2], week[5], datetime.now().year), "%d %B %Y")
 	else:
 		# start and end of week are in different months
-		monday = datetime.strptime("%s %s %s" % (week[2], week[3], datetime.datetime.now().year), "%d %B %Y")
+		monday = datetime.strptime("%s %s %s" % (week[2], week[3], datetime.now().year), "%d %B %Y")
 	
 	menu = {}
 	dayOfWeek = 0
@@ -65,7 +66,7 @@ def parse_menu_from_html (page):
 			menu[day]['soup']['price'] = fields[1].content.strip()
 			menu[day]['meat'].append(get_meat_and_price(fields[2]))
 			menu[day]['vegetables'].append(fields[3].content.strip())
-		elif menu[day]['open']:
+		elif len(fields[2].content.strip()) and menu[day]['open']:
 			# the third and forth row of a day
 			menu[day]['meat'].append(get_meat_and_price(fields[2]))
 	return menu
