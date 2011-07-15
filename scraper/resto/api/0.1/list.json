@@ -33,12 +33,6 @@
 		'latitude' : 51053252,
 		'longitude' : 3707671,
 	}, {
-		'name' : 'Overpoort',
-		'address' : 'Stalhof 2',
-		'latitude' : 51039456,
-		'longitude' : 3726245,
-		'fsid' : 3991233
-	}, {
 		'name' : 'Sint-Jansvest',
 		'address' : 'Sint-Jansvest 24',
 		'latitude' : 51049773,
