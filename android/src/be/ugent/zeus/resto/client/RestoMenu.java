@@ -1,6 +1,6 @@
 package be.ugent.zeus.resto.client;
 
-import be.ugent.zeus.resto.client.menu.MenuView;
+import android.os.Parcelable;
 import be.ugent.zeus.resto.client.data.MenuProvider;
 
 import android.app.Activity;
@@ -16,20 +16,19 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ViewFlipper;
+import android.widget.TextView;
 import be.ugent.zeus.resto.client.data.Menu;
+import be.ugent.zeus.resto.client.menu.MenuView;
 import be.ugent.zeus.resto.client.menu.MenuUnavailableView;
 import be.ugent.zeus.resto.client.menu.RestoClosedView;
 import java.text.SimpleDateFormat;
@@ -45,29 +44,8 @@ import java.util.List;
 public class RestoMenu extends Activity {
 
   private static final String VERSION = "be.ugent.zeus.resto.client.version";
-
-  private static final int SWIPE_MIN_DISTANCE = 120;
-
-  private static final int SWIPE_MAX_OFF_PATH = 250;
-
-  private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-
   private SharedPreferences prefs;
-
   private MenuProvider provider;
-
-  private GestureDetector gestureDetector;
-
-  private ViewFlipper flipper;
-
-  private Animation slideLeftIn;
-
-  private Animation slideLeftOut;
-
-  private Animation slideRightIn;
-
-  private Animation slideRightOut;
-
   private ServiceConnection connection = new ServiceConnection() {
 
     public void onServiceConnected(ComponentName cn, IBinder service) {
@@ -81,7 +59,8 @@ public class RestoMenu extends Activity {
         editor.putInt(VERSION, current);
         editor.commit();
       }
-      updateMenuViews();
+      ViewPager pager = (ViewPager) findViewById(R.id.pager);
+      pager.setAdapter(new MenuPagerAdapter());
     }
 
     public void onServiceDisconnected(ComponentName cn) {
@@ -100,16 +79,6 @@ public class RestoMenu extends Activity {
     bindService(new Intent("be.ugent.zeus.resto.client.data.MenuProvider"), connection, Context.BIND_AUTO_CREATE);
 
     setContentView(R.layout.main);
-
-    flipper = (ViewFlipper) findViewById(R.id.flipper);
-    flipper.setAnimateFirstView(true);
-
-    gestureDetector = new GestureDetector(new MyGestureDetector());
-
-    slideLeftIn = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
-    slideLeftOut = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
-    slideRightIn = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
-    slideRightOut = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
   }
 
   @Override
@@ -135,38 +104,6 @@ public class RestoMenu extends Activity {
     unregisterReceiver(menuUpdateReceiver);
   }
 
-  private void updateMenuViews() {
-    flipper.removeAllViews();
-
-    if (provider != null) {
-      for (Calendar calendar : getViewableDates()) {
-        Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
-        Menu menu = provider.getMenu(calendar);
-
-        if (menu != null) {
-          if (menu.open) {
-            MenuView view = new MenuView(this, calendar, menu);
-            view.addTouchListener(new View.OnTouchListener() {
-
-              public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
-              }
-            });
-            flipper.addView(view);
-          } else {
-            // Add "resto closed" view
-            RestoClosedView view = new RestoClosedView(this, calendar);
-            flipper.addView(view);
-          }
-        } else {
-          // maybe use a simple inflated view
-          MenuUnavailableView view = new MenuUnavailableView(this, calendar);
-          flipper.addView(view);
-        }
-      }
-    }
-  }
-
   private List<Calendar> getViewableDates() {
     List<Calendar> days = new ArrayList<Calendar>();
 
@@ -187,6 +124,103 @@ public class RestoMenu extends Activity {
     return days;
   }
 
+  private class MenuPagerAdapter extends PagerAdapter {
+
+    List<View> views = new ArrayList<View>();
+
+    public MenuPagerAdapter() {
+      if (provider != null) {
+        for (Calendar calendar : getViewableDates()) {
+          Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
+          Menu menu = provider.getMenu(calendar);
+
+          View view = null;
+          if (menu != null) {
+            if (menu.open) {
+              view = new MenuView(RestoMenu.this, calendar, menu);
+            } else {
+              // Add "resto closed" view
+              view = new RestoClosedView(RestoMenu.this, calendar);
+            }
+          } else {
+            // maybe use a simple inflated view
+            view = new MenuUnavailableView(RestoMenu.this, calendar);
+          }
+          views.add(view);
+        }
+      } else {
+        Log.i("RestoMenu", "Provider was null!");
+      }
+    }
+
+    @Override
+    public int getCount() {
+      return views.size();
+    }
+
+    /**
+     * Create the page for the given position.  The adapter is responsible
+     * for adding the view to the container given here, although it only
+     * must ensure this is done by the time it returns from
+     * {@link #finishUpdate()}.
+     *
+     * @param container The containing View in which the page will be shown.
+     * @param position The page position to be instantiated.
+     * @return Returns an Object representing the new page.  This does not
+     * need to be a View, but can be some other container of the page.
+     */
+    @Override
+    public Object instantiateItem(View collection, int position) {
+      ((ViewPager) collection).addView(views.get(position), 0);
+
+      return views.get(position);
+    }
+
+    /**
+     * Remove a page for the given position.  The adapter is responsible
+     * for removing the view from its container, although it only must ensure
+     * this is done by the time it returns from {@link #finishUpdate()}.
+     *
+     * @param container The containing View from which the page will be removed.
+     * @param position The page position to be removed.
+     * @param object The same object that was returned by
+     * {@link #instantiateItem(View, int)}.
+     */
+    @Override
+    public void destroyItem(View collection, int position, Object view) {
+      ((ViewPager) collection).removeView((View) view);
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+      return view == ((View) object);
+    }
+
+    /**
+     * Called when the a change in the shown pages has been completed.  At this
+     * point you must ensure that all of the pages have actually been added or
+     * removed from the container as appropriate.
+     * @param container The containing View which is displaying this adapter's
+     * page views.
+     */
+    @Override
+    public void finishUpdate(View arg0) {
+    }
+
+    @Override
+    public void restoreState(Parcelable arg0, ClassLoader arg1) {
+    }
+
+    @Override
+    public Parcelable saveState() {
+      return null;
+    }
+
+    @Override
+    public void startUpdate(View arg0) {
+    }
+  }
+
   @Override
   public boolean onCreateOptionsMenu(android.view.Menu menu) {
     MenuInflater inflater = getMenuInflater();
@@ -204,7 +238,8 @@ public class RestoMenu extends Activity {
         return true;
       case R.id.clear_menu_cache:
         provider.clearCaches();
-        updateMenuViews();
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(new MenuPagerAdapter());
         return true;
       case R.id.show_about:
         showAboutDialog();
@@ -265,50 +300,12 @@ public class RestoMenu extends Activity {
     }
   }
 
-  private boolean canFlipLeft() {
-    return flipper.indexOfChild(flipper.getCurrentView()) > 0;
-  }
-
-  private boolean canFlipRight() {
-    return flipper.indexOfChild(flipper.getCurrentView()) < flipper.getChildCount() - 1;
-  }
-
-  class MyGestureDetector extends SimpleOnGestureListener {
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-      // only catch horizontal flings
-      try {
-        if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
-          return false;
-        }
-        // right to left swipe
-        if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && canFlipRight()) {
-          flipper.setInAnimation(slideLeftIn);
-          flipper.setOutAnimation(slideLeftOut);
-          flipper.showNext();
-        } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && canFlipLeft()) {
-          flipper.setInAnimation(slideRightIn);
-          flipper.setOutAnimation(slideRightOut);
-          flipper.showPrevious();
-        }
-      } catch (Exception e) {
-        // nothing
-      }
-      return false;
-    }
-  }
-
-  @Override
-  public boolean onTouchEvent(MotionEvent event) {
-    return gestureDetector.onTouchEvent(event);
-  }
-
   public class MenuUpdateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context cntxt, Intent intent) {
-      updateMenuViews();
+      ViewPager pager = (ViewPager) findViewById(R.id.pager);
+      pager.setAdapter(new MenuPagerAdapter());
     }
   }
 }
