@@ -3,8 +3,8 @@ package be.ugent.zeus.resto.client.menu;
 import be.ugent.zeus.resto.client.data.Menu;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,7 +15,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.R;
 import be.ugent.zeus.resto.client.data.Product;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -28,24 +27,7 @@ public class MenuView extends LinearLayout {
 
   public MenuView(Context context, Calendar calendar, Menu menu) {
     super(context);
-    setMenu(calendar, menu);
-  }
-
-  private boolean isTodayWithOffset(Calendar date, int offset) {
-    Calendar ref = Calendar.getInstance();
-
-    ref.add(Calendar.DATE, offset);
-    return ref.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH);
-  }
-
-  private String getStringFromCalendar(Calendar calendar) {
-
-    if (isTodayWithOffset(calendar, 0)) {
-      return getContext().getString(R.string.today);
-    } else if (isTodayWithOffset(calendar, 1)) {
-      return getContext().getString(R.string.tomorrow);
-    }
-    return new SimpleDateFormat("EEEE dd MMM").format(calendar.getTime());
+    setMenu(menu);
   }
 
   private View getSubtitle(int id, int drawable) {
@@ -151,25 +133,14 @@ public class MenuView extends LinearLayout {
     return view;
   }
 
-  private void setMenu(Calendar day, Menu menu) {
+  private void setMenu(Menu menu) {
     setOrientation(VERTICAL);
-
-    Log.i("[MenuView]", getStringFromCalendar(day));
-    Log.i("[MenuView]", "Wait wut, is menu null? " + (menu == null));
 
     Context context = getContext();
 
-    // the day on top of the view
-    TextView title = new TextView(context);
-    title.setText(getStringFromCalendar(day));
-    title.setTextSize(30);
-    title.setGravity(Gravity.CENTER);
-
-    addView(title);
-
     LinearLayout content = new LinearLayout(context);
     content.setOrientation(LinearLayout.VERTICAL);
-
+    
     // the line with the soup
     content.addView(getSubtitle(R.string.soup, R.drawable.icon_soup));
     content.addView(getSeperator());

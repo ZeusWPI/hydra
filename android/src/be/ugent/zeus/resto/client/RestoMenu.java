@@ -1,8 +1,5 @@
 package be.ugent.zeus.resto.client;
 
-import android.os.Parcelable;
-import be.ugent.zeus.resto.client.data.MenuProvider;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -16,21 +13,26 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.data.Menu;
 import be.ugent.zeus.resto.client.menu.MenuView;
 import be.ugent.zeus.resto.client.menu.MenuUnavailableView;
 import be.ugent.zeus.resto.client.menu.RestoClosedView;
+import be.ugent.zeus.resto.client.data.MenuProvider;
+import be.ugent.zeus.resto.client.ui.SwipeyTabs;
+import be.ugent.zeus.resto.client.ui.SwipeyTabsAdapter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -46,6 +48,8 @@ public class RestoMenu extends Activity {
   private static final String VERSION = "be.ugent.zeus.resto.client.version";
   private SharedPreferences prefs;
   private MenuProvider provider;
+  private SwipeyTabs tabs;
+  private ViewPager pager;
   private ServiceConnection connection = new ServiceConnection() {
 
     public void onServiceConnected(ComponentName cn, IBinder service) {
@@ -59,8 +63,9 @@ public class RestoMenu extends Activity {
         editor.putInt(VERSION, current);
         editor.commit();
       }
-      ViewPager pager = (ViewPager) findViewById(R.id.pager);
-      pager.setAdapter(new MenuPagerAdapter());
+      MenuPagerAdapter adapter = new MenuPagerAdapter();
+      pager.setAdapter(adapter);
+      tabs.setAdapter(adapter);
     }
 
     public void onServiceDisconnected(ComponentName cn) {
@@ -79,6 +84,10 @@ public class RestoMenu extends Activity {
     bindService(new Intent("be.ugent.zeus.resto.client.data.MenuProvider"), connection, Context.BIND_AUTO_CREATE);
 
     setContentView(R.layout.main);
+
+    pager = (ViewPager) findViewById(R.id.pager);
+    tabs = (SwipeyTabs) findViewById(R.id.tabs);
+    pager.setOnPageChangeListener(tabs);
   }
 
   @Override
@@ -91,6 +100,10 @@ public class RestoMenu extends Activity {
   @Override
   public void onResume() {
     super.onResume();
+		
+    pager = (ViewPager) findViewById(R.id.pager);
+    tabs = (SwipeyTabs) findViewById(R.id.tabs);
+    pager.setOnPageChangeListener(tabs);
 
     // register a broadcast receiver to get updated menu's
     registerReceiver(menuUpdateReceiver, new IntentFilter(RestoMenu.MenuUpdateReceiver.class.getName()));
@@ -108,10 +121,7 @@ public class RestoMenu extends Activity {
     List<Calendar> days = new ArrayList<Calendar>();
 
     Calendar instance = Calendar.getInstance();
-
-
-    for (int i = 0; i
-            < 5; i++) {
+    for (int i = 0; i < 5; i++) {
       if (instance.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
         instance.add(Calendar.DATE, 2);
       }
@@ -124,13 +134,15 @@ public class RestoMenu extends Activity {
     return days;
   }
 
-  private class MenuPagerAdapter extends PagerAdapter {
+  private class MenuPagerAdapter extends PagerAdapter implements SwipeyTabsAdapter {
 
+    List<Calendar> dates;
     List<View> views = new ArrayList<View>();
 
     public MenuPagerAdapter() {
       if (provider != null) {
-        for (Calendar calendar : getViewableDates()) {
+        dates = getViewableDates();
+        for (Calendar calendar : dates) {
           Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
           Menu menu = provider.getMenu(calendar);
 
@@ -219,6 +231,37 @@ public class RestoMenu extends Activity {
     @Override
     public void startUpdate(View arg0) {
     }
+
+    private boolean isTodayWithOffset(Calendar date, int offset) {
+      Calendar ref = Calendar.getInstance();
+
+      ref.add(Calendar.DATE, offset);
+      return ref.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH);
+    }
+
+    private String getStringFromCalendar(Calendar calendar) {
+
+      if (isTodayWithOffset(calendar, 0)) {
+        return RestoMenu.this.getString(R.string.today);
+      } else if (isTodayWithOffset(calendar, 1)) {
+        return RestoMenu.this.getString(R.string.tomorrow);
+      }
+      return new SimpleDateFormat("EEEE dd MMM").format(calendar.getTime());
+    }
+
+    public TextView getTab(final int position, SwipeyTabs root) {
+      Log.i("[RestoMenu]", "Getting tab");
+      TextView title = (TextView) LayoutInflater.from(RestoMenu.this).inflate(R.layout.tab_indicator, root, false);
+      title.setText(getStringFromCalendar(dates.get(position)));
+      
+      title.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(final View v) {
+					pager.setCurrentItem(position);
+				}
+			});
+      return title;
+    }
   }
 
   @Override
@@ -238,8 +281,9 @@ public class RestoMenu extends Activity {
         return true;
       case R.id.clear_menu_cache:
         provider.clearCaches();
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new MenuPagerAdapter());
+        MenuPagerAdapter adapter = new MenuPagerAdapter();
+        pager.setAdapter(adapter);
+        tabs.setAdapter(adapter);
         return true;
       case R.id.show_about:
         showAboutDialog();
@@ -304,8 +348,9 @@ public class RestoMenu extends Activity {
 
     @Override
     public void onReceive(Context cntxt, Intent intent) {
-      ViewPager pager = (ViewPager) findViewById(R.id.pager);
-      pager.setAdapter(new MenuPagerAdapter());
+      MenuPagerAdapter adapter = new MenuPagerAdapter();
+      pager.setAdapter(adapter);
+      tabs.setAdapter(adapter);
     }
   }
 }
