@@ -1,4 +1,4 @@
-package be.ugent.zeus.resto.client.map;
+package be.ugent.zeus.resto.client.ui.map;
 
 import android.app.AlertDialog;
 import android.content.Context;

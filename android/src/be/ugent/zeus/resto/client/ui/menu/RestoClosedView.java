@@ -1,5 +1,5 @@
 
-package be.ugent.zeus.resto.client.menu;
+package be.ugent.zeus.resto.client.ui.menu;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -12,14 +12,14 @@ import java.util.Calendar;
  *
  * @author Thomas Meire
  */
-public class MenuUnavailableView extends LinearLayout {
-  public MenuUnavailableView (Context context, Calendar date) {
+public class RestoClosedView extends LinearLayout {
+  public RestoClosedView (Context context, Calendar date) {
     super(context);
     setOrientation(LinearLayout.VERTICAL);
     setGravity(Gravity.CENTER_HORIZONTAL);
 
     TextView title = new TextView(context);
-    title.setText("Menu unavailable!");
+    title.setText("The resto's are closed!");
     title.setTextSize(30);
 
     addView(title);

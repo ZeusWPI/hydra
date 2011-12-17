@@ -9,7 +9,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import be.ugent.zeus.resto.client.data.MenuProvider;
-import be.ugent.zeus.resto.client.map.RestoOverlay;
+import be.ugent.zeus.resto.client.ui.map.RestoOverlay;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;

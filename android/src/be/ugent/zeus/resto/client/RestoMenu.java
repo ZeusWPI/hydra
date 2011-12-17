@@ -27,12 +27,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.data.Menu;
-import be.ugent.zeus.resto.client.menu.MenuView;
-import be.ugent.zeus.resto.client.menu.MenuUnavailableView;
-import be.ugent.zeus.resto.client.menu.RestoClosedView;
 import be.ugent.zeus.resto.client.data.MenuProvider;
 import be.ugent.zeus.resto.client.ui.SwipeyTabs;
 import be.ugent.zeus.resto.client.ui.SwipeyTabsAdapter;
+import be.ugent.zeus.resto.client.ui.menu.MenuView;
+import be.ugent.zeus.resto.client.ui.menu.MenuUnavailableView;
+import be.ugent.zeus.resto.client.ui.menu.RestoClosedView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 

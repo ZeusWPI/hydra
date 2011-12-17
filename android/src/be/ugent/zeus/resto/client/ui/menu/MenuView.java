@@ -1,9 +1,8 @@
-package be.ugent.zeus.resto.client.menu;
+package be.ugent.zeus.resto.client.ui.menu;
 
 import be.ugent.zeus.resto.client.data.Menu;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
