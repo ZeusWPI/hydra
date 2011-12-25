@@ -66,8 +66,8 @@ def parse_menu_from_html (page):
 			menu[day]['soup']['price'] = fields[1].content.strip()
 			menu[day]['meat'].append(get_meat_and_price(fields[2]))
 			menu[day]['vegetables'].append(fields[3].content.strip())
-		elif len(fields[2].content.strip()) and menu[day]['open']:
-			# the third and forth row of a day
+		elif len(fields[2].content.strip()) != 0 and menu[day]['open']:
+			# the third and forth row of a day (sometimes it's empty)
 			menu[day]['meat'].append(get_meat_and_price(fields[2]))
 	return menu
 
@@ -76,7 +76,7 @@ def dump_menu_to_file (week, menu):
 	path = './resto/api/%s/week/' % API_VERSION
 	if not os.path.isdir(path):
 		os.makedirs(path)
-	f = open ('%s/%s.json' % (path, week), 'w')
+	f = open ('%s/%02d.json' % (path, week), 'w')
 	json.dump(menu, f, sort_keys=True, indent=4)
 	f.close()
 
@@ -92,8 +92,13 @@ if __name__ == "__main__":
 	locale.setlocale(locale.LC_ALL, ('nl_BE.UTF-8'))
 	week = datetime.today().isocalendar()[1]
 	# fetch the menu for the next to weeks, if not already downloaded
-	if not menu_already_downloaded(week+1):
-		download_menu(week+1)
-	if not menu_already_downloaded(week+2):
-		download_menu(week+2)
+	week1 = (week - 1) % 52 + 1
+	if not menu_already_downloaded(week1):
+		download_menu(week1)
+	week2 = (week + 0) % 52 + 1
+	if not menu_already_downloaded(week2):
+		download_menu(week2)
+	week3 = (week + 1) % 52 + 1
+	if not menu_already_downloaded(week3):
+		download_menu(week3)
 
