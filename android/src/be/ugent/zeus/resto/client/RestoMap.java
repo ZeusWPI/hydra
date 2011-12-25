@@ -1,14 +1,13 @@
 package be.ugent.zeus.resto.client;
 
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import be.ugent.zeus.resto.client.data.MenuProvider;
+import android.os.ResultReceiver;
+import android.widget.Toast;
+import be.ugent.zeus.resto.client.data.Resto;
+import be.ugent.zeus.resto.client.data.caches.RestoCache;
+import be.ugent.zeus.resto.client.data.services.MenuService;
+import be.ugent.zeus.resto.client.data.services.RestoService;
 import be.ugent.zeus.resto.client.ui.map.RestoOverlay;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -24,34 +23,21 @@ import java.util.List;
 public class RestoMap extends MapActivity {
 
   private MapView map;
-
-  private MenuProvider provider;
   private MyLocationOverlay myLocOverlay;
-
-  private ServiceConnection connection = new ServiceConnection() {
-
-    public void onServiceConnected(ComponentName cn, IBinder service) {
-      provider = ((MenuProvider.LocalBinder) service).getService();
-      addRestoOverlay();
-    }
-
-    public void onServiceDisconnected(ComponentName cn) {
-      provider = null;
-    }
-  };
-
-  private MapUpdateReceiver mapUpdateReceiver = new MapUpdateReceiver();
+  private RestoResultReceiver receiver = new RestoResultReceiver();
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    // start & bind to the data providere service
-    bindService(new Intent("be.ugent.zeus.resto.client.data.MenuProvider"), connection, Context.BIND_AUTO_CREATE);
-
     setContentView(R.layout.restomap);
 
     map = (MapView) findViewById(R.id.mapview);
+
+    // try to add an overlay with resto's
+    addRestoOverlay(false);
+
+    // enable the zoom controls
     map.setBuiltInZoomControls(true);
 
     // center the map somewhere in Ghent
@@ -64,38 +50,24 @@ public class RestoMap extends MapActivity {
 
     List<Overlay> overlays = map.getOverlays();
     overlays.add(myLocOverlay);
-
-    addRestoOverlay();
   }
-
+  
   @Override
-  public void onDestroy() {
-    super.onDestroy();
-    unbindService(connection);
+  public void onPause () {
+    super.onPause();
+    myLocOverlay.disableMyLocation();
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    registerReceiver(mapUpdateReceiver, new IntentFilter(RestoMap.MapUpdateReceiver.class.getName()));
     myLocOverlay.enableMyLocation();
   }
 
   @Override
-  public void onPause() {
-    super.onPause();
-    unregisterReceiver(mapUpdateReceiver);
+  public void onDestroy () {
+    super.onDestroy();
     myLocOverlay.disableMyLocation();
-  }
-
-  /**
-   * Add an overlay containing all resto markers
-   */
-  private void addRestoOverlay() {
-    if (provider != null) {
-      List<Overlay> overlays = map.getOverlays();
-      overlays.add(new RestoOverlay(this, provider));
-    }
   }
 
   @Override
@@ -103,10 +75,36 @@ public class RestoMap extends MapActivity {
     return false;
   }
 
-  public class MapUpdateReceiver extends BroadcastReceiver {
+  private void addRestoOverlay(boolean synced) {
+    final List<Resto> restos = RestoCache.getInstance(RestoMap.this).getAll();
+
+    if (restos.size() > 0) {
+      List<Overlay> overlays = map.getOverlays();
+      overlays.add(new RestoOverlay(RestoMap.this, restos));
+      map.postInvalidate();
+    } else {
+      if (!synced) {
+        // start the intent service to fetch the list of resto's
+        Intent intent = new Intent(this, RestoService.class);
+        intent.putExtra(MenuService.RESULT_RECEIVER_EXTRA, receiver);
+        startService(intent);
+      } else {
+        Toast.makeText(RestoMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
+      }
+    }
+  }
+
+  private class RestoResultReceiver extends ResultReceiver {
+
+    public RestoResultReceiver() {
+      super(null);
+    }
+
     @Override
-    public void onReceive(Context cntxt, Intent intent) {
-      addRestoOverlay();
+    protected void onReceiveResult(int code, Bundle data) {
+      if (code == RestoService.STATUS_FINISHED) {
+        addRestoOverlay(true);
+      }
     }
   }
 }

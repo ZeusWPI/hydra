@@ -14,7 +14,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.R;
 import be.ugent.zeus.resto.client.data.Product;
-import java.util.Calendar;
 
 /**
  *
@@ -24,7 +23,7 @@ public class MenuView extends LinearLayout {
 
   private ScrollView scroller;
 
-  public MenuView(Context context, Calendar calendar, Menu menu) {
+  public MenuView(Context context, Menu menu) {
     super(context);
     setMenu(menu);
   }

@@ -3,37 +3,28 @@ package be.ugent.zeus.resto.client;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import be.ugent.zeus.resto.client.data.Menu;
-import be.ugent.zeus.resto.client.data.MenuProvider;
+import be.ugent.zeus.resto.client.data.caches.MenuCache;
+import be.ugent.zeus.resto.client.data.caches.RestoCache;
 import be.ugent.zeus.resto.client.ui.SwipeyTabs;
 import be.ugent.zeus.resto.client.ui.SwipeyTabsAdapter;
-import be.ugent.zeus.resto.client.ui.menu.MenuView;
-import be.ugent.zeus.resto.client.ui.menu.MenuUnavailableView;
-import be.ugent.zeus.resto.client.ui.menu.RestoClosedView;
-import java.text.SimpleDateFormat;
+import be.ugent.zeus.resto.client.ui.menu.MenuAdapter;
 import java.util.ArrayList;
 
 import java.util.Calendar;
@@ -47,31 +38,9 @@ public class RestoMenu extends Activity {
 
   private static final String VERSION = "be.ugent.zeus.resto.client.version";
   private SharedPreferences prefs;
-  private MenuProvider provider;
   private SwipeyTabs tabs;
   private ViewPager pager;
-  private ServiceConnection connection = new ServiceConnection() {
-
-    public void onServiceConnected(ComponentName cn, IBinder service) {
-      provider = ((MenuProvider.LocalBinder) service).getService();
-      int old = prefs.getInt(VERSION, 0);
-      int current = getVersionCode();
-      if (old < current) {
-        Log.i("[RestoMenu]", "New version code " + current + " (Old code was: " + old + ")");
-        provider.clearCaches();
-        Editor editor = prefs.edit();
-        editor.putInt(VERSION, current);
-        editor.commit();
-      }
-      MenuPagerAdapter adapter = new MenuPagerAdapter();
-      pager.setAdapter(adapter);
-      tabs.setAdapter(adapter);
-    }
-
-    public void onServiceDisconnected(ComponentName cn) {
-      provider = null;
-    }
-  };
+  private MenuPagerAdapter adapter;
 
   /** Called when the activity is first created. */
   @Override
@@ -80,45 +49,40 @@ public class RestoMenu extends Activity {
 
     prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-    // start & bind to the data providere service
-    bindService(new Intent("be.ugent.zeus.resto.client.data.MenuProvider"), connection, Context.BIND_AUTO_CREATE);
+    int old = prefs.getInt(VERSION, 0);
+    int current = getVersionCode();
+    if (old < current) {
+      Log.i("[RestoMenu]", "New version code " + current + " (Old code was: " + old + ")");
+      clearCaches();
+      Editor editor = prefs.edit();
+      editor.putInt(VERSION, current);
+      editor.commit();
+    }
 
     setContentView(R.layout.main);
 
     pager = (ViewPager) findViewById(R.id.pager);
     tabs = (SwipeyTabs) findViewById(R.id.tabs);
     pager.setOnPageChangeListener(tabs);
-  }
 
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    unbindService(connection);
+    adapter = new MenuPagerAdapter();
+    pager.setAdapter(adapter);
+    tabs.setAdapter(adapter);
   }
-  private MenuUpdateReceiver menuUpdateReceiver = new MenuUpdateReceiver();
 
   @Override
   public void onResume() {
     super.onResume();
-		
-    pager = (ViewPager) findViewById(R.id.pager);
-    tabs = (SwipeyTabs) findViewById(R.id.tabs);
-    pager.setOnPageChangeListener(tabs);
-
-    // register a broadcast receiver to get updated menu's
-    registerReceiver(menuUpdateReceiver, new IntentFilter(RestoMenu.MenuUpdateReceiver.class.getName()));
   }
-
-  @Override
-  public void onPause() {
-    super.onPause();
-
-    // register a broadcast receiver to get updated menu's
-    unregisterReceiver(menuUpdateReceiver);
+  
+  private void clearCaches () {
+    Log.i("RestoMenu", "Should clear caches now...");
+    MenuCache.getInstance(this).clear();
+    RestoCache.getInstance(this).clear();
   }
 
   private List<Calendar> getViewableDates() {
-    List<Calendar> days = new ArrayList<Calendar>();
+    List<Calendar> days = new ArrayList<Calendar>(5);
 
     Calendar instance = Calendar.getInstance();
     for (int i = 0; i < 5; i++) {
@@ -137,34 +101,21 @@ public class RestoMenu extends Activity {
   private class MenuPagerAdapter extends PagerAdapter implements SwipeyTabsAdapter {
 
     List<Calendar> dates;
-    List<View> views = new ArrayList<View>();
+    List<MenuAdapter> views = new ArrayList<MenuAdapter>(5);
 
     public MenuPagerAdapter() {
-      if (provider != null) {
-        dates = getViewableDates();
-        for (Calendar calendar : dates) {
-          Log.i("[RestoMenu]", new SimpleDateFormat("EEEE").format(calendar.getTime()));
-          Menu menu = provider.getMenu(calendar);
-
-          View view = null;
-          if (menu != null) {
-            if (menu.open) {
-              view = new MenuView(RestoMenu.this, calendar, menu);
-            } else {
-              // Add "resto closed" view
-              view = new RestoClosedView(RestoMenu.this, calendar);
-            }
-          } else {
-            // maybe use a simple inflated view
-            view = new MenuUnavailableView(RestoMenu.this, calendar);
-          }
-          views.add(view);
-        }
-      } else {
-        Log.i("RestoMenu", "Provider was null!");
+      dates = getViewableDates();
+      for (Calendar date : dates) {
+        views.add(new MenuAdapter(RestoMenu.this, date));
       }
     }
 
+    public void refresh () {
+      for (MenuAdapter adapter : views) {
+        adapter.refresh();
+      }
+    }
+    
     @Override
     public int getCount() {
       return views.size();
@@ -183,9 +134,9 @@ public class RestoMenu extends Activity {
      */
     @Override
     public Object instantiateItem(View collection, int position) {
-      ((ViewPager) collection).addView(views.get(position), 0);
+      ((ViewPager) collection).addView(views.get(position).getView(), 0);
 
-      return views.get(position);
+      return views.get(position).getView();
     }
 
     /**
@@ -232,34 +183,15 @@ public class RestoMenu extends Activity {
     public void startUpdate(View arg0) {
     }
 
-    private boolean isTodayWithOffset(Calendar date, int offset) {
-      Calendar ref = Calendar.getInstance();
-
-      ref.add(Calendar.DATE, offset);
-      return ref.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH);
-    }
-
-    private String getStringFromCalendar(Calendar calendar) {
-
-      if (isTodayWithOffset(calendar, 0)) {
-        return RestoMenu.this.getString(R.string.today);
-      } else if (isTodayWithOffset(calendar, 1)) {
-        return RestoMenu.this.getString(R.string.tomorrow);
-      }
-      return new SimpleDateFormat("EEEE dd MMM").format(calendar.getTime());
-    }
-
     public TextView getTab(final int position, SwipeyTabs root) {
-      Log.i("[RestoMenu]", "Getting tab");
-      TextView title = (TextView) LayoutInflater.from(RestoMenu.this).inflate(R.layout.tab_indicator, root, false);
-      title.setText(getStringFromCalendar(dates.get(position)));
-      
+      TextView title = views.get(position).getTab();
       title.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(final View v) {
-					pager.setCurrentItem(position);
-				}
-			});
+
+        @Override
+        public void onClick(final View v) {
+          pager.setCurrentItem(position);
+        }
+      });
       return title;
     }
   }
@@ -280,10 +212,8 @@ public class RestoMenu extends Activity {
         startActivity(new Intent(this, RestoMap.class));
         return true;
       case R.id.clear_menu_cache:
-        provider.clearCaches();
-        MenuPagerAdapter adapter = new MenuPagerAdapter();
-        pager.setAdapter(adapter);
-        tabs.setAdapter(adapter);
+        clearCaches();
+        adapter.refresh();
         return true;
       case R.id.show_about:
         showAboutDialog();
@@ -341,16 +271,6 @@ public class RestoMenu extends Activity {
     } catch (NameNotFoundException e) {
       // Won't happen, versionCode is present in the manifest!
       return 0;
-    }
-  }
-
-  public class MenuUpdateReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context cntxt, Intent intent) {
-      MenuPagerAdapter adapter = new MenuPagerAdapter();
-      pager.setAdapter(adapter);
-      tabs.setAdapter(adapter);
     }
   }
 }

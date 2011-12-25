@@ -19,4 +19,7 @@
     <string name="legend_star">* : Not available in resto Dierengeneeskunde, Boudewijn &amp; St. Jansvest</string>
     <string name="legend_hash"># : Not available in resto Boudewijn</string>
     <string name="legend_swiping">You can see the menu for the coming days by swiping to the left.</string>
+
+    <string name="menu_unavailable">Sorry, this menu is currently not available. Please try again later.</string>
+    <string name="no_restos_found">Sorry, no resto\'s could be retrieved from the online service. Please retry later.</string>
 </resources>

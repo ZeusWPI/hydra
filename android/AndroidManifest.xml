@@ -15,9 +15,14 @@
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
-    <service android:name=".data.MenuProvider">
+    <service android:name=".data.services.MenuService">
       <intent-filter>
-        <action android:name="be.ugent.zeus.resto.client.data.MenuProvider" />
+        <action android:name="be.ugent.zeus.resto.client.data.services.MenuService" />
+      </intent-filter>
+    </service>
+    <service android:name=".data.services.RestoService">
+      <intent-filter>
+        <action android:name="be.ugent.zeus.resto.client.data.services.RestoService" />
       </intent-filter>
     </service>
     <uses-library android:name="com.google.android.maps" />

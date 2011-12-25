@@ -1,4 +1,4 @@
-package be.ugent.zeus.resto.client.data;
+package be.ugent.zeus.resto.client.data.caches;
 
 import android.util.Log;
 
