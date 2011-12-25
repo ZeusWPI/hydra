@@ -11,7 +11,7 @@ def get_menu_page (week):
 	f = urllib.urlopen("http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm" % week)
 	return f.read()
 
-def get_meat_and_price (meat):
+def parse_single_meat_and_price(meat):
 	# splitting on '-' doesn't work, FAIL!
 	content = meat.content.strip()
 	name = content[8:]
@@ -25,6 +25,16 @@ def get_meat_and_price (meat):
 	result['price'] = content[:8]
 	result['name'] = name.strip()
 	return result
+
+def get_meat_and_price (meat):
+	meals = meat.xpathEval(".//p")
+	if len(meals) == 0:
+		return [parse_single_meat_and_price(meat)]
+	else:
+		result = []
+		for meal in meals:
+			result.append(parse_single_meat_and_price(meal))
+		return result
 
 def parse_menu_from_html (page):
 	print "Parsing weekmenu webpage to an object tree"
@@ -58,17 +68,17 @@ def parse_menu_from_html (page):
 				menu[day]['open'] = True
 				menu[day]['soup'] = {'name' : fields[1].content.strip()}
 				menu[day]['meat'] = []
-				menu[day]['meat'].append(get_meat_and_price(fields[2]))
+				menu[day]['meat'].extend(get_meat_and_price(fields[2]))
 				menu[day]['vegetables'] = []
 				menu[day]['vegetables'].append(fields[3].content.strip())
 		elif len(fields[1].content.strip()) != 0 and menu[day]['open']:
 			# second row of a day
 			menu[day]['soup']['price'] = fields[1].content.strip()
-			menu[day]['meat'].append(get_meat_and_price(fields[2]))
+			menu[day]['meat'].extend(get_meat_and_price(fields[2]))
 			menu[day]['vegetables'].append(fields[3].content.strip())
 		elif len(fields[2].content.strip()) != 0 and menu[day]['open']:
 			# the third and forth row of a day (sometimes it's empty)
-			menu[day]['meat'].append(get_meat_and_price(fields[2]))
+			menu[day]['meat'].extend(get_meat_and_price(fields[2]))
 	return menu
 
 def dump_menu_to_file (week, menu):
