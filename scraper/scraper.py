@@ -76,7 +76,7 @@ def dump_menu_to_file (week, menu):
 	path = './resto/api/%s/week/' % API_VERSION
 	if not os.path.isdir(path):
 		os.makedirs(path)
-	f = open ('%s/%02d.json' % (path, week), 'w')
+	f = open ('%s/%s.json' % (path, week), 'w')
 	json.dump(menu, f, sort_keys=True, indent=4)
 	f.close()
 
