@@ -48,6 +48,7 @@ public class MenuAdapter extends ResultReceiver {
     throbber.setIndeterminate(true);
 
     layout.removeAllViews();
+    layout.setGravity(Gravity.CENTER);
     layout.addView(throbber, 50, 50);
 
     load(date);
@@ -110,16 +111,19 @@ public class MenuAdapter extends ResultReceiver {
             title.setText(R.string.menu_unavailable);
             title.setTextSize(20);
 
+            layout.setGravity(Gravity.CENTER);
             layout.addView(warning);
             layout.addView(title);
           } else {
             if (menu.open) {
               // add a view for the menu
+              layout.setGravity(Gravity.TOP);
               layout.addView(new MenuView(context, menu));
             } else {
               // add the "sorry, we're closed" image
               ImageView warning = new ImageView(context);
               warning.setImageDrawable(context.getResources().getDrawable(R.drawable.closed));
+              layout.setGravity(Gravity.CENTER);
               layout.addView(warning);
             }
           }
