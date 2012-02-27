@@ -52,5 +52,5 @@ This resource contains the menu's for a whole week. The number in the URL is the
 
 Copyright
 ---------
-The images are copyright of @jelledelaender and @ccaroline.
+Some images are copyright of @jelledelaender and @ccaroline. The icons on the main view are awesome icons by glyphish ( http://glyphish.com ).
 The menu data is property of Ghent University. We don't guarantee the correctness or completeness of the data.

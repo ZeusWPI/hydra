@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : styles.xml.xml
+    Created on : February 27, 2012, 10:28 PM
+    Author     : blackskad
+    Description:
+        Purpose of the document follows.
+-->
+
+<resources>
+	<style name="DashboardButton">
+		<item name="android:layout_gravity">center_vertical</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:gravity">center_horizontal</item>
+		<item name="android:drawablePadding">2dp</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">#0A1E60</item>
+		<item name="android:background">@null</item>
+	</style>
+</resources>

@@ -2,8 +2,17 @@
 <resources>
     <drawable name="red">#F00</drawable>
 
-    <string name="app_name">Resto Menu</string>
-
+    <string name="app_name">Heracles</string>
+    
+    <!-- string for buttons on the dashboard -->
+    <string name="btn_news">Nieuws</string>
+    <string name="btn_calendar">Kalender</string>
+    <string name="btn_locations">Locaties</string>
+    <string name="btn_menu">Menu</string>
+    <string name="btn_gsr">GSR</string>
+    <string name="btn_schamper">Schamper</string>
+    
+    <!-- other stuff -->
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
 
