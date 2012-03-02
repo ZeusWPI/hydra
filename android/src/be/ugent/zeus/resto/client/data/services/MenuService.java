@@ -17,12 +17,8 @@ import org.json.JSONObject;
  */
 public class MenuService extends HTTPIntentService {
 
-  public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
   public static final String DATE_EXTRA = "date";
   public static final String MENU = "menu";
-  public static final int STATUS_STARTED = 0x1;
-  public static final int STATUS_ERROR = 0x2;
-  public static final int STATUS_FINISHED = 0x3;
   /**
    * Location of the menu's for a certain week. '%s' has to be replaced by the
    * week of the year as returned by c.get(Calendar.WEEK_OF_YEAR).

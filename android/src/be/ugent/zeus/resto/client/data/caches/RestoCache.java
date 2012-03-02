@@ -17,7 +17,7 @@ public class RestoCache extends Cache<Resto> {
     super(restoCacheDir);
   }
 
-  public static RestoCache getInstance(Context context) {
+  public static synchronized RestoCache getInstance(Context context) {
     if (cache == null) {
       File cacheDir = context.getCacheDir();
       File restoCacheDir = new File(cacheDir, "resto");

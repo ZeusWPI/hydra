@@ -17,7 +17,7 @@ public class MenuCache extends Cache<Menu> {
     super(menuCacheDir);
   }
 
-  public static MenuCache getInstance(Context context) {
+  public static synchronized MenuCache getInstance(Context context) {
     if (cache == null) {
       File cacheDir = context.getCacheDir();
       File menuCacheDir = new File(cacheDir, "menu");

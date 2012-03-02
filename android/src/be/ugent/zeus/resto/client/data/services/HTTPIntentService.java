@@ -16,6 +16,12 @@ import org.json.JSONObject;
  * @author Thomas Meire
  */
 public abstract class HTTPIntentService extends IntentService {
+  public static final int STATUS_STARTED = 0x1;
+  public static final int STATUS_ERROR = 0x2;
+  public static final int STATUS_FINISHED = 0x3;
+
+  public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
+
   public HTTPIntentService (String name) {
     super(name);
   }

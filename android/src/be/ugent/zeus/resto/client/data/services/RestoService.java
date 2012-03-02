@@ -16,10 +16,7 @@ import org.json.JSONArray;
 public class RestoService extends HTTPIntentService {
 
   private static final String RESTO_URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/list.json";
-  public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
-  public static final int STATUS_STARTED = 0x1;
-  public static final int STATUS_ERROR = 0x2;
-  public static final int STATUS_FINISHED = 0x3;
+
   private RestoCache cache;
 
   public RestoService() {
