@@ -6,14 +6,14 @@
     android:layout_height="fill_parent"
     android:background="#11FFB300">
 
-    <Button android:id="@+id/home_btn_news"
+<!--    <Button android:id="@+id/home_btn_news"
         style="@style/DashboardButton"
         android:text="@string/btn_news"
         android:drawableTop="@drawable/newspaper" />
     <Button android:id="@+id/home_btn_calendar"
         style="@style/DashboardButton"
         android:text="@string/btn_calendar"
-        android:drawableTop="@drawable/calendar" />
+        android:drawableTop="@drawable/calendar" /> -->
     <Button android:id="@+id/home_btn_locations"
         style="@style/DashboardButton"
         android:text="@string/btn_locations"
@@ -22,9 +22,9 @@
         style="@style/DashboardButton"
         android:text="@string/btn_menu"
         android:drawableTop="@drawable/fork_and_knife" />
-    <Button android:id="@+id/home_btn_gsr"
+<!--    <Button android:id="@+id/home_btn_gsr"
         style="@style/DashboardButton"
-        android:text="@string/btn_gsr" />
+        android:text="@string/btn_gsr" /> -->
     <Button android:id="@+id/home_btn_schamper"
         style="@style/DashboardButton"
         android:text="@string/btn_schamper" />
