@@ -10,7 +10,6 @@ import java.io.File;
  */
 public class MenuCache extends Cache<Menu> {
 
-  // fixme: do we need a map of caches here?
   private static MenuCache cache;
 
   private MenuCache(File menuCacheDir) {

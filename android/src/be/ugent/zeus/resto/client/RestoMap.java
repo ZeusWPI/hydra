@@ -6,6 +6,7 @@ import android.os.ResultReceiver;
 import android.widget.Toast;
 import be.ugent.zeus.resto.client.data.Resto;
 import be.ugent.zeus.resto.client.data.caches.RestoCache;
+import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
 import be.ugent.zeus.resto.client.data.services.MenuService;
 import be.ugent.zeus.resto.client.data.services.RestoService;
 import be.ugent.zeus.resto.client.ui.map.RestoOverlay;
@@ -86,7 +87,7 @@ public class RestoMap extends MapActivity {
       if (!synced) {
         // start the intent service to fetch the list of resto's
         Intent intent = new Intent(this, RestoService.class);
-        intent.putExtra(MenuService.RESULT_RECEIVER_EXTRA, receiver);
+        intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
         startService(intent);
       } else {
         Toast.makeText(RestoMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();

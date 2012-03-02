@@ -21,6 +21,12 @@
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
+    <activity android:name=".SchamperDaily">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
     <service android:name=".data.services.MenuService">
       <intent-filter>
         <action android:name="be.ugent.zeus.resto.client.data.services.MenuService" />
@@ -29,6 +35,11 @@
     <service android:name=".data.services.RestoService">
       <intent-filter>
         <action android:name="be.ugent.zeus.resto.client.data.services.RestoService" />
+      </intent-filter>
+    </service>
+    <service android:name=".data.services.SchamperDailyService">
+      <intent-filter>
+        <action android:name="be.ugent.zeus.resto.client.data.services.SchamperDailyService" />
       </intent-filter>
     </service>
     <uses-library android:name="com.google.android.maps" />
