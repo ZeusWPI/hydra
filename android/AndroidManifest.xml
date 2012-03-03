@@ -35,6 +35,12 @@
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
+    <activity android:name=".SchamperDailyItem">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
     <service android:name=".data.services.MenuService">
       <intent-filter>
         <action android:name="be.ugent.zeus.resto.client.data.services.MenuService" />
