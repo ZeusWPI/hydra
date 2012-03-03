@@ -31,7 +31,7 @@ public class Heracles extends Activity {
                 startActivity(new Intent(Heracles.this, RestoMenu.class));
               }
             });
-    findViewById(R.id.home_btn_menu).setOnClickListener(
+    findViewById(R.id.home_btn_schamper).setOnClickListener(
             new View.OnClickListener() {
 
               public void onClick(View view) {

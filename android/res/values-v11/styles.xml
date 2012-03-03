@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+  <style name="Theme.Heracles.Light" parent="@android:style/Theme.Holo.Light">
+    <item name="android:actionBarStyle">@style/Heracles.ActionBar</item>
+    <item name="android:windowBackground">@color/ugent_yellow_light</item>
+    <item name="android:actionOverflowButtonStyle">@style/Heracles.ActionButton.Overflow</item>
+  </style>
+  <style name="Heracles.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <item name="android:background">@color/ugent_blue_dark</item>
+    <item name="android:textColor">@color/ugent_yellow_light</item>
+    <item name="android:titleTextStyle">@style/Heracles.ActionBar.TitleTextStyle</item>
+  </style>
+  <style name="Heracles.ActionBar.TitleTextStyle" parent="@style/TextAppearance.Holo.Medium">
+    <item name="android:textColor">@color/ugent_yellow_light</item>
+  </style>
+  <style name="Heracles.ActionButton.Overflow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
+    <item name="android:src">@drawable/ic_menu_moreoverflow</item>
+  </style>
+
+  <!-- imported styles from android sdk -->
+  <style name="TextAppearance.Holo.Medium" parent="@android:style/TextAppearance.Medium" />
+  <style name="TextAppearance.Holo.Widget.ActionBar.Title" parent="@style/TextAppearance.Holo.Medium" />
+</resources>

@@ -9,15 +9,14 @@
 		android:id="@+id/tabs"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		zeus:bottomBarColor="#0A1E60"
-    zeus:tabTextColor="#FFB300"
+    android:background="@color/ugent_blue_light"
+		zeus:bottomBarColor="@color/ugent_blue_dark"
+    zeus:tabTextColor="@color/ugent_yellow_dark"
 		zeus:bottomBarHeight="3dip"
-		zeus:tabIndicatorHeight="3dip"
-    android:background="#110A1E60" />
+		zeus:tabIndicatorHeight="3dip" />
   
   <android.support.v4.view.ViewPager
     android:id="@+id/pager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#11FFB300" />
+    android:layout_height="match_parent" />
 </LinearLayout>

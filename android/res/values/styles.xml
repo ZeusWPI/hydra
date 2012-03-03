@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-    Document   : styles.xml.xml
-    Created on : February 27, 2012, 10:28 PM
-    Author     : blackskad
-    Description:
-        Purpose of the document follows.
--->
-
 <resources>
+  <style name="Theme.Heracles.Light" parent="@android:style/Theme.Light"/>
 	<style name="DashboardButton">
 		<item name="android:layout_gravity">center_vertical</item>
 		<item name="android:layout_width">wrap_content</item>

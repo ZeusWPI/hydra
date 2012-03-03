@@ -2,7 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   android:versionCode="8" android:versionName="1.7"
   package="be.ugent.zeus.resto.client">
-  <application android:icon="@drawable/logo" android:label="Heracles" android:theme="@android:style/Theme.Light">
+
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+  <uses-sdk android:targetSdkVersion="12" />
+  <uses-sdk android:minSdkVersion="8" />
+
+  <application android:icon="@drawable/logo" android:label="Heracles" android:theme="@style/Theme.Heracles.Light">
     <activity android:name=".Heracles">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -15,7 +23,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
-    <activity android:name=".RestoMap" android:theme="@android:style/Theme.NoTitleBar">
+    <activity android:name=".RestoMap">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
@@ -44,8 +52,4 @@
     </service>
     <uses-library android:name="com.google.android.maps" />
   </application>
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-  <uses-sdk android:minSdkVersion="8" />
 </manifest>

@@ -3,8 +3,7 @@
 <be.ugent.zeus.resto.client.ui.DashboardLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#11FFB300">
+    android:layout_height="fill_parent">
 
 <!--    <Button android:id="@+id/home_btn_news"
         style="@style/DashboardButton"
@@ -17,7 +16,7 @@
     <Button android:id="@+id/home_btn_locations"
         style="@style/DashboardButton"
         android:text="@string/btn_locations"
-        android:drawableTop="@drawable/flag" />
+        android:drawableTop="@drawable/ic_action_flag" />
     <Button android:id="@+id/home_btn_menu"
         style="@style/DashboardButton"
         android:text="@string/btn_menu"

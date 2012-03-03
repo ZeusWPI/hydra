@@ -59,7 +59,7 @@ public class RestoMenu extends Activity {
       editor.commit();
     }
 
-    setContentView(R.layout.main);
+    setContentView(R.layout.menu);
 
     pager = (ViewPager) findViewById(R.id.pager);
     tabs = (SwipeyTabs) findViewById(R.id.tabs);
