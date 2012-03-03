@@ -7,7 +7,6 @@ import android.widget.Toast;
 import be.ugent.zeus.resto.client.data.Resto;
 import be.ugent.zeus.resto.client.data.caches.RestoCache;
 import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
-import be.ugent.zeus.resto.client.data.services.MenuService;
 import be.ugent.zeus.resto.client.data.services.RestoService;
 import be.ugent.zeus.resto.client.ui.map.RestoOverlay;
 import com.google.android.maps.GeoPoint;
@@ -21,7 +20,7 @@ import java.util.List;
  *
  * @author Thomas Meire
  */
-public class RestoMap extends MapActivity {
+public class BuildingMap extends MapActivity {
 
   private MapView map;
   private MyLocationOverlay myLocOverlay;
@@ -31,6 +30,7 @@ public class RestoMap extends MapActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    setTitle(R.string.title_buildings);
     setContentView(R.layout.restomap);
 
     map = (MapView) findViewById(R.id.mapview);
@@ -77,11 +77,11 @@ public class RestoMap extends MapActivity {
   }
 
   private void addRestoOverlay(boolean synced) {
-    final List<Resto> restos = RestoCache.getInstance(RestoMap.this).getAll();
+    final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
 
     if (restos.size() > 0) {
       List<Overlay> overlays = map.getOverlays();
-      overlays.add(new RestoOverlay(RestoMap.this, restos));
+      overlays.add(new RestoOverlay(BuildingMap.this, restos));
       map.postInvalidate();
     } else {
       if (!synced) {
@@ -90,7 +90,7 @@ public class RestoMap extends MapActivity {
         intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
         startService(intent);
       } else {
-        Toast.makeText(RestoMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
+        Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
       }
     }
   }

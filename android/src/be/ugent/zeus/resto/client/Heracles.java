@@ -20,7 +20,7 @@ public class Heracles extends Activity {
             new View.OnClickListener() {
 
               public void onClick(View view) {
-                startActivity(new Intent(Heracles.this, RestoMap.class));
+                startActivity(new Intent(Heracles.this, BuildingMap.class));
               }
             });
 
@@ -38,16 +38,5 @@ public class Heracles extends Activity {
                 startActivity(new Intent(Heracles.this, SchamperDaily.class));
               }
             });
-    // start the intent service to fetch the list of resto's
-//    Intent intent = new Intent(this, SchamperDailyService.class);
-//    intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
-//    startService(intent);
   }
-
-/*  private class SchamperResultReceiver extends ResultReceiver {
-
-    public SchamperResultReceiver() {
-      super(null);
-    }
-  }*/
 }

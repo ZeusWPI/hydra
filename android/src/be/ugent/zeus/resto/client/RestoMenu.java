@@ -59,6 +59,7 @@ public class RestoMenu extends Activity {
       editor.commit();
     }
 
+    setTitle(R.string.title_menu);
     setContentView(R.layout.menu);
 
     pager = (ViewPager) findViewById(R.id.pager);
@@ -209,7 +210,7 @@ public class RestoMenu extends Activity {
     switch (item.getItemId()) {
       case R.id.show_map:
         // trigger intent for RestoMap Activity
-        startActivity(new Intent(this, RestoMap.class));
+        startActivity(new Intent(this, BuildingMap.class));
         return true;
       case R.id.clear_menu_cache:
         clearCaches();

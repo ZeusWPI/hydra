@@ -69,9 +69,17 @@ public class RSSParser {
         return channel;
       }
 
-      NodeList children = rss.getFirstChild().getChildNodes();
-      for (int i = 0; i < children.getLength(); i++) {
-        Node child = children.item(i);
+      // get the channel node
+      NodeList children = rss.getChildNodes();
+      int i = 0;
+      Node channelNode = children.item(0);              
+      while (!channelNode.getNodeName().equals("channel")) {
+        channelNode = children.item(++i);
+      }
+
+      children = channelNode.getChildNodes();
+      for (int j = 0; j < children.getLength(); j++) {
+        Node child = children.item(j);
 
         if ("item".equals(child.getNodeName())) {
           channel.items.add(createItem(child));
@@ -95,6 +103,7 @@ public class RSSParser {
     } catch (IOException e) {
       Log.e("[RSSParser]", "I/O exeption: " + e.getMessage());
     }
+    Log.i("[RSSParser]", "Parsed channel '" + channel.title + "' with " + channel.items.size());
     return channel;
   }
 

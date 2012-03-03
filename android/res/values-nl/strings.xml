@@ -12,6 +12,11 @@
     <string name="btn_gsr">GSR</string>
     <string name="btn_schamper">Schamper</string>
     
+    <!-- Activity titles -->
+    <string name="title_menu">Resto Menu</string>
+    <string name="title_buildings">UGent Gebouwen</string>
+    <string name="title_schamper">Schamper Daily</string>
+    
     <!-- other stuff -->
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
