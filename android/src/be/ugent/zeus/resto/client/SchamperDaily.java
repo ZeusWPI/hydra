@@ -24,6 +24,9 @@ import be.ugent.zeus.resto.client.ui.schamper.ChannelAdapter;
  */
 public class SchamperDaily extends ListActivity {
 
+  private static final long REFRESH_TIMEOUT = 24 * 60 * 60 * 1000;
+  private ChannelCache cache = ChannelCache.getInstance(SchamperDaily.this);
+
   @Override
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
@@ -41,12 +44,30 @@ public class SchamperDaily extends ListActivity {
     });
     getListView().addFooterView(footer);
 
-    Intent intent = new Intent(this, SchamperDailyService.class);
-    intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
-    startService(intent);
+    // if feed is older than 1 day or does not exist, refresh
+    long age = cache.age("schamper");
+    if (age == -1 || age > REFRESH_TIMEOUT) {
+      Intent intent = new Intent(this, SchamperDailyService.class);
+      intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
+      startService(intent);
+    } else {
+      show();
+    }
   }
-  
-  
+
+  private void show() {
+    Channel channel = cache.get("schamper");
+
+    Log.i("[SchamperDaily]", "Retrieved channel '" + channel.title + "' with " + channel.items.size() + " items");
+    if (channel != null) {
+      setTitle(channel.title);
+
+      ArrayAdapter<Item> adapter = new ChannelAdapter(SchamperDaily.this, channel);
+      SchamperDaily.this.setListAdapter(adapter);
+    } else {
+      Log.e("[SchamperDaily]", "Noooooooo!!!! ");
+    }
+  }
 
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -74,18 +95,7 @@ public class SchamperDaily extends ListActivity {
           SchamperDaily.this.runOnUiThread(new Runnable() {
 
             public void run() {
-              ChannelCache cache = ChannelCache.getInstance(SchamperDaily.this);
-              Channel channel = cache.get("schamper");
-
-              Log.i("[SchamperDaily]", "Retrieved channel '" + channel.title + "' with " + channel.items.size() + " items");
-              if (channel != null) {
-                setTitle(channel.title);
-
-                ArrayAdapter<Item> adapter = new ChannelAdapter(SchamperDaily.this, channel);
-                SchamperDaily.this.setListAdapter(adapter);
-              } else {
-                Log.e("[SchamperDaily]", "Noooooooo!!!! ");
-              }
+              show();
             }
           });
           break;

@@ -32,6 +32,19 @@ public class Cache<T extends Serializable> {
       Log.i("[Cache]", "Found cached file " + f.getAbsolutePath());
     }
   }
+  
+  /**
+   * 
+   * @param key
+   * @return the age as milliseconds since 1970 or -1 of not found
+   */
+  public long age (String key) {
+    File cached = new File(dir, key);
+    if (cached.exists()) {
+      cached.lastModified();
+    }    
+    return -1;
+  }
 
   public T get(String key) {
     long start = System.currentTimeMillis();
