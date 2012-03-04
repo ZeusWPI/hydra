@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
  */
 public class RSSParser {
 
-  private Item createItem(Node node) {
+  private Item createItem(Node node, String baseURL) {
     Item item = new Item();
 
     NodeList children = node.getChildNodes();
@@ -37,6 +37,10 @@ public class RSSParser {
         item.comments = child.getTextContent();
       } else if ("description".equals(child.getNodeName())) {
         item.description = child.getTextContent();
+        // dirty hack to avoid links without protocol & hostname
+        if (item.description.contains("href=\"/")) {
+          item.description = item.description.replace("href=\"/", "href=\"" + baseURL + "/");
+        }
       } else if ("dc:creator".equals(child.getNodeName())) {
         item.creator = child.getTextContent();
       } else if ("link".equals(child.getNodeName())) {
@@ -69,6 +73,12 @@ public class RSSParser {
         return channel;
       }
 
+      String baseURL = "";
+      Node base = rss.getAttributes().getNamedItem("xml:base");
+      if (base != null) {
+        baseURL = base.getTextContent();
+      }
+
       // get the channel node
       NodeList children = rss.getChildNodes();
       int i = 0;
@@ -82,7 +92,7 @@ public class RSSParser {
         Node child = children.item(j);
 
         if ("item".equals(child.getNodeName())) {
-          channel.items.add(createItem(child));
+          channel.items.add(createItem(child, baseURL));
         } else if ("title".equals(child.getNodeName())) {
           channel.title = child.getTextContent();
         } else if ("description".equals(child.getNodeName())) {
