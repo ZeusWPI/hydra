@@ -18,7 +18,7 @@ import be.ugent.zeus.resto.client.data.rss.Item;
 public class ChannelAdapter extends ArrayAdapter<Item> {
 
   public ChannelAdapter(Context context, Channel channel) {
-    super(context, R.layout.schamper_item, channel.items);
+    super(context, R.layout.schamper_list_item, channel.items);
   }
 
   @Override
@@ -27,7 +27,7 @@ public class ChannelAdapter extends ArrayAdapter<Item> {
     View row = convertView;
     if (row == null) {
       LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      row = inflater.inflate(R.layout.schamper_item, parent, false);
+      row = inflater.inflate(R.layout.schamper_list_item, parent, false);
     }
 
     Item item = getItem(position);
@@ -35,6 +35,7 @@ public class ChannelAdapter extends ArrayAdapter<Item> {
     TextView title = (TextView) row.findViewById(R.id.schamper_item_title);
     title.setText(item.title);
     
+    // TODO: add proper i18n
     TextView date = (TextView) row.findViewById(R.id.schamper_item_date);
     date.setText("By " + item.creator + " on " + item.pubDate);
     return row;
