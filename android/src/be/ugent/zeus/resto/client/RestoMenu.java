@@ -208,10 +208,6 @@ public class RestoMenu extends Activity {
   public boolean onOptionsItemSelected(MenuItem item) {
     // Handle item selection
     switch (item.getItemId()) {
-      case R.id.show_map:
-        // trigger intent for RestoMap Activity
-        startActivity(new Intent(this, BuildingMap.class));
-        return true;
       case R.id.clear_menu_cache:
         clearCaches();
         adapter.refresh();

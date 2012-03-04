@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/show_map"
-          android:icon="@android:drawable/ic_menu_mapmode"
-          android:title="@string/show_map" />
     <item android:id="@+id/clear_menu_cache"
           android:icon="@drawable/ic_menu_refresh"
           android:title="@string/refresh" />
