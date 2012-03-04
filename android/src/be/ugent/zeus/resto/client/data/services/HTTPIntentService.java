@@ -4,10 +4,12 @@ package be.ugent.zeus.resto.client.data.services;
 import android.app.IntentService;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Date;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.DateUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,6 +24,8 @@ public abstract class HTTPIntentService extends IntentService {
 
   public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
 
+  private static final String RFC1123_DATE_FORMAT = "";
+  
   public HTTPIntentService (String name) {
     super(name);
   }
@@ -30,6 +34,14 @@ public abstract class HTTPIntentService extends IntentService {
     HttpClient httpclient = new DefaultHttpClient();
     HttpGet request = new HttpGet(url);
 
+    return httpclient.execute(request, new BasicResponseHandler());
+  }
+
+  protected String fetch(String url, long lastModified) throws Exception {
+    HttpGet request = new HttpGet(url);
+    request.setHeader("If-Modified-Since", DateUtils.formatDate(new Date(lastModified)));
+    
+    HttpClient httpclient = new DefaultHttpClient();
     return httpclient.execute(request, new BasicResponseHandler());
   }
 

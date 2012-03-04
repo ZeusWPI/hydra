@@ -14,6 +14,7 @@ import be.ugent.zeus.resto.client.util.RSSParser;
  */
 public class SchamperDailyService extends HTTPIntentService {
 
+  private static final String SCHAMPER_CACHE_KEY = "schamper";
   private static final String SCHAMPER_RSS_URL = "http://www.schamper.ugent.be/dagelijks";
   private ChannelCache cache;
 
@@ -31,10 +32,12 @@ public class SchamperDailyService extends HTTPIntentService {
   private void sync() {
     Log.i("[SchamperDaily]", "Fetching schamper feed from " + SCHAMPER_RSS_URL);
 
+    long lastModified = cache.lastModified(SCHAMPER_CACHE_KEY);
+    
     try {
       RSSParser parser = new RSSParser();
-      Channel feed = parser.parse(fetch(SCHAMPER_RSS_URL));
-      cache.put("schamper", feed);
+      Channel feed = parser.parse(fetch(SCHAMPER_RSS_URL, lastModified));
+      cache.put(SCHAMPER_CACHE_KEY, feed);
     } catch (Exception e) {
       Log.e("[SchamperDaily]", "An exception occured while parsing the schamper feed!");
     }
@@ -48,7 +51,7 @@ public class SchamperDailyService extends HTTPIntentService {
     }
 
     // get the menu from the local cache
-    Channel channel = cache.get("schamper");
+    Channel channel = cache.get(SCHAMPER_CACHE_KEY);
 
     // if not in the cache, sync it from the rest service
     if (channel == null) {
