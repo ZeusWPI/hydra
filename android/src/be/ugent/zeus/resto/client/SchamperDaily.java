@@ -45,7 +45,7 @@ public class SchamperDaily extends ListActivity {
     getListView().addFooterView(footer);
 
     // if feed is older than 1 day or does not exist, refresh
-    long age = cache.age("schamper");
+    long age = cache.lastModified("schamper");
     if (age == -1 || age > REFRESH_TIMEOUT) {
       Intent intent = new Intent(this, SchamperDailyService.class);
       intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());

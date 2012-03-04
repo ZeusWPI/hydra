@@ -24,8 +24,6 @@ public abstract class HTTPIntentService extends IntentService {
 
   public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
 
-  private static final String RFC1123_DATE_FORMAT = "";
-  
   public HTTPIntentService (String name) {
     super(name);
   }
