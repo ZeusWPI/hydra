@@ -1,7 +1,6 @@
 package be.ugent.zeus.resto.client.ui.schamper;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 import be.ugent.zeus.resto.client.R;
 import be.ugent.zeus.resto.client.data.rss.Channel;
 import be.ugent.zeus.resto.client.data.rss.Item;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -23,7 +23,6 @@ public class ChannelAdapter extends ArrayAdapter<Item> {
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
-    Log.i("[ChannelAdapter]", "Getting view " + position + "...");
     View row = convertView;
     if (row == null) {
       LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -35,9 +34,10 @@ public class ChannelAdapter extends ArrayAdapter<Item> {
     TextView title = (TextView) row.findViewById(R.id.schamper_item_title);
     title.setText(item.title);
     
-    // TODO: add proper i18n
+    String postedBy = getContext().getResources().getString(R.string.posted_by);
+
     TextView date = (TextView) row.findViewById(R.id.schamper_item_date);
-    date.setText("By " + item.creator + " on " + item.pubDate);
+    date.setText(String.format(postedBy, item.creator, new SimpleDateFormat("EEEE dd MMM yyyy hh:mm").format(item.pubDate)));
     return row;
   }
 }

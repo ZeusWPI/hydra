@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,7 +28,7 @@ import be.ugent.zeus.resto.client.ui.schamper.ChannelAdapter;
 public class SchamperDaily extends ListActivity {
 
   private static final long REFRESH_TIMEOUT = 24 * 60 * 60 * 1000;
-  private ChannelCache cache = ChannelCache.getInstance(SchamperDaily.this);
+  private ChannelCache cache;
 
   @Override
   public void onCreate(Bundle icicle) {
@@ -44,22 +47,31 @@ public class SchamperDaily extends ListActivity {
     });
     getListView().addFooterView(footer);
 
+    cache = ChannelCache.getInstance(SchamperDaily.this);
+
     // if feed is older than 1 day or does not exist, refresh
-    long age = cache.lastModified("schamper");
+    long age = System.currentTimeMillis() - cache.lastModified(ChannelCache.SCHAMPER);
     if (age == -1 || age > REFRESH_TIMEOUT) {
-      Intent intent = new Intent(this, SchamperDailyService.class);
-      intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
-      startService(intent);
+      refresh(false);
     } else {
       show();
     }
   }
 
-  private void show() {
-    Channel channel = cache.get("schamper");
+  private void refresh(boolean force) {
+    if (force) {
+      cache.invalidate(ChannelCache.SCHAMPER);
+    }
+    Intent intent = new Intent(this, SchamperDailyService.class);
+    intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
+    startService(intent);
+  }
 
-    Log.i("[SchamperDaily]", "Retrieved channel '" + channel.title + "' with " + channel.items.size() + " items");
+  private void show() {
+    Channel channel = cache.get(ChannelCache.SCHAMPER);
+
     if (channel != null) {
+      Log.i("[SchamperDaily]", "Retrieved channel '" + channel.title + "' with " + channel.items.size() + " items");
       setTitle(channel.title);
 
       ArrayAdapter<Item> adapter = new ChannelAdapter(SchamperDaily.this, channel);
@@ -67,6 +79,17 @@ public class SchamperDaily extends ListActivity {
     } else {
       Log.e("[SchamperDaily]", "Noooooooo!!!! ");
     }
+  }
+
+  public void onOptionRefresh(MenuItem item) {
+    refresh(true);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.schamper_daily, menu);
+    return true;
   }
 
   @Override

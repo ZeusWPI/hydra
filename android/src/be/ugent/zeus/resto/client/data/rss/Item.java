@@ -3,6 +3,7 @@ package be.ugent.zeus.resto.client.data.rss;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class Item implements Serializable {
   public String link;
   public String description;
   public String comments;
-  public String pubDate;
+  public Date pubDate;
   public String creator;
   public List<Category> categories = new ArrayList<Category>();
   

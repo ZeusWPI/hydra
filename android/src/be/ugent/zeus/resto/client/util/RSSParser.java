@@ -6,6 +6,9 @@ import be.ugent.zeus.resto.client.data.rss.Channel;
 import be.ugent.zeus.resto.client.data.rss.Item;
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
@@ -23,6 +26,8 @@ import org.xml.sax.SAXException;
  * @author Thomas Meire
  */
 public class RSSParser {
+
+  private static final SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z");
 
   private Item createItem(Node node, String baseURL) {
     Item item = new Item();
@@ -46,8 +51,12 @@ public class RSSParser {
       } else if ("link".equals(child.getNodeName())) {
         item.link = child.getTextContent();
       } else if ("pubDate".equals(child.getNodeName())) {
-        // TODO: parse this to a proper Date object
-        item.pubDate = child.getTextContent();
+        // Parse date in format "Thu, 01 Mar 2012 22:11:17 +0100"
+        try {
+          item.pubDate = format.parse(child.getTextContent());
+        } catch (ParseException e) {
+          item.pubDate = new Date();
+        }
       } else if ("category".equals(child.getNodeName())) {
         Category category = new Category();
         category.domain = child.getAttributes().getNamedItem("domain").getTextContent();
@@ -82,7 +91,7 @@ public class RSSParser {
       // get the channel node
       NodeList children = rss.getChildNodes();
       int i = 0;
-      Node channelNode = children.item(0);              
+      Node channelNode = children.item(0);
       while (!channelNode.getNodeName().equals("channel")) {
         channelNode = children.item(++i);
       }
@@ -119,26 +128,26 @@ public class RSSParser {
 
   /*
   private static String load() {
-    try {
-      BufferedReader reader = new BufferedReader(new FileReader(new File("/home/blackskad/Downloads/schamper-dailies.rss")));
-
-      String xml = "";
-
-      String line;
-      while ((line = reader.readLine()) != null) {
-        xml += line;
-      }
-      return xml;
-    } catch (Exception e) {
-      return "";
-    }
+  try {
+  BufferedReader reader = new BufferedReader(new FileReader(new File("/home/blackskad/Downloads/schamper-dailies.rss")));
+  
+  String xml = "";
+  
+  String line;
+  while ((line = reader.readLine()) != null) {
+  xml += line;
   }
-
+  return xml;
+  } catch (Exception e) {
+  return "";
+  }
+  }
+  
   public static void main(String[] args) {
-    String xml = load();
-
-    RSSParser parser = new RSSParser();
-    parser.parse(xml);
+  String xml = load();
+  
+  RSSParser parser = new RSSParser();
+  parser.parse(xml);
   }
    * 
    */

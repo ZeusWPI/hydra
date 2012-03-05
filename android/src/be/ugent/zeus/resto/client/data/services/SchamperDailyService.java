@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 import be.ugent.zeus.resto.client.data.caches.ChannelCache;
-import be.ugent.zeus.resto.client.data.rss.Channel;
 import be.ugent.zeus.resto.client.util.RSSParser;
 
 /**
@@ -14,7 +13,7 @@ import be.ugent.zeus.resto.client.util.RSSParser;
  */
 public class SchamperDailyService extends HTTPIntentService {
 
-  private static final String SCHAMPER_CACHE_KEY = "schamper";
+  private static final long REFRESH_TIMEOUT = 24 * 60 * 60 * 1000;
   private static final String SCHAMPER_RSS_URL = "http://www.schamper.ugent.be/dagelijks";
   private ChannelCache cache;
 
@@ -29,15 +28,14 @@ public class SchamperDailyService extends HTTPIntentService {
     cache = ChannelCache.getInstance(this);
   }
 
-  private void sync() {
+  private void sync(long lastModified) {
     Log.i("[SchamperDaily]", "Fetching schamper feed from " + SCHAMPER_RSS_URL);
 
-    long lastModified = cache.lastModified(SCHAMPER_CACHE_KEY);
-    
+    RSSParser parser = new RSSParser();
     try {
-      RSSParser parser = new RSSParser();
-      Channel feed = parser.parse(fetch(SCHAMPER_RSS_URL, lastModified));
-      cache.put(SCHAMPER_CACHE_KEY, feed);
+      String content = (lastModified == -1) ? fetch(SCHAMPER_RSS_URL) : fetch(SCHAMPER_RSS_URL, lastModified);
+
+      cache.put(ChannelCache.SCHAMPER, parser.parse(content));
     } catch (Exception e) {
       Log.e("[SchamperDaily]", "An exception occured while parsing the schamper feed!");
     }
@@ -50,12 +48,10 @@ public class SchamperDailyService extends HTTPIntentService {
       receiver.send(STATUS_STARTED, Bundle.EMPTY);
     }
 
-    // get the menu from the local cache
-    Channel channel = cache.get(SCHAMPER_CACHE_KEY);
+    long lastModified = cache.lastModified(ChannelCache.SCHAMPER);
 
-    // if not in the cache, sync it from the rest service
-    if (channel == null) {
-      sync();
+    if (lastModified == -1 || (System.currentTimeMillis() - lastModified) > REFRESH_TIMEOUT) {
+      sync(lastModified);
     }
 
     // send the result to the receiver

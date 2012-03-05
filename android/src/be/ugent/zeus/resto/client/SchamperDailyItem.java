@@ -6,6 +6,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.data.rss.Item;
+import java.text.SimpleDateFormat;
 
 /**
  * TODO: implement this properly as a fragment, so we can display this a lot
@@ -26,9 +27,10 @@ public class SchamperDailyItem extends Activity {
     TextView title = (TextView) findViewById(R.id.schamper_item_title);
     title.setText(item.title);
     
-    // TODO: add proper i18n
+    String postedBy = getResources().getString(R.string.posted_by);
+
     TextView date = (TextView) findViewById(R.id.schamper_item_date);
-    date.setText("By " + item.creator + " on " + item.pubDate);
+    date.setText(String.format(postedBy, item.creator, new SimpleDateFormat("EEEE dd MMM yyyy hh:mm").format(item.pubDate)));
 
     TextView content = (TextView) findViewById(R.id.schamper_item_content);
     content.setText(Html.fromHtml(item.description));

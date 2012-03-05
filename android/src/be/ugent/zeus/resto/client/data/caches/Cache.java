@@ -25,7 +25,7 @@ public class Cache<T extends Serializable> {
   public Cache(File dir) {
     Log.i("[Cache]", dir.getAbsolutePath());
     if (!dir.exists()) {
-      dir.mkdir();
+      dir.mkdirs();
     }
     this.dir = dir;
     for (File f : dir.listFiles()) {
@@ -90,6 +90,13 @@ public class Cache<T extends Serializable> {
       }
     }
     return cached;
+  }
+
+  public void invalidate(String string) {
+    File cached = new File(dir, string);
+    if (cached.exists()) {
+      cached.delete();
+    }
   }
 
   public void clear() {

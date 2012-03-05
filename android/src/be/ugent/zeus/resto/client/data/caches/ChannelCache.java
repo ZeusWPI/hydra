@@ -11,6 +11,8 @@ import java.io.File;
  */
 public class ChannelCache extends Cache<Channel>{
   
+  public static final String SCHAMPER = "schamper";
+  
   private static ChannelCache cache;
 
   private ChannelCache(File channelCacheDir) {

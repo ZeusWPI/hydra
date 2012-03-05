@@ -20,7 +20,8 @@
     <!-- other stuff -->
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
-
+    <string name="posted_by">By %1$s on %2$s</string>
+    
     <string name="soup">Soup</string>
     <string name="meat">Meat &amp; Veggie</string>
     <string name="vegetables">Vegetables</string>
