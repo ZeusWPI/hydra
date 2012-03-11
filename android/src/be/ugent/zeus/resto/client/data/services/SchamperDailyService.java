@@ -14,7 +14,6 @@ import be.ugent.zeus.resto.client.util.RSSParser;
  */
 public class SchamperDailyService extends HTTPIntentService {
 
-  private static final long REFRESH_TIMEOUT = 24 * 60 * 60 * 1000;
   private static final String SCHAMPER_RSS_URL = "http://www.schamper.ugent.be/dagelijks";
   private ChannelCache cache;
 
@@ -29,19 +28,6 @@ public class SchamperDailyService extends HTTPIntentService {
     cache = ChannelCache.getInstance(this);
   }
 
-  private void sync(long lastModified) {
-    Log.i("[SchamperDaily]", "Fetching schamper feed from " + SCHAMPER_RSS_URL);
-
-    RSSParser parser = new RSSParser();
-    try {
-      String content = (lastModified == -1) ? fetch(SCHAMPER_RSS_URL) : fetch(SCHAMPER_RSS_URL, lastModified);
-
-      cache.put(ChannelCache.SCHAMPER, parser.parse(content));
-    } catch (Exception e) {
-      Log.e("[SchamperDaily]", "An exception occured while parsing the schamper feed!");
-    }
-  }
-
   @Override
   protected void onHandleIntent(Intent intent) {
     final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
@@ -49,10 +35,23 @@ public class SchamperDailyService extends HTTPIntentService {
       receiver.send(STATUS_STARTED, Bundle.EMPTY);
     }
 
-    long lastModified = cache.lastModified(ChannelCache.SCHAMPER);
+    boolean force = intent.getBooleanExtra(FORCE_UPDATE, true);
 
-    if (lastModified == -1 || (System.currentTimeMillis() - lastModified) > REFRESH_TIMEOUT) {
-      sync(lastModified);
+    RSSParser parser = new RSSParser();
+    try {
+      if (!cache.exists(ChannelCache.SCHAMPER)) {
+        cache.put(ChannelCache.SCHAMPER, parser.parse(fetch(SCHAMPER_RSS_URL)));
+      } else if (force) {
+        // Exists, but we want to force an update (if it's changed)
+        String content = fetch(SCHAMPER_RSS_URL, cache.lastModified(ChannelCache.SCHAMPER));
+        if (content != null) {
+          cache.put(ChannelCache.SCHAMPER, parser.parse(content));
+        }
+      } else {
+        // Exists, and don't force update, so ignore
+      }
+    } catch (Exception e) {
+      Log.e("[SchamperDaily]", "An exception occured while downloading & parsing the schamper feed! (" + e.getMessage() + ")");
     }
 
     // send the result to the receiver

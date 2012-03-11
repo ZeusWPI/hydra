@@ -92,11 +92,16 @@ public class Cache<T extends Serializable> {
     return cached;
   }
 
-  public void invalidate(String string) {
-    File cached = new File(dir, string);
+  public void invalidate(String key) {
+    File cached = new File(dir, key);
     if (cached.exists()) {
       cached.delete();
     }
+  }
+
+  public boolean exists(String key) {
+    File cached = new File(dir, key);
+    return cached.exists();
   }
 
   public void clear() {

@@ -1,15 +1,19 @@
-
 package be.ugent.zeus.resto.client.data.services;
 
 import android.app.IntentService;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Date;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.DateUtils;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,16 +22,17 @@ import org.json.JSONObject;
  * @author Thomas Meire
  */
 public abstract class HTTPIntentService extends IntentService {
+
   public static final int STATUS_STARTED = 0x1;
   public static final int STATUS_ERROR = 0x2;
   public static final int STATUS_FINISHED = 0x3;
-
+  public static final String FORCE_UPDATE = "force-update";
   public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
 
-  public HTTPIntentService (String name) {
+  public HTTPIntentService(String name) {
     super(name);
   }
-  
+
   protected String fetch(String url) throws Exception {
     HttpClient httpclient = new DefaultHttpClient();
     HttpGet request = new HttpGet(url);
@@ -35,12 +40,31 @@ public abstract class HTTPIntentService extends IntentService {
     return httpclient.execute(request, new BasicResponseHandler());
   }
 
+  /**
+   * Fetch content from a url, but only if it's more recent than the
+   * lastModified parameter, which is a unix timestamp.
+   * 
+   * @param url 
+   * @param lastModified 
+   * @return the content or null if the content hasn't been changed
+   * @throws Exception if something goes wrong or status code is > 300 && != 304
+   */
   protected String fetch(String url, long lastModified) throws Exception {
     HttpGet request = new HttpGet(url);
     request.setHeader("If-Modified-Since", DateUtils.formatDate(new Date(lastModified)));
-    
+
     HttpClient httpclient = new DefaultHttpClient();
-    return httpclient.execute(request, new BasicResponseHandler());
+    HttpResponse response = httpclient.execute(request);
+
+    StatusLine status = response.getStatusLine();
+    if (200 <= status.getStatusCode() && status.getStatusCode() < 300) {
+      HttpEntity entity = response.getEntity();
+      return entity == null ? null : EntityUtils.toString(entity);
+    } else if (status.getStatusCode() == 304) {
+      return null;
+    } else {
+      throw new HttpResponseException(status.getStatusCode(), status.getReasonPhrase());
+    }
   }
 
   protected <T> T parseJsonObject(JSONObject object, Class<T> klass) throws Exception {

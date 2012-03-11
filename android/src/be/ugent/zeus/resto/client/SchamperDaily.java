@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -57,37 +56,14 @@ public class SchamperDaily extends ListActivity {
     getListView().addFooterView(footer);
 
     cache = ChannelCache.getInstance(SchamperDaily.this);
-
-    // if feed is older than 1 day or does not exist, refresh
-    long age = System.currentTimeMillis() - cache.lastModified(ChannelCache.SCHAMPER);
-    if (age == -1 || age > REFRESH_TIMEOUT) {
-      refresh(false);
-    } else {
-      show();
-    }
+    refresh(false);
   }
 
   private void refresh(boolean force) {
-    if (force) {
-      cache.invalidate(ChannelCache.SCHAMPER);
-    }
     Intent intent = new Intent(this, SchamperDailyService.class);
     intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
+    intent.putExtra(HTTPIntentService.FORCE_UPDATE, force);
     startService(intent);
-  }
-
-  private void show() {
-    Channel channel = cache.get(ChannelCache.SCHAMPER);
-
-    if (channel != null) {
-      Log.i("[SchamperDaily]", "Retrieved channel '" + channel.title + "' with " + channel.items.size() + " items");
-      setTitle(channel.title);
-
-      ArrayAdapter<Item> adapter = new ChannelAdapter(SchamperDaily.this, channel);
-      SchamperDaily.this.setListAdapter(adapter);
-    } else {
-      Log.e("[SchamperDaily]", "Noooooooo!!!! ");
-    }
   }
 
   @Override
@@ -134,7 +110,12 @@ public class SchamperDaily extends ListActivity {
           SchamperDaily.this.runOnUiThread(new Runnable() {
 
             public void run() {
-              show();
+              Channel channel = cache.get(ChannelCache.SCHAMPER);
+
+              if (channel != null) {
+                setTitle(channel.title);
+                setListAdapter(new ChannelAdapter(SchamperDaily.this, channel));
+              }
             }
           });
           break;

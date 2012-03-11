@@ -24,11 +24,12 @@ public class SchamperDailyReceiver extends BroadcastReceiver {
   public void onReceive(Context context, Intent intent) {
     Log.d(DEBUG_TAG, "Recurring alarm; requesting Schamper Daily refresh service.");
 
-    Toast toast = Toast.makeText(context, "Schamper Daily freshing...", Toast.LENGTH_SHORT);
+    Toast toast = Toast.makeText(context, "Schamper Daily freshing...", Toast.LENGTH_LONG);
     toast.show();
     
     // start the refresh
     Intent refresher = new Intent(context, SchamperDailyService.class);
+    refresher.putExtra(HTTPIntentService.FORCE_UPDATE, true);
     refresher.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new ResultReceiver(null) {
       
       @Override
