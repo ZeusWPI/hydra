@@ -8,7 +8,8 @@ import be.ugent.zeus.resto.client.data.caches.ChannelCache;
 import be.ugent.zeus.resto.client.util.RSSParser;
 
 /**
- *
+ * TODO: Rework a bit, so we can show a notification if new schamper posts are availble
+ * 
  * @author Thomas Meire
  */
 public class SchamperDailyService extends HTTPIntentService {

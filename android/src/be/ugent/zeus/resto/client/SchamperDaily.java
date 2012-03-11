@@ -1,10 +1,15 @@
 package be.ugent.zeus.resto.client;
 
+import android.app.AlarmManager;
 import android.app.ListActivity;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,7 +18,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import be.ugent.zeus.resto.client.data.caches.ChannelCache;
+import be.ugent.zeus.resto.client.data.receivers.SchamperDailyReceiver;
 import be.ugent.zeus.resto.client.data.rss.Channel;
 import be.ugent.zeus.resto.client.data.rss.Item;
 import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
@@ -34,7 +41,9 @@ public class SchamperDaily extends ListActivity {
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
     setTitle(R.string.title_schamper);
+    getListView().setCacheColorHint(0);
 
+    // add a button to the end of the list to read more online.
     View footer = getLayoutInflater().inflate(R.layout.schamper_footer, null);
     Button visitOnline = (Button) footer.findViewById(R.id.schamper_visit_online);
     visitOnline.setOnClickListener(new View.OnClickListener() {
@@ -81,15 +90,22 @@ public class SchamperDaily extends ListActivity {
     }
   }
 
-  public void onOptionRefresh(MenuItem item) {
-    refresh(true);
-  }
-
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.schamper_daily, menu);
     return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle item selection
+    switch (item.getItemId()) {
+      case R.id.refresh:
+        refresh(true);
+      default:
+        return super.onOptionsItemSelected(item);
+    }
   }
 
   @Override
@@ -123,9 +139,34 @@ public class SchamperDaily extends ListActivity {
           });
           break;
         case HTTPIntentService.STATUS_ERROR:
-          // TODO: show toast & go back to dashboard
+          Toast.makeText(SchamperDaily.this, R.string.schamper_update_failed, Toast.LENGTH_SHORT).show();
+          // TODO: go back to dashboard if nothing to display
           break;
       }
+    }
+  }
+
+  public static void scheduleRecurringUpdate(Context context) {
+    AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+    Intent intent = new Intent(context, SchamperDailyReceiver.class);
+    PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+    if (prefs.getBoolean("schamper_daily_auto_update", true)) {
+      // get the auto update timeout in minutes
+      int timeout = Integer.parseInt(prefs.getString("schamper_daily_auto_update_timeout", "60"));
+
+      // setup an alarm to refresh the feed every timeout minutes
+      am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), timeout * 60 * 1000, sender);
+
+      Log.d("[SchamperDaily]", "Scheduling recurring update alarm every " + timeout + " minutes.");
+    } else {
+      // cancel the alarm
+      am.cancel(sender);
+
+      Log.d("[SchamperDaily]", "Cancelled recurring update alarm.");
     }
   }
 }
