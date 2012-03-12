@@ -13,10 +13,14 @@
     <string name="btn_schamper">Schamper</string>
     
     <!-- Activity titles -->
+    <string name="title_news">News</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_info">Info</string>
     <string name="title_menu">Resto Menu</string>
-    <string name="title_buildings">UGent Buildings</string>
+    <string name="title_gsr">GSR</string>
     <string name="title_schamper">Schamper Daily</string>
     <string name="title_preferences">Preferences</string>
+    <string name="title_buildings">UGent Buildings</string>
     
     <!-- Preferences strings -->
     <string name="settings">Settings</string>
