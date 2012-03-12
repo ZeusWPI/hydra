@@ -13,7 +13,7 @@
         style="@style/DashboardButton"
         android:text="@string/btn_calendar"
         android:drawableTop="@drawable/calendar" />
-  <Button android:id="@+id/home_btn_locations"
+  <Button android:id="@+id/home_btn_info"
         style="@style/DashboardButton"
         android:text="@string/btn_locations"
         android:drawableTop="@drawable/ic_action_flag" />
