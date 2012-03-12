@@ -187,7 +187,6 @@ public class RestoMenu extends Activity {
       TextView title = views.get(position).getTab();
       title.setOnClickListener(new OnClickListener() {
 
-        @Override
         public void onClick(final View v) {
           pager.setCurrentItem(position);
         }
