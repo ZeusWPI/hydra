@@ -28,6 +28,7 @@
     <string name="preferences_schamper_daily_auto_update_timeout">Periodic update timeout</string>
 
     <!-- other stuff -->
+    <string name="loading">Loading…</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="posted_by">By %1$s on %2$s</string>

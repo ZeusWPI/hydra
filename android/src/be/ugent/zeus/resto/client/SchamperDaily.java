@@ -3,6 +3,7 @@ package be.ugent.zeus.resto.client;
 import android.app.AlarmManager;
 import android.app.ListActivity;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,7 +29,7 @@ import be.ugent.zeus.resto.client.ui.schamper.ChannelAdapter;
 
 /**
  * TODO: add spinner while loading the feed similar to menu's
- * 
+ *
  * @author Thomas Meire
  */
 public class SchamperDaily extends ListActivity {
@@ -63,6 +64,8 @@ public class SchamperDaily extends ListActivity {
     Intent intent = new Intent(this, SchamperDailyService.class);
     intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
     intent.putExtra(HTTPIntentService.FORCE_UPDATE, force);
+
+
     startService(intent);
   }
 
@@ -98,13 +101,24 @@ public class SchamperDaily extends ListActivity {
   }
 
   private class SchamperResultReceiver extends ResultReceiver {
+	private final ProgressDialog progressDialog;
 
     public SchamperResultReceiver() {
       super(null);
+
+      progressDialog = ProgressDialog.show(SchamperDaily.this,
+          getResources().getString(R.string.title_schamper),
+          getResources().getString(R.string.loading));
     }
 
     @Override
     public void onReceiveResult(int code, Bundle icicle) {
+	  SchamperDaily.this.runOnUiThread(new Runnable() {
+		public void run() {
+		  progressDialog.dismiss();
+		}
+      });
+
       switch (code) {
         case HTTPIntentService.STATUS_FINISHED:
           SchamperDaily.this.runOnUiThread(new Runnable() {
