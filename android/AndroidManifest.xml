@@ -19,6 +19,10 @@
       </intent-filter>
     </activity>
     <activity android:name=".Settings" />
+    <activity android:name=".News" />
+    <activity android:name=".Calendar" />
+    <activity android:name=".Info" />
+    <activity android:name=".GSR" />
     <activity android:name=".BuildingMap" />
     <activity android:name=".RestoMenu" />
     <activity android:name=".SchamperDaily" />
