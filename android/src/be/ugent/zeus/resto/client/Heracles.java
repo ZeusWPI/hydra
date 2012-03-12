@@ -32,7 +32,7 @@ public class Heracles extends Activity {
     link(R.id.home_btn_news, News.class);
     link(R.id.home_btn_calendar, Calendar.class);
     link(R.id.home_btn_info, Info.class);
-    link(R.id.home_btn_menu, Menu.class);
+    link(R.id.home_btn_menu, RestoMenu.class);
     link(R.id.home_btn_gsr, GSR.class);
     link(R.id.home_btn_schamper, SchamperDaily.class);
   }
