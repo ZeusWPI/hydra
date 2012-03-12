@@ -11,7 +11,7 @@
   <uses-sdk android:targetSdkVersion="12" />
   <uses-sdk android:minSdkVersion="8" />
 
-  <application android:icon="@drawable/logo" android:label="Heracles" android:theme="@style/Theme.Heracles.Light">
+  <application android:icon="@drawable/icon" android:label="Heracles" android:theme="@style/Theme.Heracles.Light">
     <activity android:name=".Heracles">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
