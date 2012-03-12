@@ -101,14 +101,18 @@ public class SchamperDaily extends ListActivity {
   }
 
   private class SchamperResultReceiver extends ResultReceiver {
-	private final ProgressDialog progressDialog;
+	private ProgressDialog progressDialog;
 
     public SchamperResultReceiver() {
       super(null);
 
-      progressDialog = ProgressDialog.show(SchamperDaily.this,
-          getResources().getString(R.string.title_schamper),
-          getResources().getString(R.string.loading));
+	  SchamperDaily.this.runOnUiThread(new Runnable() {
+        public void run() {
+          progressDialog = ProgressDialog.show(SchamperDaily.this,
+            getResources().getString(R.string.title_schamper),
+            getResources().getString(R.string.loading));
+        }
+      });
     }
 
     @Override
