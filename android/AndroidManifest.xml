@@ -43,6 +43,11 @@
         <action android:name="be.ugent.zeus.resto.client.data.services.RestoService" />
       </intent-filter>
     </service>
+    <service android:name=".data.services.NewsIntentService">
+      <intent-filter>
+        <action android:name="be.ugent.zeus.resto.client.data.services.NewsIntentService" />
+      </intent-filter>
+    </service>
     <service android:name=".data.services.SchamperDailyService">
       <intent-filter>
         <action android:name="be.ugent.zeus.resto.client.data.services.SchamperDailyService" />

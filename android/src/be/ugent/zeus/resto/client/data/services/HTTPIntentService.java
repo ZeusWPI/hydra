@@ -29,6 +29,8 @@ public abstract class HTTPIntentService extends IntentService {
   public static final String FORCE_UPDATE = "force-update";
   public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
 
+  protected static final String HYDRA_BASE_URL = "http://golive.myverso.com/ugent/";
+  
   public HTTPIntentService(String name) {
     super(name);
   }

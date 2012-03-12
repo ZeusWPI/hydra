@@ -15,6 +15,7 @@ import be.ugent.zeus.resto.client.util.NewsXmlParser;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.util.Log;
 
 public class NewsIntentService extends HTTPIntentService {
 
@@ -25,6 +26,7 @@ public class NewsIntentService extends HTTPIntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
+    Log.i("blub", "handle intent");
 		final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
 		
 		try {
@@ -44,8 +46,9 @@ public class NewsIntentService extends HTTPIntentService {
 				
 				String path = node.getAttributes().getNamedItem("path").getTextContent();
 				if(path.startsWith("News")) {
+          Log.i("[NewsIntentService]", "Downloading " + path);
 					String clubXML = fetch("http://golive.myverso.com/ugent/" + path);
-					// TODO: filter based on user preferences
+          // TODO: filter based on user preferences
 					list.addAll(parser.parse(clubXML));
 				}
 			}
@@ -53,9 +56,7 @@ public class NewsIntentService extends HTTPIntentService {
 			bundle.putSerializable("newsItemList", list);
 			
 		} catch (Exception e) {
-			// IGNORE
-		}
-		
+      Log.e("[NewsIntentService]", e.getMessage());
+		}		
 	}
-
 }

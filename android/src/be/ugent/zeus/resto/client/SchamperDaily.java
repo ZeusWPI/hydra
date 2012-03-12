@@ -65,7 +65,6 @@ public class SchamperDaily extends ListActivity {
     intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
     intent.putExtra(HTTPIntentService.FORCE_UPDATE, force);
 
-
     startService(intent);
   }
 
@@ -101,26 +100,29 @@ public class SchamperDaily extends ListActivity {
   }
 
   private class SchamperResultReceiver extends ResultReceiver {
-	private ProgressDialog progressDialog;
+
+    private ProgressDialog progressDialog;
 
     public SchamperResultReceiver() {
       super(null);
 
-	  SchamperDaily.this.runOnUiThread(new Runnable() {
+      SchamperDaily.this.runOnUiThread(new Runnable() {
+
         public void run() {
           progressDialog = ProgressDialog.show(SchamperDaily.this,
-            getResources().getString(R.string.title_schamper),
-            getResources().getString(R.string.loading));
+                  getResources().getString(R.string.title_schamper),
+                  getResources().getString(R.string.loading));
         }
       });
     }
 
     @Override
     public void onReceiveResult(int code, Bundle icicle) {
-	  SchamperDaily.this.runOnUiThread(new Runnable() {
-		public void run() {
-		  progressDialog.dismiss();
-		}
+      SchamperDaily.this.runOnUiThread(new Runnable() {
+
+        public void run() {
+          progressDialog.dismiss();
+        }
       });
 
       switch (code) {
