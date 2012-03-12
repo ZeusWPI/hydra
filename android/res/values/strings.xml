@@ -45,4 +45,5 @@
 
     <string name="menu_unavailable">Sorry, this menu is currently not available. Please try again later.</string>
     <string name="no_restos_found">Sorry, no resto\'s could be retrieved from the online service. Please retry later.</string>
+    <string name="btn_info">Info</string>
 </resources>
