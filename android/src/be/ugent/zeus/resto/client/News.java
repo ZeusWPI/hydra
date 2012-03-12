@@ -6,6 +6,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.util.Log;
 import android.widget.Toast;
 import be.ugent.zeus.resto.client.data.NewsItem;
 import be.ugent.zeus.resto.client.data.NewsList;
@@ -44,10 +45,16 @@ public class News extends ListActivity {
     protected void onReceiveResult(int code, final Bundle resultData) {
       switch (code) {
         case HTTPIntentService.STATUS_FINISHED:
-          News.this.runOnUiThread(new Runnable() {
+          runOnUiThread(new Runnable() {
 
             public void run() {
-              setListAdapter(new NewsList(News.this, (List<NewsItem>) resultData.getSerializable("newsItemList")));
+              List<NewsItem> items = (List<NewsItem>) resultData.getSerializable("newsItemList");
+              if (items != null) {
+                Log.i("[NewsResultReceiver]", "Downloaded items: " + items.size());
+                setListAdapter(new NewsList(News.this, items));
+              } else {
+                Log.i("[NewsResultReceiver]", "Oops, news items is null");
+              }
             }
           });
           break;

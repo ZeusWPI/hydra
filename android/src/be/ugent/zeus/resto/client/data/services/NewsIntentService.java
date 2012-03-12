@@ -29,11 +29,10 @@ public class NewsIntentService extends HTTPIntentService {
     Log.i("blub", "handle intent");
 		final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
 		
+    final Bundle bundle = new Bundle();		
 		try {
 			String xml = fetch("http://golive.myverso.com/ugent/versions.xml");
 			
-			final Bundle bundle = new Bundle();
-		
 			ArrayList<NewsItem> list = new ArrayList<NewsItem>();
 		
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -46,10 +45,14 @@ public class NewsIntentService extends HTTPIntentService {
 				
 				String path = node.getAttributes().getNamedItem("path").getTextContent();
 				if(path.startsWith("News")) {
-          Log.i("[NewsIntentService]", "Downloading " + path);
-					String clubXML = fetch("http://golive.myverso.com/ugent/" + path);
-          // TODO: filter based on user preferences
-					list.addAll(parser.parse(clubXML));
+          try {
+            Log.i("[NewsIntentService]", "Downloading " + path);
+            String clubXML = fetch("http://golive.myverso.com/ugent/" + path);
+            // TODO: filter based on user preferences
+            list.addAll(parser.parse(clubXML));
+          } catch (Exception e) {
+            Log.e("[NewIntentService]", e.getMessage());
+          }
 				}
 			}
 			
@@ -58,5 +61,6 @@ public class NewsIntentService extends HTTPIntentService {
 		} catch (Exception e) {
       Log.e("[NewsIntentService]", e.getMessage());
 		}		
+    receiver.send(STATUS_FINISHED, bundle);
 	}
 }
