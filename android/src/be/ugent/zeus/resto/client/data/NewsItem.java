@@ -9,7 +9,7 @@ public class NewsItem implements Serializable {
 	public final String club;
 	public final String title;
 	public final String description;
-	
+
 	public NewsItem(Date date, String club, String title, String description) {
 		super();
 		this.date = date;

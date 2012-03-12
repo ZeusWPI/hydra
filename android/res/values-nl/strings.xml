@@ -5,12 +5,6 @@
     <string name="app_name">Heracles</string>
     
     <!-- string for buttons on the dashboard -->
-    <string name="btn_news">Nieuws</string>
-    <string name="btn_calendar">Kalender</string>
-    <string name="btn_locations">Locaties</string>
-    <string name="btn_menu">Menu</string>
-    <string name="btn_gsr">GSR</string>
-    <string name="btn_schamper">Schamper</string>
     
     <!-- Activity titles -->
     <string name="title_menu">Resto Menu</string>

@@ -12,7 +12,7 @@
   <uses-sdk android:minSdkVersion="8" />
 
   <application android:icon="@drawable/icon" android:label="Heracles" android:theme="@style/Theme.Heracles.Light">
-    <activity android:name=".Heracles">
+    <activity android:name=".Hydra">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>

@@ -22,7 +22,6 @@ import be.ugent.zeus.resto.client.data.NewsItem;
 import org.w3c.dom.CDATASection;
 
 public class NewsXmlParser {
-
   private static final SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
 
   public ArrayList<NewsItem> parse(String clubXML) throws SAXException, IOException, ParserConfigurationException, DOMException, ParseException {
