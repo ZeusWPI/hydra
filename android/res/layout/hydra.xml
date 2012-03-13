@@ -7,17 +7,16 @@
 
   <Button android:id="@+id/home_btn_news"
   		style="@style/DashboardButton"
-  		android:drawableTop="@drawable/nieuws"/>
+  		android:drawableTop="@drawable/news"/>
   <Button android:id="@+id/home_btn_calendar"
         style="@style/DashboardButton"
-        android:drawableTop="@drawable/activiteiten" />
+        android:drawableTop="@drawable/activities" />
   <Button android:id="@+id/home_btn_info"
       	style="@style/DashboardButton"
       	android:drawableTop="@drawable/info"/>
-
   <Button android:id="@+id/home_btn_menu"
         style="@style/DashboardButton"
-        android:drawableTop="@drawable/resto" />
+        android:drawableTop="@drawable/restomenu" />
   <Button android:id="@+id/home_btn_gsr"
         style="@style/DashboardButton"
         android:drawableTop="@drawable/gsr"/>
