@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 import be.ugent.zeus.resto.client.data.NewsItem;
 import be.ugent.zeus.resto.client.data.caches.Cache;
-import be.ugent.zeus.resto.client.data.caches.NewsCache;
+import be.ugent.zeus.resto.client.data.caches.GSRCache;
 
-public class NewsIntentService extends AbstractNewsIntentService {
+public class GSRIntentService extends AbstractNewsIntentService {
 
 	@Override
 	public boolean filter(String path) {
-		return path.startsWith("News");
+		return path.startsWith("GSR/Forced");
 	}
 
 	@Override
 	public String cacheKey() {
-		return "newsItemList";
+		return "gsrItemList";
 	}
 
 	@Override
 	public Cache<ArrayList<NewsItem>> getCache() {
-		return NewsCache.getInstance(this);
+		return GSRCache.getInstance(this);
 	}
 }
