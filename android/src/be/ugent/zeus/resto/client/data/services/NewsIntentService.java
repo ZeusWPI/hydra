@@ -1,27 +1,23 @@
 package be.ugent.zeus.resto.client.data.services;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.ResultReceiver;
+import android.util.Log;
+import be.ugent.zeus.resto.client.data.NewsItem;
+import be.ugent.zeus.resto.client.util.NewsXmlParser;
 import java.io.StringReader;
 import java.util.ArrayList;
-
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import be.ugent.zeus.resto.client.data.NewsItem;
-import be.ugent.zeus.resto.client.util.NewsXmlParser;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.ResultReceiver;
-import android.util.Log;
-
 public class NewsIntentService extends HTTPIntentService {
 
 	public NewsIntentService() {
 		super("NewsIntentService");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -31,7 +27,7 @@ public class NewsIntentService extends HTTPIntentService {
 		
     final Bundle bundle = new Bundle();		
 		try {
-			String xml = fetch("http://golive.myverso.com/ugent/versions.xml");
+			String xml = fetch(HYDRA_BASE_URL + "versions.xml");
 			
 			ArrayList<NewsItem> list = new ArrayList<NewsItem>();
 		
@@ -47,7 +43,7 @@ public class NewsIntentService extends HTTPIntentService {
 				if(path.startsWith("News")) {
           try {
             Log.i("[NewsIntentService]", "Downloading " + path);
-            String clubXML = fetch("http://golive.myverso.com/ugent/" + path);
+            String clubXML = fetch(HYDRA_BASE_URL + path);
             // TODO: filter based on user preferences
             list.addAll(parser.parse(clubXML));
           } catch (Exception e) {
