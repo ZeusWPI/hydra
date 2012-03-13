@@ -1,0 +1,34 @@
+
+package be.ugent.zeus.resto.client;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.widget.TextView;
+import be.ugent.zeus.resto.client.data.NewsItem;
+
+/**
+ *
+ * @author blackskad
+ */
+public class NewsItemActivity extends Activity {
+
+  /** Called when the activity is first created. */
+  @Override
+  public void onCreate(Bundle icicle) {
+    super.onCreate(icicle);
+    
+    setTitle(R.string.title_news);
+    setContentView(R.layout.news_item);
+
+    NewsItem item = (NewsItem) getIntent().getSerializableExtra("item");
+
+    TextView title = (TextView) findViewById(R.id.news_item_title);
+    title.setText(item.title);
+    
+    TextView content = (TextView) findViewById(R.id.news_item_content);
+    content.setText(Html.fromHtml(item.description));
+    content.setMovementMethod(LinkMovementMethod.getInstance());
+  }
+}

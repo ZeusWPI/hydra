@@ -51,16 +51,8 @@ public class NewsXmlParser {
     date = format.parse(item.getAttributes().getNamedItem("date").getTextContent());
     club = item.getAttributes().getNamedItem("association_id").getTextContent();
 
-    Node node = item.getChildNodes().item(1);
-    Log.i("[blubv", "type: " + node.getNodeType());
-    int type = node.getNodeType();
-    if (type == Node.CDATA_SECTION_NODE) {
-      // Convert CDATA section to a text node
-      CDATASection cdata = (CDATASection) node;
-      String data = cdata.getData();
-      Log.i("[DATA:", data);
-    }
-    title = item.getFirstChild().getNodeValue();
+    title = item.getFirstChild().getTextContent();
+    title = title.substring(9, title.length() - 3);
     description = item.getLastChild().getTextContent();
 
     return new NewsItem(date, club, title, description);

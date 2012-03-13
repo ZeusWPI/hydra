@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 import be.ugent.zeus.resto.client.data.NewsItem;
 import be.ugent.zeus.resto.client.data.NewsList;
@@ -35,6 +37,19 @@ public class News extends ListActivity {
     startService(intent);
   }
 
+  @Override
+  protected void onListItemClick(ListView l, View v, int position, long id) {
+    super.onListItemClick(l, v, position, id);
+
+    // Get the item that was clicked
+    NewsItem item = (NewsItem) getListAdapter().getItem(position);
+
+    // Launch a new activity
+    Intent intent = new Intent(this, NewsItemActivity.class);
+    intent.putExtra("item", item);
+    startActivity(intent);
+  }
+
   private class NewsResultReceiver extends ResultReceiver {
 
     public NewsResultReceiver() {
@@ -53,7 +68,7 @@ public class News extends ListActivity {
                 Log.i("[NewsResultReceiver]", "Downloaded items: " + items.size());
                 setListAdapter(new NewsList(News.this, items));
               } else {
-                Log.i("[NewsResultReceiver]", "Oops, news items is null");
+                Toast.makeText(News.this, R.string.schamper_update_failed, Toast.LENGTH_SHORT).show();
               }
             }
           });
