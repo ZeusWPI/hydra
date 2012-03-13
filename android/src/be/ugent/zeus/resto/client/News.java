@@ -78,7 +78,6 @@ public class News extends ListActivity {
 			switch (code) {
 			case HTTPIntentService.STATUS_FINISHED:
 				runOnUiThread(new Runnable() {
-
 					public void run() {
 						List<NewsItem> items = (List<NewsItem>) resultData
 						    .getSerializable("newsItemList");
