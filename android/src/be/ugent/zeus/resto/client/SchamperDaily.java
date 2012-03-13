@@ -107,7 +107,6 @@ public class SchamperDaily extends ListActivity {
       super(null);
 
       SchamperDaily.this.runOnUiThread(new Runnable() {
-
         public void run() {
           progressDialog = ProgressDialog.show(SchamperDaily.this,
                   getResources().getString(R.string.title_schamper),
