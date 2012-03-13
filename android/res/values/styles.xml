@@ -2,7 +2,7 @@
 
 <resources>
   <style name="Theme.Heracles.Light" parent="@android:style/Theme.Light">
-    <item name="android:windowBackground">@color/ugent_yellow_light</item>
+    <item name="android:windowBackground">@color/ugent_blue_light</item>
   </style>
   
   <style name="DashboardButton">
