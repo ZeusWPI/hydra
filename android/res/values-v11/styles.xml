@@ -7,7 +7,7 @@
     <item name="android:actionOverflowButtonStyle">@style/Heracles.ActionButton.Overflow</item>
   </style>
   <style name="Heracles.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-    <item name="android:background">@color/ugent_blue_dark</item>
+    <item name="android:background">@drawable/actionbar_background</item>
     <item name="android:textColor">@color/ugent_yellow_light</item>
     <item name="android:titleTextStyle">@style/Heracles.ActionBar.TitleTextStyle</item>
   </style>
