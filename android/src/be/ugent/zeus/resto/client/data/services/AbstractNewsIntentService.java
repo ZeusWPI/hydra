@@ -16,7 +16,6 @@ import android.os.ResultReceiver;
 import android.util.Log;
 import be.ugent.zeus.resto.client.data.NewsItem;
 import be.ugent.zeus.resto.client.data.caches.Cache;
-import be.ugent.zeus.resto.client.data.caches.NewsCache;
 import be.ugent.zeus.resto.client.util.NewsXmlParser;
 
 public abstract class AbstractNewsIntentService extends HTTPIntentService {
@@ -34,7 +33,6 @@ public abstract class AbstractNewsIntentService extends HTTPIntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		Log.i("blub", "handle intent");
 		final ResultReceiver receiver = intent
 		    .getParcelableExtra(RESULT_RECEIVER_EXTRA);
 

@@ -10,6 +10,8 @@ public class Activity {
   public String title;
   public String description;
   public String location;
+  // FIXME: use Date object here
+  public String date;
   public String start;
   public String end;
 }
