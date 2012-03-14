@@ -1,7 +1,5 @@
 package be.ugent.zeus.resto.client;
 
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +26,7 @@ public class Hydra extends Activity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.hydra);
+    setTitle("");
 
 		link(R.id.home_btn_news, News.class);
 		link(R.id.home_btn_calendar, Calendar.class);
