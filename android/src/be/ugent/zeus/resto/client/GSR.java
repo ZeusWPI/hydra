@@ -23,6 +23,11 @@ import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
  */
 public class GSR extends ListActivity {
 	
+	public static final String CACHE_FILE = "gsr";
+	public static final String CACHE_KEY = "gsrItemList";
+	
+	public static final String FILTER_PREFIX = "GSR/Forced";
+	
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -79,7 +84,7 @@ public class GSR extends ListActivity {
 				runOnUiThread(new Runnable() {
 					public void run() {
 						List<NewsItem> items = (List<NewsItem>) resultData
-						    .getSerializable("gsrItemList");
+						    .getSerializable(CACHE_KEY);
 						if (items != null) {
 							Log.i("[GSRResultReceiver]", "Downloaded items: " + items.size());
 							setListAdapter(new NewsList(GSR.this, items));
