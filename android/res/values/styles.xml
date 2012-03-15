@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resources>
-  <style name="Theme.Heracles.Light" parent="@android:style/Theme.Light">
-    <item name="android:windowBackground">@color/ugent_blue_light</item>
-  </style>
-  
-  <style name="DashboardButton">
-		<item name="android:layout_gravity">center_vertical</item>
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:gravity">center_horizontal</item>
-    <item name="android:drawablePadding">2dp</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:textColor">@color/ugent_blue_dark</item>
-    <item name="android:background">@null</item>
-  </style>
+	<style name="Theme.Heracles.Light" parent="@android:style/Theme.Light">
+		<item name="android:windowBackground">@color/ugent_blue_light</item>
+	</style>
+
+	<style name="DashboardButtonHolder">
+		<item name="android:layout_gravity">center</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:gravity">center</item>
+		<item name="android:background">@null</item>
+		<item name="android:padding">10dip</item>
+	</style>
+
+	<style name="DashboardButton">
+		<item name="android:layout_gravity">center</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:gravity">center</item>
+		<item name="android:background">@null</item>
+	</style>
 </resources>

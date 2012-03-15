@@ -2,7 +2,7 @@
 <resources>
     <drawable name="red">#F00</drawable>
 
-    <string name="app_name">Heracles</string>
+    <string name="app_name">Hydra</string>
     
     <!-- string for buttons on the dashboard -->
     
