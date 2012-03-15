@@ -44,8 +44,9 @@ public class ActivityXmlParser {
   private Activity parse(Node node) {
     Activity activity = new Activity();
 
-    activity.date = node.getAttributes().getNamedItem("date").getTextContent();
-    // TODO parse the other attributes (date, to, from, association)
+    activity.date = node.getAttributes().getNamedItem("date").getTextContent().replace("/", "-");
+    activity.association_id = node.getAttributes().getNamedItem("association_id").getTextContent();
+    // TODO parse the other attributes (to, from)
     
     NodeList children = node.getChildNodes();
     for (int i = 0; i < children.getLength(); i++) {
