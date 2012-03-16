@@ -3,7 +3,6 @@
 <resources>
   <style name="Theme.Heracles.Light" parent="@android:style/Theme.Holo.Light">
     <item name="android:actionBarStyle">@style/Heracles.ActionBar</item>
-    <item name="android:windowBackground">@color/ugent_blue_light</item>
     <item name="android:actionOverflowButtonStyle">@style/Heracles.ActionButton.Overflow</item>
   </style>
   <style name="Heracles.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
