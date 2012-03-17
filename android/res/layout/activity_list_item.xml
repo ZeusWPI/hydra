@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/activity_list_item_border"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="10dp"
@@ -12,12 +13,13 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="3dp"
         android:textStyle="bold"
-        android:textSize="15dp">
-  </TextView>
+        android:textSize="17sp" />
+  <TextView android:id="@+id/activity_item_time_location"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" />
   <TextView android:id="@+id/activity_item_association"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="3dp">
-  </TextView>
+        android:layout_marginBottom="3dp" />
 </LinearLayout>

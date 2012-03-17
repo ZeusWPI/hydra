@@ -1,7 +1,6 @@
 package be.ugent.zeus.resto.client.ui;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +44,15 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
     
     Activity activity = activities.get(item);
     
-    TextView title = (TextView) row.findViewById(R.id.activity_item_title);
-    title.setText(activity.title);
+    String title = getContext().getResources().getString(R.string.activity_item_title);
+    
+    TextView titleView = (TextView) row.findViewById(R.id.activity_item_title);
+    titleView.setText(String.format(title, activity.start, activity.title));
+    
+    String location = getContext().getResources().getString(R.string.activity_item_time_location);
+    
+    TextView locationView = (TextView) row.findViewById(R.id.activity_item_time_location);
+    locationView.setText(String.format(location, activity.start, activity.end, activity.location));
     
     TextView association = (TextView) row.findViewById(R.id.activity_item_association);
     association.setText(activity.association_id);

@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -44,7 +45,10 @@ public class ActivityXmlParser {
   private Activity parse(Node node) {
     Activity activity = new Activity();
 
-    activity.date = node.getAttributes().getNamedItem("date").getTextContent().replace("/", "-");
+    NamedNodeMap attributes = node.getAttributes();
+    activity.date = attributes.getNamedItem("date").getTextContent().replace("/", "-");
+    activity.start = attributes.getNamedItem("from").getTextContent();
+    activity.end = attributes.getNamedItem("to").getTextContent();
     activity.association_id = node.getAttributes().getNamedItem("association_id").getTextContent();
     // TODO parse the other attributes (to, from)
     

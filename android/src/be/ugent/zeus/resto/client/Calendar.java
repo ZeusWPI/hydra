@@ -11,7 +11,8 @@ import be.ugent.zeus.resto.client.ui.ActivityAdapter;
 import java.text.SimpleDateFormat;
 
 /**
- *
+ * TODO: needs swiping or buttons to go to the next days! cfr resto menu
+ * 
  * @author blackskad
  */
 public class Calendar extends ListActivity {
@@ -35,12 +36,13 @@ public class Calendar extends ListActivity {
     @Override
     public void onReceiveResult(int code, Bundle bundle) {
       if (code == HTTPIntentService.STATUS_FINISHED) {
-        java.util.Calendar date = java.util.Calendar.getInstance();
+        final String date = new SimpleDateFormat("dd-MM-yyyy").format(java.util.Calendar.getInstance().getTime());
+        final ListAdapter adapter = new ActivityAdapter(Calendar.this, date);
 
-        final ListAdapter adapter = new ActivityAdapter(Calendar.this, new SimpleDateFormat("dd-MM-yyyy").format(date.getTime()));
         runOnUiThread(new Runnable() {
 
           public void run() {
+            setTitle(date);
             setListAdapter(adapter);
           }
         });
