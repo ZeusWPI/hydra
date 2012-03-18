@@ -2,7 +2,7 @@ package be.ugent.zeus.resto.client.util;
 
 import android.util.Log;
 import be.ugent.zeus.resto.client.data.Activity;
-import java.io.StringReader;
+import java.io.ByteArrayInputStream;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -10,7 +10,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 /**
  * Parse the activity-xml into a list of activities. The activities are not
@@ -26,8 +25,8 @@ public class ActivityXmlParser {
     List<Activity> list = new LinkedList<Activity>();
 
     try {
-      Document doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(activityXML)));
-      doc.getDomConfig().setParameter("cdata-sections", false);
+    ByteArrayInputStream stream = new ByteArrayInputStream(activityXML.getBytes("ISO-8859-1"));
+    Document doc = dbf.newDocumentBuilder().parse(stream);
 
       Node clubNode = doc.getFirstChild();
       NodeList activityList = clubNode.getChildNodes();
