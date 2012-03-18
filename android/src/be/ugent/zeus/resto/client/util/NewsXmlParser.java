@@ -1,8 +1,6 @@
 package be.ugent.zeus.resto.client.util;
 
-import android.util.Log;
 import java.io.IOException;
-import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,13 +10,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import be.ugent.zeus.resto.client.data.NewsItem;
+import java.io.ByteArrayInputStream;
+import org.w3c.dom.Document;
 
 public class NewsXmlParser {
   private static final SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
@@ -26,8 +24,8 @@ public class NewsXmlParser {
   public ArrayList<NewsItem> parse(String clubXML) throws SAXException, IOException, ParserConfigurationException, DOMException, ParseException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-    Document doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(clubXML)));
-    doc.getDomConfig().setParameter("cdata-sections", false);
+    ByteArrayInputStream stream = new ByteArrayInputStream(clubXML.getBytes("ISO-8859-1"));
+    Document doc = dbf.newDocumentBuilder().parse(stream);
 
     Node clubNode = doc.getFirstChild();
     NodeList newsList = clubNode.getChildNodes();
