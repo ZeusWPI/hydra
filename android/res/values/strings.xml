@@ -22,7 +22,7 @@
 
     <!-- Preferences strings -->
     <string name="settings">Settings</string>
-    <string name="preferences_schamper_daily_auto_update">Periodically update schamper daily.</string>
+    <string name="preferences_schamper_daily_auto_update">Periodically update Schamper Daily.</string>
     <string name="preferences_schamper_daily_auto_update_timeout">Periodic update timeout</string>
 
     <!-- other stuff -->

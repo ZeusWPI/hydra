@@ -39,13 +39,12 @@ public class MenuView extends LinearLayout {
     ImageView icon = new ImageView(context);
     icon.setImageDrawable(context.getResources().getDrawable(drawable));
 
-
     TextView title = new TextView(context);
     title.setText(context.getString(id));
     title.setTextSize(23);
 
     LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-    params.setMargins(5, 0, 0, 0);
+    params.setMargins(15, 0, 0, 0);
 
     container.addView(icon);
     container.addView(title, params);
@@ -80,7 +79,7 @@ public class MenuView extends LinearLayout {
 
     TableLayout view = new TableLayout(context);
     view.setStretchAllColumns(true);
-    view.setPadding(25, 5, 25, 10);
+    view.setPadding(25, 5, 25, 20);
     view.addView(row);
     return view;
   }
@@ -90,7 +89,7 @@ public class MenuView extends LinearLayout {
 
     TableLayout view = new TableLayout(context);
     view.setStretchAllColumns(true);
-    view.setPadding(25, 5, 25, 10);
+    view.setPadding(25, 5, 25, 20);
 
     for (Product meat : menu.meat) {
       TextView name = new TextView(context);
@@ -117,7 +116,7 @@ public class MenuView extends LinearLayout {
 
     TableLayout view = new TableLayout(context);
     view.setStretchAllColumns(true);
-    view.setPadding(25, 5, 25, 10);
+    view.setPadding(25, 5, 25, 20);
 
     for (String vegetable : menu.vegetables) {
       TextView name = new TextView(context);

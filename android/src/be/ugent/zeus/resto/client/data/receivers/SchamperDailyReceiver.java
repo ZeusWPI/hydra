@@ -22,6 +22,7 @@ public class SchamperDailyReceiver extends BroadcastReceiver {
   
   @Override
   public void onReceive(Context context, Intent intent) {
+	/* TODO: internationalize these strings */
     Log.d(DEBUG_TAG, "Recurring alarm; requesting Schamper Daily refresh service.");
 
     Toast toast = Toast.makeText(context, "Schamper Daily freshing...", Toast.LENGTH_LONG);
