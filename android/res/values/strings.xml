@@ -3,9 +3,9 @@
     <drawable name="red">#F00</drawable>
 
     <string name="app_name">Hydra</string>
-    
+
     <!-- string for buttons on the dashboard -->
-    
+
     <!-- Activity titles -->
     <string name="title_news">News</string>
     <string name="title_calendar">Calendar</string>
@@ -18,8 +18,8 @@
 
     <!-- Club activity strings -->
     <string name="activity_item_title">%1$s %2$s</string>
-    <string name="activity_item_time_location">%1$s tot %2$s - %3$s</string>
-    
+    <string name="activity_item_time_location">%1$s to %2$s - %3$s</string>
+
     <!-- Preferences strings -->
     <string name="settings">Settings</string>
     <string name="preferences_schamper_daily_auto_update">Periodically update schamper daily.</string>
@@ -30,7 +30,7 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="posted_by">By %1$s on %2$s</string>
-    
+
     <string name="soup">Soup</string>
     <string name="meat">Meat &amp; Veggie</string>
     <string name="vegetables">Vegetables</string>

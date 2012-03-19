@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resources>
-	<style name="Theme.Heracles.Light" parent="@android:style/Theme.Light" />
+	<style name="Theme.Hydra.Light" parent="@android:style/Theme.Light" />
 
 	<style name="DashboardButtonHolder">
 		<item name="android:layout_gravity">center</item>

@@ -31,9 +31,9 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
 
   public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
     if (key == null) {
-      Log.e("[HeraclesPreferences]", "WTF, changed preference key is null...?!");
+      Log.e("[Settings]", "WTF, changed preference key is null...?!");
     }
-    Log.d("[prefs]", "Pref changed: " + key);
+    Log.d("[Settings]", "Pref changed: " + key);
     if (key.startsWith("schamper_daily_auto_update")) {
       SchamperDaily.scheduleRecurringUpdate(this);
     }

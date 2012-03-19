@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resources>
-  <style name="Theme.Heracles.Light" parent="@android:style/Theme.Holo.Light">
-    <item name="android:actionBarStyle">@style/Heracles.ActionBar</item>
-    <item name="android:actionOverflowButtonStyle">@style/Heracles.ActionButton.Overflow</item>
+  <style name="Theme.Hydra.Light" parent="@android:style/Theme.Holo.Light">
+    <item name="android:actionBarStyle">@style/Hydra.ActionBar</item>
+    <item name="android:actionOverflowButtonStyle">@style/Hydra.ActionButton.Overflow</item>
   </style>
-  <style name="Heracles.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+  <style name="Hydra.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
     <item name="android:background">@drawable/actionbar_background</item>
     <item name="android:textColor">@color/ugent_yellow_light</item>
-    <item name="android:titleTextStyle">@style/Heracles.ActionBar.TitleTextStyle</item>
+    <item name="android:titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
   </style>
-  <style name="Heracles.ActionBar.TitleTextStyle" parent="@style/TextAppearance.Holo.Medium">
+  <style name="Hydra.ActionBar.TitleTextStyle" parent="@style/TextAppearance.Holo.Medium">
     <item name="android:textColor">@color/ugent_yellow_light</item>
   </style>
-  <style name="Heracles.ActionButton.Overflow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
+  <style name="Hydra.ActionButton.Overflow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
     <item name="android:src">@drawable/ic_menu_moreoverflow</item>
   </style>
 
