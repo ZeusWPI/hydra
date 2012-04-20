@@ -26,7 +26,9 @@ public class ActivityIntentService extends HTTPIntentService {
   protected void onHandleIntent(Intent intent) {
     final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
 
-    receiver.send(STATUS_STARTED, Bundle.EMPTY);
+    if (receiver != null) {
+      receiver.send(STATUS_STARTED, Bundle.EMPTY);
+    }
 
     ActivityXmlParser parser = new ActivityXmlParser();
     try {
@@ -51,9 +53,13 @@ public class ActivityIntentService extends HTTPIntentService {
         cache.put(group.getKey(), group.getValue());
       }    
     } catch (Exception e) {
-      receiver.send(STATUS_ERROR, Bundle.EMPTY);
+      if (receiver != null) {
+        receiver.send(STATUS_ERROR, Bundle.EMPTY);
+      }
       return;
     }
-    receiver.send(STATUS_FINISHED, Bundle.EMPTY);
+    if (receiver != null) {
+      receiver.send(STATUS_FINISHED, Bundle.EMPTY);
+    }
   }
 }
