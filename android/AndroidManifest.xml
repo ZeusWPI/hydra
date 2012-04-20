@@ -34,6 +34,11 @@
           <action android:name="android.intent.action.BOOT_COMPLETED"/>
         </intent-filter>
     </receiver>
+    <service android:name=".data.services.UpdaterService">
+      <intent-filter>
+        <action android:name="be.ugent.zeus.resto.client.data.services.UpdaterService" />
+      </intent-filter>
+    </service>
     <service android:name=".data.services.MenuService">
       <intent-filter>
         <action android:name="be.ugent.zeus.resto.client.data.services.MenuService" />

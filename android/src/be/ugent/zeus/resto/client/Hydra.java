@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
+import be.ugent.zeus.resto.client.data.services.UpdaterService;
 
 /**
  *
@@ -35,6 +37,10 @@ public class Hydra extends Activity {
     link(R.id.home_btn_menu, RestoMenu.class);
     link(R.id.home_btn_gsr, GSR.class);
     link(R.id.home_btn_schamper, SchamperDaily.class);
+
+    Intent intent = new Intent(this, UpdaterService.class);
+    intent.putExtra(HTTPIntentService.FORCE_UPDATE, true);
+    startService(intent);
   }
 
   @Override

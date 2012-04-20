@@ -1,25 +1,55 @@
 package be.ugent.zeus.resto.client.data.services;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.ResultReceiver;
+import android.util.Log;
+import be.ugent.zeus.resto.client.data.NewsItem;
+import be.ugent.zeus.resto.client.data.caches.NewsCache;
+import be.ugent.zeus.resto.client.util.NewsXmlParser;
 import java.util.ArrayList;
 
-import be.ugent.zeus.resto.client.data.NewsItem;
-import be.ugent.zeus.resto.client.data.caches.Cache;
-import be.ugent.zeus.resto.client.data.caches.NewsCache;
+public class NewsIntentService extends HTTPIntentService {
 
-public class NewsIntentService extends AbstractNewsIntentService {
-
+  public static final String FEED_NAME = "news-feed-name";
+  public static final String FEED_URL  = "news-feed-url";
+  
+  private NewsCache cache;
+  
+  public NewsIntentService () {
+    super("NewsIntentService");
+  }
+  
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    cache = NewsCache.getInstance(this);
+  }
+          
 	@Override
-	public boolean filter(String path) {
-		return path.startsWith("News");
-	}
+	protected void onHandleIntent(Intent intent) {
+		final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
 
-	@Override
-	public String cacheKey() {
-		return "newsItemList";
-	}
+    String feed = intent.getStringExtra(FEED_NAME);
+    String url = intent.getStringExtra(FEED_URL);
+    
+    boolean force = intent.getBooleanExtra(FORCE_UPDATE, true);
 
-	@Override
-	public Cache<ArrayList<NewsItem>> getCache() {
-		return NewsCache.getInstance(this);
+		try {
+			if (!cache.exists(feed) || force) {
+				String xml = fetch(HYDRA_BASE_URL + url);
+
+        NewsXmlParser parser = new NewsXmlParser();
+        ArrayList<NewsItem> list = parser.parse(xml);
+				cache.put(feed, list);
+			} else {
+        cache.get(feed);
+			}
+		} catch (Exception e) {
+			Log.e("[NewsIntentService]", "Exception: " + e.getMessage());
+    }
+    if (receiver != null) {
+  		receiver.send(STATUS_FINISHED, Bundle.EMPTY);
+    }
 	}
 }
