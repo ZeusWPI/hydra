@@ -1,6 +1,7 @@
 package be.ugent.zeus.resto.client.ui;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.R;
 import be.ugent.zeus.resto.client.data.Activity;
-import be.ugent.zeus.resto.client.data.caches.ActivityCache;
 import java.util.List;
 
 /**
@@ -19,14 +19,14 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
 
   private List<Activity> activities;
 
-  public ActivityAdapter(Context context, String date) {
+  public ActivityAdapter(Context context, List<Activity> activities) {
     super(context, 0);
-    activities = ActivityCache.getInstance(context).get(date);
+    this.activities = activities;
   }
 
   @Override
   public int getCount () {
-    return activities.size();
+    return (activities != null) ? activities.size() : 0;
   }
   
   @Override
@@ -47,15 +47,15 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
     String title = getContext().getResources().getString(R.string.activity_item_title);
     
     TextView titleView = (TextView) row.findViewById(R.id.activity_item_title);
-    titleView.setText(String.format(title, activity.start, activity.title));
+    titleView.setText(Html.fromHtml(String.format(title, activity.start, activity.title)));
     
     String location = getContext().getResources().getString(R.string.activity_item_time_location);
     
     TextView locationView = (TextView) row.findViewById(R.id.activity_item_time_location);
-    locationView.setText(String.format(location, activity.start, activity.end, activity.location));
+    locationView.setText(Html.fromHtml(String.format(location, activity.start, activity.end, activity.location)));
     
     TextView association = (TextView) row.findViewById(R.id.activity_item_association);
-    association.setText(activity.association_id);
+    association.setText(Html.fromHtml(activity.association_id));
     
     return row;
   }
