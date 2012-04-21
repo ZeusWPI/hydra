@@ -24,9 +24,9 @@
   <ScrollView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp">
-    <TextView android:id="@+id/schamper_item_content"
+    <WebView android:id="@+id/schamper_item_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-    </TextView>
+    </WebView>
   </ScrollView>
 </LinearLayout>

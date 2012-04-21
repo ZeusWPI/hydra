@@ -2,13 +2,13 @@ package be.ugent.zeus.resto.client.data;
 
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.R;
+import java.util.Comparator;
 import java.util.List;
 
 public class NewsList extends ArrayAdapter<NewsItem> {
@@ -20,6 +20,7 @@ public class NewsList extends ArrayAdapter<NewsItem> {
   
   public NewsList(Context context, List<NewsItem> objects) {
     super(context, R.layout.news_list_item, objects);
+    sort(new NewsItemComparator());
   }
 
   @Override
@@ -45,5 +46,12 @@ public class NewsList extends ArrayAdapter<NewsItem> {
     TextView shorttxt = (TextView) row.findViewById(R.id.news_item_short);
     shorttxt.setText(Html.fromHtml(shorty));
     return row;
+  }
+  
+  private class NewsItemComparator implements Comparator<NewsItem> {
+
+    public int compare(NewsItem item1, NewsItem item2) {
+      return item1.date.compareTo(item2.date);
+    }
   }
 }
