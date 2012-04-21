@@ -40,17 +40,18 @@ public class NewsXmlParser {
   }
 
   private NewsItem parseNewsItem(Node item) throws DOMException, ParseException {
-    Date date;
-    String club;
-    String title;
-    String description;
+    Date date = format.parse(item.getAttributes().getNamedItem("date").getTextContent());
+    String club = item.getAttributes().getNamedItem("association_id").getTextContent();
 
-    date = format.parse(item.getAttributes().getNamedItem("date").getTextContent());
-    club = item.getAttributes().getNamedItem("association_id").getTextContent();
+    String title = item.getFirstChild().getTextContent();
+    if (title.startsWith("<![CDATA[")) {
+      title = title.substring(9, title.length() - 3);
+    }
 
-    title = item.getFirstChild().getTextContent();
-    title = title.substring(9, title.length() - 3);
-    description = item.getLastChild().getTextContent();
+    String description = item.getLastChild().getTextContent();
+    if (description.startsWith("<![CDATA[")) {
+      description = description.substring(9, description.length() - 3);
+    }
 
     return new NewsItem(date, club, title, description);
   }
