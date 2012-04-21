@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.data.NewsItem;
 
@@ -28,7 +29,8 @@ public class NewsItemActivity extends Activity {
     title.setText(item.title);
     
     TextView content = (TextView) findViewById(R.id.news_item_content);
-    content.setText(Html.fromHtml(item.description));
+    content.setText(Html.fromHtml(item.description.replace("\n", "<br>")));
     content.setMovementMethod(LinkMovementMethod.getInstance());
+    Linkify.addLinks(content, Linkify.ALL);
   }
 }
