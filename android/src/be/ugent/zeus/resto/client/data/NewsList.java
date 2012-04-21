@@ -40,7 +40,7 @@ public class NewsList extends ArrayAdapter<NewsItem> {
     association.setText(Html.fromHtml(item.club));
 
     // TODO: can we cut off this text in a more intelligent way?
-    String shorty = item.description.substring(9, Math.min(item.description.length(), SHORT_TEXT_LENGTH));
+    String shorty = item.description.substring(0, Math.min(item.description.length(), SHORT_TEXT_LENGTH));
 
     TextView shorttxt = (TextView) row.findViewById(R.id.news_item_short);
     shorttxt.setText(Html.fromHtml(shorty));
