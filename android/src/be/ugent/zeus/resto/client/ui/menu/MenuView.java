@@ -1,7 +1,5 @@
 package be.ugent.zeus.resto.client.ui.menu;
 
-import be.ugent.zeus.resto.client.data.Menu;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.Gravity;
@@ -13,6 +11,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.R;
+import be.ugent.zeus.resto.client.data.Menu;
 import be.ugent.zeus.resto.client.data.Product;
 
 /**
@@ -137,7 +136,7 @@ public class MenuView extends LinearLayout {
 
     LinearLayout content = new LinearLayout(context);
     content.setOrientation(LinearLayout.VERTICAL);
-    
+
     // the line with the soup
     content.addView(getSubtitle(R.string.soup, R.drawable.icon_soup));
     content.addView(getSeperator());
