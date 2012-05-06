@@ -25,7 +25,6 @@ import be.ugent.zeus.resto.client.ui.SwipeyTabs;
 import be.ugent.zeus.resto.client.ui.SwipeyTabsAdapter;
 import be.ugent.zeus.resto.client.ui.menu.MenuAdapter;
 import java.util.ArrayList;
-
 import java.util.Calendar;
 import java.util.List;
 
