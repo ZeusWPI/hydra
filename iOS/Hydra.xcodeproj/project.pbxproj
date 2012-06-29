@@ -1,0 +1,538 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F53D248A159DB50800F408AB /* header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D2489159DB50800F408AB /* header-bg.png */; };
+		F53D248C159DB51A00F408AB /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248B159DB51A00F408AB /* hydra.png */; };
+		F53D2490159DB61E00F408AB /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248F159DB61E00F408AB /* icon.png */; };
+		F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408AB159DDA0E00EE7010 /* button-activities-active.png */; };
+		F58408B8159DDA0E00EE7010 /* button-activities.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408AC159DDA0E00EE7010 /* button-activities.png */; };
+		F58408B9159DDA0E00EE7010 /* button-gsr-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408AD159DDA0E00EE7010 /* button-gsr-active.png */; };
+		F58408BA159DDA0E00EE7010 /* button-gsr.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408AE159DDA0E00EE7010 /* button-gsr.png */; };
+		F58408BB159DDA0E00EE7010 /* button-info-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408AF159DDA0E00EE7010 /* button-info-active.png */; };
+		F58408BC159DDA0E00EE7010 /* button-info.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B0159DDA0E00EE7010 /* button-info.png */; };
+		F58408BD159DDA0E00EE7010 /* button-news-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B1159DDA0E00EE7010 /* button-news-active.png */; };
+		F58408BE159DDA0E00EE7010 /* button-news.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B2159DDA0E00EE7010 /* button-news.png */; };
+		F58408BF159DDA0E00EE7010 /* button-resto-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B3159DDA0E00EE7010 /* button-resto-active.png */; };
+		F58408C0159DDA0E00EE7010 /* button-resto.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B4159DDA0E00EE7010 /* button-resto.png */; };
+		F58408C1159DDA0E00EE7010 /* button-schamper-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B5159DDA0E00EE7010 /* button-schamper-active.png */; };
+		F58408C2159DDA0E00EE7010 /* button-schamper.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B6159DDA0E00EE7010 /* button-schamper.png */; };
+		F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8A1518868200F6A1B1 /* UIKit.framework */; };
+		F5BAEC8D1518868200F6A1B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8C1518868200F6A1B1 /* Foundation.framework */; };
+		F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */; };
+		F5BAEC951518868200F6A1B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5BAEC931518868200F6A1B1 /* InfoPlist.strings */; };
+		F5BAEC971518868200F6A1B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAEC961518868200F6A1B1 /* main.m */; };
+		F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */; };
+		F5BAECA41518868200F6A1B1 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAECA31518868200F6A1B1 /* DashboardViewController.m */; };
+		F5BAECAF1518868200F6A1B1 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAECAE1518868200F6A1B1 /* SenTestingKit.framework */; };
+		F5BAECB01518868200F6A1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8A1518868200F6A1B1 /* UIKit.framework */; };
+		F5BAECB11518868200F6A1B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8C1518868200F6A1B1 /* Foundation.framework */; };
+		F5BAECB91518868200F6A1B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5BAECB71518868200F6A1B1 /* InfoPlist.strings */; };
+		F5BAECBC1518868200F6A1B1 /* HydraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAECBB1518868200F6A1B1 /* HydraTests.m */; };
+		F5EBF10D159DFD3B00EB5D26 /* DashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF10F159DFD3B00EB5D26 /* DashboardView.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F5BAECB21518868200F6A1B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5BAEC7D1518868100F6A1B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5BAEC851518868200F6A1B1;
+			remoteInfo = Hydra;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F53D2489159DB50800F408AB /* header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg.png"; sourceTree = "<group>"; };
+		F53D248B159DB51A00F408AB /* hydra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hydra.png; sourceTree = "<group>"; };
+		F53D248F159DB61E00F408AB /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		F58408AB159DDA0E00EE7010 /* button-activities-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-activities-active.png"; sourceTree = "<group>"; };
+		F58408AC159DDA0E00EE7010 /* button-activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-activities.png"; sourceTree = "<group>"; };
+		F58408AD159DDA0E00EE7010 /* button-gsr-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gsr-active.png"; sourceTree = "<group>"; };
+		F58408AE159DDA0E00EE7010 /* button-gsr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gsr.png"; sourceTree = "<group>"; };
+		F58408AF159DDA0E00EE7010 /* button-info-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-info-active.png"; sourceTree = "<group>"; };
+		F58408B0159DDA0E00EE7010 /* button-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-info.png"; sourceTree = "<group>"; };
+		F58408B1159DDA0E00EE7010 /* button-news-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-news-active.png"; sourceTree = "<group>"; };
+		F58408B2159DDA0E00EE7010 /* button-news.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-news.png"; sourceTree = "<group>"; };
+		F58408B3159DDA0E00EE7010 /* button-resto-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-resto-active.png"; sourceTree = "<group>"; };
+		F58408B4159DDA0E00EE7010 /* button-resto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-resto.png"; sourceTree = "<group>"; };
+		F58408B5159DDA0E00EE7010 /* button-schamper-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-schamper-active.png"; sourceTree = "<group>"; };
+		F58408B6159DDA0E00EE7010 /* button-schamper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-schamper.png"; sourceTree = "<group>"; };
+		F5BAEC861518868200F6A1B1 /* Hydra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hydra.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5BAEC8A1518868200F6A1B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F5BAEC8C1518868200F6A1B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hydra-Info.plist"; sourceTree = "<group>"; };
+		F5BAEC961518868200F6A1B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F5BAEC981518868200F6A1B1 /* Hydra-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hydra-Prefix.pch"; sourceTree = "<group>"; };
+		F5BAEC991518868200F6A1B1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F5BAECA21518868200F6A1B1 /* DashboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DashboardViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F5BAECA31518868200F6A1B1 /* DashboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		F5BAECAD1518868200F6A1B1 /* HydraTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HydraTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5BAECAE1518868200F6A1B1 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HydraTests-Info.plist"; sourceTree = "<group>"; };
+		F5BAECB81518868200F6A1B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F5BAECBA1518868200F6A1B1 /* HydraTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HydraTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F5BAECBB1518868200F6A1B1 /* HydraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HydraTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F5EBF112159DFDEC00EB5D26 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/DashboardView.xib; sourceTree = "<group>"; };
+		F5EBF113159DFDF500EB5D26 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F5BAEC831518868200F6A1B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */,
+				F5BAEC8D1518868200F6A1B1 /* Foundation.framework in Frameworks */,
+				F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5BAECA91518868200F6A1B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5BAECAF1518868200F6A1B1 /* SenTestingKit.framework in Frameworks */,
+				F5BAECB01518868200F6A1B1 /* UIKit.framework in Frameworks */,
+				F5BAECB11518868200F6A1B1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F53D2486159DB4B200F408AB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F53D248F159DB61E00F408AB /* icon.png */,
+				F53D2488159DB4DB00F408AB /* Images */,
+			);
+			name = Resources;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		F53D2488159DB4DB00F408AB /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F58408AB159DDA0E00EE7010 /* button-activities-active.png */,
+				F58408AC159DDA0E00EE7010 /* button-activities.png */,
+				F58408AD159DDA0E00EE7010 /* button-gsr-active.png */,
+				F58408AE159DDA0E00EE7010 /* button-gsr.png */,
+				F58408AF159DDA0E00EE7010 /* button-info-active.png */,
+				F58408B0159DDA0E00EE7010 /* button-info.png */,
+				F58408B1159DDA0E00EE7010 /* button-news-active.png */,
+				F58408B2159DDA0E00EE7010 /* button-news.png */,
+				F58408B3159DDA0E00EE7010 /* button-resto-active.png */,
+				F58408B4159DDA0E00EE7010 /* button-resto.png */,
+				F58408B5159DDA0E00EE7010 /* button-schamper-active.png */,
+				F58408B6159DDA0E00EE7010 /* button-schamper.png */,
+				F53D2489159DB50800F408AB /* header-bg.png */,
+				F53D248B159DB51A00F408AB /* hydra.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		F5BAEC7B1518868100F6A1B1 = {
+			isa = PBXGroup;
+			children = (
+				F5BAEC901518868200F6A1B1 /* Hydra */,
+				F5BAECB41518868200F6A1B1 /* HydraTests */,
+				F5BAEC891518868200F6A1B1 /* Frameworks */,
+				F5BAEC871518868200F6A1B1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F5BAEC871518868200F6A1B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5BAEC861518868200F6A1B1 /* Hydra.app */,
+				F5BAECAD1518868200F6A1B1 /* HydraTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5BAEC8A1518868200F6A1B1 /* UIKit.framework */,
+				F5BAEC8C1518868200F6A1B1 /* Foundation.framework */,
+				F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */,
+				F5BAECAE1518868200F6A1B1 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5BAEC901518868200F6A1B1 /* Hydra */ = {
+			isa = PBXGroup;
+			children = (
+				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
+				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
+				F5EBF10F159DFD3B00EB5D26 /* DashboardView.xib */,
+				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
+				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
+				F53D2486159DB4B200F408AB /* Resources */,
+				F5BAEC911518868200F6A1B1 /* Supporting Files */,
+			);
+			path = Hydra;
+			sourceTree = "<group>";
+		};
+		F5BAEC911518868200F6A1B1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
+				F5BAEC931518868200F6A1B1 /* InfoPlist.strings */,
+				F5BAEC961518868200F6A1B1 /* main.m */,
+				F5BAEC981518868200F6A1B1 /* Hydra-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F5BAECB41518868200F6A1B1 /* HydraTests */ = {
+			isa = PBXGroup;
+			children = (
+				F5BAECBA1518868200F6A1B1 /* HydraTests.h */,
+				F5BAECBB1518868200F6A1B1 /* HydraTests.m */,
+				F5BAECB51518868200F6A1B1 /* Supporting Files */,
+			);
+			path = HydraTests;
+			sourceTree = "<group>";
+		};
+		F5BAECB51518868200F6A1B1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */,
+				F5BAECB71518868200F6A1B1 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F5BAEC851518868200F6A1B1 /* Hydra */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5BAECBF1518868200F6A1B1 /* Build configuration list for PBXNativeTarget "Hydra" */;
+			buildPhases = (
+				F5BAEC821518868200F6A1B1 /* Sources */,
+				F5BAEC831518868200F6A1B1 /* Frameworks */,
+				F53D2491159DB7E200F408AB /* ShellScript */,
+				F5BAEC841518868200F6A1B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Hydra;
+			productName = Hydra;
+			productReference = F5BAEC861518868200F6A1B1 /* Hydra.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F5BAECAC1518868200F6A1B1 /* HydraTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5BAECC21518868200F6A1B1 /* Build configuration list for PBXNativeTarget "HydraTests" */;
+			buildPhases = (
+				F5BAECA81518868200F6A1B1 /* Sources */,
+				F5BAECA91518868200F6A1B1 /* Frameworks */,
+				F5BAECAA1518868200F6A1B1 /* Resources */,
+				F5BAECAB1518868200F6A1B1 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F5BAECB31518868200F6A1B1 /* PBXTargetDependency */,
+			);
+			name = HydraTests;
+			productName = HydraTests;
+			productReference = F5BAECAD1518868200F6A1B1 /* HydraTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F5BAEC7D1518868100F6A1B1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Zeus WPI";
+			};
+			buildConfigurationList = F5BAEC801518868100F6A1B1 /* Build configuration list for PBXProject "Hydra" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				nl,
+			);
+			mainGroup = F5BAEC7B1518868100F6A1B1;
+			productRefGroup = F5BAEC871518868200F6A1B1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F5BAEC851518868200F6A1B1 /* Hydra */,
+				F5BAECAC1518868200F6A1B1 /* HydraTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F5BAEC841518868200F6A1B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5BAEC951518868200F6A1B1 /* InfoPlist.strings in Resources */,
+				F53D248A159DB50800F408AB /* header-bg.png in Resources */,
+				F53D248C159DB51A00F408AB /* hydra.png in Resources */,
+				F53D2490159DB61E00F408AB /* icon.png in Resources */,
+				F5EBF10D159DFD3B00EB5D26 /* DashboardView.xib in Resources */,
+				F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */,
+				F58408B8159DDA0E00EE7010 /* button-activities.png in Resources */,
+				F58408B9159DDA0E00EE7010 /* button-gsr-active.png in Resources */,
+				F58408BA159DDA0E00EE7010 /* button-gsr.png in Resources */,
+				F58408BB159DDA0E00EE7010 /* button-info-active.png in Resources */,
+				F58408BC159DDA0E00EE7010 /* button-info.png in Resources */,
+				F58408BD159DDA0E00EE7010 /* button-news-active.png in Resources */,
+				F58408BE159DDA0E00EE7010 /* button-news.png in Resources */,
+				F58408BF159DDA0E00EE7010 /* button-resto-active.png in Resources */,
+				F58408C0159DDA0E00EE7010 /* button-resto.png in Resources */,
+				F58408C1159DDA0E00EE7010 /* button-schamper-active.png in Resources */,
+				F58408C2159DDA0E00EE7010 /* button-schamper.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5BAECAA1518868200F6A1B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5BAECB91518868200F6A1B1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F53D2491159DB7E200F408AB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash    \nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
+			showEnvVarsInLog = 0;
+		};
+		F5BAECAB1518868200F6A1B1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F5BAEC821518868200F6A1B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5BAEC971518868200F6A1B1 /* main.m in Sources */,
+				F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */,
+				F5BAECA41518868200F6A1B1 /* DashboardViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5BAECA81518868200F6A1B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5BAECBC1518868200F6A1B1 /* HydraTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F5BAECB31518868200F6A1B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5BAEC851518868200F6A1B1 /* Hydra */;
+			targetProxy = F5BAECB21518868200F6A1B1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F5BAEC931518868200F6A1B1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5EBF113159DFDF500EB5D26 /* nl */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F5BAECB71518868200F6A1B1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5BAECB81518868200F6A1B1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F5EBF10F159DFD3B00EB5D26 /* DashboardView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5EBF112159DFDEC00EB5D26 /* nl */,
+			);
+			name = DashboardView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F5BAECBD1518868200F6A1B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		F5BAECBE1518868200F6A1B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		F5BAECC01518868200F6A1B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
+				INFOPLIST_FILE = "Hydra/Hydra-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F5BAECC11518868200F6A1B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
+				INFOPLIST_FILE = "Hydra/Hydra-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F5BAECC31518868200F6A1B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Hydra.app/Hydra";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
+				INFOPLIST_FILE = "HydraTests/HydraTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		F5BAECC41518868200F6A1B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Hydra.app/Hydra";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
+				INFOPLIST_FILE = "HydraTests/HydraTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F5BAEC801518868100F6A1B1 /* Build configuration list for PBXProject "Hydra" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5BAECBD1518868200F6A1B1 /* Debug */,
+				F5BAECBE1518868200F6A1B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5BAECBF1518868200F6A1B1 /* Build configuration list for PBXNativeTarget "Hydra" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5BAECC01518868200F6A1B1 /* Debug */,
+				F5BAECC11518868200F6A1B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5BAECC21518868200F6A1B1 /* Build configuration list for PBXNativeTarget "HydraTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5BAECC31518868200F6A1B1 /* Debug */,
+				F5BAECC41518868200F6A1B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F5BAEC7D1518868100F6A1B1 /* Project object */;
+}
