@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="timeoutNames">
+        <item>5 Minuten</item>
+        <item>15 Minuten</item>
+        <item>30 Minuten</item>
+        <item>1 Uur</item>
+        <item>2 Uren</item>
+        <item>12 Uren</item>
+        <item>1 Dag</item>
+    </string-array>
+    <string-array name="timeoutValues">
+        <item>5</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>720</item>
+        <item>1440</item>
+    </string-array>
+</resources>
