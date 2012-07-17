@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F50EE09715B5F587000F1992 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EE09515B5F587000F1992 /* WebViewController.m */; };
 		F53D248A159DB50800F408AB /* header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D2489159DB50800F408AB /* header-bg.png */; };
 		F53D248C159DB51A00F408AB /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248B159DB51A00F408AB /* hydra.png */; };
-		F53D2490159DB61E00F408AB /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248F159DB61E00F408AB /* icon.png */; };
 		F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408AB159DDA0E00EE7010 /* button-activities-active.png */; };
 		F58408B8159DDA0E00EE7010 /* button-activities.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408AC159DDA0E00EE7010 /* button-activities.png */; };
 		F58408B9159DDA0E00EE7010 /* button-gsr-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408AD159DDA0E00EE7010 /* button-gsr-active.png */; };
@@ -25,16 +25,30 @@
 		F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8A1518868200F6A1B1 /* UIKit.framework */; };
 		F5BAEC8D1518868200F6A1B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8C1518868200F6A1B1 /* Foundation.framework */; };
 		F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */; };
-		F5BAEC951518868200F6A1B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5BAEC931518868200F6A1B1 /* InfoPlist.strings */; };
 		F5BAEC971518868200F6A1B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAEC961518868200F6A1B1 /* main.m */; };
 		F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */; };
 		F5BAECA41518868200F6A1B1 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAECA31518868200F6A1B1 /* DashboardViewController.m */; };
 		F5BAECAF1518868200F6A1B1 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAECAE1518868200F6A1B1 /* SenTestingKit.framework */; };
 		F5BAECB01518868200F6A1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8A1518868200F6A1B1 /* UIKit.framework */; };
 		F5BAECB11518868200F6A1B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8C1518868200F6A1B1 /* Foundation.framework */; };
-		F5BAECB91518868200F6A1B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5BAECB71518868200F6A1B1 /* InfoPlist.strings */; };
 		F5BAECBC1518868200F6A1B1 /* HydraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAECBB1518868200F6A1B1 /* HydraTests.m */; };
-		F5EBF10D159DFD3B00EB5D26 /* DashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF10F159DFD3B00EB5D26 /* DashboardView.xib */; };
+		F5D36BB715B5BD2A00B6E017 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB315B5BD2A00B6E017 /* Default.png */; };
+		F5D36BB815B5BD2A00B6E017 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB415B5BD2A00B6E017 /* Default@2x.png */; };
+		F5D36BB915B5BD2A00B6E017 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB515B5BD2A00B6E017 /* icon.png */; };
+		F5D36BBA15B5BD2A00B6E017 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB615B5BD2A00B6E017 /* icon@2x.png */; };
+		F5D36BC115B5BDA500B6E017 /* SchamperStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D36BC015B5BDA500B6E017 /* SchamperStore.m */; };
+		F5D36BD015B5CB9C00B6E017 /* RestoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */; };
+		F5EBF10D159DFD3B00EB5D26 /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */; };
+		F5EBF117159E040700EB5D26 /* RestoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF115159E040700EB5D26 /* RestoViewController.m */; };
+		F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF11B159E092300EB5D26 /* SchamperViewController.m */; };
+		F5EBF137159E13D300EB5D26 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF136159E13D300EB5D26 /* CFNetwork.framework */; };
+		F5EBF139159E13D900EB5D26 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF138159E13D900EB5D26 /* CoreData.framework */; };
+		F5EBF13B159E13DF00EB5D26 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF13A159E13DF00EB5D26 /* Security.framework */; };
+		F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */; };
+		F5EBF13F159E13ED00EB5D26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF13E159E13ED00EB5D26 /* SystemConfiguration.framework */; };
+		F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */; };
+		F5EBF144159E141900EB5D26 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF12C159E134500EB5D26 /* libRestKit.a */; };
+		F5EBF14C159E1E3600EB5D26 /* SchamperArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,12 +59,55 @@
 			remoteGlobalIDString = F5BAEC851518868200F6A1B1;
 			remoteInfo = Hydra;
 		};
+		F5EBF12B159E134500EB5D26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		F5EBF12D159E134500EB5D26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		F5EBF12F159E134500EB5D26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		F5EBF131159E134500EB5D26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
+		};
+		F5EBF133159E134500EB5D26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 259C301615128079003066A2;
+			remoteInfo = RestKitResources;
+		};
+		F5EBF145159E142900EB5D26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F50EE09415B5F587000F1992 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		F50EE09515B5F587000F1992 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		F53D2489159DB50800F408AB /* header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg.png"; sourceTree = "<group>"; };
 		F53D248B159DB51A00F408AB /* hydra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hydra.png; sourceTree = "<group>"; };
-		F53D248F159DB61E00F408AB /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		F58408AB159DDA0E00EE7010 /* button-activities-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-activities-active.png"; sourceTree = "<group>"; };
 		F58408AC159DDA0E00EE7010 /* button-activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-activities.png"; sourceTree = "<group>"; };
 		F58408AD159DDA0E00EE7010 /* button-gsr-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gsr-active.png"; sourceTree = "<group>"; };
@@ -68,8 +125,7 @@
 		F5BAEC8C1518868200F6A1B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hydra-Info.plist"; sourceTree = "<group>"; };
-		F5BAEC961518868200F6A1B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		F5BAEC981518868200F6A1B1 /* Hydra-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hydra-Prefix.pch"; sourceTree = "<group>"; };
+		F5BAEC961518868200F6A1B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = main.m; path = Hydra/main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F5BAEC991518868200F6A1B1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F5BAECA21518868200F6A1B1 /* DashboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DashboardViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -77,11 +133,30 @@
 		F5BAECAD1518868200F6A1B1 /* HydraTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HydraTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BAECAE1518868200F6A1B1 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HydraTests-Info.plist"; sourceTree = "<group>"; };
-		F5BAECB81518868200F6A1B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F5BAECBA1518868200F6A1B1 /* HydraTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HydraTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAECBB1518868200F6A1B1 /* HydraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HydraTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		F5EBF112159DFDEC00EB5D26 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/DashboardView.xib; sourceTree = "<group>"; };
-		F5EBF113159DFDF500EB5D26 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F5D36BB315B5BD2A00B6E017 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		F5D36BB415B5BD2A00B6E017 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		F5D36BB515B5BD2A00B6E017 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		F5D36BB615B5BD2A00B6E017 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperStore.h; sourceTree = "<group>"; };
+		F5D36BC015B5BDA500B6E017 /* SchamperStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperStore.m; sourceTree = "<group>"; };
+		F5D36BD715B5CC0300B6E017 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/RestoViewController.xib; sourceTree = "<group>"; };
+		F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Hydra-Prefix.pch"; path = "Hydra/Hydra-Prefix.pch"; sourceTree = "<group>"; };
+		F5EBF112159DFDEC00EB5D26 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/DashboardViewController.xib; sourceTree = "<group>"; };
+		F5EBF114159E040700EB5D26 /* RestoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoViewController.h; sourceTree = "<group>"; };
+		F5EBF115159E040700EB5D26 /* RestoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoViewController.m; sourceTree = "<group>"; };
+		F5EBF11A159E092300EB5D26 /* SchamperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperViewController.h; sourceTree = "<group>"; };
+		F5EBF11B159E092300EB5D26 /* SchamperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperViewController.m; sourceTree = "<group>"; };
+		F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		F5EBF136159E13D300EB5D26 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F5EBF138159E13D900EB5D26 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F5EBF13A159E13DF00EB5D26 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		F5EBF13E159E13ED00EB5D26 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F5EBF14A159E1E3600EB5D26 /* SchamperArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperArticle.h; sourceTree = "<group>"; };
+		F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperArticle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +164,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5EBF144159E141900EB5D26 /* libRestKit.a in Frameworks */,
+				F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */,
+				F5EBF13F159E13ED00EB5D26 /* SystemConfiguration.framework in Frameworks */,
+				F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */,
+				F5EBF13B159E13DF00EB5D26 /* Security.framework in Frameworks */,
+				F5EBF139159E13D900EB5D26 /* CoreData.framework in Frameworks */,
+				F5EBF137159E13D300EB5D26 /* CFNetwork.framework in Frameworks */,
 				F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */,
 				F5BAEC8D1518868200F6A1B1 /* Foundation.framework in Frameworks */,
 				F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */,
@@ -108,16 +190,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F53D2486159DB4B200F408AB /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F53D248F159DB61E00F408AB /* icon.png */,
-				F53D2488159DB4DB00F408AB /* Images */,
-			);
-			name = Resources;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		F53D2488159DB4DB00F408AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,10 +233,17 @@
 		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F5BAEC8A1518868200F6A1B1 /* UIKit.framework */,
-				F5BAEC8C1518868200F6A1B1 /* Foundation.framework */,
+				F5EBF136159E13D300EB5D26 /* CFNetwork.framework */,
+				F5EBF138159E13D900EB5D26 /* CoreData.framework */,
 				F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */,
+				F5BAEC8C1518868200F6A1B1 /* Foundation.framework */,
+				F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */,
+				F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */,
+				F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */,
+				F5EBF13A159E13DF00EB5D26 /* Security.framework */,
 				F5BAECAE1518868200F6A1B1 /* SenTestingKit.framework */,
+				F5EBF13E159E13ED00EB5D26 /* SystemConfiguration.framework */,
+				F5BAEC8A1518868200F6A1B1 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -174,10 +253,8 @@
 			children = (
 				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
-				F5EBF10F159DFD3B00EB5D26 /* DashboardView.xib */,
-				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
-				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
-				F53D2486159DB4B200F408AB /* Resources */,
+				F5EBF11F159E09C700EB5D26 /* Models */,
+				F5EBF119159E04B500EB5D26 /* ViewControllers */,
 				F5BAEC911518868200F6A1B1 /* Supporting Files */,
 			);
 			path = Hydra;
@@ -186,12 +263,17 @@
 		F5BAEC911518868200F6A1B1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F5D36BB315B5BD2A00B6E017 /* Default.png */,
+				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
-				F5BAEC931518868200F6A1B1 /* InfoPlist.strings */,
+				F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */,
+				F5D36BB515B5BD2A00B6E017 /* icon.png */,
+				F5D36BB615B5BD2A00B6E017 /* icon@2x.png */,
+				F53D2488159DB4DB00F408AB /* Images */,
 				F5BAEC961518868200F6A1B1 /* main.m */,
-				F5BAEC981518868200F6A1B1 /* Hydra-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		F5BAECB41518868200F6A1B1 /* HydraTests */ = {
@@ -208,9 +290,48 @@
 			isa = PBXGroup;
 			children = (
 				F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */,
-				F5BAECB71518868200F6A1B1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F5EBF119159E04B500EB5D26 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
+				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
+				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
+				F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */,
+				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
+				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
+				F5EBF11A159E092300EB5D26 /* SchamperViewController.h */,
+				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
+				F50EE09415B5F587000F1992 /* WebViewController.h */,
+				F50EE09515B5F587000F1992 /* WebViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F5EBF11F159E09C700EB5D26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F5EBF14A159E1E3600EB5D26 /* SchamperArticle.h */,
+				F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */,
+				F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */,
+				F5D36BC015B5BDA500B6E017 /* SchamperStore.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		F5EBF121159E134400EB5D26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5EBF12C159E134500EB5D26 /* libRestKit.a */,
+				F5EBF12E159E134500EB5D26 /* RestKitTests.octest */,
+				F5EBF130159E134500EB5D26 /* RestKit.framework */,
+				F5EBF132159E134500EB5D26 /* RestKitFrameworkTests.octest */,
+				F5EBF134159E134500EB5D26 /* RestKitResources.bundle */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,12 +343,12 @@
 			buildPhases = (
 				F5BAEC821518868200F6A1B1 /* Sources */,
 				F5BAEC831518868200F6A1B1 /* Frameworks */,
-				F53D2491159DB7E200F408AB /* ShellScript */,
 				F5BAEC841518868200F6A1B1 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F5EBF146159E142900EB5D26 /* PBXTargetDependency */,
 			);
 			name = Hydra;
 			productName = Hydra;
@@ -273,6 +394,12 @@
 			mainGroup = F5BAEC7B1518868100F6A1B1;
 			productRefGroup = F5BAEC871518868200F6A1B1 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F5EBF121159E134400EB5D26 /* Products */;
+					ProjectRef = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F5BAEC851518868200F6A1B1 /* Hydra */,
@@ -281,16 +408,52 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		F5EBF12C159E134500EB5D26 /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = F5EBF12B159E134500EB5D26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F5EBF12E159E134500EB5D26 /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = F5EBF12D159E134500EB5D26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F5EBF130159E134500EB5D26 /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = F5EBF12F159E134500EB5D26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F5EBF132159E134500EB5D26 /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = F5EBF131159E134500EB5D26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F5EBF134159E134500EB5D26 /* RestKitResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitResources.bundle;
+			remoteRef = F5EBF133159E134500EB5D26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		F5BAEC841518868200F6A1B1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5BAEC951518868200F6A1B1 /* InfoPlist.strings in Resources */,
 				F53D248A159DB50800F408AB /* header-bg.png in Resources */,
 				F53D248C159DB51A00F408AB /* hydra.png in Resources */,
-				F53D2490159DB61E00F408AB /* icon.png in Resources */,
-				F5EBF10D159DFD3B00EB5D26 /* DashboardView.xib in Resources */,
+				F5EBF10D159DFD3B00EB5D26 /* DashboardViewController.xib in Resources */,
 				F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */,
 				F58408B8159DDA0E00EE7010 /* button-activities.png in Resources */,
 				F58408B9159DDA0E00EE7010 /* button-gsr-active.png in Resources */,
@@ -303,6 +466,11 @@
 				F58408C0159DDA0E00EE7010 /* button-resto.png in Resources */,
 				F58408C1159DDA0E00EE7010 /* button-schamper-active.png in Resources */,
 				F58408C2159DDA0E00EE7010 /* button-schamper.png in Resources */,
+				F5D36BD015B5CB9C00B6E017 /* RestoViewController.xib in Resources */,
+				F5D36BB715B5BD2A00B6E017 /* Default.png in Resources */,
+				F5D36BB815B5BD2A00B6E017 /* Default@2x.png in Resources */,
+				F5D36BB915B5BD2A00B6E017 /* icon.png in Resources */,
+				F5D36BBA15B5BD2A00B6E017 /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,27 +478,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5BAECB91518868200F6A1B1 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F53D2491159DB7E200F408AB /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash    \nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
-			showEnvVarsInLog = 0;
-		};
 		F5BAECAB1518868200F6A1B1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,6 +507,11 @@
 				F5BAEC971518868200F6A1B1 /* main.m in Sources */,
 				F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */,
 				F5BAECA41518868200F6A1B1 /* DashboardViewController.m in Sources */,
+				F5EBF117159E040700EB5D26 /* RestoViewController.m in Sources */,
+				F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */,
+				F5EBF14C159E1E3600EB5D26 /* SchamperArticle.m in Sources */,
+				F5D36BC115B5BDA500B6E017 /* SchamperStore.m in Sources */,
+				F50EE09715B5F587000F1992 /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,31 +531,28 @@
 			target = F5BAEC851518868200F6A1B1 /* Hydra */;
 			targetProxy = F5BAECB21518868200F6A1B1 /* PBXContainerItemProxy */;
 		};
+		F5EBF146159E142900EB5D26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = F5EBF145159E142900EB5D26 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F5BAEC931518868200F6A1B1 /* InfoPlist.strings */ = {
+		F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F5EBF113159DFDF500EB5D26 /* nl */,
+				F5D36BD715B5CC0300B6E017 /* nl */,
 			);
-			name = InfoPlist.strings;
+			name = RestoViewController.xib;
 			sourceTree = "<group>";
 		};
-		F5BAECB71518868200F6A1B1 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F5BAECB81518868200F6A1B1 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		F5EBF10F159DFD3B00EB5D26 /* DashboardView.xib */ = {
+		F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F5EBF112159DFDEC00EB5D26 /* nl */,
 			);
-			name = DashboardView.xib;
+			name = DashboardViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -406,7 +561,6 @@
 		F5BAECBD1518868200F6A1B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -420,7 +574,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -431,14 +590,18 @@
 		F5BAECBE1518868200F6A1B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -451,7 +614,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
-				INFOPLIST_FILE = "Hydra/Hydra-Info.plist";
+				INFOPLIST_FILE = "Hydra-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -462,8 +625,9 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
-				INFOPLIST_FILE = "Hydra/Hydra-Info.plist";
+				INFOPLIST_FILE = "Hydra-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

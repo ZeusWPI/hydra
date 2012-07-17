@@ -7,16 +7,25 @@
 //
 
 #import "DashboardViewController.h"
+#import "RestoViewController.h"
+#import "SchamperViewController.h"
 
 @implementation DashboardViewController
+
+
+// Testing
+- (void)viewDidAppear:(BOOL)animated
+{
+    /*UIButton *b = (UIButton *)[self.view viewWithTag:6];
+    [b setHighlighted:YES];
+    [self showSchamper:b];*/
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     // Do any additional setup after loading the view, typically from a nib.
-    // [self.navigationItem setTitle:@"Hydra"];
-    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewDidUnload
@@ -24,6 +33,18 @@
     [super viewDidUnload];
     
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -53,10 +74,14 @@
 
 - (IBAction)showResto:(id)sender {
     DLog(@"Dashboard switching to Resto");
+    UIViewController *c = [[RestoViewController alloc] initWithNibName:@"RestoView" bundle:nil];
+    [self.navigationController pushViewController:c animated:YES];
 }
 
 - (IBAction)showSchamper:(id)sender {
     DLog(@"Dashboard switching to Schamper");
+    UIViewController *c = [[SchamperViewController alloc] initWithNibName:@"SchamperView" bundle:nil];
+    [self.navigationController pushViewController:c animated:YES];
 }
 
 @end
