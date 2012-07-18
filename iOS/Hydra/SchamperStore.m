@@ -8,22 +8,11 @@
 
 #import "SchamperStore.h"
 #import "SchamperArticle.h"
-#import <RestKit/RestKit.h>
 
 #define kSchamperUrl @"http://www.schamper.ugent.be/dagelijks"
 
 NSString *const SchamperStoreDidUpdateArticlesNotification =
     @"SchamperStoreDidUpdateArticlesNotification";
-
-@interface SchamperStore () <RKObjectLoaderDelegate> {
-    RKObjectManager *objectManager;
-    BOOL active;
-}
-
-+ (NSString *)articleCachePath;
-- (void)archiveStore;
-
-@end
 
 @implementation SchamperStore
 
@@ -49,6 +38,9 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark Caching
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -76,11 +68,14 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     return [cacheDirectory stringByAppendingPathComponent:@"schamper.archive"];
 }
 
-- (void)archiveStore
+- (void)saveStoreCache
 {
     NSString *cachePath = [[self class] articleCachePath];
     [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
 }
+
+#pragma mark -
+#pragma mark Article fetching
 
 - (void)updateArticles
 {
@@ -123,7 +118,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];
-    [self archiveStore];
+    [self saveStoreCache];
 }
 
 @end

@@ -42,6 +42,27 @@
     [mappingProvider setObjectMapping:menuMapping forKeyPath:@""];
 }
 
+- (id)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super init]) {
+        day = [coder decodeObjectForKey:@"day"];
+        open = [coder decodeBoolForKey:@"open"];
+        meat = [coder decodeObjectForKey:@"meat"];
+        vegetables = [coder decodeObjectForKey:@"vegetables"];
+        soup = [coder decodeObjectForKey:@"soup"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:day forKey:@"day"];
+    [coder encodeBool:open forKey:@"open"];
+    [coder encodeObject:meat forKey:@"meat"];
+    [coder encodeObject:vegetables forKey:@"vegetables"];
+    [coder encodeObject:soup forKey:@"soup"];
+}
+
 @end
 
 @implementation RestoMenuItem
@@ -51,6 +72,23 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"<RestoMenuItem: %@ (%@)>", name, price];
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super init]) {
+        name = [coder decodeObjectForKey:@"name"];
+        price = [coder decodeObjectForKey:@"price"];
+        recommended = [coder decodeBoolForKey:@"recommended"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:name forKey:@"name"];
+    [coder encodeObject:price forKey:@"price"];
+    [coder encodeBool:recommended forKey:@"recommended"];
 }
 
 @end

@@ -26,8 +26,12 @@
 {
     [super viewDidLoad];
 
-    // Set title in navigation bar
+    // Set title in navigation bar, slightly different title on return button
     [[self navigationItem] setTitle:@"Schamper Daily"];
+    UIBarButtonItem *bb = [[UIBarButtonItem alloc] initWithTitle:@"Schamper"
+                                                           style:UIBarButtonItemStyleBordered
+                                                          target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:bb];
 
     // Check for updates
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

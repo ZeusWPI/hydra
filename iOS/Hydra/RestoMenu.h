@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
-@interface RestoMenuItem : NSObject
+@interface RestoMenuItem : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *price;
@@ -17,7 +17,7 @@
 
 @end
 
-@interface RestoMenu : NSObject
+@interface RestoMenu : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSDate *day;
 @property (nonatomic) BOOL open;

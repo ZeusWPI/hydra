@@ -8,34 +8,20 @@
 
 #import "RestoStore.h"
 #import "RestoMenu.h"
-#import <RestKit/RestKit.h>
 
 #define kRestoUrl @"http://kelder.zeus.ugent.be/~blackskad/resto/api/0.1"
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
 
-@interface RestoStore () <RKObjectLoaderDelegate> {
-    RKObjectManager *objectManager;
-    BOOL active;
-}
-
-+ (NSString *)menuCachePath;
-- (void)archiveStore;
-- (NSUInteger)currentWeekNumber;
-
-@end
-
 @implementation RestoStore
-
-@synthesize menuItems, week;
 
 + (RestoStore *)sharedStore
 {
     static RestoStore *sharedInstance = nil;
     if (!sharedInstance) {
         // Try restoring the store from archive
-        // sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self menuCachePath]];
+        sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self menuCachePath]];
         if (!sharedInstance) sharedInstance = [[RestoStore alloc] init];
     }
     return sharedInstance;
@@ -44,27 +30,27 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 - (id)init
 {
     if (self = [super init]) {
-        menuItems = [[NSArray alloc] init];
-        week = [self currentWeekNumber];
-        active = false;
+        menus = [[NSMutableDictionary alloc] init];
+        activeRequests = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
+#pragma mark -
+#pragma mark Caching
+
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        menuItems = [decoder decodeObjectForKey:@"menuItems"];
-        week = [decoder decodeIntegerForKey:@"week"];
-        active = false;
+        menus = [decoder decodeObjectForKey:@"menuItems"];
+        activeRequests = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:menuItems forKey:@"menuItems"];
-    [coder encodeInteger:week forKey:@"week"];
+    [coder encodeObject:menus forKey:@"menuItems"];
 }
 
 + (NSString *)menuCachePath
@@ -77,65 +63,105 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     return [cacheDirectory stringByAppendingPathComponent:@"restomenu.archive"];
 }
 
-- (void)archiveStore
+- (void)updateStoreCache
 {
+    NSDate *today = [self dateWithoutTime:[NSDate date]];
+    NSMutableArray *toRemove = [[NSMutableArray alloc] init];
+
+    // Remove all old entries
+    for (NSDate *date in [menus keyEnumerator]) {
+        if ([today compare:date] == NSOrderedDescending) {
+            [toRemove addObject:date];
+        }
+    }
+    [menus removeObjectsForKeys:toRemove];
+    DLog(@"Purged %d old menus from RestoStore", [toRemove count]);
+
     NSString *cachePath = [[self class] menuCachePath];
     [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
 }
 
-- (void)updateMenu
+#pragma mark -
+#pragma mark Menu management and requests
+
+- (RestoMenu *)menuForDay:(NSDate *)day
 {
-    // Only allow one request at a time
-    if (active) return;
-    DLog(@"Starting Resto update");
+    day = [self dateWithoutTime:day];
+    RestoMenu *menu = [menus objectForKey:day];
+    if (!menu) {
+        [self fetchMenuForWeek:[self weeknumberForDate:day]];
+    }
+    return menu;
+}
 
-    // TODO: implement check to see if update is necessary
-    // but allow for 'forced' updates (e.g. pull on tableview)
-
+- (void)fetchMenuForWeek:(NSUInteger)week
+{
     if (!objectManager) {
         objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
         [RestoMenu registerObjectMappingWith:[objectManager mappingProvider]];
         [[objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
     }
-    [objectManager loadObjectsAtResourcePath:@"/week/13.json" delegate:self];
+
+    NSString *path = [NSString stringWithFormat:@"/week/%d.json", week];
+
+    // Only one request for each resource allowed
+    if (![activeRequests containsObject:path]) {
+        DLog(@"Fetching resto information for week %d", week);
+        [activeRequests addObject:path];
+        [objectManager loadObjectsAtResourcePath:path delegate:self];
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
 {
-    active = false;
+    [activeRequests removeObject:[objectLoader resourcePath]];
 
     // Show an alert if something goes wrong
-    // TODO: make more userfriendly (required for errors thrown by restkit)
+    // TODO: make errors thrown by RestKit more userfriendly
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Fout"
                                                  message:[error localizedDescription]
                                                 delegate:nil
                                        cancelButtonTitle:@"OK"
                                        otherButtonTitles:nil];
     [av show];
+    
+    VLog(activeRequests);
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
-    menuItems = objects;
-    week = [self currentWeekNumber];
-    active = false;
-
-    VLog(menuItems);
+    // Save menus
+    for (RestoMenu *menu in objects) {
+        NSDate *day = [self dateWithoutTime:[menu day]];
+        [menus setObject:menu forKey:day];
+    }
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:RestoStoreDidReceiveMenuNotification object:self];
-    //[self archiveStore];
+    [self updateStoreCache];
+
+    // Only now remove the 'active' request, preventing clients
+    // from restarting the request in response to missing data
+    [activeRequests removeObject:[objectLoader resourcePath]];
 }
 
-- (NSUInteger)currentWeekNumber
-{
-    return 13;
+#pragma mark -
+#pragma mark Date utilities
 
-    // TODO: always show for the next week, starting on saturday?
+- (NSUInteger)weeknumberForDate:(NSDate *)date;
+{
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *comps = [cal components:NSWeekOfYearCalendarUnit
-                                     fromDate:[NSDate date]];
+                                     fromDate:date];
     return [comps weekOfYear];
+}
+
+- (NSDate *)dateWithoutTime:(NSDate *)date
+{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *comps = [cal components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                                     fromDate:date];
+    return [cal dateFromComponents:comps];
 }
 
 @end
