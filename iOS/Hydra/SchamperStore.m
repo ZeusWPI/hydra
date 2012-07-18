@@ -12,15 +12,15 @@
 
 #define kSchamperUrl @"http://www.schamper.ugent.be/dagelijks"
 
-NSString *const SchamperStoreDidUpdateArticlesNotification
-    = @"SchamperStoreDidUpdateArticlesNotification";
+NSString *const SchamperStoreDidUpdateArticlesNotification =
+    @"SchamperStoreDidUpdateArticlesNotification";
 
 @interface SchamperStore () <RKObjectLoaderDelegate> {
+    RKObjectManager *objectManager;
     BOOL active;
 }
 
 + (NSString *)articleCachePath;
-
 - (void)archiveStore;
 
 @end
@@ -86,14 +86,20 @@ NSString *const SchamperStoreDidUpdateArticlesNotification
 {
     // Only allow one request at a time
     if (active) return;
+    DLog(@"Starting Schamper update");
 
     // TODO: implement check to see if update is necessary
     // but allow for 'forced' updates (e.g. pull on tableview)
+    // if not forced: check for internet connection?
 
-    RKObjectManager *manager = [RKObjectManager managerWithBaseURLString:kSchamperUrl];
-    [SchamperArticle registerObjectMappingWith:[manager mappingProvider]];
-    [[manager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
-    [manager loadObjectsAtResourcePath:@"" delegate:self];
+    // The RKObjectManager must be retained, otherwise reachability notifications
+    // will not be received properly and all kinds of weird stuff happen
+    if (!objectManager) {
+        objectManager = [RKObjectManager managerWithBaseURLString:kSchamperUrl];
+        [SchamperArticle registerObjectMappingWith:[objectManager mappingProvider]];
+        [[objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
+    }
+    [objectManager loadObjectsAtResourcePath:@"" delegate:self];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error

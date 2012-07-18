@@ -9,8 +9,6 @@
 #import "SchamperArticle.h"
 #import <RestKit/RKXMLParserXMLReader.h>
 
-#define kSchamperUrl @"http://www.schamper.ugent.be/dagelijks"
-
 @implementation SchamperArticle
 
 @synthesize title, link, date, author, body;
@@ -41,26 +39,24 @@
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 {
-    static RKObjectMapping* mapping = nil;
-    if (!mapping) {
-        // Register rss+xml MIME-type
-        [[RKParserRegistry sharedRegistry] setParserClass:[RKXMLParserXMLReader class]
-                                              forMIMEType:@"application/rss+xml"];
+    // Register rss+xml MIME-type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKXMLParserXMLReader class]
+                                          forMIMEType:@"application/rss+xml"];
 
-        // Create mapping
-        mapping = [RKObjectMapping mappingForClass:self];
-        [mapping mapKeyPath:@"title" toAttribute:@"title"];
-        [mapping mapKeyPath:@"link" toAttribute:@"link"];
-        [mapping mapKeyPath:@"pubDate" toAttribute:@"date"];
-        [mapping mapKeyPath:@"dc:creator" toAttribute:@"author"];
-        [mapping mapKeyPath:@"description" toAttribute:@"body"];
+    // Create mapping
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self];
+    [mapping mapKeyPath:@"title" toAttribute:@"title"];
+    [mapping mapKeyPath:@"link" toAttribute:@"link"];
+    [mapping mapKeyPath:@"pubDate" toAttribute:@"date"];
+    [mapping mapKeyPath:@"dc:creator" toAttribute:@"author"];
+    [mapping mapKeyPath:@"description" toAttribute:@"body"];
 
-        // Date format: Sun, 10 Jun 2012 01:03:24 +0200 (RFC2822)
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
-        [mapping setDateFormatters:[NSArray arrayWithObject:dateFormatter]];
-    }
-    [mappingProvider setMapping:mapping forKeyPath:@"rss.channel.item"];
+    // Date format: Sun, 10 Jun 2012 01:03:24 +0200 (RFC2822)
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
+    [mapping setDateFormatters:[NSArray arrayWithObject:dateFormatter]];
+
+    [mappingProvider setObjectMapping:mapping forKeyPath:@"rss.channel.item"];
 }
 
 @end

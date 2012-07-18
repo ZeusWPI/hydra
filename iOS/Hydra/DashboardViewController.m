@@ -74,13 +74,13 @@
 
 - (IBAction)showResto:(id)sender {
     DLog(@"Dashboard switching to Resto");
-    UIViewController *c = [[RestoViewController alloc] initWithNibName:@"RestoView" bundle:nil];
+    UIViewController *c = [[RestoViewController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
 
 - (IBAction)showSchamper:(id)sender {
     DLog(@"Dashboard switching to Schamper");
-    UIViewController *c = [[SchamperViewController alloc] initWithNibName:@"SchamperView" bundle:nil];
+    UIViewController *c = [[SchamperViewController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
 

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RestoViewController : UIViewController
+@interface RestoViewController : UIViewController {
+    NSArray *menuItems;
+}
 
 @property (strong,nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong,nonatomic) IBOutlet UIScrollView *scrollView;

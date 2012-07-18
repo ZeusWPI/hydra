@@ -8,8 +8,6 @@
 
 #import "AppDelegate.h"
 #import "DashboardViewController.h"
-#import <RestKit/RestKit.h>
-#import "SchamperStore.h"
 
 @implementation AppDelegate
 

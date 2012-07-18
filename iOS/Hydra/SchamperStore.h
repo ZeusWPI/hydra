@@ -16,7 +16,6 @@ extern NSString *const SchamperStoreDidUpdateArticlesNotification;
 @property (nonatomic, strong, readonly) NSDate *lastUpdated;
 
 + (SchamperStore *)sharedStore;
-
 - (void)updateArticles;
 
 @end

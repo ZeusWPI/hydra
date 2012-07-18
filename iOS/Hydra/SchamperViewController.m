@@ -18,8 +18,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         articles = [[SchamperStore sharedStore] articles];
-
-
     }
     return self;
 }
@@ -37,6 +35,8 @@
                    name:SchamperStoreDidUpdateArticlesNotification
                  object:nil];
     [[SchamperStore sharedStore] updateArticles];
+
+    // TODO: show loading overlay when no items found yet
 }
 
 - (void)viewDidUnload
@@ -78,7 +78,7 @@
     return cell;
 }
 
-- (void)articlesUpdated:(id)notification
+- (void)articlesUpdated:(NSNotification *)notification
 {
     DLog(@"Updating tableView");
     articles = [[notification object] articles];
