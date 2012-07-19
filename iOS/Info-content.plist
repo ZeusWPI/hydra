@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>image</key>
+		<string></string>
+		<key>title</key>
+		<string>Sportvoorzieningen</string>
+		<key>subcontent</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>Openingsuren</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Sportaanbod</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string></string>
+		<key>title</key>
+		<string>Bibliotheek</string>
+		<key>link</key>
+		<string> </string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string></string>
+		<key>title</key>
+		<string>Fietsen</string>
+		<key>link</key>
+		<string> </string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string></string>
+		<key>title</key>
+		<string>Studentenartsen</string>
+		<key>link</key>
+		<string> </string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string></string>
+		<key>title</key>
+		<string>DurfDoen</string>
+		<key>subcontent</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>VVS zoek coördinator</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Ga eens internationaal in Gent …</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Zit jij in de lest naat de student van het jaar?</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>We want you! Urgent.fm</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string></string>
+		<key>title</key>
+		<string>Urgent.FM</string>
+		<key>clubfeed</key>
+		<string>Urgent</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string></string>
+		<key>title</key>
+		<string>Academische Kalender</string>
+		<key>link</key>
+		<string> </string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string></string>
+		<key>title</key>
+		<string>Meer Informatie</string>
+		<key>subcontent</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>UGent Studentenwebsite</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Dienst Studentenactiviteiten</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Schamper</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Urgent.fm</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Durf Doen</string>
+			</dict>
+		</array>
+	</dict>
+</array>
+</plist>
