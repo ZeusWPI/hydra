@@ -15,7 +15,7 @@
 - (NSString *)description
 {
     NSUInteger count = [meat count] + [vegetables count];
-    return [NSString stringWithFormat:@"<RestoMenu for %@ (%d items) open=%>",
+    return [NSString stringWithFormat:@"<RestoMenu for %@ (%d items) open=%@>",
                 day, count, NSStringFromBOOL(open)];
 }
 
