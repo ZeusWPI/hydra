@@ -232,8 +232,6 @@ public class RestoMenu extends Activity {
   public CharSequence getAboutMessage() {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append(getString(R.string.app_name));
-    stringBuilder.append(" ");
-    stringBuilder.append(getVersionName());
     stringBuilder.append("\n\n");
     stringBuilder.append(getString(R.string.legend_swiping));
     stringBuilder.append("\n\n");
@@ -241,8 +239,6 @@ public class RestoMenu extends Activity {
     stringBuilder.append(getString(R.string.legend_bold)).append("\n");
     stringBuilder.append(getString(R.string.legend_star)).append("\n");
     stringBuilder.append(getString(R.string.legend_hash));
-    stringBuilder.append("\n\n");
-    stringBuilder.append("http://github.com/blackskad/Resto-menu\n\n");
     return stringBuilder;
   }
 
