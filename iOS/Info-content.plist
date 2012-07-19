@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>image</key>
-		<string></string>
+		<string>info-sports</string>
 		<key>title</key>
 		<string>Sportvoorzieningen</string>
 		<key>subcontent</key>
@@ -21,7 +21,7 @@
 	</dict>
 	<dict>
 		<key>image</key>
-		<string></string>
+		<string>info-library</string>
 		<key>title</key>
 		<string>Bibliotheek</string>
 		<key>link</key>
@@ -29,7 +29,7 @@
 	</dict>
 	<dict>
 		<key>image</key>
-		<string></string>
+		<string>info-bicycle</string>
 		<key>title</key>
 		<string>Fietsen</string>
 		<key>link</key>
@@ -37,7 +37,7 @@
 	</dict>
 	<dict>
 		<key>image</key>
-		<string></string>
+		<string>info-studentdoctors</string>
 		<key>title</key>
 		<string>Studentenartsen</string>
 		<key>link</key>
@@ -45,7 +45,7 @@
 	</dict>
 	<dict>
 		<key>image</key>
-		<string></string>
+		<string>info-durfdoen</string>
 		<key>title</key>
 		<string>DurfDoen</string>
 		<key>subcontent</key>
@@ -70,23 +70,23 @@
 	</dict>
 	<dict>
 		<key>image</key>
-		<string></string>
+		<string>info-urgent</string>
 		<key>title</key>
-		<string>Urgent.FM</string>
+		<string>Urgent.fm</string>
 		<key>clubfeed</key>
 		<string>Urgent</string>
 	</dict>
 	<dict>
 		<key>image</key>
-		<string></string>
+		<string>info-academiccalendar</string>
 		<key>title</key>
-		<string>Academische Kalender</string>
+		<string>Academische kalender</string>
 		<key>link</key>
 		<string> </string>
 	</dict>
 	<dict>
 		<key>image</key>
-		<string></string>
+		<string>info-more</string>
 		<key>title</key>
 		<string>Meer Informatie</string>
 		<key>subcontent</key>

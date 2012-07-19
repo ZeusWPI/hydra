@@ -8,12 +8,15 @@
 
 #import "InfoViewController.h"
 #import "WebViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface InfoViewController ()
 
 @end
 
 @implementation InfoViewController
+
+#define kTableViewShift 25;
 
 #pragma mark - 
 #pragma mark Properties
@@ -37,6 +40,13 @@
         self.title = @"Info";
 	}
     return self;
+}
+
+- (void)viewDidLoad {
+	
+	[super viewDidLoad];
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+	self.tableView.bounces = NO;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -63,10 +73,26 @@
 	if(!cell) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
-    
+	
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+	cell.textLabel.backgroundColor = cell.contentView.backgroundColor;
+	
 	NSDictionary *item = [self.content objectAtIndex:indexPath.row];
-    cell.textLabel.text = [item objectForKey:@"title"];
-    
+	cell.textLabel.text = [NSString stringWithFormat:@" %@", [item objectForKey:@"title"]];
+	UIImage *icon = [UIImage imageNamed:[item objectForKey:@"image"]];
+	cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	cell.imageView.image = icon;
+	
+	cell.indentationLevel = 1;
+	
+	CGRect frame = cell.imageView.frame;
+	frame.size.width = 200;
+	cell.imageView.frame = frame;
+	
+	/*CGPoint center = cell.textLabel.center;
+	center.x += kTableViewShift;
+	cell.textLabel.center = center;*/
+	
     return cell;
 }
 
@@ -75,7 +101,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSDictionary *item = [self.content objectAtIndex:indexPath.row];
-	NSLog(@"%@", item);
 	
 	if([item objectForKey:@"link"]) { //key zit in dict
 		WebViewController *c = [[WebViewController alloc] init];
