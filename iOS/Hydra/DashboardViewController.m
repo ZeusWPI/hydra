@@ -9,6 +9,7 @@
 #import "DashboardViewController.h"
 #import "RestoViewController.h"
 #import "SchamperViewController.h"
+#import "InfoViewController.h"
 
 @implementation DashboardViewController
 
@@ -16,7 +17,7 @@
 // Testing
 - (void)viewDidLoad
 {
-    [self showResto:nil];
+    [self showInfo:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,7 +54,12 @@
 }
 
 - (IBAction)showInfo:(id)sender {
-    DLog(@"Dashboard switching to Info");    
+    DLog(@"Dashboard switching to Info");
+	
+	NSArray *infoContent = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Info-content" ofType:@"plist"]];
+	InfoViewController *c = [[InfoViewController alloc] init];
+	c.content = infoContent;
+	[self.navigationController pushViewController:c animated:YES];
 }
 
 - (IBAction)showResto:(id)sender {
