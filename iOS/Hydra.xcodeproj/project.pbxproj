@@ -15,6 +15,7 @@
 		F54B160715B8118C000A4407 /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = F54B160615B8118C000A4407 /* UIColor+AppColors.m */; };
 		F55895C415B60F450001B399 /* RestoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C315B60F450001B399 /* RestoMenu.m */; };
 		F55895C715B610140001B399 /* RestoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C615B610130001B399 /* RestoStore.m */; };
+		F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */; };
 		F57E7E0A15B8368300D2A59E /* RestoMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0915B8368300D2A59E /* RestoMenuView.xib */; };
 		F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0B15B837F000D2A59E /* icon-meal.png */; };
 		F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0C15B837F000D2A59E /* icon-soup.png */; };
@@ -125,6 +126,8 @@
 		F55895C315B60F450001B399 /* RestoMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenu.m; sourceTree = "<group>"; };
 		F55895C515B6100C0001B399 /* RestoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoStore.h; sourceTree = "<group>"; };
 		F55895C615B610130001B399 /* RestoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoStore.m; sourceTree = "<group>"; };
+		F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		F57E7E0915B8368300D2A59E /* RestoMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestoMenuView.xib; sourceTree = "<group>"; };
 		F57E7E0B15B837F000D2A59E /* icon-meal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-meal.png"; sourceTree = "<group>"; };
 		F57E7E0C15B837F000D2A59E /* icon-soup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-soup.png"; sourceTree = "<group>"; };
@@ -237,6 +240,17 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		F57CB9DB15B84C4E00D87CB3 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				F54B160515B8118C000A4407 /* UIColor+AppColors.h */,
+				F54B160615B8118C000A4407 /* UIColor+AppColors.m */,
+				F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */,
+				F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		F5BAEC7B1518868100F6A1B1 = {
 			isa = PBXGroup;
 			children = (
@@ -279,10 +293,9 @@
 			children = (
 				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
+				F57CB9DB15B84C4E00D87CB3 /* Categories */,
 				F5EBF11F159E09C700EB5D26 /* Models */,
 				F5BAEC911518868200F6A1B1 /* Supporting Files */,
-				F54B160515B8118C000A4407 /* UIColor+AppColors.h */,
-				F54B160615B8118C000A4407 /* UIColor+AppColors.m */,
 				F5EBF119159E04B500EB5D26 /* ViewControllers */,
 			);
 			path = Hydra;
@@ -554,6 +567,7 @@
 				F55895C415B60F450001B399 /* RestoMenu.m in Sources */,
 				F55895C715B610140001B399 /* RestoStore.m in Sources */,
 				F54B160715B8118C000A4407 /* UIColor+AppColors.m in Sources */,
+				F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@
 #import "RestoStore.h"
 #import "RestoMenu.h"
 #import "UIColor+AppColors.h"
+#import "NSDate+Utilities.h"
 
 #define kRestoDaysShown 5
 
@@ -89,13 +90,20 @@
 
 - (void)setupView:(UIView *)view forDay:(NSDate *)day withMenu:(id)menu
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEEE d MMMM"];
+    NSString *dateString;
+    if ([day isToday]) dateString = @"Vandaag";
+    else if ([day isTomorrow]) dateString = @"Morgen";
+    else {
+        // Create capitalized, formatted string
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"EEEE d MMMM"];
+        dateString = [formatter stringFromDate:day];
+        dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+                      withString:[[dateString substringToIndex:1] capitalizedString]];
+    }
 
     UILabel *label = (UILabel *)[view viewWithTag:kTitleLabel];
-    NSString *dateString = [formatter stringFromDate:day];
-    [label setText:[dateString stringByReplacingCharactersInRange:NSMakeRange(0, 1)
-                    withString:[[dateString substringToIndex:1] capitalizedString]]];
+    [label setText:dateString];
 }
 
 - (void)viewDidUnload
@@ -117,19 +125,14 @@
 
 - (void)calculateDays
 {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *day = [NSDate date];
-
-    NSDateComponents *increment = [[NSDateComponents alloc] init];
-    [increment setDay:1];
 
     // Find the next 5 days to display
     while ([days count] < kRestoDaysShown) {
-        NSDateComponents *comps = [calendar components:NSWeekdayCalendarUnit|NSHourCalendarUnit fromDate:day];
-        if ([comps weekday] > 1 && [comps weekday] < 7) {
+        if ([day isTypicallyWorkday]) {
             [days addObject:day];
         }
-        day = [calendar dateByAddingComponents:increment toDate:day options:0];
+        day = [day dateByAddingDays:1];
     }
 }
 

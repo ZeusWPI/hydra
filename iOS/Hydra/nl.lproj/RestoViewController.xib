@@ -94,9 +94,9 @@
 												<int key="IBUIContentMode">7</int>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-												<string type="base64-UTF8" key="IBUIText">RGUgcmVzdG8ncyB2YW4gZGUgVUdlbnQgemlqbiBlbGtlIHdlZWRhZyBvcGVuIHZhbiAxMXUxNSB0b3Qg
-MTR1LiAKJ3MgQXZvbmRzIGthbiBqZSBvb2sgdGVyZWNodCBpbiByZXN0byBEZSBCcnVnIHZhbiAxN3Uz
-MCB0b3QgMjF1Lg</string>
+												<string type="base64-UTF8" key="IBUIText">RGUgcmVzdG8ncyB2YW4gZGUgVUdlbnQgemlqbiBlbGtlIHdlZWtkYWcgb3BlbiB2YW4gMTF1MTUgdG90
+IDE0dS4gCidzIEF2b25kcyBrYW4gamUgb29rIHRlcmVjaHQgaW4gcmVzdG8gRGUgQnJ1ZyB2YW4gMTd1
+MzAgdG90IDIxdS4</string>
 												<object class="NSColor" key="IBUITextColor">
 													<int key="NSColorSpace">3</int>
 													<bytes key="NSWhite">MQA</bytes>

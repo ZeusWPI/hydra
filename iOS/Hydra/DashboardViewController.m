@@ -16,9 +16,7 @@
 // Testing
 - (void)viewDidLoad
 {
-    UIButton *b = (UIButton *)[self.view viewWithTag:4];
-    [b setHighlighted:YES];
-    [self showResto:b];
+    [self showResto:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated

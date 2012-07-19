@@ -8,6 +8,7 @@
 
 #import "RestoStore.h"
 #import "RestoMenu.h"
+#import "NSDate+Utilities.h"
 
 #define kRestoUrl @"http://kelder.zeus.ugent.be/~blackskad/resto/api/0.1"
 
@@ -65,7 +66,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (void)updateStoreCache
 {
-    NSDate *today = [self dateWithoutTime:[NSDate date]];
+    NSDate *today = [[NSDate date] dateAtStartOfDay];
     NSMutableArray *toRemove = [[NSMutableArray alloc] init];
 
     // Remove all old entries
@@ -86,10 +87,10 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (RestoMenu *)menuForDay:(NSDate *)day
 {
-    day = [self dateWithoutTime:day];
+    day = [day dateAtStartOfDay];
     RestoMenu *menu = [menus objectForKey:day];
     if (!menu) {
-        [self fetchMenuForWeek:[self weeknumberForDate:day]];
+        [self fetchMenuForWeek:[day week]];
     }
     return menu;
 }
@@ -140,32 +141,13 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
     // Save menus
     for (RestoMenu *menu in objects) {
-        NSDate *day = [self dateWithoutTime:[menu day]];
+        NSDate *day = [[menu day] dateAtStartOfDay];
         [menus setObject:menu forKey:day];
     }
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:RestoStoreDidReceiveMenuNotification object:self];
     [self updateStoreCache];
-}
-
-#pragma mark -
-#pragma mark Date utilities
-
-- (NSUInteger)weeknumberForDate:(NSDate *)date;
-{
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *comps = [cal components:NSWeekOfYearCalendarUnit
-                                     fromDate:date];
-    return [comps weekOfYear];
-}
-
-- (NSDate *)dateWithoutTime:(NSDate *)date
-{
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *comps = [cal components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
-                                     fromDate:date];
-    return [cal dateFromComponents:comps];
 }
 
 @end
