@@ -78,12 +78,17 @@
 	cell.textLabel.backgroundColor = cell.contentView.backgroundColor;
 	
 	NSDictionary *item = [self.content objectAtIndex:indexPath.row];
-	cell.textLabel.text = [NSString stringWithFormat:@" %@", [item objectForKey:@"title"]];
+	NSString *text = nil;
 	UIImage *icon = [UIImage imageNamed:[item objectForKey:@"image"]];
-	cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
-	cell.imageView.image = icon;
-	
-	cell.indentationLevel = 1;
+	if(icon) {
+		cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+		cell.imageView.image = icon;
+		cell.indentationLevel = 1;
+		text = [NSString stringWithFormat:@" %@", [item objectForKey:@"title"]];
+	} else {
+		text = [item objectForKey:@"title"];
+	}
+	cell.textLabel.text = text;
 	
 	CGRect frame = cell.imageView.frame;
 	frame.size.width = 200;
