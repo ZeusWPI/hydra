@@ -108,12 +108,6 @@ public class RestoMenu extends Activity {
         views.add(new MenuAdapter(RestoMenu.this, date));
       }
     }
-
-    public void refresh () {
-      for (MenuAdapter adapter : views) {
-        adapter.refresh();
-      }
-    }
     
     @Override
     public int getCount() {
@@ -205,10 +199,6 @@ public class RestoMenu extends Activity {
   public boolean onOptionsItemSelected(MenuItem item) {
     // Handle item selection
     switch (item.getItemId()) {
-      case R.id.clear_menu_cache:
-        clearCaches();
-        adapter.refresh();
-        return true;
       case R.id.show_about:
         showAboutDialog();
       default:
