@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "UIColor+AppColors.h"
 #import "DashboardViewController.h"
 
 @implementation AppDelegate
@@ -21,7 +22,7 @@
     // Create and setup controllers
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
-    self.navController.navigationBar.tintColor = [UIColor colorWithRed:0.126 green:0.304 blue:0.500 alpha:1.000];
+    self.navController.navigationBar.tintColor = [UIColor blueTintColor];
     [self.window setRootViewController:self.navController];
 
     [self.window makeKeyAndVisible];

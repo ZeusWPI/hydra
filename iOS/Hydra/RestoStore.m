@@ -42,7 +42,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        menus = [decoder decodeObjectForKey:@"menuItems"];
+        menus = [decoder decodeObjectForKey:@"menus"];
         activeRequests = [[NSMutableArray alloc] init];
     }
     return self;
@@ -50,7 +50,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:menus forKey:@"menuItems"];
+    [coder encodeObject:menus forKey:@"menus"];
 }
 
 + (NSString *)menuCachePath
@@ -130,6 +130,14 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
+    // Only clear the request after 1 minute, when all related requests have
+    // finished with reasonable certainty, to prevent a request loop when not
+    // all data requested was found.
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 60 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [activeRequests removeObject:[objectLoader resourcePath]];
+    });
+
     // Save menus
     for (RestoMenu *menu in objects) {
         NSDate *day = [self dateWithoutTime:[menu day]];
@@ -139,10 +147,6 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:RestoStoreDidReceiveMenuNotification object:self];
     [self updateStoreCache];
-
-    // Only now remove the 'active' request, preventing clients
-    // from restarting the request in response to missing data
-    [activeRequests removeObject:[objectLoader resourcePath]];
 }
 
 #pragma mark -

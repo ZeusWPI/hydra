@@ -15,7 +15,8 @@
 - (NSString *)description
 {
     NSUInteger count = [meat count] + [vegetables count];
-    return [NSString stringWithFormat:@"<RestoMenu for %@ (%d items)>", day, count];
+    return [NSString stringWithFormat:@"<RestoMenu for %@ (%d items) open=%>",
+                day, count, NSStringFromBOOL(open)];
 }
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;

@@ -14,25 +14,11 @@
 
 
 // Testing
-- (void)viewDidAppear:(BOOL)animated
-{
-    /*UIButton *b = (UIButton *)[self.view viewWithTag:6];
-    [b setHighlighted:YES];
-    [self showSchamper:b];*/
-}
-
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    
-    // Release any retained subviews of the main view.
+    UIButton *b = (UIButton *)[self.view viewWithTag:4];
+    [b setHighlighted:YES];
+    [self showResto:b];
 }
 
 - (void)viewWillAppear:(BOOL)animated
