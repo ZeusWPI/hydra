@@ -234,21 +234,10 @@ public class RestoMenu extends Activity {
     stringBuilder.append(getString(R.string.legend_swiping));
     stringBuilder.append("\n\n");
     stringBuilder.append(getString(R.string.legend)).append(":\n\n");
+    stringBuilder.append(getString(R.string.legend_fries)).append("\n");
     stringBuilder.append(getString(R.string.legend_bold)).append("\n");
-    stringBuilder.append(getString(R.string.legend_star)).append("\n");
     stringBuilder.append(getString(R.string.legend_hash));
     return stringBuilder;
-  }
-
-  private String getVersionName() {
-    try {
-      ComponentName componentName = new ComponentName(this, RestoMenu.class);
-      PackageInfo info = getPackageManager().getPackageInfo(componentName.getPackageName(), 0);
-      return info.versionName;
-    } catch (NameNotFoundException e) {
-      // Won't happen, versionName is present in the manifest!
-      return "";
-    }
   }
 
   private int getVersionCode() {
