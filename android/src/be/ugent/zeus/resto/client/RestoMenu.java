@@ -231,8 +231,6 @@ public class RestoMenu extends Activity {
 
   public CharSequence getAboutMessage() {
     StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append(getString(R.string.app_name));
-    stringBuilder.append("\n\n");
     stringBuilder.append(getString(R.string.legend_swiping));
     stringBuilder.append("\n\n");
     stringBuilder.append(getString(R.string.legend)).append(":\n\n");
