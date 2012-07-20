@@ -18,7 +18,7 @@
 
 - (id)init
 {
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"Info-content" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Info-content" ofType:@"plist"];
     self = [self initWithContent:[[NSArray alloc] initWithContentsOfFile:path]];
     if (self) {
         [self setTitle:@"Info"];
@@ -28,7 +28,7 @@
 
 - initWithContent:(NSArray *)newContent
 {
-	UITableViewStyle style = UITableViewStylePlain; //automaticly use UITableViewStyleGrouped when [newContent count] < 4 ?
+    UITableViewStyle style = UITableViewStylePlain; //automaticly use UITableViewStyleGrouped when [newContent count] < 4 ?
     self = [super initWithStyle:style];
     if (self) {
         content = newContent;
@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad
 {
-	[super viewDidLoad];
+    [super viewDidLoad];
     [[self tableView] setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [[self tableView] setBounces:NO];
 }
@@ -64,29 +64,29 @@
 {
     static NSString *CellIdentifier = @"InfoCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if(!cell) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-	}
-	
-    cell.contentView.backgroundColor = [UIColor whiteColor];
-	cell.textLabel.backgroundColor = cell.contentView.backgroundColor;
-	
-	NSDictionary *item = [content objectAtIndex:indexPath.row];
-	NSString *text = [item objectForKey:@"title"];;
+    if(!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
 
-	UIImage *icon = [UIImage imageNamed:[item objectForKey:@"image"]];
-	if(icon) {
-		cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
-		cell.imageView.image = icon;
-		cell.indentationLevel = 1;
-		text = [@" " stringByAppendingString:text];
-	}
-	cell.textLabel.text = text;
-	
-	CGRect frame = cell.imageView.frame;
-	frame.size.width = 200;
-	cell.imageView.frame = frame;
-	
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    cell.textLabel.backgroundColor = cell.contentView.backgroundColor;
+
+    NSDictionary *item = [content objectAtIndex:indexPath.row];
+    NSString *text = [item objectForKey:@"title"];;
+
+    UIImage *icon = [UIImage imageNamed:[item objectForKey:@"image"]];
+    if(icon) {
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        cell.imageView.image = icon;
+        cell.indentationLevel = 1;
+        text = [@" " stringByAppendingString:text];
+    }
+    cell.textLabel.text = text;
+
+    CGRect frame = cell.imageView.frame;
+    frame.size.width = 200;
+    cell.imageView.frame = frame;
+
     return cell;
 }
 
@@ -94,20 +94,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSDictionary *item = [content objectAtIndex:indexPath.row];
-	
+    NSDictionary *item = [content objectAtIndex:indexPath.row];
+
     // Choose a different action depending on what data is available
     if([item objectForKey:@"subcontent"]){
-		NSArray *subContent = [item objectForKey:@"subcontent"];
-		InfoViewController *c = [[InfoViewController alloc] initWithContent:subContent];
+        NSArray *subContent = [item objectForKey:@"subcontent"];
+        InfoViewController *c = [[InfoViewController alloc] initWithContent:subContent];
         [c setTitle:[item objectForKey:@"title"]];
-		[[self navigationController] pushViewController:c animated:YES];
-	}
+        [[self navigationController] pushViewController:c animated:YES];
+    }
     else if([item objectForKey:@"url"]) {
         NSURL *url = [NSURL URLWithString:[item objectForKey:@"url"]];
         [[UIApplication sharedApplication] openURL:url];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-	}
+    }
     else {
         DLog(@"Unknown action in %@", item);
     }

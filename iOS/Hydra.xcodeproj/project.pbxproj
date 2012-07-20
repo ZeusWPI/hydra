@@ -341,10 +341,10 @@
 				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
 				F57CB9DB15B84C4E00D87CB3 /* Categories */,
+				3B059BF215B99B4800B4C1DA /* Custom views */,
 				F5EBF11F159E09C700EB5D26 /* Models */,
 				F5BAEC911518868200F6A1B1 /* Supporting Files */,
 				F5EBF119159E04B500EB5D26 /* ViewControllers */,
-				3B059BF215B99B4800B4C1DA /* Custom views */,
 			);
 			path = Hydra;
 			sourceTree = "<group>";

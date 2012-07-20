@@ -80,7 +80,7 @@
 		<key>image</key>
 		<string>info-more</string>
 		<key>title</key>
-		<string>Meer Informatie</string>
+		<string>Meer informatie</string>
 		<key>subcontent</key>
 		<array>
 			<dict>
@@ -91,7 +91,7 @@
 			</dict>
 			<dict>
 				<key>title</key>
-				<string>Dienst studentenactiviteiten</string>
+				<string>Dienst StudentenActiviteiten</string>
 				<key>url</key>
 				<string>http://www.student.ugent.be/</string>
 			</dict>

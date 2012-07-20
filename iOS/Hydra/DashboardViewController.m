@@ -41,7 +41,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [self configureDetectionForMove:0];
+    [self configureMoveDetection:0];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -93,10 +93,8 @@
 
 #pragma mark - Surprise feature
 
-- (void)configureDetectionForMove:(NSUInteger)move
+- (void)configureMoveDetection:(NSUInteger)move
 {
-    DLog(@"Surprise progress: %d/%d", move, [requiredMoves count]);
-
     // TODO: replace by something cool
     if (move == [requiredMoves count]) {
         ULog(@"Congratulations, you won the game!");
@@ -140,21 +138,23 @@
 
 - (void)handleGesture:(UIGestureRecognizer *)recognizer
 {
-    [self configureDetectionForMove:(movesPerformed + 1)];
+    [self configureMoveDetection:(movesPerformed + 1)];
+    DLog(@"Surprise progress: %d/%d", movesPerformed, [requiredMoves count]);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self configureDetectionForMove:0];
+    [self configureMoveDetection:0];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if ([string caseInsensitiveCompare:[textField text]] == NSOrderedSame) {
-        [self configureDetectionForMove:(movesPerformed + 1)];
+        [self configureMoveDetection:(movesPerformed + 1)];
+        DLog(@"Surprise progress: %d/%d", movesPerformed, [requiredMoves count]);
     }
     else {
-        [self configureDetectionForMove:0];
+        [self configureMoveDetection:0];
     }
     return NO;
 }
@@ -162,7 +162,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    [self configureDetectionForMove:0];
+    [self configureMoveDetection:0];
     return NO;
 }
 
