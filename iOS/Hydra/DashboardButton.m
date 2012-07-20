@@ -9,14 +9,14 @@
 #import "DashboardButton.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kBadgeRadius 12
-#define kBadgeFontSize 10;
+#define kBadgeFontSize 15
 
 @implementation DashboardButton
 {
     //two layer 1 text & 1 badge, so the text can be centerd in the badge
     __unsafe_unretained CATextLayer *_textLayer;
     __unsafe_unretained CALayer *_badgeLayer; //no __weak, because not supported on iOS 4
+    UIFont *badgeFont;
 }
 
 #pragma mark - Badge properties
@@ -30,7 +30,19 @@
     
     [_textLayer setString:badgeText];
     
-    //calculate frames for layers;
+    
+    //under development!!!
+    CGSize textSize = [badgeText sizeWithFont:badgeFont];
+    CGFloat edge = textSize.height/3;
+    CGRect textFrame = CGRectMake(edge, edge, textSize.width, textSize.height);
+    _textLayer.frame = textFrame;
+    
+    CGFloat width = MAX(textSize.height, textSize.width) +2*edge;
+    CGFloat height = textSize.height +edge; //only once because some spacing is included in textSize
+    CGRect badgeFrame = CGRectMake(-width/4, -height/2, width, height);
+    _badgeLayer.cornerRadius = height/2;
+    _badgeLayer.frame = badgeFrame;
+    //end under development!!!
     
     _badgeLayer.hidden = (badgeText ? NO : YES);
 }
@@ -60,22 +72,29 @@
 - (void)setupBadgeLayers {
     
     CALayer *badgeLayer = [CALayer layer];
-    badgeLayer.cornerRadius = kBadgeRadius;
     badgeLayer.backgroundColor = [UIColor redColor].CGColor;
-    badgeLayer.borderWidth = 2;
+    badgeLayer.borderWidth = 3;
     badgeLayer.borderColor = [UIColor whiteColor].CGColor;
     badgeLayer.hidden = YES;
     [self.layer addSublayer:badgeLayer];
     _badgeLayer = badgeLayer;
     
     CATextLayer *textLayer = [CATextLayer layer];
-    textLayer.fontSize = kBadgeFontSize;
-    textLayer.alignmentMode = kCAAlignmentCenter;
+    textLayer.alignmentMode = kCAAlignmentRight;
     textLayer.wrapped = YES;
+    
+    textLayer.fontSize = kBadgeFontSize;
+    badgeFont = [UIFont boldSystemFontOfSize:textLayer.fontSize];
+    CGFontRef cgFont = CGFontCreateWithFontName((__bridge CFStringRef)badgeFont.fontName);
+    textLayer.font = cgFont;
+    CGFontRelease(cgFont);
+    
     [badgeLayer addSublayer:textLayer];
     _textLayer = textLayer;
     
-    [self setBadgeNumber:2];
+    //_textLayer.borderWidth = 1;
+    
+    [self setBadgeText:@"1"];
 }
 
 @end
