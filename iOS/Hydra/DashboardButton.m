@@ -10,24 +10,29 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define kBadgeRadius 12
+#define kBadgeFontSize 10;
 
 @implementation DashboardButton
 {
-    __unsafe_unretained CATextLayer *badgeLayer; //geen __weak, want niet ondersteund op iOS 4
+    //two layer 1 text & 1 badge, so the text can be centerd in the badge
+    __unsafe_unretained CATextLayer *_textLayer;
+    __unsafe_unretained CALayer *_badgeLayer; //no __weak, because not supported on iOS 4
 }
+
+#pragma mark - Badge properties
 
 - (NSString *)badgeText {
     
-    return [badgeLayer string];
+    return [_textLayer string];
 }
 
 - (void)setBadgeText:(NSString *)badgeText {
     
-    [badgeLayer setString:badgeText];
+    [_textLayer setString:badgeText];
     
-    badgeLayer.frame = CGRectMake(-kBadgeRadius, -kBadgeRadius, 2*kBadgeRadius, 2*kBadgeRadius);
-
-    badgeLayer.hidden = (badgeText ? NO : YES);
+    //calculate frames for layers;
+    
+    _badgeLayer.hidden = (badgeText ? NO : YES);
 }
 
 - (void)setBadgeNumber:(int)number {
@@ -35,39 +40,40 @@
     [self setBadgeText:[NSString stringWithFormat:@"%d", number]];
 }
 
+#pragma mark - Badge setup
+
 - (id)initWithFrame:(CGRect)frame {
     
     self = [super initWithFrame:frame];
     if(self) {
         
-        [self setupBadgeLayer];
+        [self setupBadgeLayers];
     }
     return self;
 }
 
 - (void)awakeFromNib {
     
-    [self setupBadgeLayer];
+    [self setupBadgeLayers];
 }
 
-- (void)setupBadgeLayer {
+- (void)setupBadgeLayers {
     
-    badgeLayer = [CATextLayer layer];
-    
+    CALayer *badgeLayer = [CALayer layer];
     badgeLayer.cornerRadius = kBadgeRadius;
     badgeLayer.backgroundColor = [UIColor redColor].CGColor;
     badgeLayer.borderWidth = 2;
     badgeLayer.borderColor = [UIColor whiteColor].CGColor;
     badgeLayer.hidden = YES;
-    
-    badgeLayer.fontSize = 1.5*kBadgeRadius;
-    badgeLayer.alignmentMode = kCAAlignmentCenter;
-    badgeLayer.truncationMode = kCATruncationMiddle;
-    badgeLayer.wrapped = YES;
-    
-    //TODO vertical alignment 
-    
     [self.layer addSublayer:badgeLayer];
+    _badgeLayer = badgeLayer;
+    
+    CATextLayer *textLayer = [CATextLayer layer];
+    textLayer.fontSize = kBadgeFontSize;
+    textLayer.alignmentMode = kCAAlignmentCenter;
+    textLayer.wrapped = YES;
+    [badgeLayer addSublayer:textLayer];
+    _textLayer = textLayer;
     
     [self setBadgeNumber:2];
 }
