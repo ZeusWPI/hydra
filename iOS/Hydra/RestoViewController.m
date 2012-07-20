@@ -86,7 +86,7 @@
     [[contentView layer] setMasksToBounds:YES];
 }
 
-#define kTitleLabel 1
+#define kTitleLabelTag 1
 
 - (void)setupView:(UIView *)view forDay:(NSDate *)day withMenu:(id)menu
 {
@@ -102,7 +102,7 @@
                       withString:[[dateString substringToIndex:1] capitalizedString]];
     }
 
-    UILabel *label = (UILabel *)[view viewWithTag:kTitleLabel];
+    UILabel *label = (UILabel *)[view viewWithTag:kTitleLabelTag];
     [label setText:dateString];
 }
 

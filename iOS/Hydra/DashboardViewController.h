@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DashboardViewController : UIViewController
+@interface DashboardViewController : UIViewController <UITextFieldDelegate> {
+    UISwipeGestureRecognizer *gestureRecognizer;
+    UITextField *codeField;
+    NSArray *requiredMoves;
+    NSUInteger movesPerformed;
+}
 
 - (IBAction)showNews:(id)sender;
 - (IBAction)showActivities:(id)sender;

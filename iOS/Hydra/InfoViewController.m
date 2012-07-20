@@ -8,45 +8,36 @@
 
 #import "InfoViewController.h"
 #import "WebViewController.h"
-#import <QuartzCore/QuartzCore.h>
-
-@interface InfoViewController ()
-
-@end
 
 @implementation InfoViewController
 
-#define kTableViewShift 25;
+#pragma mark - Initializing + loading
 
-#pragma mark - 
-#pragma mark Properties
-
-@synthesize content = _content;
-
-- (void)setContent:(NSArray *)content {
-	
-	if(_content != content) {
-		_content = content;
-		[self.tableView reloadData];
-	}
-}
-
-#pragma mark Initializing + loading
-
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)init
 {
-    self = [super initWithStyle:style];
+    self = [super init];
     if (self) {
-        self.title = @"Info";
-	}
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Info-content" ofType:@"plist"];
+        content = [[NSArray alloc] initWithContentsOfFile:path];
+        [self setTitle:@"Info"];
+    }
     return self;
 }
 
-- (void)viewDidLoad {
-	
+- initWithContent:(NSArray *)newContent
+{
+    self = [super init];
+    if (self) {
+        content = newContent;
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
 	[super viewDidLoad];
-	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-	self.tableView.bounces = NO;
+    [[self tableView] setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [[self tableView] setBounces:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -63,12 +54,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.content count];
+    return [content count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"InfoCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if(!cell) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -77,26 +68,21 @@
     cell.contentView.backgroundColor = [UIColor whiteColor];
 	cell.textLabel.backgroundColor = cell.contentView.backgroundColor;
 	
-	NSDictionary *item = [self.content objectAtIndex:indexPath.row];
-	NSString *text = nil;
+	NSDictionary *item = [content objectAtIndex:indexPath.row];
+	NSString *text = [item objectForKey:@"title"];;
+
 	UIImage *icon = [UIImage imageNamed:[item objectForKey:@"image"]];
 	if(icon) {
 		cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
 		cell.imageView.image = icon;
 		cell.indentationLevel = 1;
-		text = [NSString stringWithFormat:@" %@", [item objectForKey:@"title"]];
-	} else {
-		text = [item objectForKey:@"title"];
+		text = [@" " stringByAppendingString:text];
 	}
 	cell.textLabel.text = text;
 	
 	CGRect frame = cell.imageView.frame;
 	frame.size.width = 200;
 	cell.imageView.frame = frame;
-	
-	/*CGPoint center = cell.textLabel.center;
-	center.x += kTableViewShift;
-	cell.textLabel.center = center;*/
 	
     return cell;
 }
@@ -105,18 +91,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSDictionary *item = [self.content objectAtIndex:indexPath.row];
+	NSDictionary *item = [content objectAtIndex:indexPath.row];
 	
-	if([item objectForKey:@"link"]) { //key zit in dict
-		WebViewController *c = [[WebViewController alloc] init];
-		[[c webView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[item objectForKey:@"link"]]]];
-		[[self navigationController] pushViewController:c animated:YES];
-	} else if([item objectForKey:@"subcontent"]){
+    // Choose a different action depending on what data is available
+    if([item objectForKey:@"subcontent"]){
 		NSArray *subContent = [item objectForKey:@"subcontent"];
-		InfoViewController *subVC = [[InfoViewController alloc] initWithStyle:UITableViewStylePlain];
-		subVC.content = subContent;
-		[[self navigationController] pushViewController:subVC animated:YES];
+		InfoViewController *c = [[InfoViewController alloc] initWithContent:subContent];
+        [c setTitle:[item objectForKey:@"title"]];
+		[[self navigationController] pushViewController:c animated:YES];
 	}
+    else if([item objectForKey:@"url"]) {
+        NSURL *url = [NSURL URLWithString:[item objectForKey:@"url"]];
+        [[UIApplication sharedApplication] openURL:url];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+    else {
+        DLog(@"Unknown action in %@", item);
+    }
 }
 
 @end

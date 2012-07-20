@@ -24,24 +24,18 @@
 		<string>info-library</string>
 		<key>title</key>
 		<string>Bibliotheek</string>
-		<key>link</key>
-		<string> </string>
 	</dict>
 	<dict>
 		<key>image</key>
 		<string>info-bicycle</string>
 		<key>title</key>
 		<string>Fietsen</string>
-		<key>link</key>
-		<string> </string>
 	</dict>
 	<dict>
 		<key>image</key>
 		<string>info-studentdoctors</string>
 		<key>title</key>
 		<string>Studentenartsen</string>
-		<key>link</key>
-		<string> </string>
 	</dict>
 	<dict>
 		<key>image</key>
@@ -81,8 +75,6 @@
 		<string>info-academiccalendar</string>
 		<key>title</key>
 		<string>Academische kalender</string>
-		<key>link</key>
-		<string> </string>
 	</dict>
 	<dict>
 		<key>image</key>
@@ -94,22 +86,32 @@
 			<dict>
 				<key>title</key>
 				<string>UGent Studentenwebsite</string>
+				<key>url</key>
+				<string>http://www.ugent.be/nl/studenten/</string>
 			</dict>
 			<dict>
 				<key>title</key>
 				<string>Dienst Studentenactiviteiten</string>
+				<key>url</key>
+				<string>http://www.student.ugent.be/</string>
 			</dict>
 			<dict>
 				<key>title</key>
 				<string>Schamper</string>
+				<key>url</key>
+				<string>http://www.schamper.ugent.be/</string>
 			</dict>
 			<dict>
 				<key>title</key>
 				<string>Urgent.fm</string>
+				<key>url</key>
+				<string>http://urgent.fm/</string>
 			</dict>
 			<dict>
 				<key>title</key>
 				<string>Durf Doen</string>
+				<key>url</key>
+				<string>http://www.durfdoen.be/</string>
 			</dict>
 		</array>
 	</dict>

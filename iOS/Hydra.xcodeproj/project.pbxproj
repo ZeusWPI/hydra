@@ -371,6 +371,8 @@
 				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
 				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
 				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
+				3B436DF615B8915200984D3F /* InfoViewController.h */,
+				3B436DF715B8915200984D3F /* InfoViewController.m */,
 				F57E7E0915B8368300D2A59E /* RestoMenuView.xib */,
 				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
 				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
@@ -379,8 +381,6 @@
 				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
 				F50EE09415B5F587000F1992 /* WebViewController.h */,
 				F50EE09515B5F587000F1992 /* WebViewController.m */,
-				3B436DF615B8915200984D3F /* InfoViewController.h */,
-				3B436DF715B8915200984D3F /* InfoViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

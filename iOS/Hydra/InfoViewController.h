@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InfoViewController : UITableViewController
+@interface InfoViewController : UITableViewController {
+    NSArray *content;
+}
 
-@property (nonatomic, strong) NSArray *content;
+- (id)init;
+- (id)initWithContent:(NSArray *)content;
 
 @end

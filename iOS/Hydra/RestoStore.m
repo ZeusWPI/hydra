@@ -37,8 +37,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     return self;
 }
 
-#pragma mark -
-#pragma mark Caching
+#pragma mark - Caching
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -82,8 +81,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
 }
 
-#pragma mark -
-#pragma mark Menu management and requests
+#pragma mark - Menu management and requests
 
 - (RestoMenu *)menuForDay:(NSDate *)day
 {

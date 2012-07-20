@@ -39,8 +39,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     return self;
 }
 
-#pragma mark -
-#pragma mark Caching
+#pragma mark - Caching
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -74,8 +73,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
 }
 
-#pragma mark -
-#pragma mark Article fetching
+#pragma mark - Article fetching
 
 - (void)updateArticles
 {
