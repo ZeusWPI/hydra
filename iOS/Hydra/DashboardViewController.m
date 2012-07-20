@@ -9,20 +9,39 @@
 #import "DashboardViewController.h"
 #import "RestoViewController.h"
 #import "SchamperViewController.h"
+#import "InfoViewController.h"
 
 @implementation DashboardViewController
 
-
-// Testing
 - (void)viewDidLoad
 {
-    [self showResto:nil];
+    requiredMoves = [[NSArray alloc] initWithObjects:
+                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionUp],
+                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionUp],
+                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionDown],
+                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionDown],
+                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionLeft],
+                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionRight],
+                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionLeft],
+                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionRight],
+                     @"b", @"a", nil];
+
+    // Testing
+    //[self showInfo:nil];
+}
+
+- (void)viewDidUnload
+{
+    gestureRecognizer = nil;
+    codeField = nil;
+    requiredMoves = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self configureMoveDetection:0];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -40,6 +59,8 @@
     }
 }
 
+#pragma mark - Button actions
+
 - (IBAction)showNews:(id)sender {
     if([sender tag] == 5) {
         DLog(@"Dashboard switching to GSR");
@@ -53,7 +74,9 @@
 }
 
 - (IBAction)showInfo:(id)sender {
-    DLog(@"Dashboard switching to Info");    
+    DLog(@"Dashboard switching to Info");
+	InfoViewController *c = [[InfoViewController alloc] init];
+	[self.navigationController pushViewController:c animated:YES];
 }
 
 - (IBAction)showResto:(id)sender {
@@ -66,6 +89,81 @@
     DLog(@"Dashboard switching to Schamper");
     UIViewController *c = [[SchamperViewController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
+}
+
+#pragma mark - Surprise feature
+
+- (void)configureMoveDetection:(NSUInteger)move
+{
+    // TODO: replace by something cool
+    if (move == [requiredMoves count]) {
+        ULog(@"Congratulations, you won the game!");
+        move = 0;
+    }
+    movesPerformed = move;
+
+    id nextMove = [requiredMoves objectAtIndex:move];
+    if ([nextMove isKindOfClass:[NSNumber class]]) {
+        if (!gestureRecognizer) {
+            gestureRecognizer = [[UISwipeGestureRecognizer alloc] init];
+            [gestureRecognizer addTarget:self action:@selector(handleGesture:)];
+            [[self view] addGestureRecognizer:gestureRecognizer];
+
+            [codeField removeFromSuperview];
+            [codeField resignFirstResponder];
+            codeField = nil;
+        }
+
+        UISwipeGestureRecognizerDirection direction = [nextMove intValue];
+        [gestureRecognizer setDirection:direction];
+    }
+    else if ([nextMove isKindOfClass:[NSString class]]) {
+        if (!codeField) {
+            codeField = [[UITextField alloc] init];
+            [[self view] addSubview:codeField];
+            [codeField setHidden:YES];
+            [codeField setDelegate:self];
+            [codeField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+            [codeField setReturnKeyType:UIReturnKeyDone];
+
+            [[self view] removeGestureRecognizer:gestureRecognizer];
+            gestureRecognizer = nil;
+        }
+
+        // Store the string to be matched in the textfield, for easy comparison
+        [codeField becomeFirstResponder];
+        [codeField setText:nextMove];
+    }
+}
+
+- (void)handleGesture:(UIGestureRecognizer *)recognizer
+{
+    [self configureMoveDetection:(movesPerformed + 1)];
+    DLog(@"Surprise progress: %d/%d", movesPerformed, [requiredMoves count]);
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self configureMoveDetection:0];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([string caseInsensitiveCompare:[textField text]] == NSOrderedSame) {
+        [self configureMoveDetection:(movesPerformed + 1)];
+        DLog(@"Surprise progress: %d/%d", movesPerformed, [requiredMoves count]);
+    }
+    else {
+        [self configureMoveDetection:0];
+    }
+    return NO;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self configureMoveDetection:0];
+    return NO;
 }
 
 @end

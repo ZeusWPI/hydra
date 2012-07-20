@@ -7,7 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B059BF515B99BD900B4C1DA /* DashboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B059BF415B99BD900B4C1DA /* DashboardButton.m */; };
+		3B436DF515B88FE400984D3F /* Info-content.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B436DF415B88FE400984D3F /* Info-content.plist */; };
+		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
+		3BAC28AB15B8A95B00C73EC9 /* info-academiccalendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28AA15B8A95B00C73EC9 /* info-academiccalendar.png */; };
+		3BAC28AD15B8AA4200C73EC9 /* info-durfdoen.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28AC15B8AA4200C73EC9 /* info-durfdoen.png */; };
+		3BAC28AF15B8AA9F00C73EC9 /* info-studentdoctors.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28AE15B8AA9F00C73EC9 /* info-studentdoctors.png */; };
+		3BAC28B115B8AADA00C73EC9 /* info-bicycle.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28B015B8AADA00C73EC9 /* info-bicycle.png */; };
+		3BAC28B315B8AB1400C73EC9 /* info-library.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28B215B8AB1400C73EC9 /* info-library.png */; };
+		3BAC28B515B8AB5800C73EC9 /* info-urgent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28B415B8AB5800C73EC9 /* info-urgent.png */; };
+		3BAC28B715B8AD2600C73EC9 /* info-sports.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28B615B8AD2600C73EC9 /* info-sports.png */; };
+		3BAC28B915B8AD4000C73EC9 /* info-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28B815B8AD4000C73EC9 /* info-more.png */; };
 		F50EE09715B5F587000F1992 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EE09515B5F587000F1992 /* WebViewController.m */; };
+		F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0015B9858900C4C5DF /* resto-closed.jpg */; };
+		F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */; };
+		F5329E0415B9887F00C4C5DF /* RestoMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0615B9887F00C4C5DF /* RestoMenuView.xib */; };
 		F53D248A159DB50800F408AB /* header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D2489159DB50800F408AB /* header-bg.png */; };
 		F53D248C159DB51A00F408AB /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248B159DB51A00F408AB /* hydra.png */; };
 		F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F54B160015B7FFE6000A4407 /* resto-logo.png */; };
@@ -16,7 +30,6 @@
 		F55895C415B60F450001B399 /* RestoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C315B60F450001B399 /* RestoMenu.m */; };
 		F55895C715B610140001B399 /* RestoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C615B610130001B399 /* RestoStore.m */; };
 		F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */; };
-		F57E7E0A15B8368300D2A59E /* RestoMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0915B8368300D2A59E /* RestoMenuView.xib */; };
 		F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0B15B837F000D2A59E /* icon-meal.png */; };
 		F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0C15B837F000D2A59E /* icon-soup.png */; };
 		F57E7E1015B837F100D2A59E /* icon-vegetables.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0D15B837F000D2A59E /* icon-vegetables.png */; };
@@ -114,8 +127,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B059BF315B99BD900B4C1DA /* DashboardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardButton.h; sourceTree = "<group>"; };
+		3B059BF415B99BD900B4C1DA /* DashboardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardButton.m; sourceTree = "<group>"; };
+		3B436DF415B88FE400984D3F /* Info-content.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-content.plist"; sourceTree = "<group>"; };
+		3B436DF615B8915200984D3F /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		3B436DF715B8915200984D3F /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		3BAC28AA15B8A95B00C73EC9 /* info-academiccalendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-academiccalendar.png"; sourceTree = "<group>"; };
+		3BAC28AC15B8AA4200C73EC9 /* info-durfdoen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-durfdoen.png"; sourceTree = "<group>"; };
+		3BAC28AE15B8AA9F00C73EC9 /* info-studentdoctors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-studentdoctors.png"; sourceTree = "<group>"; };
+		3BAC28B015B8AADA00C73EC9 /* info-bicycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-bicycle.png"; sourceTree = "<group>"; };
+		3BAC28B215B8AB1400C73EC9 /* info-library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-library.png"; sourceTree = "<group>"; };
+		3BAC28B415B8AB5800C73EC9 /* info-urgent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-urgent.png"; sourceTree = "<group>"; };
+		3BAC28B615B8AD2600C73EC9 /* info-sports.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-sports.png"; sourceTree = "<group>"; };
+		3BAC28B815B8AD4000C73EC9 /* info-more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-more.png"; sourceTree = "<group>"; };
 		F50EE09415B5F587000F1992 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		F50EE09515B5F587000F1992 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		F5329E0015B9858900C4C5DF /* resto-closed.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "resto-closed.jpg"; sourceTree = "<group>"; };
+		F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "resto-closed@2x.jpg"; sourceTree = "<group>"; };
+		F5329E0715B9888700C4C5DF /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/RestoMenuView.xib; sourceTree = "<group>"; };
 		F53D2489159DB50800F408AB /* header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg.png"; sourceTree = "<group>"; };
 		F53D248B159DB51A00F408AB /* hydra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hydra.png; sourceTree = "<group>"; };
 		F54B160015B7FFE6000A4407 /* resto-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resto-logo.png"; sourceTree = "<group>"; };
@@ -128,7 +157,6 @@
 		F55895C615B610130001B399 /* RestoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoStore.m; sourceTree = "<group>"; };
 		F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
-		F57E7E0915B8368300D2A59E /* RestoMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestoMenuView.xib; sourceTree = "<group>"; };
 		F57E7E0B15B837F000D2A59E /* icon-meal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-meal.png"; sourceTree = "<group>"; };
 		F57E7E0C15B837F000D2A59E /* icon-soup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-soup.png"; sourceTree = "<group>"; };
 		F57E7E0D15B837F000D2A59E /* icon-vegetables.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-vegetables.png"; sourceTree = "<group>"; };
@@ -214,6 +242,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B059BF215B99B4800B4C1DA /* Custom views */ = {
+			isa = PBXGroup;
+			children = (
+				3B059BF315B99BD900B4C1DA /* DashboardButton.h */,
+				3B059BF415B99BD900B4C1DA /* DashboardButton.m */,
+			);
+			name = "Custom views";
+			sourceTree = "<group>";
+		};
 		F53D2488159DB4DB00F408AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +271,16 @@
 				F57E7E0B15B837F000D2A59E /* icon-meal.png */,
 				F57E7E0C15B837F000D2A59E /* icon-soup.png */,
 				F57E7E0D15B837F000D2A59E /* icon-vegetables.png */,
+				3BAC28AA15B8A95B00C73EC9 /* info-academiccalendar.png */,
+				3BAC28B015B8AADA00C73EC9 /* info-bicycle.png */,
+				3BAC28AC15B8AA4200C73EC9 /* info-durfdoen.png */,
+				3BAC28B215B8AB1400C73EC9 /* info-library.png */,
+				3BAC28B815B8AD4000C73EC9 /* info-more.png */,
+				3BAC28B615B8AD2600C73EC9 /* info-sports.png */,
+				3BAC28AE15B8AA9F00C73EC9 /* info-studentdoctors.png */,
+				3BAC28B415B8AB5800C73EC9 /* info-urgent.png */,
+				F5329E0015B9858900C4C5DF /* resto-closed.jpg */,
+				F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */,
 				F54B160015B7FFE6000A4407 /* resto-logo.png */,
 				F54B160115B7FFE6000A4407 /* resto-logo@2x.png */,
 			);
@@ -294,6 +341,7 @@
 				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
 				F57CB9DB15B84C4E00D87CB3 /* Categories */,
+				3B059BF215B99B4800B4C1DA /* Custom views */,
 				F5EBF11F159E09C700EB5D26 /* Models */,
 				F5BAEC911518868200F6A1B1 /* Supporting Files */,
 				F5EBF119159E04B500EB5D26 /* ViewControllers */,
@@ -304,6 +352,7 @@
 		F5BAEC911518868200F6A1B1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3B436DF415B88FE400984D3F /* Info-content.plist */,
 				F5D36BB315B5BD2A00B6E017 /* Default.png */,
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
@@ -341,7 +390,9 @@
 				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
 				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
 				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
-				F57E7E0915B8368300D2A59E /* RestoMenuView.xib */,
+				3B436DF615B8915200984D3F /* InfoViewController.h */,
+				3B436DF715B8915200984D3F /* InfoViewController.m */,
+				F5329E0615B9887F00C4C5DF /* RestoMenuView.xib */,
 				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
 				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
 				F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */,
@@ -519,10 +570,21 @@
 				F5D36BBA15B5BD2A00B6E017 /* icon@2x.png in Resources */,
 				F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */,
 				F54B160315B7FFE6000A4407 /* resto-logo@2x.png in Resources */,
-				F57E7E0A15B8368300D2A59E /* RestoMenuView.xib in Resources */,
+				F5329E0415B9887F00C4C5DF /* RestoMenuView.xib in Resources */,
 				F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */,
 				F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */,
 				F57E7E1015B837F100D2A59E /* icon-vegetables.png in Resources */,
+				3B436DF515B88FE400984D3F /* Info-content.plist in Resources */,
+				3BAC28AB15B8A95B00C73EC9 /* info-academiccalendar.png in Resources */,
+				3BAC28AD15B8AA4200C73EC9 /* info-durfdoen.png in Resources */,
+				3BAC28AF15B8AA9F00C73EC9 /* info-studentdoctors.png in Resources */,
+				3BAC28B115B8AADA00C73EC9 /* info-bicycle.png in Resources */,
+				3BAC28B315B8AB1400C73EC9 /* info-library.png in Resources */,
+				3BAC28B515B8AB5800C73EC9 /* info-urgent.png in Resources */,
+				3BAC28B715B8AD2600C73EC9 /* info-sports.png in Resources */,
+				3BAC28B915B8AD4000C73EC9 /* info-more.png in Resources */,
+				F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */,
+				F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,6 +630,8 @@
 				F55895C715B610140001B399 /* RestoStore.m in Sources */,
 				F54B160715B8118C000A4407 /* UIColor+AppColors.m in Sources */,
 				F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */,
+				3B436DF815B8915300984D3F /* InfoViewController.m in Sources */,
+				3B059BF515B99BD900B4C1DA /* DashboardButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +659,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		F5329E0615B9887F00C4C5DF /* RestoMenuView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5329E0715B9888700C4C5DF /* nl */,
+			);
+			name = RestoMenuView.xib;
+			sourceTree = "<group>";
+		};
 		F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

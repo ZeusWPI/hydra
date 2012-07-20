@@ -108,12 +108,6 @@ public class RestoMenu extends Activity {
         views.add(new MenuAdapter(RestoMenu.this, date));
       }
     }
-
-    public void refresh () {
-      for (MenuAdapter adapter : views) {
-        adapter.refresh();
-      }
-    }
     
     @Override
     public int getCount() {
@@ -205,10 +199,6 @@ public class RestoMenu extends Activity {
   public boolean onOptionsItemSelected(MenuItem item) {
     // Handle item selection
     switch (item.getItemId()) {
-      case R.id.clear_menu_cache:
-        clearCaches();
-        adapter.refresh();
-        return true;
       case R.id.show_about:
         showAboutDialog();
       default:
@@ -231,30 +221,13 @@ public class RestoMenu extends Activity {
 
   public CharSequence getAboutMessage() {
     StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append(getString(R.string.app_name));
-    stringBuilder.append(" ");
-    stringBuilder.append(getVersionName());
-    stringBuilder.append("\n\n");
     stringBuilder.append(getString(R.string.legend_swiping));
     stringBuilder.append("\n\n");
     stringBuilder.append(getString(R.string.legend)).append(":\n\n");
+    stringBuilder.append(getString(R.string.legend_fries)).append("\n");
     stringBuilder.append(getString(R.string.legend_bold)).append("\n");
-    stringBuilder.append(getString(R.string.legend_star)).append("\n");
     stringBuilder.append(getString(R.string.legend_hash));
-    stringBuilder.append("\n\n");
-    stringBuilder.append("http://github.com/blackskad/Resto-menu\n\n");
     return stringBuilder;
-  }
-
-  private String getVersionName() {
-    try {
-      ComponentName componentName = new ComponentName(this, RestoMenu.class);
-      PackageInfo info = getPackageManager().getPackageInfo(componentName.getPackageName(), 0);
-      return info.versionName;
-    } catch (NameNotFoundException e) {
-      // Won't happen, versionName is present in the manifest!
-      return "";
-    }
   }
 
   private int getVersionCode() {
