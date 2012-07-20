@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B059BF515B99BD900B4C1DA /* DashboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B059BF415B99BD900B4C1DA /* DashboardButton.m */; };
 		3B436DF515B88FE400984D3F /* Info-content.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B436DF415B88FE400984D3F /* Info-content.plist */; };
 		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
 		3BAC28AB15B8A95B00C73EC9 /* info-academiccalendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28AA15B8A95B00C73EC9 /* info-academiccalendar.png */; };
@@ -126,6 +127,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B059BF315B99BD900B4C1DA /* DashboardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardButton.h; sourceTree = "<group>"; };
+		3B059BF415B99BD900B4C1DA /* DashboardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardButton.m; sourceTree = "<group>"; };
 		3B436DF415B88FE400984D3F /* Info-content.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-content.plist"; sourceTree = "<group>"; };
 		3B436DF615B8915200984D3F /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		3B436DF715B8915200984D3F /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
@@ -239,6 +242,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B059BF215B99B4800B4C1DA /* Custom views */ = {
+			isa = PBXGroup;
+			children = (
+				3B059BF315B99BD900B4C1DA /* DashboardButton.h */,
+				3B059BF415B99BD900B4C1DA /* DashboardButton.m */,
+			);
+			name = "Custom views";
+			sourceTree = "<group>";
+		};
 		F53D2488159DB4DB00F408AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +344,7 @@
 				F5EBF11F159E09C700EB5D26 /* Models */,
 				F5BAEC911518868200F6A1B1 /* Supporting Files */,
 				F5EBF119159E04B500EB5D26 /* ViewControllers */,
+				3B059BF215B99B4800B4C1DA /* Custom views */,
 			);
 			path = Hydra;
 			sourceTree = "<group>";
@@ -618,6 +631,7 @@
 				F54B160715B8118C000A4407 /* UIColor+AppColors.m in Sources */,
 				F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */,
 				3B436DF815B8915300984D3F /* InfoViewController.m in Sources */,
+				3B059BF515B99BD900B4C1DA /* DashboardButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
