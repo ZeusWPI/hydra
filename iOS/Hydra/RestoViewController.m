@@ -87,8 +87,9 @@
 }
 
 #define kTitleLabelTag 1
+#define KClosedViewTag 2
 
-- (void)setupView:(UIView *)view forDay:(NSDate *)day withMenu:(id)menu
+- (void)setupView:(UIView *)view forDay:(NSDate *)day withMenu:(id)menuValue
 {
     NSString *dateString;
     if ([day isToday]) dateString = @"Vandaag";
@@ -104,6 +105,11 @@
 
     UILabel *label = (UILabel *)[view viewWithTag:kTitleLabelTag];
     [label setText:dateString];
+
+    if (menuValue != [NSNull null]) {
+        RestoMenu *menu = menuValue;
+        [[view viewWithTag:KClosedViewTag] setHidden:[menu open]];
+    }
 }
 
 - (void)viewDidUnload

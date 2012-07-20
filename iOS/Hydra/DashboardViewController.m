@@ -150,7 +150,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ([string isEqualToString:[textField text]]) {
+    if ([string caseInsensitiveCompare:[textField text]] == NSOrderedSame) {
         [self configureDetectionForMove:(movesPerformed + 1)];
     }
     else {
