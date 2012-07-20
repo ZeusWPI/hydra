@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
-    android:paddingRight="5dp"
-    android:paddingLeft="5dp">
+    android:layout_height="fill_parent"
+    android:paddingTop="5dp" >
 
-  <TextView android:id="@+id/schamper_item_title"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textSize="20dp">
-  </TextView>
-  <TextView android:id="@+id/schamper_item_date"
-        android:gravity="center_horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-  </TextView>
-  <ScrollView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp">
-    <WebView android:id="@+id/schamper_item_content"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    </WebView>
-  </ScrollView>
-</LinearLayout>
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
+
+        <TextView
+            android:id="@+id/schamper_item_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:textSize="20dp"
+            android:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/schamper_item_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+        </TextView>
+
+        <WebView
+            android:id="@+id/schamper_item_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </WebView>
+    </LinearLayout>
+
+</ScrollView>
