@@ -10,15 +10,17 @@
 #import "WebViewController.h"
 
 @implementation InfoViewController
+{
+    NSArray *content;
+}
 
 #pragma mark - Initializing + loading
 
 - (id)init
 {
-    self = [super init];
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"Info-content" ofType:@"plist"];
+    self = [self initWithContent:[[NSArray alloc] initWithContentsOfFile:path]];
     if (self) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"Info-content" ofType:@"plist"];
-        content = [[NSArray alloc] initWithContentsOfFile:path];
         [self setTitle:@"Info"];
     }
     return self;
@@ -26,7 +28,8 @@
 
 - initWithContent:(NSArray *)newContent
 {
-    self = [super init];
+	UITableViewStyle style = UITableViewStylePlain; //automaticly use UITableViewStyleGrouped when [newContent count] < 4 ?
+    self = [super initWithStyle:style];
     if (self) {
         content = newContent;
     }

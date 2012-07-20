@@ -85,13 +85,13 @@
 		<array>
 			<dict>
 				<key>title</key>
-				<string>UGent Studentenwebsite</string>
+				<string>UGent studentenwebsite</string>
 				<key>url</key>
 				<string>http://www.ugent.be/nl/studenten/</string>
 			</dict>
 			<dict>
 				<key>title</key>
-				<string>Dienst Studentenactiviteiten</string>
+				<string>Dienst studentenactiviteiten</string>
 				<key>url</key>
 				<string>http://www.student.ugent.be/</string>
 			</dict>

@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InfoViewController : UITableViewController {
-    NSArray *content;
-}
+@interface InfoViewController : UITableViewController
 
 - (id)init;
 - (id)initWithContent:(NSArray *)content;
