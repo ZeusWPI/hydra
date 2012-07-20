@@ -40,7 +40,6 @@ public class NewsList extends ArrayAdapter<NewsItem> {
     TextView association = (TextView) row.findViewById(R.id.news_item_association);
     association.setText(Html.fromHtml(item.club));
 
-    // TODO: can we cut off this text in a more intelligent way?
     String shorty = intelligentCutOff(item.description);
 
     TextView shorttxt = (TextView) row.findViewById(R.id.news_item_short);
@@ -49,20 +48,15 @@ public class NewsList extends ArrayAdapter<NewsItem> {
   }
  
   private String intelligentCutOff(String description) {
-	  String shorty;
-	  
 	  if(description.length() < SHORT_TEXT_LENGTH) {
 		  return description;
 	  } 
 	  
-	  shorty = description.substring(0, SHORT_TEXT_LENGTH);
-	  
-	  while(shorty.charAt(shorty.length()-1) != ' ') {
-		  shorty = shorty.substring(0, shorty.length() - 1);
-	  }
-	  
-	  shorty += "...";
-	  return shorty;
+    int cutoff = SHORT_TEXT_LENGTH;
+	  while(cutoff > 100 && !Character.isWhitespace(description.charAt(cutoff - 1))) {
+      cutoff--;
+	  }	  
+	  return description.substring(0, cutoff) + "...";
   }
   
   private class NewsItemComparator implements Comparator<NewsItem> {
