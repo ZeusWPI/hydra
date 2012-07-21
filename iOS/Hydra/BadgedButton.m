@@ -42,7 +42,7 @@
     textFrame.origin.x = (badgeWidth -textWidth)/2;
     _textLayer.frame = textFrame;
     
-    CGRect badgeFrame = CGRectMake(-badgeWidth/3, -badgeHeight/2, badgeWidth, badgeHeight);
+    CGRect badgeFrame = CGRectMake(self.frame.size.width -2*badgeWidth/3, -badgeHeight/3, badgeWidth, badgeHeight);
     _badgeLayer.frame = badgeFrame;
 
     _badgeLayer.hidden = (badgeText ? NO : YES);
