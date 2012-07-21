@@ -50,7 +50,11 @@
 
 - (void)setBadgeNumber:(int)number
 {
-    [self setBadgeText:[NSString stringWithFormat:@"%d", number]];
+    if(number != 0) {
+    	[self setBadgeText:[NSString stringWithFormat:@"%d", number]];
+    } else {
+        [self setBadgeText:nil];
+    }
 }
 
 #pragma mark - Badge setup
