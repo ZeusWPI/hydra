@@ -17,7 +17,9 @@
     // no __weak, because not supported on iOS 4
     __unsafe_unretained CATextLayer *_textLayer;
     __unsafe_unretained CALayer *_badgeLayer;
+    
     UIFont *badgeFont;
+    CGFloat badgeHeight;
 }
 
 #pragma mark - Badge properties
@@ -33,19 +35,15 @@
     
     //under development!!!
     CGSize textSize = [badgeText sizeWithFont:badgeFont];
-    CGFloat edge = textSize.height/3;
+    CGFloat textWidth = MAX(textSize.height, textSize.width);
+    CGRect textFrame = CGRectMake(0, badgeHeight -textSize.height, textWidth, textSize.height);
     
-    // edge is counted only once because some spacing is included in textSize
-    CGFloat height = textSize.height + edge;
-    CGFloat width = MAX(height, textSize.width + 2*edge);
-    _badgeLayer.frame = CGRectMake(self.frame.size.width - 3*width/4, -height/4,
-                                   width, height);
-    _badgeLayer.cornerRadius = height/2;
-    _badgeLayer.shadowRadius = height/2;
-
-    CGRect textFrame = CGRectMake(0, edge, width, textSize.height);
+    CGFloat badgeWidth = ([_textLayer.string length] > 1 ? textWidth+badgeHeight/2 : badgeHeight);
+    textFrame.origin.x = (badgeWidth -textWidth)/2;
     _textLayer.frame = textFrame;
-    //end under development!!!
+    
+    CGRect badgeFrame = CGRectMake(-badgeWidth/3, -badgeHeight/2, badgeWidth, badgeHeight);
+    _badgeLayer.frame = badgeFrame;
 
     _badgeLayer.hidden = (badgeText ? NO : YES);
 }
@@ -74,22 +72,32 @@
 - (void)setupBadgeLayers
 {
     // Somehow the red background is peeking through the border??
-    CALayer *badgeLayer = [CALayer layer];
-    badgeLayer.backgroundColor = [UIColor redColor].CGColor;
+    // Is it also visible on an actual device or just in the simulator???
+    
+    badgeFont = [UIFont boldSystemFontOfSize:kBadgeFontSize];
+    CGFloat newlineSpace = [badgeFont lineHeight] - [badgeFont ascender];
+    badgeHeight = [badgeFont lineHeight] + newlineSpace;
+    
+    CAGradientLayer *badgeLayer = [CAGradientLayer layer];
+    badgeLayer.colors = [NSArray arrayWithObjects:
+                         (id)[UIColor colorWithRed:1 green:.5 blue:.5 alpha:1].CGColor,
+                         (id)[UIColor colorWithRed:.8 green:0 blue:0 alpha:1].CGColor, nil];
+    badgeLayer.cornerRadius = badgeHeight/2;
     badgeLayer.borderWidth = 2;
     badgeLayer.borderColor = [UIColor whiteColor].CGColor;
     badgeLayer.hidden = YES;
-    badgeLayer.shadowColor = [[UIColor blackColor] CGColor];
+    badgeLayer.shadowColor = [[UIColor blackColor] CGColor];	//Note: ca shadows may slow down scrolling on actual devices, no problem as long as scrolling (or rotation isn't enabled in the Dashboard
     badgeLayer.shadowOpacity = 0.5;
     badgeLayer.shadowOffset = CGSizeMake(0, 2.0);
     [self.layer addSublayer:badgeLayer];
     _badgeLayer = badgeLayer;
 
     CATextLayer *textLayer = [CATextLayer layer];
+    //textLayer.borderWidth = 1;
     textLayer.alignmentMode = kCAAlignmentCenter;
     textLayer.wrapped = YES;
     textLayer.fontSize = kBadgeFontSize;
-    badgeFont = [UIFont boldSystemFontOfSize:textLayer.fontSize];
+   
     CGFontRef cgFont = CGFontCreateWithFontName((__bridge CFStringRef)badgeFont.fontName);
     textLayer.font = cgFont;
     CGFontRelease(cgFont);
@@ -97,7 +105,7 @@
     [badgeLayer addSublayer:textLayer];
     _textLayer = textLayer;
 
-    [self setBadgeText:@"4"];
+    [self setBadgeText:@"17"];
 }
 
 @end
