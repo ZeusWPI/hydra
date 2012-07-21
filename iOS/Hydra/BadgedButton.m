@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 
-#import "DashboardButton.h"
+#import "BadgedButton.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kBadgeFontSize 15
 
-@implementation DashboardButton
+@implementation BadgedButton
 {
     // two layer 1 text & 1 badge, so the text can be centerd in the badge
     // no __weak, because not supported on iOS 4
@@ -104,8 +104,6 @@
     
     [badgeLayer addSublayer:textLayer];
     _textLayer = textLayer;
-
-    [self setBadgeText:@"17"];
 }
 
 @end

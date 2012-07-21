@@ -12,7 +12,12 @@
 #import "InfoViewController.h"
 #import "AssociationStore.h"
 
-@implementation DashboardViewController
+@implementation DashboardViewController {
+    UISwipeGestureRecognizer *gestureRecognizer;
+    UITextField *codeField;
+    NSArray *requiredMoves;
+    NSUInteger movesPerformed;
+}
 
 - (void)viewDidLoad
 {

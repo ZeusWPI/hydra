@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B0D77EC15BB0945002B23C1 /* DashboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFFE7D15BB04B600921E7D /* DashboardButton.m */; };
+		3B0D77EC15BB0945002B23C1 /* BadgedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFFE7D15BB04B600921E7D /* BadgedButton.m */; };
 		3B436DF515B88FE400984D3F /* Info-content.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B436DF415B88FE400984D3F /* Info-content.plist */; };
 		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
 		3BAC28AB15B8A95B00C73EC9 /* info-academiccalendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28AA15B8A95B00C73EC9 /* info-academiccalendar.png */; };
@@ -18,7 +18,7 @@
 		3BAC28B515B8AB5800C73EC9 /* info-urgent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28B415B8AB5800C73EC9 /* info-urgent.png */; };
 		3BAC28B715B8AD2600C73EC9 /* info-sports.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28B615B8AD2600C73EC9 /* info-sports.png */; };
 		3BAC28B915B8AD4000C73EC9 /* info-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28B815B8AD4000C73EC9 /* info-more.png */; };
-		3BAFFE7E15BB04B600921E7D /* DashboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFFE7D15BB04B600921E7D /* DashboardButton.m */; };
+		3BAFFE7E15BB04B600921E7D /* BadgedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFFE7D15BB04B600921E7D /* BadgedButton.m */; };
 		F50EE09715B5F587000F1992 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EE09515B5F587000F1992 /* WebViewController.m */; };
 		F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0015B9858900C4C5DF /* resto-closed.jpg */; };
 		F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */; };
@@ -145,8 +145,8 @@
 		3BAC28B415B8AB5800C73EC9 /* info-urgent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-urgent.png"; sourceTree = "<group>"; };
 		3BAC28B615B8AD2600C73EC9 /* info-sports.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-sports.png"; sourceTree = "<group>"; };
 		3BAC28B815B8AD4000C73EC9 /* info-more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-more.png"; sourceTree = "<group>"; };
-		3BAFFE7C15BB04B600921E7D /* DashboardButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardButton.h; sourceTree = "<group>"; };
-		3BAFFE7D15BB04B600921E7D /* DashboardButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardButton.m; sourceTree = "<group>"; };
+		3BAFFE7C15BB04B600921E7D /* BadgedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgedButton.h; sourceTree = "<group>"; };
+		3BAFFE7D15BB04B600921E7D /* BadgedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgedButton.m; sourceTree = "<group>"; };
 		F50EE09415B5F587000F1992 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		F50EE09515B5F587000F1992 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		F5329E0015B9858900C4C5DF /* resto-closed.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "resto-closed.jpg"; sourceTree = "<group>"; };
@@ -263,8 +263,8 @@
 		3B059BF215B99B4800B4C1DA /* Custom views */ = {
 			isa = PBXGroup;
 			children = (
-				3BAFFE7C15BB04B600921E7D /* DashboardButton.h */,
-				3BAFFE7D15BB04B600921E7D /* DashboardButton.m */,
+				3BAFFE7C15BB04B600921E7D /* BadgedButton.h */,
+				3BAFFE7D15BB04B600921E7D /* BadgedButton.m */,
 			);
 			name = "Custom views";
 			sourceTree = "<group>";
@@ -648,7 +648,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B0D77EC15BB0945002B23C1 /* DashboardButton.m in Sources */,
+				3B0D77EC15BB0945002B23C1 /* BadgedButton.m in Sources */,
 				F5BAEC971518868200F6A1B1 /* main.m in Sources */,
 				F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */,
 				F5BAECA41518868200F6A1B1 /* DashboardViewController.m in Sources */,
@@ -675,7 +675,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5BAECBC1518868200F6A1B1 /* HydraTests.m in Sources */,
-				3BAFFE7E15BB04B600921E7D /* DashboardButton.m in Sources */,
+				3BAFFE7E15BB04B600921E7D /* BadgedButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DashboardButton : UIButton
+@interface BadgedButton : UIButton
 
 @property (nonatomic, strong) NSString *badgeText;
 
