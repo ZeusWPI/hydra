@@ -7,6 +7,7 @@
 //
 
 #import "RestoMenu.h"
+#import <RestKit/RestKit.h>
 
 @implementation RestoMenu
 

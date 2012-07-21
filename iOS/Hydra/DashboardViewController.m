@@ -10,6 +10,7 @@
 #import "RestoViewController.h"
 #import "SchamperViewController.h"
 #import "InfoViewController.h"
+#import "AssociationStore.h"
 
 @implementation DashboardViewController
 
@@ -28,6 +29,9 @@
 
     // Testing
     //[self showInfo:nil];
+
+    AssociationStore *store = [AssociationStore sharedStore];
+    [store newsItemsForAssocation:nil];
 }
 
 - (void)viewDidUnload

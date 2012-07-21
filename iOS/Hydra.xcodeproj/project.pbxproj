@@ -72,6 +72,12 @@
 		F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */; };
 		F5EBF144159E141900EB5D26 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF12C159E134500EB5D26 /* libRestKit.a */; };
 		F5EBF14C159E1E3600EB5D26 /* SchamperArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */; };
+		F5F43C1415BAC8A7003C2AAE /* Associations.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5F43C1315BAC8A7003C2AAE /* Associations.plist */; };
+		F5F43C3E15BAD246003C2AAE /* AssociationNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */; };
+		F5F43C4115BAD2CC003C2AAE /* AssociationActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C4015BAD2CC003C2AAE /* AssociationActivity.m */; };
+		F5F43C4415BAD2EB003C2AAE /* AssociationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */; };
+		F5F43C4715BAD42E003C2AAE /* Association.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C4615BAD42E003C2AAE /* Association.m */; };
+		F5F43C4A15BAEBE5003C2AAE /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C4915BAEBE5003C2AAE /* NSString+Utilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,6 +215,17 @@
 		F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F5EBF14A159E1E3600EB5D26 /* SchamperArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperArticle.h; sourceTree = "<group>"; };
 		F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperArticle.m; sourceTree = "<group>"; };
+		F5F43C1315BAC8A7003C2AAE /* Associations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Associations.plist; sourceTree = "<group>"; };
+		F5F43C3C15BAD246003C2AAE /* AssociationNewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationNewsItem.h; sourceTree = "<group>"; };
+		F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssociationNewsItem.m; sourceTree = "<group>"; };
+		F5F43C3F15BAD2CC003C2AAE /* AssociationActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationActivity.h; sourceTree = "<group>"; };
+		F5F43C4015BAD2CC003C2AAE /* AssociationActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssociationActivity.m; sourceTree = "<group>"; };
+		F5F43C4215BAD2EB003C2AAE /* AssociationStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationStore.h; sourceTree = "<group>"; };
+		F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssociationStore.m; sourceTree = "<group>"; };
+		F5F43C4515BAD42E003C2AAE /* Association.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Association.h; sourceTree = "<group>"; };
+		F5F43C4615BAD42E003C2AAE /* Association.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Association.m; sourceTree = "<group>"; };
+		F5F43C4815BAEBE5003C2AAE /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
+		F5F43C4915BAEBE5003C2AAE /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +311,8 @@
 				F54B160615B8118C000A4407 /* UIColor+AppColors.m */,
 				F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */,
 				F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */,
+				F5F43C4815BAEBE5003C2AAE /* NSString+Utilities.h */,
+				F5F43C4915BAEBE5003C2AAE /* NSString+Utilities.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -352,7 +371,7 @@
 		F5BAEC911518868200F6A1B1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3B436DF415B88FE400984D3F /* Info-content.plist */,
+				F5F43C1315BAC8A7003C2AAE /* Associations.plist */,
 				F5D36BB315B5BD2A00B6E017 /* Default.png */,
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
@@ -360,6 +379,7 @@
 				F5D36BB515B5BD2A00B6E017 /* icon.png */,
 				F5D36BB615B5BD2A00B6E017 /* icon@2x.png */,
 				F53D2488159DB4DB00F408AB /* Images */,
+				3B436DF415B88FE400984D3F /* Info-content.plist */,
 				F5BAEC961518868200F6A1B1 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -407,6 +427,14 @@
 		F5EBF11F159E09C700EB5D26 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F5F43C4515BAD42E003C2AAE /* Association.h */,
+				F5F43C4615BAD42E003C2AAE /* Association.m */,
+				F5F43C3F15BAD2CC003C2AAE /* AssociationActivity.h */,
+				F5F43C4015BAD2CC003C2AAE /* AssociationActivity.m */,
+				F5F43C3C15BAD246003C2AAE /* AssociationNewsItem.h */,
+				F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */,
+				F5F43C4215BAD2EB003C2AAE /* AssociationStore.h */,
+				F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */,
 				F55895C215B60F450001B399 /* RestoMenu.h */,
 				F55895C315B60F450001B399 /* RestoMenu.m */,
 				F55895C515B6100C0001B399 /* RestoStore.h */,
@@ -585,6 +613,7 @@
 				3BAC28B915B8AD4000C73EC9 /* info-more.png in Resources */,
 				F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */,
 				F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */,
+				F5F43C1415BAC8A7003C2AAE /* Associations.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +661,11 @@
 				F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */,
 				3B436DF815B8915300984D3F /* InfoViewController.m in Sources */,
 				3B059BF515B99BD900B4C1DA /* DashboardButton.m in Sources */,
+				F5F43C3E15BAD246003C2AAE /* AssociationNewsItem.m in Sources */,
+				F5F43C4115BAD2CC003C2AAE /* AssociationActivity.m in Sources */,
+				F5F43C4415BAD2EB003C2AAE /* AssociationStore.m in Sources */,
+				F5F43C4715BAD42E003C2AAE /* Association.m in Sources */,
+				F5F43C4A15BAEBE5003C2AAE /* NSString+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
