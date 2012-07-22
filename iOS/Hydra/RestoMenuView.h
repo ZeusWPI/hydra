@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) RestoMenu *menu;
 
-- (id)initWithRestoMenu:(RestoMenu *)menu;
+- (id)initWithRestoMenu:(RestoMenu *)menu andDate:(NSDate *)date;
 
 @end

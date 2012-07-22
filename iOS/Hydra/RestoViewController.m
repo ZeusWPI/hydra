@@ -59,7 +59,7 @@
         UIView *pageViewHolder = [[UIView alloc] initWithFrame:frame];
         [scrollView addSubview:pageViewHolder];
         
-        RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[menus objectAtIndex:i]];
+        RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[menus objectAtIndex:i] andDate:[days objectAtIndex:i]];
         [pageViewHolder addSubview:pageView];
         [self setupPageStyle:pageViewHolder];
     }
