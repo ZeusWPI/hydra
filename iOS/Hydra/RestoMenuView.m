@@ -16,6 +16,8 @@
     UIView *soupHeader;
     UIView *meatHeader;
     UIView *vegetableHeader;
+    
+    UIActivityIndicatorView *spinner;
 }
 
 #pragma mark - Constants
@@ -29,22 +31,12 @@
 
 #pragma mark - Static stuff
 
-static CGRect headerFrame;
-static CGRect iconFrame;
-static CGRect labelFrame;
-
-+ (void)initialize {
-    
-    if(self == [RestoMenuView class]) {
-        
-        CGFloat edge = 5;
-        headerFrame = CGRectMake(0, 0,kTableViewWidth, kSectionHeaderHeight);
-        iconFrame = CGRectMake(edge, edge, kSectionHeaderHeight -2*edge, kSectionHeaderHeight -2*edge);
-        labelFrame = CGRectMake(kSectionHeaderHeight, 0, kTableViewWidth -2*kSectionHeaderHeight, kSectionHeaderHeight);
-    }
-}
-
 + (UIView *)headerWithImage:(UIImage *)image andTitle:(NSString *)title {
+    
+    CGFloat edge = 5;
+    CGRect headerFrame = CGRectMake(0, 0,kTableViewWidth, kSectionHeaderHeight);
+    CGRect iconFrame = CGRectMake(edge, edge, kSectionHeaderHeight -2*edge, kSectionHeaderHeight -2*edge);
+    CGRect labelFrame = CGRectMake(kSectionHeaderHeight, 0, kTableViewWidth -2*kSectionHeaderHeight, kSectionHeaderHeight);
     
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:iconFrame];
@@ -65,7 +57,23 @@ static CGRect labelFrame;
 
 @synthesize menu = _menu;
 
-- (id)initWithRestoMenu:(RestoMenu *)menu {
+- (void)setMenu:(RestoMenu *)menu {
+    
+    if(_menu != menu) {
+        _menu = menu;
+        if(_menu) {
+        	[spinner stopAnimating];
+            [spinner removeFromSuperview];
+        	[self reloadData];
+        } else {
+            [self reloadData];
+            [self addSubview:spinner];
+            [spinner startAnimating];
+        }
+    }
+}
+
+- (id)initWithRestoMenu:(RestoMenu *)menu andDate:(NSDate *)day{
     
     CGRect frame = CGRectMake(0, 0, kTableViewWidth, kTableViewHeight);
     self = [super initWithFrame:frame style:UITableViewStylePlain];
@@ -74,13 +82,19 @@ static CGRect labelFrame;
         self.dataSource = self;
         self.delegate = self;
         
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.center = self.center;
+        
         _menu = menu;
-        if(!_menu.open) {
+        if(menu && !_menu.open) {
             
             CGRect closedFrame = CGRectMake(0, kDateHeaderHeight, self.bounds.size.width, self.bounds.size.height -kDateHeaderHeight);
             UIImageView *closedView = [[UIImageView alloc] initWithFrame:closedFrame];
             closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
             [self addSubview:closedView];
+        } else if (!menu) {
+            [self addSubview:spinner];
+            [spinner startAnimating];
         }
         
         CGRect headerFrame = CGRectMake(0, 0, kTableViewWidth, kDateHeaderHeight);
@@ -95,13 +109,13 @@ static CGRect labelFrame;
         dateHeader.backgroundColor = [UIColor clearColor];
         
         NSString *dateString;
-        if ([_menu.day isToday]) dateString = @"Vandaag";
-        else if ([_menu.day isTomorrow]) dateString = @"Morgen";
+        if ([day isToday]) dateString = @"Vandaag";
+        else if ([day isTomorrow]) dateString = @"Morgen";
         else {
             // Create capitalized, formatted string
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"EEEE d MMMM"];
-            dateString = [formatter stringFromDate:_menu.day];
+            dateString = [formatter stringFromDate:day];
             dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 1)
                                                              withString:[[dateString substringToIndex:1] capitalizedString]];
         }

@@ -11,7 +11,7 @@
 
 @interface RestoMenuView : UITableView <UITableViewDataSource, UITableViewDelegate>
 
-@property (readonly) RestoMenu *menu;
+@property (nonatomic, strong) RestoMenu *menu;
 
 - (id)initWithRestoMenu:(RestoMenu *)menu;
 
