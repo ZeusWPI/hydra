@@ -11,15 +11,24 @@
 
 @class Association;
 
-@interface AssociationStore : NSObject <NSCoding, RKObjectLoaderDelegate> {
+extern NSString *const AssociationStoreDidUpdateNewsNotification;
+extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
+
+@interface AssociationStore : NSObject 
+<NSCoding, RKObjectLoaderDelegate, RKRequestDelegate> {
     RKObjectManager *objectManager;
+    NSDictionary *resourceState;
+    NSMutableDictionary *newsItems;
+    NSMutableDictionary *activities;
+    NSMutableDictionary *activeRequests;
 }
 
-@property (nonatomic, strong, readonly) NSArray *assocations;
+@property (nonatomic, readonly) NSArray *associations;
 
 + (AssociationStore *)sharedStore;
 
-- (NSArray *)activitiesForAssocation:(Association *)assocation;
-- (NSArray *)newsItemsForAssocation:(Association *)assocation;
+- (void)fetchResourceStateWithCompletion:(void(^)(NSDictionary *state))block;
+- (NSArray *)activitiesForAssocation:(Association *)association;
+- (NSArray *)newsItemsForAssocation:(Association *)association;
 
 @end

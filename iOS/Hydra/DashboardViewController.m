@@ -33,12 +33,12 @@
                      @"b", @"a", nil];
 
     // Testing
-    //[self showInfo:nil];
-
     AssociationStore *store = [AssociationStore sharedStore];
-    [store newsItemsForAssocation:nil];
-    
-    [self showResto:self];
+    //[store fetchResourceStateWithCompletion:^(NSDictionary *result) {
+    //    VLog(result);
+    //}];
+    NSArray *associations = [store associations];
+    [store newsItemsForAssocation:[associations objectAtIndex:0]];
 }
 
 - (void)viewDidUnload
@@ -46,6 +46,13 @@
     gestureRecognizer = nil;
     codeField = nil;
     requiredMoves = nil;
+
+    newsButton = nil;
+    activitiesButton = nil;
+    infoButton = nil;
+    restoButton = nil;
+    gsrButton = nil;
+    schamperButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -10,4 +10,10 @@
 
 @interface Association : NSObject
 
+@property (nonatomic, strong) NSString *displayName;
+@property (nonatomic, strong) NSString *fullName;
+@property (nonatomic, strong) NSString *internalName;
+
++ (NSArray *)updateAssociations:(NSArray *)associations lastModified:(NSDate *)date;
+
 @end

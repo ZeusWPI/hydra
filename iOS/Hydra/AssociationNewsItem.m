@@ -12,7 +12,7 @@
 
 @implementation AssociationNewsItem
 
-@synthesize associationId, assocation, title, date, body;
+@synthesize associationId, title, date, body;
 
 - (NSString *)description
 {
