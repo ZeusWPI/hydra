@@ -11,6 +11,7 @@
 
 @interface RestoMenuView : UITableView <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) NSDate *day;
 @property (nonatomic, strong) RestoMenu *menu;
 
 - (id)initWithRestoMenu:(RestoMenu *)menu andDate:(NSDate *)date;
