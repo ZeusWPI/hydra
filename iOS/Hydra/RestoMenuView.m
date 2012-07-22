@@ -25,8 +25,8 @@
 #define kTableViewHeight 356
 #define kTableViewWidth 280
 #define kDateHeaderHeight 50
-#define kSectionHeaderHeight 40
-#define kRowHeight 30
+#define kSectionHeaderHeight 50
+#define kRowHeight 22
 
 #pragma mark - Properties and init
 
@@ -135,15 +135,17 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *cellIdentifier = @"RestoMenuViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:kRowHeight/2];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:kRowHeight/2];
-        cell.detailTextLabel.textColor = [UIColor blackColor];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
+                                      reuseIdentifier:cellIdentifier];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
+        cell.detailTextLabel.font = cell.textLabel.font;
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.textColor = cell.textLabel.textColor;
     }
 
     if(indexPath.section == 0) {
@@ -155,7 +157,7 @@
         cell.textLabel.text = item.name;
         cell.detailTextLabel.text = item.price;
     }
-    else { //section == 2
+    else { // section == 2
         cell.textLabel.text = [self.menu.vegetables objectAtIndex:indexPath.row];
     }
     
@@ -180,12 +182,11 @@
     else if(section == 1) {
         if(!meatHeader) {
             UIImage *meatImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-meal" ofType:@"png"]];
-            meatHeader = [self headerWithImage:meatImage andTitle:@"Vlees"];
+            meatHeader = [self headerWithImage:meatImage andTitle:@"Vlees en veggie"];
         }
         return meatHeader;
     }
     else { //section == 2
-        
         if(!vegetableHeader) {
             UIImage *vegetableImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-vegetables" ofType:@"png"]];
             vegetableHeader = [self headerWithImage:vegetableImage andTitle:@"Groenten"];
@@ -197,25 +198,23 @@
 #pragma mark - Utility methods
 
 - (UIView *)headerWithImage:(UIImage *)image andTitle:(NSString *)title {
-    
-    UIFont *font = [UIFont systemFontOfSize:kSectionHeaderHeight/2];
-    
-    CGFloat edge = 5;
+    UIFont *font = [UIFont systemFontOfSize:17];
+
     CGSize textSize = [title sizeWithFont:font];
-    CGFloat totalWidth = (kSectionHeaderHeight -2*edge) + textSize.width +edge;
+    NSUInteger padding = (kTableViewWidth - textSize.width - image.size.width - 10)/2;
     
-    CGRect headerFrame = CGRectMake(0, 0,kTableViewWidth, kSectionHeaderHeight);
-    CGRect iconFrame = CGRectMake((kTableViewWidth -totalWidth)/2, edge, kSectionHeaderHeight -2*edge, kSectionHeaderHeight -2*edge);
-    CGRect labelFrame = CGRectMake((kTableViewWidth -totalWidth)/2 +kSectionHeaderHeight, 0, textSize.width, kSectionHeaderHeight);
-    
+    CGRect headerFrame = CGRectMake(0, 0, kTableViewWidth, kSectionHeaderHeight);
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:iconFrame];
-    imageView.image = image;
-    [header addSubview:imageView];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:labelFrame];
+    CGRect iconFrame = CGRectMake(padding, 10, kSectionHeaderHeight - 10, kSectionHeaderHeight - 10);
+    UIImageView *iconView = [[UIImageView alloc] initWithFrame:iconFrame];
+    iconView.image = image;
+    [header addSubview:iconView];
+    
+    CGRect titleFrame = CGRectMake(padding + iconFrame.size.width + 10, 14,
+                                   textSize.width, kSectionHeaderHeight - 14);
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
     titleLabel.textAlignment = UITextAlignmentCenter;
-    titleLabel.textColor = [UIColor grayColor];
     titleLabel.font = font;
     titleLabel.text = title;
     [header addSubview:titleLabel];
