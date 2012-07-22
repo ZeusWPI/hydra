@@ -81,6 +81,9 @@
     [layer setShadowRadius:5];
     [layer setShadowOffset:CGSizeMake(3.0, 3.0)];
     
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:layer.bounds cornerRadius:layer.cornerRadius];
+    layer.shadowPath = shadowPath.CGPath;
+    
     UIView *contentView = [[pageHolder subviews] objectAtIndex:0];
     [[contentView layer] setCornerRadius:10];
     [[contentView layer] setMasksToBounds:YES];

@@ -45,7 +45,7 @@
     CGRect badgeFrame = CGRectMake(self.frame.size.width -2*badgeWidth/3, -badgeHeight/3, badgeWidth, badgeHeight);
     _badgeLayer.frame = badgeFrame;
 
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:_badgeLayer.bounds cornerRadius:badgeHeight/2];
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:_badgeLayer.bounds cornerRadius:_badgeLayer.cornerRadius];
     _badgeLayer.shadowPath = shadowPath.CGPath;
 
     _badgeLayer.hidden = (badgeText ? NO : YES);
