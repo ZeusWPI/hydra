@@ -32,11 +32,16 @@
 #pragma mark - Static stuff
 
 + (UIView *)headerWithImage:(UIImage *)image andTitle:(NSString *)title {
+
+    UIFont *font = [UIFont systemFontOfSize:kSectionHeaderHeight/2];
     
     CGFloat edge = 5;
+    CGSize textSize = [title sizeWithFont:font];
+    CGFloat totalWidth = (kSectionHeaderHeight -2*edge) + textSize.width +edge;
+    
     CGRect headerFrame = CGRectMake(0, 0,kTableViewWidth, kSectionHeaderHeight);
-    CGRect iconFrame = CGRectMake(edge, edge, kSectionHeaderHeight -2*edge, kSectionHeaderHeight -2*edge);
-    CGRect labelFrame = CGRectMake(kSectionHeaderHeight, 0, kTableViewWidth -2*kSectionHeaderHeight, kSectionHeaderHeight);
+    CGRect iconFrame = CGRectMake((kTableViewWidth -totalWidth)/2, edge, kSectionHeaderHeight -2*edge, kSectionHeaderHeight -2*edge);
+    CGRect labelFrame = CGRectMake((kTableViewWidth -totalWidth)/2 +kSectionHeaderHeight, 0, textSize.width, kSectionHeaderHeight);
     
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:iconFrame];
@@ -46,7 +51,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:labelFrame];
     titleLabel.textAlignment = UITextAlignmentCenter;
     titleLabel.textColor = [UIColor grayColor];
-    titleLabel.font = [UIFont systemFontOfSize:kSectionHeaderHeight/2];
+    titleLabel.font = font;
     titleLabel.text = title;
     [header addSubview:titleLabel];
     

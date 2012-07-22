@@ -53,6 +53,7 @@
     // see http://cocoawithlove.com/2009/01/multiple-virtual-pages-in-uiscrollview.html
     for (NSUInteger i = 0; i < [days count]; i++) {
         // 20 pixels padding on each edge
+        
         CGRect frame = CGRectMake(viewSize.width * (i + 1) + 20, 20,
                                   viewSize.width - 40, viewSize.height - 60);
 
