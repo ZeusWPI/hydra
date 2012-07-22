@@ -37,6 +37,8 @@
 
     AssociationStore *store = [AssociationStore sharedStore];
     [store newsItemsForAssocation:nil];
+    
+    [self showResto:self];
 }
 
 - (void)viewDidUnload

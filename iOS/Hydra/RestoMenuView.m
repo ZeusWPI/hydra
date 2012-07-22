@@ -60,7 +60,12 @@
 - (void)setMenu:(RestoMenu *)menu {
     
     if(_menu != menu) {
-        _menu = menu;
+        
+        if([menu class] == [NSNull class]) {
+        	_menu = nil;
+        } else {
+            _menu = menu;
+        }
         if(_menu) {
         	[spinner stopAnimating];
             [spinner removeFromSuperview];
@@ -85,14 +90,18 @@
         spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         spinner.center = self.center;
         
-        _menu = menu;
-        if(menu && !_menu.open) {
+        if([menu class] == [NSNull class]) {
+        	_menu = nil;
+        } else {
+            _menu = menu;
+        }
+        if(_menu && !_menu.open) {
             
             CGRect closedFrame = CGRectMake(0, kDateHeaderHeight, self.bounds.size.width, self.bounds.size.height -kDateHeaderHeight);
             UIImageView *closedView = [[UIImageView alloc] initWithFrame:closedFrame];
             closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
             [self addSubview:closedView];
-        } else if (!menu) {
+        } else if (!_menu) {
             [self addSubview:spinner];
             [spinner startAnimating];
         }

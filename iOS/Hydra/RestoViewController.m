@@ -75,16 +75,14 @@
 - (void)setupPageStyle:(UIView *)pageHolder ;
 {
     CALayer *layer = [pageHolder layer];
+    layer.cornerRadius = kPageCornerRadius;
+    layer.masksToBounds = YES;
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:layer.bounds
                                                           cornerRadius:kPageCornerRadius];
     [layer setShadowPath:[shadowPath CGPath]];
     [layer setShadowColor:[[UIColor blackColor] CGColor]];
     [layer setShadowOpacity:0.3];
     [layer setShadowOffset:CGSizeMake(1.5, 3.0)];
-    
-    UIView *contentView = [[pageHolder subviews] objectAtIndex:0];
-    [[contentView layer] setCornerRadius:kPageCornerRadius];
-    [[contentView layer] setMasksToBounds:YES];
 }
 
 - (void)viewDidUnload
@@ -141,6 +139,13 @@
     CGFloat contentWidth = [sender frame].size.width;
     NSInteger page = floor(([sender contentOffset].x - contentWidth / 2) / contentWidth) + 1;
     [pageControl setCurrentPage:page];
+    
+    /*
+     TODO
+     set menu to activePage:
+     RestoMenuView *pageView = ...
+     pageView.menu = [menus objectAtIndex:page];
+     */
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)sender
