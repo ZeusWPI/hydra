@@ -11,6 +11,7 @@
 #import "RestoMenu.h"
 #import "UIColor+AppColors.h"
 #import "NSDate+Utilities.h"
+#import "RestoMenuView.h"
 
 #define kRestoDaysShown 5
 
@@ -57,13 +58,10 @@
 
         UIView *pageViewHolder = [[UIView alloc] initWithFrame:frame];
         [scrollView addSubview:pageViewHolder];
-
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"RestoMenuView" owner:nil options:nil];
-        UIView *pageView = [nib objectAtIndex:0];
+        
+        RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[menus objectAtIndex:i]];
         [pageViewHolder addSubview:pageView];
-
         [self setupPageStyle:pageViewHolder];
-        [self setupView:pageView forDay:[days objectAtIndex:i] withMenu:[menus objectAtIndex:i]];
     }
 
     // Setup pageControl
@@ -84,38 +82,9 @@
     [layer setShadowOpacity:0.3];
     [layer setShadowOffset:CGSizeMake(1.5, 3.0)];
     
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:layer.bounds cornerRadius:layer.cornerRadius];
-    layer.shadowPath = shadowPath.CGPath;
-    
     UIView *contentView = [[pageHolder subviews] objectAtIndex:0];
     [[contentView layer] setCornerRadius:kPageCornerRadius];
     [[contentView layer] setMasksToBounds:YES];
-}
-
-#define kTitleLabelTag 1
-#define KClosedViewTag 2
-
-- (void)setupView:(UIView *)view forDay:(NSDate *)day withMenu:(id)menuValue
-{
-    NSString *dateString;
-    if ([day isToday]) dateString = @"Vandaag";
-    else if ([day isTomorrow]) dateString = @"Morgen";
-    else {
-        // Create capitalized, formatted string
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"EEEE d MMMM"];
-        dateString = [formatter stringFromDate:day];
-        dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 1)
-                      withString:[[dateString substringToIndex:1] capitalizedString]];
-    }
-
-    UILabel *label = (UILabel *)[view viewWithTag:kTitleLabelTag];
-    [label setText:dateString];
-
-    if (menuValue != [NSNull null]) {
-        RestoMenu *menu = menuValue;
-        [[view viewWithTag:KClosedViewTag] setHidden:[menu open]];
-    }
 }
 
 - (void)viewDidUnload

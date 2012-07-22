@@ -10,6 +10,7 @@
 		3B0D77EC15BB0945002B23C1 /* BadgedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFFE7D15BB04B600921E7D /* BadgedButton.m */; };
 		3B436DF515B88FE400984D3F /* Info-content.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B436DF415B88FE400984D3F /* Info-content.plist */; };
 		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
+		3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */; };
 		3BAC28AB15B8A95B00C73EC9 /* info-academiccalendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28AA15B8A95B00C73EC9 /* info-academiccalendar.png */; };
 		3BAC28AD15B8AA4200C73EC9 /* info-durfdoen.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28AC15B8AA4200C73EC9 /* info-durfdoen.png */; };
 		3BAC28AF15B8AA9F00C73EC9 /* info-studentdoctors.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC28AE15B8AA9F00C73EC9 /* info-studentdoctors.png */; };
@@ -22,7 +23,6 @@
 		F50EE09715B5F587000F1992 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EE09515B5F587000F1992 /* WebViewController.m */; };
 		F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0015B9858900C4C5DF /* resto-closed.jpg */; };
 		F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */; };
-		F5329E0415B9887F00C4C5DF /* RestoMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0615B9887F00C4C5DF /* RestoMenuView.xib */; };
 		F53D248A159DB50800F408AB /* header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D2489159DB50800F408AB /* header-bg.png */; };
 		F53D248C159DB51A00F408AB /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248B159DB51A00F408AB /* hydra.png */; };
 		F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F54B160015B7FFE6000A4407 /* resto-logo.png */; };
@@ -137,6 +137,8 @@
 		3B436DF415B88FE400984D3F /* Info-content.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-content.plist"; sourceTree = "<group>"; };
 		3B436DF615B8915200984D3F /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		3B436DF715B8915200984D3F /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		3B7AD3B715BC830F0026BB62 /* RestoMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMenuView.h; sourceTree = "<group>"; };
+		3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenuView.m; sourceTree = "<group>"; };
 		3BAC28AA15B8A95B00C73EC9 /* info-academiccalendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-academiccalendar.png"; sourceTree = "<group>"; };
 		3BAC28AC15B8AA4200C73EC9 /* info-durfdoen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-durfdoen.png"; sourceTree = "<group>"; };
 		3BAC28AE15B8AA9F00C73EC9 /* info-studentdoctors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-studentdoctors.png"; sourceTree = "<group>"; };
@@ -151,7 +153,6 @@
 		F50EE09515B5F587000F1992 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		F5329E0015B9858900C4C5DF /* resto-closed.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "resto-closed.jpg"; sourceTree = "<group>"; };
 		F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "resto-closed@2x.jpg"; sourceTree = "<group>"; };
-		F5329E0715B9888700C4C5DF /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/RestoMenuView.xib; sourceTree = "<group>"; };
 		F53D2489159DB50800F408AB /* header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg.png"; sourceTree = "<group>"; };
 		F53D248B159DB51A00F408AB /* hydra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hydra.png; sourceTree = "<group>"; };
 		F54B160015B7FFE6000A4407 /* resto-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resto-logo.png"; sourceTree = "<group>"; };
@@ -267,6 +268,18 @@
 				3BAFFE7D15BB04B600921E7D /* BadgedButton.m */,
 			);
 			name = "Custom views";
+			sourceTree = "<group>";
+		};
+		3B7AD3B615BC82EB0026BB62 /* Resto */ = {
+			isa = PBXGroup;
+			children = (
+				3B7AD3B715BC830F0026BB62 /* RestoMenuView.h */,
+				3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */,
+				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
+				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
+				F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */,
+			);
+			name = Resto;
 			sourceTree = "<group>";
 		};
 		F53D2488159DB4DB00F408AB /* Images */ = {
@@ -413,10 +426,7 @@
 				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
 				3B436DF615B8915200984D3F /* InfoViewController.h */,
 				3B436DF715B8915200984D3F /* InfoViewController.m */,
-				F5329E0615B9887F00C4C5DF /* RestoMenuView.xib */,
-				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
-				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
-				F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */,
+				3B7AD3B615BC82EB0026BB62 /* Resto */,
 				F5EBF11A159E092300EB5D26 /* SchamperViewController.h */,
 				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
 				F50EE09415B5F587000F1992 /* WebViewController.h */,
@@ -599,7 +609,6 @@
 				F5D36BBA15B5BD2A00B6E017 /* icon@2x.png in Resources */,
 				F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */,
 				F54B160315B7FFE6000A4407 /* resto-logo@2x.png in Resources */,
-				F5329E0415B9887F00C4C5DF /* RestoMenuView.xib in Resources */,
 				F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */,
 				F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */,
 				F57E7E1015B837F100D2A59E /* icon-vegetables.png in Resources */,
@@ -667,6 +676,7 @@
 				F5F43C4415BAD2EB003C2AAE /* AssociationStore.m in Sources */,
 				F5F43C4715BAD42E003C2AAE /* Association.m in Sources */,
 				F5F43C4A15BAEBE5003C2AAE /* NSString+Utilities.m in Sources */,
+				3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,14 +705,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F5329E0615B9887F00C4C5DF /* RestoMenuView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F5329E0715B9888700C4C5DF /* nl */,
-			);
-			name = RestoMenuView.xib;
-			sourceTree = "<group>";
-		};
 		F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
