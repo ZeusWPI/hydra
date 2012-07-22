@@ -76,14 +76,17 @@
 - (void)setupPageStyle:(UIView *)pageHolder ;
 {
     CALayer *layer = [pageHolder layer];
-    layer.cornerRadius = kPageCornerRadius;
-    layer.masksToBounds = YES;
+    [layer setCornerRadius:kPageCornerRadius];
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:layer.bounds
                                                           cornerRadius:kPageCornerRadius];
     [layer setShadowPath:[shadowPath CGPath]];
     [layer setShadowColor:[[UIColor blackColor] CGColor]];
     [layer setShadowOpacity:0.3];
     [layer setShadowOffset:CGSizeMake(1.5, 3.0)];
+    
+    UIView *contentView = [[pageHolder subviews] objectAtIndex:0];
+    [[contentView layer] setCornerRadius:kPageCornerRadius];
+    [[contentView layer] setMasksToBounds:YES];
 }
 
 - (void)viewDidUnload

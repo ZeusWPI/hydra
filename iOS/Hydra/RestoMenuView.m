@@ -88,7 +88,6 @@
     CGRect frame = CGRectMake(0, 0, kTableViewWidth, kTableViewHeight);
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if(self) {
-        
         self.dataSource = self;
         self.delegate = self;
         
@@ -102,9 +101,11 @@
         }
         if(_menu && !_menu.open) {
             
-            CGRect closedFrame = CGRectMake(0, kDateHeaderHeight, self.bounds.size.width, self.bounds.size.height -kDateHeaderHeight);
+            CGRect closedFrame = CGRectMake(0, kDateHeaderHeight, self.bounds.size.width, 
+                                            self.bounds.size.height - 2*kDateHeaderHeight);
             UIImageView *closedView = [[UIImageView alloc] initWithFrame:closedFrame];
             closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
+            closedView.contentMode = UIViewContentModeCenter;
             [self addSubview:closedView];
         } else if (!_menu) {
             [self addSubview:spinner];
@@ -117,7 +118,7 @@
         tableViewHeader.image = [UIImage imageNamed:@"header-bg"];
 
         dateHeader = [[UILabel alloc] initWithFrame:tableViewHeader.bounds];
-        dateHeader.font = [UIFont boldSystemFontOfSize:kDateHeaderHeight/2];
+        dateHeader.font = [UIFont boldSystemFontOfSize:18];
         dateHeader.textAlignment = UITextAlignmentCenter;
         dateHeader.textColor = [UIColor whiteColor];
         dateHeader.backgroundColor = [UIColor clearColor];
@@ -165,27 +166,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *cellIdentifier = @"cell";
+    static NSString *cellIdentifier = @"RestoMenuViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-     //}
         cell.textLabel.font = [UIFont systemFontOfSize:kRowHeight/2];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:kRowHeight/2];
         cell.detailTextLabel.textColor = [UIColor blackColor];
     }
 
     if(indexPath.section == 0) {
-        
         cell.textLabel.text = self.menu.soup.name;
         cell.detailTextLabel.text = self.menu.soup.price;
-    } else if (indexPath.section == 1) {
-        
+    }
+    else if (indexPath.section == 1) {
         RestoMenuItem *item = [self.menu.meat objectAtIndex:indexPath.row];
         cell.textLabel.text = item.name;
         cell.detailTextLabel.text = item.price;
-    } else { //section == 2
-        
+    }
+    else { //section == 2
         cell.textLabel.text = [self.menu.vegetables objectAtIndex:indexPath.row];
     }
     
@@ -201,7 +200,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     if(section == 0) {
-        
         if(!soupHeader) {
             UIImage *soupImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-soup" ofType:@"png"]];
             soupHeader = [RestoMenuView headerWithImage:soupImage andTitle:@"Soep"];
@@ -209,7 +207,6 @@
         return soupHeader;
     }
     else if(section == 1) {
-        
         if(!meatHeader) {
             UIImage *meatImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-meal" ofType:@"png"]];
             meatHeader = [RestoMenuView headerWithImage:meatImage andTitle:@"Vlees"];
