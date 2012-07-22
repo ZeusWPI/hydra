@@ -45,6 +45,9 @@
     CGRect badgeFrame = CGRectMake(self.frame.size.width -2*badgeWidth/3, -badgeHeight/3, badgeWidth, badgeHeight);
     _badgeLayer.frame = badgeFrame;
 
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:_badgeLayer.bounds cornerRadius:badgeHeight/2];
+    _badgeLayer.shadowPath = shadowPath.CGPath;
+
     _badgeLayer.hidden = (badgeText ? NO : YES);
 }
 
@@ -92,12 +95,11 @@
     badgeLayer.hidden = YES;
     badgeLayer.shadowColor = [[UIColor blackColor] CGColor];	//Note: ca shadows may slow down scrolling on actual devices, no problem as long as scrolling (or rotation isn't enabled in the Dashboard
     badgeLayer.shadowOpacity = 0.5;
-    badgeLayer.shadowOffset = CGSizeMake(0, 2.0);
+    badgeLayer.shadowOffset = CGSizeMake(0, 4.0);
     [self.layer addSublayer:badgeLayer];
     _badgeLayer = badgeLayer;
 
     CATextLayer *textLayer = [CATextLayer layer];
-    //textLayer.borderWidth = 1;
     textLayer.alignmentMode = kCAAlignmentCenter;
     textLayer.wrapped = YES;
     textLayer.fontSize = kBadgeFontSize;
