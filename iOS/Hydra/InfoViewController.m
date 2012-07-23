@@ -78,14 +78,13 @@
     if(icon) {
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.imageView.image = icon;
+        cell.imageView.frame = CGRectMake(200, 200, 200, 0);
+
+        // Ugly fix to add more padding to the image
         cell.indentationLevel = 1;
         text = [@" " stringByAppendingString:text];
     }
     cell.textLabel.text = text;
-
-    CGRect frame = cell.imageView.frame;
-    frame.size.width = 200;
-    cell.imageView.frame = frame;
 
     return cell;
 }

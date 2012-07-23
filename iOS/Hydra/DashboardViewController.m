@@ -33,10 +33,11 @@
                      @"b", @"a", nil];
 
     // Testing
-    AssociationStore *store = [AssociationStore sharedStore];
+    /*AssociationStore *store = [AssociationStore sharedStore];
     NSArray *associations = [store associations];
     [store activitiesForAssocation:[associations objectAtIndex:0]];
-    [store newsItemsForAssocation:[associations objectAtIndex:0]];
+    [store newsItemsForAssocation:[associations objectAtIndex:0]];*/
+    [self showInfo:nil];
 }
 
 - (void)viewDidUnload
