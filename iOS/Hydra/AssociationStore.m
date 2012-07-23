@@ -13,7 +13,6 @@
 
 #define kVersoUrl @"http://golive.myverso.com/ugent"
 #define kVersoResourceStatePath @"/versions.xml"
-#define kVersoResourceActivityPath @"/all_activities.xml"
 
 NSString *const AssociationStoreDidUpdateNewsNotification =
     @"AssociationStoreDidUpdateNewsNotification";
@@ -42,10 +41,11 @@ NSString *const AssociationsLastUpdated = @"AssociationsLastUpdated";
     if (self) {
         associations = [Association updateAssociations:nil lastModified:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        // TODO: use last modified date as provided by associations
+        // perhaps move this whole updating construct to Association?
         [userDefaults setObject:[NSDate date] forKey:AssociationsLastUpdated];
-        
+
         newsItems = [[NSMutableDictionary alloc] init];
-        activities = [[NSMutableDictionary alloc] init];
         activeRequests = [[NSMutableDictionary alloc] init];
         [self initializeObjectManager];
     }
@@ -56,12 +56,30 @@ NSString *const AssociationsLastUpdated = @"AssociationsLastUpdated";
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
+    // TODO
     [self initializeObjectManager];
     return nil;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
+    // TODO
+}
+
++ (NSString *)storeCachePath
+{
+    // Get cache directory
+    NSArray *cacheDirectories =
+    NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cacheDirectory = [cacheDirectories objectAtIndex:0];
+
+    return [cacheDirectory stringByAppendingPathComponent:@"associations.archive"];
+}
+
+- (void)updateStoreCache
+{
+    NSString *cachePath = [[self class] storeCachePath];
+    [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
 }
 
 #pragma mark - Remote data management and requests
@@ -73,7 +91,7 @@ NSString *const AssociationsLastUpdated = @"AssociationsLastUpdated";
 
     RKClient *client = [objectManager client];
     RKRequest *stateRequest = [client requestWithResourcePath:kVersoResourceStatePath];
-    
+
     __block AssociationStore *blockSelf = self;
     [stateRequest setOnDidLoadResponse:^(RKResponse *response) {
         NSError *error;
@@ -98,45 +116,56 @@ NSString *const AssociationsLastUpdated = @"AssociationsLastUpdated";
         [blockSelf objectLoader:nil didFailWithError:error];
         [activeRequests removeObjectForKey:url];
     }];
-    
+
     [[objectManager requestQueue] addRequest:stateRequest];
     [activeRequests setObject:[NSNull null] forKey:url];
 }
 
-- (NSArray *)activitiesForAssocation:(Association *)assocation
-{
-    return nil;
-}
-
-- (NSArray *)newsItemsForAssocation:(Association *)association
+- (void)fetchResourceUpdate:(NSString *)resourceId forTarget:(id)target withVersion:(NSUInteger)version
 {
     // Load the versions.xml, to check if we need updates
     if (!resourceState) {
         [self fetchResourceStateWithCompletion:^(NSDictionary *state) {
-            [self newsItemsForAssocation:association];
+            [self fetchResourceUpdate:resourceId forTarget:target withVersion:version];
         }];
     }
     else {
         // Check the information in versions.xml
-        NSDictionary *state = [resourceState valueForKey:[association internalName]];
+        NSDictionary *state = [resourceState valueForKey:resourceId];
         NSUInteger latestVersion = [[state valueForKey:@"version"] intValue];
-        
-        // Compare with the current state
-        NSDictionary *associationState = [newsItems objectForKey:association];
-        NSUInteger currentVersion = [[associationState objectForKey:@"version"] intValue];
-        if (!associationState || latestVersion > currentVersion) {
+
+        if (latestVersion > version) {
             // Only allow one request at a time
             NSString *path = [@"/" stringByAppendingString:[state valueForKey:@"path"]];
             if (![activeRequests objectForKey:path]) {
-                DLog(@"News for %@ is out-of-date. Updating.", [association displayName]);
+                DLog(@"%@ is out-of-date. Updating...", resourceId);
                 [objectManager loadObjectsAtResourcePath:path delegate:self];
-                [activeRequests setObject:association forKey:path];
+                [activeRequests setObject:target forKey:path];
             }
         }
     }
+}
+
+static NSString *const ActivitiesResource = @"all_activities";
+
+- (NSArray *)activitiesForAssocation:(Association *)association
+{
+    [self fetchResourceUpdate:ActivitiesResource forTarget:[NSNull null]
+                  withVersion:activitiesVersion];
+
+    return [activities allValues];
+}
+
+- (NSArray *)newsItemsForAssocation:(Association *)association
+{
+    NSDictionary *associationState = [newsItems objectForKey:association];
+    [self fetchResourceUpdate:[association internalName] forTarget:association
+                  withVersion:[[associationState objectForKey:@"version"] intValue]];
 
     return [[newsItems objectForKey:association] objectForKey:@"items"];
 }
+
+#pragma mark - RestKit Object loading
 
 - (void)initializeObjectManager
 {
@@ -171,14 +200,45 @@ NSString *const AssociationsLastUpdated = @"AssociationsLastUpdated";
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
-    Association *assoc = [activeRequests objectForKey:[objectLoader resourcePath]];
-    NSDictionary *state = [resourceState valueForKey:[assoc internalName]];
+    NSString *notification = nil;
+    NSDictionary *userInfo = nil;
+    id targetObject = [activeRequests objectForKey:[objectLoader resourcePath]];
 
-    NSDictionary *result = [[NSDictionary alloc] initWithObjectsAndKeys:
-                            [state valueForKey:@"version"], @"version",
-                            objects, @"contents", nil];
-    [newsItems setObject:result forKey:assoc];
-    VLog(newsItems);
+    // Received some NewsItems
+    if ([targetObject isKindOfClass:[Association class]]) {
+        Association *assoc = targetObject;
+        NSDictionary *state = [resourceState valueForKey:[assoc internalName]];
+
+        NSDictionary *result = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                [state valueForKey:@"version"], @"version",
+                                objects, @"contents", nil];
+        [newsItems setObject:result forKey:assoc];
+        notification = AssociationStoreDidUpdateNewsNotification;
+        userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                    assoc, @"association", objects, @"newsItems", nil];
+    }
+    // Received Activities
+    else {
+        // Index received activities by association
+        NSMutableDictionary *newActivities = [[NSMutableDictionary alloc] init];
+        for (AssociationActivity *activity in objects) {
+            NSString *associationId = [activity associationId];
+            if (![newActivities objectForKey:associationId]) {
+                [newActivities setObject:[[NSMutableArray alloc] init]
+                                  forKey:associationId];
+            }
+            [[newActivities objectForKey:associationId] addObject:activity];
+        }
+        activities = newActivities;
+
+        NSDictionary *state = [resourceState valueForKey:ActivitiesResource];
+        activitiesVersion = [[state valueForKey:@"version"] intValue];
+        notification = AssociationStoreDidUpdateActivitiesNotification;
+    }
+
+    // Send notification
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:notification object:self userInfo:userInfo];
 
     [activeRequests removeObjectForKey:[objectLoader resourcePath]];
 }

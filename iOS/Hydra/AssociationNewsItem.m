@@ -14,11 +14,6 @@
 
 @synthesize associationId, title, date, body;
 
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"<AssocationNewsItem '%@'>", title];
-}
-
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
@@ -26,6 +21,11 @@
     [objectMapping mapKeyPath:@"description" toAttribute:@"body"];
     [objectMapping mapKeyPath:@"association_id" toAttribute:@"associationId"];
     [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@"newsItem"];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<AssocationNewsItem '%@'>", title];
 }
 
 - (void)setTitle:(NSString *)newTitle

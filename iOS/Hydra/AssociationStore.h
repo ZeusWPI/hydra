@@ -19,7 +19,8 @@ extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
     RKObjectManager *objectManager;
     NSDictionary *resourceState;
     NSMutableDictionary *newsItems;
-    NSMutableDictionary *activities;
+    NSDictionary *activities;
+    NSUInteger activitiesVersion;
     NSMutableDictionary *activeRequests;
 }
 
@@ -27,7 +28,6 @@ extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 
 + (AssociationStore *)sharedStore;
 
-- (void)fetchResourceStateWithCompletion:(void(^)(NSDictionary *state))block;
 - (NSArray *)activitiesForAssocation:(Association *)association;
 - (NSArray *)newsItemsForAssocation:(Association *)association;
 

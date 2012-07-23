@@ -34,10 +34,8 @@
 
     // Testing
     AssociationStore *store = [AssociationStore sharedStore];
-    //[store fetchResourceStateWithCompletion:^(NSDictionary *result) {
-    //    VLog(result);
-    //}];
     NSArray *associations = [store associations];
+    [store activitiesForAssocation:[associations objectAtIndex:0]];
     [store newsItemsForAssocation:[associations objectAtIndex:0]];
 }
 

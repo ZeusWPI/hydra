@@ -30,7 +30,7 @@
 {
     NSFileManager *manager = [NSFileManager defaultManager];
     NSString *filePath = [self initializationPath];
-    
+
     NSDictionary *attributes = [manager attributesOfItemAtPath:filePath error:nil];
     NSDate *lastUpdated = [attributes objectForKey:NSFileModificationDate];
     return (!currentVersion || [lastUpdated isLaterThanDate:currentVersion]);
