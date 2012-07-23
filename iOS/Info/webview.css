@@ -44,13 +44,16 @@ table.hours td {
 }
 
 h3 {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
+}
+
+p, ul {
+  font-size: 14px;
 }
 
 ul {
   padding-left: 20px;
-  font-size: 13px;
   margin-top: 5px;
 }
 

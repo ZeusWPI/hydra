@@ -69,6 +69,7 @@
 		F5BAECB01518868200F6A1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8A1518868200F6A1B1 /* UIKit.framework */; };
 		F5BAECB11518868200F6A1B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8C1518868200F6A1B1 /* Foundation.framework */; };
 		F5BAECBC1518868200F6A1B1 /* HydraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAECBB1518868200F6A1B1 /* HydraTests.m */; };
+		F5CFAA3D15BD9B87008E75B0 /* info-fietsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */; };
 		F5D36BB715B5BD2A00B6E017 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB315B5BD2A00B6E017 /* Default.png */; };
 		F5D36BB815B5BD2A00B6E017 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB415B5BD2A00B6E017 /* Default@2x.png */; };
 		F5D36BB915B5BD2A00B6E017 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB515B5BD2A00B6E017 /* icon.png */; };
@@ -217,6 +218,7 @@
 		F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HydraTests-Info.plist"; sourceTree = "<group>"; };
 		F5BAECBA1518868200F6A1B1 /* HydraTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HydraTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAECBB1518868200F6A1B1 /* HydraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HydraTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-fietsen.html"; sourceTree = "<group>"; };
 		F5D36BB315B5BD2A00B6E017 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		F5D36BB415B5BD2A00B6E017 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		F5D36BB515B5BD2A00B6E017 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -365,12 +367,12 @@
 			isa = PBXGroup;
 			children = (
 				F59D170715BD7CE500B6F892 /* info-content.plist */,
+				F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */,
 				F59D170D15BD811000B6F892 /* info-sport-aanbod.html */,
 				F59D170815BD7CE500B6F892 /* info-sport-openingsuren.html */,
 				F59D170F15BD813E00B6F892 /* webview.css */,
 			);
-			name = Info;
-			path = info;
+			path = Info;
 			sourceTree = "<group>";
 		};
 		F5BAEC7B1518868100F6A1B1 = {
@@ -677,6 +679,7 @@
 				F59D170A15BD7CE500B6F892 /* info-sport-openingsuren.html in Resources */,
 				F59D170E15BD811000B6F892 /* info-sport-aanbod.html in Resources */,
 				F59D171015BD813E00B6F892 /* webview.css in Resources */,
+				F5CFAA3D15BD9B87008E75B0 /* info-fietsen.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
