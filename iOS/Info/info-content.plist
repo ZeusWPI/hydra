@@ -72,6 +72,8 @@
 		<string>info-academiccalendar</string>
 		<key>title</key>
 		<string>Academische kalender</string>
+		<key>html</key>
+		<string>info-kalender.html</string>
 	</dict>
 	<dict>
 		<key>image</key>

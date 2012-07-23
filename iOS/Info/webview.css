@@ -1,7 +1,7 @@
 body {
   font-family: Helvetica;
-  background: #ced6e0;
   margin: 8px;
+  font-size: 14px;
 }
 
 h2 {
@@ -33,9 +33,7 @@ table a {
   border-bottom: 1px solid #444;
 }
 
-table tr.odd {
-  background: #eee
-}
+table tr.even { background: #ced6e0; }
 
 table.hours td {
   vertical-align: middle;
@@ -46,10 +44,6 @@ table.hours td {
 h3 {
   font-size: 14px;
   margin: 0;
-}
-
-p, ul {
-  font-size: 14px;
 }
 
 ul {
