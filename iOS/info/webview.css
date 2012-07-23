@@ -1,0 +1,59 @@
+body {
+  font-family: Helvetica;
+  background: #ced6e0;
+  margin: 8px;
+}
+
+h2 {
+  font-size: 18px;
+  color: #214e80;
+  margin: 0 0 4px 0;
+}
+
+table {
+  font-size: 13px;
+  width: 100%;
+}
+
+table.sports { margin: -10px -8px 0 -8px; width: 320px; }
+table.hours { margin: 0 -6px 10px -6px; width: 316px; }
+
+table td {
+  padding: 8px 4px;
+}
+
+table.sports td:first-child {
+  text-align: center;
+}
+
+table a {
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+}
+
+table tr.odd {
+  background: #eee
+}
+
+table.hours td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 0;
+}
+
+h3 {
+  font-size: 13px;
+  margin: 0;
+}
+
+ul {
+  padding-left: 20px;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+ul ul {
+  margin: 0;
+}

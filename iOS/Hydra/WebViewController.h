@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SchamperArticle.h"
 
-@interface WebViewController : UIViewController
+@interface WebViewController : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, readonly) UIWebView *webView;
+
+- (void)loadHtml:(NSString *)path;
 
 @end

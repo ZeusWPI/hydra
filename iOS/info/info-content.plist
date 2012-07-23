@@ -12,10 +12,20 @@
 			<dict>
 				<key>title</key>
 				<string>Openingsuren</string>
+				<key>html</key>
+				<string>info-sport-openingsuren.html</string>
 			</dict>
 			<dict>
 				<key>title</key>
 				<string>Sportaanbod</string>
+				<key>html</key>
+				<string>info-sport-aanbod.html</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>UGent.be » Sportvoorzieningen</string>
+				<key>url</key>
+				<string>http://www.ugent.be/nl/voorzieningen/sport</string>
 			</dict>
 		</array>
 	</dict>
@@ -42,33 +52,16 @@
 		<string>info-durfdoen</string>
 		<key>title</key>
 		<string>DurfDoen</string>
-		<key>subcontent</key>
-		<array>
-			<dict>
-				<key>title</key>
-				<string>VVS zoek coördinator</string>
-			</dict>
-			<dict>
-				<key>title</key>
-				<string>Ga eens internationaal in Gent …</string>
-			</dict>
-			<dict>
-				<key>title</key>
-				<string>Zit jij in de lest naat de student van het jaar?</string>
-			</dict>
-			<dict>
-				<key>title</key>
-				<string>We want you! Urgent.fm</string>
-			</dict>
-		</array>
+		<key>association</key>
+		<string>DURFDOEN</string>
 	</dict>
 	<dict>
 		<key>image</key>
 		<string>info-urgent</string>
 		<key>title</key>
 		<string>Urgent.fm</string>
-		<key>clubfeed</key>
-		<string>Urgent</string>
+		<key>association</key>
+		<string>URGENT</string>
 	</dict>
 	<dict>
 		<key>image</key>
@@ -85,7 +78,7 @@
 		<array>
 			<dict>
 				<key>title</key>
-				<string>UGent studentenwebsite</string>
+				<string>UGent.be » Studenten</string>
 				<key>url</key>
 				<string>http://www.ugent.be/nl/studenten/</string>
 			</dict>

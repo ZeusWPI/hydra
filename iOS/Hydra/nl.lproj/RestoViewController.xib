@@ -280,10 +280,6 @@ MzAgdG90IDIxdS4</string>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="804300470"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xMjk0MTE3NzE5IDAuMzA1ODgyMzY0NSAwLjUwMTk2MDgxNAA</bytes>
-								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
