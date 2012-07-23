@@ -10,6 +10,7 @@
 #import "NSDate+Utilities.h"
 
 @implementation RestoMenuView {
+    // TODO: vormen dit geen retain-cycles?
     UILabel *dateHeader;
     
     UIView *soupHeader;
@@ -70,11 +71,14 @@
     tableViewHeader.image = [UIImage imageNamed:@"header-bg"];
     self.tableHeaderView = tableViewHeader;
 
-    dateHeader = [[UILabel alloc] initWithFrame:tableViewHeader.bounds];
-    dateHeader.font = [UIFont boldSystemFontOfSize:18];
+    CGRect dateHeaderFrame = CGRectMake(0, 5, kTableViewWidth, kDateHeaderHeight - 5);
+    dateHeader = [[UILabel alloc] initWithFrame:dateHeaderFrame];
+    dateHeader.font = [UIFont boldSystemFontOfSize:20];
     dateHeader.textAlignment = UITextAlignmentCenter;
     dateHeader.textColor = [UIColor whiteColor];
     dateHeader.backgroundColor = [UIColor clearColor];
+    dateHeader.shadowColor = [UIColor blackColor];
+    dateHeader.shadowOffset = CGSizeMake(0, 2);
     [tableViewHeader addSubview:dateHeader];
     
     self.bounces = NO;
@@ -198,7 +202,7 @@
 #pragma mark - Utility methods
 
 - (UIView *)headerWithImage:(UIImage *)image andTitle:(NSString *)title {
-    UIFont *font = [UIFont systemFontOfSize:17];
+    UIFont *font = [UIFont systemFontOfSize:16];
 
     CGSize textSize = [title sizeWithFont:font];
     NSUInteger padding = (kTableViewWidth - textSize.width - image.size.width - 10)/2;
