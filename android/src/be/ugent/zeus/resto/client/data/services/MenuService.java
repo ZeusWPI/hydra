@@ -23,7 +23,7 @@ public class MenuService extends HTTPIntentService {
    * Location of the menu's for a certain week. '%s' has to be replaced by the
    * week of the year as returned by c.get(Calendar.WEEK_OF_YEAR).
    */
-  private static final String MENU_URL = "http://zeus.ugent.be/~blackskad/resto/api/0.1/week/%s.json";
+  private static final String MENU_URL = "http://zeus.ugent.be/hydra/api/1.0/resto/week/%s.json";
   /**
    * 
    */
