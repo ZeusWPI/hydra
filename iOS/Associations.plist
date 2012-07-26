@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>displayName</key>
+		<string>Zeus WPI</string>
+		<key>fullName</key>
+		<string>Zeus WerkgroeP Informatica</string>
+		<key>internalName</key>
+		<string>ZEUS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>WiNA</string>
+		<key>fullName</key>
+		<string>WiNA</string>
+		<key>internalName</key>
+		<string>WINA</string>
+	</dict>
+</array>
+</plist>

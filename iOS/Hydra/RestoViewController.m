@@ -11,6 +11,7 @@
 #import "RestoMenu.h"
 #import "UIColor+AppColors.h"
 #import "NSDate+Utilities.h"
+#import "RestoMenuView.h"
 
 #define kRestoDaysShown 5
 
@@ -52,18 +53,16 @@
     // see http://cocoawithlove.com/2009/01/multiple-virtual-pages-in-uiscrollview.html
     for (NSUInteger i = 0; i < [days count]; i++) {
         // 20 pixels padding on each edge
+        
         CGRect frame = CGRectMake(viewSize.width * (i + 1) + 20, 20,
                                   viewSize.width - 40, viewSize.height - 60);
 
         UIView *pageViewHolder = [[UIView alloc] initWithFrame:frame];
         [scrollView addSubview:pageViewHolder];
-
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"RestoMenuView" owner:nil options:nil];
-        UIView *pageView = [nib objectAtIndex:0];
+        
+        RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[menus objectAtIndex:i] andDate:[days objectAtIndex:i]];
         [pageViewHolder addSubview:pageView];
-
         [self setupPageStyle:pageViewHolder];
-        [self setupView:pageView forDay:[days objectAtIndex:i] withMenu:[menus objectAtIndex:i]];
     }
 
     // Setup pageControl
@@ -72,44 +71,22 @@
     [scrollView setContentOffset:CGPointMake(viewSize.width, 0) animated:NO];
 }
 
+#define kPageCornerRadius 10
+
 - (void)setupPageStyle:(UIView *)pageHolder ;
 {
     CALayer *layer = [pageHolder layer];
-    [layer setCornerRadius:10];
+    [layer setCornerRadius:kPageCornerRadius];
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:layer.bounds
+                                                          cornerRadius:kPageCornerRadius];
+    [layer setShadowPath:[shadowPath CGPath]];
     [layer setShadowColor:[[UIColor blackColor] CGColor]];
     [layer setShadowOpacity:0.3];
-    [layer setShadowRadius:5];
-    [layer setShadowOffset:CGSizeMake(3.0, 3.0)];
+    [layer setShadowOffset:CGSizeMake(1.5, 3.0)];
     
     UIView *contentView = [[pageHolder subviews] objectAtIndex:0];
-    [[contentView layer] setCornerRadius:10];
+    [[contentView layer] setCornerRadius:kPageCornerRadius];
     [[contentView layer] setMasksToBounds:YES];
-}
-
-#define kTitleLabelTag 1
-#define KClosedViewTag 2
-
-- (void)setupView:(UIView *)view forDay:(NSDate *)day withMenu:(id)menuValue
-{
-    NSString *dateString;
-    if ([day isToday]) dateString = @"Vandaag";
-    else if ([day isTomorrow]) dateString = @"Morgen";
-    else {
-        // Create capitalized, formatted string
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"EEEE d MMMM"];
-        dateString = [formatter stringFromDate:day];
-        dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 1)
-                      withString:[[dateString substringToIndex:1] capitalizedString]];
-    }
-
-    UILabel *label = (UILabel *)[view viewWithTag:kTitleLabelTag];
-    [label setText:dateString];
-
-    if (menuValue != [NSNull null]) {
-        RestoMenu *menu = menuValue;
-        [[view viewWithTag:KClosedViewTag] setHidden:[menu open]];
-    }
 }
 
 - (void)viewDidUnload
@@ -166,6 +143,13 @@
     CGFloat contentWidth = [sender frame].size.width;
     NSInteger page = floor(([sender contentOffset].x - contentWidth / 2) / contentWidth) + 1;
     [pageControl setCurrentPage:page];
+    
+    /*
+     TODO
+     set menu to activePage:
+     RestoMenuView *pageView = ...
+     pageView.menu = [menus objectAtIndex:page];
+     */
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)sender

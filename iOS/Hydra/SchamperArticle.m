@@ -7,6 +7,7 @@
 //
 
 #import "SchamperArticle.h"
+#import <RestKit/RestKit.h>
 #import <RestKit/RKXMLParserXMLReader.h>
 
 @implementation SchamperArticle

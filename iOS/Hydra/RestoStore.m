@@ -10,7 +10,7 @@
 #import "RestoMenu.h"
 #import "NSDate+Utilities.h"
 
-#define kRestoUrl @"http://kelder.zeus.ugent.be/~blackskad/resto/api/0.1"
+#define kRestoUrl @"http://zeus.ugent.be/hydra/api/1.0/resto"
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";

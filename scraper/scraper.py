@@ -3,8 +3,7 @@
 import json, urllib, libxml2, os, os.path, datetime, locale
 from datetime import datetime, timedelta
 
-API_VERSION = '0.1'
-API_PATH = './resto/api/%s/week/'
+API_PATH = './resto/week/'
 
 def get_menu_page (week):
 	print "Fetching week %02d menu webpage" %  week
@@ -19,7 +18,7 @@ def parse_single_meat_and_price(meat):
 		name = name[name.index('-')+1:]
 	except:
 		pass
-	
+
 	result = {}
 	result['recommended'] = len(meat.xpathEval('.//u')) > 0
 	result['price'] = content[:8]
@@ -40,19 +39,19 @@ def parse_menu_from_html (page):
 	print "Parsing weekmenu webpage to an object tree"
 	# replace those pesky non-breakable spaces
 	page = page.replace('&nbsp;', ' ')
-	
+
 	doc = libxml2.htmlParseDoc(page, 'utf-8')
 	menuElement = doc.xpathEval("//div[@id='parent-fieldname-text']")
 	rows = menuElement[0].xpathEval('.//tr')[1:-2]
-	
+
 	week = doc.xpathEval("//span[@id='parent-fieldname-title']")[0].content.strip().split()
 	if len(week) == 7:
 		# start and end of week are in the same month
 		monday = datetime.strptime("%s %s %s" % (week[2], week[5], week[6]), "%d %B %Y")
 	else:
 		# start and end of week are in different months
-		monday = datetime.strptime("%s %s %s" % (week[2], week[3], week[4]), "%d %B %Y")
-	
+		monday = datetime.strptime("%s %s %s" % (week[2], week[3], week[7]), "%d %B %Y")
+
 	menu = {}
 	dayOfWeek = 0
 	for row in rows:
@@ -83,7 +82,7 @@ def parse_menu_from_html (page):
 
 def dump_menu_to_file (week, menu):
 	print "Writing object tree to file in json format"
-	path = './resto/api/%s/week/' % API_VERSION
+	path = API_PATH
 	if not os.path.isdir(path):
 		os.makedirs(path)
 	f = open ('%s/%s.json' % (path, week), 'w')
@@ -91,7 +90,7 @@ def dump_menu_to_file (week, menu):
 	f.close()
 
 def menu_already_downloaded(week):
-	return os.path.exists(API_PATH % API_VERSION + '/%s.json' % week)
+	return os.path.exists(API_PATH + '/%s.json' % week)
 
 def download_menu(week):
 	page = get_menu_page(week)

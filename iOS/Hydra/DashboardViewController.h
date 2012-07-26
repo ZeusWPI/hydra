@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BadgedButton.h"
 
 @interface DashboardViewController : UIViewController <UITextFieldDelegate> {
-    UISwipeGestureRecognizer *gestureRecognizer;
-    UITextField *codeField;
-    NSArray *requiredMoves;
-    NSUInteger movesPerformed;
+    IBOutlet BadgedButton *newsButton;
+    IBOutlet BadgedButton *activitiesButton;
+    IBOutlet BadgedButton *infoButton;
+    IBOutlet BadgedButton *restoButton;
+    IBOutlet BadgedButton *gsrButton;
+    IBOutlet BadgedButton *schamperButton;
 }
 
 - (IBAction)showNews:(id)sender;

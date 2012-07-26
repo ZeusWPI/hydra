@@ -23,8 +23,8 @@
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
     self.navController.navigationBar.tintColor = [UIColor blueTintColor];
-    [self.window setRootViewController:self.navController];
 
+    [self.window setRootViewController:self.navController];
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -18,7 +18,7 @@
 
 - (id)init
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Info-content" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"info-content" ofType:@"plist"];
     self = [self initWithContent:[[NSArray alloc] initWithContentsOfFile:path]];
     if (self) {
         [self setTitle:@"Info"];
@@ -72,20 +72,29 @@
     cell.textLabel.backgroundColor = cell.contentView.backgroundColor;
 
     NSDictionary *item = [content objectAtIndex:indexPath.row];
-    NSString *text = [item objectForKey:@"title"];;
-
+    cell.textLabel.text = [item objectForKey:@"title"];
+    
     UIImage *icon = [UIImage imageNamed:[item objectForKey:@"image"]];
     if(icon) {
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.imageView.image = icon;
-        cell.indentationLevel = 1;
-        text = [@" " stringByAppendingString:text];
-    }
-    cell.textLabel.text = text;
 
-    CGRect frame = cell.imageView.frame;
-    frame.size.width = 200;
-    cell.imageView.frame = frame;
+        // Ugly fix to add more padding to the image
+        cell.indentationLevel = 1;
+        cell.textLabel.text = [@" " stringByAppendingString:cell.textLabel.text];
+    }
+    else {
+        cell.imageView.image = nil;
+    }
+    
+    // Show an arrow if there's a subview
+    if (![item objectForKey:@"url"]) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
 
     return cell;
 }
@@ -103,6 +112,12 @@
         [c setTitle:[item objectForKey:@"title"]];
         [[self navigationController] pushViewController:c animated:YES];
     }
+    else if([item objectForKey:@"html"]) {
+        WebViewController *c = [[WebViewController alloc] init];
+        [c loadHtml:[item objectForKey:@"html"]];
+        [c setTitle:[item objectForKey:@"title"]];
+        [[self navigationController] pushViewController:c animated:YES];
+    }
     else if([item objectForKey:@"url"]) {
         NSURL *url = [NSURL URLWithString:[item objectForKey:@"url"]];
         [[UIApplication sharedApplication] openURL:url];
@@ -110,6 +125,7 @@
     }
     else {
         DLog(@"Unknown action in %@", item);
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 

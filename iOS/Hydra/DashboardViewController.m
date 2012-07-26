@@ -10,8 +10,14 @@
 #import "RestoViewController.h"
 #import "SchamperViewController.h"
 #import "InfoViewController.h"
+#import "AssociationStore.h"
 
-@implementation DashboardViewController
+@implementation DashboardViewController {
+    UISwipeGestureRecognizer *gestureRecognizer;
+    UITextField *codeField;
+    NSArray *requiredMoves;
+    NSUInteger movesPerformed;
+}
 
 - (void)viewDidLoad
 {
@@ -27,7 +33,11 @@
                      @"b", @"a", nil];
 
     // Testing
-    //[self showInfo:nil];
+    /*AssociationStore *store = [AssociationStore sharedStore];
+    NSArray *associations = [store associations];
+    [store activitiesForAssocation:[associations objectAtIndex:0]];
+    [store newsItemsForAssocation:[associations objectAtIndex:0]];*/
+    [self showInfo:nil];
 }
 
 - (void)viewDidUnload
@@ -35,6 +45,13 @@
     gestureRecognizer = nil;
     codeField = nil;
     requiredMoves = nil;
+
+    newsButton = nil;
+    activitiesButton = nil;
+    infoButton = nil;
+    restoButton = nil;
+    gsrButton = nil;
+    schamperButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,11 +69,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Button actions
