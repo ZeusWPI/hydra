@@ -48,6 +48,14 @@
     return self;
 }
 
+- (void)setDay:(NSDate *)day
+{
+    if(day != _day) {
+        _day = day;
+        [self reloadData];
+    }
+}
+
 - (void)setMenu:(id)menu
 {    
     if (menu == [NSNull null]) menu = nil;
@@ -116,7 +124,6 @@
             [self addSubview:closedView];
         } 
     }
-    
     [super reloadData];
 }
 

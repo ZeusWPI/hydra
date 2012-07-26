@@ -8,15 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RestoViewController : UIViewController <UIScrollViewDelegate> {
-    NSMutableArray *days;
-    NSMutableArray *menus;
-    NSUInteger pageControlUsed;
+@interface RestoViewController : UIViewController <UIScrollViewDelegate> 
 
-    IBOutlet UIPageControl *pageControl;
-    IBOutlet UIScrollView *scrollView;
-    IBOutlet UIView *infoPage;
-}
+@property (readonly, nonatomic) NSInteger currentPage;
 
 - (IBAction)pageChanged:(id)sender;
 
