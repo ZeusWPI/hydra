@@ -25,9 +25,9 @@
 
 #define kTableViewHeight 356
 #define kTableViewWidth 280
-#define kDateHeaderHeight 50
-#define kSectionHeaderHeight 50
-#define kRowHeight 22
+#define kDateHeaderHeight 45
+#define kSectionHeaderHeight 40
+#define kRowHeight 28
 
 #pragma mark - Properties and init
 
@@ -208,10 +208,29 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    return (section != 2 ? 5 : 0);
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    UILabel *tildeLabel = nil;
+    if(section != 2) {
+        tildeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        tildeLabel.font = [UIFont fontWithName:@"Baskerville-Italic" size:24];
+        tildeLabel.textAlignment = UITextAlignmentCenter;
+        tildeLabel.text = @"~";
+        tildeLabel.textColor = [UIColor lightGrayColor];
+    }
+    return tildeLabel;
+}
+
+ 
 #pragma mark - Utility methods
 
 - (UIView *)headerWithImage:(UIImage *)image andTitle:(NSString *)title {
-    UIFont *font = [UIFont systemFontOfSize:16];
+    UIFont *font = [UIFont fontWithName:@"Baskerville-SemiBoldItalic" size:20];
 
     CGSize textSize = [title sizeWithFont:font];
     NSUInteger padding = (self.bounds.size.width -textSize.width)/2;
@@ -219,15 +238,16 @@
     CGRect headerFrame = CGRectMake(0, 0, self.bounds.size.width, kSectionHeaderHeight);
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
     
-    CGRect iconFrame = CGRectMake(padding -kSectionHeaderHeight, 10, kSectionHeaderHeight - 10, kSectionHeaderHeight - 10);
+    CGRect iconFrame = CGRectMake(padding -kSectionHeaderHeight, 5, kSectionHeaderHeight - 10, kSectionHeaderHeight - 10);
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:iconFrame];
     iconView.image = image;
     [header addSubview:iconView];
     
-    CGRect titleFrame = CGRectMake(padding, 14,
-                                   textSize.width, kSectionHeaderHeight - 14);
+    CGRect titleFrame = CGRectMake(padding, 0,
+                                   textSize.width, kSectionHeaderHeight);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
     titleLabel.textAlignment = UITextAlignmentCenter;
+    titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
     titleLabel.font = font;
     titleLabel.text = title;
     [header addSubview:titleLabel];
