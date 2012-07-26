@@ -146,22 +146,31 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
                                       reuseIdentifier:cellIdentifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:15];
-        cell.detailTextLabel.font = cell.textLabel.font;
         cell.textLabel.textColor = [UIColor blackColor];
         cell.detailTextLabel.textColor = cell.textLabel.textColor;
     }
 
     if(indexPath.section == 0) {
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
+        cell.detailTextLabel.font = cell.textLabel.font;
         cell.textLabel.text = self.menu.soup.name;
         cell.detailTextLabel.text = self.menu.soup.price;
     }
     else if (indexPath.section == 1) {
         RestoMenuItem *item = [self.menu.meat objectAtIndex:indexPath.row];
+        
+        if(item.recommended) {
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        } else {
+            cell.textLabel.font = [UIFont systemFontOfSize:15];
+        }
+        cell.detailTextLabel.font = cell.textLabel.font;
+        
         cell.textLabel.text = item.name;
         cell.detailTextLabel.text = item.price;
     }
     else { // section == 2
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.textLabel.text = [self.menu.vegetables objectAtIndex:indexPath.row];
     }
     
@@ -205,17 +214,17 @@
     UIFont *font = [UIFont systemFontOfSize:16];
 
     CGSize textSize = [title sizeWithFont:font];
-    NSUInteger padding = (kTableViewWidth - textSize.width - image.size.width - 10)/2;
+    NSUInteger padding = (self.bounds.size.width -textSize.width)/2;
     
-    CGRect headerFrame = CGRectMake(0, 0, kTableViewWidth, kSectionHeaderHeight);
+    CGRect headerFrame = CGRectMake(0, 0, self.bounds.size.width, kSectionHeaderHeight);
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
     
-    CGRect iconFrame = CGRectMake(padding, 10, kSectionHeaderHeight - 10, kSectionHeaderHeight - 10);
+    CGRect iconFrame = CGRectMake(padding -kSectionHeaderHeight, 10, kSectionHeaderHeight - 10, kSectionHeaderHeight - 10);
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:iconFrame];
     iconView.image = image;
     [header addSubview:iconView];
     
-    CGRect titleFrame = CGRectMake(padding + iconFrame.size.width + 10, 14,
+    CGRect titleFrame = CGRectMake(padding, 14,
                                    textSize.width, kSectionHeaderHeight - 14);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
     titleLabel.textAlignment = UITextAlignmentCenter;
