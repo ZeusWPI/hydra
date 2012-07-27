@@ -15,9 +15,13 @@
 
 #define kRestoDaysShown 5
 
+@interface RestoViewController ()
+@property (nonatomic, strong) NSMutableArray *menus;
+@end
+
 @implementation RestoViewController {
     NSMutableArray *days;
-    NSMutableArray *menus;
+    NSMutableArray *_menus;
     NSUInteger pageControlUsed;
     
     IBOutlet UIPageControl *pageControl;
@@ -30,18 +34,34 @@
     RestoMenuView *rightView;
 }
 
-- (NSInteger)currentPage {
-    
+#pragma mark Properties
+
+@synthesize menus = _menus;
+- (void)setMenus:(NSMutableArray *)menus
+{
+    if(_menus != menus) {
+        _menus = menus;
+        [self updateMenusOntoViews];
+    }
+}
+
+- (NSInteger)currentPage
+{
     CGFloat contentWidth = scrollView.frame.size.width;
     NSInteger page = ((scrollView.contentOffset.x - contentWidth / 2) / contentWidth) + 1;
     return page;
 }
 
+#pragma mark Setting up the view & viewcontroller
+
 - (id)init
 {
     if (self = [super init]) {
         days = [[NSMutableArray arrayWithCapacity:kRestoDaysShown] init];
-        menus = [[NSMutableArray arrayWithCapacity:kRestoDaysShown] init];
+        _menus = [[NSMutableArray arrayWithCapacity:kRestoDaysShown] init];
+        for(int i=0;i<kRestoDaysShown;i++) {
+            [_menus addObject:[NSNull null]];
+        }
         pageControlUsed = 0;
     }
     return self;
@@ -83,7 +103,7 @@
         UIView *pageViewHolder = [[UIView alloc] initWithFrame:frame];
         [scrollView addSubview:pageViewHolder];
         
-        RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[menus objectAtIndex:i] andDate:[days objectAtIndex:i]];
+        RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[self.menus objectAtIndex:i] andDate:[days objectAtIndex:i]];
         if(i == 0) {
             currentView = pageView;
         } else if(i == 1) {
@@ -132,6 +152,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark Days & menu's (loading)
+
 - (void)calculateDays
 {
     NSDate *day = [NSDate date];
@@ -149,12 +171,14 @@
 {
     if ([days count] == 0) [self calculateDays];
 
+    NSMutableArray *menus = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < [days count]; i++) {
         NSDate *day = [days objectAtIndex:i];
         id menu = [[RestoStore sharedStore] menuForDay:day];
         if (!menu) menu = [NSNull null];
         [menus insertObject:menu atIndex:i];
     }
+    self.menus = menus;
 }
 
 - (void)menuUpdated:(NSNotification *)notification
@@ -189,17 +213,17 @@
     pageControlUsed += 1;
 }
 
-#pragma mark Configuring view after scrolling
+#pragma mark Configuring views after scrolling
 
-- (void)didChangePage {
-    
+- (void)didChangePage
+{
     NSInteger currentIndex = self.currentPage;
     if(oldCurrentIndex > 0 && oldCurrentIndex == currentIndex-1) {
         RestoMenuView *left = currentView;
         RestoMenuView *current = rightView;
         RestoMenuView *right = leftView;
         if(oldCurrentIndex > 1 && currentIndex+1 < kRestoDaysShown+1) {
-            [self changeView:right toIndex:currentIndex+1];
+            [self updateView:right toIndex:currentIndex+1];
         }
         leftView = left;
         currentView = current;
@@ -209,23 +233,35 @@
         RestoMenuView *current = leftView;
         RestoMenuView *right = currentView;
         if(currentIndex-1 >= 1) {
-            [self changeView:left toIndex:currentIndex-1];
+            [self updateView:left toIndex:currentIndex-1];
         }
         leftView = left;
         currentView = current;
         rightView = right;
     }
+    [self updateMenusOntoViews];
     oldCurrentIndex = currentIndex;
 }
 
-- (void)changeView:(RestoMenuView *)view toIndex:(NSInteger)index {
-    
+- (void)updateView:(RestoMenuView *)view toIndex:(NSInteger)index
+{
     CGSize viewSize = self.view.bounds.size;
     CGRect frame = CGRectMake(viewSize.width * index + 20, 20,
                               viewSize.width - 40, viewSize.height - 60);
     view.superview.frame = frame;
-    view.menu = [menus objectAtIndex:index-1];
     view.day = [days objectAtIndex:index-1];
+}
+
+- (void)updateMenusOntoViews
+{
+    NSInteger currentIndex = MAX(1, self.currentPage);
+    if(currentIndex > 1) {
+        leftView.menu = [self.menus objectAtIndex:currentIndex -2];
+    }
+    currentView.menu = [self.menus objectAtIndex:currentIndex -1];
+    if(currentIndex < kRestoDaysShown) {
+        rightView.menu = [self.menus objectAtIndex:currentIndex];
+    }
 }
 
 @end

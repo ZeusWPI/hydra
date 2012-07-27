@@ -59,7 +59,10 @@
 - (void)setMenu:(id)menu
 {    
     if (menu == [NSNull null]) menu = nil;
-    _menu = menu;
+    if(menu != _menu) {
+    	_menu = menu;
+        [self reloadData];
+    }
 }
 
 - (void)loadView
