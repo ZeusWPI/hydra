@@ -114,7 +114,7 @@
     }
     [dateHeader setText:dateString];
     
-    if (!_menu) {
+    if (!self.menu) {
         [closedView removeFromSuperview];
         [self addSubview:spinner];
         [spinner startAnimating];

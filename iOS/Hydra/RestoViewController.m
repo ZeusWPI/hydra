@@ -218,17 +218,17 @@
 - (void)didChangePage
 {
     NSInteger currentIndex = self.currentPage;
-    if(oldCurrentIndex > 0 && oldCurrentIndex == currentIndex-1) {
+    if(oldCurrentIndex == currentIndex-1) {
         RestoMenuView *left = currentView;
         RestoMenuView *current = rightView;
         RestoMenuView *right = leftView;
-        if(oldCurrentIndex > 1 && currentIndex+1 < kRestoDaysShown+1) {
+        if(oldCurrentIndex > 0 && currentIndex+1 < kRestoDaysShown+1) {
             [self updateView:right toIndex:currentIndex+1];
         }
         leftView = left;
         currentView = current;
         rightView = right;
-    } else if(currentIndex > 0 && oldCurrentIndex == currentIndex+1) {
+    } else if(oldCurrentIndex == currentIndex+1) {
         RestoMenuView *left = rightView;
         RestoMenuView *current = leftView;
         RestoMenuView *right = currentView;
@@ -239,7 +239,6 @@
         currentView = current;
         rightView = right;
     }
-    [self updateMenusOntoViews];
     oldCurrentIndex = currentIndex;
 }
 
@@ -249,6 +248,7 @@
     CGRect frame = CGRectMake(viewSize.width * index + 20, 20,
                               viewSize.width - 40, viewSize.height - 60);
     view.superview.frame = frame;
+    view.menu = [self.menus objectAtIndex:index-1];
     view.day = [days objectAtIndex:index-1];
 }
 
