@@ -1,11 +1,12 @@
 package be.ugent.zeus.resto.client;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
 import be.ugent.zeus.resto.client.data.services.UpdaterService;
@@ -14,7 +15,7 @@ import be.ugent.zeus.resto.client.data.services.UpdaterService;
  *
  * @author Thomas Meire
  */
-public class Hydra extends Activity {
+public class Hydra extends SherlockActivity {
 
   private void link(int id, final Class activity) {
     findViewById(id).setOnClickListener(new View.OnClickListener() {
@@ -45,7 +46,7 @@ public class Hydra extends Activity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater inflater = getMenuInflater();
+    MenuInflater inflater = getSupportMenuInflater();
     inflater.inflate(R.menu.hydra, menu);
     return true;
   }
