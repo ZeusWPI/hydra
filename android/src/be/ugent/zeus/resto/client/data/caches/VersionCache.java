@@ -43,11 +43,14 @@ public class VersionCache {
       Cursor cursor = db.query("version_cache", new String[]{"version"}, "key = ?", new String[]{key}, "", "", "");
 
       if (cursor.getCount() == 0) {
+        cursor.close();
         return -1;
       } else {
         cursor.moveToFirst();
 
-        return cursor.getInt(cursor.getColumnIndex("version"));
+        int version = cursor.getInt(cursor.getColumnIndex("version"));
+        cursor.close();
+        return version;
       }
     } catch (Exception e) {
       Log.e("[VersionCache]", "Database exception " + e.getMessage());
