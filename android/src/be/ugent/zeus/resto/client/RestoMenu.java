@@ -1,6 +1,5 @@
 package be.ugent.zeus.resto.client;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ComponentName;
@@ -14,8 +13,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -28,11 +25,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 /**
  *
  * @author Thomas Meire
  */
-public class RestoMenu extends Activity {
+public class RestoMenu extends SherlockActivity {
 
   private static final String VERSION = "be.ugent.zeus.resto.client.version";
   private SharedPreferences prefs;
@@ -189,8 +191,8 @@ public class RestoMenu extends Activity {
   }
 
   @Override
-  public boolean onCreateOptionsMenu(android.view.Menu menu) {
-    MenuInflater inflater = getMenuInflater();
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getSupportMenuInflater();
     inflater.inflate(R.menu.viewmap, menu);
     return true;
   }

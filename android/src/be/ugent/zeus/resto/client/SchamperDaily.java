@@ -1,5 +1,10 @@
 package be.ugent.zeus.resto.client;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.AlarmManager;
 import android.app.ListActivity;
 import android.app.PendingIntent;
@@ -12,9 +17,6 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -32,7 +34,7 @@ import be.ugent.zeus.resto.client.ui.schamper.ChannelAdapter;
  *
  * @author Thomas Meire
  */
-public class SchamperDaily extends ListActivity {
+public class SchamperDaily extends SherlockListActivity {
 
   private static final long REFRESH_TIMEOUT = 24 * 60 * 60 * 1000;
   private ChannelCache cache;
@@ -70,7 +72,7 @@ public class SchamperDaily extends ListActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater inflater = getMenuInflater();
+    MenuInflater inflater = getSupportMenuInflater();
     inflater.inflate(R.menu.schamper_daily, menu);
     return true;
   }
