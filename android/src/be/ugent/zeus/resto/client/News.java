@@ -1,6 +1,5 @@
 package be.ugent.zeus.resto.client;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +10,13 @@ import be.ugent.zeus.resto.client.data.caches.NewsCache;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+
 /**
  *
  * @author blackskad
  */
-public class News extends ListActivity {
+public class News extends SherlockListActivity {
 
   @Override
   public void onCreate(Bundle icicle) {
