@@ -192,7 +192,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
     if(oldCurrentIndex != self.currentPage) {
-        [self didChangePage];
+        [self changeViewsToPageIndex:self.currentPage];
     }
     if (pageControlUsed > 0) return;
     [pageControl setCurrentPage:self.currentPage];
@@ -215,9 +215,8 @@
 
 #pragma mark Configuring views after scrolling
 
-- (void)didChangePage
+- (void)changeViewsToPageIndex:(NSInteger)currentIndex
 {
-    NSInteger currentIndex = self.currentPage;
     if(oldCurrentIndex == currentIndex-1) {
         RestoMenuView *left = currentView;
         RestoMenuView *current = rightView;
@@ -238,6 +237,8 @@
         leftView = left;
         currentView = current;
         rightView = right;
+    } else {
+        [self resetViews];
     }
     oldCurrentIndex = currentIndex;
 }
@@ -250,6 +251,20 @@
     view.superview.frame = frame;
     view.menu = [self.menus objectAtIndex:index-1];
     view.day = [days objectAtIndex:index-1];
+}
+
+- (void)resetViews
+{
+    NSInteger currentIndex = self.currentPage;
+    if(0 < currentIndex) {
+        [self updateView:currentView toIndex:currentIndex];
+        if(0 < currentIndex-1) {
+            [self updateView:leftView toIndex:currentIndex-1];
+        }
+        if(currentIndex+1 < kRestoDaysShown+1) {
+            [self updateView:rightView toIndex:currentIndex];
+        }
+    }
 }
 
 - (void)updateMenusOntoViews
