@@ -1,15 +1,14 @@
 package be.ugent.zeus.resto.client;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
 import be.ugent.zeus.resto.client.data.services.UpdaterService;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  *

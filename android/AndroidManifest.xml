@@ -8,7 +8,7 @@
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-  <uses-sdk android:targetSdkVersion="15" android:minSdkVersion="8" />
+  <uses-sdk android:targetSdkVersion="16" android:minSdkVersion="8" />
 
   <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@style/Theme.Hydra.Light">
     <activity android:name=".Hydra" android:logo="@drawable/hydra">
