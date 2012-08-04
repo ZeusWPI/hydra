@@ -92,7 +92,9 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        UIImageView *linkAccossory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"info-externallink.png"]];
+        linkAccossory.contentMode = UIViewContentModeScaleAspectFit;
+        cell.accessoryView = linkAccossory;
     }
     
 
