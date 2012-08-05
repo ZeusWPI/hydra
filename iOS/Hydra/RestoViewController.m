@@ -23,11 +23,11 @@
     NSMutableArray *days;
     NSMutableArray *_menus;
     NSUInteger pageControlUsed;
-    
+
     IBOutlet UIPageControl *pageControl;
     IBOutlet UIScrollView *scrollView;
     IBOutlet UIView *infoPage;
-    
+
     NSInteger oldCurrentIndex;
     RestoMenuView *leftView;
     RestoMenuView *currentView;
@@ -90,19 +90,19 @@
     [pageControl setNumberOfPages:[days count] + 1];
     [pageControl setCurrentPage:2];
     [scrollView setContentOffset:CGPointMake(viewSize.width, 0) animated:NO];
-    
+
     // Pages
     [self setupPageStyle:infoPage];
 
     for (NSUInteger i = 0; i < 3; i++) {
         // 20 pixels padding on each edge
-        
+
         CGRect frame = CGRectMake(viewSize.width * (i + 1) + 20, 20,
                                   viewSize.width - 40, viewSize.height - 60);
-        
+
         UIView *pageViewHolder = [[UIView alloc] initWithFrame:frame];
         [scrollView addSubview:pageViewHolder];
-        
+
         RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[self.menus objectAtIndex:i] andDate:[days objectAtIndex:i]];
         if(i == 0) {
             currentView = pageView;
@@ -129,7 +129,7 @@
     [layer setShadowColor:[[UIColor blackColor] CGColor]];
     [layer setShadowOpacity:0.3];
     [layer setShadowOffset:CGSizeMake(1.5, 3.0)];
-    
+
     UIView *contentView = [[pageHolder subviews] objectAtIndex:0];
     [[contentView layer] setCornerRadius:kPageCornerRadius];
     [[contentView layer] setMasksToBounds:YES];
@@ -185,6 +185,7 @@
 {
     DLog(@"Menu updated!");
     [self loadMenuItems];
+    [self resetViews];
 }
 
 #pragma mark Page changing

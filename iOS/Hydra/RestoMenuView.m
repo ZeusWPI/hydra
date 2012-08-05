@@ -27,7 +27,8 @@
 #define kTableViewWidth 280
 #define kDateHeaderHeight 45
 #define kSectionHeaderHeight 40
-#define kRowHeight 28
+#define kSectionFooterHeight 20
+#define kRowHeight 22
 
 #pragma mark - Properties and init
 
@@ -82,9 +83,9 @@
     tableViewHeader.image = [UIImage imageNamed:@"header-bg"];
     self.tableHeaderView = tableViewHeader;
 
-    CGRect dateHeaderFrame = CGRectMake(0, 5, kTableViewWidth, kDateHeaderHeight - 5);
+    CGRect dateHeaderFrame = CGRectMake(0, 3, kTableViewWidth, kDateHeaderHeight - 3);
     dateHeader = [[UILabel alloc] initWithFrame:dateHeaderFrame];
-    dateHeader.font = [UIFont boldSystemFontOfSize:20];
+    dateHeader.font = [UIFont boldSystemFontOfSize:19];
     dateHeader.textAlignment = UITextAlignmentCenter;
     dateHeader.textColor = [UIColor whiteColor];
     dateHeader.backgroundColor = [UIColor clearColor];
@@ -220,13 +221,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    return (section != 2 ? 5 : 0);
+    return (section < 2 ? kSectionFooterHeight : 0);
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
     UILabel *tildeLabel = nil;
-    if(section != 2) {
+    if(section < 2) {
         tildeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         tildeLabel.font = [UIFont fontWithName:@"Baskerville-Italic" size:24];
         tildeLabel.textAlignment = UITextAlignmentCenter;
@@ -240,14 +241,14 @@
 #pragma mark - Utility methods
 
 - (UIView *)headerWithImage:(UIImage *)image andTitle:(NSString *)title {
-    UIFont *font = [UIFont fontWithName:@"Baskerville-SemiBoldItalic" size:20];
+    UIFont *font = [UIFont fontWithName:@"Baskerville-SemiBold" size:20];
 
     CGSize textSize = [title sizeWithFont:font];
     NSUInteger padding = (self.bounds.size.width -textSize.width)/2;
     
     CGRect headerFrame = CGRectMake(0, 0, self.bounds.size.width, kSectionHeaderHeight);
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
-    
+
     CGRect iconFrame = CGRectMake(padding -kSectionHeaderHeight, 5, kSectionHeaderHeight - 10, kSectionHeaderHeight - 10);
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:iconFrame];
     iconView.image = image;

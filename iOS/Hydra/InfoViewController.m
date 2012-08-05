@@ -87,16 +87,16 @@
         cell.imageView.image = nil;
     }
     
-    // Show an arrow if there's a subview
-    if (![item objectForKey:@"url"]) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    else {
-        UIImageView *linkAccossory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"info-externallink.png"]];
+    // Show an icon, depending on the subview
+    if ([item objectForKey:@"url"]) {
+        UIImageView *linkAccossory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"external-link.png"]
+                                                       highlightedImage:[UIImage imageNamed:@"external-link-active.png"]];
         linkAccossory.contentMode = UIViewContentModeScaleAspectFit;
         cell.accessoryView = linkAccossory;
     }
-    
+    else {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
 
     return cell;
 }
