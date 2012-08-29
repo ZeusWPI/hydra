@@ -37,7 +37,7 @@
     NSArray *associations = [store associations];
     [store activitiesForAssocation:[associations objectAtIndex:0]];
     [store newsItemsForAssocation:[associations objectAtIndex:0]];*/
-    [self showInfo:nil];
+    //[self showInfo:nil];
 }
 
 - (void)viewDidUnload

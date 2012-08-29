@@ -12,8 +12,6 @@
 
 @implementation AssociationNewsItem
 
-@synthesize associationId, title, date, body;
-
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
@@ -25,17 +23,17 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<AssocationNewsItem '%@'>", title];
+    return [NSString stringWithFormat:@"<AssocationNewsItem '%@'>", self.title];
 }
 
 - (void)setTitle:(NSString *)newTitle
 {
-    title = [newTitle stringByStrippingCDATA];
+    _title = [newTitle stringByStrippingCDATA];
 }
 
 - (void)setBody:(NSString *)newBody
 {
-    body = [newBody stringByStrippingCDATA];
+    _body = [newBody stringByStrippingCDATA];
 }
 
 @end

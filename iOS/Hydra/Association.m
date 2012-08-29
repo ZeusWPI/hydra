@@ -11,8 +11,6 @@
 
 @implementation Association
 
-@synthesize displayName, fullName, internalName;
-
 + (NSArray *)updateAssociations:(NSArray *)associations lastModified:(NSDate *)date
 {
     if (!associations || [self updateRequired:date]) {
@@ -55,7 +53,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<Association: %@>", displayName];
+    return [NSString stringWithFormat:@"<Association: %@>", self.displayName];
 }
 
 - (NSUInteger)hash
@@ -65,7 +63,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    return [object isKindOfClass:[self class]] && [internalName isEqual:[object internalName]];
+    return [object isKindOfClass:[self class]] && [self.internalName isEqual:[object internalName]];
 }
 
 - (id)copyWithZone:(NSZone *)zone

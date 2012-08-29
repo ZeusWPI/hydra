@@ -13,8 +13,6 @@
 
 @implementation AssociationActivity
 
-@synthesize associationId, title, location, date, start, end;
-
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
@@ -33,30 +31,30 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<AssociationActivity: '%@' by %@>", title, associationId];
+    return [NSString stringWithFormat:@"<AssociationActivity: '%@' by %@>", self.title, self.associationId];
 }
 
 - (void)setStart:(NSDate *)startTime
 {
     // TODO: cleaner solution?
-    start = [date dateByAddingHours:[startTime hour]];
-    start = [start dateByAddingMinutes:[startTime minute]];
+    NSDate *start = [self.date dateByAddingHours:[startTime hour]];
+    _start = [start dateByAddingMinutes:[startTime minute]];
 }
 
 - (void)setEnd:(NSDate *)endTime
 {
-    end = [date dateByAddingHours:[endTime hour]];
-    end = [end dateByAddingMinutes:[endTime minute]];
+    NSDate *end = [self.date dateByAddingHours:[endTime hour]];
+    _end = [end dateByAddingMinutes:[endTime minute]];
 }
 
 - (void)setTitle:(NSString *)newTitle
 {
-    title = [newTitle stringByStrippingCDATA];
+    _title = [newTitle stringByStrippingCDATA];
 }
 
 - (void)setLocation:(NSString *)newLocation
 {
-    location = [newLocation stringByStrippingCDATA];
+    _location = [newLocation stringByStrippingCDATA];
 }
 
 @end

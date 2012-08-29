@@ -9,17 +9,20 @@
 #import "RestoMenuView.h"
 #import "NSDate+Utilities.h"
 
-@implementation RestoMenuView {
-    // TODO: vormen dit geen retain-cycles?
-    UILabel *dateHeader;
-    
-    UIView *soupHeader;
-    UIView *meatHeader;
-    UIView *vegetableHeader;
-    
-    UIImageView *closedView;
-    UIActivityIndicatorView *spinner;
-}
+@interface RestoMenuView ()
+
+// TODO: vormen dit geen retain-cycles?
+@property (nonatomic, strong) UILabel *dateHeader;
+@property (nonatomic, strong) UIView *soupHeader;
+@property (nonatomic, strong) UIView *meatHeader;
+@property (nonatomic, strong) UIView *vegetableHeader;
+
+@property (nonatomic, strong) UIImageView *closedView;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
+@end
+
+@implementation RestoMenuView
 
 #pragma mark - Constants
 
@@ -31,8 +34,6 @@
 #define kRowHeight 22
 
 #pragma mark - Properties and init
-
-@synthesize menu = _menu, day = _day;
 
 - (id)initWithRestoMenu:(id)menu andDate:(NSDate *)day
 {
@@ -68,14 +69,14 @@
 
 - (void)loadView
 {
-    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    spinner.center = self.center;
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.center = self.center;
     
     CGRect closedFrame = CGRectMake(0, kDateHeaderHeight, self.bounds.size.width, 
                                     self.bounds.size.height - 2*kDateHeaderHeight);
-    closedView = [[UIImageView alloc] initWithFrame:closedFrame];
-    closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
-    closedView.contentMode = UIViewContentModeCenter;
+    self.closedView = [[UIImageView alloc] initWithFrame:closedFrame];
+    self.closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
+    self.closedView.contentMode = UIViewContentModeCenter;
     
     CGRect headerFrame = CGRectMake(0, 0, kTableViewWidth, kDateHeaderHeight);
     UIImageView *tableViewHeader = [[UIImageView alloc] initWithFrame:headerFrame];
@@ -84,14 +85,14 @@
     self.tableHeaderView = tableViewHeader;
 
     CGRect dateHeaderFrame = CGRectMake(0, 3, kTableViewWidth, kDateHeaderHeight - 3);
-    dateHeader = [[UILabel alloc] initWithFrame:dateHeaderFrame];
-    dateHeader.font = [UIFont boldSystemFontOfSize:19];
-    dateHeader.textAlignment = UITextAlignmentCenter;
-    dateHeader.textColor = [UIColor whiteColor];
-    dateHeader.backgroundColor = [UIColor clearColor];
-    dateHeader.shadowColor = [UIColor blackColor];
-    dateHeader.shadowOffset = CGSizeMake(0, 2);
-    [tableViewHeader addSubview:dateHeader];
+    self.dateHeader = [[UILabel alloc] initWithFrame:dateHeaderFrame];
+    self.dateHeader.font = [UIFont boldSystemFontOfSize:19];
+    self.dateHeader.textAlignment = UITextAlignmentCenter;
+    self.dateHeader.textColor = [UIColor whiteColor];
+    self.dateHeader.backgroundColor = [UIColor clearColor];
+    self.dateHeader.shadowColor = [UIColor blackColor];
+    self.dateHeader.shadowOffset = CGSizeMake(0, 2);
+    [tableViewHeader addSubview:self.dateHeader];
     
     self.bounces = NO;
     self.rowHeight = kRowHeight;
@@ -113,19 +114,19 @@
         dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 1)
                       withString:[[dateString substringToIndex:1] capitalizedString]];
     }
-    [dateHeader setText:dateString];
+    [self.dateHeader setText:dateString];
     
     if (!self.menu) {
-        [closedView removeFromSuperview];
-        [self addSubview:spinner];
-        [spinner startAnimating];
+        [self.closedView removeFromSuperview];
+        [self addSubview:self.spinner];
+        [self.spinner startAnimating];
     }
     else {
-        [spinner removeFromSuperview];
-        [spinner stopAnimating];
+        [self.spinner removeFromSuperview];
+        [self.spinner stopAnimating];
 
         if (!self.menu.open) {
-            [self addSubview:closedView];
+            [self addSubview:self.closedView];
         } 
     }
     [super reloadData];
@@ -197,25 +198,25 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     if(section == 0) {
-        if(!soupHeader) {
+        if(!self.soupHeader) {
             UIImage *soupImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-soup" ofType:@"png"]];
-            soupHeader = [self headerWithImage:soupImage andTitle:@"Soep"];
+            self.soupHeader = [self headerWithImage:soupImage andTitle:@"Soep"];
         }
-        return soupHeader;
+        return self.soupHeader;
     }
     else if(section == 1) {
-        if(!meatHeader) {
+        if(!self.meatHeader) {
             UIImage *meatImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-meal" ofType:@"png"]];
-            meatHeader = [self headerWithImage:meatImage andTitle:@"Vlees en veggie"];
+            self.meatHeader = [self headerWithImage:meatImage andTitle:@"Vlees en veggie"];
         }
-        return meatHeader;
+        return self.meatHeader;
     }
     else { //section == 2
-        if(!vegetableHeader) {
+        if(!self.vegetableHeader) {
             UIImage *vegetableImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-vegetables" ofType:@"png"]];
-            vegetableHeader = [self headerWithImage:vegetableImage andTitle:@"Groenten"];
+            self.vegetableHeader = [self headerWithImage:vegetableImage andTitle:@"Groenten"];
         }
-        return vegetableHeader;
+        return self.vegetableHeader;
     }
 }
 

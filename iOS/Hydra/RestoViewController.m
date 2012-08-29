@@ -211,7 +211,7 @@
     CGRect newPage = CGRectMake(viewSize.width * [pageControl currentPage], 0,
                                 viewSize.width, viewSize.height);
     [scrollView scrollRectToVisible:newPage animated:YES];
-    pageControlUsed += 1;
+    pageControlUsed++;
 }
 
 #pragma mark Configuring views after scrolling

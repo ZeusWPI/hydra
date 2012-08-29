@@ -11,13 +11,11 @@
 
 @implementation RestoMenu
 
-@synthesize day, open, meat, vegetables, soup;
-
 - (NSString *)description
 {
-    NSUInteger count = [meat count] + [vegetables count];
+    NSUInteger count = [self.meat count] + [self.vegetables count];
     return [NSString stringWithFormat:@"<RestoMenu for %@ (%d items) open=%@>",
-                day, count, NSStringFromBOOL(open)];
+                self.day, count, NSStringFromBOOL(self.open)];
 }
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
@@ -47,50 +45,48 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super init]) {
-        day = [coder decodeObjectForKey:@"day"];
-        open = [coder decodeBoolForKey:@"open"];
-        meat = [coder decodeObjectForKey:@"meat"];
-        vegetables = [coder decodeObjectForKey:@"vegetables"];
-        soup = [coder decodeObjectForKey:@"soup"];
+        self.day = [coder decodeObjectForKey:@"day"];
+        self.open = [coder decodeBoolForKey:@"open"];
+        self.meat = [coder decodeObjectForKey:@"meat"];
+        self.vegetables = [coder decodeObjectForKey:@"vegetables"];
+        self.soup = [coder decodeObjectForKey:@"soup"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:day forKey:@"day"];
-    [coder encodeBool:open forKey:@"open"];
-    [coder encodeObject:meat forKey:@"meat"];
-    [coder encodeObject:vegetables forKey:@"vegetables"];
-    [coder encodeObject:soup forKey:@"soup"];
+    [coder encodeObject:self.day forKey:@"day"];
+    [coder encodeBool:self.open forKey:@"open"];
+    [coder encodeObject:self.meat forKey:@"meat"];
+    [coder encodeObject:self.vegetables forKey:@"vegetables"];
+    [coder encodeObject:self.soup forKey:@"soup"];
 }
 
 @end
 
 @implementation RestoMenuItem
 
-@synthesize name, price, recommended;
-
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<RestoMenuItem: %@ (%@)>", name, price];
+    return [NSString stringWithFormat:@"<RestoMenuItem: %@ (%@)>", self.name, self.price];
 }
 
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super init]) {
-        name = [coder decodeObjectForKey:@"name"];
-        price = [coder decodeObjectForKey:@"price"];
-        recommended = [coder decodeBoolForKey:@"recommended"];
+        self.name = [coder decodeObjectForKey:@"name"];
+        self.price = [coder decodeObjectForKey:@"price"];
+        self.recommended = [coder decodeBoolForKey:@"recommended"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:name forKey:@"name"];
-    [coder encodeObject:price forKey:@"price"];
-    [coder encodeBool:recommended forKey:@"recommended"];
+    [coder encodeObject:self.name forKey:@"name"];
+    [coder encodeObject:self.price forKey:@"price"];
+    [coder encodeBool:self.recommended forKey:@"recommended"];
 }
 
 @end

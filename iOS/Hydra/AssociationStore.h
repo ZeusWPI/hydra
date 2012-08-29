@@ -14,17 +14,9 @@
 extern NSString *const AssociationStoreDidUpdateNewsNotification;
 extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 
-@interface AssociationStore : NSObject 
-<NSCoding, RKObjectLoaderDelegate, RKRequestDelegate> {
-    RKObjectManager *objectManager;
-    NSDictionary *resourceState;
-    NSMutableDictionary *newsItems;
-    NSDictionary *activities;
-    NSUInteger activitiesVersion;
-    NSMutableDictionary *activeRequests;
-}
+@interface AssociationStore : NSObject <NSCoding, RKObjectLoaderDelegate, RKRequestDelegate>
 
-@property (nonatomic, readonly) NSArray *associations;
+@property (nonatomic, strong, readonly) NSArray *associations;
 
 + (AssociationStore *)sharedStore;
 
