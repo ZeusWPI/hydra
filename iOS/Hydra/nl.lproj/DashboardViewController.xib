@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12A269</string>
+		<string key="IBDocument.SystemVersion">12B19</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
 		<string key="IBDocument.AppKitVersion">1187</string>
 		<string key="IBDocument.HIToolboxVersion">624.00</string>
@@ -39,7 +39,7 @@
 					<object class="IBUIImageView" id="843530304">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">306</int>
-						<string key="NSFrameSize">{320, 95}</string>
+						<string key="NSFrameSize">{320, 94}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="956011270"/>
@@ -54,7 +54,7 @@
 					<object class="IBUIImageView" id="956011270">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{40, 28}, {240, 40}}</string>
+						<string key="NSFrame">{{60, 22}, {200, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="411806834"/>
@@ -422,13 +422,13 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="843530304"/>
-							<reference ref="956011270"/>
 							<reference ref="1006082666"/>
 							<reference ref="975746595"/>
 							<reference ref="818178277"/>
 							<reference ref="316746564"/>
 							<reference ref="656227591"/>
 							<reference ref="411806834"/>
+							<reference ref="956011270"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -616,8 +616,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="button-activities-active.png">{188, 138}</string>
-			<string key="button-activities.png">{188, 138}</string>
+			<string key="button-activities-active.png">{137, 100}</string>
+			<string key="button-activities.png">{137, 100}</string>
 			<string key="button-gsr-active.png">{188, 138}</string>
 			<string key="button-gsr.png">{188, 138}</string>
 			<string key="button-info-active.png">{188, 138}</string>
@@ -628,8 +628,8 @@
 			<string key="button-resto.png">{188, 138}</string>
 			<string key="button-schamper-active.png">{188, 138}</string>
 			<string key="button-schamper.png">{188, 138}</string>
-			<string key="header-bg.png">{1, 95}</string>
-			<string key="hydra.png">{196, 70}</string>
+			<string key="header-bg.png">{1, 94}</string>
+			<string key="hydra.png">{134, 50}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1498</string>
 	</data>
