@@ -263,7 +263,7 @@
             [self updateView:leftView toIndex:currentIndex-1];
         }
         if(currentIndex+1 < kRestoDaysShown+1) {
-            [self updateView:rightView toIndex:currentIndex];
+            [self updateView:rightView toIndex:currentIndex+1];
         }
     }
 }
