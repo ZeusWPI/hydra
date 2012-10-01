@@ -37,7 +37,7 @@ public class Hydra extends SherlockActivity {
     tracker = GoogleAnalyticsTracker.getInstance();
 
     // Start the tracker in manual dispatch mode...
-    tracker.startNewSession("UA-25444917-3", this);
+    tracker.startNewSession("UA-25444917-3", 20, this);
     tracker.trackPageView("/Home");
 
     
