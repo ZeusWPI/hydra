@@ -1,8 +1,9 @@
 package be.ugent.zeus.resto.client;
 
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -10,7 +11,7 @@ import android.util.Log;
  *
  * @author blackskad
  */
-public class Settings extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class Settings extends SherlockPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
   @Override
   public void onCreate(Bundle icicle) {

@@ -1,7 +1,8 @@
 
 package be.ugent.zeus.resto.client;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.SherlockActivity;
+
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -13,7 +14,7 @@ import be.ugent.zeus.resto.client.data.NewsItem;
  *
  * @author blackskad
  */
-public class NewsItemActivity extends Activity {
+public class NewsItemActivity extends SherlockActivity {
 
   /** Called when the activity is first created. */
   @Override

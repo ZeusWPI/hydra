@@ -1,13 +1,12 @@
 package be.ugent.zeus.resto.client;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.webkit.WebView;
 import android.widget.TextView;
 import be.ugent.zeus.resto.client.data.rss.Item;
 import java.text.SimpleDateFormat;
+
+import com.actionbarsherlock.app.SherlockActivity;
 
 /**
  * TODO: implement this properly as a fragment, so we can display this a lot
@@ -15,7 +14,7 @@ import java.text.SimpleDateFormat;
  * 
  * @author Thomas Meire
  */
-public class SchamperDailyItem extends Activity {
+public class SchamperDailyItem extends SherlockActivity {
 
   @Override
   public void onCreate(Bundle icicle) {

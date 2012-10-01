@@ -17,12 +17,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
 /**
  * TODO: needs swiping or buttons to go to the next days! cfr resto menu
  *
  * @author blackskad
  */
-public class Calendar extends android.app.Activity {
+public class Calendar extends SherlockActivity{
 
   private static final int VIEWABLE_DATES = 7;
   private ViewPager pager;

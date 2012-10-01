@@ -1,13 +1,14 @@
 package be.ugent.zeus.resto.client;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
+
 import android.os.Bundle;
 
 /**
  *
  * @author blackskad
  */
-public class Info extends ListActivity {
+public class Info extends SherlockListActivity {
 
   @Override
   public void onCreate(Bundle icicle) {

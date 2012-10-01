@@ -2,7 +2,8 @@ package be.ugent.zeus.resto.client;
 
 import java.util.List;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
  *
  * @author blackskad
  */
-public class GSR extends ListActivity {
+public class GSR extends SherlockListActivity {
 
   public static final String CACHE_FILE = "gsr";
   public static final String CACHE_KEY = "gsrItemList";
