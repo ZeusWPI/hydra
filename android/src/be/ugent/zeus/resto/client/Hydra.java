@@ -38,6 +38,7 @@ public class Hydra extends SherlockActivity {
 
     // Start the tracker in manual dispatch mode...
     tracker.startNewSession("UA-25444917-3", this);
+    tracker.trackPageView("/Home");
 
     
     setContentView(R.layout.hydra);
