@@ -10,12 +10,12 @@
 
 @implementation UIColor (AppColors)
 
-+ (UIColor *)blueTintColor
++ (UIColor *)hydraTintColor
 {
     return [UIColor colorWithRed:0.126 green:0.304 blue:0.500 alpha:1.000];
 }
 
-+ (UIColor *)backgroundColor
++ (UIColor *)hydraBackgroundColor
 {
     return [UIColor colorWithRed:0.807 green:0.840 blue:0.878 alpha:1.000];
 }

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *fullName;
 @property (nonatomic, strong) NSString *internalName;
 
-+ (NSArray *)updateAssociations:(NSArray *)associations lastModified:(NSDate *)date;
+// Check that the current association list is up-to-date with the one provided in the application bundle
++ (NSArray *)updateAssociations:(NSArray *)associations;
 
 @end

@@ -9,10 +9,13 @@
 #import "InfoViewController.h"
 #import "WebViewController.h"
 
+@interface InfoViewController ()
+
+@property (nonatomic, strong) NSArray *content;
+
+@end
+
 @implementation InfoViewController
-{
-    NSArray *content;
-}
 
 #pragma mark - Initializing + loading
 
@@ -20,18 +23,14 @@
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"info-content" ofType:@"plist"];
     self = [self initWithContent:[[NSArray alloc] initWithContentsOfFile:path]];
-    if (self) {
-        [self setTitle:@"Info"];
-    }
+    [self setTitle:@"Info"];
     return self;
 }
 
-- initWithContent:(NSArray *)newContent
+- (id)initWithContent:(NSArray *)content
 {
-    UITableViewStyle style = UITableViewStylePlain; //automaticly use UITableViewStyleGrouped when [newContent count] < 4 ?
-    self = [super initWithStyle:style];
-    if (self) {
-        content = newContent;
+    if (self = [super initWithStyle:UITableViewStylePlain]) {
+        self.content = content;
     }
     return self;
 }
@@ -57,7 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [content count];
+    return [self.content count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -71,10 +70,10 @@
     cell.contentView.backgroundColor = [UIColor whiteColor];
     cell.textLabel.backgroundColor = cell.contentView.backgroundColor;
 
-    NSDictionary *item = [content objectAtIndex:indexPath.row];
-    cell.textLabel.text = [item objectForKey:@"title"];
+    NSDictionary *item = (self.content)[indexPath.row];
+    cell.textLabel.text = item[@"title"];
     
-    UIImage *icon = [UIImage imageNamed:[item objectForKey:@"image"]];
+    UIImage *icon = [UIImage imageNamed:item[@"image"]];
     if(icon) {
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.imageView.image = icon;
@@ -88,7 +87,7 @@
     }
     
     // Show an icon, depending on the subview
-    if ([item objectForKey:@"url"]) {
+    if (item[@"url"]) {
         UIImageView *linkAccossory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"external-link.png"]
                                                        highlightedImage:[UIImage imageNamed:@"external-link-active.png"]];
         linkAccossory.contentMode = UIViewContentModeScaleAspectFit;
@@ -105,23 +104,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *item = [content objectAtIndex:indexPath.row];
+    NSDictionary *item = (self.content)[indexPath.row];
 
     // Choose a different action depending on what data is available
-    if([item objectForKey:@"subcontent"]){
-        NSArray *subContent = [item objectForKey:@"subcontent"];
+    if(item[@"subcontent"]){
+        NSArray *subContent = item[@"subcontent"];
         InfoViewController *c = [[InfoViewController alloc] initWithContent:subContent];
-        [c setTitle:[item objectForKey:@"title"]];
+        [c setTitle:item[@"title"]];
         [[self navigationController] pushViewController:c animated:YES];
     }
-    else if([item objectForKey:@"html"]) {
+    else if(item[@"html"]) {
         WebViewController *c = [[WebViewController alloc] init];
-        [c loadHtml:[item objectForKey:@"html"]];
-        [c setTitle:[item objectForKey:@"title"]];
+        [c loadHtml:item[@"html"]];
+        [c setTitle:item[@"title"]];
         [[self navigationController] pushViewController:c animated:YES];
     }
-    else if([item objectForKey:@"url"]) {
-        NSURL *url = [NSURL URLWithString:[item objectForKey:@"url"]];
+    else if(item[@"url"]) {
+        NSURL *url = [NSURL URLWithString:item[@"url"]];
         [[UIApplication sharedApplication] openURL:url];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }

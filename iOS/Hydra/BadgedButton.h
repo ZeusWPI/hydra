@@ -10,8 +10,7 @@
 
 @interface BadgedButton : UIButton
 
-@property (nonatomic, strong) NSString *badgeText;
-
+- (id)initWithFrame:(CGRect)frame;
 - (void)setBadgeNumber:(int)number;
 
 @end

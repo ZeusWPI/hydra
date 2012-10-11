@@ -17,11 +17,9 @@
 
 - (void)loadView
 {
-    CGRect screenFrame = [[UIScreen mainScreen] applicationFrame];
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:screenFrame];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     [webView setDelegate:self];
-
-    [self setView:webView];
+    self.view = webView;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -7,17 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RestKit/RestKit.h>
 
 extern NSString *const SchamperStoreDidUpdateArticlesNotification;
 
-@interface SchamperStore : NSObject <NSCoding, RKObjectLoaderDelegate> {
-    RKObjectManager *objectManager;
-    BOOL active;
-}
+@interface SchamperStore : NSObject
 
 @property (nonatomic, strong, readonly) NSArray *articles;
-@property (nonatomic, strong, readonly) NSDate *lastUpdated;
 
 + (SchamperStore *)sharedStore;
 - (void)updateArticles;

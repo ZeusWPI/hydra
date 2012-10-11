@@ -15,11 +15,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+
     // Create and setup controllers
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
-    self.navController.navigationBar.tintColor = [UIColor blueTintColor];
+    self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
 
     [self.window setRootViewController:self.navController];
     [self.window makeKeyAndVisible];

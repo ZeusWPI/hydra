@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SchamperViewController : UITableViewController {
-    NSArray *articles;
-}
+@interface SchamperViewController : UITableViewController
 
 @end

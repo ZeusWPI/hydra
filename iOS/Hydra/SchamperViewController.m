@@ -11,13 +11,19 @@
 #import "SchamperArticle.h"
 #import "WebViewController.h"
 
+@interface SchamperViewController ()
+
+@property (nonatomic, strong) NSArray *articles;
+
+@end
+
 @implementation SchamperViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        articles = [[SchamperStore sharedStore] articles];
+        self.articles = [[SchamperStore sharedStore] articles];
     }
     return self;
 }
@@ -62,7 +68,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [articles count];
+    return self.articles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -75,7 +81,7 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
-    SchamperArticle *article = [articles objectAtIndex:indexPath.row];
+    SchamperArticle *article = (self.articles)[indexPath.row];
     cell.textLabel.text = article.title;
     cell.detailTextLabel.text = article.author;
     
@@ -85,7 +91,7 @@
 - (void)articlesUpdated:(NSNotification *)notification
 {
     DLog(@"Updating tableView");
-    articles = [[notification object] articles];
+    self.articles = [[notification object] articles];
     [[self tableView] reloadData];
 }
 
@@ -93,11 +99,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WebViewController *c = [[WebViewController alloc] init];
-    SchamperArticle *article = [articles objectAtIndex:[indexPath row]];
-    [[c webView] loadHTMLString:[article body] baseURL:nil];
+    WebViewController *controller = [[WebViewController alloc] init];
+    SchamperArticle *article = (self.articles)[indexPath.row];
+    [controller.webView loadHTMLString:[article body] baseURL:nil];
 
-    [[self navigationController] pushViewController:c animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

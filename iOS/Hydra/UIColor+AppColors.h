@@ -10,7 +10,7 @@
 
 @interface UIColor (AppColors)
 
-+ (UIColor *)blueTintColor;
-+ (UIColor *)backgroundColor;
++ (UIColor *)hydraTintColor;
++ (UIColor *)hydraBackgroundColor;
 
 @end

@@ -8,15 +8,23 @@
 
 #import "SchamperStore.h"
 #import "SchamperArticle.h"
+#import <RestKit/RestKit.h>
 
 #define kSchamperUrl @"http://www.schamper.ugent.be/dagelijks"
 
 NSString *const SchamperStoreDidUpdateArticlesNotification =
     @"SchamperStoreDidUpdateArticlesNotification";
 
-@implementation SchamperStore
+@interface SchamperStore () <NSCoding, RKObjectLoaderDelegate>
 
-@synthesize articles, lastUpdated;
+@property (nonatomic, strong) RKObjectManager *objectManager;
+@property (nonatomic, assign) BOOL active;
+@property (nonatomic, strong) NSArray *articles;
+@property (nonatomic, strong) NSDate *lastUpdated;
+
+@end
+
+@implementation SchamperStore
 
 + (SchamperStore *)sharedStore
 {
@@ -32,9 +40,9 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 - (id)init
 {
     if (self = [super init]) {
-        articles = [[NSArray alloc] init];
-        lastUpdated = [NSDate date];
-        active = false;
+        self.articles = [[NSArray alloc] init];
+        self.lastUpdated = [NSDate date];
+        self.active = false;
     }
     return self;
 }
@@ -44,17 +52,17 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        articles = [decoder decodeObjectForKey:@"articles"];
-        lastUpdated = [decoder decodeObjectForKey:@"lastUpdated"];
-        active = false;
+        self.articles = [decoder decodeObjectForKey:@"articles"];
+        self.lastUpdated = [decoder decodeObjectForKey:@"lastUpdated"];
+        self.active = false;
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:articles forKey:@"articles"];
-    [coder encodeObject:lastUpdated forKey:@"lastUpdated"];
+    [coder encodeObject:self.articles forKey:@"articles"];
+    [coder encodeObject:self.lastUpdated forKey:@"lastUpdated"];
 }
 
 + (NSString *)articleCachePath
@@ -62,7 +70,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     // Get cache directory
     NSArray *cacheDirectories =
         NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDirectory = [cacheDirectories objectAtIndex:0];
+    NSString *cacheDirectory = cacheDirectories[0];
 
     return [cacheDirectory stringByAppendingPathComponent:@"schamper.archive"];
 }
@@ -78,7 +86,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 - (void)updateArticles
 {
     // Only allow one request at a time
-    if (active) return;
+    if (self.active) return;
     DLog(@"Starting Schamper update");
 
     // TODO: implement check to see if update is necessary
@@ -87,17 +95,17 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
     // The RKObjectManager must be retained, otherwise reachability notifications
     // will not be received properly and all kinds of weird stuff happen
-    if (!objectManager) {
-        objectManager = [RKObjectManager managerWithBaseURLString:kSchamperUrl];
-        [SchamperArticle registerObjectMappingWith:[objectManager mappingProvider]];
-        [[objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
+    if (!self.objectManager) {
+        self.objectManager = [RKObjectManager managerWithBaseURLString:kSchamperUrl];
+        [SchamperArticle registerObjectMappingWith:[self.objectManager mappingProvider]];
+        [[self.objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
     }
-    [objectManager loadObjectsAtResourcePath:@"" delegate:self];
+    [self.objectManager loadObjectsAtResourcePath:@"" delegate:self];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
 {
-    active = false;
+    self.active = false;
 
     // Show an alert if something goes wrong
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Fout"
@@ -110,9 +118,9 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
-    articles = objects;
-    lastUpdated = [NSDate date];
-    active = false;
+    self.articles = objects;
+    self.lastUpdated = [NSDate date];
+    self.active = false;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];

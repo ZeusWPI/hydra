@@ -12,25 +12,26 @@
 #import "InfoViewController.h"
 #import "AssociationStore.h"
 
-@implementation DashboardViewController {
-    UISwipeGestureRecognizer *gestureRecognizer;
-    UITextField *codeField;
-    NSArray *requiredMoves;
-    NSUInteger movesPerformed;
-}
+@interface DashboardViewController () <UITextFieldDelegate>
+
+@property (nonatomic, strong) UISwipeGestureRecognizer *gestureRecognizer;
+@property (nonatomic, strong) UITextField *codeField;
+@property (nonatomic, strong) NSArray *requiredMoves;
+@property (nonatomic, assign) NSUInteger movesPerformed;
+
+@end
+
+@implementation DashboardViewController
 
 - (void)viewDidLoad
 {
-    requiredMoves = [[NSArray alloc] initWithObjects:
-                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionUp],
-                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionUp],
-                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionDown],
-                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionDown],
-                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionLeft],
-                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionRight],
-                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionLeft],
-                     [NSNumber numberWithInt:UISwipeGestureRecognizerDirectionRight],
-                     @"b", @"a", nil];
+    self.requiredMoves = @[
+        @(UISwipeGestureRecognizerDirectionUp), @(UISwipeGestureRecognizerDirectionUp),
+        @(UISwipeGestureRecognizerDirectionDown), @(UISwipeGestureRecognizerDirectionDown),
+        @(UISwipeGestureRecognizerDirectionLeft), @(UISwipeGestureRecognizerDirectionRight),
+        @(UISwipeGestureRecognizerDirectionLeft), @(UISwipeGestureRecognizerDirectionRight),
+        @"b", @"a"
+    ];
 
     // Testing
     /*AssociationStore *store = [AssociationStore sharedStore];
@@ -42,23 +43,23 @@
 
 - (void)viewDidUnload
 {
-    gestureRecognizer = nil;
-    codeField = nil;
-    requiredMoves = nil;
+    self.gestureRecognizer = nil;
+    self.codeField = nil;
+    self.requiredMoves = nil;
 
-    newsButton = nil;
-    activitiesButton = nil;
-    infoButton = nil;
-    restoButton = nil;
-    gsrButton = nil;
-    schamperButton = nil;
+    self.newsButton = nil;
+    self.activitiesButton = nil;
+    self.infoButton = nil;
+    self.restoButton = nil;
+    self.gsrButton = nil;
+    self.schamperButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [self configureMoveDetection:0];
+    [self configureMoveDetectionForMove:0];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -106,68 +107,67 @@
 
 #pragma mark - Surprise feature
 
-- (void)configureMoveDetection:(NSUInteger)move
+- (void)configureMoveDetectionForMove:(NSUInteger)move
 {
     // TODO: replace by something cool
-    if (move == [requiredMoves count]) {
+    if (move == [self.requiredMoves count]) {
         ULog(@"Congratulations, you won the game!");
         move = 0;
     }
-    movesPerformed = move;
+    self.movesPerformed = move;
 
-    id nextMove = [requiredMoves objectAtIndex:move];
+    id nextMove = (self.requiredMoves)[move];
     if ([nextMove isKindOfClass:[NSNumber class]]) {
-        if (!gestureRecognizer) {
-            gestureRecognizer = [[UISwipeGestureRecognizer alloc] init];
-            [gestureRecognizer addTarget:self action:@selector(handleGesture:)];
-            [[self view] addGestureRecognizer:gestureRecognizer];
+        if (!self.gestureRecognizer) {
+            self.gestureRecognizer = [[UISwipeGestureRecognizer alloc] init];
+            [self.gestureRecognizer addTarget:self action:@selector(handleGesture:)];
+            [self.view addGestureRecognizer:self.gestureRecognizer];
 
-            [codeField removeFromSuperview];
-            [codeField resignFirstResponder];
-            codeField = nil;
+            [self.codeField removeFromSuperview];
+            [self.codeField resignFirstResponder];
+            self.codeField = nil;
         }
 
-        UISwipeGestureRecognizerDirection direction = [nextMove intValue];
-        [gestureRecognizer setDirection:direction];
+        self.gestureRecognizer.direction = [nextMove intValue];
     }
     else if ([nextMove isKindOfClass:[NSString class]]) {
-        if (!codeField) {
-            codeField = [[UITextField alloc] init];
-            [[self view] addSubview:codeField];
-            [codeField setHidden:YES];
-            [codeField setDelegate:self];
-            [codeField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
-            [codeField setReturnKeyType:UIReturnKeyDone];
+        if (!self.codeField) {
+            self.codeField = [[UITextField alloc] init];
+            self.codeField.hidden = YES;
+            self.codeField.delegate = self;
+            self.codeField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.codeField.returnKeyType = UIReturnKeyDone;
+            [self.view addSubview:self.codeField];
 
-            [[self view] removeGestureRecognizer:gestureRecognizer];
-            gestureRecognizer = nil;
+            [self.view removeGestureRecognizer:self.gestureRecognizer];
+            self.gestureRecognizer = nil;
         }
 
         // Store the string to be matched in the textfield, for easy comparison
-        [codeField becomeFirstResponder];
-        [codeField setText:nextMove];
+        self.codeField.text = nextMove;
+        [self.codeField becomeFirstResponder];
     }
 }
 
 - (void)handleGesture:(UIGestureRecognizer *)recognizer
 {
-    [self configureMoveDetection:(movesPerformed + 1)];
-    DLog(@"Surprise progress: %d/%d", movesPerformed, [requiredMoves count]);
+    [self configureMoveDetectionForMove:(self.movesPerformed + 1)];
+    DLog(@"Surprise progress: %d/%d", self.movesPerformed, [self.requiredMoves count]);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self configureMoveDetection:0];
+    [self configureMoveDetectionForMove:0];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ([string caseInsensitiveCompare:[textField text]] == NSOrderedSame) {
-        [self configureMoveDetection:(movesPerformed + 1)];
-        DLog(@"Surprise progress: %d/%d", movesPerformed, [requiredMoves count]);
+    if ([string caseInsensitiveCompare:textField.text] == NSOrderedSame) {
+        [self configureMoveDetectionForMove:(self.movesPerformed + 1)];
+        DLog(@"Surprise progress: %d/%d", self.movesPerformed, [self.requiredMoves count]);
     }
     else {
-        [self configureMoveDetection:0];
+        [self configureMoveDetectionForMove:0];
     }
     return NO;
 }
@@ -175,7 +175,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    [self configureMoveDetection:0];
+    [self configureMoveDetectionForMove:0];
     return NO;
 }
 

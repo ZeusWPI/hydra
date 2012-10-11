@@ -12,9 +12,9 @@
 
 @interface AssociationActivity : NSObject
 
-@property (nonatomic, copy) NSString *associationId;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *location;
+@property (nonatomic, strong) NSString *associationId;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *location;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;

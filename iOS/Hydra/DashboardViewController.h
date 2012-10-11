@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "BadgedButton.h"
 
-@interface DashboardViewController : UIViewController <UITextFieldDelegate> {
-    IBOutlet BadgedButton *newsButton;
-    IBOutlet BadgedButton *activitiesButton;
-    IBOutlet BadgedButton *infoButton;
-    IBOutlet BadgedButton *restoButton;
-    IBOutlet BadgedButton *gsrButton;
-    IBOutlet BadgedButton *schamperButton;
-}
+@interface DashboardViewController : UIViewController
+
+@property (nonatomic, assign) IBOutlet BadgedButton *newsButton;
+@property (nonatomic, assign) IBOutlet BadgedButton *activitiesButton;
+@property (nonatomic, assign) IBOutlet BadgedButton *infoButton;
+@property (nonatomic, assign) IBOutlet BadgedButton *restoButton;
+@property (nonatomic, assign) IBOutlet BadgedButton *gsrButton;
+@property (nonatomic, assign) IBOutlet BadgedButton *schamperButton;
 
 - (IBAction)showNews:(id)sender;
 - (IBAction)showActivities:(id)sender;

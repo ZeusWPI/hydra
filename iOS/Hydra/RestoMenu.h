@@ -8,15 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKObjectMappingProvider;
-
-@interface RestoMenuItem : NSObject <NSCoding>
-
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *price;
-@property (nonatomic) BOOL recommended;
-
-@end
+@class RKObjectMappingProvider, RestoMenuItem;
 
 @interface RestoMenu : NSObject <NSCoding>
 
@@ -27,5 +19,13 @@
 @property (nonatomic, strong) RestoMenuItem *soup;
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
+
+@end
+
+@interface RestoMenuItem : NSObject <NSCoding>
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *price;
+@property (nonatomic) BOOL recommended;
 
 @end

@@ -7,17 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RestKit/RestKit.h>
 
 extern NSString *const RestoStoreDidReceiveMenuNotification;
 
 @class RestoMenu;
 
-@interface RestoStore : NSObject <NSCoding, RKObjectLoaderDelegate> {
-    RKObjectManager *objectManager;
-    NSMutableArray *activeRequests;
-    NSMutableDictionary *menus;
-}
+@interface RestoStore : NSObject
 
 + (RestoStore *)sharedStore;
 - (RestoMenu *)menuForDay:(NSDate *)day;

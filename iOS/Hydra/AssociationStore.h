@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RestKit/RestKit.h>
 
 @class Association;
 
 extern NSString *const AssociationStoreDidUpdateNewsNotification;
 extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 
-@interface AssociationStore : NSObject <NSCoding, RKObjectLoaderDelegate, RKRequestDelegate>
+@interface AssociationStore : NSObject
 
 @property (nonatomic, strong, readonly) NSArray *associations;
 

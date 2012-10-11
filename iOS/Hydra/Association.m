@@ -9,12 +9,18 @@
 #import "Association.h"
 #import "NSDate+Utilities.h"
 
+NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
+
 @implementation Association
 
-+ (NSArray *)updateAssociations:(NSArray *)associations lastModified:(NSDate *)date
++ (NSArray *)updateAssociations:(NSArray *)associations
 {
-    if (!associations || [self updateRequired:date]) {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDate *lastModified = [userDefaults valueForKey:AssociationsLastUpdatedPref];
+    
+    if (!associations || [[self currentVersion] isLaterThanDate:lastModified]) {
         associations = [self loadFromPlist];
+        [userDefaults setObject:[self currentVersion] forKey:AssociationsLastUpdatedPref];
     }
     return associations;
 }
@@ -24,14 +30,13 @@
     return [[NSBundle mainBundle] pathForResource:@"Associations" ofType:@"plist"];
 }
 
-+ (BOOL)updateRequired:(NSDate *)currentVersion
++ (NSDate *)currentVersion
 {
     NSFileManager *manager = [NSFileManager defaultManager];
     NSString *filePath = [self initializationPath];
 
     NSDictionary *attributes = [manager attributesOfItemAtPath:filePath error:nil];
-    NSDate *lastUpdated = [attributes objectForKey:NSFileModificationDate];
-    return (!currentVersion || [lastUpdated isLaterThanDate:currentVersion]);
+    return attributes[NSFileModificationDate];
 }
 
 + (NSArray *)loadFromPlist
@@ -39,12 +44,12 @@
     NSArray *bundled = [NSArray arrayWithContentsOfFile:[self initializationPath]];
     NSMutableArray *associations = [[NSMutableArray alloc] initWithCapacity:[bundled count]];
     for (NSUInteger i = 0; i < [bundled count]; i++) {
-        NSDictionary *props = [bundled objectAtIndex:i];
+        NSDictionary *props = bundled[i];
 
         Association *assoc = [[Association alloc] init];
-        [assoc setDisplayName:[props objectForKey:@"displayName"]];
-        [assoc setFullName:[props objectForKey:@"fullName"]];
-        [assoc setInternalName:[props objectForKey:@"internalName"]];
+        [assoc setDisplayName:props[@"displayName"]];
+        [assoc setFullName:props[@"fullName"]];
+        [assoc setInternalName:props[@"internalName"]];
 
         [associations insertObject:assoc atIndex:i];
     }

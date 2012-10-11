@@ -18,13 +18,13 @@
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
     [objectMapping mapAttributes:@"title", @"location", @"date", nil];
     [objectMapping mapKeyPathsToAttributes:@"from", @"start",
-     @"to", @"end", @"association_id", @"associationId", nil];
+        @"to", @"end", @"association_id", @"associationId", nil];
 
     NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
     [dayFormatter setDateFormat:@"dd/MM/yyyy"];
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
     [timeFormatter setDateFormat:@"H:m"];
-    [objectMapping setDateFormatters:[NSArray arrayWithObjects:dayFormatter, timeFormatter, nil]];
+    [objectMapping setDateFormatters:@[ dayFormatter, timeFormatter ]];
 
     [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@"activities.activity"];
 }
@@ -36,15 +36,15 @@
 
 - (void)setStart:(NSDate *)startTime
 {
-    // TODO: cleaner solution?
-    NSDate *start = [self.date dateByAddingHours:[startTime hour]];
-    _start = [start dateByAddingMinutes:[startTime minute]];
+    _start = [self.date dateByAddingTimeInterval:[startTime timeIntervalSince1970]];
 }
 
 - (void)setEnd:(NSDate *)endTime
 {
-    NSDate *end = [self.date dateByAddingHours:[endTime hour]];
-    _end = [end dateByAddingMinutes:[endTime minute]];
+    _end = [self.date dateByAddingTimeInterval:[endTime timeIntervalSince1970]];
+    if ([self.end isEarlierThanDate:self.start]) {
+        _end = [self.end dateByAddingDays:1];
+    }
 }
 
 - (void)setTitle:(NSString *)newTitle

@@ -9,11 +9,20 @@
 #import "RestoStore.h"
 #import "RestoMenu.h"
 #import "NSDate+Utilities.h"
+#import <RestKit/RestKit.h>
 
 #define kRestoUrl @"http://zeus.ugent.be/hydra/api/1.0/resto"
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
+
+@interface RestoStore () <NSCoding, RKObjectLoaderDelegate>
+
+@property (nonatomic, strong) RKObjectManager *objectManager;
+@property (nonatomic, strong) NSMutableArray *activeRequests;
+@property (nonatomic, strong) NSMutableDictionary *menus;
+
+@end
 
 @implementation RestoStore
 
@@ -31,8 +40,8 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 - (id)init
 {
     if (self = [super init]) {
-        menus = [[NSMutableDictionary alloc] init];
-        activeRequests = [[NSMutableArray alloc] init];
+        self.menus = [[NSMutableDictionary alloc] init];
+        self.activeRequests = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -42,15 +51,15 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        menus = [decoder decodeObjectForKey:@"menus"];
-        activeRequests = [[NSMutableArray alloc] init];
+        self.menus = [decoder decodeObjectForKey:@"menus"];
+        self.activeRequests = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:menus forKey:@"menus"];
+    [coder encodeObject:self.menus forKey:@"menus"];
 }
 
 + (NSString *)menuCachePath
@@ -58,7 +67,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     // Get cache directory
     NSArray *cacheDirectories =
         NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDirectory = [cacheDirectories objectAtIndex:0];
+    NSString *cacheDirectory = cacheDirectories[0];
 
     return [cacheDirectory stringByAppendingPathComponent:@"restomenu.archive"];
 }
@@ -69,12 +78,12 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     NSMutableArray *toRemove = [[NSMutableArray alloc] init];
 
     // Remove all old entries
-    for (NSDate *date in [menus keyEnumerator]) {
+    for (NSDate *date in [self.menus keyEnumerator]) {
         if ([today compare:date] == NSOrderedDescending) {
             [toRemove addObject:date];
         }
     }
-    [menus removeObjectsForKeys:toRemove];
+    [self.menus removeObjectsForKeys:toRemove];
     DLog(@"Purged %d old menus from RestoStore", [toRemove count]);
 
     NSString *cachePath = [[self class] menuCachePath];
@@ -86,7 +95,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 - (RestoMenu *)menuForDay:(NSDate *)day
 {
     day = [day dateAtStartOfDay];
-    RestoMenu *menu = [menus objectForKey:day];
+    RestoMenu *menu = (self.menus)[day];
     if (!menu) {
         [self fetchMenuForWeek:[day week]];
     }
@@ -95,25 +104,25 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (void)fetchMenuForWeek:(NSUInteger)week
 {
-    if (!objectManager) {
-        objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
-        [RestoMenu registerObjectMappingWith:[objectManager mappingProvider]];
-        [[objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
+    if (!self.objectManager) {
+        self.objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
+        [RestoMenu registerObjectMappingWith:[self.objectManager mappingProvider]];
+        [[self.objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
     }
 
     NSString *path = [NSString stringWithFormat:@"/week/%d.json", week];
 
     // Only one request for each resource allowed
-    if (![activeRequests containsObject:path]) {
+    if (![self.activeRequests containsObject:path]) {
         DLog(@"Fetching resto information for week %d", week);
-        [activeRequests addObject:path];
-        [objectManager loadObjectsAtResourcePath:path delegate:self];
+        [self.activeRequests addObject:path];
+        [self.objectManager loadObjectsAtResourcePath:path delegate:self];
     }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
 {
-    [activeRequests removeObject:[objectLoader resourcePath]];
+    [self.activeRequests removeObject:[objectLoader resourcePath]];
 
     // Show an alert if something goes wrong
     // TODO: make errors thrown by RestKit more userfriendly
@@ -124,7 +133,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
                                        otherButtonTitles:nil];
     [av show];
     
-    VLog(activeRequests);
+    VLog(self.activeRequests);
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
@@ -134,13 +143,13 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     // all data requested was found.
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 60 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [activeRequests removeObject:[objectLoader resourcePath]];
+        [self.activeRequests removeObject:[objectLoader resourcePath]];
     });
 
     // Save menus
     for (RestoMenu *menu in objects) {
         NSDate *day = [[menu day] dateAtStartOfDay];
-        [menus setObject:menu forKey:day];
+        (self.menus)[day] = menu;
     }
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

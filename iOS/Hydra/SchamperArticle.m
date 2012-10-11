@@ -12,30 +12,28 @@
 
 @implementation SchamperArticle
 
-@synthesize title, link, date, author, body;
-
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<SchamperArticle: %@ (%@)>", title, date];
+    return [NSString stringWithFormat:@"<SchamperArticle: %@ (%@)>", self.title, self.date];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        title = [decoder decodeObjectForKey:@"title"];
-        link = [decoder decodeObjectForKey:@"link"];
-        author = [decoder decodeObjectForKey:@"author"];
-        body = [decoder decodeObjectForKey:@"body"];
+        self.title = [decoder decodeObjectForKey:@"title"];
+        self.link = [decoder decodeObjectForKey:@"link"];
+        self.author = [decoder decodeObjectForKey:@"author"];
+        self.body = [decoder decodeObjectForKey:@"body"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:title forKey:@"title"];
-    [coder encodeObject:link forKey:@"link"];
-    [coder encodeObject:author forKey:@"author"];
-    [coder encodeObject:body forKey:@"body"];
+    [coder encodeObject:self.title forKey:@"title"];
+    [coder encodeObject:self.link forKey:@"link"];
+    [coder encodeObject:self.author forKey:@"author"];
+    [coder encodeObject:self.body forKey:@"body"];
 }
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
@@ -55,7 +53,7 @@
     // Date format: Sun, 10 Jun 2012 01:03:24 +0200 (RFC2822)
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
-    [mapping setDateFormatters:[NSArray arrayWithObject:dateFormatter]];
+    [mapping setDateFormatters:@[dateFormatter]];
 
     [mappingProvider setObjectMapping:mapping forKeyPath:@"rss.channel.item"];
 }

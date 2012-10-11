@@ -24,11 +24,6 @@
 
 #pragma mark - Badge properties
 
-- (NSString *)badgeText
-{
-    return [_textLayer string];
-}
-
 - (void)setBadgeText:(NSString *)badgeText
 {
     [_textLayer setString:badgeText];
@@ -86,9 +81,8 @@
     badgeHeight = [badgeFont lineHeight] + newlineSpace;
     
     CAGradientLayer *badgeLayer = [CAGradientLayer layer];
-    badgeLayer.colors = [NSArray arrayWithObjects:
-                         (id)[UIColor colorWithRed:1 green:.5 blue:.5 alpha:1].CGColor,
-                         (id)[UIColor colorWithRed:.8 green:0 blue:0 alpha:1].CGColor, nil];
+    badgeLayer.colors = @[(id)[UIColor colorWithRed:1 green:.5 blue:.5 alpha:1].CGColor,
+                         (id)[UIColor colorWithRed:.8 green:0 blue:0 alpha:1].CGColor];
     badgeLayer.cornerRadius = badgeHeight/2;
     badgeLayer.borderWidth = 2;
     badgeLayer.borderColor = [UIColor whiteColor].CGColor;

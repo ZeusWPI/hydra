@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class Association, RKObjectMappingProvider;
+@class RKObjectMappingProvider;
 
 @interface AssociationNewsItem : NSObject
 
-@property (nonatomic, copy) NSString *associationId;
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, strong) NSString *associationId;
+@property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *body;
 
