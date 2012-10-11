@@ -38,7 +38,6 @@ public class Hydra extends SherlockActivity {
     tracker.startNewSession("UA-25444917-3", 20, this);
     tracker.trackPageView("/Home");
 
-
     setContentView(R.layout.hydra);
     setTitle("");
 
@@ -54,12 +53,14 @@ public class Hydra extends SherlockActivity {
     startService(intent);
   }
 
+  /*
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getSupportMenuInflater();
     inflater.inflate(R.menu.hydra, menu);
     return true;
   }
+  */
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
