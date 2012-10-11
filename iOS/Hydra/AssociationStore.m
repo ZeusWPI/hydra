@@ -199,7 +199,7 @@ static NSString *const ActivitiesResource = @"all_activities";
     // which is a crazy bad idea. So we just skip it and work on the data underneath.
     NSDictionary *original = *mappableData;
     NSString *rootKey = [original allKeys][0];
-    if (![rootKey isEqual:@"activities"]) *mappableData = [original allValues];
+    *mappableData = original[rootKey];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error

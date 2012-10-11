@@ -27,7 +27,7 @@
     [timeFormatter setDateFormat:@"H:m"];
     [objectMapping setDateFormatters:@[ timeFormatter, dayFormatter ]];
 
-    [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@"activities.activity"];
+    [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@"activity"];
 }
 
 - (NSString *)description
