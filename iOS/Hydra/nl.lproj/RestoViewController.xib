@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">12B19</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1187</string>
-		<string key="IBDocument.HIToolboxVersion">624.00</string>
+		<int key="IBDocument.SystemTarget">1536</int>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1498</string>
+			<string key="NS.object.0">1926</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -113,6 +113,7 @@ MzAgdG90IDIxdS4</string>
 													<double key="NSSize">15</double>
 													<int key="NSfFlags">16</int>
 												</object>
+												<double key="preferredMaxLayoutWidth">240</double>
 											</object>
 											<object class="IBUILabel" id="482936024">
 												<reference key="NSNextResponder" ref="829694442"/>
@@ -127,9 +128,10 @@ MzAgdG90IDIxdS4</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 												<string key="IBUIText">Vet</string>
-												<object class="NSColor" key="IBUITextColor" id="265626905">
+												<object class="NSColor" key="IBUITextColor" id="527509566">
 													<int key="NSColorSpace">1</int>
 													<bytes key="NSRGB">MC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEAA</bytes>
+													<string key="IBUIColorCocoaTouchKeyPath">tableCellGroupedBackgroundColor</string>
 												</object>
 												<nil key="IBUIHighlightedColor"/>
 												<int key="IBUIBaselineAdjustment">0</int>
@@ -159,7 +161,7 @@ MzAgdG90IDIxdS4</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 												<string key="IBUIText">Legende</string>
-												<reference key="IBUITextColor" ref="265626905"/>
+												<reference key="IBUITextColor" ref="527509566"/>
 												<nil key="IBUIHighlightedColor"/>
 												<int key="IBUIBaselineAdjustment">0</int>
 												<float key="IBUIMinimumFontSize">10</float>
@@ -185,10 +187,7 @@ MzAgdG90IDIxdS4</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 												<string key="IBUIText">Aanbevolen menu: € 0,50 korting reeds verrekend in de prijs.</string>
-												<object class="NSColor" key="IBUITextColor">
-													<int key="NSColorSpace">1</int>
-													<bytes key="NSRGB">MC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEAA</bytes>
-												</object>
+												<reference key="IBUITextColor" ref="527509566"/>
 												<nil key="IBUIHighlightedColor"/>
 												<int key="IBUIBaselineAdjustment">0</int>
 												<float key="IBUIMinimumFontSize">10</float>
@@ -203,6 +202,7 @@ MzAgdG90IDIxdS4</string>
 													<double key="NSSize">13</double>
 													<int key="NSfFlags">16</int>
 												</object>
+												<double key="preferredMaxLayoutWidth">205</double>
 											</object>
 											<object class="IBUILabel" id="492656036">
 												<reference key="NSNextResponder" ref="829694442"/>
@@ -216,10 +216,7 @@ MzAgdG90IDIxdS4</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 												<string key="IBUIText">##</string>
-												<object class="NSColor" key="IBUITextColor">
-													<int key="NSColorSpace">1</int>
-													<bytes key="NSRGB">MC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEAA</bytes>
-												</object>
+												<reference key="IBUITextColor" ref="527509566"/>
 												<nil key="IBUIHighlightedColor"/>
 												<int key="IBUIBaselineAdjustment">0</int>
 												<float key="IBUIMinimumFontSize">10</float>
@@ -240,10 +237,7 @@ MzAgdG90IDIxdS4</string>
 												<bool key="IBUIUserInteractionEnabled">NO</bool>
 												<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 												<string key="IBUIText">Menu niet verkrijgbaar in resto's Diergeneeskunde en FPPW.</string>
-												<object class="NSColor" key="IBUITextColor">
-													<int key="NSColorSpace">1</int>
-													<bytes key="NSRGB">MC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEAA</bytes>
-												</object>
+												<reference key="IBUITextColor" ref="527509566"/>
 												<nil key="IBUIHighlightedColor"/>
 												<int key="IBUIBaselineAdjustment">0</int>
 												<float key="IBUIMinimumFontSize">10</float>
@@ -251,6 +245,7 @@ MzAgdG90IDIxdS4</string>
 												<int key="IBUILineBreakMode">0</int>
 												<reference key="IBUIFontDescription" ref="74836291"/>
 												<reference key="IBUIFont" ref="622172726"/>
+												<double key="preferredMaxLayoutWidth">205</double>
 											</object>
 										</array>
 										<string key="NSFrameSize">{280, 356}</string>
@@ -504,7 +499,7 @@ MzAgdG90IDIxdS4</string>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
+			<real value="1536" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
@@ -512,6 +507,6 @@ MzAgdG90IDIxdS4</string>
 			<string key="header-bg.png">{1, 94}</string>
 			<string key="resto-logo.png">{100, 100}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1498</string>
+		<string key="IBCocoaTouchPluginVersion">1926</string>
 	</data>
 </archive>

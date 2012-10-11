@@ -11,6 +11,7 @@
 #import "SchamperViewController.h"
 #import "InfoViewController.h"
 #import "AssociationStore.h"
+#import "NewsViewController.h"
 
 @interface DashboardViewController () <UITextFieldDelegate>
 
@@ -80,6 +81,8 @@
         DLog(@"Dashboard switching to GSR");
     } else {
         DLog(@"Dashboard switching to News");
+        NewsViewController *c = [[NewsViewController alloc]initWithAssociations:[NSArray new]];
+        [self.navigationController pushViewController:c animated:YES];
     }
 }
 

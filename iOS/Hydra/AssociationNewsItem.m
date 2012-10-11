@@ -18,6 +18,11 @@
     [objectMapping mapAttributes:@"title", @"date", nil];
     [objectMapping mapKeyPath:@"description" toAttribute:@"body"];
     [objectMapping mapKeyPath:@"association_id" toAttribute:@"associationId"];
+    
+    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
+    [dayFormatter setDateFormat:@"dd/MM/yyyy"];
+    [objectMapping setDateFormatters:@[ dayFormatter ]];
+    
     [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@"newsItem"];
 }
 

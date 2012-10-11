@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		395C117A16272D8000B99F9B /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395C117916272D8000B99F9B /* NewsViewController.m */; };
+		395C117D1627437000B99F9B /* NewsItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395C117C1627437000B99F9B /* NewsItemViewController.m */; };
 		3B0D77EC15BB0945002B23C1 /* BadgedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFFE7D15BB04B600921E7D /* BadgedButton.m */; };
 		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
 		3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */; };
@@ -166,6 +168,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		395C117816272D8000B99F9B /* NewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
+		395C117916272D8000B99F9B /* NewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
+		395C117B1627437000B99F9B /* NewsItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsItemViewController.h; sourceTree = "<group>"; };
+		395C117C1627437000B99F9B /* NewsItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsItemViewController.m; sourceTree = "<group>"; };
 		3B436DF615B8915200984D3F /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		3B436DF715B8915200984D3F /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		3B7AD3B715BC830F0026BB62 /* RestoMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMenuView.h; sourceTree = "<group>"; };
@@ -534,6 +540,10 @@
 				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
 				F50EE09415B5F587000F1992 /* WebViewController.h */,
 				F50EE09515B5F587000F1992 /* WebViewController.m */,
+				395C117816272D8000B99F9B /* NewsViewController.h */,
+				395C117916272D8000B99F9B /* NewsViewController.m */,
+				395C117B1627437000B99F9B /* NewsItemViewController.h */,
+				395C117C1627437000B99F9B /* NewsItemViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -812,6 +822,8 @@
 				F5F43C4715BAD42E003C2AAE /* Association.m in Sources */,
 				F5F43C4A15BAEBE5003C2AAE /* NSString+Utilities.m in Sources */,
 				3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */,
+				395C117A16272D8000B99F9B /* NewsViewController.m in Sources */,
+				395C117D1627437000B99F9B /* NewsItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
