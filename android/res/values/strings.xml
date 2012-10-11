@@ -41,7 +41,7 @@
     <string name="refresh">Refresh</string>
     <string name="about">About</string>
     <string name="legend">Legend</string>
-    <string name="legend_bold">Bold : Recommended menu, -0.50€iscount already included</string>
+    <string name="legend_bold">Bold : Recommended menu, -0.50€ discount already included</string>
     <string name="legend_fries">Fries or croquettes: +0,20€ extra</string>
     <string name="legend_hash">## : menu not available in resto\'s Diergeneeskunde and FPPW, you can obtain spaghetti bolognaise as a replacement</string>
     <string name="legend_swiping">You can see the menu for the coming days by swiping to the left.</string>
