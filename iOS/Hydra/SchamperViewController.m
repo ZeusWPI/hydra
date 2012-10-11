@@ -20,10 +20,9 @@
 
 @implementation SchamperViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self = [super initWithStyle:UITableViewStylePlain]) {
         self.articles = [[SchamperStore sharedStore] articles];
     }
     return self;

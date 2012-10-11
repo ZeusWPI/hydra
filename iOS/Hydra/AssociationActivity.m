@@ -16,6 +16,7 @@
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
+
     [objectMapping mapAttributes:@"title", @"location", @"date", nil];
     [objectMapping mapKeyPathsToAttributes:@"from", @"start",
         @"to", @"end", @"association_id", @"associationId", nil];
@@ -24,7 +25,7 @@
     [dayFormatter setDateFormat:@"dd/MM/yyyy"];
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
     [timeFormatter setDateFormat:@"H:m"];
-    [objectMapping setDateFormatters:@[ dayFormatter, timeFormatter ]];
+    [objectMapping setDateFormatters:@[ timeFormatter, dayFormatter ]];
 
     [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@"activities.activity"];
 }
@@ -36,25 +37,17 @@
 
 - (void)setStart:(NSDate *)startTime
 {
-    _start = [self.date dateByAddingTimeInterval:[startTime timeIntervalSince1970]];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    _start = [calendar dateByAddingComponents:startTime.timeComponents toDate:self.date options:0];
 }
 
 - (void)setEnd:(NSDate *)endTime
 {
-    _end = [self.date dateByAddingTimeInterval:[endTime timeIntervalSince1970]];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    _end = [calendar dateByAddingComponents:endTime.timeComponents toDate:self.date options:0];
     if ([self.end isEarlierThanDate:self.start]) {
         _end = [self.end dateByAddingDays:1];
     }
-}
-
-- (void)setTitle:(NSString *)newTitle
-{
-    _title = [newTitle stringByStrippingCDATA];
-}
-
-- (void)setLocation:(NSString *)newLocation
-{
-    _location = [newLocation stringByStrippingCDATA];
 }
 
 @end

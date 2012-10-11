@@ -343,9 +343,16 @@
 	NSDateComponents *components = [CURRENT_CALENDAR components:NSWeekdayOrdinalCalendarUnit fromDate:self];
 	return components.weekdayOrdinal;
 }
+
 - (NSInteger) year
 {
 	NSDateComponents *components = [CURRENT_CALENDAR components:NSYearCalendarUnit fromDate:self];
 	return components.year;
 }
+
+- (NSDateComponents *)timeComponents
+{
+    return [CURRENT_CALENDAR components:NSHourCalendarUnit|NSDayCalendarUnit|NSSecondCalendarUnit fromDate:self];
+}
+
 @end
