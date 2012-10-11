@@ -7,6 +7,8 @@ import be.ugent.zeus.resto.client.data.rss.Item;
 import java.text.SimpleDateFormat;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.sun.corba.se.impl.resolver.SplitLocalResolverImpl;
 
 /**
  * TODO: implement this properly as a fragment, so we can display this a lot
@@ -28,7 +30,10 @@ public class SchamperDailyItem extends SherlockActivity {
     title.setText(item.title);
     
     String postedBy = getResources().getString(R.string.posted_by);
-
+    
+    String[] linkPieces = item.link.split("/");
+    GoogleAnalyticsTracker.getInstance().trackPageView("/Schamper/" + linkPieces[linkPieces.length-1]);
+    
     TextView date = (TextView) findViewById(R.id.schamper_item_date);
     date.setText(String.format(postedBy, item.creator, new SimpleDateFormat("EEEE dd MMM yyyy hh:mm").format(item.pubDate)));
 
