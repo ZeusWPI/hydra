@@ -31,7 +31,8 @@ public class SchamperDailyItem extends SherlockActivity {
     
     String postedBy = getResources().getString(R.string.posted_by);
     
-    GoogleAnalyticsTracker.getInstance().trackPageView("/Schamper/" + item.link.split("/")[item.link.split("/").length-1]);
+    String[] linkPieces = item.link.split("/");
+    GoogleAnalyticsTracker.getInstance().trackPageView("/Schamper/" + linkPieces[linkPieces.length-1]);
     
     TextView date = (TextView) findViewById(R.id.schamper_item_date);
     date.setText(String.format(postedBy, item.creator, new SimpleDateFormat("EEEE dd MMM yyyy hh:mm").format(item.pubDate)));
