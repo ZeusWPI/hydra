@@ -10,7 +10,7 @@ import be.ugent.zeus.resto.client.SchamperDaily;
  * @author Thomas Meire
  */
 public class BootReceiver extends BroadcastReceiver {
-  
+
   @Override
   public void onReceive(Context context, Intent arg1) {
     // schedule the alarm for the schamper daily refresh (every hour)

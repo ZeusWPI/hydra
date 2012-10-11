@@ -13,18 +13,17 @@ import be.ugent.zeus.resto.client.data.caches.ActivityCache;
 import be.ugent.zeus.resto.client.ui.ActivityAdapter;
 import be.ugent.zeus.resto.client.ui.SwipeyTabs;
 import be.ugent.zeus.resto.client.ui.SwipeyTabsAdapter;
+import com.actionbarsherlock.app.SherlockActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.actionbarsherlock.app.SherlockActivity;
 
 /**
  * TODO: needs swiping or buttons to go to the next days! cfr resto menu
  *
  * @author blackskad
  */
-public class Calendar extends SherlockActivity{
+public class Calendar extends SherlockActivity {
 
   private static final int VIEWABLE_DATES = 7;
   private ViewPager pager;
@@ -78,7 +77,6 @@ public class Calendar extends SherlockActivity{
       title.setText(getStringFromCalendar(date));
 
       title.setOnClickListener(new View.OnClickListener() {
-
         public void onClick(final View v) {
           pager.setCurrentItem(position);
         }

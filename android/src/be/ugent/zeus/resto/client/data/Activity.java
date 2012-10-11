@@ -1,4 +1,3 @@
-
 package be.ugent.zeus.resto.client.data;
 
 import java.io.Serializable;
@@ -8,6 +7,7 @@ import java.io.Serializable;
  * @author Thomas Meire
  */
 public class Activity implements Serializable {
+
   public String association_id;
   public String title;
   public String description;

@@ -19,76 +19,77 @@ import be.ugent.zeus.resto.client.data.caches.Cache;
 import be.ugent.zeus.resto.client.util.NewsXmlParser;
 
 public abstract class AbstractNewsIntentService extends HTTPIntentService {
-	private Cache<ArrayList<NewsItem>> cache;
 
-	public AbstractNewsIntentService() {
-		super("NewsIntentService");
-	}
+  private Cache<ArrayList<NewsItem>> cache;
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		cache = getCache();
-	}
+  public AbstractNewsIntentService() {
+    super("NewsIntentService");
+  }
 
-	@Override
-	protected void onHandleIntent(Intent intent) {
-		final ResultReceiver receiver = intent
-		    .getParcelableExtra(RESULT_RECEIVER_EXTRA);
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    cache = getCache();
+  }
 
-		boolean force = intent.getBooleanExtra(FORCE_UPDATE, true);
+  @Override
+  protected void onHandleIntent(Intent intent) {
+    final ResultReceiver receiver = intent
+            .getParcelableExtra(RESULT_RECEIVER_EXTRA);
 
-		final Bundle bundle = new Bundle();
-		try {
-			ArrayList<NewsItem> list;
+    boolean force = intent.getBooleanExtra(FORCE_UPDATE, true);
 
-			if (!cache.exists(cacheKey()) || force) {
-				String xml = cache.exists(cacheKey()) ? fetch(HYDRA_BASE_URL
-				    + "versions.xml") : fetch(HYDRA_BASE_URL + "versions.xml",
-				    cache.lastModified(cacheKey()));
-				list = getNewsItems(xml);
-				cache.put(cacheKey(), list);
-			} else {
-				list = cache.get(cacheKey());
-			}
+    final Bundle bundle = new Bundle();
+    try {
+      ArrayList<NewsItem> list;
 
-			bundle.putSerializable(cacheKey(), list);
-		} catch (Exception e) {
-			Log.e("[NewsIntentService]", e.getMessage());
-		}
-		receiver.send(STATUS_FINISHED, bundle);
-	}
+      if (!cache.exists(cacheKey()) || force) {
+        String xml = cache.exists(cacheKey()) ? fetch(HYDRA_BASE_URL
+                + "versions.xml") : fetch(HYDRA_BASE_URL + "versions.xml",
+                cache.lastModified(cacheKey()));
+        list = getNewsItems(xml);
+        cache.put(cacheKey(), list);
+      } else {
+        list = cache.get(cacheKey());
+      }
 
-	private ArrayList<NewsItem> getNewsItems(String xml) throws Exception {
-		ArrayList<NewsItem> list = new ArrayList<NewsItem>();
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		Document doc = dbf.newDocumentBuilder().parse(
-		    new InputSource(new StringReader(xml)));
-		NodeList nodeList = doc.getFirstChild().getChildNodes();
-		NewsXmlParser parser = new NewsXmlParser();
+      bundle.putSerializable(cacheKey(), list);
+    } catch (Exception e) {
+      Log.e("[NewsIntentService]", e.getMessage());
+    }
+    receiver.send(STATUS_FINISHED, bundle);
+  }
 
-		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node node = nodeList.item(i);
+  private ArrayList<NewsItem> getNewsItems(String xml) throws Exception {
+    ArrayList<NewsItem> list = new ArrayList<NewsItem>();
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    Document doc = dbf.newDocumentBuilder().parse(
+            new InputSource(new StringReader(xml)));
+    NodeList nodeList = doc.getFirstChild().getChildNodes();
+    NewsXmlParser parser = new NewsXmlParser();
 
-			String path = node.getAttributes().getNamedItem("path").getTextContent();
-			if (filter(path)) {
-				try {
-					Log.i("[NewsIntentService]", "Downloading " + path);
-					String clubXML = fetch(HYDRA_BASE_URL + path);
-					// TODO: filter based on user preferences
-					list.addAll(parser.parse(clubXML));
-				} catch (Exception e) {
-					Log.e("[NewIntentService]", e.getMessage());
-				}
-			}
-		}
+    for (int i = 0; i < nodeList.getLength(); i++) {
+      Node node = nodeList.item(i);
 
-		return list;
-	}
-	
-	public abstract boolean filter(String path);
-	
-	public abstract String cacheKey();
-	
-	public abstract Cache<ArrayList<NewsItem>> getCache();
+      String path = node.getAttributes().getNamedItem("path").getTextContent();
+      if (filter(path)) {
+        try {
+          Log.i("[NewsIntentService]", "Downloading " + path);
+          String clubXML = fetch(HYDRA_BASE_URL + path);
+          // TODO: filter based on user preferences
+          list.addAll(parser.parse(clubXML));
+        } catch (Exception e) {
+          Log.e("[NewIntentService]", e.getMessage());
+        }
+      }
+    }
+
+    return list;
+  }
+
+  public abstract boolean filter(String path);
+
+  public abstract String cacheKey();
+
+  public abstract Cache<ArrayList<NewsItem>> getCache();
 }

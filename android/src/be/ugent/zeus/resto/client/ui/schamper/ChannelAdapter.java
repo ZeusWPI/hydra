@@ -33,7 +33,7 @@ public class ChannelAdapter extends ArrayAdapter<Item> {
 
     TextView title = (TextView) row.findViewById(R.id.schamper_item_title);
     title.setText(item.title);
-    
+
     String postedBy = getContext().getResources().getString(R.string.posted_by);
 
     TextView date = (TextView) row.findViewById(R.id.schamper_item_date);

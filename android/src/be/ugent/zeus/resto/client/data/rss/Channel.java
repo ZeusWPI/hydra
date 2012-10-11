@@ -19,7 +19,7 @@ public class Channel implements Serializable {
   @Override
   public String toString() {
     String result = "Channel '" + title + "' (" + language + ", " + items.size() + " items): \n" + link + "\n" + description;
-    
+
     for (Item item : items) {
       result += "\n" + item;
     }

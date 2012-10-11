@@ -7,10 +7,9 @@ import android.widget.ListView;
 import be.ugent.zeus.resto.client.data.NewsItem;
 import be.ugent.zeus.resto.client.data.NewsList;
 import be.ugent.zeus.resto.client.data.caches.NewsCache;
+import com.actionbarsherlock.app.SherlockListActivity;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.actionbarsherlock.app.SherlockListActivity;
 
 /**
  *

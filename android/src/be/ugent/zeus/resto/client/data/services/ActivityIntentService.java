@@ -33,9 +33,9 @@ public class ActivityIntentService extends HTTPIntentService {
     ActivityXmlParser parser = new ActivityXmlParser();
     try {
       List<Activity> activities = parser.parse(fetch(HYDRA_BASE_URL + "all_activities.xml"));
-      
+
       Map<String, ArrayList<Activity>> groups = new HashMap<String, ArrayList<Activity>>();
-      
+
       // group them in lists by date
       for (Activity activity : activities) {
         ArrayList<Activity> group = groups.get(activity.date);
@@ -45,13 +45,13 @@ public class ActivityIntentService extends HTTPIntentService {
         }
         group.add(activity);
       }
-      
+
       ActivityCache cache = ActivityCache.getInstance(this);
 
       // dump the lists in the cache
       for (Entry<String, ArrayList<Activity>> group : groups.entrySet()) {
         cache.put(group.getKey(), group.getValue());
-      }    
+      }
     } catch (Exception e) {
       if (receiver != null) {
         receiver.send(STATUS_ERROR, Bundle.EMPTY);

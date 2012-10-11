@@ -16,7 +16,6 @@ import org.json.JSONArray;
 public class RestoService extends HTTPIntentService {
 
   private static final String RESTO_URL = "http://zeus.ugent.be/hydra/api/1.0/resto/list.json";
-
   private RestoCache cache;
 
   public RestoService() {

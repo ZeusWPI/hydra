@@ -98,7 +98,6 @@ public class MenuAdapter extends ResultReceiver {
       menu = (Menu) data.getSerializable(MenuService.MENU);
 
       context.runOnUiThread(new Runnable() {
-
         public void run() {
           layout.removeAllViews();
           if (menu == null) {

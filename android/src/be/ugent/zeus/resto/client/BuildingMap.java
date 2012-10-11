@@ -52,9 +52,9 @@ public class BuildingMap extends MapActivity {
     List<Overlay> overlays = map.getOverlays();
     overlays.add(myLocOverlay);
   }
-  
+
   @Override
-  public void onPause () {
+  public void onPause() {
     super.onPause();
     myLocOverlay.disableMyLocation();
   }
@@ -66,7 +66,7 @@ public class BuildingMap extends MapActivity {
   }
 
   @Override
-  public void onDestroy () {
+  public void onDestroy() {
     super.onDestroy();
     myLocOverlay.disableMyLocation();
   }

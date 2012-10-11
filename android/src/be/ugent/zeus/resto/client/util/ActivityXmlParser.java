@@ -12,9 +12,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Parse the activity-xml into a list of activities. The activities are not
- * yet grouped by date!
- * 
+ * Parse the activity-xml into a list of activities. The activities are not yet
+ * grouped by date!
+ *
  * @author Thomas Meire
  */
 public class ActivityXmlParser {
@@ -25,8 +25,8 @@ public class ActivityXmlParser {
     List<Activity> list = new LinkedList<Activity>();
 
     try {
-    ByteArrayInputStream stream = new ByteArrayInputStream(activityXML.getBytes("ISO-8859-1"));
-    Document doc = dbf.newDocumentBuilder().parse(stream);
+      ByteArrayInputStream stream = new ByteArrayInputStream(activityXML.getBytes("ISO-8859-1"));
+      Document doc = dbf.newDocumentBuilder().parse(stream);
 
       Node clubNode = doc.getFirstChild();
       NodeList activityList = clubNode.getChildNodes();
@@ -50,7 +50,7 @@ public class ActivityXmlParser {
     activity.end = attributes.getNamedItem("to").getTextContent();
     activity.association_id = node.getAttributes().getNamedItem("association_id").getTextContent();
     // TODO parse the other attributes (to, from)
-    
+
     NodeList children = node.getChildNodes();
     for (int i = 0; i < children.getLength(); i++) {
       Node child = children.item(i);

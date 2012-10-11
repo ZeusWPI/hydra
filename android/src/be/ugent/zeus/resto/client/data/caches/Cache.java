@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO:
- *  - purge old entries from the cache
- * 
+ * TODO: - purge old entries from the cache
+ *
  * @author Thomas Meire
  */
 public class Cache<T extends Serializable> {
@@ -32,17 +31,18 @@ public class Cache<T extends Serializable> {
       Log.i("[Cache]", "Found cached file " + f.getAbsolutePath());
     }
   }
-  
+
   /**
-   * 
+   *
    * @param key
-   * @return the last modification date as milliseconds since 1970 or -1 of not found
+   * @return the last modification date as milliseconds since 1970 or -1 of not
+   * found
    */
-  public long lastModified (String key) {
+  public long lastModified(String key) {
     File cached = new File(dir, key);
     if (cached.exists()) {
       return cached.lastModified();
-    }    
+    }
     return -1;
   }
 
