@@ -96,7 +96,7 @@ public class SwipeyTabs extends ViewGroup implements OnPageChangeListener {
 
   /**
    * Set the adapter.
-   * 
+   *
    * @param adapter
    */
   public void setAdapter(SwipeyTabsAdapter adapter) {
@@ -134,10 +134,9 @@ public class SwipeyTabs extends ViewGroup implements OnPageChangeListener {
 
   /**
    * Calculate the fronted, left and right positions
-   * 
-   * @param forceLayout
-   *            force the current positions to the values of the calculated
-   *            fronted positions
+   *
+   * @param forceLayout force the current positions to the values of the
+   * calculated fronted positions
    */
   private void updateTabPositions(boolean forceLayout) {
     if (mAdapter == null) {
@@ -157,11 +156,9 @@ public class SwipeyTabs extends ViewGroup implements OnPageChangeListener {
 
   /**
    * Calculate the position of the tabs.
-   * 
-   * @param position
-   *            the position of the fronted tab
-   * @param tabPositions
-   *            the array in which to store the result
+   *
+   * @param position the position of the fronted tab
+   * @param tabPositions the array in which to store the result
    */
   private void calculateTabPosition(int position, int[] tabPositions) {
     if (mAdapter == null) {
@@ -257,7 +254,7 @@ public class SwipeyTabs extends ViewGroup implements OnPageChangeListener {
 
   /**
    * Measure our tab text views
-   * 
+   *
    * @param widthMeasureSpec
    * @param heightMeasureSpec
    */

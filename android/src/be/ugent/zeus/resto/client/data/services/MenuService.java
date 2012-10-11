@@ -25,7 +25,7 @@ public class MenuService extends HTTPIntentService {
    */
   private static final String MENU_URL = "http://zeus.ugent.be/hydra/api/1.0/resto/week/%s.json";
   /**
-   * 
+   *
    */
   private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
   private MenuCache cache = null;

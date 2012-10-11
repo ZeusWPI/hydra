@@ -63,7 +63,6 @@ public class GSR extends SherlockListActivity {
     public GSRResultReceiver() {
       super(null);
       GSR.this.runOnUiThread(new Runnable() {
-
         public void run() {
           progressDialog = ProgressDialog.show(GSR.this, getResources().getString(R.string.title_gsr),
                   getResources().getString(R.string.loading));
@@ -74,7 +73,6 @@ public class GSR extends SherlockListActivity {
     @Override
     protected void onReceiveResult(int code, final Bundle resultData) {
       GSR.this.runOnUiThread(new Runnable() {
-
         public void run() {
           progressDialog.dismiss();
         }
@@ -83,7 +81,6 @@ public class GSR extends SherlockListActivity {
       switch (code) {
         case HTTPIntentService.STATUS_FINISHED:
           runOnUiThread(new Runnable() {
-
             public void run() {
               List<NewsItem> items = (List<NewsItem>) resultData.getSerializable(CACHE_KEY);
               if (items != null) {

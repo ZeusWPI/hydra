@@ -1,4 +1,3 @@
-
 package be.ugent.zeus.resto.client.data.caches;
 
 import android.content.ContentValues;
@@ -16,27 +15,26 @@ public class VersionCache {
 
   private static final String DATABASE_NAME = "hydradb";
   private static final int DATABASE_VERSION = 1;
-  
   private DatabaseHelper dbhelper;
-  
-  public VersionCache (Context context) {
+
+  public VersionCache(Context context) {
     dbhelper = new DatabaseHelper(context);
   }
-  
-  public void close () {
+
+  public void close() {
     dbhelper.close();
   }
-  
-  public void put (String key, int version) {
+
+  public void put(String key, int version) {
     SQLiteDatabase db = dbhelper.getWritableDatabase();
 
     ContentValues values = new ContentValues();
     values.put("key", key);
     values.put("version", version);
-    db.insertWithOnConflict("version_cache", null, values, SQLiteDatabase.CONFLICT_REPLACE);    
+    db.insertWithOnConflict("version_cache", null, values, SQLiteDatabase.CONFLICT_REPLACE);
   }
 
-  public int version (String key) {
+  public int version(String key) {
     try {
       SQLiteDatabase db = dbhelper.getReadableDatabase();
 
@@ -60,10 +58,10 @@ public class VersionCache {
 
   private class DatabaseHelper extends SQLiteOpenHelper {
 
-    public DatabaseHelper (Context context) {
+    public DatabaseHelper(Context context) {
       super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-    
+
     @Override
     public void onCreate(SQLiteDatabase db) {
       db.execSQL("CREATE TABLE version_cache (key TEXT PRIMARY KEY, version INT);");

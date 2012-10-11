@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import org.w3c.dom.Document;
 
 public class NewsXmlParser {
+
   private static final SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
 
   public ArrayList<NewsItem> parse(String clubXML) throws SAXException, IOException, ParserConfigurationException, DOMException, ParseException {

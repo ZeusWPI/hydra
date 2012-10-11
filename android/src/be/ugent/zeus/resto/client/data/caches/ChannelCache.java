@@ -1,4 +1,3 @@
-
 package be.ugent.zeus.resto.client.data.caches;
 
 import android.content.Context;
@@ -9,10 +8,9 @@ import java.io.File;
  *
  * @author Thomas Meire
  */
-public class ChannelCache extends Cache<Channel>{
-  
+public class ChannelCache extends Cache<Channel> {
+
   public static final String SCHAMPER = "schamper";
-  
   private static ChannelCache cache;
 
   private ChannelCache(File channelCacheDir) {

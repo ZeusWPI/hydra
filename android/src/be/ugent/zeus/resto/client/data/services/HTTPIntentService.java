@@ -28,9 +28,8 @@ public abstract class HTTPIntentService extends IntentService {
   public static final int STATUS_FINISHED = 0x3;
   public static final String FORCE_UPDATE = "force-update";
   public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
-
   protected static final String HYDRA_BASE_URL = "http://golive.myverso.com/ugent/";
-  
+
   public HTTPIntentService(String name) {
     super(name);
   }
@@ -45,9 +44,9 @@ public abstract class HTTPIntentService extends IntentService {
   /**
    * Fetch content from a url, but only if it's more recent than the
    * lastModified parameter, which is a unix timestamp.
-   * 
-   * @param url 
-   * @param lastModified 
+   *
+   * @param url
+   * @param lastModified
    * @return the content or null if the content hasn't been changed
    * @throws Exception if something goes wrong or status code is > 300 && != 304
    */

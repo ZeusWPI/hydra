@@ -19,25 +19,24 @@ import org.w3c.dom.NodeList;
 public class UpdaterService extends HTTPIntentService {
 
   private static final String LAST_UPDATE = "last-global-update";
-  
   private VersionCache cache;
-  
+
   public UpdaterService() {
     super("UpdaterService");
   }
 
   @Override
-  public void onCreate () {
+  public void onCreate() {
     super.onCreate();
     cache = new VersionCache(this);
   }
-  
+
   @Override
-  public void onDestroy () {
+  public void onDestroy() {
     super.onDestroy();
     cache.close();
   }
-  
+
   private void store(String xml) {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
@@ -89,9 +88,9 @@ public class UpdaterService extends HTTPIntentService {
       Log.i("[UpdaterService]", "Last update was less than an hour ago. Don't update.");
       return;
     }
-    
+
     prefs.edit().putLong(LAST_UPDATE, System.currentTimeMillis()).commit();
-    
+
     String location = HYDRA_BASE_URL + "versions.xml";
     try {
       store(fetch(location));

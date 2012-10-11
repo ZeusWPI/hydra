@@ -49,7 +49,6 @@ public class SchamperDaily extends SherlockListActivity {
     View footer = getLayoutInflater().inflate(R.layout.schamper_footer, null);
     Button visitOnline = (Button) footer.findViewById(R.id.schamper_visit_online);
     visitOnline.setOnClickListener(new View.OnClickListener() {
-
       public void onClick(View arg0) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse("http://www.schamper.ugent.be/editie/2012-online"));
@@ -120,7 +119,6 @@ public class SchamperDaily extends SherlockListActivity {
     @Override
     public void onReceiveResult(int code, Bundle icicle) {
       SchamperDaily.this.runOnUiThread(new Runnable() {
-
         public void run() {
           progressDialog.dismiss();
         }
@@ -129,7 +127,6 @@ public class SchamperDaily extends SherlockListActivity {
       switch (code) {
         case HTTPIntentService.STATUS_FINISHED:
           SchamperDaily.this.runOnUiThread(new Runnable() {
-
             public void run() {
               Channel channel = cache.get(ChannelCache.SCHAMPER);
 

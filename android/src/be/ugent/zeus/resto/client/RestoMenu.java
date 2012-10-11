@@ -42,7 +42,9 @@ public class RestoMenu extends SherlockActivity {
   private ViewPager pager;
   private MenuPagerAdapter adapter;
 
-  /** Called when the activity is first created. */
+  /**
+   * Called when the activity is first created.
+   */
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -75,8 +77,8 @@ public class RestoMenu extends SherlockActivity {
   public void onResume() {
     super.onResume();
   }
-  
-  private void clearCaches () {
+
+  private void clearCaches() {
     Log.i("RestoMenu", "Should clear caches now...");
     MenuCache.getInstance(this).clear();
     RestoCache.getInstance(this).clear();
@@ -110,22 +112,21 @@ public class RestoMenu extends SherlockActivity {
         views.add(new MenuAdapter(RestoMenu.this, date));
       }
     }
-    
+
     @Override
     public int getCount() {
       return views.size();
     }
 
     /**
-     * Create the page for the given position.  The adapter is responsible
-     * for adding the view to the container given here, although it only
-     * must ensure this is done by the time it returns from
-     * {@link #finishUpdate()}.
+     * Create the page for the given position. The adapter is responsible for
+     * adding the view to the container given here, although it only must ensure
+     * this is done by the time it returns from {@link #finishUpdate()}.
      *
      * @param container The containing View in which the page will be shown.
      * @param position The page position to be instantiated.
-     * @return Returns an Object representing the new page.  This does not
-     * need to be a View, but can be some other container of the page.
+     * @return Returns an Object representing the new page. This does not need
+     * to be a View, but can be some other container of the page.
      */
     @Override
     public Object instantiateItem(View collection, int position) {
@@ -135,9 +136,9 @@ public class RestoMenu extends SherlockActivity {
     }
 
     /**
-     * Remove a page for the given position.  The adapter is responsible
-     * for removing the view from its container, although it only must ensure
-     * this is done by the time it returns from {@link #finishUpdate()}.
+     * Remove a page for the given position. The adapter is responsible for
+     * removing the view from its container, although it only must ensure this
+     * is done by the time it returns from {@link #finishUpdate()}.
      *
      * @param container The containing View from which the page will be removed.
      * @param position The page position to be removed.
@@ -155,9 +156,10 @@ public class RestoMenu extends SherlockActivity {
     }
 
     /**
-     * Called when the a change in the shown pages has been completed.  At this
+     * Called when the a change in the shown pages has been completed. At this
      * point you must ensure that all of the pages have actually been added or
      * removed from the container as appropriate.
+     *
      * @param container The containing View which is displaying this adapter's
      * page views.
      */
@@ -181,7 +183,6 @@ public class RestoMenu extends SherlockActivity {
     public TextView getTab(final int position, SwipeyTabs root) {
       TextView title = views.get(position).getTab();
       title.setOnClickListener(new OnClickListener() {
-
         public void onClick(final View v) {
           pager.setCurrentItem(position);
         }

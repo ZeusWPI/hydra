@@ -16,15 +16,13 @@ import com.google.android.apps.analytics.GoogleAnalyticsTracker;
  * @author Thomas Meire
  */
 public class Hydra extends SherlockActivity {
-	
+
   GoogleAnalyticsTracker tracker;
-	
-	
+
   private void link(int id, final Class activity, final String name) {
     findViewById(id).setOnClickListener(new View.OnClickListener() {
-
       public void onClick(View view) {
-    	tracker.trackPageView("/" + name);
+        tracker.trackPageView("/" + name);
         startActivity(new Intent(Hydra.this, activity));
       }
     });
@@ -33,14 +31,14 @@ public class Hydra extends SherlockActivity {
   @Override
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
-    
+
     tracker = GoogleAnalyticsTracker.getInstance();
 
     // Start the tracker in automatic dispatch mode...
     tracker.startNewSession("UA-25444917-3", 20, this);
     tracker.trackPageView("/Home");
 
-    
+
     setContentView(R.layout.hydra);
     setTitle("");
 
@@ -75,12 +73,11 @@ public class Hydra extends SherlockActivity {
         return super.onOptionsItemSelected(item);
     }
   }
-  
+
   @Override
   protected void onDestroy() {
     super.onDestroy();
     // Stop the tracker when it is no longer needed.
     tracker.stopSession();
   }
-  
 }

@@ -1,4 +1,3 @@
-
 package be.ugent.zeus.resto.client.data;
 
 import java.io.Serializable;

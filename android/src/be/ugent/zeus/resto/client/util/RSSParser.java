@@ -18,11 +18,11 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * An absolutely incomplete RSS parser. Only implemented the tags i need to 
+ * An absolutely incomplete RSS parser. Only implemented the tags i need to
  * parse the schamper rss feed...
- * 
+ *
  * FYI I HATE PARSING XML LIKE THIS
- * 
+ *
  * @author Thomas Meire
  */
 public class RSSParser {
@@ -127,28 +127,28 @@ public class RSSParser {
   }
 
   /*
-  private static String load() {
-  try {
-  BufferedReader reader = new BufferedReader(new FileReader(new File("/home/blackskad/Downloads/schamper-dailies.rss")));
+   private static String load() {
+   try {
+   BufferedReader reader = new BufferedReader(new FileReader(new File("/home/blackskad/Downloads/schamper-dailies.rss")));
   
-  String xml = "";
+   String xml = "";
   
-  String line;
-  while ((line = reader.readLine()) != null) {
-  xml += line;
-  }
-  return xml;
-  } catch (Exception e) {
-  return "";
-  }
-  }
+   String line;
+   while ((line = reader.readLine()) != null) {
+   xml += line;
+   }
+   return xml;
+   } catch (Exception e) {
+   return "";
+   }
+   }
   
-  public static void main(String[] args) {
-  String xml = load();
+   public static void main(String[] args) {
+   String xml = load();
   
-  RSSParser parser = new RSSParser();
-  parser.parse(xml);
-  }
+   RSSParser parser = new RSSParser();
+   parser.parse(xml);
+   }
    * 
    */
 }

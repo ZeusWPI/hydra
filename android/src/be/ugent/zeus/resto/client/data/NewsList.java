@@ -17,7 +17,7 @@ public class NewsList extends ArrayAdapter<NewsItem> {
    * The length of the article previews, in number of characters.
    */
   private static final int SHORT_TEXT_LENGTH = 150;
-  
+
   public NewsList(Context context, List<NewsItem> objects) {
     super(context, R.layout.news_list_item, objects);
     sort(new NewsItemComparator());
@@ -46,24 +46,23 @@ public class NewsList extends ArrayAdapter<NewsItem> {
     shorttxt.setText(Html.fromHtml(shorty));
     return row;
   }
- 
+
   private String intelligentCutOff(String description) {
-	  if(description.length() < SHORT_TEXT_LENGTH) {
-		  return description;
-	  } 
-	  
+    if (description.length() < SHORT_TEXT_LENGTH) {
+      return description;
+    }
+
     int cutoff = SHORT_TEXT_LENGTH;
-	  while(cutoff > 100 && !Character.isWhitespace(description.charAt(cutoff - 1))) {
+    while (cutoff > 100 && !Character.isWhitespace(description.charAt(cutoff - 1))) {
       cutoff--;
-	  }	  
-	  return description.substring(0, cutoff) + "...";
+    }
+    return description.substring(0, cutoff) + "...";
   }
-  
+
   private class NewsItemComparator implements Comparator<NewsItem> {
 
     public int compare(NewsItem item1, NewsItem item2) {
       return item1.date.compareTo(item2.date);
     }
   }
- 
 }

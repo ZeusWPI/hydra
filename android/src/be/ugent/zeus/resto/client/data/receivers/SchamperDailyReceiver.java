@@ -14,9 +14,9 @@ import be.ugent.zeus.resto.client.data.services.SchamperDailyService;
  * @author Thomas Meire
  */
 public class SchamperDailyReceiver extends BroadcastReceiver {
-  
+
   private static final String DEBUG_TAG = "SchamperDailyReceiver";
-  
+
   @Override
   public void onReceive(Context context, Intent intent) {
     Log.d(DEBUG_TAG, "Recurring alarm; requesting Schamper Daily refresh service.");
@@ -25,7 +25,6 @@ public class SchamperDailyReceiver extends BroadcastReceiver {
     Intent refresher = new Intent(context, SchamperDailyService.class);
     refresher.putExtra(HTTPIntentService.FORCE_UPDATE, true);
     refresher.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new ResultReceiver(null) {
-      
       @Override
       public void onReceiveResult(int code, Bundle data) {
         if (code == SchamperDailyService.STATUS_ERROR) {
