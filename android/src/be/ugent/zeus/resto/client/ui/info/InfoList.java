@@ -60,7 +60,7 @@ public class InfoList implements ListAdapter {
       int id = context.getResources().getIdentifier("drawable/" + image.toString().replace("-", "_"), null, "be.ugent.zeus.resto.client");
       if (id != 0) {
         text.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0);
-        text.setCompoundDrawablePadding(5);
+        text.setCompoundDrawablePadding(10);
       }
     }
     return text;
