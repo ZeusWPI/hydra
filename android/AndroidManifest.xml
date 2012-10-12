@@ -23,6 +23,7 @@
     <activity android:name=".NewsItemActivity" />
     <activity android:name=".Calendar" />
     <activity android:name=".Info" />
+    <activity android:name=".InfoWebActivity" />
     <activity android:name=".GSR" />
     <activity android:name=".BuildingMap" />
     <activity android:name=".RestoMenu" />
