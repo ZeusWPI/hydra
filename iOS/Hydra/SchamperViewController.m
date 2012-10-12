@@ -9,7 +9,8 @@
 #import "SchamperViewController.h"
 #import "SchamperStore.h"
 #import "SchamperArticle.h"
-#import "WebViewController.h"
+#import "SchamperDetailViewController.h"
+#import "NSDate+Utilities.h"
 
 @interface SchamperViewController ()
 
@@ -19,10 +20,9 @@
 
 @implementation SchamperViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self = [super initWithStyle:UITableViewStylePlain]) {
         self.articles = [[SchamperStore sharedStore] articles];
     }
     return self;
@@ -99,11 +99,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WebViewController *controller = [[WebViewController alloc] init];
     SchamperArticle *article = (self.articles)[indexPath.row];
-    [controller.webView loadHTMLString:[article body] baseURL:nil];
-
+    SchamperDetailViewController *controller = [[SchamperDetailViewController alloc] initWithArticle:article];
     [self.navigationController pushViewController:controller animated:YES];
 }
-
+/* Does not work right
+- (NSString *) formatDate: (NSDate *) date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    return [formatter stringFromDate:date];
+}
+*/
 @end

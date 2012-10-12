@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "UIColor+AppColors.h"
 #import "DashboardViewController.h"
+#import <RestKit/RestKit.h>
 
 @implementation AppDelegate
 
@@ -20,6 +21,9 @@
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
     self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
+
+    RKLogConfigureByName("RestKit/Network", RKLogLevelInfo);
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelInfo);
 
     [self.window setRootViewController:self.navController];
     [self.window makeKeyAndVisible];

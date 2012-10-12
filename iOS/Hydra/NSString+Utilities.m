@@ -10,16 +10,16 @@
 
 @implementation NSString (Utilities)
 
+
 - (NSString *)stringByStrippingCDATA
 {
+    NSString *result = self;
     if ([self hasPrefix:@"<![CDATA["]) {
         // strlen("<![CDATA[") == 9, strlen("]]>") == 3
         NSRange strip = NSMakeRange(9, [self length] - 9 - 3);
-        return [self substringWithRange:strip];
+        result = [self substringWithRange:strip];
     }
-    else {
-        return [self copy];
-    }
+    return result;
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "InfoViewController.h"
 #import "AssociationStore.h"
 #import "NewsViewController.h"
+#import "ActivityViewController.h"
 
 @interface DashboardViewController () <UITextFieldDelegate>
 
@@ -33,13 +34,6 @@
         @(UISwipeGestureRecognizerDirectionLeft), @(UISwipeGestureRecognizerDirectionRight),
         @"b", @"a"
     ];
-
-    // Testing
-    /*AssociationStore *store = [AssociationStore sharedStore];
-    NSArray *associations = [store associations];
-    [store activitiesForAssocation:[associations objectAtIndex:0]];
-    [store newsItemsForAssocation:[associations objectAtIndex:0]];*/
-    //[self showInfo:nil];
 }
 
 - (void)viewDidUnload
@@ -88,6 +82,8 @@
 
 - (IBAction)showActivities:(id)sender {
     DLog(@"Dashboard switching to Activities");
+    ActivityViewController *c = [[ActivityViewController alloc] init];
+    [self.navigationController pushViewController:c animated:YES];
 }
 
 - (IBAction)showInfo:(id)sender {
