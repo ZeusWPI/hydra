@@ -68,7 +68,7 @@ public class Info extends SherlockListActivity {
       intent.putExtra("page", ((NSString) action).toString());
       startActivity(intent);
     } else if ((action = item.objectForKey("association")) != null) {
-      Toast.makeText(this, "TODO: implement the association for " + action.toString(), Toast.LENGTH_SHORT);
+      Toast.makeText(this, "TODO: implement the association for " + action.toString(), Toast.LENGTH_SHORT).show();
       System.err.println(action);
     } else {
       System.err.println("WHAT THE FUCK IS THIS SHIT?");
