@@ -9,8 +9,9 @@
 #import "ActivityDetailViewController.h"
 #import "AssociationActivity.h"
 #import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
 
-@interface ActivityDetailViewController ()
+@interface ActivityDetailViewController () <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
 
@@ -30,15 +31,6 @@
 {
     [super viewDidLoad];
     self.title = @"Detail";
-    
-    /*UIButton *addToCalendar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [addToCalendar setTitle:@"Add to Calendar" forState:UIControlStateNormal];
-    addToCalendar.frame = CGRectMake(0, 0, 280, 40);
-    [addToCalendar addTarget:self action:@selector(addEvent:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, 280, 100)];
-    [footerView addSubview:addToCalendar];
-    self.tableView.tableFooterView = footerView;*/    
 }
 
 #pragma mark - Table view data source
@@ -50,8 +42,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
-    //return 2;
+    
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -139,10 +131,21 @@
     event.endDate   = self.activity.end;
 
     [event setCalendar:[eventStore defaultCalendarForNewEvents]];
-    NSError *err;
-    [eventStore saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+    
+    EKEventEditViewController *eventViewController = [[EKEventEditViewController alloc] init];
 
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    eventViewController.event = event;
+    eventViewController.eventStore = eventStore;
+    eventViewController.editViewDelegate = self;
+    [self.navigationController presentModalViewController:eventViewController animated:YES];
+    
 }
+
+- (void)eventEditViewController:(EKEventEditViewController *)controller
+          didCompleteWithAction:(EKEventEditViewAction)action
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 @end
