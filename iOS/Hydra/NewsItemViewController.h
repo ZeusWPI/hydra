@@ -10,6 +10,6 @@
 
 @interface NewsItemViewController : UIViewController
 
-- (id) initWithBody: (NSString *) body;
+- (id) initWithBody:(NSString *) body;
 
 @end

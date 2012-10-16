@@ -17,20 +17,15 @@
 @property (nonatomic, strong) NSArray *associations;
 @property (nonatomic, strong) NSMutableArray *newsItems;
 
-
 @end
 
 @implementation NewsViewController
 
-- (id) initWithAssociations: (NSArray *) associations{
+- (id) initWithAssociations:(NSArray *)associations{
     self = [super init];
-    if (self) {
-        if([associations count] == 0){
-            self.associations = [[AssociationStore sharedStore] associations];
-        }else{
-            self.associations = associations;
-        }
-        [self pullNewsItems];
+    if (self = [super init]) {
+        self.associations = associations;
+        [self refreshNewsItems];
     }
     return self;
 }
@@ -53,13 +48,6 @@
                 object:nil];
      
     // TODO: show loading overlay when no items found yet
-
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -67,10 +55,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void) pullNewsItems {
+- (void)refreshNewsItems {
     self.newsItems = [NSMutableArray new];
-    for(int i=0;i<[self.associations count];i++){
-        [self.newsItems addObjectsFromArray:[[AssociationStore sharedStore] newsItemsForAssocation:[self.associations objectAtIndex:i]]];
+    for (Association *association in self.associations) {
+        NSArray *newsItems = [[AssociationStore sharedStore] newsItemsForAssocation:association];
+        [self.newsItems addObjectsFromArray:newsItems];
     }
 }
 
@@ -78,23 +67,28 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.newsItems count];
+    return self.newsItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"NewsCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
     }
-    
+
     AssociationNewsItem *newsItem = [self.newsItems objectAtIndex:indexPath.row];
-    
+
+    static NSDateFormatter *dateFormatter = nil;
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE d MMMM H:mm"];
+    }
+
+    NSString *detailText = [NSString stringWithFormat:@"%@, %@", newsItem.associationId, [dateFormatter stringFromDate:newsItem.date]];
     cell.textLabel.text = newsItem.title;
-    NSString *detailText = [NSString stringWithFormat:@"%@ - %@",[self formatDate:newsItem.date],newsItem.associationId];
     cell.detailTextLabel.text = detailText;
     
     return cell;
@@ -103,8 +97,8 @@
 - (void)newsUpdated:(NSNotification *)notification
 {
     DLog(@"Updating tableView for news items");
-    [self pullNewsItems];
-    [[self tableView] reloadData];
+    [self refreshNewsItems];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view delegate
@@ -116,12 +110,5 @@
     [self.navigationController pushViewController:c animated:YES];
     
 }
-
-- (NSString *) formatDate: (NSDate *) date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    return [formatter stringFromDate:date];
-}
-
 
 @end

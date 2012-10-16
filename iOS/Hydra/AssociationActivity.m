@@ -37,8 +37,10 @@
 
 - (void)setStart:(NSDate *)startTime
 {
+    VLog(self.date); VLog(startTime);
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     _start = [calendar dateByAddingComponents:startTime.timeComponents toDate:self.date options:0];
+    VLog(_start);
 }
 
 - (void)setEnd:(NSDate *)endTime

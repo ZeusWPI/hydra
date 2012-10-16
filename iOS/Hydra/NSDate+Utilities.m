@@ -352,7 +352,7 @@
 
 - (NSDateComponents *)timeComponents
 {
-    return [CURRENT_CALENDAR components:NSHourCalendarUnit|NSDayCalendarUnit|NSSecondCalendarUnit fromDate:self];
+    return [CURRENT_CALENDAR components:NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate:self];
 }
 
 @end
