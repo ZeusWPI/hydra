@@ -13,6 +13,7 @@
 		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
 		3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */; };
 		3BAFFE7E15BB04B600921E7D /* BadgedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFFE7D15BB04B600921E7D /* BadgedButton.m */; };
+		446378FC162DA12D008D47F2 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446378FB162DA12D008D47F2 /* EventKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		F5016BA6162756F300BBDB0A /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA5162756F300BBDB0A /* ActivityViewController.m */; };
 		F5016BA91627665800BBDB0A /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */; };
@@ -181,6 +182,7 @@
 		3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenuView.m; sourceTree = "<group>"; };
 		3BAFFE7C15BB04B600921E7D /* BadgedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgedButton.h; sourceTree = "<group>"; };
 		3BAFFE7D15BB04B600921E7D /* BadgedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgedButton.m; sourceTree = "<group>"; };
+		446378FB162DA12D008D47F2 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
 		F5016BA4162756F300BBDB0A /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				446378FC162DA12D008D47F2 /* EventKit.framework in Frameworks */,
 				F5EBF144159E141900EB5D26 /* libRestKit.a in Frameworks */,
 				F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */,
 				F5EBF13F159E13ED00EB5D26 /* SystemConfiguration.framework in Frameworks */,
@@ -473,6 +476,7 @@
 		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				446378FB162DA12D008D47F2 /* EventKit.framework */,
 				F5EBF136159E13D300EB5D26 /* CFNetwork.framework */,
 				F5EBF138159E13D900EB5D26 /* CoreData.framework */,
 				F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */,

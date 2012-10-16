@@ -8,6 +8,7 @@
 
 #import "ActivityDetailViewController.h"
 #import "AssociationActivity.h"
+#import <EventKit/EventKit.h>
 
 @interface ActivityDetailViewController ()
 
@@ -29,6 +30,30 @@
 {
     [super viewDidLoad];
     self.tableView.allowsSelection = NO;
+    
+    UIButton *addToCalendar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [addToCalendar setTitle:@"Add to Calendar" forState:UIControlStateNormal];
+    addToCalendar.frame = CGRectMake(0, 0, 280, 40);
+    [addToCalendar addTarget:self action:@selector(addEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, 280, 100)];
+    [footerView addSubview:addToCalendar];
+    self.tableView.tableFooterView = footerView;
+    
+}
+
+- (void)addEvent: (id)sender {
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    
+    EKEvent *event  = [EKEvent eventWithEventStore:eventStore];
+    event.title     = self.activity.title;
+    
+    event.startDate = self.activity.start;
+    event.endDate   = self.activity.end;
+    
+    [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+    NSError *err;
+    [eventStore saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
 }
 
 #pragma mark - Table view data source
