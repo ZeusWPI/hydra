@@ -8,6 +8,7 @@
 
 #import "ActivityDetailViewController.h"
 #import "AssociationActivity.h"
+#import <EventKit/EventKit.h>
 
 @interface ActivityDetailViewController ()
 
@@ -29,6 +30,15 @@
 {
     [super viewDidLoad];
     self.title = @"Detail";
+    
+    /*UIButton *addToCalendar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [addToCalendar setTitle:@"Add to Calendar" forState:UIControlStateNormal];
+    addToCalendar.frame = CGRectMake(0, 0, 280, 40);
+    [addToCalendar addTarget:self action:@selector(addEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, 280, 100)];
+    [footerView addSubview:addToCalendar];
+    self.tableView.tableFooterView = footerView;*/    
 }
 
 #pragma mark - Table view data source
@@ -40,7 +50,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
+    //return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,8 +115,10 @@
     }
     else {
         static NSString *CellIdentifier = @"ActivityDetailButtonCell";
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.text = @"Toevoegen aan agenda";
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
         return cell;
     }
 }
@@ -113,6 +126,23 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return indexPath.section == 1 ? indexPath : nil;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+
+    EKEvent *event  = [EKEvent eventWithEventStore:eventStore];
+    event.title     = self.activity.title;
+    event.location  = self.activity.location;
+    event.startDate = self.activity.start;
+    event.endDate   = self.activity.end;
+
+    [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+    NSError *err;
+    [eventStore saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
