@@ -101,13 +101,7 @@ if __name__ == "__main__":
 	locale.setlocale(locale.LC_ALL, ('nl_BE.UTF-8'))
 	week = datetime.today().isocalendar()[1]
 	# fetch the menu for the next to weeks, if not already downloaded
-	week1 = (week - 1) % 52 + 1
-	if not menu_already_downloaded(week1):
-		download_menu(week1)
-	week2 = (week + 0) % 52 + 1
-	if not menu_already_downloaded(week2):
-		download_menu(week2)
-	week3 = (week + 1) % 52 + 1
-	if not menu_already_downloaded(week3):
-		download_menu(week3)
+	download_menu((week - 1) % 52 + 1)
+	download_menu((week + 0) % 52 + 1)
+	download_menu((week + 1) % 52 + 1)
 
