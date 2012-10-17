@@ -18,6 +18,8 @@
     self = [super init];
     if (self) {
         UITextView *textField = [[UITextView alloc] initWithFrame:self.view.frame];
+        textField.editable = NO;
+        textField.dataDetectorTypes = UIDataDetectorTypeAll;
         textField.text = body;
         [self.view addSubview:textField];
     }
