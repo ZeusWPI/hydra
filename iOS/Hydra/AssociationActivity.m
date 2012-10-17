@@ -7,6 +7,7 @@
 //
 
 #import "AssociationActivity.h"
+#import "AssociationStore.h"
 #import <RestKit/RestKit.h>
 #import "NSString+Utilities.h"
 #import "NSDate+Utilities.h"
@@ -48,6 +49,11 @@
     if ([self.end isEarlierThanDate:self.start]) {
         _end = [self.end dateByAddingDays:1];
     }
+}
+
+- (Association *)association
+{
+    return [[AssociationStore sharedStore] associationWithIdentifier:self.associationId];
 }
 
 @end

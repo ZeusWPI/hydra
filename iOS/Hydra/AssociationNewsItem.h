@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKObjectMappingProvider;
+@class RKObjectMappingProvider, Association;
 
 @interface AssociationNewsItem : NSObject
 
@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *body;
+
+@property (nonatomic, readonly) Association *association;
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 

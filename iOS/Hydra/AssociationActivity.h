@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKObjectMappingProvider;
+@class RKObjectMappingProvider, Association;
 
 @interface AssociationActivity : NSObject
 
@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;
+
+@property (nonatomic, readonly) Association *association;
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 

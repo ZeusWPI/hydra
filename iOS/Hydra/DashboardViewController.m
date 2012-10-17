@@ -75,7 +75,8 @@
         DLog(@"Dashboard switching to GSR");
     } else {
         DLog(@"Dashboard switching to News");
-        NewsViewController *c = [[NewsViewController alloc]initWithAssociations:[NSArray new]];
+        NSArray *all = [[AssociationStore sharedStore] associations];
+        NewsViewController *c = [[NewsViewController alloc]initWithAssociations:all];
         [self.navigationController pushViewController:c animated:YES];
     }
 }

@@ -153,6 +153,16 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
 }
 
+- (Association *)associationWithIdentifier:(NSString *)identifier
+{
+    for (Association *association in self.associations) {
+        if ([association.internalName isEqualToString:identifier]) {
+            return association;
+        }
+    }
+    return nil;
+}
+
 static NSString *const ActivitiesResource = @"all_activities";
 
 - (NSArray *)allActivities
