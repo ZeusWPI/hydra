@@ -57,7 +57,7 @@
 						<string key="NSFrame">{{60, 22}, {200, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="548805507"/>
+						<reference key="NSNextKeyView" ref="675761342"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -256,7 +256,6 @@
 						<string key="NSFrame">{{166, 340}, {137, 100}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">6</int>
@@ -284,10 +283,10 @@
 						<reference key="IBUIFontDescription" ref="1004919048"/>
 						<reference key="IBUIFont" ref="152568620"/>
 					</object>
-					<object class="IBUIButton" id="548805507">
+					<object class="IBUIButton" id="675761342">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 25}, {44, 44}}</string>
+						<string key="NSFrame">{{17, 25}, {44, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="411806834"/>
@@ -443,7 +442,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">showFeedbackView:</string>
-						<reference key="source" ref="548805507"/>
+						<reference key="source" ref="675761342"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -470,7 +469,7 @@
 							<reference ref="656227591"/>
 							<reference ref="411806834"/>
 							<reference ref="956011270"/>
-							<reference ref="548805507"/>
+							<reference ref="675761342"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -533,7 +532,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">50</int>
-						<reference key="object" ref="548805507"/>
+						<reference key="object" ref="675761342"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
@@ -587,6 +586,7 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="showActivities:">id</string>
+						<string key="showFeedbackView:">id</string>
 						<string key="showInfo:">id</string>
 						<string key="showNews:">id</string>
 						<string key="showResto:">id</string>
@@ -595,6 +595,10 @@
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="showActivities:">
 							<string key="name">showActivities:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showFeedbackView:">
+							<string key="name">showFeedbackView:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showInfo:">
