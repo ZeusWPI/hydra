@@ -11,6 +11,8 @@
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 
+#define TABLE_CELL_BLUE_TEXT_COLOR [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+
 @interface ActivityDetailViewController () <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
@@ -110,6 +112,7 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.text = @"Toevoegen aan agenda";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+        cell.textLabel.textColor = TABLE_CELL_BLUE_TEXT_COLOR;
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         return cell;
     }
