@@ -13,6 +13,7 @@
 #import "AssociationStore.h"
 #import "NewsViewController.h"
 #import "ActivityViewController.h"
+#import "TestFlight.h"
 
 @interface DashboardViewController () <UITextFieldDelegate>
 
@@ -70,7 +71,8 @@
 
 #pragma mark - Button actions
 
-- (IBAction)showNews:(id)sender {
+- (IBAction)showNews:(id)sender
+{
     if([sender tag] == 5) {
         DLog(@"Dashboard switching to GSR");
     } else {
@@ -81,28 +83,37 @@
     }
 }
 
-- (IBAction)showActivities:(id)sender {
+- (IBAction)showActivities:(id)sender
+{
     DLog(@"Dashboard switching to Activities");
     ActivityViewController *c = [[ActivityViewController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
 
-- (IBAction)showInfo:(id)sender {
+- (IBAction)showInfo:(id)sender
+{
     DLog(@"Dashboard switching to Info");
 	InfoViewController *c = [[InfoViewController alloc] init];
 	[self.navigationController pushViewController:c animated:YES];
 }
 
-- (IBAction)showResto:(id)sender {
+- (IBAction)showResto:(id)sender
+{
     DLog(@"Dashboard switching to Resto");
     UIViewController *c = [[RestoViewController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
 
-- (IBAction)showSchamper:(id)sender {
+- (IBAction)showSchamper:(id)sender
+{
     DLog(@"Dashboard switching to Schamper");
     UIViewController *c = [[SchamperViewController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
+}
+
+- (IBAction)showFeedbackView:(id)sender
+{
+    [TestFlight openFeedbackView];
 }
 
 #pragma mark - Surprise feature

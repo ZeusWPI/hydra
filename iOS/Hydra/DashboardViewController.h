@@ -23,5 +23,6 @@
 - (IBAction)showInfo:(id)sender;
 - (IBAction)showResto:(id)sender;
 - (IBAction)showSchamper:(id)sender;
+- (IBAction)showFeedbackView:(id)sender;
 
 @end
