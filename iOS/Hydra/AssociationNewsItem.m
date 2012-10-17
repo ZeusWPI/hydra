@@ -44,7 +44,7 @@
 
 - (Association *)association
 {
-    return [[AssociationStore sharedStore] associationWithIdentifier:self.associationId];
+    return [[AssociationStore sharedStore] associationWithName:self.associationId];
 }
 
 @end

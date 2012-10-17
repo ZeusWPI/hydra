@@ -153,10 +153,10 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
 }
 
-- (Association *)associationWithIdentifier:(NSString *)identifier
+- (Association *)associationWithName:(NSString *)identifier
 {
     for (Association *association in self.associations) {
-        if ([association.internalName isEqualToString:identifier]) {
+        if ([association.fullName isEqualToString:identifier]) {
             return association;
         }
     }

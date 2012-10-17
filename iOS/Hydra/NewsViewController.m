@@ -83,7 +83,7 @@
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE d MMMM H:mm"];
+        [dateFormatter setDateFormat:@"EEEE d MMMM"];
     }
 
     NSString *detailText = [NSString stringWithFormat:@"%@, %@", association.displayName, [dateFormatter stringFromDate:newsItem.date]];
