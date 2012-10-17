@@ -52,7 +52,8 @@
 
     // Date format: Sun, 10 Jun 2012 01:03:24 +0200 (RFC2822)
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
+    dateFormatter.dateFormat = @"EEE, d MMM y HH:mm:ss Z";
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     [mapping setDateFormatters:@[dateFormatter]];
 
     [mappingProvider setObjectMapping:mapping forKeyPath:@"rss.channel.item"];

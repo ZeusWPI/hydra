@@ -79,6 +79,8 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - Table view delegate
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.days.count;

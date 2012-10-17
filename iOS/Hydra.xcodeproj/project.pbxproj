@@ -82,6 +82,9 @@
 		F5BAECB01518868200F6A1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8A1518868200F6A1B1 /* UIKit.framework */; };
 		F5BAECB11518868200F6A1B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8C1518868200F6A1B1 /* Foundation.framework */; };
 		F5BAECBC1518868200F6A1B1 /* HydraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAECBB1518868200F6A1B1 /* HydraTests.m */; };
+		F5BC3D88162EB8E900E4A902 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BC3D87162EB8E900E4A902 /* libz.dylib */; };
+		F5BC3D8B162EB91F00E4A902 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BC3D89162EB91F00E4A902 /* libTestFlight.a */; };
+		F5BC3D8E162EBB5100E4A902 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */; };
 		F5CFAA3D15BD9B87008E75B0 /* info-fietsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */; };
 		F5D2B6B215EFE0DE003EA54C /* button-gsr-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D2B6B015EFE0DE003EA54C /* button-gsr-active@2x.png */; };
 		F5D2B6B315EFE0DE003EA54C /* button-gsr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D2B6B115EFE0DE003EA54C /* button-gsr@2x.png */; };
@@ -92,6 +95,8 @@
 		F5D36BB915B5BD2A00B6E017 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB515B5BD2A00B6E017 /* Icon.png */; };
 		F5D36BBA15B5BD2A00B6E017 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB615B5BD2A00B6E017 /* Icon@2x.png */; };
 		F5D36BC115B5BDA500B6E017 /* SchamperStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D36BC015B5BDA500B6E017 /* SchamperStore.m */; };
+		F5D3B612162EF02F00698C3E /* button-feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D3B610162EF02F00698C3E /* button-feedback.png */; };
+		F5D3B613162EF02F00698C3E /* button-feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D3B611162EF02F00698C3E /* button-feedback@2x.png */; };
 		F5E7F06C15EF9408004024AA /* header-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E7F06B15EF9407004024AA /* header-bg@2x.png */; };
 		F5E7F06E15EF95A6004024AA /* hydra@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E7F06D15EF95A5004024AA /* hydra@2x.png */; };
 		F5E7F07215EFAA51004024AA /* button-activities-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E7F06F15EFAA50004024AA /* button-activities-active@2x.png */; };
@@ -263,6 +268,10 @@
 		F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HydraTests-Info.plist"; sourceTree = "<group>"; };
 		F5BAECBA1518868200F6A1B1 /* HydraTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HydraTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAECBB1518868200F6A1B1 /* HydraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HydraTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F5BC3D87162EB8E900E4A902 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		F5BC3D89162EB91F00E4A902 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = TestFlight/libTestFlight.a; sourceTree = "<group>"; };
+		F5BC3D8A162EB91F00E4A902 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = TestFlight/TestFlight.h; sourceTree = "<group>"; };
+		F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-fietsen.html"; sourceTree = "<group>"; };
 		F5D2B6B015EFE0DE003EA54C /* button-gsr-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gsr-active@2x.png"; sourceTree = "<group>"; };
 		F5D2B6B115EFE0DE003EA54C /* button-gsr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gsr@2x.png"; sourceTree = "<group>"; };
@@ -276,6 +285,8 @@
 		F5D36BC015B5BDA500B6E017 /* SchamperStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperStore.m; sourceTree = "<group>"; };
 		F5D36BD715B5CC0300B6E017 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/RestoViewController.xib; sourceTree = "<group>"; };
 		F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Hydra-Prefix.pch"; path = "Hydra/Hydra-Prefix.pch"; sourceTree = "<group>"; };
+		F5D3B610162EF02F00698C3E /* button-feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-feedback.png"; sourceTree = "<group>"; };
+		F5D3B611162EF02F00698C3E /* button-feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-feedback@2x.png"; sourceTree = "<group>"; };
 		F5E7F06B15EF9407004024AA /* header-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg@2x.png"; sourceTree = "<group>"; };
 		F5E7F06D15EF95A5004024AA /* hydra@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hydra@2x.png"; sourceTree = "<group>"; };
 		F5E7F06F15EFAA50004024AA /* button-activities-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-activities-active@2x.png"; sourceTree = "<group>"; };
@@ -318,9 +329,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5BC3D88162EB8E900E4A902 /* libz.dylib in Frameworks */,
 				44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */,
 				446378FC162DA12D008D47F2 /* EventKit.framework in Frameworks */,
-				F5EBF144159E141900EB5D26 /* libRestKit.a in Frameworks */,
 				F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */,
 				F5EBF13F159E13ED00EB5D26 /* SystemConfiguration.framework in Frameworks */,
 				F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */,
@@ -330,6 +341,8 @@
 				F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */,
 				F5BAEC8D1518868200F6A1B1 /* Foundation.framework in Frameworks */,
 				F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */,
+				F5EBF144159E141900EB5D26 /* libRestKit.a in Frameworks */,
+				F5BC3D8B162EB91F00E4A902 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +387,8 @@
 				F5E7F06F15EFAA50004024AA /* button-activities-active@2x.png */,
 				F58408AC159DDA0E00EE7010 /* button-activities.png */,
 				F5E7F07015EFAA50004024AA /* button-activities@2x.png */,
+				F5D3B610162EF02F00698C3E /* button-feedback.png */,
+				F5D3B611162EF02F00698C3E /* button-feedback@2x.png */,
 				F58408AD159DDA0E00EE7010 /* button-gsr-active.png */,
 				F5D2B6B015EFE0DE003EA54C /* button-gsr-active@2x.png */,
 				F58408AE159DDA0E00EE7010 /* button-gsr.png */,
@@ -479,18 +494,20 @@
 		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				44A29C57162DA88E001A573C /* EventKitUI.framework */,
-				446378FB162DA12D008D47F2 /* EventKit.framework */,
 				F5EBF136159E13D300EB5D26 /* CFNetwork.framework */,
 				F5EBF138159E13D900EB5D26 /* CoreData.framework */,
 				F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */,
+				446378FB162DA12D008D47F2 /* EventKit.framework */,
+				44A29C57162DA88E001A573C /* EventKitUI.framework */,
 				F5BAEC8C1518868200F6A1B1 /* Foundation.framework */,
+				F5BC3D87162EB8E900E4A902 /* libz.dylib */,
 				F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */,
 				F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */,
 				F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */,
 				F5EBF13A159E13DF00EB5D26 /* Security.framework */,
 				F5BAECAE1518868200F6A1B1 /* SenTestingKit.framework */,
 				F5EBF13E159E13ED00EB5D26 /* SystemConfiguration.framework */,
+				F5BC3D8C162EB92600E4A902 /* TestFlight */,
 				F5BAEC8A1518868200F6A1B1 /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -513,6 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				F5F43C1315BAC8A7003C2AAE /* Associations.plist */,
+				F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */,
 				F5D36BB315B5BD2A00B6E017 /* Default.png */,
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
@@ -542,6 +560,15 @@
 				F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F5BC3D8C162EB92600E4A902 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				F5BC3D89162EB91F00E4A902 /* libTestFlight.a */,
+				F5BC3D8A162EB91F00E4A902 /* TestFlight.h */,
+			);
+			name = TestFlight;
 			sourceTree = "<group>";
 		};
 		F5EBF119159E04B500EB5D26 /* ViewControllers */ = {
@@ -792,6 +819,9 @@
 				F5FC117215F0211300B3F127 /* button-resto@2x.png in Resources */,
 				F5FC117315F0211300B3F127 /* button-schamper-active@2x.png in Resources */,
 				F5FC117415F0211300B3F127 /* button-schamper@2x.png in Resources */,
+				F5BC3D8E162EBB5100E4A902 /* Default-568h@2x.png in Resources */,
+				F5D3B612162EF02F00698C3E /* button-feedback.png in Resources */,
+				F5D3B613162EF02F00698C3E /* button-feedback@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -965,6 +995,10 @@
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Hydra-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlight\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -978,6 +1012,10 @@
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Hydra-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlight\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

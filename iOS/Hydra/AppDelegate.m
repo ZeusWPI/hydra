@@ -10,12 +10,19 @@
 #import "UIColor+AppColors.h"
 #import "DashboardViewController.h"
 #import <RestKit/RestKit.h>
+#import "TestFlight.h"
+
+#define TESTFLIGHT_TOKEN @"5f66b18b6d3a77d2d4ce7c1f05f91f6f_MTQ0MzU2MjAxMi0xMC0xNyAwNjowNTowMy45MTYyNDQ"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    [TestFlight takeOff:TESTFLIGHT_TOKEN];
+    // TODO: remove this from app store build
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 
     // Create and setup controllers
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];

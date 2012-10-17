@@ -60,6 +60,7 @@
                 cell.textLabel.adjustsFontSizeToFitWidth = YES;
                 cell.textLabel.font = [UIFont boldSystemFontOfSize:20.0f];
                 cell.textLabel.textAlignment = UITextAlignmentCenter;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             cell.textLabel.text = self.activity.title;
             return cell;
@@ -71,6 +72,7 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
                                               reuseIdentifier:CellIdentifier];
                 cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
 
             static NSDateFormatter *dateStartFormatter = nil;

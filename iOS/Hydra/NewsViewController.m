@@ -11,6 +11,7 @@
 #import "AssociationNewsItem.h"
 #import "NewsItemViewController.h"
 #import "AssociationNewsItem.h"
+#import "Association.h"
 
 @interface NewsViewController ()
 
@@ -36,11 +37,7 @@
      
     // Set title in navigation bar, slightly different title on return button
     [[self navigationItem] setTitle:@"Nieuws"];
-    UIBarButtonItem *bb = [[UIBarButtonItem alloc] initWithTitle:@"Terug"
-                                                            style:UIBarButtonItemStyleBordered
-                                                           target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:bb];
-    
+
     // Check for updates
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(newsUpdated:)
@@ -55,7 +52,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)refreshNewsItems {
+- (void)refreshNewsItems
+{
     self.newsItems = [NSMutableArray new];
     for (Association *association in self.associations) {
         NSArray *newsItems = [[AssociationStore sharedStore] newsItemsForAssocation:association];
@@ -80,14 +78,17 @@
     }
 
     AssociationNewsItem *newsItem = [self.newsItems objectAtIndex:indexPath.row];
+    Association *association = newsItem.association;
 
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE d MMMM H:mm"];
+        [dateFormatter setDateFormat:@"EEEE
+
+         d MMMM"];
     }
 
-    NSString *detailText = [NSString stringWithFormat:@"%@, %@", newsItem.associationId, [dateFormatter stringFromDate:newsItem.date]];
+    NSString *detailText = [NSString stringWithFormat:@"%@, %@", association.displayName, [dateFormatter stringFromDate:newsItem.date]];
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
     

@@ -20,6 +20,7 @@ extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 
 + (AssociationStore *)sharedStore;
 
+- (Association *)associationWithName:(NSString *)identifier;
 - (NSArray *)activitiesForAssocation:(Association *)association;
 - (NSArray *)newsItemsForAssocation:(Association *)association;
 

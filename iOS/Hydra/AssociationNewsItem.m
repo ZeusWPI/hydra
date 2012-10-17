@@ -9,6 +9,7 @@
 #import "AssociationNewsItem.h"
 #import <RestKit/RestKit.h>
 #import "NSString+Utilities.h"
+#import "AssociationStore.h"
 
 @implementation AssociationNewsItem
 
@@ -39,6 +40,11 @@
 - (void)setBody:(NSString *)newBody
 {
     _body = [newBody stringByStrippingCDATA];
+}
+
+- (Association *)association
+{
+    return [[AssociationStore sharedStore] associationWithName:self.associationId];
 }
 
 @end
