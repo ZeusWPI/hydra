@@ -14,6 +14,7 @@
 #import "NewsViewController.h"
 #import "ActivityViewController.h"
 #import "TestFlight.h"
+#import "UrgentPlayer.h"
 
 @interface DashboardViewController () <UITextFieldDelegate>
 
@@ -120,8 +121,12 @@
 
 - (void)configureMoveDetectionForMove:(NSUInteger)move
 {
-    // TODO: replace by something cool
     if (move == [self.requiredMoves count]) {
+        
+    	AudioStreamer *urgentPlayer = [AudioStreamer urgentPlayer];
+        [urgentPlayer start];
+        //TODO continue playing when app quits.
+        
         ULog(@"Congratulations, you won the game!");
         move = 0;
     }
