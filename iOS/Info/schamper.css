@@ -2,8 +2,8 @@ body{
 	font-family:Arial, sans-serif;
 	font-size:11px;
 	line-height:20px;
-	margin: 0 5px;
 	padding: 0;
+    background: url('schamper-bg.png');
 }
 
 h1 {
@@ -12,15 +12,14 @@ h1 {
     font-size:26px;
     text-transform: uppercase;
     text-align: center;
-    margin: 6px 0 2px 0;
+    margin: 6px 3px 2px;
 }
  
 div.authorAndDate {
     color:#A9A9A9;
 	font-size:9pt;
 	font-weight:300;
-	margin-bottom:4px;
-	margin-top:-4px;
+	margin: 0 3px;
     text-align: center;
 }
 
@@ -28,6 +27,6 @@ div.content {
     font-family:Georgia, sans-serif;
     font-size:11pt;
     line-height:1.2;
-    padding:0px 5px 5px;
     text-align:left;
+	margin: 5px 3px;
 }

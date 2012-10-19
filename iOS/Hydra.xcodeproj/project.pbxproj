@@ -28,6 +28,7 @@
 		F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0015B9858900C4C5DF /* resto-closed.jpg */; };
 		F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */; };
 		F533DABA16315E87001269A8 /* schamper.css in Resources */ = {isa = PBXBuildFile; fileRef = F533DAB916315E87001269A8 /* schamper.css */; };
+		F533DABC163163E2001269A8 /* schamper-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F533DABB163163E2001269A8 /* schamper-bg.png */; };
 		F53D248A159DB50800F408AB /* header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D2489159DB50800F408AB /* header-bg.png */; };
 		F53D248C159DB51A00F408AB /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248B159DB51A00F408AB /* hydra.png */; };
 		F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F54B160015B7FFE6000A4407 /* resto-logo.png */; };
@@ -214,6 +215,7 @@
 		F5329E0015B9858900C4C5DF /* resto-closed.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "resto-closed.jpg"; sourceTree = "<group>"; };
 		F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "resto-closed@2x.jpg"; sourceTree = "<group>"; };
 		F533DAB916315E87001269A8 /* schamper.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = schamper.css; sourceTree = "<group>"; };
+		F533DABB163163E2001269A8 /* schamper-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schamper-bg.png"; sourceTree = "<group>"; };
 		F53D2489159DB50800F408AB /* header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg.png"; sourceTree = "<group>"; };
 		F53D248B159DB51A00F408AB /* hydra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hydra.png; sourceTree = "<group>"; };
 		F54B160015B7FFE6000A4407 /* resto-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resto-logo.png"; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 				F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */,
 				F54B160015B7FFE6000A4407 /* resto-logo.png */,
 				F54B160115B7FFE6000A4407 /* resto-logo@2x.png */,
+				F533DABB163163E2001269A8 /* schamper-bg.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -862,6 +865,7 @@
 				F5D3B612162EF02F00698C3E /* button-feedback.png in Resources */,
 				F5D3B613162EF02F00698C3E /* button-feedback@2x.png in Resources */,
 				F533DABA16315E87001269A8 /* schamper.css in Resources */,
+				F533DABC163163E2001269A8 /* schamper-bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

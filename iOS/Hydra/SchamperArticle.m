@@ -22,6 +22,7 @@
     if (self = [super init]) {
         self.title = [decoder decodeObjectForKey:@"title"];
         self.link = [decoder decodeObjectForKey:@"link"];
+        self.date = [decoder decodeObjectForKey:@"date"];
         self.author = [decoder decodeObjectForKey:@"author"];
         self.body = [decoder decodeObjectForKey:@"body"];
     }
@@ -32,6 +33,7 @@
 {
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeObject:self.link forKey:@"link"];
+    [coder encodeObject:self.date forKey:@"date"];
     [coder encodeObject:self.author forKey:@"author"];
     [coder encodeObject:self.body forKey:@"body"];
 }
