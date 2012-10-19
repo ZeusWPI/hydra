@@ -123,7 +123,7 @@
 {
     if (move == [self.requiredMoves count]) {
         
-    	AudioStreamer *urgentPlayer = [AudioStreamer urgentPlayer];
+    	UrgentPlayer *urgentPlayer = [UrgentPlayer sharedPlayer];
         [urgentPlayer start];
         //TODO continue playing when app quits.
         

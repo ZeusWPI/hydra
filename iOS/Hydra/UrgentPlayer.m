@@ -8,17 +8,17 @@
 
 #import "UrgentPlayer.h"
 
-@implementation AudioStreamer (UrgentPlayer)
+@implementation UrgentPlayer
 
-static AudioStreamer* _urgentPlayer = nil;
-
-+ (AudioStreamer* )urgentPlayer
++ (UrgentPlayer *)sharedPlayer
 {
-    if(!_urgentPlayer) {
+    static UrgentPlayer *urgentPlayer = nil;
+    if(!urgentPlayer) {
+        // TODO: use m3u
         NSURL *url = [NSURL URLWithString:@"http://195.10.10.207/urgent/high.mp3?GKID=527afc3a195e11e2a7f800163e914f68&fspref=aHR0cDovL3d3dy51cmdlbnQuZm0vbHVpc3Rlcm9ubGluZQ%3D%3D"];
-        _urgentPlayer = [[AudioStreamer alloc] initWithURL:url];
+        urgentPlayer = [[UrgentPlayer alloc] initWithURL:url];
     }
-    return _urgentPlayer;
+    return urgentPlayer;
 }
 
 @end

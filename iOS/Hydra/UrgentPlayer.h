@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "AudioStreamer.h"
 
-@interface AudioStreamer (UrgentPlayer)
+@interface UrgentPlayer : AudioStreamer
 
-+ (AudioStreamer* )urgentPlayer;
++ (UrgentPlayer *)sharedPlayer;
 
 @end

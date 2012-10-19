@@ -396,8 +396,6 @@
 		3B93FBA01630942500C962DC /* Urgent */ = {
 			isa = PBXGroup;
 			children = (
-				3B93FBA2163094A800C962DC /* AudioStreamer.h */,
-				3B93FBA3163094A800C962DC /* AudioStreamer.m */,
 				3B93FBA81630969900C962DC /* UrgentPlayer.h */,
 				3B93FBA91630969900C962DC /* UrgentPlayer.m */,
 			);
@@ -498,6 +496,7 @@
 		F5BAEC7B1518868100F6A1B1 = {
 			isa = PBXGroup;
 			children = (
+				F5CFDF851631597E008CBF98 /* External */,
 				F5BAEC901518868200F6A1B1 /* Hydra */,
 				F5BAEC911518868200F6A1B1 /* Resources */,
 				F5BAECB41518868200F6A1B1 /* HydraTests */,
@@ -596,6 +595,15 @@
 				F5BC3D8A162EB91F00E4A902 /* TestFlight.h */,
 			);
 			name = TestFlight;
+			sourceTree = "<group>";
+		};
+		F5CFDF851631597E008CBF98 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				3B93FBA2163094A800C962DC /* AudioStreamer.h */,
+				3B93FBA3163094A800C962DC /* AudioStreamer.m */,
+			);
+			path = External;
 			sourceTree = "<group>";
 		};
 		F5EBF119159E04B500EB5D26 /* ViewControllers */ = {
