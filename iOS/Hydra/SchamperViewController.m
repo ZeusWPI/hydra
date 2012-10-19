@@ -10,7 +10,6 @@
 #import "SchamperStore.h"
 #import "SchamperArticle.h"
 #import "SchamperDetailViewController.h"
-#import "NSDate+Utilities.h"
 
 @interface SchamperViewController ()
 
@@ -103,11 +102,5 @@
     SchamperDetailViewController *controller = [[SchamperDetailViewController alloc] initWithArticle:article];
     [self.navigationController pushViewController:controller animated:YES];
 }
-/* Does not work right
-- (NSString *) formatDate: (NSDate *) date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    return [formatter stringFromDate:date];
-}
-*/
+
 @end
