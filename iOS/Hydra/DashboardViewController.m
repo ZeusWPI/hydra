@@ -127,7 +127,7 @@
         [urgentPlayer start];
         //TODO continue playing when app quits.
         
-        ULog(@"Congratulations, you won the game!");
+        UILog(@"Congratulations, you won the game!");
         move = 0;
     }
     self.movesPerformed = move;
