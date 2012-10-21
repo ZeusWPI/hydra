@@ -1,8 +1,8 @@
 body {
-	font-family: Arial, sans-serif;
-	font-size: 11px;
-	line-height: 20px;
-	margin: 0; padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.2;
+    margin: 0; padding: 0;
     background: #fdfdfd;
 }
 
@@ -15,8 +15,8 @@ header {
 }
 
 h1 {
-    font-family: Lucida Grande, Trebuchet MS, Arial, sans-serif;
-	line-height: 28px;
+    font-family: 'Lucida Grande', 'Trebuchet MS', Arial, sans-serif;
+    line-height: 28px;
     font-size: 26px;
     text-transform: uppercase;
     text-align: center;
@@ -25,9 +25,9 @@ h1 {
 }
 
 .meta {
-	font-size: 13px;
-	font-weight: 300;
-	margin: 3px 3px 0;
+    font-size: 13px;
+    font-weight: 300;
+    margin: 8px 5px 5px;
     text-align: center;
     text-shadow: #333 1px 1px 1px;
 }
@@ -35,13 +35,12 @@ h1 {
 .content {
     font-family: Georgia, sans-serif;
     font-size: 15px;
-    line-height: 1.2;
     text-align: left;
-	margin: 5px 8px;
+    margin: 5px 8px;
 }
 
 a {
-	color:#e63c0e;
-	text-decoration:none;
+    color: #e63c0e;
+    text-decoration: none;
 }
 
