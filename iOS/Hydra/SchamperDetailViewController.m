@@ -33,7 +33,7 @@
     html = [html stringByAppendingString:@"</h1><div class='authorAndDate'>"];
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd MMMM YYYY om hh.mm uur"];
+    [dateFormatter setDateFormat:@"dd MMMM YYYY 'om' hh.mm 'uur'"];
 
     //Date needs to be configured to send the date
     html = [html stringByAppendingString:[dateFormatter stringFromDate:self.article.date]];
