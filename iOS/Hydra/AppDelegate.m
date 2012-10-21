@@ -20,9 +20,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
+#if !TARGET_IPHONE_SIMULATOR
     [TestFlight takeOff:TESTFLIGHT_TOKEN];
-    // TODO: remove this from app store build
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
 
     // Create and setup controllers
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];

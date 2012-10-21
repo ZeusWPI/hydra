@@ -27,37 +27,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     
-    // Do any additional setup after loading the view.
-    NSString *html = [@"<head><link rel='stylesheet' type='text/css' href='schamper.css' /></head><body><h1>" stringByAppendingString:self.article.title];
-    html = [html stringByAppendingString:@"</h1><div class='authorAndDate'>"];
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd MMMM YYYY 'om' hh.mm 'uur'"];
+    dateFormatter.dateFormat = @"dd MMMM YYYY 'om' hh.mm 'uur'";
 
-    //Date needs to be configured to send the date
-    html = [html stringByAppendingString:[dateFormatter stringFromDate:self.article.date]];
-    html = [html stringByAppendingString:@" door "];
-    html = [html stringByAppendingString:self.article.author];
-    html = [html stringByAppendingString:@"</div><div class='buttons'><a href='hydra://back'>Back</a></div>"];
-    html = [html stringByAppendingString:@"<div class='content'"];
-    html = [html stringByAppendingString:self.article.body];
-    html = [html stringByAppendingString:@"</div></body>"];
+    NSString *html = [NSString stringWithFormat:
+        @"<head><link rel='stylesheet' type='text/css' href='schamper.css' /></head>"
+        @"<body>"
+            @"<header><h1>%@</h1><p class='meta'>%@ door %@</div></header>"
+            @"<div class='content'>%@</div>"
+        @"</body>",
+        self.article.title, [dateFormatter stringFromDate:self.article.date],
+        self.article.author, self.article.body];
 
-    NSString *path = [[NSBundle mainBundle] bundlePath];
-    NSURL *baseURL = [NSURL fileURLWithPath:path];
-
-    [self.webView loadHTMLString: html baseURL: baseURL];
+    NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+    [self.webView loadHTMLString:html baseURL:bundeUrl];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
+    self.navigationController.navigationBar.translucent = NO;
 }
  
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -68,7 +63,8 @@
         }
         return NO;
     }
-    return YES;
+
+    return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
 }
 
 @end

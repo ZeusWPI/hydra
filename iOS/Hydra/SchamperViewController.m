@@ -52,9 +52,6 @@
 {
     [super viewDidUnload];
 
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -80,9 +77,15 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
+    static NSDateFormatter *dateFormatter = nil;
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"dd MMMM YYYY 'door' ";
+    }
+
     SchamperArticle *article = (self.articles)[indexPath.row];
     cell.textLabel.text = article.title;
-    cell.detailTextLabel.text = article.author;
+    cell.detailTextLabel.text = [[dateFormatter stringFromDate:article.date] stringByAppendingString:article.author];
     
     return cell;
 }

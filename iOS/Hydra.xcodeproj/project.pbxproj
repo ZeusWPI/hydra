@@ -34,6 +34,7 @@
 		F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F54B160015B7FFE6000A4407 /* resto-logo.png */; };
 		F54B160315B7FFE6000A4407 /* resto-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54B160115B7FFE6000A4407 /* resto-logo@2x.png */; };
 		F54B160715B8118C000A4407 /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = F54B160615B8118C000A4407 /* UIColor+AppColors.m */; };
+		F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F557EA45163431FC00635CDD /* schamper-bg@2x.png */; };
 		F55895C415B60F450001B399 /* RestoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C315B60F450001B399 /* RestoMenu.m */; };
 		F55895C715B610140001B399 /* RestoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C615B610130001B399 /* RestoStore.m */; };
 		F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */; };
@@ -222,6 +223,7 @@
 		F54B160115B7FFE6000A4407 /* resto-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resto-logo@2x.png"; sourceTree = "<group>"; };
 		F54B160515B8118C000A4407 /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
 		F54B160615B8118C000A4407 /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
+		F557EA45163431FC00635CDD /* schamper-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schamper-bg@2x.png"; sourceTree = "<group>"; };
 		F55895C215B60F450001B399 /* RestoMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMenu.h; sourceTree = "<group>"; };
 		F55895C315B60F450001B399 /* RestoMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenu.m; sourceTree = "<group>"; };
 		F55895C515B6100C0001B399 /* RestoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoStore.h; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				F54B160015B7FFE6000A4407 /* resto-logo.png */,
 				F54B160115B7FFE6000A4407 /* resto-logo@2x.png */,
 				F533DABB163163E2001269A8 /* schamper-bg.png */,
+				F557EA45163431FC00635CDD /* schamper-bg@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -484,7 +487,7 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		F59D170615BD7CE500B6F892 /* Info */ = {
+		F59D170615BD7CE500B6F892 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				F59D170715BD7CE500B6F892 /* info-content.plist */,
@@ -496,7 +499,7 @@
 				F533DAB916315E87001269A8 /* schamper.css */,
 				F59D170F15BD813E00B6F892 /* webview.css */,
 			);
-			path = Info;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		F5BAEC7B1518868100F6A1B1 = {
@@ -570,7 +573,7 @@
 				F5D36BB515B5BD2A00B6E017 /* Icon.png */,
 				F5D36BB615B5BD2A00B6E017 /* Icon@2x.png */,
 				F53D2488159DB4DB00F408AB /* Images */,
-				F59D170615BD7CE500B6F892 /* Info */,
+				F59D170615BD7CE500B6F892 /* Resources */,
 				F5BAEC961518868200F6A1B1 /* main.m */,
 			);
 			name = Resources;
@@ -866,6 +869,7 @@
 				F5D3B613162EF02F00698C3E /* button-feedback@2x.png in Resources */,
 				F533DABA16315E87001269A8 /* schamper.css in Resources */,
 				F533DABC163163E2001269A8 /* schamper-bg.png in Resources */,
+				F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
