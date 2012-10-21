@@ -12,6 +12,12 @@
 #import "NSString+Utilities.h"
 #import "NSDate+Utilities.h"
 
+@interface AssociationActivity ()
+
+@property (nonatomic, strong) NSDate *date;
+
+@end
+
 @implementation AssociationActivity
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
@@ -54,6 +60,29 @@
 - (Association *)association
 {
     return [[AssociationStore sharedStore] associationWithName:self.associationId];
+}
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super init]) {
+        self.associationId = [coder decodeObjectForKey:@"associationId"];
+        self.title = [coder decodeObjectForKey:@"title"];
+        self.location = [coder decodeObjectForKey:@"location"];
+        _start = [coder decodeObjectForKey:@"start"];
+        _end = [coder decodeObjectForKey:@"end"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.associationId forKey:@"associationId"];
+    [coder encodeObject:self.title forKey:@"title"];
+    [coder encodeObject:self.location forKey:@"location"];
+    [coder encodeObject:self.start forKey:@"start"];
+    [coder encodeObject:self.end forKey:@"end"];
 }
 
 @end

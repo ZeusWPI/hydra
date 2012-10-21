@@ -10,7 +10,7 @@
 
 @class RKObjectMappingProvider, Association;
 
-@interface AssociationNewsItem : NSObject
+@interface AssociationNewsItem : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *associationId;
 @property (nonatomic, strong) NSString *title;

@@ -17,10 +17,11 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDate *lastModified = [userDefaults valueForKey:AssociationsLastUpdatedPref];
+    NSDate *currentVersion = [self currentVersion];
     
-    if (!associations || [[self currentVersion] isLaterThanDate:lastModified]) {
+    if (!associations || [currentVersion isLaterThanDate:lastModified]) {
         associations = [self loadFromPlist];
-        [userDefaults setObject:[self currentVersion] forKey:AssociationsLastUpdatedPref];
+        [userDefaults setObject:currentVersion forKey:AssociationsLastUpdatedPref];
     }
     return associations;
 }
@@ -47,9 +48,9 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
         NSDictionary *props = bundled[i];
 
         Association *assoc = [[Association alloc] init];
-        [assoc setDisplayName:props[@"displayName"]];
-        [assoc setFullName:props[@"fullName"]];
-        [assoc setInternalName:props[@"internalName"]];
+        assoc.displayName = props[@"displayName"];
+        assoc.fullName = props[@"fullName"];
+        assoc.internalName = props[@"internalName"];
 
         [associations insertObject:assoc atIndex:i];
     }
@@ -60,6 +61,27 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
 {
     return [NSString stringWithFormat:@"<Association: %@>", self.displayName];
 }
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super init]) {
+        self.displayName = [coder decodeObjectForKey:@"displayName"];
+        self.fullName = [coder decodeObjectForKey:@"fullName"];
+        self.internalName = [coder decodeObjectForKey:@"internalName"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.displayName forKey:@"displayName"];
+    [coder encodeObject:self.fullName forKey:@"fullName"];
+    [coder encodeObject:self.internalName forKey:@"internalName"];
+}
+
+#pragma mark - NSCopying
 
 - (NSUInteger)hash
 {

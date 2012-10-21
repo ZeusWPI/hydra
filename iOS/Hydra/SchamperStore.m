@@ -31,7 +31,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     static SchamperStore *sharedInstance = nil;
     if (!sharedInstance) {
         // Try restoring the store from archive
-        sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self articleCachePath]];
+        sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:self.articleCachePath];
         if (!sharedInstance) sharedInstance = [[SchamperStore alloc] init];
     }
     return sharedInstance;
@@ -77,8 +77,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
 - (void)saveStoreCache
 {
-    NSString *cachePath = [[self class] articleCachePath];
-    [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
+    [NSKeyedArchiver archiveRootObject:self toFile:self.class.articleCachePath];
 }
 
 #pragma mark - Article fetching

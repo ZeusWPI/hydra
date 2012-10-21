@@ -10,12 +10,11 @@
 
 @class RKObjectMappingProvider, Association;
 
-@interface AssociationActivity : NSObject
+@interface AssociationActivity : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *associationId;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *location;
-@property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;
 

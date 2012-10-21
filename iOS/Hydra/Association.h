@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Association : NSObject <NSCopying>
+@interface Association : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic, strong) NSString *displayName;
 @property (nonatomic, strong) NSString *fullName;

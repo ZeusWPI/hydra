@@ -47,4 +47,25 @@
     return [[AssociationStore sharedStore] associationWithName:self.associationId];
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super init]) {
+        self.associationId = [coder decodeObjectForKey:@"associationId"];
+        self.title = [coder decodeObjectForKey:@"title"];
+        self.date = [coder decodeObjectForKey:@"date"];
+        self.body = [coder decodeObjectForKey:@"body"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.associationId forKey:@"associationId"];
+    [coder encodeObject:self.title forKey:@"title"];
+    [coder encodeObject:self.date forKey:@"date"];
+    [coder encodeObject:self.body forKey:@"body"];
+}
+
 @end

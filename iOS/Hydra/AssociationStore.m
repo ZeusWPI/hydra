@@ -41,7 +41,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     static AssociationStore *sharedInstance = nil;
     if (!sharedInstance) {
         // Try restoring the store from archive
-        //sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self assocationCachePath]];
+        sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:self.storeCachePath];
         if (!sharedInstance) sharedInstance = [[AssociationStore alloc] init];
     }
     return sharedInstance;
@@ -53,24 +53,40 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     if (self) {
         self.associations = [Association updateAssociations:nil];
         self.newsItems = [[NSMutableDictionary alloc] init];
-        self.activeRequests = [[NSMutableDictionary alloc] init];
-        [self initializeObjectManager];
+        self.activities = [[NSDictionary alloc] init];
+        self.activitiesVersion = 0;
+        [self sharedInit];
     }
     return self;
+}
+
+- (void)sharedInit
+{
+    self.activeRequests = [[NSMutableDictionary alloc] init];
+    [self initializeObjectManager];
 }
 
 #pragma mark - Caching
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
-    // TODO
-    [self initializeObjectManager];
-    return nil;
+    if (self = [super init]) {
+        NSArray *associations = [decoder decodeObjectForKey:@"associations"];
+        self.associations = [Association updateAssociations:associations];
+        self.newsItems = [decoder decodeObjectForKey:@"newsItems"];
+        self.activities = [decoder decodeObjectForKey:@"activities"];
+        self.activitiesVersion = [decoder decodeIntegerForKey:@"activitiesVersion"];
+        [self sharedInit];
+    }
+    return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    // TODO
+    [coder encodeObject:self.associations forKey:@"associations"];
+    [coder encodeObject:self.newsItems forKey:@"newsItems"];
+    [coder encodeObject:self.activities forKey:@"activities"];
+    [coder encodeInteger:self.activitiesVersion forKey:@"activitiesVersion"];
 }
 
 + (NSString *)storeCachePath
@@ -85,8 +101,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)updateStoreCache
 {
-    NSString *cachePath = [[self class] storeCachePath];
-    [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
+    // TODO: prune old items
+    [NSKeyedArchiver archiveRootObject:self toFile:self.class.storeCachePath];
 }
 
 #pragma mark - Remote data management and requests
@@ -95,6 +111,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 {
     NSURL *url = [NSURL URLWithString:kVersoResourceStatePath];
     if (self.activeRequests[url]) return;
+
+    DLog(@"Checking if resources were updated");
 
     RKClient *client = [self.objectManager client];
     RKRequest *stateRequest = [client requestWithResourcePath:kVersoResourceStatePath];
@@ -109,7 +127,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
             NSDictionary *root = [result allValues][0];
             NSMutableDictionary *state = [[NSMutableDictionary alloc] init];
             for (NSDictionary *entry in [root allValues][0]) {
-                [state setValue:entry forKey:entry[@"name"]];
+                state[entry[@"name"]] = entry;
             }
             blockSelf.resourceState = state;
             block(state);
@@ -138,12 +156,12 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
     else {
         // Check the information in versions.xml
-        NSDictionary *state = [self.resourceState valueForKey:resourceId];
-        NSUInteger latestVersion = [[state valueForKey:@"version"] intValue];
+        NSDictionary *state = self.resourceState[resourceId];
 
+        NSUInteger latestVersion = [state[@"version"] intValue];
         if (latestVersion > version) {
             // Only allow one request at a time
-            NSString *path = [@"/" stringByAppendingString:[state valueForKey:@"path"]];
+            NSString *path = [@"/" stringByAppendingString:state[@"path"]];
             if (!(self.activeRequests)[path]) {
                 self.activeRequests[path] = target;
                 NSLog(@"Resource \"%@\" is out-of-date. Updating...", resourceId);
@@ -180,13 +198,14 @@ static NSString *const ActivitiesResource = @"all_activities";
 {
     [self fetchResourceUpdate:ActivitiesResource forTarget:[NSNull null]
                   withVersion:self.activitiesVersion];
-    return [self.activities allValues];
+    return nil;
+    //return [self.activities allValues];
 }
 
 - (NSArray *)newsItemsForAssocation:(Association *)association
 {
     NSDictionary *associationState = self.newsItems[association];
-    [self fetchResourceUpdate:[association internalName] forTarget:association
+    [self fetchResourceUpdate:association.internalName forTarget:association
                   withVersion:[associationState[@"version"] intValue]];
 
     return self.newsItems[association][@"contents"];
@@ -245,6 +264,7 @@ static NSString *const ActivitiesResource = @"all_activities";
     // Received Activities
     else {
         // Index received activities by association
+        // TODO: decide on data structure to store activities
         NSMutableDictionary *newActivities = [[NSMutableDictionary alloc] init];
         for (AssociationActivity *activity in objects) {
             NSString *associationId = [activity associationId];
@@ -255,8 +275,8 @@ static NSString *const ActivitiesResource = @"all_activities";
         }
         self.activities = newActivities;
 
-        NSDictionary *state = [self.resourceState valueForKey:ActivitiesResource];
-        self.activitiesVersion = [[state valueForKey:@"version"] intValue];
+        NSDictionary *state = self.resourceState[ActivitiesResource];
+        self.activitiesVersion = [state[@"version"] intValue];
         notification = AssociationStoreDidUpdateActivitiesNotification;
     }
 
@@ -264,7 +284,8 @@ static NSString *const ActivitiesResource = @"all_activities";
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:notification object:self userInfo:userInfo];
 
-    [self.activeRequests removeObjectForKey:[objectLoader resourcePath]];
+    [self.activeRequests removeObjectForKey:objectLoader.resourcePath];
+    [self updateStoreCache];
 }
 
 @end
