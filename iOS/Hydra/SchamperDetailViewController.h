@@ -12,5 +12,5 @@
 @interface SchamperDetailViewController : WebViewController
 
 - (id)initWithArticle:(SchamperArticle *)article;
-- (NSString *) formatDate: (NSDate *)date;
+
 @end
