@@ -61,18 +61,14 @@
 }
  
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSString *url = [[request URL] absoluteString];
-    static NSString *urlPrefix = @"hydra://";
-    if([url hasPrefix:urlPrefix]) {
-        NSString *command = [url substringFromIndex:[urlPrefix length]];
-        if([command isEqualToString:@"back"]) {
+    NSURL *url = [request URL];
+    if ([url.scheme isEqualToString:@"hydra"]) {
+        if ([url.host isEqualToString:@"back"]) {
             [self.navigationController popViewControllerAnimated:YES];
         }
         return NO;
     }
-    else {
-        return YES;
-    }
+    return YES;
 }
 
 @end
