@@ -14,6 +14,6 @@
 @property (nonatomic, strong) NSDate *day;
 @property (nonatomic, strong) RestoMenu *menu;
 
-- (id)initWithRestoMenu:(RestoMenu *)menu andDate:(NSDate *)date;
+- (id)initWithRestoMenu:(RestoMenu *)menu andDate:(NSDate *)date inFrame:(CGRect)frame;
 
 @end

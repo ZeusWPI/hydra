@@ -91,19 +91,22 @@
     [pageControl setCurrentPage:2];
     [scrollView setContentOffset:CGPointMake(viewSize.width, 0) animated:NO];
 
-    // Pages
     [self setupPageStyle:infoPage];
 
+    // Pages
     for (NSUInteger i = 0; i < 3; i++) {
         // 20 pixels padding on each edge
-
         CGRect frame = CGRectMake(viewSize.width * (i + 1) + 20, 20,
                                   viewSize.width - 40, viewSize.height - 60);
 
+        // the superview necessary to draw shadows, view itself uses maskToBounds for rounded corners
         UIView *pageViewHolder = [[UIView alloc] initWithFrame:frame];
+        pageViewHolder.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [scrollView addSubview:pageViewHolder];
 
-        RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[self.menus objectAtIndex:i] andDate:[days objectAtIndex:i]];
+        RestoMenuView *pageView = [[RestoMenuView alloc] initWithRestoMenu:[self.menus objectAtIndex:i]
+                                                                   andDate:[days objectAtIndex:i]
+                                                                   inFrame:pageViewHolder.bounds];
         if(i == 0) {
             currentView = pageView;
         } else if(i == 1) {
@@ -112,7 +115,6 @@
             leftView = pageView;
         }
         [pageViewHolder addSubview:pageView];
-        //superview necessary to draw shadows, view itself uses maskToBounds for rounded corners
         [self setupPageStyle:pageViewHolder];
     }
 }
@@ -123,6 +125,7 @@
 {
     CALayer *layer = [pageHolder layer];
     [layer setCornerRadius:kPageCornerRadius];
+    
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:layer.bounds
                                                           cornerRadius:kPageCornerRadius];
     [layer setShadowPath:[shadowPath CGPath]];
@@ -130,9 +133,14 @@
     [layer setShadowOpacity:0.3];
     [layer setShadowOffset:CGSizeMake(1.5, 3.0)];
 
-    UIView *contentView = [[pageHolder subviews] objectAtIndex:0];
+    UIView *contentView = pageHolder.subviews[0];
     [[contentView layer] setCornerRadius:kPageCornerRadius];
     [[contentView layer] setMasksToBounds:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
 }
 
 - (void)viewDidUnload

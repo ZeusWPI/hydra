@@ -26,8 +26,6 @@
 
 #pragma mark - Constants
 
-#define kTableViewHeight 356
-#define kTableViewWidth 280
 #define kDateHeaderHeight 45
 #define kSectionHeaderHeight 40
 #define kSectionFooterHeight 20
@@ -35,9 +33,8 @@
 
 #pragma mark - Properties and init
 
-- (id)initWithRestoMenu:(id)menu andDate:(NSDate *)day
+- (id)initWithRestoMenu:(id)menu andDate:(NSDate *)day inFrame:(CGRect)frame
 {
-    CGRect frame = CGRectMake(0, 0, kTableViewWidth, kTableViewHeight);
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
         self.dataSource = self;
@@ -69,6 +66,8 @@
 
 - (void)loadView
 {
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = self.center;
     
@@ -77,14 +76,14 @@
     self.closedView = [[UIImageView alloc] initWithFrame:closedFrame];
     self.closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
     self.closedView.contentMode = UIViewContentModeCenter;
-    
-    CGRect headerFrame = CGRectMake(0, 0, kTableViewWidth, kDateHeaderHeight);
-    UIImageView *tableViewHeader = [[UIImageView alloc] initWithFrame:headerFrame];
-    tableViewHeader.contentMode = UIViewContentModeScaleToFill;
-    tableViewHeader.image = [UIImage imageNamed:@"header-bg"];
-    self.tableHeaderView = tableViewHeader;
 
-    CGRect dateHeaderFrame = CGRectMake(0, 3, kTableViewWidth, kDateHeaderHeight - 3);
+    CGRect headerFrame = CGRectMake(0, 0, self.bounds.size.width, kDateHeaderHeight);
+    UIImageView *header = [[UIImageView alloc] initWithFrame:headerFrame];
+    header.contentMode = UIViewContentModeScaleToFill;
+    header.image = [UIImage imageNamed:@"header-bg"];
+    self.tableHeaderView = header;
+
+    CGRect dateHeaderFrame = CGRectMake(0, 3, headerFrame.size.width, headerFrame.size.height - 3);
     self.dateHeader = [[UILabel alloc] initWithFrame:dateHeaderFrame];
     self.dateHeader.font = [UIFont boldSystemFontOfSize:19];
     self.dateHeader.textAlignment = UITextAlignmentCenter;
@@ -92,7 +91,7 @@
     self.dateHeader.backgroundColor = [UIColor clearColor];
     self.dateHeader.shadowColor = [UIColor blackColor];
     self.dateHeader.shadowOffset = CGSizeMake(0, 2);
-    [tableViewHeader addSubview:self.dateHeader];
+    [header addSubview:self.dateHeader];
     
     self.bounces = NO;
     self.rowHeight = kRowHeight;

@@ -3,11 +3,11 @@
 Android and iOS application providing all the information a student at [Ghent
 University](http://www.ugent.be/) needs.
 
-This application was developed by [Zeus WPI](http://zeus.ugent.be), the computer science working group. Please contact [bestuur@zeus.ugent.be](mailto:bestuur@zeus.ugent.be) with any questions.
+This application was developed by [Zeus WPI](http://zeus.ugent.be), the computer science working group. Please contact [hydra@zeus.ugent.be](mailto:bestuur@zeus.ugent.be) with any questions.
 
 ## API
 
-The scraper pulls the menu from the UGent website and parses into a workable json format. The current API is located at http://zeus.ugent.be/~blackskad/resto/api/0.1/ The number at the end of the URL indicates the version of the API. Currently the API is at version 0.1
+The scraper pulls the menu from the UGent website and parses into a workable json format. The current API is located at http://zeus.ugent.be/hydra/api/1.0/. The number at the end of the URL indicates the version of the API. Currently the API is at version 1.0
 
 The API currently only supports the JSON format.
 
@@ -63,16 +63,17 @@ The API currently only supports the JSON format.
 
 ## Contributors
 
-In alphabetical order:
+In order of first contribution:
 
-* Pieter De Baets
-* Yasser Deceukelier
-* Gilles Jacobs
 * Thomas Meire
-* Tom Naessens
-* Jens Panneel
-* Jasper Van der Jeugt
 * Toon Willems
+* Jasper Van der Jeugt
+* Pieter De Baets
+* Gilles Jacobs
+* Jens Panneel
+* Tom Naessens
+* Yasser Deceukelier
+* Feliciaan De Palmenaer
 
 ## Copyright
 
