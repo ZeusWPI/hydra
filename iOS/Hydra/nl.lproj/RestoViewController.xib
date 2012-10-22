@@ -44,7 +44,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIView" id="1000473790">
 								<reference key="NSNextResponder" ref="678971547"/>
-								<int key="NSvFlags">309</int>
+								<int key="NSvFlags">277</int>
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="IBUIView" id="829694442">
 										<reference key="NSNextResponder" ref="1000473790"/>
@@ -124,7 +124,7 @@ MzAgdG90IDIxdS4</string>
 												<string key="NSFrame">{{18, 254}, {29, 26}}</string>
 												<reference key="NSSuperview" ref="829694442"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="672275142"/>
+												<reference key="NSNextKeyView" ref="492656036"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIOpaque">NO</bool>
 												<bool key="IBUIClipsSubviews">YES</bool>
@@ -186,6 +186,7 @@ MzAgdG90IDIxdS4</string>
 												<string key="NSFrame">{{55, 254}, {205, 42}}</string>
 												<reference key="NSSuperview" ref="829694442"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="932888339"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIOpaque">NO</bool>
 												<bool key="IBUIClipsSubviews">YES</bool>
@@ -216,6 +217,7 @@ MzAgdG90IDIxdS4</string>
 												<string key="NSFrame">{{18, 294}, {29, 26}}</string>
 												<reference key="NSSuperview" ref="829694442"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="212225506"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIOpaque">NO</bool>
 												<bool key="IBUIClipsSubviews">YES</bool>
@@ -238,6 +240,7 @@ MzAgdG90IDIxdS4</string>
 												<string key="NSFrame">{{55, 294}, {205, 42}}</string>
 												<reference key="NSSuperview" ref="829694442"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="672275142"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="IBUIOpaque">NO</bool>
 												<bool key="IBUIClipsSubviews">YES</bool>
@@ -259,6 +262,7 @@ MzAgdG90IDIxdS4</string>
 										<string key="NSFrameSize">{280, 356}</string>
 										<reference key="NSSuperview" ref="1000473790"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="804300470"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">3</int>
@@ -273,7 +277,7 @@ MzAgdG90IDIxdS4</string>
 								<string key="NSFrame">{{20, 20}, {280, 356}}</string>
 								<reference key="NSSuperview" ref="678971547"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="804300470"/>
+								<reference key="NSNextKeyView" ref="829694442"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -523,6 +527,25 @@ MzAgdG90IDIxdS4</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</object>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="infoPage">UIView</string>
+						<string key="pageControl">UIPageControl</string>
+						<string key="scrollView">UIScrollView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="infoPage">
+							<string key="name">infoPage</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pageControl">
+							<string key="name">pageControl</string>
+							<string key="candidateClassName">UIPageControl</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="scrollView">
+							<string key="name">scrollView</string>
+							<string key="candidateClassName">UIScrollView</string>
+						</object>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/RestoViewController.h</string>

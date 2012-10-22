@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "RestoMenu.h"
 
-@interface RestoMenuView : UITableView <UITableViewDataSource, UITableViewDelegate>
+@interface RestoMenuView : UIView
 
-@property (nonatomic, strong) NSDate *day;
-@property (nonatomic, strong) RestoMenu *menu;
-
-- (id)initWithRestoMenu:(RestoMenu *)menu andDate:(NSDate *)date inFrame:(CGRect)frame;
+- (id)initWithFrame:(CGRect)frame;
+- (void)configureWithDay:(NSDate *)day andMenu:(RestoMenu *)menu;
 
 @end

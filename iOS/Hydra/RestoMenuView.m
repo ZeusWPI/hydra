@@ -9,16 +9,20 @@
 #import "RestoMenuView.h"
 #import "NSDate+Utilities.h"
 
-@interface RestoMenuView ()
+@interface RestoMenuView () <UITableViewDataSource, UITableViewDelegate>
 
-// TODO: vormen dit geen retain-cycles?
-@property (nonatomic, strong) UILabel *dateHeader;
+@property (nonatomic, strong) NSDate *day;
+@property (nonatomic, strong) RestoMenu *menu;
+
+@property (nonatomic, unsafe_unretained) UIView *contentView;
+@property (nonatomic, unsafe_unretained) UILabel *dateHeader;
+@property (nonatomic, unsafe_unretained) UITableView *tableView;
+@property (nonatomic, unsafe_unretained) UIImageView *closedView;
+@property (nonatomic, unsafe_unretained) UIActivityIndicatorView *spinner;
+
 @property (nonatomic, strong) UIView *soupHeader;
 @property (nonatomic, strong) UIView *meatHeader;
 @property (nonatomic, strong) UIView *vegetableHeader;
-
-@property (nonatomic, strong) UIImageView *closedView;
-@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -33,71 +37,70 @@
 
 #pragma mark - Properties and init
 
-- (id)initWithRestoMenu:(id)menu andDate:(NSDate *)day inFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame style:UITableViewStylePlain];
-    if (self) {
-        self.dataSource = self;
-        self.delegate = self;
-        self.menu = menu;
-        self.day = day;
-        
-        [self loadView];
+    if (self = [super initWithFrame:frame]) {
+        [self createView];
     }
     return self;
 }
 
-- (void)setDay:(NSDate *)day
+
+- (void)configureWithDay:(NSDate *)day andMenu:(id)menu
 {
-    if(day != _day) {
-        _day = day;
+    if (![self.day isEqual:day] || ![self.menu isEqual:menu]) {
+        self.day = day;
+        self.menu = (menu != [NSNull null]) ? menu : nil;
         [self reloadData];
     }
 }
 
-- (void)setMenu:(id)menu
-{    
-    if (menu == [NSNull null]) menu = nil;
-    if(menu != _menu) {
-    	_menu = menu;
-        [self reloadData];
-    }
-}
-
-- (void)loadView
+- (void)createView
 {
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.backgroundColor = [UIColor whiteColor];
 
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.spinner.center = self.center;
-    
-    CGRect closedFrame = CGRectMake(0, kDateHeaderHeight, self.bounds.size.width, 
-                                    self.bounds.size.height - 2*kDateHeaderHeight);
-    self.closedView = [[UIImageView alloc] initWithFrame:closedFrame];
-    self.closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
-    self.closedView.contentMode = UIViewContentModeCenter;
-
-    CGRect headerFrame = CGRectMake(0, 0, self.bounds.size.width, kDateHeaderHeight);
+    CGRect headerFrame = CGRectMake(0, 0, self.frame.size.width, kDateHeaderHeight);
     UIImageView *header = [[UIImageView alloc] initWithFrame:headerFrame];
     header.contentMode = UIViewContentModeScaleToFill;
     header.image = [UIImage imageNamed:@"header-bg"];
-    self.tableHeaderView = header;
+    [self addSubview:header];
 
-    CGRect dateHeaderFrame = CGRectMake(0, 3, headerFrame.size.width, headerFrame.size.height - 3);
-    self.dateHeader = [[UILabel alloc] initWithFrame:dateHeaderFrame];
-    self.dateHeader.font = [UIFont boldSystemFontOfSize:19];
-    self.dateHeader.textAlignment = UITextAlignmentCenter;
-    self.dateHeader.textColor = [UIColor whiteColor];
-    self.dateHeader.backgroundColor = [UIColor clearColor];
-    self.dateHeader.shadowColor = [UIColor blackColor];
-    self.dateHeader.shadowOffset = CGSizeMake(0, 2);
-    [header addSubview:self.dateHeader];
-    
-    self.bounces = NO;
-    self.rowHeight = kRowHeight;
-    self.separatorColor = [UIColor clearColor];
-    self.allowsSelection = NO;
-    [self reloadData];
+    CGRect dateHeaderFrame = CGRectMake(0, 3, self.frame.size.width, kDateHeaderHeight - 3);
+    UILabel *dateHeader = [[UILabel alloc] initWithFrame:dateHeaderFrame];
+    dateHeader.font = [UIFont boldSystemFontOfSize:19];
+    dateHeader.textAlignment = UITextAlignmentCenter;
+    dateHeader.textColor = [UIColor whiteColor];
+    dateHeader.backgroundColor = [UIColor clearColor];
+    dateHeader.shadowColor = [UIColor blackColor];
+    dateHeader.shadowOffset = CGSizeMake(0, 2);
+    [header addSubview:dateHeader];
+    self.dateHeader = dateHeader;
+
+    CGRect tableFrame = CGRectMake(0, headerFrame.size.height, self.frame.size.width,
+                                   self.bounds.size.height - headerFrame.size.height);
+    UITableView *tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.bounces = NO;
+    tableView.rowHeight = kRowHeight;
+    tableView.separatorColor = [UIColor clearColor];
+    tableView.allowsSelection = NO;
+    [self addSubview:tableView];
+    self.tableView = tableView;
+
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    spinner.center = self.center;
+    [self addSubview:spinner];
+    self.spinner = spinner;
+
+    CGRect closedFrame = CGRectMake(0, kDateHeaderHeight, self.frame.size.width,
+                                    self.frame.size.height - 2*kDateHeaderHeight);
+    UIImageView *closedView = [[UIImageView alloc] initWithFrame:closedFrame];
+    closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
+    closedView.contentMode = UIViewContentModeCenter;
+    [self addSubview:closedView];
+    self.closedView = closedView;
 }
 
 - (void)reloadData
@@ -114,21 +117,12 @@
                       withString:[[dateString substringToIndex:1] capitalizedString]];
     }
     [self.dateHeader setText:dateString];
-    
-    if (!self.menu) {
-        [self.closedView removeFromSuperview];
-        [self addSubview:self.spinner];
-        [self.spinner startAnimating];
-    }
-    else {
-        [self.spinner removeFromSuperview];
-        [self.spinner stopAnimating];
 
-        if (!self.menu.open) {
-            [self addSubview:self.closedView];
-        } 
-    }
-    [super reloadData];
+    self.spinner.hidden = (self.menu != nil);
+    if (!self.spinner.hidden) [self.spinner startAnimating];
+    self.closedView.hidden = (self.menu == nil || self.menu.open);
+
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view datasource
@@ -140,13 +134,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    if(section == 0) {
-        return 1;
-    } else if (section == 1) {
-        return [self.menu.meat count];
-    } else { //section == 2
-        return [self.menu.vegetables count];
+    switch (section) {
+        case 0: return 1;
+        case 1: return self.menu.meat.count;
+        case 2: return self.menu.vegetables.count;
+        default: return 0;
     }
 }
 
@@ -168,7 +160,7 @@
         cell.detailTextLabel.text = self.menu.soup.price;
     }
     else if (indexPath.section == 1) {
-        RestoMenuItem *item = [self.menu.meat objectAtIndex:indexPath.row];
+        RestoMenuItem *item = (self.menu.meat)[indexPath.row];
         
         if(item.recommended) {
             cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
@@ -182,7 +174,7 @@
     }
     else { // section == 2
         cell.textLabel.font = [UIFont systemFontOfSize:15];
-        cell.textLabel.text = [self.menu.vegetables objectAtIndex:indexPath.row];
+        cell.textLabel.text = (self.menu.vegetables)[indexPath.row];
     }
     
     return cell;
@@ -221,7 +213,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    return (section < 2 ? kSectionFooterHeight : 0);
+    return (section < 2) ? kSectionFooterHeight : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -245,7 +237,7 @@
 
     CGSize textSize = [title sizeWithFont:font];
     NSUInteger padding = (self.bounds.size.width -textSize.width)/2;
-    
+
     CGRect headerFrame = CGRectMake(0, 0, self.bounds.size.width, kSectionHeaderHeight);
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
 
