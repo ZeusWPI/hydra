@@ -68,9 +68,8 @@
 
     // Setup scrollview
     CGSize viewSize = self.scrollView.frame.size;
+    self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), viewSize.height);
     self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);
-    viewSize.width *= self.days.count + 1;
-    self.scrollView.contentSize = viewSize;
 
     // Setup pageControl
     self.pageControlUsed = 0;
@@ -89,7 +88,7 @@
         [self.scrollView addSubview:holderView];
 
         RestoMenuView *pageView = [[RestoMenuView alloc] initWithFrame:holderView.bounds];
-        [pageView configureWithDay:_days[i] andMenu:self.menus[i]];
+        [pageView configureWithDay:self.days[i] andMenu:self.menus[i]];
         [holderView addSubview:pageView];
 
         if(i == 0) {
@@ -100,9 +99,6 @@
             leftView = pageView;
         }
     }
-
-    // Setup sheet style
-    [self viewDidLayoutSubviews];
 }
 
 - (void)viewDidUnload
@@ -271,11 +267,11 @@
 {
     NSInteger currentIndex = MAX(1, self.currentPage);
     if(currentIndex > 1) {
-        [leftView configureWithDay:_days[currentIndex-2] andMenu:self.menus[currentIndex-2]];
+        [leftView configureWithDay:self.days[currentIndex-2] andMenu:self.menus[currentIndex-2]];
     }
-    [currentView configureWithDay:_days[currentIndex-1] andMenu:self.menus[currentIndex-1]];
+    [currentView configureWithDay:self.days[currentIndex-1] andMenu:self.menus[currentIndex-1]];
     if(currentIndex < kRestoDaysShown) {
-        [rightView configureWithDay:_days[currentIndex] andMenu:self.menus[currentIndex]];
+        [rightView configureWithDay:self.days[currentIndex] andMenu:self.menus[currentIndex]];
     }
 }
 
