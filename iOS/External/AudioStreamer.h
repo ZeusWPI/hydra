@@ -170,13 +170,13 @@ extern NSString * const ASStatusChangedNotification;
 #endif
 }
 
-@property AudioStreamerErrorCode errorCode;
-@property (readonly) AudioStreamerState state;
-@property (readonly) double progress;
-@property (readonly) double duration;
-@property (readwrite) UInt32 bitRate;
-@property (readonly) NSDictionary *httpHeaders;
-@property (copy,readwrite) NSString *fileExtension;
+@property (atomic, assign) AudioStreamerErrorCode errorCode;
+@property (atomic, readonly) AudioStreamerState state;
+@property (atomic, readonly) double progress;
+@property (atomic, readonly) double duration;
+@property (atomic, readwrite) UInt32 bitRate;
+@property (atomic, readonly) NSDictionary *httpHeaders;
+@property (atomic, copy, readwrite) NSString *fileExtension;
 
 - (id)initWithURL:(NSURL *)aURL;
 - (void)start;

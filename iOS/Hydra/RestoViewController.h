@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RestoViewController : UIViewController <UIScrollViewDelegate> 
+@interface RestoViewController : UIViewController <UIScrollViewDelegate>
 
-@property (readonly, nonatomic) NSInteger currentPage;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, strong) IBOutlet UIView *infoSheet;
 
 - (IBAction)pageChanged:(id)sender;
 
