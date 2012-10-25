@@ -20,15 +20,12 @@
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSMutableArray *menus;
 
+@property (nonatomic, assign) NSUInteger pageControlUsed;
+@property (nonatomic, readonly) NSInteger currentPage;
+
 @end
 
 @implementation RestoViewController {
-    NSUInteger pageControlUsed;
-
-    IBOutlet UIPageControl *pageControl;
-    IBOutlet UIScrollView *scrollView;
-    IBOutlet UIView *infoPage;
-
     NSInteger oldCurrentIndex;
     RestoMenuView *leftView;
     RestoMenuView *currentView;
@@ -48,25 +45,12 @@
 
 - (NSInteger)currentPage
 {
-    CGFloat contentWidth = scrollView.frame.size.width;
-    NSInteger page = ((scrollView.contentOffset.x - contentWidth / 2) / contentWidth) + 1;
+    CGFloat contentWidth = self.scrollView.frame.size.width;
+    NSInteger page = ((self.scrollView.contentOffset.x - contentWidth / 2) / contentWidth) + 1;
     return page;
 }
 
 #pragma mark Setting up the view & viewcontroller
-
-- (id)init
-{
-    if (self = [super init]) {
-        _days = [[NSMutableArray arrayWithCapacity:kRestoDaysShown] init];
-        _menus = [[NSMutableArray arrayWithCapacity:kRestoDaysShown] init];
-        for(int i=0;i<kRestoDaysShown;i++) {
-            [self.menus addObject:[NSNull null]];
-        }
-        pageControlUsed = 0;
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -83,15 +67,14 @@
     [self loadMenuItems];
 
     // Setup scrollview
-    CGSize viewSize = [scrollView frame].size;
-    [scrollView setContentSize:CGSizeMake(viewSize.width * ([_days count] + 1),
-                                          viewSize.height)];
+    CGSize viewSize = self.scrollView.frame.size;
+    self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), viewSize.height);
+    self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);
 
     // Setup pageControl
-    [pageControl setNumberOfPages:[_days count] + 1];
-    [pageControl setCurrentPage:2];
-    [scrollView setContentOffset:CGPointMake(viewSize.width, 0) animated:NO];
-    [self setupSheetStyle:infoPage];
+    self.pageControlUsed = 0;
+    self.pageControl.numberOfPages = self.days.count + 1;
+    self.pageControl.currentPage = 2;
 
     // Pages
     for (NSUInteger i = 0; i < 3; i++) {
@@ -102,10 +85,10 @@
         // Use the outer view for shadows, the contentView uses maskToBounds for rounded corners
         UIView *holderView = [[UIView alloc] initWithFrame:frame];
         holderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [scrollView addSubview:holderView];
+        [self.scrollView addSubview:holderView];
 
         RestoMenuView *pageView = [[RestoMenuView alloc] initWithFrame:holderView.bounds];
-        [pageView configureWithDay:_days[i] andMenu:self.menus[i]];
+        [pageView configureWithDay:self.days[i] andMenu:self.menus[i]];
         [holderView addSubview:pageView];
 
         if(i == 0) {
@@ -115,11 +98,28 @@
         } else if(i == 2) {
             leftView = pageView;
         }
-
-        [self setupSheetStyle:holderView];
     }
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+
+    // Release any retained subviews of the main view
+    self.scrollView = nil;
+    self.pageControl = nil;
+    self.infoSheet = nil;
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self setupSheetStyle:self.infoSheet.superview];
+    [self setupSheetStyle:leftView.superview];
+    [self setupSheetStyle:currentView.superview];
+    [self setupSheetStyle:rightView.superview];
+}
 
 #define kPageCornerRadius 10
 
@@ -142,32 +142,12 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-
-    // Release any retained subviews of the main view.
-    pageControl = nil;
-    scrollView = nil;
-    pageControlUsed = 0;
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [self setupSheetStyle:infoPage];
-    [self setupSheetStyle:leftView.superview];
-    [self setupSheetStyle:currentView.superview];
-    [self setupSheetStyle:rightView.superview];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark Days & menu's (loading)
+#pragma mark Loading days & menu's
 
 - (void)calculateDays
 {
@@ -186,12 +166,11 @@
 
 - (void)loadMenuItems
 {
-    if ([_days count] == 0) [self calculateDays];
+    if (!self.days.count) [self calculateDays];
 
     NSMutableArray *menus = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0; i < [_days count]; i++) {
-        NSDate *day = [_days objectAtIndex:i];
-        id menu = [[RestoStore sharedStore] menuForDay:day];
+    for (NSUInteger i = 0; i < self.days.count; i++) {
+        id menu = [[RestoStore sharedStore] menuForDay:self.days[i]];
         if (!menu) menu = [NSNull null];
         menus[i] = menu;
     }
@@ -212,23 +191,23 @@
     if(oldCurrentIndex != self.currentPage) {
         [self changeViewsToPageIndex:self.currentPage];
     }
-    if (pageControlUsed > 0) return;
-    [pageControl setCurrentPage:self.currentPage];
+    if (self.pageControlUsed > 0) return;
+
+    self.pageControl.currentPage = self.currentPage;
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)sender
 {
-    pageControlUsed--;
+    self.pageControlUsed--;
 }
 
 - (void)pageChanged:(UIPageControl *)sender
 {
-    DLog(@"UIPageControl requesting page %d", [pageControl currentPage]);
-    CGSize viewSize = [scrollView frame].size;
-    CGRect newPage = CGRectMake(viewSize.width * [pageControl currentPage], 0,
-                                viewSize.width, viewSize.height);
-    [scrollView scrollRectToVisible:newPage animated:YES];
-    pageControlUsed++;
+    DLog(@"UIPageControl requesting page %d", self.pageControl.currentPage);
+    CGRect newPage = self.scrollView.bounds;
+    newPage.origin.x = newPage.size.width * self.pageControl.currentPage;
+    [self.scrollView scrollRectToVisible:newPage animated:YES];
+    self.pageControlUsed++;
 }
 
 #pragma mark Configuring views after scrolling
@@ -288,11 +267,11 @@
 {
     NSInteger currentIndex = MAX(1, self.currentPage);
     if(currentIndex > 1) {
-        [leftView configureWithDay:_days[currentIndex-2] andMenu:self.menus[currentIndex-2]];
+        [leftView configureWithDay:self.days[currentIndex-2] andMenu:self.menus[currentIndex-2]];
     }
-    [currentView configureWithDay:_days[currentIndex-1] andMenu:self.menus[currentIndex-1]];
+    [currentView configureWithDay:self.days[currentIndex-1] andMenu:self.menus[currentIndex-1]];
     if(currentIndex < kRestoDaysShown) {
-        [rightView configureWithDay:_days[currentIndex] andMenu:self.menus[currentIndex]];
+        [rightView configureWithDay:self.days[currentIndex] andMenu:self.menus[currentIndex]];
     }
 }
 
