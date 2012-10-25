@@ -8,18 +8,27 @@
 
 #import "WebViewController.h"
 
-@implementation WebViewController
+@interface WebViewController ()
 
-- (UIWebView *)webView
-{
-    return (UIWebView *)[self view];
-}
+@property (nonatomic, unsafe_unretained) UIWebView *webView;
+
+@end
+
+@implementation WebViewController
 
 - (void)loadView
 {
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-    [webView setDelegate:self];
-    self.view = webView;
+    self.view = [[UIView alloc] initWithFrame:CGRectZero];
+
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    webView.autoresizingMask = UIViewAutoresizingFlexibleWidth
+                             | UIViewAutoresizingFlexibleHeight;
+    webView.delegate = self;
+    webView.hidden = YES;
+    [self.view addSubview:webView];
+    self.webView = webView;
+
+    self.view.backgroundColor = self.webView.backgroundColor;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -30,8 +39,12 @@
 - (void)loadHtml:(NSString *)path
 {
     NSURL *url = [[NSBundle mainBundle] URLForResource:path withExtension:nil];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [[self webView] loadRequest:request];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    self.webView.hidden = NO;
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
