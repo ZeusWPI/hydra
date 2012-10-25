@@ -10,6 +10,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.zubhium.ZubhiumSDK;
 
 /**
  *
@@ -18,6 +19,7 @@ import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 public class Hydra extends SherlockActivity {
 
   GoogleAnalyticsTracker tracker;
+  ZubhiumSDK sdk;
 
   private void link(int id, final Class activity, final String name) {
     findViewById(id).setOnClickListener(new View.OnClickListener() {
@@ -31,6 +33,12 @@ public class Hydra extends SherlockActivity {
   @Override
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
+
+    sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "e5e19897556febaf2ecd9be4d04fe0");
+    if(sdk != null){
+        // We are registering update receiver
+    	sdk.registerUpdateReceiver(Hydra.this);
+    }
 
     tracker = GoogleAnalyticsTracker.getInstance();
 
@@ -77,8 +85,11 @@ public class Hydra extends SherlockActivity {
 
   @Override
   protected void onDestroy() {
-    super.onDestroy();
+	if(sdk != null){
+		sdk.unRegisterUpdateReceiver();     // Don't forget to unregister receiver
+	}
     // Stop the tracker when it is no longer needed.
     tracker.stopSession();
+    super.onDestroy();
   }
 }
