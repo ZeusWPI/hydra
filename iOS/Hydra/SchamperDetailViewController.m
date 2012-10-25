@@ -42,6 +42,8 @@
 
     NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     [self.webView loadHTMLString:html baseURL:bundeUrl];
+
+    // TODO: add share button to toolbar
 }
 
 - (void)viewWillAppear:(BOOL)animated
