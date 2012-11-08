@@ -34,6 +34,7 @@
 #define kSectionHeaderHeight 35
 #define kSectionFooterHeight 20
 #define kRowHeight 22
+#define kCellLabelTag 101
 
 #pragma mark - Properties and init
 
@@ -145,37 +146,45 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UILabel *textLabel;
+
     static NSString *cellIdentifier = @"RestoMenuViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
                                       reuseIdentifier:cellIdentifier];
-        cell.textLabel.textColor = [UIColor blackColor];
-        cell.detailTextLabel.textColor = cell.textLabel.textColor;
+        CGRect labelFrame = CGRectMake(10, 0, self.tableView.frame.size.width - 70, kRowHeight - 1);
+        textLabel = [[UILabel alloc] initWithFrame:labelFrame];
+        textLabel.tag = kCellLabelTag;
+        textLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
+        [cell.contentView addSubview:textLabel];
+
+        cell.detailTextLabel.textColor = textLabel.textColor;
+    }
+    else {
+        textLabel = (UILabel *)[cell viewWithTag:kCellLabelTag];
     }
 
+    textLabel.font = [UIFont systemFontOfSize:15];
+    cell.detailTextLabel.font = textLabel.font;
+
     if(indexPath.section == 0) {
-        cell.textLabel.font = [UIFont systemFontOfSize:15];
-        cell.detailTextLabel.font = cell.textLabel.font;
-        cell.textLabel.text = self.menu.soup.name;
+        textLabel.text = self.menu.soup.name;
         cell.detailTextLabel.text = self.menu.soup.price;
     }
     else if (indexPath.section == 1) {
-        RestoMenuItem *item = (self.menu.meat)[indexPath.row];
+        RestoMenuItem *item = self.menu.meat[indexPath.row];
         
         if(item.recommended) {
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        } else {
-            cell.textLabel.font = [UIFont systemFontOfSize:15];
+            textLabel.font = [UIFont boldSystemFontOfSize:15];
+            cell.detailTextLabel.font = textLabel.font;
         }
-        cell.detailTextLabel.font = cell.textLabel.font;
-        
-        cell.textLabel.text = item.name;
+
+        textLabel.text = item.name;
         cell.detailTextLabel.text = item.price;
     }
     else { // section == 2
-        cell.textLabel.font = [UIFont systemFontOfSize:15];
-        cell.textLabel.text = (self.menu.vegetables)[indexPath.row];
+        textLabel.text = (self.menu.vegetables)[indexPath.row];
     }
     
     return cell;

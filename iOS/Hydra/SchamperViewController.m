@@ -83,7 +83,7 @@
         dateFormatter.dateFormat = @"dd MMMM YYYY 'door' ";
     }
 
-    SchamperArticle *article = (self.articles)[indexPath.row];
+    SchamperArticle *article = self.articles[indexPath.row];
     cell.textLabel.text = article.title;
     cell.detailTextLabel.text = [[dateFormatter stringFromDate:article.date] stringByAppendingString:article.author];
     
@@ -93,15 +93,15 @@
 - (void)articlesUpdated:(NSNotification *)notification
 {
     DLog(@"Updating tableView");
-    self.articles = [[notification object] articles];
-    [[self tableView] reloadData];
+    self.articles = [notification.object articles];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SchamperArticle *article = (self.articles)[indexPath.row];
+    SchamperArticle *article = self.articles[indexPath.row];
     SchamperDetailViewController *controller = [[SchamperDetailViewController alloc] initWithArticle:article];
     [self.navigationController pushViewController:controller animated:YES];
 }

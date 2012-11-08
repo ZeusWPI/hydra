@@ -38,6 +38,9 @@
 
 - (void)loadHtml:(NSString *)path
 {
+    // Trigger view laod
+    [self view];
+
     NSURL *url = [[NSBundle mainBundle] URLForResource:path withExtension:nil];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }

@@ -95,7 +95,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 - (RestoMenu *)menuForDay:(NSDate *)day
 {
     day = [day dateAtStartOfDay];
-    RestoMenu *menu = (self.menus)[day];
+    RestoMenu *menu = self.menus[day];
     if (!menu) {
         [self fetchMenuForWeek:[day week]];
     }
@@ -122,7 +122,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
 {
-    [self.activeRequests removeObject:[objectLoader resourcePath]];
+    [self.activeRequests removeObject:objectLoader.resourcePath];
 
     // Show an alert if something goes wrong
     // TODO: make errors thrown by RestKit more userfriendly
@@ -138,18 +138,18 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
-    // Only clear the request after 1 minute, when all related requests have
+    // Only clear the request after 5 seconds, when all related requests have
     // finished with reasonable certainty, to prevent a request loop when not
     // all data requested was found.
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 60 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.activeRequests removeObject:[objectLoader resourcePath]];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        [self.activeRequests removeObject:objectLoader.resourcePath];
     });
 
     // Save menus
     for (RestoMenu *menu in objects) {
         NSDate *day = [[menu day] dateAtStartOfDay];
-        (self.menus)[day] = menu;
+        self.menus[day] = menu;
     }
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
