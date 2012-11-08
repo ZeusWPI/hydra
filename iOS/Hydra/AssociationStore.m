@@ -14,11 +14,13 @@
 
 #define kVersoUrl @"http://golive.myverso.com/ugent"
 #define kVersoResourceStatePath @"/versions.xml"
+#define kActivitiesResource @"all_activities"
 
 NSString *const AssociationStoreDidUpdateNewsNotification =
     @"AssociationStoreDidUpdateNewsNotification";
 NSString *const AssociationStoreDidUpdateActivitiesNotification =
     @"AssociationStoreDidUpdateActivitiesNotification";
+
 
 @interface AssociationStore () <NSCoding, RKObjectLoaderDelegate, RKRequestDelegate>
 
@@ -171,8 +173,11 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
 }
 
+#pragma mark - Accessors
+
 - (Association *)associationWithName:(NSString *)identifier
 {
+    // TODO: not really efficient, result should be cached?
     for (Association *association in self.associations) {
         if ([association.fullName isEqualToString:identifier]) {
             return association;
@@ -181,11 +186,9 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     return nil;
 }
 
-static NSString *const ActivitiesResource = @"all_activities";
-
 - (NSArray *)allActivities
 {
-    [self fetchResourceUpdate:ActivitiesResource forTarget:[NSNull null]
+    [self fetchResourceUpdate:kActivitiesResource forTarget:[NSNull null]
                   withVersion:self.activitiesVersion];
     NSMutableArray *flattened = [[NSMutableArray alloc] init];
     for (NSArray *activities in [self.activities allValues]) {
@@ -196,10 +199,9 @@ static NSString *const ActivitiesResource = @"all_activities";
 
 - (NSArray *)activitiesForAssocation:(Association *)association
 {
-    [self fetchResourceUpdate:ActivitiesResource forTarget:[NSNull null]
+    [self fetchResourceUpdate:kActivitiesResource forTarget:[NSNull null]
                   withVersion:self.activitiesVersion];
-    return nil;
-    //return [self.activities allValues];
+    return self.activities[association];
 }
 
 - (NSArray *)newsItemsForAssocation:(Association *)association
@@ -207,7 +209,6 @@ static NSString *const ActivitiesResource = @"all_activities";
     NSDictionary *associationState = self.newsItems[association];
     [self fetchResourceUpdate:association.internalName forTarget:association
                   withVersion:[associationState[@"version"] intValue]];
-
     return self.newsItems[association][@"contents"];
 }
 
@@ -275,7 +276,7 @@ static NSString *const ActivitiesResource = @"all_activities";
         }
         self.activities = newActivities;
 
-        NSDictionary *state = self.resourceState[ActivitiesResource];
+        NSDictionary *state = self.resourceState[kActivitiesResource];
         self.activitiesVersion = [state[@"version"] intValue];
         notification = AssociationStoreDidUpdateActivitiesNotification;
     }

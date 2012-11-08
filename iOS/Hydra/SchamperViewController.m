@@ -10,6 +10,7 @@
 #import "SchamperStore.h"
 #import "SchamperArticle.h"
 #import "SchamperDetailViewController.h"
+#import "SORelativeDateTransformer.h"
 
 @interface SchamperViewController ()
 
@@ -77,16 +78,14 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
-    static NSDateFormatter *dateFormatter = nil;
-    if (!dateFormatter) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"dd MMMM YYYY 'door' ";
-    }
-
     SchamperArticle *article = self.articles[indexPath.row];
+
+    SORelativeDateTransformer *dateTransformer = [[SORelativeDateTransformer alloc] init];
+    NSString *transformedDate = [dateTransformer transformedValue:article.date];
+
     cell.textLabel.text = article.title;
-    cell.detailTextLabel.text = [[dateFormatter stringFromDate:article.date] stringByAppendingString:article.author];
-    
+    NSString *detail = [NSString stringWithFormat:@"%@ door %@", transformedDate, article.author];
+    cell.detailTextLabel.text = detail;
     return cell;
 }
 

@@ -108,6 +108,8 @@
 		F5E7F06E15EF95A6004024AA /* hydra@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E7F06D15EF95A5004024AA /* hydra@2x.png */; };
 		F5E7F07215EFAA51004024AA /* button-activities-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E7F06F15EFAA50004024AA /* button-activities-active@2x.png */; };
 		F5E7F07315EFAA51004024AA /* button-activities@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E7F07015EFAA50004024AA /* button-activities@2x.png */; };
+		F5EBF0E0164BE583002C14BF /* SORelativeDateTransformer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */; };
+		F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */; };
 		F5EBF117159E040700EB5D26 /* RestoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF115159E040700EB5D26 /* RestoViewController.m */; };
 		F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF11B159E092300EB5D26 /* SchamperViewController.m */; };
 		F5EBF137159E13D300EB5D26 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF136159E13D300EB5D26 /* CFNetwork.framework */; };
@@ -307,6 +309,9 @@
 		F5E7F06D15EF95A5004024AA /* hydra@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hydra@2x.png"; sourceTree = "<group>"; };
 		F5E7F06F15EFAA50004024AA /* button-activities-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-activities-active@2x.png"; sourceTree = "<group>"; };
 		F5E7F07015EFAA50004024AA /* button-activities@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-activities@2x.png"; sourceTree = "<group>"; };
+		F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SORelativeDateTransformer.bundle; sourceTree = "<group>"; };
+		F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SORelativeDateTransformer.h; sourceTree = "<group>"; };
+		F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SORelativeDateTransformer.m; sourceTree = "<group>"; };
 		F5EBF112159DFDEC00EB5D26 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/DashboardViewController.xib; sourceTree = "<group>"; };
 		F5EBF114159E040700EB5D26 /* RestoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoViewController.h; sourceTree = "<group>"; };
 		F5EBF115159E040700EB5D26 /* RestoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
@@ -609,6 +614,9 @@
 		F5CFDF851631597E008CBF98 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */,
+				F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */,
+				F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */,
 				3B93FBA2163094A800C962DC /* AudioStreamer.h */,
 				3B93FBA3163094A800C962DC /* AudioStreamer.m */,
 			);
@@ -870,6 +878,7 @@
 				F533DABA16315E87001269A8 /* schamper.css in Resources */,
 				F533DABC163163E2001269A8 /* schamper-bg.png in Resources */,
 				F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */,
+				F5EBF0E0164BE583002C14BF /* SORelativeDateTransformer.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,6 +952,7 @@
 				F5016BA91627665800BBDB0A /* ActivityDetailViewController.m in Sources */,
 				3B93FBA4163094A800C962DC /* AudioStreamer.m in Sources */,
 				3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */,
+				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

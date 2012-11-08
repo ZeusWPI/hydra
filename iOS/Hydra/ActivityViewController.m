@@ -36,26 +36,34 @@
 - (void)refreshActivities
 {
     AssociationStore *store = [AssociationStore sharedStore];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
 
-    // Store activities per day
+    // Group activities by day
+    NSDate *now = [NSDate date];
+    NSMutableDictionary *groups = [[NSMutableDictionary alloc] init];
+
     for (AssociationActivity *activity in [store allActivities]) {
         NSDate *day = [activity.start dateAtStartOfDay];
-        NSMutableArray *activities = data[day];
+        NSMutableArray *activities = groups[day];
         if (!activities) {
-            data[day] = activities = [[NSMutableArray alloc] init];
+            groups[day] = activities = [[NSMutableArray alloc] init];
         }
-        [activities addObject:activity];
+
+        // Check that activity is not over yet
+        if ([activity.end isLaterThanDate:now]) {
+            [activities addObject:activity];
+        }
     }
-    self.days = [[data allKeys] sortedArrayUsingSelector:@selector(compare:)];
+
+    self.days = [[groups allKeys] sortedArrayUsingSelector:@selector(compare:)];
 
     // Sort activities per day
     for (NSDate *date in self.days) {
-        data[date] = [data[date] sortedArrayUsingComparator:^(AssociationActivity *obj1, AssociationActivity *obj2) {
-            return [obj1.start compare:obj2.start];
-        }];
+        groups[date] = [groups[date] sortedArrayUsingComparator:
+                            ^(AssociationActivity *obj1, AssociationActivity *obj2) {
+                                return [obj1.start compare:obj2.start];
+                            }];
     }
-    self.data = data;
+    self.data = groups;
 }
 
 - (void)viewDidLoad
@@ -111,10 +119,16 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
+    static NSDateFormatter *dateFormatter = nil;
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"HH:mm"];
+    }
+
     NSDate *date = self.days[indexPath.section];
     AssociationActivity *activity = self.data[date][indexPath.row];
     cell.textLabel.text = activity.title;
-    cell.detailTextLabel.text = [activity.start description];
+    cell.detailTextLabel.text = [dateFormatter stringFromDate:activity.start];
 
     return cell;
 }
