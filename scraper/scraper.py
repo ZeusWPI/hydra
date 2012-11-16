@@ -40,11 +40,11 @@ def parse_menu_from_html (page):
 	# replace those pesky non-breakable spaces
 	page = page.replace('&nbsp;', ' ')
 
-	doc = libxml2.htmlParseDoc(page, 'utf-8')
-	menuElement = doc.xpathEval("//div[@id='parent-fieldname-text']")
+	doc = libxml2.htmlReadDoc(page, None, 'utf-8', libxml2.XML_PARSE_RECOVER | libxml2.XML_PARSE_NOERROR)
+	menuElement = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
 	rows = menuElement[0].xpathEval('.//tr')[1:-2]
 
-	week = doc.xpathEval("//span[@id='parent-fieldname-title']")[0].content.strip().split()
+	week = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
 	if len(week) == 7:
 		# start and end of week are in the same month
 		monday = datetime.strptime("%s %s %s" % (week[2], week[5], week[6]), "%d %B %Y")
