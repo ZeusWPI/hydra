@@ -104,7 +104,7 @@
                     cell.detailTextLabel.text = self.activity.location;
                     break;
             }
-            
+
             return cell;
         }
     }
@@ -135,14 +135,14 @@
     event.endDate   = self.activity.end;
 
     [event setCalendar:[eventStore defaultCalendarForNewEvents]];
-    
+
     EKEventEditViewController *eventViewController = [[EKEventEditViewController alloc] init];
 
     eventViewController.event = event;
     eventViewController.eventStore = eventStore;
     eventViewController.editViewDelegate = self;
     [self.navigationController presentModalViewController:eventViewController animated:YES];
-    
+
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller

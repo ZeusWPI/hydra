@@ -74,7 +74,7 @@
     // Setup pageControl
     self.pageControlUsed = 0;
     self.pageControl.numberOfPages = self.days.count + 1;
-    self.pageControl.currentPage = 2;
+    self.pageControl.currentPage = 1;
 
     // Pages
     for (NSUInteger i = 0; i < 3; i++) {

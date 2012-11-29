@@ -43,15 +43,15 @@
 
     for (AssociationActivity *activity in [store allActivities]) {
         NSDate *day = [activity.start dateAtStartOfDay];
+
+        // Check that activity is not over yet
+        if (!activity.end || [activity.end isEarlierThanDate:now]) continue;
+
         NSMutableArray *activities = groups[day];
         if (!activities) {
             groups[day] = activities = [[NSMutableArray alloc] init];
         }
-
-        // Check that activity is not over yet
-        if ([activity.end isLaterThanDate:now]) {
-            [activities addObject:activity];
-        }
+        [activities addObject:activity];
     }
 
     self.days = [[groups allKeys] sortedArrayUsingSelector:@selector(compare:)];
@@ -63,7 +63,9 @@
                                 return [obj1.start compare:obj2.start];
                             }];
     }
+
     self.data = groups;
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad

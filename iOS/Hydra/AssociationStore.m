@@ -151,6 +151,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 - (void)fetchResourceUpdate:(NSString *)resourceId forTarget:(id)target withVersion:(NSUInteger)version
 {
     // Load the versions.xml, to check if we need updates
+    // TODO: expire the resource state after a while?
     if (!self.resourceState) {
         [self fetchResourceStateWithCompletion:^(NSDictionary *state) {
             [self fetchResourceUpdate:resourceId forTarget:target withVersion:version];
@@ -190,6 +191,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 {
     [self fetchResourceUpdate:kActivitiesResource forTarget:[NSNull null]
                   withVersion:self.activitiesVersion];
+
     NSMutableArray *flattened = [[NSMutableArray alloc] init];
     for (NSArray *activities in [self.activities allValues]) {
         [flattened addObjectsFromArray:activities];
