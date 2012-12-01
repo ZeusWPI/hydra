@@ -167,9 +167,12 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
             NSString *path = [@"/" stringByAppendingString:state[@"path"]];
             if (!(self.activeRequests)[path]) {
                 self.activeRequests[path] = target;
-                NSLog(@"Resource \"%@\" is out-of-date. Updating...", resourceId);
+                NSLog(@"Resource \"%@\" (version %u) is out-of-date. Updating...", resourceId, version);
                 [self.objectManager loadObjectsAtResourcePath:path delegate:self];
             }
+        }
+        else {
+            NSLog(@"Resource \"%@\" (version %u) is up-to-date.", resourceId, version);
         }
     }
 }

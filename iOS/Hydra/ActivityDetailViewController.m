@@ -11,11 +11,20 @@
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 
-#define TABLE_CELL_BLUE_TEXT_COLOR [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+#define kInfoSection 0
+#define KActionSection 1
+
+#define kTitleRow 0
+#define kAssociationRow 1
+#define kDateRow 2
+#define kLocationRow 3
+
+#define kDefaultCellHeight 44
 
 @interface ActivityDetailViewController () <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
+@property (nonatomic, strong) NSArray *fields;
 
 @end
 
@@ -25,6 +34,7 @@
 {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
         self.activity = activity;
+        self.fields = [self loadFieldValues];
     }
     return self;
 }
@@ -35,11 +45,38 @@
     self.title = @"Detail";
 }
 
+- (NSArray *)loadFieldValues
+{
+    static NSDateFormatter *dateStartFormatter = nil;
+    static NSDateFormatter *dateEndFormatter = nil;
+    if (!dateStartFormatter || !dateEndFormatter) {
+        dateStartFormatter = [[NSDateFormatter alloc] init];
+        [dateStartFormatter setDateFormat:@"EEE d MMMM H:mm"];
+        dateEndFormatter = [[NSDateFormatter alloc] init];
+        [dateEndFormatter setDateFormat:@"H:mm"];
+    }
+    NSMutableArray *fields = [[NSMutableArray alloc] init];
+
+    fields[kTitleRow] = self.activity.title;
+    fields[kAssociationRow] = self.activity.associationId;
+    if (self.activity.end) {
+        fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
+                            [dateStartFormatter stringFromDate:self.activity.start],
+                            [dateEndFormatter stringFromDate:self.activity.end]];
+    }
+    else {
+        fields[kDateRow] = [dateStartFormatter stringFromDate:self.activity.start];
+    }
+    fields[kLocationRow] = self.activity.location;
+
+    return fields;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 0 ? 4 : 1;
+    return section == kInfoSection ? 4 : 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -47,21 +84,41 @@
     return 2;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == kInfoSection) {
+        BOOL isTitleRow = indexPath.row == kTitleRow;
+
+        UIFont *font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+        if (isTitleRow) font = [UIFont boldSystemFontOfSize:20.0f];
+
+        NSString *text = self.fields[indexPath.row];
+        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 95.0f);
+        CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
+                           lineBreakMode:NSLineBreakByWordWrapping];
+        return size.height + (isTitleRow ? 26.0f : 20.0f);
+    }
+    else {
+        return kDefaultCellHeight;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
+    if (indexPath.section == kInfoSection) {
+        if (indexPath.row == kTitleRow) {
             static NSString *CellIdentifier = @"ActivityDetailTitleCell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                               reuseIdentifier:CellIdentifier];
-                cell.textLabel.adjustsFontSizeToFitWidth = YES;
                 cell.textLabel.font = [UIFont boldSystemFontOfSize:20.0f];
                 cell.textLabel.textAlignment = UITextAlignmentCenter;
+                cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                cell.textLabel.numberOfLines = 0;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            cell.textLabel.text = self.activity.title;
+            cell.textLabel.text = self.fields[indexPath.row];
             return cell;
         }
         else {
@@ -70,50 +127,34 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
                                               reuseIdentifier:CellIdentifier];
-                cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
+                cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                cell.detailTextLabel.numberOfLines = 0;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
 
-            static NSDateFormatter *dateStartFormatter = nil;
-            static NSDateFormatter *dateEndFormatter = nil;
-            if (!dateStartFormatter || !dateEndFormatter) {
-                dateStartFormatter = [[NSDateFormatter alloc] init];
-                [dateStartFormatter setDateFormat:@"EEE d MMMM H:mm"];
-                dateEndFormatter = [[NSDateFormatter alloc] init];
-                [dateEndFormatter setDateFormat:@"H:mm"];
-            }
-
             switch (indexPath.row) {
-                case 1:
+                case kAssociationRow:
                     cell.textLabel.text = @"Vereniging";
-                    cell.detailTextLabel.text = self.activity.associationId;
                     break;
-                case 2:
+                case kDateRow:
                     cell.textLabel.text = @"Datum";
-                    if (self.activity.end) {
-                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",
-                                                     [dateStartFormatter stringFromDate:self.activity.start],
-                                                     [dateEndFormatter stringFromDate:self.activity.end]];
-                    }
-                    else {
-                        cell.detailTextLabel.text = [dateStartFormatter stringFromDate:self.activity.start];
-                    }
                     break;
-                case 3:
+                case kLocationRow:
                     cell.textLabel.text = @"Locatie";
-                    cell.detailTextLabel.text = self.activity.location;
                     break;
             }
+            cell.detailTextLabel.text = self.fields[indexPath.row];
 
             return cell;
         }
     }
     else {
         static NSString *CellIdentifier = @"ActivityDetailButtonCell";
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                       reuseIdentifier:CellIdentifier];
         cell.textLabel.text = @"Toevoegen aan agenda";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.textLabel.textColor = TABLE_CELL_BLUE_TEXT_COLOR;
+        cell.textLabel.textColor = [UIColor detailLabelTextColor];
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         return cell;
     }

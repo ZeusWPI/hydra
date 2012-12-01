@@ -20,4 +20,9 @@
     return [UIColor colorWithRed:0.807 green:0.840 blue:0.878 alpha:1.000];
 }
 
++ (UIColor *)detailLabelTextColor
+{
+    return [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+}
+
 @end
