@@ -91,7 +91,7 @@
         if (isTitleRow) font = [UIFont boldSystemFontOfSize:20.0f];
 
         NSString *text = self.fields[indexPath.row];
-        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 90.0f);
+        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 100.0f);
         CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
                            lineBreakMode:NSLineBreakByWordWrapping];
 
@@ -166,23 +166,36 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    EKEventStore *store = [[EKEventStore alloc] init];
+    if([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
+        [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+            if (granted) {
+                [self performSelectorOnMainThread:@selector(addEventToCalendarStore:)
+                                       withObject:store waitUntilDone:NO];
+            }
+        }];
+    }
+    else {
+        [self addEventToCalendarStore:store];
+    }
+}
 
-    EKEvent *event  = [EKEvent eventWithEventStore:eventStore];
+- (void)addEventToCalendarStore:(EKEventStore *)store
+{
+    EKEvent *event  = [EKEvent eventWithEventStore:store];
     event.title     = self.activity.title;
     event.location  = self.activity.location;
     event.startDate = self.activity.start;
     event.endDate   = self.activity.end;
 
-    [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+    [event setCalendar:[store defaultCalendarForNewEvents]];
 
     EKEventEditViewController *eventViewController = [[EKEventEditViewController alloc] init];
 
     eventViewController.event = event;
-    eventViewController.eventStore = eventStore;
+    eventViewController.eventStore = store;
     eventViewController.editViewDelegate = self;
     [self.navigationController presentModalViewController:eventViewController animated:YES];
-
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller

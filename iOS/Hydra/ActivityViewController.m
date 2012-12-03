@@ -118,7 +118,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 45.0f;
+    return 46.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -131,19 +131,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+        cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
 
-        CGRect titleFrame = CGRectMake(60, 5, 250, 17);
+        CGRect titleFrame = CGRectMake(60, 5, 250, 20);
         titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
         titleLabel.tag = kCellTitleLabel;
         titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
         titleLabel.highlightedTextColor = [UIColor whiteColor];
         [cell.contentView addSubview:titleLabel];
 
-        CGRect subtitleFrame = CGRectMake(60, 22, 250, 18);
+        CGRect subtitleFrame = CGRectMake(60, 25, 250, 16);
         subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
         subtitleLabel.tag = kCellSubtitleLabel;
         subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
-        subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
+        subtitleLabel.textColor = [UIColor colorWithWhite:0.3 alpha:1];
         subtitleLabel.highlightedTextColor = [UIColor whiteColor];
         [cell.contentView addSubview:subtitleLabel];
     }
