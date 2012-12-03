@@ -94,6 +94,9 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (RestoMenu *)menuForDay:(NSDate *)day
 {
+    // TODO: perhaps the menu is outdated
+    // if the data is more than a day old, start a refresh in the background
+
     day = [day dateAtStartOfDay];
     RestoMenu *menu = self.menus[day];
     if (!menu) {

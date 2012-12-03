@@ -9,8 +9,12 @@
 #import "ActivityViewController.h"
 #import "AssociationStore.h"
 #import "AssociationActivity.h"
+#import "Association.h"
 #import "NSDate+Utilities.h"
 #import "ActivityDetailViewController.h"
+
+#define kCellTitleLabel 101
+#define kCellSubtitleLabel 102
 
 @interface ActivityViewController ()
 
@@ -112,25 +116,55 @@
     return [dateFormatter stringFromDate:self.days[section]];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 45.0f;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UILabel *titleLabel, *subtitleLabel;
+
 	static NSString *CellIdentifier = @"ActivityCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+
+        CGRect titleFrame = CGRectMake(60, 5, 250, 17);
+        titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
+        titleLabel.tag = kCellTitleLabel;
+        titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+        titleLabel.highlightedTextColor = [UIColor whiteColor];
+        [cell.contentView addSubview:titleLabel];
+
+        CGRect subtitleFrame = CGRectMake(60, 22, 250, 18);
+        subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
+        subtitleLabel.tag = kCellSubtitleLabel;
+        subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
+        subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
+        subtitleLabel.highlightedTextColor = [UIColor whiteColor];
+        [cell.contentView addSubview:subtitleLabel];
+    }
+    else {
+        titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
+        subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
     }
 
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"HH:mm"];
+        [dateFormatter setDateFormat:@"HH.mm"];
     }
 
     NSDate *date = self.days[indexPath.section];
     AssociationActivity *activity = self.data[date][indexPath.row];
-    cell.textLabel.text = activity.title;
-    cell.detailTextLabel.text = [dateFormatter stringFromDate:activity.start];
+
+    cell.textLabel.text = [dateFormatter stringFromDate:activity.start];
+    titleLabel.text = activity.title;
+    subtitleLabel.text = activity.associationId;
+    //subtitleLabel.text = activity.association.displayName;
 
     return cell;
 }

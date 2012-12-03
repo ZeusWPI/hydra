@@ -19,8 +19,6 @@
 #define kDateRow 2
 #define kLocationRow 3
 
-#define kDefaultCellHeight 44
-
 @interface ActivityDetailViewController () <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
@@ -93,13 +91,14 @@
         if (isTitleRow) font = [UIFont boldSystemFontOfSize:20.0f];
 
         NSString *text = self.fields[indexPath.row];
-        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 95.0f);
+        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 90.0f);
         CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
                            lineBreakMode:NSLineBreakByWordWrapping];
-        return size.height + (isTitleRow ? 26.0f : 20.0f);
+
+        return MAX(42.0f, size.height + (isTitleRow ? 26.0f : 14.0f));
     }
     else {
-        return kDefaultCellHeight;
+        return 44.0f;
     }
 }
 
