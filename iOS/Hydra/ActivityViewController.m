@@ -93,6 +93,13 @@
     [self.tableView reloadData];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // TODO: add calendar icon here to switch to dates faster
+}
+
 #pragma mark - Table view delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -144,7 +151,7 @@
         subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
         subtitleLabel.tag = kCellSubtitleLabel;
         subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
-        subtitleLabel.textColor = [UIColor colorWithWhite:0.3 alpha:1];
+        subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
         subtitleLabel.highlightedTextColor = [UIColor whiteColor];
         [cell.contentView addSubview:subtitleLabel];
     }

@@ -43,6 +43,24 @@
     self.title = @"Detail";
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // Fast navigation between activitities
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[
+        [UIImage imageNamed:@"navigation-up"], [UIImage imageNamed:@"navigation-down"]]];
+    [segmentedControl addTarget:self action:@selector(segmentTapped:)
+               forControlEvents:UIControlEventValueChanged];
+    segmentedControl.frame = CGRectMake(0, 0, 90, 30);
+    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    segmentedControl.momentary = YES;
+    [self enableSegments:segmentedControl];
+
+    UIBarButtonItem *segmentBarItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
+    self.navigationItem.rightBarButtonItem = segmentBarItem;
+}
+
 - (NSArray *)loadFieldValues
 {
     static NSDateFormatter *dateStartFormatter = nil;
@@ -91,7 +109,7 @@
         if (isTitleRow) font = [UIFont boldSystemFontOfSize:20.0f];
 
         NSString *text = self.fields[indexPath.row];
-        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 100.0f);
+        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 90.0f);
         CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
                            lineBreakMode:NSLineBreakByWordWrapping];
 
@@ -204,5 +222,17 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+#pragma mark - Segmented control
+
+- (void)enableSegments:(UISegmentedControl *)control
+{
+    [control setEnabled:NO forSegmentAtIndex:0];
+    [control setEnabled:YES forSegmentAtIndex:1];
+}
+
+- (void)segmentTapped:(id)source
+{
+
+}
 
 @end
