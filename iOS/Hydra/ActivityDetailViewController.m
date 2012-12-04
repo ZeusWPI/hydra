@@ -23,16 +23,19 @@
 
 @property (nonatomic, strong) AssociationActivity *activity;
 @property (nonatomic, strong) NSArray *fields;
+@property (nonatomic, strong) id<ActivityListDelegate> listDelegate;
 
 @end
 
 @implementation ActivityDetailViewController
 
-- (id)initWithActivity:(AssociationActivity *)activity
+- (id)initWithActivity:(AssociationActivity *)activity delegate:(id<ActivityListDelegate>)delegate
 {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
         self.activity = activity;
-        self.fields = [self loadFieldValues];
+        self.listDelegate = delegate;
+
+        [self reloadFields];
     }
     return self;
 }
@@ -61,7 +64,7 @@
     self.navigationItem.rightBarButtonItem = segmentBarItem;
 }
 
-- (NSArray *)loadFieldValues
+- (void)reloadFields
 {
     static NSDateFormatter *dateStartFormatter = nil;
     static NSDateFormatter *dateEndFormatter = nil;
@@ -71,8 +74,8 @@
         dateEndFormatter = [[NSDateFormatter alloc] init];
         [dateEndFormatter setDateFormat:@"H:mm"];
     }
-    NSMutableArray *fields = [[NSMutableArray alloc] init];
 
+    NSMutableArray *fields = [[NSMutableArray alloc] init];
     fields[kTitleRow] = self.activity.title;
     fields[kAssociationRow] = self.activity.associationId;
     if (self.activity.end) {
@@ -83,9 +86,9 @@
     else {
         fields[kDateRow] = [dateStartFormatter stringFromDate:self.activity.start];
     }
-    fields[kLocationRow] = self.activity.location;
+    fields[kLocationRow] = self.activity.location ? self.activity.location : @"";
 
-    return fields;
+    self.fields = fields;
 }
 
 #pragma mark - Table view data source
@@ -105,15 +108,15 @@
     if (indexPath.section == kInfoSection) {
         BOOL isTitleRow = indexPath.row == kTitleRow;
 
-        UIFont *font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+        UIFont *font = [UIFont systemFontOfSize:13.0f];
         if (isTitleRow) font = [UIFont boldSystemFontOfSize:20.0f];
 
         NSString *text = self.fields[indexPath.row];
-        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 90.0f);
+        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 125.0f);
         CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
                            lineBreakMode:NSLineBreakByWordWrapping];
 
-        return MAX(42.0f, size.height + (isTitleRow ? 26.0f : 14.0f));
+        return MAX(40.0f, size.height + (isTitleRow ? 26.0f : 18.0f));
     }
     else {
         return 44.0f;
@@ -144,6 +147,8 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
                                               reuseIdentifier:CellIdentifier];
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:12.0f];
+                cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:13.0f];
                 cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
                 cell.detailTextLabel.numberOfLines = 0;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -226,13 +231,25 @@
 
 - (void)enableSegments:(UISegmentedControl *)control
 {
-    [control setEnabled:NO forSegmentAtIndex:0];
-    [control setEnabled:YES forSegmentAtIndex:1];
+    AssociationActivity *prev = [self.listDelegate activityBefore:self.activity];
+    [control setEnabled:(prev != nil) forSegmentAtIndex:0];
+    AssociationActivity *next = [self.listDelegate activityAfter:self.activity];
+    [control setEnabled:(next != nil) forSegmentAtIndex:1];
 }
 
-- (void)segmentTapped:(id)source
+- (void)segmentTapped:(UISegmentedControl *)control
 {
+    if (control.selectedSegmentIndex == 0) {
+        self.activity = [self.listDelegate activityBefore:self.activity];
+    }
+    else {
+        self.activity = [self.listDelegate activityAfter:self.activity];
+    }
 
+    [self reloadFields];
+    [self.tableView reloadData];
+    [self enableSegments:control];
+    [self.listDelegate didSelectActivity:self.activity];
 }
 
 @end

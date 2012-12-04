@@ -16,7 +16,7 @@
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
 
-@interface ActivityViewController ()
+@interface ActivityViewController () <ActivityListDelegate>
 
 @property (nonatomic, strong) NSArray *associations;
 @property (nonatomic, strong) NSArray *days;
@@ -93,11 +93,18 @@
     [self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    // Switch dates using the calendar icon
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop
+                                                                         target:self action:@selector(dateButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = btn;
 
-    // TODO: add calendar icon here to switch to dates faster
+    // Make sure we scroll with any selection that may have been set
+    [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:NO];
+
+    // Call super last, as it will clear the selection
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - Table view delegate
@@ -181,8 +188,71 @@
 {
     NSDate *date = self.days[indexPath.section];
     AssociationActivity *activity = self.data[date][indexPath.row];
-    ActivityDetailViewController *detailViewController = [[ActivityDetailViewController alloc] initWithActivity:activity];
+    ActivityDetailViewController *detailViewController = [[ActivityDetailViewController alloc]
+                                                          initWithActivity:activity delegate:self];
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - Activy list delegate
+
+- (AssociationActivity *)activityBefore:(AssociationActivity *)current
+{
+    NSDate *day = [current.start dateAtStartOfDay];
+    NSUInteger index = [self.data[day] indexOfObject:current];
+    if (index == NSNotFound) return nil;
+
+    // Is there another activity in the same day?
+    if (index > 0) {
+        return self.data[day][index - 1];
+    }
+
+    // Is there another day we can find activities in
+    NSUInteger dayIndex = [self.days indexOfObject:day];
+    if (dayIndex == 0 || dayIndex == NSNotFound) return nil;
+    else {
+        // Assuming each category has at least one date
+        NSDate *prevDay = self.days[dayIndex - 1];
+        return [self.data[prevDay] lastObject];
+    }
+}
+
+- (AssociationActivity *)activityAfter:(AssociationActivity *)current
+{
+    NSDate *day = [current.start dateAtStartOfDay];
+    NSUInteger index = [self.data[day] indexOfObject:current];
+    if (index == NSNotFound) return nil;
+
+    // Is there another activity in the same day?
+    if (index < [self.data[day] count] - 1) {
+        return self.data[day][index + 1];
+    }
+
+    // Is there another day we can find activities in
+    NSUInteger dayIndex = [self.days indexOfObject:day];
+    if (dayIndex == self.days.count - 1 || dayIndex == NSNotFound) return nil;
+    else {
+        // Assuming each category has at least one date
+        NSDate *nextDay = self.days[dayIndex + 1];
+        return [self.data[nextDay] firstObject];
+    }
+}
+
+- (void)didSelectActivity:(AssociationActivity *)activity
+{
+    NSDate *day = [activity.start dateAtStartOfDay];
+    NSUInteger row = [self.data[day] indexOfObject:activity];
+    NSUInteger section = [self.days indexOfObject:day];
+
+    NSIndexPath *selection = [NSIndexPath indexPathForRow:row inSection:section];
+    [self.tableView selectRowAtIndexPath:selection animated:NO
+                          scrollPosition:UITableViewScrollPositionNone];
+}
+
+#pragma mark - Date button
+
+- (void)dateButtonTapped:(id)sender
+{
+    
 }
 
 @end

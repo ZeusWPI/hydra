@@ -10,8 +10,16 @@
 
 @class AssociationActivity;
 
+@protocol ActivityListDelegate <NSObject>
+
+- (AssociationActivity *)activityBefore:(AssociationActivity *)current;
+- (AssociationActivity *)activityAfter:(AssociationActivity *)current;
+- (void)didSelectActivity:(AssociationActivity *)activity;
+
+@end
+
 @interface ActivityDetailViewController : UITableViewController
 
-- (id)initWithActivity:(AssociationActivity *)activity;
+- (id)initWithActivity:(AssociationActivity *)activity delegate:(id<ActivityListDelegate>)delegate;
 
 @end
