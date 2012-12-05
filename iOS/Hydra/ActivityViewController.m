@@ -282,7 +282,7 @@
 
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 250, 22)];
     title.font = [UIFont boldSystemFontOfSize:18];
-    title.text = @"Selecteer dag";
+    title.text = @"Selecteer een dag";
     title.textColor = [UIColor whiteColor];
     title.textAlignment = UITextAlignmentCenter;
     title.shadowColor = [UIColor blackColor];

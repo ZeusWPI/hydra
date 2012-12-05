@@ -74,14 +74,10 @@
 
 - (IBAction)showNews:(id)sender
 {
-    if([sender tag] == 5) {
-        DLog(@"Dashboard switching to GSR");
-    } else {
-        DLog(@"Dashboard switching to News");
-        NSArray *all = [[AssociationStore sharedStore] associations];
-        NewsViewController *c = [[NewsViewController alloc]initWithAssociations:all];
-        [self.navigationController pushViewController:c animated:YES];
-    }
+    DLog(@"Dashboard switching to News");
+    NSArray *all = [[AssociationStore sharedStore] associations];
+    NewsViewController *c = [[NewsViewController alloc]initWithAssociations:all];
+    [self.navigationController pushViewController:c animated:YES];
 }
 
 - (IBAction)showActivities:(id)sender
@@ -103,6 +99,11 @@
     DLog(@"Dashboard switching to Resto");
     UIViewController *c = [[RestoViewController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
+}
+
+- (IBAction)showUrgent:(id)sender
+{
+    DLog(@"Dashboard switching to Urgent");
 }
 
 - (IBAction)showSchamper:(id)sender

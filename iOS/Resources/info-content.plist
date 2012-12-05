@@ -55,22 +55,6 @@
 	</dict>
 	<dict>
 		<key>image</key>
-		<string>info-durfdoen</string>
-		<key>title</key>
-		<string>DurfDoen</string>
-		<key>association</key>
-		<string>DURFDOEN</string>
-	</dict>
-	<dict>
-		<key>image</key>
-		<string>info-urgent</string>
-		<key>title</key>
-		<string>Urgent.fm</string>
-		<key>association</key>
-		<string>URGENT</string>
-	</dict>
-	<dict>
-		<key>image</key>
 		<string>info-academiccalendar</string>
 		<key>title</key>
 		<string>Academische kalender</string>
@@ -98,6 +82,18 @@
 			</dict>
 			<dict>
 				<key>title</key>
+				<string>Gentse StudentenRaad</string>
+				<key>url</key>
+				<string>http://gsr.ugent.be/</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Durf Doen</string>
+				<key>url</key>
+				<string>http://www.durfdoen.be/</string>
+			</dict>
+			<dict>
+				<key>title</key>
 				<string>Schamper</string>
 				<key>url</key>
 				<string>http://www.schamper.ugent.be/</string>
@@ -107,12 +103,6 @@
 				<string>Urgent.fm</string>
 				<key>url</key>
 				<string>http://urgent.fm/</string>
-			</dict>
-			<dict>
-				<key>title</key>
-				<string>Durf Doen</string>
-				<key>url</key>
-				<string>http://www.durfdoen.be/</string>
 			</dict>
 		</array>
 	</dict>

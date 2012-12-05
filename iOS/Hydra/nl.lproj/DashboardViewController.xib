@@ -41,6 +41,7 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrameSize">{320, 94}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="956011270"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -55,6 +56,7 @@
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{60, 22}, {200, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="175342562"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">1</int>
@@ -70,6 +72,7 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{17, 116}, {137, 100}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="818178277"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -116,6 +119,7 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{166, 116}, {137, 100}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="316746564"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -149,6 +153,7 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{17, 228}, {137, 100}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="656227591"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -182,6 +187,7 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{166, 228}, {137, 100}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1006082666"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -215,12 +221,13 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{17, 340}, {137, 100}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="975746595"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">5</int>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
-							<string key="IBUIAccessibilityLabel">GSR</string>
+							<string key="IBUIAccessibilityLabel">Urgent.fm</string>
 							<integer value="5" key="IBUIAccessibilityTraits"/>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -234,11 +241,11 @@
 						<reference key="IBUINormalTitleShadowColor" ref="389349062"/>
 						<object class="NSCustomResource" key="IBUIHighlightedImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button-gsr-active.png</string>
+							<string key="NSResourceName">button-urgent-active.png</string>
 						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button-gsr.png</string>
+							<string key="NSResourceName">button-urgent.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="1004919048"/>
 						<reference key="IBUIFont" ref="152568620"/>
@@ -248,6 +255,7 @@
 						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{166, 340}, {137, 100}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">6</int>
@@ -280,6 +288,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{276, 51}, {34, 34}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="411806834"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -309,6 +318,7 @@
 				</array>
 				<string key="NSFrameSize">{320, 460}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="843530304"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -404,12 +414,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">showNews:</string>
+						<string key="label">showUrgent:</string>
 						<reference key="source" ref="1006082666"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">35</int>
+					<int key="connectionID">54</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -544,7 +554,7 @@
 				<real value="1" key="24.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="26.CustomClassName">BadgedButton</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="1" key="26.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="26.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="28.CustomClassName">BadgedButton</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="0.0" key="28.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
@@ -559,7 +569,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">53</int>
+			<int key="maxID">54</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -657,8 +667,6 @@
 			<string key="button-activities-active.png">{137, 100}</string>
 			<string key="button-activities.png">{137, 100}</string>
 			<string key="button-feedback.png">{34, 34}</string>
-			<string key="button-gsr-active.png">{137, 100}</string>
-			<string key="button-gsr.png">{137, 100}</string>
 			<string key="button-info-active.png">{137, 100}</string>
 			<string key="button-info.png">{137, 100}</string>
 			<string key="button-news-active.png">{137, 100}</string>
@@ -667,6 +675,8 @@
 			<string key="button-resto.png">{137, 100}</string>
 			<string key="button-schamper-active.png">{137, 100}</string>
 			<string key="button-schamper.png">{137, 100}</string>
+			<string key="button-urgent-active.png">{137, 100}</string>
+			<string key="button-urgent.png">{137, 100}</string>
 			<string key="header-bg.png">{1, 94}</string>
 			<string key="hydra.png">{134, 50}</string>
 		</dictionary>
