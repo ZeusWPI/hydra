@@ -16,12 +16,13 @@
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
 
-@interface ActivityViewController () <ActivityListDelegate>
+@interface ActivityViewController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) NSArray *associations;
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, assign) NSUInteger count;
+@property (nonatomic, strong) UIPickerView *datePicker;
 
 @end
 
@@ -96,8 +97,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     // Switch dates using the calendar icon
-    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop
-                                                                         target:self action:@selector(dateButtonTapped:)];
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-calendar.png"]
+                                                            style:UIBarButtonItemStylePlain
+                                                           target:self action:@selector(dateButtonTapped:)];
     self.navigationItem.rightBarButtonItem = btn;
 
     // Make sure we scroll with any selection that may have been set
@@ -233,7 +235,7 @@
     else {
         // Assuming each category has at least one date
         NSDate *nextDay = self.days[dayIndex + 1];
-        return [self.data[nextDay] firstObject];
+        return [self.data[nextDay] objectAtIndex:0];
     }
 }
 
@@ -248,11 +250,94 @@
                           scrollPosition:UITableViewScrollPositionNone];
 }
 
-#pragma mark - Date button
+#pragma mark - Date button and UIPickerView
 
 - (void)dateButtonTapped:(id)sender
 {
-    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:nil
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
+
+    // Create datepicker
+    self.datePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+    self.datePicker.showsSelectionIndicator = YES;
+    self.datePicker.dataSource = self;
+    self.datePicker.delegate = self;
+    [actionSheet addSubview:self.datePicker];
+
+    NSIndexPath *firstSection = [[self.tableView indexPathsForVisibleRows] objectAtIndex:0];
+    [self.datePicker selectRow:firstSection.section inComponent:0 animated:NO];
+
+    // Create toolbar
+    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil];
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Gereed" style:UIBarButtonItemStyleBordered
+                                                               target:self action:@selector(dismissActionSheet:)];
+    UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    pickerToolbar.tintColor = [UIColor hydraTintColor];
+    pickerToolbar.items = @[flexSpace, doneBtn];
+    [actionSheet addSubview:pickerToolbar];
+
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 250, 22)];
+    title.font = [UIFont boldSystemFontOfSize:18];
+    title.text = @"Selecteer dag";
+    title.textColor = [UIColor whiteColor];
+    title.textAlignment = UITextAlignmentCenter;
+    title.shadowColor = [UIColor blackColor];
+    title.shadowOffset = CGSizeMake(1, 1);
+    title.backgroundColor = [UIColor clearColor];
+    [actionSheet addSubview:title];
+
+    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+    [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.days.count;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel *label;
+    if (!view) {
+        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 37)];
+        label.font = [UIFont boldSystemFontOfSize:18];
+        label.textAlignment = UITextAlignmentCenter;
+        label.backgroundColor = [UIColor clearColor];
+    }
+    else {
+        label = (UILabel *)view;
+    }
+
+    static NSDateFormatter *formatter;
+    if (!formatter) {
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"EEEE d MMMM";
+    }
+    label.text = [formatter stringFromDate:self.days[row]];
+
+    return label;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:row];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (void)dismissActionSheet:(id)sender
+{
+    UIActionSheet *sheet = (UIActionSheet *)[self.datePicker superview];
+    [sheet dismissWithClickedButtonIndex:0 animated:YES];
+    self.datePicker = nil;
 }
 
 @end
