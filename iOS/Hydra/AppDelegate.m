@@ -12,7 +12,7 @@
 #import <RestKit/RestKit.h>
 #import "TestFlight.h"
 
-#define kTestFlightToken @"5f66b18b6d3a77d2d4ce7c1f05f91f6f_MTQ0MzU2MjAxMi0xMC0xNyAwNjowNTowMy45MTYyNDQ"
+#define kTestFlightToken @"5bc4ec5d-0095-4731-bb0c-ebb0b41ff14a"
 
 @implementation AppDelegate
 
@@ -20,7 +20,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-#if !TARGET_IPHONE_SIMULATOR && !DEBUG
+#if TestFlightEnabled
     [TestFlight takeOff:kTestFlightToken];
 #endif
 

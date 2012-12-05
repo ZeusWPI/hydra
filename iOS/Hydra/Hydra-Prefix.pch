@@ -14,6 +14,12 @@
 #import "UIColor+AppColors.h"
 #endif
 
+#if !TARGET_IPHONE_SIMULATOR && !DEBUG
+#define TestFlightEnabled 1
+#else
+#define TestFlightEnabled 0
+#endif
+
 #if DEBUG
 
 #define DLog(...) NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
