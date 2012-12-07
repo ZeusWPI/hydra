@@ -347,14 +347,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">gsrButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1006082666"/>
-					</object>
-					<int key="connectionID">45</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">infoButton</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="316746564"/>
@@ -384,6 +376,14 @@
 						<reference key="destination" ref="975746595"/>
 					</object>
 					<int key="connectionID">49</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">urgentButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1006082666"/>
+					</object>
+					<int key="connectionID">56</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -569,7 +569,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">54</int>
+			<int key="maxID">56</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -591,6 +591,7 @@
 						<string key="showNews:">id</string>
 						<string key="showResto:">id</string>
 						<string key="showSchamper:">id</string>
+						<string key="showUrgent:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="showActivities:">
@@ -617,22 +618,22 @@
 							<string key="name">showSchamper:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="showUrgent:">
+							<string key="name">showUrgent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="activitiesButton">BadgedButton</string>
-						<string key="gsrButton">BadgedButton</string>
 						<string key="infoButton">BadgedButton</string>
 						<string key="newsButton">BadgedButton</string>
 						<string key="restoButton">BadgedButton</string>
 						<string key="schamperButton">BadgedButton</string>
+						<string key="urgentButton">BadgedButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="activitiesButton">
 							<string key="name">activitiesButton</string>
-							<string key="candidateClassName">BadgedButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="gsrButton">
-							<string key="name">gsrButton</string>
 							<string key="candidateClassName">BadgedButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="infoButton">
@@ -649,6 +650,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="schamperButton">
 							<string key="name">schamperButton</string>
+							<string key="candidateClassName">BadgedButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="urgentButton">
+							<string key="name">urgentButton</string>
 							<string key="candidateClassName">BadgedButton</string>
 						</object>
 					</dictionary>

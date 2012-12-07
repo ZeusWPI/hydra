@@ -13,6 +13,7 @@
 #import "AssociationStore.h"
 #import "NewsViewController.h"
 #import "ActivityViewController.h"
+#import "UrgentViewController.h"
 #import "TestFlight.h"
 #import "UrgentPlayer.h"
 
@@ -48,7 +49,7 @@
     self.activitiesButton = nil;
     self.infoButton = nil;
     self.restoButton = nil;
-    self.gsrButton = nil;
+    self.urgentButton = nil;
     self.schamperButton = nil;
 }
 
@@ -104,6 +105,8 @@
 - (IBAction)showUrgent:(id)sender
 {
     DLog(@"Dashboard switching to Urgent");
+    UIViewController *c = [[UrgentViewController alloc] init];
+    [self.navigationController pushViewController:c animated:YES];
 }
 
 - (IBAction)showSchamper:(id)sender

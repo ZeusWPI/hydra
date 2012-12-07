@@ -15,13 +15,14 @@
 @property (nonatomic, assign) IBOutlet BadgedButton *activitiesButton;
 @property (nonatomic, assign) IBOutlet BadgedButton *infoButton;
 @property (nonatomic, assign) IBOutlet BadgedButton *restoButton;
-@property (nonatomic, assign) IBOutlet BadgedButton *gsrButton;
+@property (nonatomic, assign) IBOutlet BadgedButton *urgentButton;
 @property (nonatomic, assign) IBOutlet BadgedButton *schamperButton;
 
 - (IBAction)showNews:(id)sender;
 - (IBAction)showActivities:(id)sender;
 - (IBAction)showInfo:(id)sender;
 - (IBAction)showResto:(id)sender;
+- (IBAction)showUrgent:(id)sender;
 - (IBAction)showSchamper:(id)sender;
 - (IBAction)showFeedbackView:(id)sender;
 

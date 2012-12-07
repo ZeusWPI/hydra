@@ -12,5 +12,6 @@
 @interface UrgentPlayer : AudioStreamer
 
 + (UrgentPlayer *)sharedPlayer;
+- (void)handleRemoteEvent:(UIEvent *)event;
 
 @end

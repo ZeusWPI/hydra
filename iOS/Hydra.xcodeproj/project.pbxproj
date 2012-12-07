@@ -31,6 +31,9 @@
 		F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */; };
 		F533DABA16315E87001269A8 /* schamper.css in Resources */ = {isa = PBXBuildFile; fileRef = F533DAB916315E87001269A8 /* schamper.css */; };
 		F533DABC163163E2001269A8 /* schamper-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F533DABB163163E2001269A8 /* schamper-bg.png */; };
+		F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53A5E7516700242009EA4CC /* UrgentViewController.m */; };
+		F53A5E7816700242009EA4CC /* UrgentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53A5E7616700242009EA4CC /* UrgentViewController.xib */; };
+		F53A5E8416700B29009EA4CC /* MediaApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = F53A5E8316700B28009EA4CC /* MediaApplication.m */; };
 		F53D248A159DB50800F408AB /* header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D2489159DB50800F408AB /* header-bg.png */; };
 		F53D248C159DB51A00F408AB /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248B159DB51A00F408AB /* hydra.png */; };
 		F54AB5A3166FF510006C1189 /* button-urgent-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F54AB59F166FF510006C1189 /* button-urgent-active.png */; };
@@ -223,6 +226,11 @@
 		F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "resto-closed@2x.jpg"; sourceTree = "<group>"; };
 		F533DAB916315E87001269A8 /* schamper.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = schamper.css; sourceTree = "<group>"; };
 		F533DABB163163E2001269A8 /* schamper-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schamper-bg.png"; sourceTree = "<group>"; };
+		F53A5E7416700242009EA4CC /* UrgentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrgentViewController.h; sourceTree = "<group>"; };
+		F53A5E7516700242009EA4CC /* UrgentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrgentViewController.m; sourceTree = "<group>"; };
+		F53A5E7616700242009EA4CC /* UrgentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UrgentViewController.xib; sourceTree = "<group>"; };
+		F53A5E8216700B28009EA4CC /* MediaApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaApplication.h; sourceTree = "<group>"; };
+		F53A5E8316700B28009EA4CC /* MediaApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaApplication.m; sourceTree = "<group>"; };
 		F53D2489159DB50800F408AB /* header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg.png"; sourceTree = "<group>"; };
 		F53D248B159DB51A00F408AB /* hydra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hydra.png; sourceTree = "<group>"; };
 		F54AB59F166FF510006C1189 /* button-urgent-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-urgent-active.png"; sourceTree = "<group>"; };
@@ -579,10 +587,12 @@
 			children = (
 				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
-				3B93FBA01630942500C962DC /* Urgent */,
+				F53A5E8216700B28009EA4CC /* MediaApplication.h */,
+				F53A5E8316700B28009EA4CC /* MediaApplication.m */,
 				F57CB9DB15B84C4E00D87CB3 /* Categories */,
 				3B059BF215B99B4800B4C1DA /* Custom views */,
 				F5EBF11F159E09C700EB5D26 /* Models */,
+				3B93FBA01630942500C962DC /* Urgent */,
 				F5EBF119159E04B500EB5D26 /* ViewControllers */,
 			);
 			path = Hydra;
@@ -666,6 +676,9 @@
 				90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */,
 				F5EBF11A159E092300EB5D26 /* SchamperViewController.h */,
 				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
+				F53A5E7416700242009EA4CC /* UrgentViewController.h */,
+				F53A5E7516700242009EA4CC /* UrgentViewController.m */,
+				F53A5E7616700242009EA4CC /* UrgentViewController.xib */,
 				F50EE09415B5F587000F1992 /* WebViewController.h */,
 				F50EE09515B5F587000F1992 /* WebViewController.m */,
 			);
@@ -903,6 +916,7 @@
 				F54AB5A4166FF510006C1189 /* button-urgent-active@2x.png in Resources */,
 				F54AB5A5166FF510006C1189 /* button-urgent.png in Resources */,
 				F54AB5A6166FF510006C1189 /* button-urgent@2x.png in Resources */,
+				F53A5E7816700242009EA4CC /* UrgentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -977,6 +991,8 @@
 				3B93FBA4163094A800C962DC /* AudioStreamer.m in Sources */,
 				3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */,
 				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,
+				F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */,
+				F53A5E8416700B29009EA4CC /* MediaApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
