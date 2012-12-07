@@ -4,6 +4,966 @@
 <array>
 	<dict>
 		<key>displayName</key>
+		<string>Politeia</string>
+		<key>fullName</key>
+		<string>UGent1010</string>
+		<key>internalName</key>
+		<string>UGENT1010</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>restomenu</string>
+		<key>fullName</key>
+		<string>restomenu</string>
+		<key>internalName</key>
+		<string>restomenu</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Schamper</string>
+		<key>fullName</key>
+		<string>Schamper</string>
+		<key>internalName</key>
+		<string>SCHAMPER</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>StuW</string>
+		<key>fullName</key>
+		<string>StuW</string>
+		<key>internalName</key>
+		<string>StuW</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Studenten Artes</string>
+		<key>fullName</key>
+		<string>Studenten Artes</string>
+		<key>internalName</key>
+		<string>StuArt</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>FFW</string>
+		<key>fullName</key>
+		<string>FFW</string>
+		<key>internalName</key>
+		<string>FFW</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>FBW</string>
+		<key>fullName</key>
+		<string>FBW</string>
+		<key>internalName</key>
+		<string>FBW</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>FDE</string>
+		<key>fullName</key>
+		<string>FDE</string>
+		<key>internalName</key>
+		<string>FDE</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Stuveco</string>
+		<key>fullName</key>
+		<string>Stuveco</string>
+		<key>internalName</key>
+		<string>Stuveco</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Facultaire Raad van Ingenieursstudenten</string>
+		<key>fullName</key>
+		<string>Facultaire Raad van Ingenieursstudenten</string>
+		<key>internalName</key>
+		<string>FRiS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Durf Doen</string>
+		<key>fullName</key>
+		<string>Durf Doen</string>
+		<key>internalName</key>
+		<string>DurfDoen</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>&apos;t Wielke</string>
+		<key>fullName</key>
+		<string>&apos;t Wielke</string>
+		<key>internalName</key>
+		<string>WIELKE</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>&apos;t Stropke</string>
+		<key>fullName</key>
+		<string>&apos;t Stropke</string>
+		<key>internalName</key>
+		<string>STROPKE</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Westlandia</string>
+		<key>fullName</key>
+		<string>Westlandia</string>
+		<key>internalName</key>
+		<string>WESTLANDIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Politeia</string>
+		<key>fullName</key>
+		<string>Wase Club</string>
+		<key>internalName</key>
+		<string>WASE</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vader Aalsterse</string>
+		<key>fullName</key>
+		<string>Vader Aalsterse</string>
+		<key>internalName</key>
+		<string>AALSTERSE</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>SDA</string>
+		<key>fullName</key>
+		<string>SDA</string>
+		<key>internalName</key>
+		<string>SDA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Scaldis</string>
+		<key>fullName</key>
+		<string>Scaldis</string>
+		<key>internalName</key>
+		<string>SCALDIS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Rodenbach</string>
+		<key>fullName</key>
+		<string>Rodenbach</string>
+		<key>internalName</key>
+		<string>RODENBACH</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Payottenland</string>
+		<key>fullName</key>
+		<string>Payottenland</string>
+		<key>internalName</key>
+		<string>PAYOTTEN</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Moeder Oilsjterse</string>
+		<key>fullName</key>
+		<string>Moeder Oilsjterse</string>
+		<key>internalName</key>
+		<string>OILSJTERSE</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Moeder Domper</string>
+		<key>fullName</key>
+		<string>Moeder Domper</string>
+		<key>internalName</key>
+		<string>DOMPER</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Limburgia</string>
+		<key>fullName</key>
+		<string>Limburgia</string>
+		<key>internalName</key>
+		<string>LIMBURGIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Laetitia</string>
+		<key>fullName</key>
+		<string>Laetitia</string>
+		<key>internalName</key>
+		<string>LAETITIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Internia</string>
+		<key>fullName</key>
+		<string>Internia</string>
+		<key>internalName</key>
+		<string>INTERNIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Geeraard</string>
+		<key>fullName</key>
+		<string>Geeraard</string>
+		<key>internalName</key>
+		<string>GEERAARD</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Dionysus</string>
+		<key>fullName</key>
+		<string>Dionysus</string>
+		<key>internalName</key>
+		<string>DIONYSUS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Deliria</string>
+		<key>fullName</key>
+		<string>Deliria</string>
+		<key>internalName</key>
+		<string>DELIRIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Politeia</string>
+		<key>fullName</key>
+		<string>Politeia</string>
+		<key>internalName</key>
+		<string>POLITEIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>HSC De Dijlebrassers</string>
+		<key>fullName</key>
+		<string>HSC De Dijlebrassers</string>
+		<key>internalName</key>
+		<string>DIJLEBRASSERS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Brugse Universitaire Kring</string>
+		<key>fullName</key>
+		<string>Brugse Universitaire Kring</string>
+		<key>internalName</key>
+		<string>BUK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Antwerpen Boven</string>
+		<key>fullName</key>
+		<string>Antwerpen Boven</string>
+		<key>internalName</key>
+		<string>AB</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Flanders Youth Society for Entrepreneurship</string>
+		<key>fullName</key>
+		<string>Flanders Youth Society for Entrepreneurship</string>
+		<key>internalName</key>
+		<string>FLYSE</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>AAPG Ghent Student Chapter</string>
+		<key>fullName</key>
+		<string>AAPG Ghent Student Chapter</string>
+		<key>internalName</key>
+		<string>AAPGSC</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>IEEE Student Branch Gent</string>
+		<key>fullName</key>
+		<string>IEEE Student Branch Gent</string>
+		<key>internalName</key>
+		<string>IEEE</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Jonge Europese Federalisten</string>
+		<key>fullName</key>
+		<string>Jonge Europese Federalisten</string>
+		<key>internalName</key>
+		<string>JEF</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gents Universitair Harmonie Orkest</string>
+		<key>fullName</key>
+		<string>Gents Universitair Harmonie Orkest</string>
+		<key>internalName</key>
+		<string>GUHO</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gentse Interculturele Studenten Associatie</string>
+		<key>fullName</key>
+		<string>Gentse Interculturele Studenten Associatie</string>
+		<key>internalName</key>
+		<string>GISA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>CenEka</string>
+		<key>fullName</key>
+		<string>Ceneka</string>
+		<key>internalName</key>
+		<string>CENEKA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>AIESEC</string>
+		<key>fullName</key>
+		<string>AIESEC</string>
+		<key>internalName</key>
+		<string>AIESEC</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>PRIME</string>
+		<key>fullName</key>
+		<string>PRIME</string>
+		<key>internalName</key>
+		<string>PRIME</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Tomo No Kai</string>
+		<key>fullName</key>
+		<string>Tomo No Kai</string>
+		<key>internalName</key>
+		<string>TNOK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Studentenraad Revalidatiewetenschappen en Kinesitherapie Gent</string>
+		<key>fullName</key>
+		<string>Studentenraad Revalidatiewetenschappen en Kinesitherapie Gent</string>
+		<key>internalName</key>
+		<string>SRK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vinasag</string>
+		<key>fullName</key>
+		<string>Vinasag</string>
+		<key>internalName</key>
+		<string>VINASAG</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gentse Universitaire Dansclub</string>
+		<key>fullName</key>
+		<string>Gentse Universitaire Dansclub</string>
+		<key>internalName</key>
+		<string>GUDc</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>UGentMUN</string>
+		<key>fullName</key>
+		<string>UGentMUN</string>
+		<key>internalName</key>
+		<string>UGentMUN</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Jong N-VA UGent</string>
+		<key>fullName</key>
+		<string>Jong N-VA UGent</string>
+		<key>internalName</key>
+		<string>JONGNVA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Minos Gent</string>
+		<key>fullName</key>
+		<string>Minos Gent</string>
+		<key>internalName</key>
+		<string>MINOS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Poutrix</string>
+		<key>fullName</key>
+		<string>Poutrix</string>
+		<key>internalName</key>
+		<string>POUTRIX</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>De Loeiende Koe</string>
+		<key>fullName</key>
+		<string>De Loeiende Koe</string>
+		<key>internalName</key>
+		<string>DLK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Studenten Werkgroep OPleiding</string>
+		<key>fullName</key>
+		<string>Studenten Werkgroep OPleiding</string>
+		<key>internalName</key>
+		<string>SWOP</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Amnesty International Studenten Gent</string>
+		<key>fullName</key>
+		<string>Amnesty International Studenten Gent</string>
+		<key>internalName</key>
+		<string>AISG</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Hoger instituut voor lichamelijke opvoeding en kinesitherapie</string>
+		<key>fullName</key>
+		<string>Hoger instituut voor lichamelijke opvoeding en kinesitherapie</string>
+		<key>internalName</key>
+		<string>HILOK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Animo StuGent</string>
+		<key>fullName</key>
+		<string>Animo StuGent</string>
+		<key>internalName</key>
+		<string>ANIMO</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Dienst StudentenActiviteiten</string>
+		<key>fullName</key>
+		<string>Dienst StudentenActiviteiten</string>
+		<key>internalName</key>
+		<string>DSA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Werkgroepen &amp; Vereningingen Konvent</string>
+		<key>fullName</key>
+		<string>Werkgroepen &amp; Vereningingen Konvent</string>
+		<key>internalName</key>
+		<string>WVK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vereniging Voor Natuurkunde</string>
+		<key>fullName</key>
+		<string>Vereniging Voor Natuurkunde</string>
+		<key>internalName</key>
+		<string>VVN</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Technische Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Technische Kring</string>
+		<key>internalName</key>
+		<string>VTK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Rechtsgenootschap</string>
+		<key>fullName</key>
+		<string>Vlaamse Rechtsgenootschap</string>
+		<key>internalName</key>
+		<string>VRG</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Psychologische en Pedagogische Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Psychologische en Pedagogische Kring</string>
+		<key>internalName</key>
+		<string>VPPK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Levenstechnische Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Levenstechnische Kring</string>
+		<key>internalName</key>
+		<string>VLK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Logopedische en Audiologische Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Logopedische en Audiologische Kring</string>
+		<key>internalName</key>
+		<string>VLAK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Geschiedkundige Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Geschiedkundige Kring</string>
+		<key>internalName</key>
+		<string>VGKFLWI</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Geneeskundige Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Geneeskundige Kring</string>
+		<key>internalName</key>
+		<string>VGKFGEN</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Verkeerd Geparkeerd</string>
+		<key>fullName</key>
+		<string>Verkeerd Geparkeerd</string>
+		<key>internalName</key>
+		<string>VG</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Home Vermeylen</string>
+		<key>fullName</key>
+		<string>Home Vermeylen</string>
+		<key>internalName</key>
+		<string>VERMEYL</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Economische Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Economische Kring</string>
+		<key>internalName</key>
+		<string>VEK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Diergeneeskundige Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Diergeneeskundige Kring</string>
+		<key>internalName</key>
+		<string>VDK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Vlaamse Biomedische Kring</string>
+		<key>fullName</key>
+		<string>Vlaamse Biomedische Kring</string>
+		<key>internalName</key>
+		<string>VBK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Nationalistische Studentenvereniging</string>
+		<key>fullName</key>
+		<string>Nationalistische Studentenvereniging</string>
+		<key>internalName</key>
+		<string>NSV</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Urgent</string>
+		<key>fullName</key>
+		<string>Urgent</string>
+		<key>internalName</key>
+		<string>URGENT</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>&apos;t Zal Wel Gaan</string>
+		<key>fullName</key>
+		<string>&apos;t Zal Wel Gaan</string>
+		<key>internalName</key>
+		<string>TZAL</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gents Universitair Symfonisch Orkest</string>
+		<key>fullName</key>
+		<string>Gents Universitair Symfonisch Orkest</string>
+		<key>internalName</key>
+		<string>GUSO</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>StuRa</string>
+		<key>fullName</key>
+		<string>StuRa</string>
+		<key>internalName</key>
+		<string>StuRa</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Students Welcome Club</string>
+		<key>fullName</key>
+		<string>Students Welcome Club</string>
+		<key>internalName</key>
+		<string>SWC</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Slavia</string>
+		<key>fullName</key>
+		<string>Slavia</string>
+		<key>internalName</key>
+		<string>SLAVIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Seniorenkonvent Ghendt</string>
+		<key>fullName</key>
+		<string>Seniorenkonvent Ghendt</string>
+		<key>internalName</key>
+		<string>SK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Studentenfanfare Ghendt</string>
+		<key>fullName</key>
+		<string>Studentenfanfare Ghendt</string>
+		<key>internalName</key>
+		<string>SF</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Schildersatelier</string>
+		<key>fullName</key>
+		<string>Schildersatelier</string>
+		<key>internalName</key>
+		<string>SCHILDER</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Psychologische en Pedagogische Studentenraad</string>
+		<key>fullName</key>
+		<string>Psychologische en Pedagogische Studentenraad</string>
+		<key>internalName</key>
+		<string>PPSR</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Politeia</string>
+		<key>fullName</key>
+		<string>Politeia</string>
+		<key>internalName</key>
+		<string>POLITEIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Politiek en Filosofisch Konvent</string>
+		<key>fullName</key>
+		<string>PKarus</string>
+		<key>internalName</key>
+		<string>PKARUS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Politiek en Filosofisch Konvent</string>
+		<key>fullName</key>
+		<string>Politiek en Filosofisch Konvent</string>
+		<key>internalName</key>
+		<string>PFK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Overleg Noord Zuid</string>
+		<key>fullName</key>
+		<string>Overleg Noord Zuid</string>
+		<key>internalName</key>
+		<string>ONZ</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Oosterse Afrikaanse Kring</string>
+		<key>fullName</key>
+		<string>Oosterse Afrikaanse Kring</string>
+		<key>internalName</key>
+		<string>OAK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Massacantus</string>
+		<key>fullName</key>
+		<string>Massacantus</string>
+		<key>internalName</key>
+		<string>MCANTUS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Matrak</string>
+		<key>fullName</key>
+		<string>Matrak</string>
+		<key>internalName</key>
+		<string>MATRAK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Liberaal Vlaams Studentenverbond</string>
+		<key>fullName</key>
+		<string>Liberaal Vlaams Studentenverbond</string>
+		<key>internalName</key>
+		<string>LVSV</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Lombrosiana</string>
+		<key>fullName</key>
+		<string>Lombrosiana</string>
+		<key>internalName</key>
+		<string>LOMBRO</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Katholiek Vlaams Hoogstudenten Verbond</string>
+		<key>fullName</key>
+		<string>Katholiek Vlaams Hoogstudenten Verbond</string>
+		<key>internalName</key>
+		<string>KVHV</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Kultureel Konvent</string>
+		<key>fullName</key>
+		<string>Kultureel Konvent</string>
+		<key>internalName</key>
+		<string>KULTK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Kring Moraal en Filosofie</string>
+		<key>fullName</key>
+		<string>Kring Moraal en Filosofie</string>
+		<key>internalName</key>
+		<string>KMF</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Klassieke Kring</string>
+		<key>fullName</key>
+		<string>Klassieke Kring</string>
+		<key>internalName</key>
+		<string>KK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>KunstHistorische Kring</string>
+		<key>fullName</key>
+		<string>KunstHistorische Kring</string>
+		<key>internalName</key>
+		<string>KHK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>International Students Association Ghent </string>
+		<key>fullName</key>
+		<string>International Students Association Ghent </string>
+		<key>internalName</key>
+		<string>ISAG</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Home Konvent</string>
+		<key>fullName</key>
+		<string>Home Konvent</string>
+		<key>internalName</key>
+		<string>HK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gents Universitair Koor</string>
+		<key>fullName</key>
+		<string>Gents Universitair Koor</string>
+		<key>internalName</key>
+		<string>GUK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gentse Studentenraad</string>
+		<key>fullName</key>
+		<string>Gentse Studentenraad</string>
+		<key>internalName</key>
+		<string>GSR</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Groene Alternatieve Studenten</string>
+		<key>fullName</key>
+		<string>Groene Alternatieve Studenten</string>
+		<key>internalName</key>
+		<string>GRAS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>StudentenPastoraal Gent</string>
+		<key>fullName</key>
+		<string>StudentenPastoraal Gent</string>
+		<key>internalName</key>
+		<string>GPS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gentse Farmaceutische Kring</string>
+		<key>fullName</key>
+		<string>Gentse Farmaceutische Kring</string>
+		<key>internalName</key>
+		<string>GFK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Geologica</string>
+		<key>fullName</key>
+		<string>Geologica</string>
+		<key>internalName</key>
+		<string>GEOLOGIC</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Geografica</string>
+		<key>fullName</key>
+		<string>Geografica</string>
+		<key>internalName</key>
+		<string>GEAGRAFI</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gentse Biologische Kring</string>
+		<key>fullName</key>
+		<string>Gentse Biologische Kring</string>
+		<key>internalName</key>
+		<string>GBK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Fotoklas</string>
+		<key>fullName</key>
+		<string>Fotoklas</string>
+		<key>internalName</key>
+		<string>FOTOKLAS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Faculteiten Konvent</string>
+		<key>fullName</key>
+		<string>Faculteiten Konvent</string>
+		<key>internalName</key>
+		<string>FK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Home Fabiola</string>
+		<key>fullName</key>
+		<string>Home Fabiola</string>
+		<key>internalName</key>
+		<string>FABIOLA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Erasmus Student Network</string>
+		<key>fullName</key>
+		<string>Erasmus Student Network</string>
+		<key>internalName</key>
+		<string>ESN</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Dentalia</string>
+		<key>fullName</key>
+		<string>Dentalia</string>
+		<key>internalName</key>
+		<string>DENTALIA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Comac</string>
+		<key>fullName</key>
+		<string>Comac</string>
+		<key>internalName</key>
+		<string>COMAC</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Chinese Student Association Ghent</string>
+		<key>fullName</key>
+		<string>Chinese Student Association Ghent</string>
+		<key>internalName</key>
+		<string>CHISAG</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Chemica</string>
+		<key>fullName</key>
+		<string>Chemica</string>
+		<key>internalName</key>
+		<string>CHEMICA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>CDS</string>
+		<key>fullName</key>
+		<string>Christendemocratische Studenten</string>
+		<key>internalName</key>
+		<string>CDS</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Home Boudewijn</string>
+		<key>fullName</key>
+		<string>Home Boudewijn</string>
+		<key>internalName</key>
+		<string>BOUDEWIJN</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Home Bertha</string>
+		<key>fullName</key>
+		<string>Home Bertha</string>
+		<key>internalName</key>
+		<string>BERTHA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>AW</string>
+		<key>fullName</key>
+		<string>Archeologische Werkgroep</string>
+		<key>internalName</key>
+		<string>AW</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Home Astrid</string>
+		<key>fullName</key>
+		<string>Home Astrid</string>
+		<key>internalName</key>
+		<string>ASTRID</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Filologica</string>
+		<key>fullName</key>
+		<string>Filologica</string>
+		<key>internalName</key>
+		<string>FILOLOGICA</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>ALS</string>
+		<key>fullName</key>
+		<string>Actief Linkse Studenten</string>
+		<key>internalName</key>
+		<string>AK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>AK</string>
+		<key>fullName</key>
+		<string>Activiteiten Konvent</string>
+		<key>internalName</key>
+		<string>AK</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
 		<string>Zeus WPI</string>
 		<key>fullName</key>
 		<string>Zeus WerkgroeP Informatica</string>
