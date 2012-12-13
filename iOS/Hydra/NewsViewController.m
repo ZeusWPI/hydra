@@ -77,7 +77,7 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
-    AssociationNewsItem *newsItem = [self.newsItems objectAtIndex:indexPath.row];
+    AssociationNewsItem *newsItem = self.newsItems[indexPath.row];
     Association *association = newsItem.association;
 
     static NSDateFormatter *dateFormatter = nil;
@@ -104,10 +104,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AssociationNewsItem *item = [self.newsItems objectAtIndex:indexPath.row];
-    NewsItemViewController *c = [[NewsItemViewController alloc]initWithBody:item.body];
+    AssociationNewsItem *item = self.newsItems[indexPath.row];
+    NewsItemViewController *c = [[NewsItemViewController alloc] initWithNewsItem:item];
     [self.navigationController pushViewController:c animated:YES];
-    
 }
 
 @end

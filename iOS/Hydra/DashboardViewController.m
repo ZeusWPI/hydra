@@ -76,7 +76,7 @@
 - (IBAction)showNews:(id)sender
 {
     DLog(@"Dashboard switching to News");
-    NSArray *all = [[AssociationStore sharedStore] associations];
+    NSArray *all = [[AssociationStore sharedStore] allAssociations];
     NewsViewController *c = [[NewsViewController alloc]initWithAssociations:all];
     [self.navigationController pushViewController:c animated:YES];
 }

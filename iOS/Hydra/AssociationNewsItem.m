@@ -11,6 +11,12 @@
 #import "NSString+Utilities.h"
 #import "AssociationStore.h"
 
+@interface AssociationNewsItem ()
+
+@property (nonatomic, strong) Association *association;
+
+@end
+
 @implementation AssociationNewsItem
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
@@ -44,7 +50,10 @@
 
 - (Association *)association
 {
-    return [[AssociationStore sharedStore] associationWithName:self.associationId];
+    if (!_association) {
+        _association = [[AssociationStore sharedStore] associationWithName:self.associationId];
+    }
+    return _association;
 }
 
 #pragma mark - NSCoding

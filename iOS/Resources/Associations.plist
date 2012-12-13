@@ -16,7 +16,7 @@
 		<key>internalName</key>
 		<string>CHEMICA</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -24,7 +24,7 @@
 		<key>internalName</key>
 		<string>DENTALIA</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -32,15 +32,15 @@
 		<key>internalName</key>
 		<string>FILOLOGICA</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Faculteiten Konvent</string>
 		<key>internalName</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -48,7 +48,7 @@
 		<key>internalName</key>
 		<string>GBK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -56,7 +56,7 @@
 		<key>internalName</key>
 		<string>GEOGRAFI</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -64,7 +64,7 @@
 		<key>internalName</key>
 		<string>GEOLOGIC</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -72,7 +72,7 @@
 		<key>internalName</key>
 		<string>GFK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -80,7 +80,7 @@
 		<key>internalName</key>
 		<string>HILOK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -88,7 +88,7 @@
 		<key>internalName</key>
 		<string>KHK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -96,7 +96,7 @@
 		<key>internalName</key>
 		<string>KMF</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -104,7 +104,7 @@
 		<key>internalName</key>
 		<string>LOMBRO</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -112,7 +112,7 @@
 		<key>internalName</key>
 		<string>OAK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -120,7 +120,7 @@
 		<key>internalName</key>
 		<string>POLITEIA</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -128,7 +128,7 @@
 		<key>internalName</key>
 		<string>POLITEIA</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -136,7 +136,7 @@
 		<key>internalName</key>
 		<string>SLAVIA</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -144,7 +144,7 @@
 		<key>internalName</key>
 		<string>VBK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -152,7 +152,7 @@
 		<key>internalName</key>
 		<string>VDK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -160,7 +160,7 @@
 		<key>internalName</key>
 		<string>VEK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -168,7 +168,7 @@
 		<key>internalName</key>
 		<string>VGKFGEN</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -176,7 +176,7 @@
 		<key>internalName</key>
 		<string>VGKFLWI</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -184,7 +184,7 @@
 		<key>internalName</key>
 		<string>VLAK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -192,7 +192,7 @@
 		<key>internalName</key>
 		<string>VLK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -200,7 +200,7 @@
 		<key>internalName</key>
 		<string>VPPK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -208,7 +208,7 @@
 		<key>internalName</key>
 		<string>VRG</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -216,7 +216,7 @@
 		<key>internalName</key>
 		<string>VTK</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -224,15 +224,7 @@
 		<key>internalName</key>
 		<string>WINA</string>
 		<key>parentAssociation</key>
-		<string>FK</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Gentse Studentenraad</string>
-		<key>internalName</key>
-		<string>GSR</string>
-		<key>parentAssociation</key>
-		<string>GSR</string>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -240,7 +232,7 @@
 		<key>internalName</key>
 		<string>ASTRID</string>
 		<key>parentAssociation</key>
-		<string>HK</string>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -248,7 +240,7 @@
 		<key>internalName</key>
 		<string>BERTHA</string>
 		<key>parentAssociation</key>
-		<string>HK</string>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -256,7 +248,7 @@
 		<key>internalName</key>
 		<string>BOUDEWIJN</string>
 		<key>parentAssociation</key>
-		<string>HK</string>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -264,15 +256,15 @@
 		<key>internalName</key>
 		<string>FABIOLA</string>
 		<key>parentAssociation</key>
-		<string>HK</string>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Home Konvent</string>
 		<key>internalName</key>
-		<string>HK</string>
+		<string>HKCENTRAAL</string>
 		<key>parentAssociation</key>
-		<string>HK</string>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -280,7 +272,7 @@
 		<key>internalName</key>
 		<string>VERMEYL</string>
 		<key>parentAssociation</key>
-		<string>HK</string>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -288,7 +280,7 @@
 		<key>internalName</key>
 		<string>AIESEC</string>
 		<key>parentAssociation</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -298,7 +290,7 @@
 		<key>internalName</key>
 		<string>CHISAG</string>
 		<key>parentAssociation</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -308,15 +300,15 @@
 		<key>internalName</key>
 		<string>ESN</string>
 		<key>parentAssociation</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Internationaal Konvent</string>
 		<key>internalName</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 		<key>parentAssociation</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -326,7 +318,7 @@
 		<key>internalName</key>
 		<string>ISAG</string>
 		<key>parentAssociation</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -334,7 +326,7 @@
 		<key>internalName</key>
 		<string>SWC</string>
 		<key>parentAssociation</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -342,7 +334,7 @@
 		<key>internalName</key>
 		<string>TNOK</string>
 		<key>parentAssociation</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -350,7 +342,7 @@
 		<key>internalName</key>
 		<string>VINASAG</string>
 		<key>parentAssociation</key>
-		<string>IK</string>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -358,7 +350,7 @@
 		<key>internalName</key>
 		<string>FOTOKLAS</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -366,9 +358,9 @@
 		<key>fullName</key>
 		<string>Gentse Universitaire Dansclub</string>
 		<key>internalName</key>
-		<string>GUDc</string>
+		<string>GUDC</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -378,7 +370,7 @@
 		<key>internalName</key>
 		<string>GUHO</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -386,7 +378,7 @@
 		<key>internalName</key>
 		<string>GUK</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -396,15 +388,15 @@
 		<key>internalName</key>
 		<string>GUSO</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Kultureel Konvent</string>
 		<key>internalName</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -412,7 +404,7 @@
 		<key>internalName</key>
 		<string>MATRAK</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -420,7 +412,7 @@
 		<key>internalName</key>
 		<string>SCHILDER</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -428,7 +420,7 @@
 		<key>internalName</key>
 		<string>SF</string>
 		<key>parentAssociation</key>
-		<string>KULTK</string>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -444,7 +436,7 @@
 		<key>internalName</key>
 		<string>ALS</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -452,7 +444,7 @@
 		<key>internalName</key>
 		<string>ANIMO</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -462,7 +454,7 @@
 		<key>internalName</key>
 		<string>CDS</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -470,7 +462,7 @@
 		<key>internalName</key>
 		<string>COMAC</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -480,7 +472,7 @@
 		<key>internalName</key>
 		<string>GPS</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -490,7 +482,7 @@
 		<key>internalName</key>
 		<string>GRAS</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -498,7 +490,7 @@
 		<key>internalName</key>
 		<string>JEF</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -506,7 +498,7 @@
 		<key>internalName</key>
 		<string>JONGNVA</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -516,7 +508,7 @@
 		<key>internalName</key>
 		<string>KVHV</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -526,7 +518,7 @@
 		<key>internalName</key>
 		<string>LVSV</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -534,33 +526,33 @@
 		<key>internalName</key>
 		<string>MINOS</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>NSV</string>
+		<string>NSV! Gent</string>
 		<key>fullName</key>
 		<string>Nationalistische Studentenvereniging</string>
 		<key>internalName</key>
 		<string>NSV</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Politiek en Filosofisch Konvent</string>
 		<key>internalName</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>&apos;t Zal Wel Gaan</string>
+		<string>'t Zal Wel Gaan</string>
 		<key>internalName</key>
 		<string>TZAL</string>
 		<key>parentAssociation</key>
-		<string>PFK</string>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -576,7 +568,7 @@
 		<key>internalName</key>
 		<string>AALSTERSE</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -584,7 +576,7 @@
 		<key>internalName</key>
 		<string>AB</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -592,7 +584,7 @@
 		<key>internalName</key>
 		<string>BUK</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -600,7 +592,7 @@
 		<key>internalName</key>
 		<string>DELIRIA</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -608,7 +600,7 @@
 		<key>internalName</key>
 		<string>DIJLEBRASSERS</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -616,7 +608,7 @@
 		<key>internalName</key>
 		<string>DIONYSUS</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -624,7 +616,7 @@
 		<key>internalName</key>
 		<string>DOMPER</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -632,7 +624,7 @@
 		<key>internalName</key>
 		<string>EGMONT</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -640,7 +632,7 @@
 		<key>internalName</key>
 		<string>GEERAARD</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -648,7 +640,7 @@
 		<key>internalName</key>
 		<string>INTERNIA</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -656,7 +648,7 @@
 		<key>internalName</key>
 		<string>LAETITIA</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -664,7 +656,7 @@
 		<key>internalName</key>
 		<string>LIMBURGIA</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -672,7 +664,7 @@
 		<key>internalName</key>
 		<string>OILSJTERSE</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -680,7 +672,7 @@
 		<key>internalName</key>
 		<string>PAYOTTEN</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -688,7 +680,7 @@
 		<key>internalName</key>
 		<string>RODENBACH</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -696,31 +688,31 @@
 		<key>internalName</key>
 		<string>SCALDIS</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Sd&apos;A Gent</string>
+		<string>Sd'A Gent</string>
 		<key>internalName</key>
 		<string>SDA</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Seniorenkonvent Ghendt</string>
 		<key>internalName</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>&apos;t Stropke</string>
+		<string>'t Stropke</string>
 		<key>internalName</key>
 		<string>STROPKE</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -728,7 +720,7 @@
 		<key>internalName</key>
 		<string>WASE</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -736,15 +728,23 @@
 		<key>internalName</key>
 		<string>WESTLANDIA</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>&apos;t Wielke</string>
+		<string>'t Wielke</string>
 		<key>internalName</key>
 		<string>WIELKE</string>
 		<key>parentAssociation</key>
-		<string>SK</string>
+		<string>SKCENTRAAL</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Gentse Studentenraad</string>
+		<key>internalName</key>
+		<string>STVCENTRAAL</string>
+		<key>parentAssociation</key>
+		<string>STVCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -762,7 +762,7 @@
 		<key>internalName</key>
 		<string>AISG</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -770,7 +770,7 @@
 		<key>internalName</key>
 		<string>ASANTE</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -778,7 +778,7 @@
 		<key>internalName</key>
 		<string>AW</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -786,7 +786,7 @@
 		<key>internalName</key>
 		<string>CENEKA</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -794,7 +794,7 @@
 		<key>internalName</key>
 		<string>DLK</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -804,7 +804,7 @@
 		<key>internalName</key>
 		<string>FLYSE</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -814,7 +814,7 @@
 		<key>internalName</key>
 		<string>IEEE</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -822,7 +822,7 @@
 		<key>internalName</key>
 		<string>KK</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -830,7 +830,7 @@
 		<key>internalName</key>
 		<string>MACHT</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -838,7 +838,7 @@
 		<key>internalName</key>
 		<string>ONZ</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -846,7 +846,7 @@
 		<key>internalName</key>
 		<string>PKARUS</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -854,7 +854,7 @@
 		<key>internalName</key>
 		<string>POUTRIX</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -862,7 +862,7 @@
 		<key>internalName</key>
 		<string>PRIME</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -870,7 +870,7 @@
 		<key>internalName</key>
 		<string>VG</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -878,15 +878,15 @@
 		<key>internalName</key>
 		<string>VVN</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Werkgroepen &amp; Vereningingen Konvent</string>
 		<key>internalName</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -894,7 +894,7 @@
 		<key>internalName</key>
 		<string>ZEUS</string>
 		<key>parentAssociation</key>
-		<string>WVK</string>
+		<string>WVKCENTRAAL</string>
 	</dict>
 </array>
 </plist>

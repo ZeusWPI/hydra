@@ -15,6 +15,7 @@
 @interface AssociationActivity ()
 
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) Association *association;
 
 @end
 
@@ -59,7 +60,10 @@
 
 - (Association *)association
 {
-    return [[AssociationStore sharedStore] associationWithName:self.associationId];
+    if (!_association) {
+        _association = [[AssociationStore sharedStore] associationWithName:self.associationId];
+    }
+    return _association;
 }
 
 #pragma mark - NSCoding

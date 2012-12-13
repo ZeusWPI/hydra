@@ -24,9 +24,9 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 @interface AssociationStore () <NSCoding, RKObjectLoaderDelegate, RKRequestDelegate>
 
-@property (nonatomic, strong) NSArray *associations;
+@property (nonatomic, strong) NSDictionary *associations;
 @property (nonatomic, strong) NSMutableDictionary *newsItems;
-@property (nonatomic, strong) NSDictionary *activities;
+@property (nonatomic, strong) NSArray *activities;
 
 @property (nonatomic, strong) NSDictionary *resourceState;
 @property (nonatomic, assign) NSUInteger activitiesVersion;
@@ -55,7 +55,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     if (self) {
         self.associations = [Association updateAssociations:nil];
         self.newsItems = [[NSMutableDictionary alloc] init];
-        self.activities = [[NSDictionary alloc] init];
+        self.activities = nil;
         self.activitiesVersion = 0;
         [self sharedInit];
     }
@@ -75,9 +75,19 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     if (self = [super init]) {
         NSArray *associations = [decoder decodeObjectForKey:@"associations"];
         self.associations = [Association updateAssociations:associations];
+
         self.newsItems = [decoder decodeObjectForKey:@"newsItems"];
+        if (![self.newsItems isKindOfClass:[NSDictionary class]]) {
+            self.newsItems = [[NSMutableDictionary alloc] init];
+        }
+
         self.activities = [decoder decodeObjectForKey:@"activities"];
         self.activitiesVersion = [decoder decodeIntegerForKey:@"activitiesVersion"];
+        if (![self.activities isKindOfClass:[NSArray class]]) {
+            self.activities = nil;
+            self.activitiesVersion = 0;
+        }
+
         [self sharedInit];
     }
     return self;
@@ -119,7 +129,6 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     RKClient *client = [self.objectManager client];
     RKRequest *stateRequest = [client requestWithResourcePath:kVersoResourceStatePath];
 
-    __block AssociationStore *blockSelf = self;
     [stateRequest setOnDidLoadResponse:^(RKResponse *response) {
         NSError *error;
         NSDictionary *result = [response parsedBody:&error];
@@ -131,16 +140,16 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
             for (NSDictionary *entry in [root allValues][0]) {
                 state[entry[@"name"]] = entry;
             }
-            blockSelf.resourceState = state;
+            self.resourceState = state;
             block(state);
         }
         else {
-            [blockSelf objectLoader:nil didFailWithError:error];
+            [self objectLoader:nil didFailWithError:error];
         }
         [self.activeRequests removeObjectForKey:url];
     }];
     [stateRequest setOnDidFailLoadWithError:^(NSError *error) {
-        [blockSelf objectLoader:nil didFailWithError:error];
+        [self objectLoader:nil didFailWithError:error];
         [self.activeRequests removeObjectForKey:url];
     }];
 
@@ -160,6 +169,10 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     else {
         // Check the information in versions.xml
         NSDictionary *state = self.resourceState[resourceId];
+        if (!state) {
+            NSLog(@"Resource \"%@\" not found in resource state.", resourceId);
+            return;
+        }
 
         NSUInteger latestVersion = [state[@"version"] intValue];
         if (latestVersion > version) {
@@ -179,34 +192,30 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 #pragma mark - Accessors
 
-- (Association *)associationWithName:(NSString *)identifier
+- (NSArray *)allAssociations
 {
-    // TODO: not really efficient, result should be cached?
-    for (Association *association in self.associations) {
-        if ([association.fullName isEqualToString:identifier]) {
-            return association;
-        }
+    return [self.associations allValues];
+}
+
+- (Association *)associationWithName:(NSString *)internalName
+{
+    Association *association = self.associations[internalName];
+
+    // If the association is unknown, just give a fake record
+    if (!association) {
+        association = [[Association alloc] init];
+        association.internalName = internalName;
+        association.displayName = internalName;
     }
-    return nil;
+
+    return association;
 }
 
 - (NSArray *)allActivities
 {
     [self fetchResourceUpdate:kActivitiesResource forTarget:[NSNull null]
                   withVersion:self.activitiesVersion];
-
-    NSMutableArray *flattened = [[NSMutableArray alloc] init];
-    for (NSArray *activities in [self.activities allValues]) {
-        [flattened addObjectsFromArray:activities];
-    }
-    return flattened;
-}
-
-- (NSArray *)activitiesForAssocation:(Association *)association
-{
-    [self fetchResourceUpdate:kActivitiesResource forTarget:[NSNull null]
-                  withVersion:self.activitiesVersion];
-    return self.activities[association];
+    return self.activities;
 }
 
 - (NSArray *)newsItemsForAssocation:(Association *)association
@@ -247,7 +256,15 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
                                        cancelButtonTitle:@"OK"
                                        otherButtonTitles:nil];
     [av show];
-    if (objectLoader) [self.activeRequests removeObjectForKey:[objectLoader resourcePath]];
+
+    // Only clear the request after 5 seconds, to prevent failed requests
+    // restarting due to related succesful requests
+    if (objectLoader) {
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            [self.activeRequests removeObjectForKey:objectLoader.resourcePath];
+        });
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
@@ -269,17 +286,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
     // Received Activities
     else {
-        // Index received activities by association
-        // TODO: decide on data structure to store activities
-        NSMutableDictionary *newActivities = [[NSMutableDictionary alloc] init];
-        for (AssociationActivity *activity in objects) {
-            NSString *associationId = [activity associationId];
-            if (!newActivities[associationId]) {
-                newActivities[associationId] = [[NSMutableArray alloc] init];
-            }
-            [newActivities[associationId] addObject:activity];
-        }
-        self.activities = newActivities;
+        self.activities = objects;
 
         NSDictionary *state = self.resourceState[kActivitiesResource];
         self.activitiesVersion = [state[@"version"] intValue];

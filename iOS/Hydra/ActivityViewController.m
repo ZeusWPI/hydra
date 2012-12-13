@@ -18,7 +18,6 @@
 
 @interface ActivityViewController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic, strong) NSArray *associations;
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, assign) NSUInteger count;
@@ -31,7 +30,6 @@
 - (id)init
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
-        self.associations = [[AssociationStore sharedStore] associations];
         self.count = 0;
         [self refreshActivities];
     }
@@ -102,6 +100,8 @@
                                                            target:self action:@selector(dateButtonTapped:)];
     self.navigationItem.rightBarButtonItem = btn;
 
+    // TODO: show loading overlay when no items found yet
+
     // Make sure we scroll with any selection that may have been set
     [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:NO];
 
@@ -149,14 +149,14 @@
         cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
         cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
 
-        CGRect titleFrame = CGRectMake(60, 5, 250, 20);
+        CGRect titleFrame = CGRectMake(60, 4, 250, 20);
         titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
         titleLabel.tag = kCellTitleLabel;
         titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
         titleLabel.highlightedTextColor = [UIColor whiteColor];
         [cell.contentView addSubview:titleLabel];
 
-        CGRect subtitleFrame = CGRectMake(60, 25, 250, 16);
+        CGRect subtitleFrame = CGRectMake(60, 24, 250, 16);
         subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
         subtitleLabel.tag = kCellSubtitleLabel;
         subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
@@ -180,8 +180,7 @@
 
     cell.textLabel.text = [dateFormatter stringFromDate:activity.start];
     titleLabel.text = activity.title;
-    subtitleLabel.text = activity.associationId;
-    //subtitleLabel.text = activity.association.displayName;
+    subtitleLabel.text = activity.association.displayName;
 
     return cell;
 }
@@ -235,7 +234,7 @@
     else {
         // Assuming each category has at least one date
         NSDate *nextDay = self.days[dayIndex + 1];
-        return [self.data[nextDay] objectAtIndex:0];
+        return self.data[nextDay][0];
     }
 }
 
@@ -267,7 +266,7 @@
     self.datePicker.delegate = self;
     [actionSheet addSubview:self.datePicker];
 
-    NSIndexPath *firstSection = [[self.tableView indexPathsForVisibleRows] objectAtIndex:0];
+    NSIndexPath *firstSection = [self.tableView indexPathsForVisibleRows][0];
     [self.datePicker selectRow:firstSection.section inComponent:0 animated:NO];
 
     // Create toolbar

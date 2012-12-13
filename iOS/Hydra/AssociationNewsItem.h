@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *body;
 
-@property (nonatomic, readonly) Association *association;
+@property (nonatomic, strong, readonly) Association *association;
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 

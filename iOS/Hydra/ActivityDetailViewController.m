@@ -8,6 +8,7 @@
 
 #import "ActivityDetailViewController.h"
 #import "AssociationActivity.h"
+#import "Association.h"
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 
@@ -77,7 +78,16 @@
 
     NSMutableArray *fields = [[NSMutableArray alloc] init];
     fields[kTitleRow] = self.activity.title;
-    fields[kAssociationRow] = self.activity.associationId;
+
+    Association *association = self.activity.association;
+    if (association.fullName) {
+        fields[kAssociationRow] = [NSString stringWithFormat:@"%@ (%@)",
+                                   association.displayName, association.fullName];
+    }
+    else {
+        fields[kAssociationRow] = association.displayName;
+    }
+
     if (self.activity.end) {
         fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
                             [dateStartFormatter stringFromDate:self.activity.start],
@@ -86,6 +96,7 @@
     else {
         fields[kDateRow] = [dateStartFormatter stringFromDate:self.activity.start];
     }
+
     fields[kLocationRow] = self.activity.location ? self.activity.location : @"";
 
     self.fields = fields;
@@ -112,7 +123,7 @@
         if (isTitleRow) font = [UIFont boldSystemFontOfSize:20.0f];
 
         NSString *text = self.fields[indexPath.row];
-        CGFloat width = tableView.frame.size.width - (isTitleRow ? 30.0f : 125.0f);
+        CGFloat width = tableView.frame.size.width - (isTitleRow ? 35.0f : 125.0f);
         CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
                            lineBreakMode:NSLineBreakByWordWrapping];
 
@@ -172,12 +183,15 @@
     }
     else {
         static NSString *CellIdentifier = @"ActivityDetailButtonCell";
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                       reuseIdentifier:CellIdentifier];
-        cell.textLabel.text = @"Toevoegen aan agenda";
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.textLabel.textColor = [UIColor detailLabelTextColor];
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:CellIdentifier];
+            cell.textLabel.text = @"Toevoegen aan agenda";
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+            cell.textLabel.textColor = [UIColor detailLabelTextColor];
+            cell.textLabel.textAlignment = UITextAlignmentCenter;
+        }
         return cell;
     }
 }

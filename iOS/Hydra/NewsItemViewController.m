@@ -10,20 +10,38 @@
 
 @interface NewsItemViewController ()
 
+@property (nonatomic, strong) AssociationNewsItem *newsItem;
+
 @end
 
 @implementation NewsItemViewController
 
-- (id) initWithBody: (NSString *) body{
+- (id) initWithNewsItem:(AssociationNewsItem *)newsItem {
     self = [super init];
     if (self) {
-        UITextView *textField = [[UITextView alloc] initWithFrame:self.view.frame];
-        textField.editable = NO;
-        textField.dataDetectorTypes = UIDataDetectorTypeAll;
-        textField.text = body;
-        [self.view addSubview:textField];
+        self.newsItem = newsItem;
     }
     return self;
+}
+
+- (void)loadView
+{
+    [super loadView];
+
+    self.navigationItem.title = @"Nieuwsbericht";
+
+    // Body
+    UITextView *bodyField = [[UITextView alloc] initWithFrame:self.view.bounds];
+    bodyField.autoresizingMask = UIViewAutoresizingFlexibleWidth
+                               | UIViewAutoresizingFlexibleHeight;
+    bodyField.editable = NO;
+    bodyField.font = [UIFont systemFontOfSize:14.0f];
+
+    bodyField.dataDetectorTypes = UIDataDetectorTypeLink
+                                | UIDataDetectorTypePhoneNumber
+                                | UIDataDetectorTypeAddress;
+    bodyField.text = self.newsItem.body;
+    [self.view addSubview:bodyField];
 }
 
 @end
