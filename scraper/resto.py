@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 API_PATH = './resto/week/'
 
-def get_menu_page (week):
+def get_menu_page(week):
 	print "Fetching week %02d menu webpage" %  week
 	f = urllib.urlopen("http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm" % week)
 	return f.read()
@@ -25,7 +25,7 @@ def parse_single_meat_and_price(meat):
 	result['name'] = name.strip()
 	return result
 
-def get_meat_and_price (meat):
+def get_meat_and_price(meat):
 	meals = meat.xpathEval(".//p")
 	if len(meals) == 0:
 		return [parse_single_meat_and_price(meat)]
@@ -35,7 +35,7 @@ def get_meat_and_price (meat):
 			result.append(parse_single_meat_and_price(meal))
 		return result
 
-def parse_menu_from_html (page):
+def parse_menu_from_html(page):
 	print "Parsing weekmenu webpage to an object tree"
 	# replace those pesky non-breakable spaces
 	page = page.replace('&nbsp;', ' ')
@@ -80,7 +80,7 @@ def parse_menu_from_html (page):
 			menu[day]['meat'].extend(get_meat_and_price(fields[2]))
 	return menu
 
-def dump_menu_to_file (week, menu):
+def dump_menu_to_file(week, menu):
 	print "Writing object tree to file in json format"
 	path = API_PATH
 	if not os.path.isdir(path):
@@ -88,9 +88,6 @@ def dump_menu_to_file (week, menu):
 	f = open ('%s/%s.json' % (path, week), 'w')
 	json.dump(menu, f, sort_keys=True, indent=4)
 	f.close()
-
-def menu_already_downloaded(week):
-	return os.path.exists(API_PATH + '/%s.json' % week)
 
 def download_menu(week):
 	page = get_menu_page(week)
@@ -100,7 +97,7 @@ def download_menu(week):
 if __name__ == "__main__":
 	locale.setlocale(locale.LC_ALL, ('nl_BE.UTF-8'))
 	week = datetime.today().isocalendar()[1]
-	# fetch the menu for the next to weeks, if not already downloaded
+	# fetch the menu for the next three weeks
 	download_menu((week - 1) % 52 + 1)
 	download_menu((week + 0) % 52 + 1)
 	download_menu((week + 1) % 52 + 1)

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-python scraper.py
+python resto.py
 rsync -a resto ~/public/api/1.0
