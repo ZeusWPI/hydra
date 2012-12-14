@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define kErrorTitleKey @"ErrorTitleKey"
+#define kErrorDescriptionKey NSLocalizedDescriptionKey
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

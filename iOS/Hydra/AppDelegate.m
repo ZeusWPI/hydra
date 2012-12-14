@@ -18,16 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
 #if TestFlightEnabled
     [TestFlight takeOff:kTestFlightToken];
 #endif
-
-    // Create and setup controllers
-    DashboardViewController *dashboard = [[DashboardViewController alloc] init];
-    self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
-    self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
 
 #if DEBUG
     RKLogConfigureByName("RestKit/Network", RKLogLevelInfo);
@@ -37,8 +30,17 @@
     RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelWarning);
 #endif
 
-    // TODO: use reachability
+    // Check for internet connectivity
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
+                                                 name:RKReachabilityWasDeterminedNotification object:nil];
+    [RKReachabilityObserver reachabilityObserverForInternet];
 
+    // Create and setup controllers
+    DashboardViewController *dashboard = [[DashboardViewController alloc] init];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
+    self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:self.navController];
     [self.window makeKeyAndVisible];
     return YES;
@@ -71,6 +73,25 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)reachabilityStatusDetermined:(NSNotification *)notification
+{
+    // Prevent this dialog from showing up more than once
+    static BOOL reachabilityDetermined = false;
+    if(reachabilityDetermined) return;
+    reachabilityDetermined = YES;
+
+    RKReachabilityObserver *reachability = notification.object;
+    if (!reachability.isNetworkReachable)
+    {
+        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{
+            kErrorTitleKey: @"Geen internetverbinding",
+            kErrorDescriptionKey: @"Sommige onderdelen van Hydra vereisen een "
+                                  @"internetverbinding en zullen mogelijk niet "
+                                  @"correct werken."}];
+        [self handleError:error];
+    }
+}
+
 BOOL errorDialogShown = false;
 
 - (void)handleError:(NSError *)error
@@ -78,8 +99,11 @@ BOOL errorDialogShown = false;
     NSLog(@"An error occured: %@", error);
     if (errorDialogShown) return;
 
-    NSString *title = @"Fout";
-    NSString *message = [@"Er trad een onbekende fout op.\n\n" stringByAppendingString:error.localizedDescription];
+    NSString *title = error.userInfo[kErrorTitleKey];
+    if (!title) title = @"Fout";
+
+    NSString *message = error.userInfo[kErrorDescriptionKey];
+    if (!message) message = @"Er trad een onbekende fout op.";
 
     // Try to improve the error message
     if ([error.domain isEqual:RKErrorDomain]) {

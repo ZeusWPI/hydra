@@ -39,7 +39,6 @@
         @"</body>",
         self.article.title, [dateFormatter stringFromDate:self.article.date],
         self.article.author, self.article.body];
-    NSLog(@"%@", html);
 
     NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     [self.webView loadHTMLString:html baseURL:bundeUrl];
@@ -57,7 +56,7 @@
 
     self.navigationController.navigationBar.translucent = NO;
 }
- 
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSURL *url = [request URL];
     if ([url.scheme isEqualToString:@"hydra"]) {
