@@ -9,6 +9,7 @@
 #import "RestoStore.h"
 #import "RestoMenu.h"
 #import "NSDate+Utilities.h"
+#import "AppDelegate.h"
 #import <RestKit/RestKit.h>
 
 #define kRestoUrl @"http://zeus.ugent.be/hydra/api/1.0/resto"
@@ -125,29 +126,15 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
 {
-    [self.activeRequests removeObject:objectLoader.resourcePath];
+    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [app handleError:error];
 
-    // Show an alert if something goes wrong
-    // TODO: make errors thrown by RestKit more userfriendly
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Fout"
-                                                 message:[error localizedDescription]
-                                                delegate:nil
-                                       cancelButtonTitle:@"OK"
-                                       otherButtonTitles:nil];
-    [av show];
-    
-    VLog(self.activeRequests);
+    [self delayActiveRequestRemoval:objectLoader.resourcePath];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
-    // Only clear the request after 5 seconds, when all related requests have
-    // finished with reasonable certainty, to prevent a request loop when not
-    // all data requested was found.
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [self.activeRequests removeObject:objectLoader.resourcePath];
-    });
+    [self delayActiveRequestRemoval:objectLoader.resourcePath];
 
     // Save menus
     for (RestoMenu *menu in objects) {
@@ -158,6 +145,17 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:RestoStoreDidReceiveMenuNotification object:self];
     [self updateStoreCache];
+}
+
+- (void)delayActiveRequestRemoval:(NSString *)resourcePath
+{
+    // Only clear the request after 10 seconds, when all related requests have
+    // finished with reasonable certainty, to prevent a request loop when not
+    // all data requested was found.
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        [self.activeRequests removeObject:resourcePath];
+    });
 }
 
 @end

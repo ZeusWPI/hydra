@@ -10,11 +10,12 @@
 #import "Association.h"
 #import "AssociationActivity.h"
 #import "AssociationNewsItem.h"
+#import "AppDelegate.h"
 #import <RestKit/RestKit.h>
 
 #define kVersoUrl @"http://golive.myverso.com/ugent"
 #define kVersoResourceStatePath @"/versions.xml"
-#define kActivitiesResource @"all_activities"
+#define kActivitiesResource @"ALL_ACTIVITIES"
 
 NSString *const AssociationStoreDidUpdateNewsNotification =
     @"AssociationStoreDidUpdateNewsNotification";
@@ -122,7 +123,11 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 - (void)fetchResourceStateWithCompletion:(void(^)(NSDictionary *))block
 {
     NSURL *url = [NSURL URLWithString:kVersoResourceStatePath];
-    if (self.activeRequests[url]) return;
+    if (self.activeRequests[url]) {
+        NSMutableArray *dependingRequests = self.activeRequests[url];
+        [dependingRequests addObject:block];
+        return;
+    }
 
     DLog(@"Checking if resources were updated");
 
@@ -141,7 +146,10 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
                 state[entry[@"name"]] = entry;
             }
             self.resourceState = state;
-            block(state);
+
+            for (void (^b)(NSDictionary *state) in self.activeRequests[url]) {
+                b(state);
+            }
         }
         else {
             [self objectLoader:nil didFailWithError:error];
@@ -153,7 +161,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
         [self.activeRequests removeObjectForKey:url];
     }];
 
-    self.activeRequests[url] = [NSNull null];
+    NSMutableArray *dependingRequests = [NSMutableArray arrayWithObject:block];
+    self.activeRequests[url] = dependingRequests;
     [[self.objectManager requestQueue] addRequest:stateRequest];
 }
 
@@ -179,8 +188,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
             // Only allow one request at a time
             NSString *path = [@"/" stringByAppendingString:state[@"path"]];
             if (!(self.activeRequests)[path]) {
-                self.activeRequests[path] = target;
                 NSLog(@"Resource \"%@\" (version %u) is out-of-date. Updating...", resourceId, version);
+                self.activeRequests[path] = target;
                 [self.objectManager loadObjectsAtResourcePath:path delegate:self];
             }
         }
@@ -248,19 +257,13 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
 {
-    // Show an alert if something goes wrong
-    // TODO: make errors thrown by RestKit more userfriendly
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Fout"
-                                                 message:[error localizedDescription]
-                                                delegate:nil
-                                       cancelButtonTitle:@"OK"
-                                       otherButtonTitles:nil];
-    [av show];
+    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [app handleError:error];
 
-    // Only clear the request after 5 seconds, to prevent failed requests
+    // Only clear the request after 10 seconds, to prevent failed requests
     // restarting due to related succesful requests
     if (objectLoader) {
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC);
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
             [self.activeRequests removeObjectForKey:objectLoader.resourcePath];
         });

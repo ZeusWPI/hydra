@@ -36,7 +36,7 @@
     [super viewDidLoad];
      
     // Set title in navigation bar, slightly different title on return button
-    [[self navigationItem] setTitle:@"Nieuws"];
+    [self.navigationItem setTitle:@"Nieuws"];
 
     // Check for updates
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

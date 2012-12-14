@@ -29,8 +29,15 @@
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
     self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
 
+#if DEBUG
     RKLogConfigureByName("RestKit/Network", RKLogLevelInfo);
     RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelInfo);
+#else
+    RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelWarning);
+#endif
+
+    // TODO: use reachability
 
     [self.window setRootViewController:self.navController];
     [self.window makeKeyAndVisible];
@@ -62,6 +69,35 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+BOOL errorDialogShown = false;
+
+- (void)handleError:(NSError *)error
+{
+    NSLog(@"An error occured: %@", error);
+    if (errorDialogShown) return;
+
+    NSString *title = @"Fout";
+    NSString *message = [@"Er trad een onbekende fout op.\n\n" stringByAppendingString:error.localizedDescription];
+
+    // Try to improve the error message
+    if ([error.domain isEqual:RKErrorDomain]) {
+        title = @"Netwerkfout";
+        message = @"Er trad een fout op het bij het ophalen van externe informatie. "
+                  @"Gelieve later opnieuw te proberen.";
+    }
+
+    // Show an alert
+    errorDialogShown = true;
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:title message:message delegate:self
+                                       cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [av show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    errorDialogShown = false;
 }
 
 @end

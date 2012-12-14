@@ -68,6 +68,7 @@
     }
 
     self.data = groups;
+    self.navigationItem.rightBarButtonItem.enabled = self.days.count > 0;
     [self.tableView reloadData];
 }
 
@@ -98,6 +99,7 @@
     UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-calendar.png"]
                                                             style:UIBarButtonItemStylePlain
                                                            target:self action:@selector(dateButtonTapped:)];
+    btn.enabled = self.days.count > 0;
     self.navigationItem.rightBarButtonItem = btn;
 
     // TODO: show loading overlay when no items found yet
