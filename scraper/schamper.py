@@ -61,10 +61,15 @@ def get_article_authors(page):
 def get_article_body(page):
     result = ''
 
-    introNode = page.xpathEval("//div[contains(@class,'field-field-inleiding')]/div/div/p")
+    introNode = page.xpathEval("//div[contains(@class,'field-field-inleiding')]/div/div")
     if len(introNode) > 0:
-        introNode[0].setProp('class', 'inleiding')
-        result += introNode[0].serialize('UTF-8')
+        # Sometimes there's a wrapping <p>, sometimes there isn't
+        paragraph = introNode[0].xpathEval('./p')
+        if len(paragraph) == 0:
+            paragraph = [page.newDocRawNode(None, 'p', introNode[0].children.serialize('UTF-8'))]
+
+        paragraph[0].setProp('class', 'inleiding')
+        result += paragraph[0].serialize('UTF-8')
 
     bodyNodes = page.xpathEval("//div[@id='artikel']//div[@class='content']/p")
     for node in bodyNodes:
