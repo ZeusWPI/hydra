@@ -10,7 +10,7 @@
 #import "SchamperArticle.h"
 #import <RestKit/RestKit.h>
 
-#define kSchamperUrl @"http://www.schamper.ugent.be/dagelijks"
+#define kSchamperUrl @"http://zeus.ugent.be/hydra/schamper/daily.xml"
 
 NSString *const SchamperStoreDidUpdateArticlesNotification =
     @"SchamperStoreDidUpdateArticlesNotification";

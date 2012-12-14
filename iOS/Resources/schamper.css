@@ -35,6 +35,16 @@ h1 {
     margin: 5px 8px;
 }
 
+p.introduction {
+    font-size: 17px;
+}
+
+cite {
+    display: block;
+    font-size: 17px;
+    text-align: center;
+}
+
 a {
     color: #e63c0e;
     text-decoration: none;

@@ -123,7 +123,7 @@
         if (isTitleRow) font = [UIFont boldSystemFontOfSize:20.0f];
 
         NSString *text = self.fields[indexPath.row];
-        CGFloat width = tableView.frame.size.width - (isTitleRow ? 35.0f : 125.0f);
+        CGFloat width = tableView.frame.size.width - (isTitleRow ? 40.0f : 125.0f);
         CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
                            lineBreakMode:NSLineBreakByWordWrapping];
 

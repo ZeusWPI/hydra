@@ -39,6 +39,7 @@
         @"</body>",
         self.article.title, [dateFormatter stringFromDate:self.article.date],
         self.article.author, self.article.body];
+    NSLog(@"%@", html);
 
     NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     [self.webView loadHTMLString:html baseURL:bundeUrl];
