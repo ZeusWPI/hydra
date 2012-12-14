@@ -76,5 +76,6 @@ def write_document_to_file(doc):
 
 if __name__ == '__main__':
     doc = read_rss_from_url(SCHAMPER_LINK)
+    change_to_rss_feed(doc) 
     change_item_info(doc)
     write_document_to_file(doc)
