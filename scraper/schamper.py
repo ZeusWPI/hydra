@@ -68,12 +68,13 @@ def get_article_body(page):
         if len(paragraph) == 0:
             paragraph = [page.newDocRawNode(None, 'p', introNode[0].children.serialize('UTF-8'))]
 
-        paragraph[0].setProp('class', 'inleiding')
+        paragraph[0].setProp('class', 'introduction')
         result += paragraph[0].serialize('UTF-8')
 
-    bodyNodes = page.xpathEval("//div[@id='artikel']//div[@class='content']/p")
+    bodyNodes = page.xpathEval("//div[@id='artikel']//div[@class='content']/*")
     for node in bodyNodes:
-        result += node.serialize('UTF-8')
+        if node.name != 'div' and node.name != 'form':
+            result += node.serialize('UTF-8')
 
     return result
 
