@@ -71,7 +71,7 @@ def get_article_body(page):
         paragraph[0].setProp('class', 'introduction')
         result += paragraph[0].serialize('UTF-8')
 
-    bodyNodes = page.xpathEval("//div[@id='artikel']//div[@class='content']/*")
+    bodyNodes = page.xpathEval("//div[@id='artikel']/*/div[@class='content']/*")
     for node in bodyNodes:
         if node.name != 'div' and node.name != 'form':
             result += node.serialize('UTF-8')
