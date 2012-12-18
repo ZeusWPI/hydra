@@ -80,9 +80,15 @@ def get_article_body(page):
 
         # Image
         elif node.name == 'div' and node.prop('class').find('img-regulier') >= 0:
-            image = node.xpathEval(".//img")[0]
+            image = node.xpathEval('.//img')[0]
             image.setProp('src', 'http://www.schamper.ugent.be' + image.prop('src'))
-            result += '<p class="image">' + image.serialize('UTF-8') + '</p>'
+
+            captionText = ''
+            caption = node.xpathEval(".//div[@class='caption-text']")
+            if len(caption) > 0:
+                captionText = caption[0].children.serialize('utf-8')
+
+            result += '<div class="image"><p>' + image.serialize('UTF-8') + captionText + '</p></div>'
 
     return result
 

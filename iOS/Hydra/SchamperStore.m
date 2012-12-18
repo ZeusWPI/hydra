@@ -8,6 +8,7 @@
 
 #import "SchamperStore.h"
 #import "SchamperArticle.h"
+#import "AppDelegate.h"
 #import <RestKit/RestKit.h>
 
 #define kSchamperUrl @"http://zeus.ugent.be/hydra/schamper/daily.xml"
@@ -106,13 +107,9 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 {
     self.active = false;
 
-    // Show an alert if something goes wrong
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Fout"
-                                                 message:[error localizedDescription]
-                                                delegate:nil
-                                       cancelButtonTitle:@"OK"
-                                       otherButtonTitles:nil];
-    [av show];
+    // Show error
+    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [app handleError:error];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects

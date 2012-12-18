@@ -24,7 +24,6 @@
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth
                              | UIViewAutoresizingFlexibleHeight;
     webView.delegate = self;
-    webView.hidden = YES;
     [self.view addSubview:webView];
     self.webView = webView;
 
@@ -43,11 +42,6 @@
 
     NSURL *url = [[NSBundle mainBundle] URLForResource:path withExtension:nil];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    self.webView.hidden = NO;
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

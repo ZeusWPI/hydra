@@ -22,7 +22,7 @@ h1 {
 }
 
 .meta {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 300;
     margin: 8px 5px 5px;
     text-shadow: #333 1px 1px 1px;
@@ -55,12 +55,21 @@ a {
     text-decoration: none;
 }
 
-p.image {
+div.image {
     text-align: center;
 }
 
-img {
+div.image p {
+    display: inline-block;
     max-width: 95%;
-    padding: 2%;
+    padding: 8px 8px 4px; margin: 0;
     background-color: #E0E0E0;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+div.image img {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 4px;
 }
