@@ -39,6 +39,11 @@ p.introduction {
     font-size: 17px;
 }
 
+p.vraag {
+    font-weight: 900;
+    margin-bottom: -8px;
+}
+
 cite {
     display: block;
     font-size: 17px;
@@ -50,3 +55,12 @@ a {
     text-decoration: none;
 }
 
+p.image {
+    text-align: center;
+}
+
+img {
+    max-width: 95%;
+    padding: 2%;
+    background-color: #E0E0E0;
+}

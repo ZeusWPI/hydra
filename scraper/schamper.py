@@ -61,20 +61,28 @@ def get_article_authors(page):
 def get_article_body(page):
     result = ''
 
-    introNode = page.xpathEval("//div[contains(@class,'field-field-inleiding')]/div/div")
-    if len(introNode) > 0:
-        # Sometimes there's a wrapping <p>, sometimes there isn't
-        paragraph = introNode[0].xpathEval('./p')
-        if len(paragraph) == 0:
-            paragraph = [page.newDocRawNode(None, 'p', introNode[0].children.serialize('UTF-8'))]
-
-        paragraph[0].setProp('class', 'introduction')
-        result += paragraph[0].serialize('UTF-8')
-
     bodyNodes = page.xpathEval("//div[@id='artikel']/*/div[@class='content']/*")
     for node in bodyNodes:
-        if node.name != 'div' and node.name != 'form':
+        # Normal text (or header etc)
+        if node.name != 'form' and node.name != 'div':
             result += node.serialize('UTF-8')
+
+        # Introductory paragraph
+        elif node.name == 'div' and node.prop('class').find('inleiding') >= 0:
+            introNode = node.xpathEval('./div/div')[0]
+            # Sometimes there's a wrapping <p>, sometimes there isn't
+            paragraph = introNode.xpathEval('./p')
+            if len(paragraph) == 0:
+                paragraph = [page.newDocRawNode(None, 'p', introNode.children.serialize('UTF-8'))]
+
+            paragraph[0].setProp('class', 'introduction')
+            result += paragraph[0].serialize('UTF-8')
+
+        # Image
+        elif node.name == 'div' and node.prop('class').find('img-regulier') >= 0:
+            image = node.xpathEval(".//img")[0]
+            image.setProp('src', 'http://www.schamper.ugent.be' + image.prop('src'))
+            result += '<p class="image">' + image.serialize('UTF-8') + '</p>'
 
     return result
 
