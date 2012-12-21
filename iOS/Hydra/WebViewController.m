@@ -8,31 +8,26 @@
 
 #import "WebViewController.h"
 
-@interface WebViewController ()
-
-@property (nonatomic, unsafe_unretained) UIWebView *webView;
-
-@end
-
 @implementation WebViewController
 
 - (void)loadView
 {
-    self.view = [[UIView alloc] initWithFrame:CGRectZero];
-
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    CGRect bounds = [UIScreen mainScreen].bounds;
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:bounds];
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth
                              | UIViewAutoresizingFlexibleHeight;
     webView.delegate = self;
-    [self.view addSubview:webView];
-    self.webView = webView;
-
-    self.view.backgroundColor = self.webView.backgroundColor;
+    self.view = webView;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (UIWebView *)webView
+{
+    return (UIWebView *)self.view;
 }
 
 - (void)loadHtml:(NSString *)path
