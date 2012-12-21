@@ -9,7 +9,6 @@
 #import "AssociationActivity.h"
 #import "AssociationStore.h"
 #import <RestKit/RestKit.h>
-#import "NSString+Utilities.h"
 #import "NSDate+Utilities.h"
 
 @interface AssociationActivity ()
@@ -30,10 +29,11 @@
         @"to", @"end", @"association_id", @"associationId", nil];
 
     NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
-    [dayFormatter setDateFormat:@"dd/MM/yyyy"];
+    dayFormatter.dateFormat = @"dd/MM/yyyy";
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-    [timeFormatter setDateFormat:@"H:m"];
-    [objectMapping setDateFormatters:@[ timeFormatter, dayFormatter ]];
+    timeFormatter.dateFormat = @"H:m";
+
+    objectMapping.dateFormatters = @[ timeFormatter, dayFormatter ];
 
     [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@"activity"];
 }

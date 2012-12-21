@@ -12,6 +12,7 @@
 #import "Association.h"
 #import "NSDate+Utilities.h"
 #import "ActivityDetailViewController.h"
+#import "NSDateFormatter+AppLocale.h"
 
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
@@ -77,6 +78,13 @@
     [super viewDidLoad];
     self.title = @"Activiteiten";
 
+    // Switch dates using the calendar icon
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-calendar.png"]
+                                                            style:UIBarButtonItemStylePlain
+                                                           target:self action:@selector(dateButtonTapped:)];
+    btn.enabled = self.days.count > 0;
+    self.navigationItem.rightBarButtonItem = btn;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activitiesUpdated:) name:AssociationStoreDidUpdateActivitiesNotification object:nil];
 }
 
@@ -95,13 +103,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    // Switch dates using the calendar icon
-    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-calendar.png"]
-                                                            style:UIBarButtonItemStylePlain
-                                                           target:self action:@selector(dateButtonTapped:)];
-    btn.enabled = self.days.count > 0;
-    self.navigationItem.rightBarButtonItem = btn;
-
     // TODO: show loading overlay when no items found yet
 
     // Make sure we scroll with any selection that may have been set
@@ -128,8 +129,8 @@
 {
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"d MMMM"];
+        dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
+        dateFormatter.dateFormat = @"d MMMM";
     }
     return [dateFormatter stringFromDate:self.days[section]];
 }
@@ -173,8 +174,8 @@
 
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"HH.mm"];
+        dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
+        dateFormatter.dateFormat = @"HH.mm";
     }
 
     NSDate *date = self.days[indexPath.section];
@@ -320,7 +321,7 @@
 
     static NSDateFormatter *formatter;
     if (!formatter) {
-        formatter = [[NSDateFormatter alloc] init];
+        formatter = [NSDateFormatter H_dateFormatterWithAppLocale];
         formatter.dateFormat = @"EEEE d MMMM";
     }
     label.text = [formatter stringFromDate:self.days[row]];

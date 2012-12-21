@@ -9,6 +9,7 @@
 #import "ActivityDetailViewController.h"
 #import "AssociationActivity.h"
 #import "Association.h"
+#import "NSDateFormatter+AppLocale.h"
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 
@@ -70,10 +71,10 @@
     static NSDateFormatter *dateStartFormatter = nil;
     static NSDateFormatter *dateEndFormatter = nil;
     if (!dateStartFormatter || !dateEndFormatter) {
-        dateStartFormatter = [[NSDateFormatter alloc] init];
-        [dateStartFormatter setDateFormat:@"EEE d MMMM H:mm"];
-        dateEndFormatter = [[NSDateFormatter alloc] init];
-        [dateEndFormatter setDateFormat:@"H:mm"];
+        dateStartFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
+        dateStartFormatter.dateFormat = @"EEE d MMMM H:mm";
+        dateEndFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
+        dateEndFormatter.dateFormat = @"H:mm";
     }
 
     NSMutableArray *fields = [[NSMutableArray alloc] init];

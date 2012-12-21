@@ -8,6 +8,7 @@
 
 #import "RestoMenuView.h"
 #import "NSDate+Utilities.h"
+#import "NSDateFormatter+AppLocale.h"
 
 @interface RestoMenuView () <UITableViewDataSource, UITableViewDelegate>
 
@@ -112,7 +113,7 @@
     else if ([self.day isTomorrow]) dateString = @"Morgen";
     else {
         // Create capitalized, formatted string
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        NSDateFormatter *formatter = [NSDateFormatter H_dateFormatterWithAppLocale];
         [formatter setDateFormat:@"EEEE d MMMM"];
         dateString = [formatter stringFromDate:self.day];
         dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 1)

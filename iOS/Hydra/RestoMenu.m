@@ -35,8 +35,8 @@
 
     // Date format: 2012-03-26
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    [menuMapping setDateFormatters:@[dateFormatter]];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    menuMapping.dateFormatters = @[ dateFormatter ];
 
     // Register mapping
     [mappingProvider setObjectMapping:menuMapping forKeyPath:@""];

@@ -12,6 +12,7 @@
 #import "NewsItemViewController.h"
 #import "AssociationNewsItem.h"
 #import "Association.h"
+#import "NSDateFormatter+AppLocale.h"
 
 @interface NewsViewController ()
 
@@ -82,8 +83,8 @@
 
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEEE d MMMM"];
+        dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
+        dateFormatter.dateFormat = @"EEEE d MMMM";
     }
 
     NSString *detailText = [NSString stringWithFormat:@"%@, %@", association.displayName, [dateFormatter stringFromDate:newsItem.date]];

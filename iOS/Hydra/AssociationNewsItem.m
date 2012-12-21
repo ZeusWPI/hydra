@@ -8,7 +8,6 @@
 
 #import "AssociationNewsItem.h"
 #import <RestKit/RestKit.h>
-#import "NSString+Utilities.h"
 #import "AssociationStore.h"
 
 @interface AssociationNewsItem ()
@@ -36,16 +35,6 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"<AssocationNewsItem '%@'>", self.title];
-}
-
-- (void)setTitle:(NSString *)newTitle
-{
-    _title = [newTitle stringByStrippingCDATA];
-}
-
-- (void)setBody:(NSString *)newBody
-{
-    _body = [newBody stringByStrippingCDATA];
 }
 
 - (Association *)association
