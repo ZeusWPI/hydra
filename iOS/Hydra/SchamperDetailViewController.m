@@ -7,8 +7,9 @@
 //
 
 #import "SchamperDetailViewController.h"
+#import "NSDateFormatter+AppLocale.h"
 
-@interface SchamperDetailViewController ()
+@interface SchamperDetailViewController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) SchamperArticle *article;
 
@@ -28,13 +29,15 @@
 {
     [super viewDidLoad];
 
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
     dateFormatter.dateFormat = @"dd MMMM YYYY 'om' hh.mm 'uur'";
 
     NSString *html = [NSString stringWithFormat:
-        @"<head><link rel='stylesheet' type='text/css' href='schamper.css' /></head>"
+        @"<head>"
+            @"<link rel='stylesheet' type='text/css' href='schamper.css' />"
+        @"</head>"
         @"<body>"
-            @"<header><h1>%@</h1><p class='meta'>%@ door %@</div></header>"
+            @"<header><h1>%@</h1><p class='meta'>%@<br />door %@</div></header>"
             @"<div class='content'>%@</div>"
         @"</body>",
         self.article.title, [dateFormatter stringFromDate:self.article.date],
@@ -43,7 +46,17 @@
     NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     [self.webView loadHTMLString:html baseURL:bundeUrl];
 
-    // TODO: add share button to toolbar
+    // Recognize taps
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] init];
+    tapRecognizer.delegate = self;
+    tapRecognizer.numberOfTapsRequired = 1;
+    [tapRecognizer addTarget:self action:@selector(didRecognizeTap:)];
+    [self.webView addGestureRecognizer:tapRecognizer];
+
+    // Add share button
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                           target:self action:@selector(shareButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = btn;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -67,6 +80,41 @@
     }
 
     return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (void)didRecognizeTap:(UIEvent *)event
+{
+    // Don't do anything if the content's not big enough
+    CGSize contentSize = self.webView.scrollView.contentSize;
+    if (contentSize.height <= self.view.frame.size.height) return;
+
+    BOOL hidden = self.navigationController.navigationBarHidden;
+    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
+
+    // Save the contentoffset, we'll need to restore it later
+    CGPoint contentOffset = self.webView.scrollView.contentOffset;
+
+    UIEdgeInsets insets = hidden ? UIEdgeInsetsZero : UIEdgeInsetsMake(-44, 0, 0, 0);
+    self.webView.scrollView.contentInset = insets;
+    self.webView.scrollView.contentOffset = contentOffset;
+
+    // Prevent the view from landing in the top buffer zone
+    if (contentOffset.y <= 44) {
+        CGPoint newOffset = hidden ? CGPointZero : CGPointMake(0, 44);
+        [self.webView.scrollView setContentOffset:newOffset animated:YES];
+    }
+}
+
+- (void)shareButtonTapped:(id)sender
+{
+    // TODO: implement share button
+    VLog(sender);
 }
 
 @end

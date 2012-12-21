@@ -1,3 +1,8 @@
+html, body {
+    max-width: 100%;
+    overflow: hidden;
+}
+
 body {
     font-size: 11px;
     line-height: 1.2;
@@ -17,7 +22,7 @@ h1 {
     font-size: 26px;
     line-height: 28px;
     text-transform: uppercase;
-    margin: 6px 12px 2px;
+    margin: 6px 4px 2px;
     text-shadow: #111 1px 1px 2px;
 }
 
@@ -36,7 +41,7 @@ h1 {
 }
 
 p.introduction {
-    font-size: 17px;
+    font-size: 16px;
 }
 
 p.vraag {
@@ -48,6 +53,7 @@ cite {
     display: block;
     font-size: 17px;
     text-align: center;
+    margin: 1em 0;
 }
 
 a {
