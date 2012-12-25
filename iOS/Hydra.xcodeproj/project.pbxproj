@@ -20,6 +20,8 @@
 		446378FC162DA12D008D47F2 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446378FB162DA12D008D47F2 /* EventKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
+		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
+		90EB7BEA1688ECE300A9582D /* RestoLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegend.m */; };
 		F5016BA6162756F300BBDB0A /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA5162756F300BBDB0A /* ActivityViewController.m */; };
 		F5016BA91627665800BBDB0A /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */; };
 		F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CD15BDC1E600A697F8 /* info-kalender.html */; };
@@ -212,6 +214,10 @@
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
+		90EB7BE11688BCC700A9582D /* RestoInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoInfoView.h; sourceTree = "<group>"; };
+		90EB7BE21688BCC700A9582D /* RestoInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoInfoView.m; sourceTree = "<group>"; };
+		90EB7BE81688ECE300A9582D /* RestoLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegend.h; sourceTree = "<group>"; };
+		90EB7BE91688ECE300A9582D /* RestoLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLegend.m; sourceTree = "<group>"; };
 		F5016BA4162756F300BBDB0A /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		F5016BA5162756F300BBDB0A /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		F5016BA71627665800BBDB0A /* ActivityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailViewController.h; sourceTree = "<group>"; };
@@ -420,6 +426,8 @@
 				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
 				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
 				F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */,
+				90EB7BE11688BCC700A9582D /* RestoInfoView.h */,
+				90EB7BE21688BCC700A9582D /* RestoInfoView.m */,
 			);
 			name = Resto;
 			sourceTree = "<group>";
@@ -704,6 +712,8 @@
 				F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */,
 				F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */,
 				F5D36BC015B5BDA500B6E017 /* SchamperStore.m */,
+				90EB7BE81688ECE300A9582D /* RestoLegend.h */,
+				90EB7BE91688ECE300A9582D /* RestoLegend.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -993,6 +1003,8 @@
 				F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */,
 				F53A5E8416700B29009EA4CC /* MediaApplication.m in Sources */,
 				F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */,
+				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
+				90EB7BEA1688ECE300A9582D /* RestoLegend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

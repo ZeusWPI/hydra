@@ -12,6 +12,7 @@
 #import "UIColor+AppColors.h"
 #import "NSDate+Utilities.h"
 #import "RestoMenuView.h"
+#import "RestoInfoView.h"
 
 #define kRestoDaysShown 5
 
@@ -30,6 +31,7 @@
     RestoMenuView *leftView;
     RestoMenuView *currentView;
     RestoMenuView *rightView;
+    RestoInfoView *infoView;
 }
 
 #pragma mark Properties
@@ -69,7 +71,7 @@
     // Setup scrollview
     CGSize viewSize = self.scrollView.frame.size;
     self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), viewSize.height);
-    self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);
+    //self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);
 
     // Setup pageControl
     self.pageControlUsed = 0;
@@ -99,6 +101,21 @@
             leftView = pageView;
         }
     }
+
+    {
+        // 20 pixels padding on each edge
+        CGRect frame = CGRectMake( 20, 20,
+                                  viewSize.width - 40, viewSize.height - 60);
+
+        // Use the outer view for shadows, the contentView uses maskToBounds for rounded corners
+        UIView *holderView = [[UIView alloc] initWithFrame:frame];
+        holderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self.scrollView addSubview:holderView];
+        infoView = [[RestoInfoView alloc] initWithFrame:holderView.bounds];
+        [infoView configure];
+        [holderView addSubview:infoView];
+
+    }
 }
 
 - (void)viewDidUnload
@@ -108,17 +125,18 @@
     // Release any retained subviews of the main view
     self.scrollView = nil;
     self.pageControl = nil;
-    self.infoSheet = nil;
-
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLayoutSubviews
 {
-    [self setupSheetStyle:self.infoSheet.superview];
     [self setupSheetStyle:leftView.superview];
     [self setupSheetStyle:currentView.superview];
     [self setupSheetStyle:rightView.superview];
+
+    //nieuw
+    [self setupSheetStyle:infoView.superview];
 }
 
 #define kPageCornerRadius 10

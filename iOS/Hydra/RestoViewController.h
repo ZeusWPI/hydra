@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
-@property (nonatomic, strong) IBOutlet UIView *infoSheet;
 
 - (IBAction)pageChanged:(id)sender;
 
