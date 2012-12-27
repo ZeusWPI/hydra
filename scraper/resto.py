@@ -45,21 +45,16 @@ def parse_menu_from_html(page):
 	rows = menuElement[0].xpathEval('.//tr')[1:-2]
 
 	week = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
-	if len(week) == 7:
-		# start and end of week are in the same month
-		monday = datetime.strptime("%s %s %s" % (week[2], week[5], week[6]), "%d %B %Y")
-	else:
-		# start and end of week are in different months
-		monday = datetime.strptime("%s %s %s" % (week[2], week[3], week[7]), "%d %B %Y")
+	friday = datetime.strptime("%s %s %s" % tuple(week[-3:]), "%d %B %Y").date()
 
 	menu = {}
-	dayOfWeek = 0
+	dayOfWeek = 4
 	for row in rows:
 		fields = row.xpathEval('.//td')
 		if len(fields[0].content.strip()) != 0:
 			# first row of a day
-			day = str(monday.date() + timedelta(dayOfWeek))
-			dayOfWeek += 1
+			day = str(friday - timedelta(dayOfWeek))
+			dayOfWeek -= 1
 			menu[day] = {}
 			if fields[2].content.strip() == 'Gesloten':
 				menu[day]['open'] = False

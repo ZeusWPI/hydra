@@ -24,10 +24,8 @@
     return self;
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
-    [super loadView];
-
     self.navigationItem.title = @"Nieuwsbericht";
 
     // Body
