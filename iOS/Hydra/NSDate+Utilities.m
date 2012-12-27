@@ -332,6 +332,13 @@
 	return components.week;
 }
 
+- (NSInteger) yearOfCalendarWeek
+{
+    // TODO: this unit is only available since iOS5, provide fallback for iOS4?
+    NSDateComponents *components = [CURRENT_CALENDAR components:NSYearForWeekOfYearCalendarUnit fromDate:self];
+    return components.yearForWeekOfYear;
+}
+
 - (NSInteger) weekday
 {
 	NSDateComponents *components = [CURRENT_CALENDAR components:NSWeekdayCalendarUnit fromDate:self];

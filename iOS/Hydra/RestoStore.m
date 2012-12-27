@@ -103,7 +103,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     day = [day dateAtStartOfDay];
     RestoMenu *menu = self.menus[day];
     if (!menu) {
-        [self fetchMenuForWeek:day.week year:day.year];
+        [self fetchMenuForWeek:day.week year:day.yearOfCalendarWeek];
     }
     return menu;
 }
