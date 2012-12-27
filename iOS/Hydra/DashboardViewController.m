@@ -17,6 +17,8 @@
 #import "TestFlight.h"
 #import "UrgentPlayer.h"
 
+#import "RestoMapViewController.h"
+
 @interface DashboardViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UISwipeGestureRecognizer *gestureRecognizer;
@@ -118,7 +120,10 @@
 
 - (IBAction)showFeedbackView:(id)sender
 {
-    [TestFlight openFeedbackView];
+    //[TestFlight openFeedbackView];
+    DLog(@"Dashboard switching to Maps");
+    UIViewController *c = [[RestoMapViewController alloc] init];
+    [self.navigationController pushViewController:c animated:YES];
 }
 
 #pragma mark - Surprise feature
