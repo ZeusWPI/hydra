@@ -12,6 +12,6 @@
 @interface RestoInfoView : UIView
 
 - (id)initWithFrame:(CGRect)frame;
-- (void)configure;
-- (void)configureWithArray:(NSMutableArray*)array;
+//- (void)configure;
+//- (void)configureWithArray:(NSMutableArray*)array;
 @end

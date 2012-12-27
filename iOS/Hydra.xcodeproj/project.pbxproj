@@ -24,6 +24,9 @@
 		90EB7BEA1688ECE300A9582D /* RestoLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegend.m */; };
 		90F0525E168C663F004CAFFC /* RestoMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F0525C168C663F004CAFFC /* RestoMapViewController.m */; };
 		90F0525F168C663F004CAFFC /* RestoMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F0525D168C663F004CAFFC /* RestoMapViewController.xib */; };
+		90F05261168C7022004CAFFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F05260168C7022004CAFFC /* CoreLocation.framework */; };
+		90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F05262168C7726004CAFFC /* MapKit.framework */; };
+		90F05266168C7D19004CAFFC /* RestoMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F05265168C7D19004CAFFC /* RestoMapPoint.m */; };
 		F5016BA6162756F300BBDB0A /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA5162756F300BBDB0A /* ActivityViewController.m */; };
 		F5016BA91627665800BBDB0A /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */; };
 		F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CD15BDC1E600A697F8 /* info-kalender.html */; };
@@ -223,6 +226,10 @@
 		90F0525B168C663F004CAFFC /* RestoMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMapViewController.h; sourceTree = "<group>"; };
 		90F0525C168C663F004CAFFC /* RestoMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMapViewController.m; sourceTree = "<group>"; };
 		90F0525D168C663F004CAFFC /* RestoMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestoMapViewController.xib; sourceTree = "<group>"; };
+		90F05260168C7022004CAFFC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		90F05262168C7726004CAFFC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		90F05264168C7D19004CAFFC /* RestoMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMapPoint.h; sourceTree = "<group>"; };
+		90F05265168C7D19004CAFFC /* RestoMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMapPoint.m; sourceTree = "<group>"; };
 		F5016BA4162756F300BBDB0A /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		F5016BA5162756F300BBDB0A /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		F5016BA71627665800BBDB0A /* ActivityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailViewController.h; sourceTree = "<group>"; };
@@ -306,7 +313,7 @@
 		F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hydra-Info.plist"; sourceTree = "<group>"; };
 		F5BAEC961518868200F6A1B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = main.m; path = Hydra/main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		F5BAEC991518868200F6A1B1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F5BAEC991518868200F6A1B1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppDelegate.h; path = ../Hydra/AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F5BAECA21518868200F6A1B1 /* DashboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DashboardViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAECA31518868200F6A1B1 /* DashboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -381,6 +388,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */,
+				90F05261168C7022004CAFFC /* CoreLocation.framework in Frameworks */,
 				3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */,
 				3B93FBA7163095F900C962DC /* AudioToolbox.framework in Frameworks */,
 				F5BC3D88162EB8E900E4A902 /* libz.dylib in Frameworks */,
@@ -577,6 +586,8 @@
 		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90F05262168C7726004CAFFC /* MapKit.framework */,
+				90F05260168C7022004CAFFC /* CoreLocation.framework */,
 				3B93FBAB16309E2100C962DC /* AVFoundation.framework */,
 				3B93FB9E1630939200C962DC /* AudioToolbox.framework */,
 				F5EBF136159E13D300EB5D26 /* CFNetwork.framework */,
@@ -601,7 +612,6 @@
 		F5BAEC901518868200F6A1B1 /* Hydra */ = {
 			isa = PBXGroup;
 			children = (
-				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
 				F53A5E8216700B28009EA4CC /* MediaApplication.h */,
 				F53A5E8316700B28009EA4CC /* MediaApplication.m */,
@@ -662,6 +672,7 @@
 		F5CFDF851631597E008CBF98 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */,
 				F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */,
 				F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */,
@@ -722,6 +733,8 @@
 				F5D36BC015B5BDA500B6E017 /* SchamperStore.m */,
 				90EB7BE81688ECE300A9582D /* RestoLegend.h */,
 				90EB7BE91688ECE300A9582D /* RestoLegend.m */,
+				90F05264168C7D19004CAFFC /* RestoMapPoint.h */,
+				90F05265168C7D19004CAFFC /* RestoMapPoint.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1015,6 +1028,7 @@
 				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
 				90EB7BEA1688ECE300A9582D /* RestoLegend.m in Sources */,
 				90F0525E168C663F004CAFFC /* RestoMapViewController.m in Sources */,
+				90F05266168C7D19004CAFFC /* RestoMapPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

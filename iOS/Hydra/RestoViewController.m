@@ -112,7 +112,7 @@
         holderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.scrollView addSubview:holderView];
         infoView = [[RestoInfoView alloc] initWithFrame:holderView.bounds];
-        [infoView configure];
+        //[infoView configure];
         [holderView addSubview:infoView];
 
     }
