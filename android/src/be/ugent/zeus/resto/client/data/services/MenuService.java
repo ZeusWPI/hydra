@@ -23,7 +23,7 @@ public class MenuService extends HTTPIntentService {
    * Location of the menu's for a certain week. '%s' has to be replaced by the
    * week of the year as returned by c.get(Calendar.WEEK_OF_YEAR).
    */
-  private static final String MENU_URL = "http://zeus.ugent.be/hydra/api/1.0/resto/week/%s.json";
+  private static final String MENU_URL = "http://zeus.ugent.be/hydra/api/1.0/resto/menu/%s/%s.json";
   /**
    *
    */
@@ -45,7 +45,7 @@ public class MenuService extends HTTPIntentService {
     String formatted = FORMAT.format(date.getTime());
     Menu menu = null;
     try {
-      String url = String.format(MENU_URL, date.get(Calendar.WEEK_OF_YEAR));
+      String url = String.format(MENU_URL, data.get(Calendar.YEAR), date.get(Calendar.WEEK_OF_YEAR));
       Log.i("[MenuService]", "Fetching menus from " + url);
       String content = fetch(url);
       JSONObject data = new JSONObject(content);

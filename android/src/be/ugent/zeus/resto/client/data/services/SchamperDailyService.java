@@ -15,7 +15,7 @@ import be.ugent.zeus.resto.client.util.RSSParser;
  */
 public class SchamperDailyService extends HTTPIntentService {
 
-  private static final String SCHAMPER_RSS_URL = "http://zeus.ugent.be/hydra/schamper/daily.xml";
+  private static final String SCHAMPER_RSS_URL = "http://zeus.ugent.be/hydra/api/1.0/schamper/daily.xml";
   private ChannelCache cache;
 
   public SchamperDailyService() {

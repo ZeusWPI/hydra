@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import <RestKit/RestKit.h>
 
-#define kSchamperUrl @"http://zeus.ugent.be/hydra/schamper/daily.xml"
+#define kSchamperUrl @"http://zeus.ugent.be/hydra/api/1.0/schamper/daily.xml"
 
 NSString *const SchamperStoreDidUpdateArticlesNotification =
     @"SchamperStoreDidUpdateArticlesNotification";

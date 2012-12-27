@@ -109,7 +109,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = cacheDirectories[0];
 
-    return [cacheDirectory stringByAppendingPathComponent:@"associations.archive"];
+    return [cacheDirectory stringByAppendingPathComponent:@"association.archive"];
 }
 
 - (void)updateStoreCache

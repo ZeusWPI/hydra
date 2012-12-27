@@ -1,7 +1,8 @@
 {
     "legend": [
         {
-            "key": "<bold>",
+            "key": "Vet",
+            "style": "bold",
             "value": "Aanbevolen menu: € 0,50 korting reeds verrekend in de prijs."
         }, {
             "key": "*",

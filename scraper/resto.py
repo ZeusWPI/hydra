@@ -4,12 +4,12 @@ import json, urllib, libxml2, os, os.path, datetime, locale
 from datetime import datetime, timedelta
 
 SOURCE = 'http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm'
-API_PATH = './resto/week/'
+API_PATH = './resto/menu/'
 
-def download_menu(week):
+def download_menu(year, week):
 	page = get_menu_page(SOURCE, week)
 	menu = parse_menu_from_html(page)
-	dump_menu_to_file(API_PATH, week, menu)
+	dump_menu_to_file(API_PATH, year, week, menu)
 
 def get_menu_page(url, week):
 	print('Fetching week %02d menu webpage' %  week)
@@ -75,8 +75,9 @@ def parse_menu_from_html(page):
 
 	return menu
 
-def dump_menu_to_file(path, week, menu):
+def dump_menu_to_file(path, year, week, menu):
 	print('Writing object tree to file in JSON format')
+	path += str(year)
 	if not os.path.isdir(path):
 		os.makedirs(path)
 	with open('%s/%s.json' % (path, week), 'w') as f:
@@ -86,4 +87,4 @@ if __name__ == "__main__":
 	# Fetch the menu for the next three weeks
 	weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
 	for week in weeks:
-		download_menu(week.isocalendar()[1])
+		download_menu(week.year, week.isocalendar()[1])

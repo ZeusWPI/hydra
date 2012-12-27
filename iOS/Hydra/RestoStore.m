@@ -13,6 +13,8 @@
 #import <RestKit/RestKit.h>
 
 #define kRestoUrl @"http://zeus.ugent.be/hydra/api/1.0/resto"
+#define kRestoInfoPath @"/meta.json"
+#define kRestoMenuPath @"/menu/%d/%d.json"
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
@@ -70,7 +72,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
         NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = cacheDirectories[0];
 
-    return [cacheDirectory stringByAppendingPathComponent:@"restomenu.archive"];
+    return [cacheDirectory stringByAppendingPathComponent:@"resto.archive"];
 }
 
 - (void)updateStoreCache
@@ -101,12 +103,12 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     day = [day dateAtStartOfDay];
     RestoMenu *menu = self.menus[day];
     if (!menu) {
-        [self fetchMenuForWeek:[day week]];
+        [self fetchMenuForWeek:day.week year:day.year];
     }
     return menu;
 }
 
-- (void)fetchMenuForWeek:(NSUInteger)week
+- (void)fetchMenuForWeek:(NSUInteger)week year:(NSUInteger)year
 {
     if (!self.objectManager) {
         self.objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
@@ -114,11 +116,11 @@ NSString *const RestoStoreDidReceiveMenuNotification =
         [[self.objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
     }
 
-    NSString *path = [NSString stringWithFormat:@"/week/%d.json", week];
+    NSString *path = [NSString stringWithFormat:kRestoMenuPath, year, week];
 
     // Only one request for each resource allowed
     if (![self.activeRequests containsObject:path]) {
-        DLog(@"Fetching resto information for week %d", week);
+        DLog(@"Fetching resto information for %d/%d", year, week);
         [self.activeRequests addObject:path];
         [self.objectManager loadObjectsAtResourcePath:path delegate:self];
     }
