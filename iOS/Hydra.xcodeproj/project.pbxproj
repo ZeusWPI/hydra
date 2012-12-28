@@ -437,13 +437,6 @@
 		3B7AD3B615BC82EB0026BB62 /* Resto */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				3B7AD3B715BC830F0026BB62 /* RestoMenuView.h */,
-				3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */,
-				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
-				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
-=======
->>>>>>> restolegend and location restkit implementation
 				90EB7BE11688BCC700A9582D /* RestoInfoView.h */,
 				90EB7BE21688BCC700A9582D /* RestoInfoView.m */,
 				906761C0168DA6720019E4DC /* RestoLegendView.h */,

@@ -8,8 +8,6 @@
 
 #import "RestoInfoView.h"
 #import "RestoLegend.h"
-<<<<<<< HEAD
-=======
 #import "RestoMapViewController.h"
 #import "RestoLegendView.h"
 #import "AppDelegate.h"
@@ -19,7 +17,6 @@
 @property (nonatomic, unsafe_unretained) UIActivityIndicatorView *spinner;
 
 @end
->>>>>>> restolegend and location restkit implementation
 
 @implementation RestoInfoView
 
@@ -69,15 +66,6 @@
     self.mapButton = mapButton;
     
     // legende button
-<<<<<<< HEAD
-    UIButton *legendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    legendButton.frame = CGRectMake(150, 260, 90, 30);
-    [legendButton setTitle:@"Legende" forState:UIControlStateNormal];
-    [self addSubview:legendButton];
-    self.legendButton = legendButton;
-}
-
-=======
     UIButton *legendeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     legendeButton.frame = CGRectMake(100, 250, 67, 30);
     [legendeButton setTitle:@"Legende" forState:UIControlStateNormal];
@@ -117,5 +105,4 @@
     [label setTextAlignment:UITextAlignmentCenter];
     [label sizeToFit];
 }
->>>>>>> restolegend and location restkit implementation
 @end
