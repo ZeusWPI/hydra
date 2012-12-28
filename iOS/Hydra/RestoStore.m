@@ -8,6 +8,8 @@
 
 #import "RestoStore.h"
 #import "RestoMenu.h"
+#import "RestoLegend.h"
+#import "RestoMapPoint.h"
 #import "NSDate+Utilities.h"
 #import "AppDelegate.h"
 #import <RestKit/RestKit.h>
@@ -24,6 +26,9 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 @property (nonatomic, strong) RKObjectManager *objectManager;
 @property (nonatomic, strong) NSMutableArray *activeRequests;
 @property (nonatomic, strong) NSMutableDictionary *menus;
+@property (nonatomic, strong) NSArray *locations;
+@property (nonatomic, strong) NSArray *legends;
+@property (nonatomic, strong) NSDate *lastLAndLUpdated;
 
 @end
 
@@ -44,7 +49,10 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 {
     if (self = [super init]) {
         self.menus = [[NSMutableDictionary alloc] init];
+        self.locations = [[NSArray alloc] init];
+        self.legends = [[NSArray alloc] init];
         self.activeRequests = [[NSMutableArray alloc] init];
+        self.lastLAndLUpdated = [[NSDate alloc] initWithTimeIntervalSince1970:0];
     }
     return self;
 }
@@ -55,6 +63,9 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 {
     if (self = [super init]) {
         self.menus = [decoder decodeObjectForKey:@"menus"];
+        self.locations = [decoder decodeObjectForKey:@"locations"];
+        self.legends = [decoder decodeObjectForKey:@"legends"];
+        self.lastLAndLUpdated = [decoder decodeObjectForKey:@"lastLandLUpdated"];
         self.activeRequests = [[NSMutableArray alloc] init];
     }
     return self;
@@ -63,6 +74,9 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 - (void)encodeWithCoder:(NSCoder *)coder
 {
     [coder encodeObject:self.menus forKey:@"menus"];
+    [coder encodeObject:self.locations forKey:@"locations"];
+    [coder encodeObject:self.legends forKey:@"legends"];
+    [coder encodeObject:self.lastLAndLUpdated forKey:@"lastLandLUpdated"];
 }
 
 + (NSString *)menuCachePath
@@ -93,6 +107,26 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
 }
 
+#pragma mark - Locations and Legends mangement and requests
+
+#define kSecondsInOneWeek 604800
+-(NSArray*)allLocations
+{
+    if ([self.lastLAndLUpdated timeIntervalSinceNow] < -kSecondsInOneWeek)
+        [self fetchLocationsAndLegends];
+    self.lastLAndLUpdated = [NSDate date];
+    
+    return self.locations;
+}
+
+-(NSArray*)allLegends
+{
+    if ([self.lastLAndLUpdated timeIntervalSinceNow] < -kSecondsInOneWeek)
+        [self fetchLocationsAndLegends];
+    self.lastLAndLUpdated = [NSDate date];
+    return self.legends;
+}
+
 #pragma mark - Menu management and requests
 
 - (RestoMenu *)menuForDay:(NSDate *)day
@@ -112,7 +146,9 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 {
     if (!self.objectManager) {
         self.objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
+        [RestoLegend registerObjectMappingWith:[self.objectManager mappingProvider]];
         [RestoMenu registerObjectMappingWith:[self.objectManager mappingProvider]];
+        [RestoMapPoint registerObjectMappingWith:[self.objectManager mappingProvider]];
         [[self.objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
     }
 
@@ -121,6 +157,24 @@ NSString *const RestoStoreDidReceiveMenuNotification =
     // Only one request for each resource allowed
     if (![self.activeRequests containsObject:path]) {
         DLog(@"Fetching resto information for %d/%d", year, week);
+        [self.activeRequests addObject:path];
+        [self.objectManager loadObjectsAtResourcePath:path delegate:self];
+    }
+}
+
+- (void)fetchLocationsAndLegends
+{
+    if(!self.objectManager){
+        self.objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
+        [RestoLegend registerObjectMappingWith:[self.objectManager mappingProvider]];
+        [RestoMenu registerObjectMappingWith:[self.objectManager mappingProvider]];
+        [RestoMapPoint registerObjectMappingWith:[self.objectManager mappingProvider]];
+        [[self.objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
+    }
+    
+    NSString *path = kRestoInfoPath;
+    if (![self.activeRequests containsObject:path]) {
+        DLog(@"Fetching resto locations and legends");
         [self.activeRequests addObject:path];
         [self.objectManager loadObjectsAtResourcePath:path delegate:self];
     }
@@ -136,13 +190,47 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
+    NSMutableArray *tempLegends = [[NSMutableArray alloc] init];
+    NSMutableArray *tempLocations = [[NSMutableArray alloc] init];
+    
     [self delayActiveRequestRemoval:objectLoader.resourcePath];
-
+    DLog(@"objectloader");
+    for (NSObject *obj in objects){
+        if ([obj isKindOfClass:[RestoMenu class]]){
+            //RestoMenu object
+            RestoMenu *menu = (RestoMenu*)obj;
+            NSDate *day = [[menu day] dateAtStartOfDay];
+            self.menus[day] = menu;
+        }else if ([obj isKindOfClass:[RestoLegend class]]){
+            //RestoLegend object
+            RestoLegend *legend = (RestoLegend*)obj;
+            [tempLegends addObject:legend];
+            /*if (![self.legends containsObject:legend]){
+                self.legends = [self.legends arrayByAddingObject:legend];
+            }//*/
+        }else if ([obj isKindOfClass:[RestoMapPoint class]]){
+            RestoMapPoint *location = (RestoMapPoint*)obj;
+            [tempLocations addObject:location];
+            /*if (![self.locations containsObject:location]) {
+                self.locations = [self.locations arrayByAddingObject:location];
+            }//*/
+        }else {
+            DLog(@"ObjectLoader: Oh Crap");
+        }
+    }
+    
+    if (tempLocations.count > 0){
+        self.locations = [[NSArray alloc]initWithArray:tempLocations];
+    }
+    if (tempLegends > 0){
+        self.legends = [[NSArray alloc]initWithArray:tempLegends];
+    }
+    /*
     // Save menus
     for (RestoMenu *menu in objects) {
         NSDate *day = [[menu day] dateAtStartOfDay];
         self.menus[day] = menu;
-    }
+    }//*/
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:RestoStoreDidReceiveMenuNotification object:self];

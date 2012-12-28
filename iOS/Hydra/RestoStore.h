@@ -16,5 +16,7 @@ extern NSString *const RestoStoreDidReceiveMenuNotification;
 
 + (RestoStore *)sharedStore;
 - (RestoMenu *)menuForDay:(NSDate *)day;
+- (NSArray*)allLocations;
+- (NSArray*)allLegends;
 
 @end
