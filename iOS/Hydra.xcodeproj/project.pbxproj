@@ -83,7 +83,6 @@
 		F59D170915BD7CE500B6F892 /* info-content.plist in Resources */ = {isa = PBXBuildFile; fileRef = F59D170715BD7CE500B6F892 /* info-content.plist */; };
 		F59D170A15BD7CE500B6F892 /* info-sport-openingsuren.html in Resources */ = {isa = PBXBuildFile; fileRef = F59D170815BD7CE500B6F892 /* info-sport-openingsuren.html */; };
 		F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */; };
-		F59D170C15BD7E7E00B6F892 /* RestoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */; };
 		F59D170E15BD811000B6F892 /* info-sport-aanbod.html in Resources */ = {isa = PBXBuildFile; fileRef = F59D170D15BD811000B6F892 /* info-sport-aanbod.html */; };
 		F59D171015BD813E00B6F892 /* webview.css in Resources */ = {isa = PBXBuildFile; fileRef = F59D170F15BD813E00B6F892 /* webview.css */; };
 		F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CBD15CF1BA700FE033B /* external-link.png */; };
@@ -341,7 +340,6 @@
 		F5D36BB615B5BD2A00B6E017 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperStore.h; sourceTree = "<group>"; };
 		F5D36BC015B5BDA500B6E017 /* SchamperStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperStore.m; sourceTree = "<group>"; };
-		F5D36BD715B5CC0300B6E017 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/RestoViewController.xib; sourceTree = "<group>"; };
 		F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Hydra-Prefix.pch"; path = "Hydra/Hydra-Prefix.pch"; sourceTree = "<group>"; };
 		F5D3B610162EF02F00698C3E /* button-feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-feedback.png"; sourceTree = "<group>"; };
 		F5D3B611162EF02F00698C3E /* button-feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-feedback@2x.png"; sourceTree = "<group>"; };
@@ -439,7 +437,6 @@
 				3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */,
 				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
 				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
-				F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */,
 				90EB7BE11688BCC700A9582D /* RestoInfoView.h */,
 				90EB7BE21688BCC700A9582D /* RestoInfoView.m */,
 				90F0525B168C663F004CAFFC /* RestoMapViewController.h */,
@@ -870,7 +867,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */,
-				F59D170C15BD7E7E00B6F892 /* RestoViewController.xib in Resources */,
 				F53D248A159DB50800F408AB /* header-bg.png in Resources */,
 				F53D248C159DB51A00F408AB /* hydra.png in Resources */,
 				F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */,
@@ -1056,14 +1052,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F5D36BD715B5CC0300B6E017 /* nl */,
-			);
-			name = RestoViewController.xib;
-			sourceTree = "<group>";
-		};
 		F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

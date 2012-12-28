@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RestoMenu.h"
 
 @interface RestoInfoView : UIView
 
 - (id)initWithFrame:(CGRect)frame;
-//- (void)configure;
-//- (void)configureWithArray:(NSMutableArray*)array;
+
+@property (nonatomic, unsafe_unretained) UIButton *legendButton;
+@property (nonatomic, unsafe_unretained) UIButton *mapButton;
+
 @end

@@ -13,10 +13,14 @@
 #import "NSDate+Utilities.h"
 #import "RestoMenuView.h"
 #import "RestoInfoView.h"
+#import "RestoMapViewController.h"
 
 #define kRestoDaysShown 5
 
-@interface RestoViewController ()
+@interface RestoViewController () <UIScrollViewDelegate>
+
+@property (nonatomic, unsafe_unretained) UIScrollView *scrollView;
+@property (nonatomic, unsafe_unretained) UIPageControl *pageControl;
 
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSMutableArray *menus;
@@ -54,31 +58,30 @@
 
 #pragma mark Setting up the view & viewcontroller
 
-- (void)viewDidLoad
+- (void)loadView
 {
-    [super viewDidLoad];
+    CGRect bounds = [UIScreen mainScreen].bounds;
+    self.view = [[UIView alloc] initWithFrame:bounds];
+    self.view.backgroundColor = [UIColor hydraBackgroundColor];
 
-    // Do any additional setup after loading the view from its nib.
-    [[self navigationItem] setTitle:@"Resto Menu"];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:bounds];
+    scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    scrollView.pagingEnabled = YES;
+    scrollView.delegate = self;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:scrollView];
+    self.scrollView = scrollView;
 
-    // Check for updates
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(menuUpdated:)
-                   name:RestoStoreDidReceiveMenuNotification
-                 object:nil];
-    [self loadMenuItems];
-
-    // Setup scrollview
-    CGSize viewSize = self.scrollView.frame.size;
-    self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), viewSize.height);
-    //self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);
-
-    // Setup pageControl
-    self.pageControlUsed = 0;
-    self.pageControl.numberOfPages = self.days.count + 1;
-    self.pageControl.currentPage = 1;
+    CGRect pageControlFrame = CGRectMake(0, bounds.size.height - 36, bounds.size.width, 36);
+    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
+    pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    [pageControl addTarget:self action:@selector(pageChanged:)
+          forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:pageControl];
+    self.pageControl = pageControl;
 
     // Pages
+    CGSize viewSize = self.scrollView.frame.size;
     for (NSUInteger i = 0; i < 3; i++) {
         // 20 pixels padding on each edge
         CGRect frame = CGRectMake(viewSize.width * (i + 1) + 20, 20,
@@ -90,7 +93,7 @@
         [self.scrollView addSubview:holderView];
 
         RestoMenuView *pageView = [[RestoMenuView alloc] initWithFrame:holderView.bounds];
-        [pageView configureWithDay:self.days[i] andMenu:self.menus[i]];
+        //[pageView configureWithDay:self.days[i] andMenu:self.menus[i]];
         [holderView addSubview:pageView];
 
         if(i == 0) {
@@ -104,18 +107,46 @@
 
     {
         // 20 pixels padding on each edge
-        CGRect frame = CGRectMake( 20, 20,
-                                  viewSize.width - 40, viewSize.height - 60);
+        CGRect frame = CGRectMake(20, 20, viewSize.width - 40, viewSize.height - 60);
 
         // Use the outer view for shadows, the contentView uses maskToBounds for rounded corners
         UIView *holderView = [[UIView alloc] initWithFrame:frame];
         holderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.scrollView addSubview:holderView];
         infoView = [[RestoInfoView alloc] initWithFrame:holderView.bounds];
-        //[infoView configure];
         [holderView addSubview:infoView];
 
+
+        [infoView.legendButton addTarget:self action:@selector(legendButtonTouched:)
+                        forControlEvents:UIControlEventTouchUpInside];
+        [infoView.mapButton addTarget:self action:@selector(mapButtonTouched:)
+                     forControlEvents:UIControlEventTouchUpInside];
     }
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.navigationItem.title = @"Resto Menu";
+
+    // Check for updates
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(menuUpdated:)
+                   name:RestoStoreDidReceiveMenuNotification
+                 object:nil];
+    [self loadMenuItems];
+
+    // Setup scrollview
+    NSLog(@"viewSize: %@", NSStringFromCGRect(leftView.frame));
+    CGSize viewSize = self.scrollView.frame.size;
+    self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), 0);
+    self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);
+
+    // Setup pageControl
+    self.pageControlUsed = 0;
+    self.pageControl.numberOfPages = self.days.count + 1;
+    self.pageControl.currentPage = 1;
 }
 
 - (void)viewDidUnload
@@ -123,6 +154,8 @@
     [super viewDidUnload];
 
     // Release any retained subviews of the main view
+
+    // Nil weak references
     self.scrollView = nil;
     self.pageControl = nil;
     
@@ -134,8 +167,6 @@
     [self setupSheetStyle:leftView.superview];
     [self setupSheetStyle:currentView.superview];
     [self setupSheetStyle:rightView.superview];
-
-    //nieuw
     [self setupSheetStyle:infoView.superview];
 }
 
@@ -143,26 +174,37 @@
 
 - (void)setupSheetStyle:(UIView *)pageHolder ;
 {
-    CALayer *layer = [pageHolder layer];
-    [layer setCornerRadius:kPageCornerRadius];
+    CALayer *layer = pageHolder.layer;
+    layer.cornerRadius = kPageCornerRadius;
 
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:layer.bounds
                                                           cornerRadius:kPageCornerRadius];
-    [layer setShadowPath:[shadowPath CGPath]];
-    [layer setShadowColor:[[UIColor blackColor] CGColor]];
-    [layer setShadowOpacity:0.3];
-    [layer setShadowOffset:CGSizeMake(1.5, 3.0)];
+    layer.shadowPath = shadowPath.CGPath;
+    layer.shadowColor = [UIColor blackColor].CGColor;
+    layer.shadowOpacity = 0.3;
+    layer.shadowOffset = CGSizeMake(1.5, 3.0);
 
-    if (pageHolder.subviews.count > 0) {
-        UIView *contentView = pageHolder.subviews[0];
-        [[contentView layer] setCornerRadius:kPageCornerRadius];
-        [[contentView layer] setMasksToBounds:YES];
-    }
+    UIView *contentView = pageHolder.subviews[0];
+    contentView.layer.cornerRadius = kPageCornerRadius;
+    contentView.layer.masksToBounds = YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark Buttons
+
+- (void)legendButtonTouched:(UIButton *)sender
+{
+    // TODO
+}
+
+- (void)mapButtonTouched:(UIButton *)sender
+{
+    UIViewController *c = [[RestoMapViewController alloc] init];
+    [self presentModalViewController:c animated:YES];
 }
 
 #pragma mark Loading days & menu's

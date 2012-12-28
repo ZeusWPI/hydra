@@ -119,7 +119,7 @@
         dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 1)
                       withString:[[dateString substringToIndex:1] capitalizedString]];
     }
-    [self.dateHeader setText:dateString];
+    self.dateHeader.text = dateString;
 
     self.spinner.hidden = (self.menu != nil);
     if (!self.spinner.hidden) [self.spinner startAnimating];
