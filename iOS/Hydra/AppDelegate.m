@@ -13,6 +13,7 @@
 #import "TestFlight.h"
 
 #define kTestFlightToken @"5bc4ec5d-0095-4731-bb0c-ebb0b41ff14a"
+#define kGoogleAnalyticsToken @"UA-25444917-3"
 
 @implementation AppDelegate
 
@@ -20,6 +21,14 @@
 {
 #if TestFlightEnabled
     [TestFlight takeOff:kTestFlightToken];
+#endif
+
+#if GoogleAnalyticsEnabled
+    GAI *gai = [GAI sharedInstance];
+    gai.trackUncaughtExceptions = YES;
+    gai.dispatchInterval = 30;
+    gai.defaultTracker = [gai trackerWithTrackingId:kGoogleAnalyticsToken];
+    gai.debug = DEBUG;
 #endif
 
 #if DEBUG
@@ -97,6 +106,9 @@ BOOL errorDialogShown = false;
 - (void)handleError:(NSError *)error
 {
     NSLog(@"An error occured: %@", error);
+    id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
+    [tracker trackException:NO withNSError:error];
+
     if (errorDialogShown) return;
 
     NSString *title = error.userInfo[kErrorTitleKey];

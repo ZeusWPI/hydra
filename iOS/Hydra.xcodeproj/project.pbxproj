@@ -40,7 +40,6 @@
 		F533DABA16315E87001269A8 /* schamper.css in Resources */ = {isa = PBXBuildFile; fileRef = F533DAB916315E87001269A8 /* schamper.css */; };
 		F533DABC163163E2001269A8 /* schamper-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F533DABB163163E2001269A8 /* schamper-bg.png */; };
 		F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53A5E7516700242009EA4CC /* UrgentViewController.m */; };
-		F53A5E7816700242009EA4CC /* UrgentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F53A5E7616700242009EA4CC /* UrgentViewController.xib */; };
 		F53A5E8416700B29009EA4CC /* MediaApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = F53A5E8316700B28009EA4CC /* MediaApplication.m */; };
 		F53D248A159DB50800F408AB /* header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D2489159DB50800F408AB /* header-bg.png */; };
 		F53D248C159DB51A00F408AB /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248B159DB51A00F408AB /* hydra.png */; };
@@ -85,6 +84,8 @@
 		F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */; };
 		F59D170E15BD811000B6F892 /* info-sport-aanbod.html in Resources */ = {isa = PBXBuildFile; fileRef = F59D170D15BD811000B6F892 /* info-sport-aanbod.html */; };
 		F59D171015BD813E00B6F892 /* webview.css in Resources */ = {isa = PBXBuildFile; fileRef = F59D170F15BD813E00B6F892 /* webview.css */; };
+		F5A651EE168DB0E7008F93EC /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A651ED168DB0E7008F93EC /* libGoogleAnalytics.a */; };
+		F5A651EF168DB123008F93EC /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A651E0168DAFCA008F93EC /* libRestKit.a */; };
 		F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CBD15CF1BA700FE033B /* external-link.png */; };
 		F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CBF15CF1CC500FE033B /* external-link-active.png */; };
 		F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CC015CF1CC500FE033B /* external-link-active@2x.png */; };
@@ -130,7 +131,6 @@
 		F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */; };
 		F5EBF13F159E13ED00EB5D26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF13E159E13ED00EB5D26 /* SystemConfiguration.framework */; };
 		F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */; };
-		F5EBF144159E141900EB5D26 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF12C159E134500EB5D26 /* libRestKit.a */; };
 		F5EBF14C159E1E3600EB5D26 /* SchamperArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */; };
 		F5F43C1415BAC8A7003C2AAE /* Associations.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5F43C1315BAC8A7003C2AAE /* Associations.plist */; };
 		F5F43C3E15BAD246003C2AAE /* AssociationNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */; };
@@ -143,57 +143,51 @@
 		F5FC117215F0211300B3F127 /* button-resto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FC116C15F0211300B3F127 /* button-resto@2x.png */; };
 		F5FC117315F0211300B3F127 /* button-schamper-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FC116D15F0211300B3F127 /* button-schamper-active@2x.png */; };
 		F5FC117415F0211300B3F127 /* button-schamper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FC116E15F0211300B3F127 /* button-schamper@2x.png */; };
+		F5FFDB0A168DD0A500662662 /* UrgentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5FFDB0C168DD0A500662662 /* UrgentViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F5BAECB21518868200F6A1B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5BAEC7D1518868100F6A1B1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F5BAEC851518868200F6A1B1;
-			remoteInfo = Hydra;
-		};
-		F5EBF12B159E134500EB5D26 /* PBXContainerItemProxy */ = {
+		F5A651DF168DAFCA008F93EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 25160D1614564E810060A5C5;
 			remoteInfo = RestKit;
 		};
-		F5EBF12D159E134500EB5D26 /* PBXContainerItemProxy */ = {
+		F5A651E1168DAFCA008F93EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 25160D2614564E820060A5C5;
 			remoteInfo = RestKitTests;
 		};
-		F5EBF12F159E134500EB5D26 /* PBXContainerItemProxy */ = {
+		F5A651E3168DAFCA008F93EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 25160E62145651060060A5C5;
 			remoteInfo = RestKitFramework;
 		};
-		F5EBF131159E134500EB5D26 /* PBXContainerItemProxy */ = {
+		F5A651E5168DAFCA008F93EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 25160E78145651060060A5C5;
 			remoteInfo = RestKitFrameworkTests;
 		};
-		F5EBF133159E134500EB5D26 /* PBXContainerItemProxy */ = {
+		F5A651E7168DAFCA008F93EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 259C301615128079003066A2;
 			remoteInfo = RestKitResources;
 		};
-		F5EBF145159E142900EB5D26 /* PBXContainerItemProxy */ = {
+		F5BAECB21518868200F6A1B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
+			containerPortal = F5BAEC7D1518868100F6A1B1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 25160D1514564E810060A5C5;
-			remoteInfo = RestKit;
+			remoteGlobalIDString = F5BAEC851518868200F6A1B1;
+			remoteInfo = Hydra;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -247,7 +241,6 @@
 		F533DABB163163E2001269A8 /* schamper-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schamper-bg.png"; sourceTree = "<group>"; };
 		F53A5E7416700242009EA4CC /* UrgentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrgentViewController.h; sourceTree = "<group>"; };
 		F53A5E7516700242009EA4CC /* UrgentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrgentViewController.m; sourceTree = "<group>"; };
-		F53A5E7616700242009EA4CC /* UrgentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UrgentViewController.xib; sourceTree = "<group>"; };
 		F53A5E8216700B28009EA4CC /* MediaApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaApplication.h; sourceTree = "<group>"; };
 		F53A5E8316700B28009EA4CC /* MediaApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaApplication.m; sourceTree = "<group>"; };
 		F53D2489159DB50800F408AB /* header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg.png"; sourceTree = "<group>"; };
@@ -302,6 +295,7 @@
 		F59D170815BD7CE500B6F892 /* info-sport-openingsuren.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-sport-openingsuren.html"; sourceTree = "<group>"; };
 		F59D170D15BD811000B6F892 /* info-sport-aanbod.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-sport-aanbod.html"; sourceTree = "<group>"; };
 		F59D170F15BD813E00B6F892 /* webview.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = webview.css; sourceTree = "<group>"; };
+		F5A651ED168DB0E7008F93EC /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		F5A81CBD15CF1BA700FE033B /* external-link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "external-link.png"; sourceTree = "<group>"; };
 		F5A81CBF15CF1CC500FE033B /* external-link-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "external-link-active.png"; sourceTree = "<group>"; };
 		F5A81CC015CF1CC500FE033B /* external-link-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "external-link-active@2x.png"; sourceTree = "<group>"; };
@@ -312,7 +306,7 @@
 		F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hydra-Info.plist"; sourceTree = "<group>"; };
 		F5BAEC961518868200F6A1B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = main.m; path = Hydra/main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		F5BAEC991518868200F6A1B1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppDelegate.h; path = ../Hydra/AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F5BAEC991518868200F6A1B1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F5BAECA21518868200F6A1B1 /* DashboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DashboardViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAECA31518868200F6A1B1 /* DashboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -322,8 +316,8 @@
 		F5BAECBA1518868200F6A1B1 /* HydraTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HydraTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAECBB1518868200F6A1B1 /* HydraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HydraTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F5BC3D87162EB8E900E4A902 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		F5BC3D89162EB91F00E4A902 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = TestFlight/libTestFlight.a; sourceTree = "<group>"; };
-		F5BC3D8A162EB91F00E4A902 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = TestFlight/TestFlight.h; sourceTree = "<group>"; };
+		F5BC3D89162EB91F00E4A902 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		F5BC3D8A162EB91F00E4A902 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F5C4618B166E442000874D79 /* navigation-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-down.png"; sourceTree = "<group>"; };
 		F5C4618C166E442000874D79 /* navigation-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-down@2x.png"; sourceTree = "<group>"; };
@@ -355,7 +349,7 @@
 		F5EBF115159E040700EB5D26 /* RestoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		F5EBF11A159E092300EB5D26 /* SchamperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperViewController.h; sourceTree = "<group>"; };
 		F5EBF11B159E092300EB5D26 /* SchamperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperViewController.m; sourceTree = "<group>"; };
-		F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = External/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		F5EBF136159E13D300EB5D26 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F5EBF138159E13D900EB5D26 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F5EBF13A159E13DF00EB5D26 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -379,6 +373,12 @@
 		F5FC116C15F0211300B3F127 /* button-resto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-resto@2x.png"; sourceTree = "<group>"; };
 		F5FC116D15F0211300B3F127 /* button-schamper-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-schamper-active@2x.png"; sourceTree = "<group>"; };
 		F5FC116E15F0211300B3F127 /* button-schamper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-schamper@2x.png"; sourceTree = "<group>"; };
+		F5FFDAF7168DB1C500662662 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		F5FFDAF8168DB1C500662662 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		F5FFDAF9168DB1C500662662 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		F5FFDAFA168DB1C500662662 /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
+		F5FFDAFB168DB1C500662662 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
+		F5FFDB0B168DD0A500662662 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/UrgentViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -386,8 +386,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */,
-				90F05261168C7022004CAFFC /* CoreLocation.framework in Frameworks */,
 				3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */,
 				3B93FBA7163095F900C962DC /* AudioToolbox.framework in Frameworks */,
 				F5BC3D88162EB8E900E4A902 /* libz.dylib in Frameworks */,
@@ -402,8 +400,11 @@
 				F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */,
 				F5BAEC8D1518868200F6A1B1 /* Foundation.framework in Frameworks */,
 				F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */,
-				F5EBF144159E141900EB5D26 /* libRestKit.a in Frameworks */,
+				90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */,
+				90F05261168C7022004CAFFC /* CoreLocation.framework in Frameworks */,
 				F5BC3D8B162EB91F00E4A902 /* libTestFlight.a in Frameworks */,
+				F5A651EE168DB0E7008F93EC /* libGoogleAnalytics.a in Frameworks */,
+				F5A651EF168DB123008F93EC /* libRestKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,13 +560,25 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		F5A651D8168DAFCA008F93EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5A651E0168DAFCA008F93EC /* libRestKit.a */,
+				F5A651E2168DAFCA008F93EC /* RestKitTests.octest */,
+				F5A651E4168DAFCA008F93EC /* RestKit.framework */,
+				F5A651E6168DAFCA008F93EC /* RestKitFrameworkTests.octest */,
+				F5A651E8168DAFCA008F93EC /* RestKitResources.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F5BAEC7B1518868100F6A1B1 = {
 			isa = PBXGroup;
 			children = (
-				F5CFDF851631597E008CBF98 /* External */,
 				F5BAEC901518868200F6A1B1 /* Hydra */,
-				F5BAEC911518868200F6A1B1 /* Resources */,
 				F5BAECB41518868200F6A1B1 /* HydraTests */,
+				F5BAEC911518868200F6A1B1 /* Resources */,
+				F5CFDF851631597E008CBF98 /* External */,
 				F5BAEC891518868200F6A1B1 /* Frameworks */,
 				F5BAEC871518868200F6A1B1 /* Products */,
 			);
@@ -583,17 +596,18 @@
 		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				90F05262168C7726004CAFFC /* MapKit.framework */,
-				90F05260168C7022004CAFFC /* CoreLocation.framework */,
-				3B93FBAB16309E2100C962DC /* AVFoundation.framework */,
 				3B93FB9E1630939200C962DC /* AudioToolbox.framework */,
+				3B93FBAB16309E2100C962DC /* AVFoundation.framework */,
 				F5EBF136159E13D300EB5D26 /* CFNetwork.framework */,
 				F5EBF138159E13D900EB5D26 /* CoreData.framework */,
 				F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */,
+				90F05260168C7022004CAFFC /* CoreLocation.framework */,
 				446378FB162DA12D008D47F2 /* EventKit.framework */,
 				44A29C57162DA88E001A573C /* EventKitUI.framework */,
 				F5BAEC8C1518868200F6A1B1 /* Foundation.framework */,
+				F5FFDAF6168DB18F00662662 /* GoogleAnalytics */,
 				F5BC3D87162EB8E900E4A902 /* libz.dylib */,
+				90F05262168C7726004CAFFC /* MapKit.framework */,
 				F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */,
 				F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */,
 				F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */,
@@ -609,6 +623,7 @@
 		F5BAEC901518868200F6A1B1 /* Hydra */ = {
 			isa = PBXGroup;
 			children = (
+				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
 				F53A5E8216700B28009EA4CC /* MediaApplication.h */,
 				F53A5E8316700B28009EA4CC /* MediaApplication.m */,
@@ -664,12 +679,12 @@
 				F5BC3D8A162EB91F00E4A902 /* TestFlight.h */,
 			);
 			name = TestFlight;
+			path = External/TestFlight;
 			sourceTree = "<group>";
 		};
 		F5CFDF851631597E008CBF98 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */,
 				F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */,
 				F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */,
@@ -702,7 +717,7 @@
 				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
 				F53A5E7416700242009EA4CC /* UrgentViewController.h */,
 				F53A5E7516700242009EA4CC /* UrgentViewController.m */,
-				F53A5E7616700242009EA4CC /* UrgentViewController.xib */,
+				F5FFDB0C168DD0A500662662 /* UrgentViewController.xib */,
 				F50EE09415B5F587000F1992 /* WebViewController.h */,
 				F50EE09515B5F587000F1992 /* WebViewController.m */,
 			);
@@ -736,16 +751,18 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		F5EBF121159E134400EB5D26 /* Products */ = {
+		F5FFDAF6168DB18F00662662 /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				F5EBF12C159E134500EB5D26 /* libRestKit.a */,
-				F5EBF12E159E134500EB5D26 /* RestKitTests.octest */,
-				F5EBF130159E134500EB5D26 /* RestKit.framework */,
-				F5EBF132159E134500EB5D26 /* RestKitFrameworkTests.octest */,
-				F5EBF134159E134500EB5D26 /* RestKitResources.bundle */,
+				F5FFDAF7168DB1C500662662 /* GAI.h */,
+				F5FFDAF8168DB1C500662662 /* GAITrackedViewController.h */,
+				F5FFDAF9168DB1C500662662 /* GAITracker.h */,
+				F5FFDAFA168DB1C500662662 /* GAITransaction.h */,
+				F5FFDAFB168DB1C500662662 /* GAITransactionItem.h */,
+				F5A651ED168DB0E7008F93EC /* libGoogleAnalytics.a */,
 			);
-			name = Products;
+			name = GoogleAnalytics;
+			path = External/GoogleAnalytics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -763,7 +780,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F5EBF146159E142900EB5D26 /* PBXTargetDependency */,
 			);
 			name = Hydra;
 			productName = Hydra;
@@ -811,7 +827,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = F5EBF121159E134400EB5D26 /* Products */;
+					ProductGroup = F5A651D8168DAFCA008F93EC /* Products */;
 					ProjectRef = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
 				},
 			);
@@ -824,39 +840,39 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F5EBF12C159E134500EB5D26 /* libRestKit.a */ = {
+		F5A651E0168DAFCA008F93EC /* libRestKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRestKit.a;
-			remoteRef = F5EBF12B159E134500EB5D26 /* PBXContainerItemProxy */;
+			remoteRef = F5A651DF168DAFCA008F93EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F5EBF12E159E134500EB5D26 /* RestKitTests.octest */ = {
+		F5A651E2168DAFCA008F93EC /* RestKitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = RestKitTests.octest;
-			remoteRef = F5EBF12D159E134500EB5D26 /* PBXContainerItemProxy */;
+			remoteRef = F5A651E1168DAFCA008F93EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F5EBF130159E134500EB5D26 /* RestKit.framework */ = {
+		F5A651E4168DAFCA008F93EC /* RestKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = RestKit.framework;
-			remoteRef = F5EBF12F159E134500EB5D26 /* PBXContainerItemProxy */;
+			remoteRef = F5A651E3168DAFCA008F93EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F5EBF132159E134500EB5D26 /* RestKitFrameworkTests.octest */ = {
+		F5A651E6168DAFCA008F93EC /* RestKitFrameworkTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = RestKitFrameworkTests.octest;
-			remoteRef = F5EBF131159E134500EB5D26 /* PBXContainerItemProxy */;
+			remoteRef = F5A651E5168DAFCA008F93EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F5EBF134159E134500EB5D26 /* RestKitResources.bundle */ = {
+		F5A651E8168DAFCA008F93EC /* RestKitResources.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = RestKitResources.bundle;
-			remoteRef = F5EBF133159E134500EB5D26 /* PBXContainerItemProxy */;
+			remoteRef = F5A651E7168DAFCA008F93EC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -943,7 +959,7 @@
 				F54AB5A4166FF510006C1189 /* button-urgent-active@2x.png in Resources */,
 				F54AB5A5166FF510006C1189 /* button-urgent.png in Resources */,
 				F54AB5A6166FF510006C1189 /* button-urgent@2x.png in Resources */,
-				F53A5E7816700242009EA4CC /* UrgentViewController.xib in Resources */,
+				F5FFDB0A168DD0A500662662 /* UrgentViewController.xib in Resources */,
 				90F0525F168C663F004CAFFC /* RestoMapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -981,8 +997,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION == Release ]; then\n    echo \"Bumping build number...\"\n    plist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n    # increment the build number (ie 115 to 116)\n    buildnum=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${plist}\")\n    if [[ \"${buildnum}\" == \"\" ]]; then\n        echo \"No build number in $plist\"\n        exit 2\n    fi\n\n    buildnum=$(expr $buildnum + 1)\n    /usr/libexec/Plistbuddy -c \"Set CFBundleVersion $buildnum\" \"${plist}\"\n    echo \"Bumped build number to $buildnum\"\nelse\necho $CONFIGURATION \"build - Not bumping build number\"\nfi";
+			shellPath = /bin/bash;
+			shellScript = "if [ $CONFIGURATION == Release ]; then\n  echo \"Bumping build number...\"\n  plist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n  # increment the build number (ie 1.0.115 to 1.0.116)\n  full_version=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${plist}\")\n  if [[ \"${full_version}\" == \"\" ]]; then\n    echo \"No build number in $plist\"\n    exit 2\n  fi\n\n  version=${full_version%.*}\n  build=${full_version##*.}\n\n  new_version=\"$version.$(($build+1))\"\n  /usr/libexec/Plistbuddy -c \"Set CFBundleVersion $new_version\" \"${plist}\"\n  echo \"Bumped build number to $new_version\"\nelse\n  echo \"$CONFIGURATION build - Not bumping build number\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1044,11 +1060,6 @@
 			target = F5BAEC851518868200F6A1B1 /* Hydra */;
 			targetProxy = F5BAECB21518868200F6A1B1 /* PBXContainerItemProxy */;
 		};
-		F5EBF146159E142900EB5D26 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RestKit;
-			targetProxy = F5EBF145159E142900EB5D26 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1058,6 +1069,14 @@
 				F5EBF112159DFDEC00EB5D26 /* nl */,
 			);
 			name = DashboardViewController.xib;
+			sourceTree = "<group>";
+		};
+		F5FFDB0C168DD0A500662662 /* UrgentViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5FFDB0B168DD0A500662662 /* nl */,
+			);
+			name = UrgentViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1135,7 +1154,8 @@
 				INFOPLIST_FILE = "Hydra-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlight\"",
+					"\"$(SRCROOT)/External/TestFlight\"",
+					"\"$(SRCROOT)/External/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1151,7 +1171,8 @@
 				INFOPLIST_FILE = "Hydra-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlight\"",
+					"\"$(SRCROOT)/External/TestFlight\"",
+					"\"$(SRCROOT)/External/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

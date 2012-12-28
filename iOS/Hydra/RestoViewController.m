@@ -138,7 +138,6 @@
     [self loadMenuItems];
 
     // Setup scrollview
-    NSLog(@"viewSize: %@", NSStringFromCGRect(leftView.frame));
     CGSize viewSize = self.scrollView.frame.size;
     self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), 0);
     self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);

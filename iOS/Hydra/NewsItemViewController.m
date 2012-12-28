@@ -42,4 +42,11 @@
     [self.view addSubview:bodyField];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSString *view = [@"News > " stringByAppendingString:self.newsItem.title];
+    [[GAI sharedInstance].defaultTracker trackView:view];
+}
+
 @end

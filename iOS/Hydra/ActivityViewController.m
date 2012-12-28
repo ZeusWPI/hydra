@@ -103,6 +103,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     // TODO: show loading overlay when no items found yet
 
     // Make sure we scroll with any selection that may have been set
@@ -110,6 +112,12 @@
 
     // Call super last, as it will clear the selection
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker trackView:@"Activities"];
 }
 
 #pragma mark - Table view delegate

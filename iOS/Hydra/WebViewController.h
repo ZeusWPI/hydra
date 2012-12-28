@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SchamperArticle.h"
 
-@interface WebViewController : UIViewController <UIWebViewDelegate>
+@interface WebViewController : GAITrackedViewController <UIWebViewDelegate>
 
 @property (nonatomic, readonly) UIWebView *webView;
 

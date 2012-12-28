@@ -10,10 +10,6 @@
 #import "UrgentPlayer.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface UrgentViewController ()
-
-@end
-
 @implementation UrgentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,10 +29,10 @@
     [[UrgentPlayer sharedPlayer] start];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker trackView:@"Urgent"];
 }
 
 @end

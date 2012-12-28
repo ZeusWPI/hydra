@@ -52,8 +52,13 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker trackView:@"Schamper"];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

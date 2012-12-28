@@ -29,6 +29,9 @@
 {
     [super viewDidLoad];
 
+    // Set tracked name
+    self.trackedViewName = [@"Schamper > " stringByAppendingString:self.article.title];
+
     NSDateFormatter *dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
     dateFormatter.dateFormat = @"dd MMMM YYYY 'om' hh.mm 'uur'";
 

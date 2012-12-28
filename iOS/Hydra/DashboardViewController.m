@@ -60,6 +60,12 @@
     [self configureMoveDetectionForMove:0];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker trackView:@"Home"];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

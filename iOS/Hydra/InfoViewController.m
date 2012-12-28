@@ -12,6 +12,7 @@
 @interface InfoViewController ()
 
 @property (nonatomic, strong) NSArray *content;
+@property (nonatomic, strong) NSString *trackedViewName;
 
 @end
 
@@ -23,7 +24,10 @@
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"info-content" ofType:@"plist"];
     self = [self initWithContent:[[NSArray alloc] initWithContentsOfFile:path]];
-    [self setTitle:@"Info"];
+
+    self.title = @"Info";
+    self.trackedViewName = self.title;
+
     return self;
 }
 
@@ -40,6 +44,12 @@
     [super viewDidLoad];
     [[self tableView] setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [[self tableView] setBounces:NO];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker trackView:self.trackedViewName];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -104,20 +114,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *item = (self.content)[indexPath.row];
+    NSDictionary *item = self.content[indexPath.row];
 
     // Choose a different action depending on what data is available
     if(item[@"subcontent"]){
         NSArray *subContent = item[@"subcontent"];
+
         InfoViewController *c = [[InfoViewController alloc] initWithContent:subContent];
-        [c setTitle:item[@"title"]];
-        [[self navigationController] pushViewController:c animated:YES];
+        c.title = item[@"title"];
+        c.trackedViewName = [NSString stringWithFormat:@"%@ > %@", self.trackedViewName, c.title];
+
+        [self.navigationController pushViewController:c animated:YES];
     }
     else if(item[@"html"]) {
         WebViewController *c = [[WebViewController alloc] init];
+        c.title = item[@"title"];
+        c.trackedViewName = [NSString stringWithFormat:@"%@ > %@", self.trackedViewName, c.title];
         [c loadHtml:item[@"html"]];
-        [c setTitle:item[@"title"]];
-        [[self navigationController] pushViewController:c animated:YES];
+
+        [self.navigationController pushViewController:c animated:YES];
     }
     else if(item[@"url"]) {
         NSURL *url = [NSURL URLWithString:item[@"url"]];

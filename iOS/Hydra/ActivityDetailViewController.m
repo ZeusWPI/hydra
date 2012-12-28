@@ -66,6 +66,13 @@
     self.navigationItem.rightBarButtonItem = segmentBarItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSString *view = [@"Activity > " stringByAppendingString:self.activity.title];
+    [[GAI sharedInstance].defaultTracker trackView:view];
+}
+
 - (void)reloadFields
 {
     static NSDateFormatter *dateStartFormatter = nil;
@@ -262,8 +269,9 @@
     }
 
     [self reloadFields];
-    [self.tableView reloadData];
+    [self viewDidAppear:NO]; // Trigger analytics
     [self enableSegments:control];
+    [self.tableView reloadData];
     [self.listDelegate didSelectActivity:self.activity];
 }
 

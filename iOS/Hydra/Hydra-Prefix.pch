@@ -12,12 +12,22 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "UIColor+AppColors.h"
+#import "GAI.h"
 #endif
 
-#if !TARGET_IPHONE_SIMULATOR && !DEBUG
-#define TestFlightEnabled 1
+
+#define PUBLIC_RELEASE 1
+#define BETA_RELEASE !PUBLIC_RELEASE
+
+#if PUBLIC_RELEASE
+    #define GoogleAnalyticsEnabled 1
+    #define TestFlightEnabled 0
+#elif !TARGET_IPHONE_SIMULATOR && !DEBUG
+    #define GoogleAnalyticsEnabled 0
+    #define TestFlightEnabled 1
 #else
-#define TestFlightEnabled 0
+    #define GoogleAnalyticsEnabled 0
+    #define TestFlightEnabled 0
 #endif
 
 #if DEBUG
