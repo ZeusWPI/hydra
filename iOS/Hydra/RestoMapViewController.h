@@ -12,7 +12,6 @@
 
 @interface RestoMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 {
-    CLLocationManager *locationManager;
     CLLocation *currentLocation;
     NSArray *restos;
     
@@ -22,9 +21,6 @@
     IBOutlet UIBarButtonItem *toggleList;
     IBOutlet UIBarButtonItem *closestResto;
 }
-
-- (void)findLocation;
-- (void)foundLocation:(CLLocation*)loc;
 
 - (IBAction)toggleTableView:(id)sender;
 - (IBAction)routeToClosestResto:(id)sender;

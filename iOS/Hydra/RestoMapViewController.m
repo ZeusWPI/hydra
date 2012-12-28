@@ -22,33 +22,6 @@
     return [[NSArray alloc] initWithObjects:astrid, brug, coupure, nil];
 }
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Create Location Manager
-        locationManager = [[CLLocationManager alloc] init];
-        
-        // delegate to self
-        [locationManager setDelegate:self];
-        
-        // set accuracy of location manager
-        [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-        
-        // start updating location
-        [locationManager startUpdatingLocation];
-        
-        
-        // add restos to map
-        restos = [self generateRestoList];
-        [self addRestosToMap];
-        
-    }
-    return self;
-}
-
-
 #pragma mark Setting up the view & viewcontroller
 
 - (void)viewDidLoad
@@ -56,9 +29,13 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    [[self navigationItem] setTitle:@"Resto Map"];
-    
-    // show location on map
+    self.navigationItem.title = @"Resto kaart";
+
+    // Add restos to map
+    restos = [self generateRestoList];
+    [self addRestosToMap];
+
+    // Ahow location on map
     [worldView setShowsUserLocation:YES];
 
     // Check for updates
@@ -66,8 +43,6 @@
     [center addObserver:self selector:@selector(locationsUpdated:)
                    name:RestoStoreDidReceiveLocationNotification
                  object:nil];//*/
-
-   
 }
 
 - (void)viewDidUnload
@@ -139,41 +114,15 @@
     return cell;
 }
 
+#pragma mark Map delegate
 
-
-
-# pragma mark Location Settings
-
-- (void)locationManager:(CLLocationManager*)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    NSLog(@"%@", newLocation);
-    
-    // How many seconds ago was this new location created?
-    NSTimeInterval t = [[newLocation timestamp] timeIntervalSinceNow];
-    
-    // CLLocationManagers will return the last found location of the
-    // device first, you don't want that data in this case.
-    // If this location was made more than 3 minutes ago, ignore it.
-    if (t < -180) {
-        // This is cached data, you don't want it, keep looking
-        return;
-    }
-
-    if (currentLocation != newLocation){
-        currentLocation = newLocation;
-    }
-    
-}
-
-- (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError *)error{
-    NSLog(@"Could not find location: %@", error);
-}
-
-#pragma mark Map settings
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     CLLocationCoordinate2D loc = [userLocation coordinate];
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 250, 250);
     [worldView setRegion:region animated:YES];
+
+    currentLocation = userLocation.location;
 }
 
 - (void)addRestosToMap
@@ -181,37 +130,6 @@
     for (RestoMapPoint* resto in restos) {
         [worldView addAnnotation:resto];
     }
-}
-
-#pragma mark Extra functions
-
-
-- (void)findLocation
-{
-    [locationManager startUpdatingLocation];
-    [activityIndicator startAnimating];
-//    [locationTitleTextField setHidden:YES];
-}
-
-- (void)foundLocation:(CLLocation *)loc
-{
-    CLLocationCoordinate2D coord = [loc coordinate];
-    
-    RestoMapPoint* mp = [[RestoMapPoint alloc] init];
-    
-    // add mapPoint to worldView
-    [worldView addAnnotation:mp];
-    
-    // Zoom the region to this location
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000);
-    [worldView setRegion:region animated:YES];
-    
-    // Reset the UI
-//    [locationTitleTextField setText:@""];
-    [activityIndicator stopAnimating];
-//    [locationTitleTextField setHidden:NO];
-    [locationManager stopUpdatingLocation];
-    
 }
 
 @end
