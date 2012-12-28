@@ -448,7 +448,6 @@
 				3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */,
 				F5EBF114159E040700EB5D26 /* RestoViewController.h */,
 				F5EBF115159E040700EB5D26 /* RestoViewController.m */,
-				F5D36BD215B5CB9C00B6E017 /* RestoViewController.xib */,
 			);
 			name = Resto;
 			sourceTree = "<group>";

@@ -12,12 +12,6 @@
 #import "RestoLegendView.h"
 #import "AppDelegate.h"
 
-@interface RestoInfoView ()
-
-@property (nonatomic, unsafe_unretained) UIActivityIndicatorView *spinner;
-
-@end
-
 @implementation RestoInfoView
 
 #pragma mark - Properties and init
@@ -66,43 +60,11 @@
     self.mapButton = mapButton;
     
     // legende button
-    UIButton *legendeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    legendeButton.frame = CGRectMake(100, 250, 67, 30);
-    [legendeButton setTitle:@"Legende" forState:UIControlStateNormal];
-    [legendeButton addTarget:self action:@selector(legendeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:legendeButton];
-
-    //spinner
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    spinner.center = self.center;
-    [self addSubview:spinner];
-    self.spinner = spinner;
+    UIButton *legendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    legendButton.frame = CGRectMake(150, 260, 90, 30);
+    [legendButton setTitle:@"Legende" forState:UIControlStateNormal];
+    [self addSubview:legendButton];
+    self.legendButton = legendButton;
 }
 
--(void)mapButtonPressed
-{
-    DLog(@"Infoview switching to Maps");
-    UIViewController *c = [[RestoMapViewController alloc] init];
-    AppDelegate *del = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    [del.navController pushViewController:c animated:YES];
-}
-
--(void)legendeButtonPressed
-{;
-    DLog(@"Infoview legende button pressed");
-    RestoLegendView *legendView = [[RestoLegendView alloc] initWithFrame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height)];
-    //TODO ROUNDED CORNERS
-    [self addSubview:legendView];
-    
-}
-
-- (void) createLabel:(UILabel* )label
-{
-
-    [label setFont:[UIFont systemFontOfSize:14]];
-    [label setTextColor:[UIColor whiteColor]];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextAlignment:UITextAlignmentCenter];
-    [label sizeToFit];
-}
 @end
