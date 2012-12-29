@@ -36,6 +36,9 @@
     [self addRestosToMap];
 
     // Ahow location on map
+    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(51.053889, 3.705);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1500, 1500);
+    [worldView setRegion:region animated:NO];
     [worldView setShowsUserLocation:YES];
 
     // Check for updates
@@ -137,7 +140,7 @@
     UILabel *distance = [[UILabel alloc] initWithFrame:CGRectMake(kRestoLabelWidth, 0, 280-kRestoLabelWidth, 20)];
     [distance setTextAlignment:UITextAlignmentLeft];
     [distance setBackgroundColor:[UIColor clearColor]];
-    [distance setFont:[UIFont boldSystemFontOfSize:15]];
+    [distance setFont:[UIFont systemFontOfSize:13]];
     CLLocation *restoLoc = [[CLLocation alloc]initWithLatitude:resto.coordinate.latitude longitude:resto.coordinate.longitude];
     CLLocationDistance restoDist = [currentLocation distanceFromLocation:restoLoc];
     NSString *text;
