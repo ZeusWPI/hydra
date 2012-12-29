@@ -14,6 +14,7 @@
 #import "RestoMenuView.h"
 #import "RestoInfoView.h"
 #import "RestoMapViewController.h"
+#import "RestoLegendView.h"
 
 #define kRestoDaysShown 5
 
@@ -197,7 +198,9 @@
 
 - (void)legendButtonTouched:(UIButton *)sender
 {
-    // TODO
+    CGRect frame = CGRectMake(self.scrollView.frame.origin.x+20, self.scrollView.frame.origin.y+20, self.scrollView.frame.size.width-40, self.scrollView.frame.size.height-40);
+    RestoLegendView *legendView = [[RestoLegendView alloc] initWithFrame:frame];
+    [self.scrollView addSubview:legendView];
 }
 
 - (void)mapButtonTouched:(UIButton *)sender

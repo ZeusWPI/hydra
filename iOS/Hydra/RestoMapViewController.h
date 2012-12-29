@@ -17,12 +17,14 @@
     
     IBOutlet MKMapView *worldView;
     IBOutlet UIActivityIndicatorView *activityIndicator;
-    IBOutlet UITableView *tableView;
+    IBOutlet UIPickerView *pickerView;
     IBOutlet UIBarButtonItem *toggleList;
     IBOutlet UIBarButtonItem *closestResto;
+    IBOutlet UIBarButtonItem *returnToInfo;
 }
 
-- (IBAction)toggleTableView:(id)sender;
+- (IBAction)togglePickerView:(id)sender;
 - (IBAction)routeToClosestResto:(id)sender;
+- (IBAction)returnToInfoView:(id)sender;
 
 @end
