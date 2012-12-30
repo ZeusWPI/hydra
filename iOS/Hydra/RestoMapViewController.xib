@@ -13,11 +13,9 @@
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBMKMapView</string>
 			<string>IBProxyObject</string>
-			<string>IBUIActivityIndicatorView</string>
 			<string>IBUIBarButtonItem</string>
 			<string>IBUINavigationBar</string>
 			<string>IBUINavigationItem</string>
-			<string>IBUIPickerView</string>
 			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -46,42 +44,14 @@
 						<string key="NSFrame">{{0, 44}, {320, 504}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="486329037"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBMKShowsUserLocation">YES</bool>
 					</object>
-					<object class="IBUIActivityIndicatorView" id="486329037">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{142, 233}, {37, 37}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="986713445"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIStyle">0</int>
-					</object>
-					<object class="IBUIPickerView" id="986713445">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">-2147483347</int>
-						<string key="NSFrame">{{0, 332}, {320, 216}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
-						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<string key="IBUIContentStretch">{{0, 0}, {0, 0}}</string>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-					</object>
-					<object class="IBUINavigationBar" id="90195008">
+					<object class="IBUINavigationBar" id="800459394">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
 						<string key="NSFrameSize">{320, 44}</string>
@@ -91,20 +61,20 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<array class="NSMutableArray" key="IBUIItems">
-							<object class="IBUINavigationItem" id="586619272">
-								<reference key="IBUINavigationBar" ref="90195008"/>
+							<object class="IBUINavigationItem" id="273574368">
+								<reference key="IBUINavigationBar" ref="800459394"/>
 								<string key="IBUITitle">Kaart</string>
-								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="694174549">
+								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="248783512">
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">2</int>
-									<reference key="IBUINavigationItem" ref="586619272"/>
+									<reference key="IBUINavigationItem" ref="273574368"/>
 									<int key="IBUISystemItemIdentifier">0</int>
 								</object>
 								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="1029376775">
 									<string key="IBUITitle">Restos</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
-									<reference key="IBUINavigationItem" ref="586619272"/>
+									<reference key="IBUINavigationItem" ref="273574368"/>
 								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -114,7 +84,7 @@
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="90195008"/>
+				<reference key="NSNextKeyView" ref="800459394"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -155,27 +125,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">activityIndicator</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="486329037"/>
-					</object>
-					<int key="connectionID">30</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">worldView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="496053933"/>
 					</object>
 					<int key="connectionID">32</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">pickerView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="986713445"/>
-					</object>
-					<int key="connectionID">113</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -189,7 +143,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">returnToInfo</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="694174549"/>
+						<reference key="destination" ref="248783512"/>
 					</object>
 					<int key="connectionID">170</int>
 				</object>
@@ -210,25 +164,9 @@
 					<int key="connectionID">116</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">dataSource</string>
-						<reference key="source" ref="986713445"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">111</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="986713445"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">112</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">returnToInfoView:</string>
-						<reference key="source" ref="694174549"/>
+						<reference key="source" ref="248783512"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">169</int>
@@ -246,10 +184,8 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="486329037"/>
 							<reference ref="496053933"/>
-							<reference ref="90195008"/>
-							<reference ref="986713445"/>
+							<reference ref="800459394"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -271,42 +207,31 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">18</int>
-						<reference key="object" ref="486329037"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">110</int>
-						<reference key="object" ref="986713445"/>
-						<array class="NSMutableArray" key="children"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">159</int>
-						<reference key="object" ref="90195008"/>
+						<reference key="object" ref="800459394"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="586619272"/>
+							<reference ref="273574368"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">160</int>
-						<reference key="object" ref="586619272"/>
+						<reference key="object" ref="273574368"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="1029376775"/>
-							<reference ref="694174549"/>
+							<reference ref="248783512"/>
 						</array>
-						<reference key="parent" ref="90195008"/>
+						<reference key="parent" ref="800459394"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">42</int>
 						<reference key="object" ref="1029376775"/>
-						<reference key="parent" ref="586619272"/>
+						<reference key="parent" ref="273574368"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">168</int>
-						<reference key="object" ref="694174549"/>
-						<reference key="parent" ref="586619272"/>
+						<reference key="object" ref="248783512"/>
+						<reference key="parent" ref="273574368"/>
 					</object>
 				</array>
 			</object>
@@ -316,11 +241,9 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="110.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="159.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="160.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="168.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -356,8 +279,6 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="activityIndicator">UIActivityIndicatorView</string>
-						<string key="closestResto">UIBarButtonItem</string>
-						<string key="pickerView">UIPickerView</string>
 						<string key="returnToInfo">UIBarButtonItem</string>
 						<string key="toggleList">UIBarButtonItem</string>
 						<string key="worldView">MKMapView</string>
@@ -366,14 +287,6 @@
 						<object class="IBToOneOutletInfo" key="activityIndicator">
 							<string key="name">activityIndicator</string>
 							<string key="candidateClassName">UIActivityIndicatorView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="closestResto">
-							<string key="name">closestResto</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pickerView">
-							<string key="name">pickerView</string>
-							<string key="candidateClassName">UIPickerView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="returnToInfo">
 							<string key="name">returnToInfo</string>

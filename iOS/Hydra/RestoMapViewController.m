@@ -35,11 +35,7 @@
     restos = [self generateRestoList];
     [self addRestosToMap];
 
-    // Ahow location on map
-    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(51.053889, 3.705);
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1500, 1500);
-    [worldView setRegion:region animated:NO];
-    [worldView setShowsUserLocation:YES];
+
 
     // Check for updates
    /* NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -47,10 +43,6 @@
                    name:RestoStoreDidReceiveLocationNotification
                  object:nil];//*/
     
-    // When pickerView is double tapped, this method is called
-    UITapGestureRecognizer *tapGesture =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickerTap)];
-    tapGesture.numberOfTapsRequired = 2;
-    [pickerView addGestureRecognizer:tapGesture];
 }
 
 - (void)viewDidUnload
@@ -63,24 +55,42 @@
 # pragma mark Buttons
 - (IBAction)togglePickerView:(id)sender
 {
-    if ([pickerView isHidden]){
-        // is hidden, show table
-        [pickerView setHidden:NO];
-        CGRect mapFrame = [worldView frame];
-        CGRect tableFrame = [pickerView frame];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:nil
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
+    
+    // Create datepicker
+    pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+    pickerView.showsSelectionIndicator = YES;
+    pickerView.dataSource = self;
+    pickerView.delegate = self;
+    [actionSheet addSubview:pickerView];
         
-        CGRect newMapFrame = CGRectMake(mapFrame.origin.x, mapFrame.origin.y, mapFrame.size.width, mapFrame.size.height-tableFrame.size.height);
-        [worldView setFrame:newMapFrame];
-        
-    }else {
-        // is shown, hide table
-        CGRect mapFrame = [worldView frame];
-        CGRect tableFrame = [pickerView frame];
-        
-        CGRect newMapFrame = CGRectMake(mapFrame.origin.x, mapFrame.origin.y, mapFrame.size.width, mapFrame.size.height+tableFrame.size.height);
-        [worldView setFrame:newMapFrame];
-        [pickerView setHidden:YES];
-    }
+    // Create toolbar
+    UIBarButtonItem *closestResto = [[UIBarButtonItem alloc] initWithTitle:@"Route" style:UIBarButtonItemStyleBordered target:self action:@selector(routeToSelectedResto)];
+    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil];
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Gereed" style:UIBarButtonItemStyleDone
+                                                               target:self action:@selector(dismissActionSheet:)];
+    UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    pickerToolbar.tintColor = [UIColor hydraTintColor];
+    pickerToolbar.items = @[closestResto, flexSpace, doneBtn];
+    [actionSheet addSubview:pickerToolbar];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 250, 22)];
+    title.font = [UIFont boldSystemFontOfSize:18];
+    title.text = @"Restos";
+    title.textColor = [UIColor whiteColor];
+    title.textAlignment = UITextAlignmentCenter;
+    title.shadowColor = [UIColor blackColor];
+    title.shadowOffset = CGSizeMake(1, 1);
+    title.backgroundColor = [UIColor clearColor];
+    [actionSheet addSubview:title];
+    
+    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+    [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
 }
 
 - (IBAction)routeToClosestResto:(id)sender
@@ -180,9 +190,9 @@
     [worldView setRegion:region animated:YES];
 }
 
-- (void)pickerTap
+- (void)routeToSelectedResto
 {
-    if (![pickerView isHidden]){
+    if (pickerView != nil){
         NSInteger row = [pickerView selectedRowInComponent:0];
         // Check for iOS 6
         Class mapItemClass = [MKMapItem class];
@@ -249,5 +259,12 @@
         return (NSComparisonResult)NSOrderedSame;
     }];
     [pickerView reloadAllComponents];
+}
+
+- (void)dismissActionSheet:(id)sender
+{
+    UIActionSheet *sheet = (UIActionSheet *)[pickerView superview];
+    [sheet dismissWithClickedButtonIndex:0 animated:YES];
+    pickerView = nil;
 }
 @end
