@@ -46,6 +46,11 @@
     [center addObserver:self selector:@selector(locationsUpdated:)
                    name:RestoStoreDidReceiveLocationNotification
                  object:nil];//*/
+    
+    // When pickerView is double tapped, this method is called
+    UITapGestureRecognizer *tapGesture =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickerTap)];
+    tapGesture.numberOfTapsRequired = 2;
+    [pickerView addGestureRecognizer:tapGesture];
 }
 
 - (void)viewDidUnload
@@ -153,6 +158,57 @@
     [view addSubview:distance];
     
     return view;
+}
+
+- (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    //TODO get users location and selected resto on the map, zoom out if needed
+    RestoMapPoint *resto = [restos objectAtIndex:row];
+    
+    //top rightCoordinate
+    CLLocationCoordinate2D topRightCoor = CLLocationCoordinate2DMake(fmax(resto.coordinate.latitude, currentLocation.coordinate.latitude), fmax(resto.coordinate.longitude, currentLocation.coordinate.longitude));
+    MKMapPoint mtr = MKMapPointForCoordinate(topRightCoor);
+    
+    //bottom left corner
+    CLLocationCoordinate2D botLeftCoor = CLLocationCoordinate2DMake(fmin(resto.coordinate.latitude, currentLocation.coordinate.latitude), fmin(resto.coordinate.longitude, currentLocation.coordinate.longitude));
+    MKMapPoint mbl = MKMapPointForCoordinate(botLeftCoor);
+
+    //Map
+    MKMapRect mapRect = MKMapRectMake(fmin(mtr.x, mbl.x), fmin(mtr.y, mbl.y), fabs(mtr.x-mbl.x)*1.2, fabs(mtr.y-mbl.y)*1.2);
+    
+    MKCoordinateRegion region = MKCoordinateRegionForMapRect(mapRect);
+    [worldView setRegion:region animated:YES];
+}
+
+- (void)pickerTap
+{
+    if (![pickerView isHidden]){
+        NSInteger row = [pickerView selectedRowInComponent:0];
+        // Check for iOS 6
+        Class mapItemClass = [MKMapItem class];
+        //iOs 6
+        RestoMapPoint *closestResto = [restos objectAtIndex:row];
+        CLLocationCoordinate2D coordinate = closestResto.coordinate;
+        if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+        {
+            // Create an MKMapItem to pass to the Maps app
+            MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
+                                                           addressDictionary:nil];
+            MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+            [mapItem setName:closestResto.title];
+            
+            // Set the directions mode to "Walking"
+            NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking};
+            // Get the "Current User Location" MKMapItem
+            MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+            // Pass the current location and destination map items to the Maps app
+            // Set the direction mode in the launchOptions dictionary
+            [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
+                           launchOptions:launchOptions];
+        }else{
+            //iOs < 6 use maps.apple.com?
+        }
+    }
 }
 
 #pragma mark Map delegate
