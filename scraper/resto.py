@@ -85,7 +85,7 @@ def dump_menu_to_file(path, year, week, menu):
 
 if __name__ == "__main__":
 	# Fetch the menu for the next three weeks
-	sunday = datetime.today() + timedelta(days = 6 - datetime.today().weekday())
-	weeks = [sunday + timedelta(weeks = n) for n in range(3)]
+	weeks = [today + timedelta(weeks = n) for n in range(3)]
 	for week in weeks:
-		download_menu(week.year, week.isocalendar()[1])
+		isocalendar = week.isocalendar()
+		download_menu(isocalendar[0], isocalendar[1])
