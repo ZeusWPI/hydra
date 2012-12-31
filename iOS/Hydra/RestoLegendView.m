@@ -134,7 +134,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UILabel *textLabel;
     RestoLegend *legend = (self.legends)[indexPath.row];
     static NSString *cellIdentifier = @"RestoLegendViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];

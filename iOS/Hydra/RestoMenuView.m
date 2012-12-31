@@ -32,8 +32,7 @@
 #pragma mark - Constants
 
 #define kDateHeaderHeight 45
-#define kSectionHeaderHeight 35
-#define kSectionFooterHeight 20
+#define kSectionHeaderHeight 48
 #define kRowHeight 22
 #define kCellLabelTag 101
 
@@ -47,8 +46,7 @@
     return self;
 }
 
-
-- (void)configureWithDay:(NSDate *)day andMenu:(id)menu
+- (void)configureWithDay:(NSDate *)day menu:(id)menu
 {
     if (![self.day isEqual:day] || ![self.menu isEqual:menu]) {
         self.day = day;
@@ -80,7 +78,7 @@
     self.dateHeader = dateHeader;
 
     CGRect tableFrame = CGRectMake(0, headerFrame.size.height, self.frame.size.width,
-                                   self.bounds.size.height - headerFrame.size.height);
+                                   self.bounds.size.height - headerFrame.size.height - 3);
     UITableView *tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -88,12 +86,15 @@
     tableView.rowHeight = kRowHeight;
     tableView.separatorColor = [UIColor clearColor];
     tableView.allowsSelection = NO;
-    tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 5)];
+    tableView.contentInset = UIEdgeInsetsMake(0, 0, 5, 0);
+    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:tableView];
     self.tableView = tableView;
 
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     spinner.center = self.center;
+    spinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+                             | UIViewAutoresizingFlexibleBottomMargin;
     [self addSubview:spinner];
     self.spinner = spinner;
 
@@ -102,6 +103,8 @@
     UIImageView *closedView = [[UIImageView alloc] initWithFrame:closedFrame];
     closedView.image = [UIImage imageNamed:@"resto-closed.jpg"];
     closedView.contentMode = UIViewContentModeCenter;
+    closedView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+                                | UIViewAutoresizingFlexibleBottomMargin;
     [self addSubview:closedView];
     self.closedView = closedView;
 }
@@ -132,15 +135,15 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return (self.menu.open ? 3 : 0);
+    return (self.menu.open ? 4 : 0);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
-        case 0: return 1;
-        case 1: return self.menu.meat.count;
-        case 2: return self.menu.vegetables.count;
+        case 1: return 1;
+        case 2: return self.menu.meat.count;
+        case 3: return self.menu.vegetables.count;
         default: return 0;
     }
 }
@@ -169,11 +172,11 @@
     textLabel.font = [UIFont systemFontOfSize:15];
     cell.detailTextLabel.font = textLabel.font;
 
-    if(indexPath.section == 0) {
+    if(indexPath.section == 1) {
         textLabel.text = self.menu.soup.name;
         cell.detailTextLabel.text = self.menu.soup.price;
     }
-    else if (indexPath.section == 1) {
+    else if (indexPath.section == 2) {
         RestoMenuItem *item = self.menu.meat[indexPath.row];
         
         if(item.recommended) {
@@ -184,7 +187,7 @@
         textLabel.text = item.name;
         cell.detailTextLabel.text = item.price;
     }
-    else { // section == 2
+    else { // section == 3
         textLabel.text = (self.menu.vegetables)[indexPath.row];
     }
     
@@ -193,70 +196,58 @@
 
 #pragma mark - Table view delegate 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kSectionHeaderHeight;
+// Using footers of the previous section instead of headers so they scroll
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return (section < 3) ? kSectionHeaderHeight : 0;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
     if(section == 0) {
         if(!self.soupHeader) {
-            UIImage *soupImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-soup" ofType:@"png"]];
+            UIImage *soupImage = [UIImage imageNamed:@"icon-soup"];
             self.soupHeader = [self headerWithImage:soupImage andTitle:@"Soep"];
         }
         return self.soupHeader;
     }
     else if(section == 1) {
         if(!self.meatHeader) {
-            UIImage *meatImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-meal" ofType:@"png"]];
+            UIImage *meatImage = [UIImage imageNamed:@"icon-meal"];
             self.meatHeader = [self headerWithImage:meatImage andTitle:@"Vlees en veggie"];
         }
         return self.meatHeader;
     }
-    else { //section == 2
+    else if(section == 2) {
         if(!self.vegetableHeader) {
-            UIImage *vegetableImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon-vegetables" ofType:@"png"]];
+            UIImage *vegetableImage = [UIImage imageNamed:@"icon-vegetables"];
             self.vegetableHeader = [self headerWithImage:vegetableImage andTitle:@"Groenten"];
         }
         return self.vegetableHeader;
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    
-    return (section < 2) ? kSectionFooterHeight : 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    UILabel *tildeLabel = nil;
-    if(section < 2) {
-        tildeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        tildeLabel.font = [UIFont fontWithName:@"Baskerville-Italic" size:28];
-        tildeLabel.textAlignment = UITextAlignmentCenter;
-        tildeLabel.text = @"~";
-        tildeLabel.textColor = [UIColor lightGrayColor];
+    else {
+        return nil;
     }
-    return tildeLabel;
 }
- 
+
 #pragma mark - Utility methods
 
-- (UIView *)headerWithImage:(UIImage *)image andTitle:(NSString *)title {
+- (UIView *)headerWithImage:(UIImage *)image andTitle:(NSString *)title
+{
     CGRect headerFrame = CGRectMake(0, 0, self.bounds.size.width, kSectionHeaderHeight);
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
+    header.backgroundColor = [UIColor whiteColor];
 
     UIFont *font = [UIFont fontWithName:@"Baskerville-SemiBold" size:20];
     CGSize textSize = [title sizeWithFont:font];
-    NSUInteger padding = (self.bounds.size.width - textSize.width) / 2;
+    CGFloat offsetX = roundf((self.bounds.size.width - textSize.width) / 2);
 
-    CGRect iconFrame = CGRectMake(padding - kSectionHeaderHeight - 5, 1,
-                                  kSectionHeaderHeight - 5, kSectionHeaderHeight - 5);
+    CGRect iconFrame = CGRectMake(offsetX - kSectionHeaderHeight, 13,
+                                  kSectionHeaderHeight - 15, kSectionHeaderHeight - 18);
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:iconFrame];
     iconView.image = image;
     [header addSubview:iconView];
     
-    CGRect titleFrame = CGRectMake(padding, 0, textSize.width, kSectionHeaderHeight - 5);
+    CGRect titleFrame = CGRectMake(offsetX, 12, textSize.width, kSectionHeaderHeight - 18);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
     titleLabel.textAlignment = UITextAlignmentCenter;
     titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;

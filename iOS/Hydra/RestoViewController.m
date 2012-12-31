@@ -22,40 +22,18 @@
 
 @property (nonatomic, unsafe_unretained) UIScrollView *scrollView;
 @property (nonatomic, unsafe_unretained) UIPageControl *pageControl;
+@property (nonatomic, unsafe_unretained) RestoInfoView *infoView;
+@property (nonatomic, unsafe_unretained) RestoMenuView *menuViewA;
+@property (nonatomic, unsafe_unretained) RestoMenuView *menuViewB;
 
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSMutableArray *menus;
 
 @property (nonatomic, assign) NSUInteger pageControlUsed;
-@property (nonatomic, readonly) NSInteger currentPage;
 
 @end
 
-@implementation RestoViewController {
-    NSInteger oldCurrentIndex;
-    RestoMenuView *leftView;
-    RestoMenuView *currentView;
-    RestoMenuView *rightView;
-    RestoInfoView *infoView;
-}
-
-#pragma mark Properties
-
-@synthesize menus = _menus;
-- (void)setMenus:(NSMutableArray *)menus
-{
-    if(_menus != menus) {
-        _menus = menus;
-        [self updateMenusOntoViews];
-    }
-}
-
-- (NSInteger)currentPage
-{
-    CGFloat contentWidth = self.scrollView.frame.size.width;
-    NSInteger page = ((self.scrollView.contentOffset.x - contentWidth / 2) / contentWidth) + 1;
-    return page;
-}
+@implementation RestoViewController
 
 #pragma mark Setting up the view & viewcontroller
 
@@ -81,48 +59,13 @@
     [self.view addSubview:pageControl];
     self.pageControl = pageControl;
 
-    // Pages
+    // Views
     CGSize viewSize = self.scrollView.frame.size;
-    for (NSUInteger i = 0; i < 3; i++) {
-        // 20 pixels padding on each edge
-        CGRect frame = CGRectMake(viewSize.width * (i + 1) + 20, 20,
-                                  viewSize.width - 40, viewSize.height - 60);
+    CGRect viewFrame = CGRectMake(20, 20, viewSize.width - 40, viewSize.height - 60);
 
-        // Use the outer view for shadows, the contentView uses maskToBounds for rounded corners
-        UIView *holderView = [[UIView alloc] initWithFrame:frame];
-        holderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self.scrollView addSubview:holderView];
-
-        RestoMenuView *pageView = [[RestoMenuView alloc] initWithFrame:holderView.bounds];
-        //[pageView configureWithDay:self.days[i] andMenu:self.menus[i]];
-        [holderView addSubview:pageView];
-
-        if(i == 0) {
-            currentView = pageView;
-        } else if(i == 1) {
-            rightView = pageView;
-        } else if(i == 2) {
-            leftView = pageView;
-        }
-    }
-
-    {
-        // 20 pixels padding on each edge
-        CGRect frame = CGRectMake(20, 20, viewSize.width - 40, viewSize.height - 60);
-
-        // Use the outer view for shadows, the contentView uses maskToBounds for rounded corners
-        UIView *holderView = [[UIView alloc] initWithFrame:frame];
-        holderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self.scrollView addSubview:holderView];
-        infoView = [[RestoInfoView alloc] initWithFrame:holderView.bounds];
-        [holderView addSubview:infoView];
-
-
-        [infoView.legendButton addTarget:self action:@selector(legendButtonTouched:)
-                        forControlEvents:UIControlEventTouchUpInside];
-        [infoView.mapButton addTarget:self action:@selector(mapButtonTouched:)
-                     forControlEvents:UIControlEventTouchUpInside];
-    }
+    self.menuViewA = [self addSheetView:[[RestoMenuView alloc] initWithFrame:viewFrame]];
+    self.menuViewB = [self addSheetView:[[RestoMenuView alloc] initWithFrame:viewFrame]];
+    self.infoView = [self addSheetView:[[RestoInfoView alloc] initWithFrame:viewFrame]];
 }
 
 - (void)viewDidLoad
@@ -133,48 +76,62 @@
 
     // Check for updates
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(menuUpdated:)
-                   name:RestoStoreDidReceiveMenuNotification
-                 object:nil];
-    [self loadMenuItems];
+    [center addObserver:self selector:@selector(reloadMenu)
+                   name:RestoStoreDidReceiveMenuNotification object:nil];
+    [self reloadMenu];
 
     // Setup scrollview
+    [self updateView:self.menuViewA toIndex:0];
+    [self updateView:self.menuViewB toIndex:1];
+
     CGSize viewSize = self.scrollView.frame.size;
-    self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), 0);
+    self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), 10);
     self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);
 
     // Setup pageControl
     self.pageControlUsed = 0;
     self.pageControl.numberOfPages = self.days.count + 1;
     self.pageControl.currentPage = 1;
+
+    // Setup buttons
+    [self.infoView.legendButton addTarget:self action:@selector(legendButtonTouched:)
+                         forControlEvents:UIControlEventTouchUpInside];
+    [self.infoView.mapButton addTarget:self action:@selector(mapButtonTouched:)
+                      forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
 
-    // Release any retained subviews of the main view
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     // Nil weak references
     self.scrollView = nil;
     self.pageControl = nil;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [self setupSheetStyle:leftView.superview];
-    [self setupSheetStyle:currentView.superview];
-    [self setupSheetStyle:rightView.superview];
-    [self setupSheetStyle:infoView.superview];
+    self.menuViewA = nil;
+    self.menuViewB = nil;
+    self.infoView = nil;
 }
 
 #define kPageCornerRadius 10
 
-- (void)setupSheetStyle:(UIView *)pageHolder ;
+- (id)addSheetView:(UIView *)contentView
 {
-    CALayer *layer = pageHolder.layer;
+    // Use the outer view for shadows, the contentView uses maskToBounds for rounded corners
+    UIView *holderView = [[UIView alloc] initWithFrame:contentView.frame];
+    holderView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.scrollView addSubview:holderView];
+
+    contentView.frame = holderView.bounds;
+    [holderView addSubview:contentView];
+
+    return contentView;
+}
+
+- (void)setupSheetStyle:(UIView *)contentView
+{
+    CALayer *layer = contentView.superview.layer;
     layer.cornerRadius = kPageCornerRadius;
 
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:layer.bounds
@@ -184,9 +141,16 @@
     layer.shadowOpacity = 0.3;
     layer.shadowOffset = CGSizeMake(1.5, 3.0);
 
-    UIView *contentView = pageHolder.subviews[0];
     contentView.layer.cornerRadius = kPageCornerRadius;
     contentView.layer.masksToBounds = YES;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    // Restyle the sheets to keep the shadow the right size
+    [self setupSheetStyle:self.menuViewA];
+    [self setupSheetStyle:self.menuViewB];
+    [self setupSheetStyle:self.infoView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -198,7 +162,9 @@
 
 - (void)legendButtonTouched:(UIButton *)sender
 {
-    CGRect frame = CGRectMake(self.scrollView.frame.origin.x+20, self.scrollView.frame.origin.y+20, self.scrollView.frame.size.width-40, self.scrollView.frame.size.height-40);
+    // TODO: perhaps merge RestoLegendView and RestoInfoView,
+    // showing the legend by switching a toggle on the infoView
+    CGRect frame = self.infoView.superview.frame;
     RestoLegendView *legendView = [[RestoLegendView alloc] initWithFrame:frame];
     [self.scrollView addSubview:legendView];
 }
@@ -209,7 +175,7 @@
     [self presentModalViewController:c animated:YES];
 }
 
-#pragma mark Loading days & menu's
+#pragma mark Loading days & menus
 
 - (void)calculateDays
 {
@@ -226,7 +192,7 @@
     self.days = days;
 }
 
-- (void)loadMenuItems
+- (void)reloadMenu
 {
     if (!self.days.count) [self calculateDays];
 
@@ -239,23 +205,68 @@
     self.menus = menus;
 }
 
-- (void)menuUpdated:(NSNotification *)notification
+- (void)setMenus:(NSMutableArray *)menus
 {
-    DLog(@"Menu updated!");
-    [self loadMenuItems];
-    [self resetViews];
+    _menus = menus;
+
+    NSUInteger currentIndex = [self.days indexOfObject:self.menuViewA.day];
+    if (currentIndex != NSNotFound) {
+        [self.menuViewA configureWithDay:self.days[currentIndex]
+                                      menu:self.menus[currentIndex]];
+    }
+
+    NSUInteger nextIndex = [self.days indexOfObject:self.menuViewB.day];
+    if (nextIndex != NSNotFound) {
+        [self.menuViewB configureWithDay:self.days[nextIndex]
+                                   menu:self.menus[nextIndex]];
+    }
 }
 
-#pragma mark Page changing
+#pragma mark View scrolling and page changing
 
-- (void)scrollViewDidScroll:(UIScrollView *)sender
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(oldCurrentIndex != self.currentPage) {
-        [self changeViewsToPageIndex:self.currentPage];
-    }
-    if (self.pageControlUsed > 0) return;
+    CGFloat pageWidth = self.scrollView.frame.size.width;
+    float fractionalPage = self.scrollView.contentOffset.x / pageWidth;
 
-    self.pageControl.currentPage = self.currentPage;
+    if (self.pageControlUsed == 0) {
+        self.pageControl.currentPage = round(fractionalPage);
+    }
+
+    // Nothing needs to change for the InfoView
+    if (fractionalPage < 1) return;
+
+    NSInteger lowerNumber = floor(fractionalPage) - 1;
+    NSInteger upperNumber = lowerNumber + 1;
+
+    NSDate *lowerDate = self.days[lowerNumber];
+    NSDate *upperDate = nil;
+    if (upperNumber < kRestoDaysShown) {
+        upperDate = self.days[upperNumber];
+    }
+
+    // Scrolling to the right
+    if (lowerDate == self.menuViewA.day) {
+        [self updateView:self.menuViewB toIndex:upperNumber];
+    }
+    else if (lowerDate == self.menuViewB.day) {
+        [self updateView:self.menuViewA toIndex:upperNumber];
+    }
+
+    // Scrolling to the left
+    else if (upperDate == self.menuViewA.day) {
+        [self updateView:self.menuViewB toIndex:lowerNumber];
+    }
+    else if (upperDate == self.menuViewB.day) {
+        [self updateView:self.menuViewA toIndex:lowerNumber];
+    }
+
+    // Fallthrough
+    else {
+        DLog(@"Unexpected scrolling situation!");
+        [self updateView:self.menuViewA toIndex:lowerNumber];
+        [self updateView:self.menuViewB toIndex:upperNumber];
+    }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)sender
@@ -266,75 +277,25 @@
 - (void)pageChanged:(UIPageControl *)sender
 {
     DLog(@"UIPageControl requesting page %d", self.pageControl.currentPage);
+
     CGRect newPage = self.scrollView.bounds;
     newPage.origin.x = newPage.size.width * self.pageControl.currentPage;
     [self.scrollView scrollRectToVisible:newPage animated:YES];
+
+    // Keep track of active UIPageControl animations
     self.pageControlUsed++;
-}
-
-#pragma mark Configuring views after scrolling
-
-- (void)changeViewsToPageIndex:(NSInteger)currentIndex
-{
-    if(oldCurrentIndex == currentIndex-1) {
-        RestoMenuView *left = currentView;
-        RestoMenuView *current = rightView;
-        RestoMenuView *right = leftView;
-        if(oldCurrentIndex > 0 && currentIndex+1 < kRestoDaysShown+1) {
-            [self updateView:right toIndex:currentIndex+1];
-        }
-        leftView = left;
-        currentView = current;
-        rightView = right;
-    } else if(oldCurrentIndex == currentIndex+1) {
-        RestoMenuView *left = rightView;
-        RestoMenuView *current = leftView;
-        RestoMenuView *right = currentView;
-        if(currentIndex-1 >= 1) {
-            [self updateView:left toIndex:currentIndex-1];
-        }
-        leftView = left;
-        currentView = current;
-        rightView = right;
-    } else {
-        [self resetViews];
-    }
-    oldCurrentIndex = currentIndex;
 }
 
 - (void)updateView:(RestoMenuView *)view toIndex:(NSInteger)index
 {
+    if (index >= kRestoDaysShown || view.day == self.days[index]) return;
+
     CGSize viewSize = self.view.bounds.size;
-    CGRect frame = CGRectMake(viewSize.width * index + 20, 20,
+    CGRect frame = CGRectMake(viewSize.width * (index + 1) + 20, 20,
                               viewSize.width - 40, viewSize.height - 60);
     view.superview.frame = frame;
-    [view configureWithDay:self.days[index-1] andMenu:self.menus[index -1]];
-}
 
-- (void)resetViews
-{
-    NSInteger currentIndex = self.currentPage;
-    if(0 < currentIndex) {
-        [self updateView:currentView toIndex:currentIndex];
-        if(0 < currentIndex-1) {
-            [self updateView:leftView toIndex:currentIndex-1];
-        }
-        if(currentIndex+1 < kRestoDaysShown+1) {
-            [self updateView:rightView toIndex:currentIndex+1];
-        }
-    }
-}
-
-- (void)updateMenusOntoViews
-{
-    NSInteger currentIndex = MAX(1, self.currentPage);
-    if(currentIndex > 1) {
-        [leftView configureWithDay:self.days[currentIndex-2] andMenu:self.menus[currentIndex-2]];
-    }
-    [currentView configureWithDay:self.days[currentIndex-1] andMenu:self.menus[currentIndex-1]];
-    if(currentIndex < kRestoDaysShown) {
-        [rightView configureWithDay:self.days[currentIndex] andMenu:self.menus[currentIndex]];
-    }
+    [view configureWithDay:self.days[index] menu:self.menus[index]];
 }
 
 @end

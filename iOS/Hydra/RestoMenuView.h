@@ -11,7 +11,9 @@
 
 @interface RestoMenuView : UIView
 
+@property (nonatomic, strong, readonly) NSDate *day;
+
 - (id)initWithFrame:(CGRect)frame;
-- (void)configureWithDay:(NSDate *)day andMenu:(RestoMenu *)menu;
+- (void)configureWithDay:(NSDate *)day menu:(RestoMenu *)menu;
 
 @end
