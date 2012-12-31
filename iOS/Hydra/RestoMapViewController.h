@@ -10,20 +10,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface RestoMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface RestoMapViewController : UIViewController <MKMapViewDelegate>
 {
-    CLLocation *currentLocation;
-    NSArray *restos;
-    UIPickerView *pickerView;
-
     IBOutlet MKMapView *worldView;
-    IBOutlet UIActivityIndicatorView *activityIndicator;
-    IBOutlet UIBarButtonItem *toggleList;
     IBOutlet UIBarButtonItem *returnToInfo;
 }
 
 - (IBAction)togglePickerView:(id)sender;
-- (IBAction)routeToClosestResto:(id)sender;
 - (IBAction)returnToInfoView:(id)sender;
 
 @end

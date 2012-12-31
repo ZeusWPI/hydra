@@ -9,6 +9,14 @@
 #import "RestoMapViewController.h"
 #import "RestoMapPoint.h"
 
+@interface RestoMapViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
+
+@property (nonatomic, strong) CLLocation *currentLocation;
+@property (nonatomic, strong) NSArray *restos;
+@property (nonatomic, strong) UIPickerView *pickerView;
+
+@end
+
 @implementation RestoMapViewController
 
 - (NSArray*)generateRestoList
@@ -27,15 +35,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view from its nib.
-    self.navigationItem.title = @"Resto kaart";
 
     // Add restos to map
-    restos = [self generateRestoList];
-    [self addRestosToMap];
-
-
+    self.restos = [self generateRestoList];
+    [worldView addAnnotations:self.restos];
 
     // Check for updates
    /* NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -49,10 +52,11 @@
 {
     [super viewDidUnload];
     
-    //[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-# pragma mark Buttons
+# pragma Buttons
+
 - (IBAction)togglePickerView:(id)sender
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -62,24 +66,26 @@
                                                     otherButtonTitles:nil];
     
     // Create datepicker
-    pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
-    pickerView.showsSelectionIndicator = YES;
-    pickerView.dataSource = self;
-    pickerView.delegate = self;
-    [actionSheet addSubview:pickerView];
-        
+    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+    self.pickerView.showsSelectionIndicator = YES;
+    self.pickerView.dataSource = self;
+    self.pickerView.delegate = self;
+    [actionSheet addSubview:self.pickerView];
+
+    // Update PickerView contents
+    [self reorderLocations];
+
     // Create toolbar
-    UIBarButtonItem *closestResto = [[UIBarButtonItem alloc] initWithTitle:@"Route" style:UIBarButtonItemStyleBordered target:self action:@selector(routeToSelectedResto)];
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                                target:nil action:nil];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Gereed" style:UIBarButtonItemStyleDone
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Gereed" style:UIBarButtonItemStyleBordered
                                                                target:self action:@selector(dismissActionSheet:)];
     UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     pickerToolbar.tintColor = [UIColor hydraTintColor];
-    pickerToolbar.items = @[closestResto, flexSpace, doneBtn];
+    pickerToolbar.items = @[flexSpace, doneBtn];
     [actionSheet addSubview:pickerToolbar];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 250, 22)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 320, 22)];
     title.font = [UIFont boldSystemFontOfSize:18];
     title.text = @"Restos";
     title.textColor = [UIColor whiteColor];
@@ -101,7 +107,7 @@
     if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
     {
         // Create an MKMapItem to pass to the Maps app
-        RestoMapPoint *closestResto = [restos objectAtIndex:0];
+        RestoMapPoint *closestResto = self.restos[0];
         CLLocationCoordinate2D coordinate = closestResto.coordinate;
         MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
                                                        addressDictionary:nil];
@@ -123,7 +129,8 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark Pickerview DataSource methods
+#pragma mark Pickerview delegate
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
@@ -131,59 +138,65 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return restos.count;
+    return self.restos.count;
 }
 
-#pragma mark Pickerview delegate methods
-#define kRestoLabelWidth 200
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-    //if (view == nil){
-      //  view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 400, 20)];
-    //}
-    view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
-    RestoMapPoint *resto = [restos objectAtIndex:row];
-    // resto naam label
-    UILabel *restoNaam = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kRestoLabelWidth, 20)];
-    [restoNaam setTextAlignment:UITextAlignmentLeft];
-    [restoNaam setBackgroundColor:[UIColor clearColor]];
-    [restoNaam setFont:[UIFont boldSystemFontOfSize:15]];
-    [restoNaam setText:resto.title];
-    [view addSubview:restoNaam];
-    
-    // resto afstand label
-    UILabel *distance = [[UILabel alloc] initWithFrame:CGRectMake(kRestoLabelWidth, 0, 280-kRestoLabelWidth, 20)];
-    [distance setTextAlignment:UITextAlignmentLeft];
-    [distance setBackgroundColor:[UIColor clearColor]];
-    [distance setFont:[UIFont systemFontOfSize:13]];
-    CLLocation *restoLoc = [[CLLocation alloc]initWithLatitude:resto.coordinate.latitude longitude:resto.coordinate.longitude];
-    CLLocationDistance restoDist = [currentLocation distanceFromLocation:restoLoc];
-    NSString *text;
-    if(restoDist < 5000){
-        text = [NSString stringWithFormat:@"%.0f m", restoDist];
-    }else {
-        text = [NSString stringWithFormat:@"%.1f km", restoDist/1000];
+    UILabel *title = nil, *distance = nil;
+    if (!view) {
+        // Location name
+        title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
+        title.backgroundColor = [UIColor clearColor];
+        title.font = [UIFont boldSystemFontOfSize:15];
+
+        // Distance to location
+        distance = [[UILabel alloc] initWithFrame:title.bounds];
+        distance.textAlignment = UITextAlignmentRight;
+        distance.backgroundColor = [UIColor clearColor];
+        distance.font = [UIFont systemFontOfSize:13];
+        [title addSubview:distance];
     }
-    [distance setText:text];
-    [view addSubview:distance];
+    else {
+        title = (UILabel *)view;
+        distance = (UILabel *)title.subviews[0];
+    }
+
+    RestoMapPoint *resto = self.restos[row];
+    title.text = resto.title;
     
-    return view;
+    CLLocation *restoLoc = [[CLLocation alloc] initWithLatitude:resto.coordinate.latitude
+                                                      longitude:resto.coordinate.longitude];
+    CLLocationDistance restoDist = [worldView.userLocation.location distanceFromLocation:restoLoc];
+    if (restoDist < 2000) {
+        distance.text = [NSString stringWithFormat:@"%.0f m", restoDist];
+    }
+    else {
+        distance.text = [NSString stringWithFormat:@"%.1f km", restoDist/1000];
+    }
+
+    return title;
 }
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     //TODO get users location and selected resto on the map, zoom out if needed
-    RestoMapPoint *resto = [restos objectAtIndex:row];
+    RestoMapPoint *resto = self.restos[row];
+    CLLocationCoordinate2D userLocation = worldView.userLocation.coordinate;
     
-    //top rightCoordinate
-    CLLocationCoordinate2D topRightCoor = CLLocationCoordinate2DMake(fmax(resto.coordinate.latitude, currentLocation.coordinate.latitude), fmax(resto.coordinate.longitude, currentLocation.coordinate.longitude));
+    // Top right corner
+    CLLocationCoordinate2D topRightCoor = CLLocationCoordinate2DMake(
+        fmax(resto.coordinate.latitude, userLocation.latitude),
+        fmax(resto.coordinate.longitude, userLocation.longitude));
     MKMapPoint mtr = MKMapPointForCoordinate(topRightCoor);
     
-    //bottom left corner
-    CLLocationCoordinate2D botLeftCoor = CLLocationCoordinate2DMake(fmin(resto.coordinate.latitude, currentLocation.coordinate.latitude), fmin(resto.coordinate.longitude, currentLocation.coordinate.longitude));
+    // Top left corner
+    CLLocationCoordinate2D botLeftCoor = CLLocationCoordinate2DMake(
+        fmin(resto.coordinate.latitude, userLocation.latitude),
+        fmin(resto.coordinate.longitude, userLocation.longitude));
     MKMapPoint mbl = MKMapPointForCoordinate(botLeftCoor);
 
-    //Map
+    // Map
     MKMapRect mapRect = MKMapRectMake(fmin(mtr.x, mbl.x), fmin(mtr.y, mbl.y), fabs(mtr.x-mbl.x)*1.2, fabs(mtr.y-mbl.y)*1.2);
     
     MKCoordinateRegion region = MKCoordinateRegionForMapRect(mapRect);
@@ -192,12 +205,12 @@
 
 - (void)routeToSelectedResto
 {
-    if (pickerView != nil){
-        NSInteger row = [pickerView selectedRowInComponent:0];
+    if (self.pickerView != nil){
+        NSInteger row = [self.pickerView selectedRowInComponent:0];
         // Check for iOS 6
         Class mapItemClass = [MKMapItem class];
         //iOs 6
-        RestoMapPoint *closestResto = [restos objectAtIndex:row];
+        RestoMapPoint *closestResto = [self.restos objectAtIndex:row];
         CLLocationCoordinate2D coordinate = closestResto.coordinate;
         if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
         {
@@ -229,42 +242,37 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
     [worldView setRegion:region animated:YES];
 
-    currentLocation = userLocation.location;
-    [self sortRestos];
+    [self reorderLocations];
 }
 
-- (void)addRestosToMap
+- (void)reorderLocations
 {
-    [worldView addAnnotations:restos];
-}
+    if (!self.pickerView) {
+        return;
+    }
 
-- (void)sortRestos
-{
-    restos = [restos sortedArrayUsingComparator: ^(id a, id b) {
-        if (![a isKindOfClass:[RestoMapPoint class]] && ![b isKindOfClass:[RestoMapPoint class]]){
-            return (NSComparisonResult)NSOrderedSame;
-        }
-        
-        CLLocation *aa = [[CLLocation alloc]initWithLatitude:((RestoMapPoint*)a).coordinate.latitude longitude:((RestoMapPoint*)a).coordinate.longitude];
-        CLLocation *bb = [[CLLocation alloc]initWithLatitude:((RestoMapPoint*)b).coordinate.latitude longitude:((RestoMapPoint*)b).coordinate.longitude];
-        
-        CLLocationDistance aDist = [currentLocation distanceFromLocation:aa];
-        CLLocationDistance bDist = [currentLocation distanceFromLocation:bb];
-        DLog(@"Distance a: %f and distance b: %f", aDist, bDist);
-        if(aDist < bDist){
-            return (NSComparisonResult)NSOrderedAscending;
-        }else if (aDist > bDist){
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        return (NSComparisonResult)NSOrderedSame;
+    // TODO: keep selection when user has already selected something
+    // TODO: perhaps cache the distances?
+    self.restos = [self.restos sortedArrayUsingComparator: ^(id a, id b) {
+        CLLocation *aa = [[CLLocation alloc] initWithLatitude:((RestoMapPoint*)a).coordinate.latitude
+                                                    longitude:((RestoMapPoint*)a).coordinate.longitude];
+        CLLocation *bb = [[CLLocation alloc] initWithLatitude:((RestoMapPoint*)b).coordinate.latitude
+                                                    longitude:((RestoMapPoint*)b).coordinate.longitude];
+
+        CLLocationDistance aDist = [worldView.userLocation.location distanceFromLocation:aa];
+        CLLocationDistance bDist = [worldView.userLocation.location distanceFromLocation:bb];
+
+        return [@(aDist) compare:@(bDist)];
     }];
-    [pickerView reloadAllComponents];
+
+    [self.pickerView reloadAllComponents];
 }
 
 - (void)dismissActionSheet:(id)sender
 {
-    UIActionSheet *sheet = (UIActionSheet *)[pickerView superview];
+    UIActionSheet *sheet = (UIActionSheet *)[self.pickerView superview];
     [sheet dismissWithClickedButtonIndex:0 animated:YES];
-    pickerView = nil;
+    self.pickerView = nil;
 }
+
 @end

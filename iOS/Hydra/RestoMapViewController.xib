@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">12C3012</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -60,18 +60,22 @@
 						<reference key="NSNextKeyView" ref="496053933"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<array class="NSMutableArray" key="IBUIItems">
+						<object class="NSColor" key="IBUITintColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xMjU0OTAxOTYxIDAuMzA1ODgyMzUyOSAwLjUwMTk2MDc4NDMAA</bytes>
+						</object>
+						<array key="IBUIItems">
 							<object class="IBUINavigationItem" id="273574368">
 								<reference key="IBUINavigationBar" ref="800459394"/>
-								<string key="IBUITitle">Kaart</string>
-								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="248783512">
-									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-									<int key="IBUIStyle">2</int>
-									<reference key="IBUINavigationItem" ref="273574368"/>
-									<int key="IBUISystemItemIdentifier">0</int>
-								</object>
-								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="1029376775">
+								<string key="IBUITitle">Resto Kaart</string>
+								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="1052211092">
 									<string key="IBUITitle">Restos</string>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+									<int key="IBUIStyle">1</int>
+									<reference key="IBUINavigationItem" ref="273574368"/>
+								</object>
+								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="248783512">
+									<string key="IBUITitle">Gereed</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="273574368"/>
@@ -133,14 +137,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">toggleList</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1029376775"/>
-					</object>
-					<int key="connectionID">80</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">returnToInfo</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="248783512"/>
@@ -157,19 +153,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">togglePickerView:</string>
-						<reference key="source" ref="1029376775"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">116</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">returnToInfoView:</string>
 						<reference key="source" ref="248783512"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">169</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">togglePickerView:</string>
+						<reference key="source" ref="1052211092"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">172</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -218,19 +214,19 @@
 						<int key="objectID">160</int>
 						<reference key="object" ref="273574368"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="1029376775"/>
 							<reference ref="248783512"/>
+							<reference ref="1052211092"/>
 						</array>
 						<reference key="parent" ref="800459394"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">42</int>
-						<reference key="object" ref="1029376775"/>
+						<int key="objectID">168</int>
+						<reference key="object" ref="248783512"/>
 						<reference key="parent" ref="273574368"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">168</int>
-						<reference key="object" ref="248783512"/>
+						<int key="objectID">171</int>
+						<reference key="object" ref="1052211092"/>
 						<reference key="parent" ref="273574368"/>
 					</object>
 				</array>
@@ -244,14 +240,14 @@
 				<string key="159.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="160.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="168.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="171.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">170</int>
+			<int key="maxID">172</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -260,16 +256,11 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="returnToInfoView:">id</string>
-						<string key="routeToClosestResto:">id</string>
 						<string key="togglePickerView:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="returnToInfoView:">
 							<string key="name">returnToInfoView:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="routeToClosestResto:">
-							<string key="name">routeToClosestResto:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="togglePickerView:">
@@ -278,22 +269,12 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="activityIndicator">UIActivityIndicatorView</string>
 						<string key="returnToInfo">UIBarButtonItem</string>
-						<string key="toggleList">UIBarButtonItem</string>
 						<string key="worldView">MKMapView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="activityIndicator">
-							<string key="name">activityIndicator</string>
-							<string key="candidateClassName">UIActivityIndicatorView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="returnToInfo">
 							<string key="name">returnToInfo</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="toggleList">
-							<string key="name">toggleList</string>
 							<string key="candidateClassName">UIBarButtonItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="worldView">

@@ -110,12 +110,13 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 #pragma mark - Locations and Legends mangement and requests
 
 #define kSecondsInOneWeek 604800
+
 -(NSArray*)allLocations
 {
     if ([self.lastLAndLUpdated timeIntervalSinceNow] < -kSecondsInOneWeek)
         [self fetchLocationsAndLegends];
     self.lastLAndLUpdated = [NSDate date];
-    
+
     return self.locations;
 }
 
@@ -171,7 +172,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
         [RestoMapPoint registerObjectMappingWith:[self.objectManager mappingProvider]];
         [[self.objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
     }
-    
+
     NSString *path = kRestoInfoPath;
     if (![self.activeRequests containsObject:path]) {
         DLog(@"Fetching resto locations and legends");
@@ -192,24 +193,24 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 {
     NSMutableArray *tempLegends = [[NSMutableArray alloc] init];
     NSMutableArray *tempLocations = [[NSMutableArray alloc] init];
-    
+
     [self delayActiveRequestRemoval:objectLoader.resourcePath];
     DLog(@"objectloader");
     for (NSObject *obj in objects){
         if ([obj isKindOfClass:[RestoMenu class]]){
             //RestoMenu object
-            RestoMenu *menu = (RestoMenu*)obj;
+            RestoMenu *menu = (RestoMenu *)obj;
             NSDate *day = [[menu day] dateAtStartOfDay];
             self.menus[day] = menu;
         }else if ([obj isKindOfClass:[RestoLegend class]]){
             //RestoLegend object
-            RestoLegend *legend = (RestoLegend*)obj;
+            RestoLegend *legend = (RestoLegend *)obj;
             [tempLegends addObject:legend];
             /*if (![self.legends containsObject:legend]){
                 self.legends = [self.legends arrayByAddingObject:legend];
             }//*/
         }else if ([obj isKindOfClass:[RestoMapPoint class]]){
-            RestoMapPoint *location = (RestoMapPoint*)obj;
+            RestoMapPoint *location = (RestoMapPoint *)obj;
             [tempLocations addObject:location];
             /*if (![self.locations containsObject:location]) {
                 self.locations = [self.locations arrayByAddingObject:location];
@@ -218,7 +219,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
             DLog(@"ObjectLoader: Oh Crap");
         }
     }
-    
+
     if (tempLocations.count > 0){
         self.locations = [[NSArray alloc]initWithArray:tempLocations];
     }
