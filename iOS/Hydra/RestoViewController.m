@@ -213,13 +213,13 @@
     NSUInteger currentIndex = [self.days indexOfObject:self.menuSheetA.day];
     if (currentIndex != NSNotFound) {
         [self.menuSheetA configureWithDay:self.days[currentIndex]
-                                      menu:self.menus[currentIndex]];
+                                     menu:self.menus[currentIndex]];
     }
 
     NSUInteger nextIndex = [self.days indexOfObject:self.menuSheetB.day];
     if (nextIndex != NSNotFound) {
         [self.menuSheetB configureWithDay:self.days[nextIndex]
-                                   menu:self.menus[nextIndex]];
+                                     menu:self.menus[nextIndex]];
     }
 }
 
@@ -248,28 +248,13 @@
 
     // GOAL: apply lower and upper date to menuSheetA and menuSheetB
     // with the least amount of changes possible
-
-    // Scrolling to the right
-    if (lowerDate == self.menuSheetA.day) {
-        [self updateView:self.menuSheetB toIndex:upperNumber];
+    if (self.menuSheetA.day != lowerDate && self.menuSheetA.day != upperDate) {
+        NSUInteger newIndex = self.menuSheetB.day == upperDate ? lowerNumber : upperNumber;
+        [self updateView:self.menuSheetA toIndex:newIndex];
     }
-    else if (lowerDate == self.menuSheetB.day) {
-        [self updateView:self.menuSheetA toIndex:upperNumber];
-    }
-
-    // Scrolling to the left
-    else if (upperDate == self.menuSheetA.day) {
-        [self updateView:self.menuSheetB toIndex:lowerNumber];
-    }
-    else if (upperDate == self.menuSheetB.day) {
-        [self updateView:self.menuSheetA toIndex:lowerNumber];
-    }
-
-    // Fallthrough
-    else {
-        DLog(@"Unexpected scrolling situation!");
-        [self updateView:self.menuSheetA toIndex:lowerNumber];
-        [self updateView:self.menuSheetB toIndex:upperNumber];
+    if (self.menuSheetB.day != lowerDate && self.menuSheetB.day != upperDate) {
+        NSUInteger newIndex = self.menuSheetA.day == upperDate ? lowerNumber : upperNumber;
+        [self updateView:self.menuSheetB toIndex:newIndex];
     }
 }
 
