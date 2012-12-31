@@ -57,7 +57,6 @@
 
 - (void)createView
 {
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.backgroundColor = [UIColor whiteColor];
 
     CGRect headerFrame = CGRectMake(0, 0, self.frame.size.width, kDateHeaderHeight);

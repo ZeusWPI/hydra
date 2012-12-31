@@ -26,8 +26,6 @@
 
 - (void)createView
 {
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
     // background
     UIImage *background = [UIImage imageNamed:@"header-bg.png"];
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -58,7 +56,7 @@
     [mapButton setTitle:@"Kaart" forState:UIControlStateNormal];
     [self addSubview:mapButton];
     self.mapButton = mapButton;
-    
+
     // legende button
     UIButton *legendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     legendButton.frame = CGRectMake(150, 260, 90, 30);

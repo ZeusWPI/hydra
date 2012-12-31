@@ -22,9 +22,9 @@
 
 @property (nonatomic, unsafe_unretained) UIScrollView *scrollView;
 @property (nonatomic, unsafe_unretained) UIPageControl *pageControl;
-@property (nonatomic, unsafe_unretained) RestoInfoView *infoView;
-@property (nonatomic, unsafe_unretained) RestoMenuView *menuViewA;
-@property (nonatomic, unsafe_unretained) RestoMenuView *menuViewB;
+@property (nonatomic, unsafe_unretained) RestoInfoView *infoSheet;
+@property (nonatomic, unsafe_unretained) RestoMenuView *menuSheetA;
+@property (nonatomic, unsafe_unretained) RestoMenuView *menuSheetB;
 
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSMutableArray *menus;
@@ -59,13 +59,13 @@
     [self.view addSubview:pageControl];
     self.pageControl = pageControl;
 
-    // Views
+    // Sheets
     CGSize viewSize = self.scrollView.frame.size;
-    CGRect viewFrame = CGRectMake(20, 20, viewSize.width - 40, viewSize.height - 60);
+    CGRect sheetFrame = CGRectMake(20, 20, viewSize.width - 40, viewSize.height - 60);
 
-    self.menuViewA = [self addSheetView:[[RestoMenuView alloc] initWithFrame:viewFrame]];
-    self.menuViewB = [self addSheetView:[[RestoMenuView alloc] initWithFrame:viewFrame]];
-    self.infoView = [self addSheetView:[[RestoInfoView alloc] initWithFrame:viewFrame]];
+    self.menuSheetA = [self addSheet:[[RestoMenuView alloc] initWithFrame:sheetFrame]];
+    self.menuSheetB = [self addSheet:[[RestoMenuView alloc] initWithFrame:sheetFrame]];
+    self.infoSheet = [self addSheet:[[RestoInfoView alloc] initWithFrame:sheetFrame]];
 }
 
 - (void)viewDidLoad
@@ -81,11 +81,11 @@
     [self reloadMenu];
 
     // Setup scrollview
-    [self updateView:self.menuViewA toIndex:0];
-    [self updateView:self.menuViewB toIndex:1];
+    [self updateView:self.menuSheetA toIndex:0];
+    [self updateView:self.menuSheetB toIndex:1];
 
     CGSize viewSize = self.scrollView.frame.size;
-    self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), 10);
+    self.scrollView.contentSize = CGSizeMake(viewSize.width * (self.days.count + 1), 1);
     self.scrollView.contentOffset = CGPointMake(viewSize.width, 0);
 
     // Setup pageControl
@@ -94,10 +94,10 @@
     self.pageControl.currentPage = 1;
 
     // Setup buttons
-    [self.infoView.legendButton addTarget:self action:@selector(legendButtonTouched:)
-                         forControlEvents:UIControlEventTouchUpInside];
-    [self.infoView.mapButton addTarget:self action:@selector(mapButtonTouched:)
-                      forControlEvents:UIControlEventTouchUpInside];
+    [self.infoSheet.legendButton addTarget:self action:@selector(legendButtonTouched:)
+                          forControlEvents:UIControlEventTouchUpInside];
+    [self.infoSheet.mapButton addTarget:self action:@selector(mapButtonTouched:)
+                       forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidUnload
@@ -109,14 +109,12 @@
     // Nil weak references
     self.scrollView = nil;
     self.pageControl = nil;
-    self.menuViewA = nil;
-    self.menuViewB = nil;
-    self.infoView = nil;
+    self.infoSheet = nil;
+    self.menuSheetA = nil;
+    self.menuSheetB = nil;
 }
 
-#define kPageCornerRadius 10
-
-- (id)addSheetView:(UIView *)contentView
+- (id)addSheet:(UIView *)contentView
 {
     // Use the outer view for shadows, the contentView uses maskToBounds for rounded corners
     UIView *holderView = [[UIView alloc] initWithFrame:contentView.frame];
@@ -124,10 +122,13 @@
     [self.scrollView addSubview:holderView];
 
     contentView.frame = holderView.bounds;
+    contentView.autoresizingMask = holderView.autoresizingMask;
     [holderView addSubview:contentView];
 
     return contentView;
 }
+
+#define kPageCornerRadius 10
 
 - (void)setupSheetStyle:(UIView *)contentView
 {
@@ -148,9 +149,9 @@
 - (void)viewDidLayoutSubviews
 {
     // Restyle the sheets to keep the shadow the right size
-    [self setupSheetStyle:self.menuViewA];
-    [self setupSheetStyle:self.menuViewB];
-    [self setupSheetStyle:self.infoView];
+    [self setupSheetStyle:self.menuSheetA];
+    [self setupSheetStyle:self.menuSheetB];
+    [self setupSheetStyle:self.infoSheet];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -164,7 +165,7 @@
 {
     // TODO: perhaps merge RestoLegendView and RestoInfoView,
     // showing the legend by switching a toggle on the infoView
-    CGRect frame = self.infoView.superview.frame;
+    CGRect frame = self.infoSheet.superview.frame;
     RestoLegendView *legendView = [[RestoLegendView alloc] initWithFrame:frame];
     [self.scrollView addSubview:legendView];
 }
@@ -209,15 +210,15 @@
 {
     _menus = menus;
 
-    NSUInteger currentIndex = [self.days indexOfObject:self.menuViewA.day];
+    NSUInteger currentIndex = [self.days indexOfObject:self.menuSheetA.day];
     if (currentIndex != NSNotFound) {
-        [self.menuViewA configureWithDay:self.days[currentIndex]
+        [self.menuSheetA configureWithDay:self.days[currentIndex]
                                       menu:self.menus[currentIndex]];
     }
 
-    NSUInteger nextIndex = [self.days indexOfObject:self.menuViewB.day];
+    NSUInteger nextIndex = [self.days indexOfObject:self.menuSheetB.day];
     if (nextIndex != NSNotFound) {
-        [self.menuViewB configureWithDay:self.days[nextIndex]
+        [self.menuSheetB configureWithDay:self.days[nextIndex]
                                    menu:self.menus[nextIndex]];
     }
 }
@@ -245,27 +246,30 @@
         upperDate = self.days[upperNumber];
     }
 
+    // GOAL: apply lower and upper date to menuSheetA and menuSheetB
+    // with the least amount of changes possible
+
     // Scrolling to the right
-    if (lowerDate == self.menuViewA.day) {
-        [self updateView:self.menuViewB toIndex:upperNumber];
+    if (lowerDate == self.menuSheetA.day) {
+        [self updateView:self.menuSheetB toIndex:upperNumber];
     }
-    else if (lowerDate == self.menuViewB.day) {
-        [self updateView:self.menuViewA toIndex:upperNumber];
+    else if (lowerDate == self.menuSheetB.day) {
+        [self updateView:self.menuSheetA toIndex:upperNumber];
     }
 
     // Scrolling to the left
-    else if (upperDate == self.menuViewA.day) {
-        [self updateView:self.menuViewB toIndex:lowerNumber];
+    else if (upperDate == self.menuSheetA.day) {
+        [self updateView:self.menuSheetB toIndex:lowerNumber];
     }
-    else if (upperDate == self.menuViewB.day) {
-        [self updateView:self.menuViewA toIndex:lowerNumber];
+    else if (upperDate == self.menuSheetB.day) {
+        [self updateView:self.menuSheetA toIndex:lowerNumber];
     }
 
     // Fallthrough
     else {
         DLog(@"Unexpected scrolling situation!");
-        [self updateView:self.menuViewA toIndex:lowerNumber];
-        [self updateView:self.menuViewB toIndex:upperNumber];
+        [self updateView:self.menuSheetA toIndex:lowerNumber];
+        [self updateView:self.menuSheetB toIndex:upperNumber];
     }
 }
 
