@@ -1,6 +1,7 @@
+# coding=utf-8
 """ Parse the weekly menu from a webpage into a JSON struct and write it to a file. """
 from __future__ import with_statement
-import json, urllib, libxml2, os, os.path, datetime, locale
+import json, urllib, libxml2, os, os.path, datetime, locale, re
 from datetime import datetime, timedelta
 
 SOURCE = 'http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm'
@@ -17,19 +18,23 @@ def get_menu_page(url, week):
 	return f.read()
 
 def parse_single_meat_and_price(meat):
-	content = meat.content.strip().split(' - ', 1)
-	return {
-		'recommended': len(meat.xpathEval('.//u')) > 0,
-		'price': content[0],
-		'name': content[1]
-	}
+	# there are some inconsistencies in the item descriptions
+	m = re.search('([0-9.,]+)[ -]+(.*)', meat.content.strip())
+	if not m:
+		print('Unable to parse item "%s"' % meat.content.strip())
+		return None
+	else:
+		return {
+			'recommended': len(meat.xpathEval('.//u')) > 0,
+			'price': '€ ' + m.group(1),
+			'name': m.group(2)
+		}
 
 def get_meat_and_price(meat):
 	meals = meat.xpathEval(".//p")
 	if len(meals) == 0:
-		return [parse_single_meat_and_price(meat)]
-	else:
-		return [parse_single_meat_and_price(meal) for meal in meals]
+		meals = [meat]
+	return filter(None, [parse_single_meat_and_price(meal) for meal in meals])
 
 def parse_menu_from_html(page):
 	print('Parsing weekmenu webpage to an object tree')
