@@ -14,7 +14,6 @@
 #import "RestoMenuView.h"
 #import "RestoInfoView.h"
 #import "RestoMapViewController.h"
-#import "RestoLegendView.h"
 
 #define kRestoDaysShown 5
 
@@ -93,11 +92,10 @@
     self.pageControl.numberOfPages = self.days.count + 1;
     self.pageControl.currentPage = 1;
 
-    // Setup buttons
-    [self.infoSheet.legendButton addTarget:self action:@selector(legendButtonTouched:)
-                          forControlEvents:UIControlEventTouchUpInside];
-    [self.infoSheet.mapButton addTarget:self action:@selector(mapButtonTouched:)
-                       forControlEvents:UIControlEventTouchUpInside];
+    // add NavigationBar button
+    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc] initWithTitle:@"Kaart"
+                    style:UIBarButtonItemStylePlain target:self action:@selector(mapButtonTouched:)];
+    [self.navigationItem setRightBarButtonItem:mapButton];
 }
 
 - (void)viewDidUnload
@@ -160,15 +158,6 @@
 }
 
 #pragma mark Buttons
-
-- (void)legendButtonTouched:(UIButton *)sender
-{
-    // TODO: perhaps merge RestoLegendView and RestoInfoView,
-    // showing the legend by switching a toggle on the infoView
-    CGRect frame = self.infoSheet.superview.frame;
-    RestoLegendView *legendView = [[RestoLegendView alloc] initWithFrame:frame];
-    [self.scrollView addSubview:legendView];
-}
 
 - (void)mapButtonTouched:(UIButton *)sender
 {

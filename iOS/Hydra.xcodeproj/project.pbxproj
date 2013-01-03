@@ -19,7 +19,6 @@
 		3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FBAB16309E2100C962DC /* AVFoundation.framework */; };
 		446378FC162DA12D008D47F2 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446378FB162DA12D008D47F2 /* EventKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
-		906761C2168DA6720019E4DC /* RestoLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 906761C1168DA6720019E4DC /* RestoLegendView.m */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
 		90EB7BEA1688ECE300A9582D /* RestoLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegend.m */; };
@@ -211,8 +210,6 @@
 		3BAFFE7D15BB04B600921E7D /* BadgedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgedButton.m; sourceTree = "<group>"; };
 		446378FB162DA12D008D47F2 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
-		906761C0168DA6720019E4DC /* RestoLegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegendView.h; sourceTree = "<group>"; };
-		906761C1168DA6720019E4DC /* RestoLegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLegendView.m; sourceTree = "<group>"; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
 		90EB7BE11688BCC700A9582D /* RestoInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoInfoView.h; sourceTree = "<group>"; };
@@ -439,8 +436,6 @@
 			children = (
 				90EB7BE11688BCC700A9582D /* RestoInfoView.h */,
 				90EB7BE21688BCC700A9582D /* RestoInfoView.m */,
-				906761C0168DA6720019E4DC /* RestoLegendView.h */,
-				906761C1168DA6720019E4DC /* RestoLegendView.m */,
 				90F0525B168C663F004CAFFC /* RestoMapViewController.h */,
 				90F0525C168C663F004CAFFC /* RestoMapViewController.m */,
 				90F0525D168C663F004CAFFC /* RestoMapViewController.xib */,
@@ -1046,7 +1041,6 @@
 				90EB7BEA1688ECE300A9582D /* RestoLegend.m in Sources */,
 				90F0525E168C663F004CAFFC /* RestoMapViewController.m in Sources */,
 				90F05266168C7D19004CAFFC /* RestoMapPoint.m in Sources */,
-				906761C2168DA6720019E4DC /* RestoLegendView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
