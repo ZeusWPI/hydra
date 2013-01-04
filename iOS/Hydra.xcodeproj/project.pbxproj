@@ -53,6 +53,7 @@
 		F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F557EA45163431FC00635CDD /* schamper-bg@2x.png */; };
 		F55895C415B60F450001B399 /* RestoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C315B60F450001B399 /* RestoMenu.m */; };
 		F55895C715B610140001B399 /* RestoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C615B610130001B399 /* RestoStore.m */; };
+		F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F56F139E169731FE003D4447 /* UrgentViewController.xib */; };
 		F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */; };
 		F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0B15B837F000D2A59E /* icon-meal.png */; };
 		F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0C15B837F000D2A59E /* icon-soup.png */; };
@@ -143,7 +144,6 @@
 		F5FC117215F0211300B3F127 /* button-resto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FC116C15F0211300B3F127 /* button-resto@2x.png */; };
 		F5FC117315F0211300B3F127 /* button-schamper-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FC116D15F0211300B3F127 /* button-schamper-active@2x.png */; };
 		F5FC117415F0211300B3F127 /* button-schamper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5FC116E15F0211300B3F127 /* button-schamper@2x.png */; };
-		F5FFDB0A168DD0A500662662 /* UrgentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5FFDB0C168DD0A500662662 /* UrgentViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,6 +258,7 @@
 		F55895C315B60F450001B399 /* RestoMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenu.m; sourceTree = "<group>"; };
 		F55895C515B6100C0001B399 /* RestoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoStore.h; sourceTree = "<group>"; };
 		F55895C615B610130001B399 /* RestoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoStore.m; sourceTree = "<group>"; };
+		F56F139D169731FE003D4447 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/UrgentViewController.xib; sourceTree = "<group>"; };
 		F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		F57E7E0B15B837F000D2A59E /* icon-meal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-meal.png"; sourceTree = "<group>"; };
@@ -378,7 +379,6 @@
 		F5FFDAF9168DB1C500662662 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		F5FFDAFA168DB1C500662662 /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
 		F5FFDAFB168DB1C500662662 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
-		F5FFDB0B168DD0A500662662 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/UrgentViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -717,7 +717,7 @@
 				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
 				F53A5E7416700242009EA4CC /* UrgentViewController.h */,
 				F53A5E7516700242009EA4CC /* UrgentViewController.m */,
-				F5FFDB0C168DD0A500662662 /* UrgentViewController.xib */,
+				F56F139E169731FE003D4447 /* UrgentViewController.xib */,
 				F50EE09415B5F587000F1992 /* WebViewController.h */,
 				F50EE09515B5F587000F1992 /* WebViewController.m */,
 			);
@@ -959,8 +959,8 @@
 				F54AB5A4166FF510006C1189 /* button-urgent-active@2x.png in Resources */,
 				F54AB5A5166FF510006C1189 /* button-urgent.png in Resources */,
 				F54AB5A6166FF510006C1189 /* button-urgent@2x.png in Resources */,
-				F5FFDB0A168DD0A500662662 /* UrgentViewController.xib in Resources */,
 				90F0525F168C663F004CAFFC /* RestoMapViewController.xib in Resources */,
+				F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1063,20 +1063,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		F56F139E169731FE003D4447 /* UrgentViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F56F139D169731FE003D4447 /* nl */,
+			);
+			name = UrgentViewController.xib;
+			sourceTree = "<group>";
+		};
 		F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F5EBF112159DFDEC00EB5D26 /* nl */,
 			);
 			name = DashboardViewController.xib;
-			sourceTree = "<group>";
-		};
-		F5FFDB0C168DD0A500662662 /* UrgentViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F5FFDB0B168DD0A500662662 /* nl */,
-			);
-			name = UrgentViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -82,7 +82,6 @@
     headerTitle.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView.backgroundColor = [UIColor clearColor];
     [self.tableView.tableHeaderView addSubview:headerTitle];
-
 }
 
 # pragma Configure dataSource
