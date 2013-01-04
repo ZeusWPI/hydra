@@ -10,4 +10,10 @@
 
 @interface UrgentViewController : UIViewController
 
+@property (nonatomic, assign) IBOutlet UIButton *play;
+@property (nonatomic, assign) IBOutlet UIButton *pause;
+
+-(IBAction)streamPlay:(id)sender;
+-(IBAction)streamPause:(id)sender;
+
 @end
