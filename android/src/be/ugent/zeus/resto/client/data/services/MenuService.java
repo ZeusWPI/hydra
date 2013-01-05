@@ -45,7 +45,7 @@ public class MenuService extends HTTPIntentService {
     String formatted = FORMAT.format(date.getTime());
     Menu menu = null;
     try {
-      String url = String.format(MENU_URL, data.get(Calendar.YEAR), date.get(Calendar.WEEK_OF_YEAR));
+      String url = String.format(MENU_URL, date.get(Calendar.YEAR), date.get(Calendar.WEEK_OF_YEAR));
       Log.i("[MenuService]", "Fetching menus from " + url);
       String content = fetch(url);
       JSONObject data = new JSONObject(content);
