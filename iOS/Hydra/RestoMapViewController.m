@@ -28,12 +28,12 @@
     [super viewDidLoad];
 
     // Add restos to map
-    self.restos = [[RestoStore sharedStore] locations];
+    [self reloadRestos];
     [worldView addAnnotations:self.restos];
 
     // Check for updates
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(locationsUpdated:) name:RestoStoreDidUpdateInfoNotification
+    [center addObserver:self selector:@selector(reloadRestos) name:RestoStoreDidUpdateInfoNotification
                  object:nil];
     
     self.selectedRow = 0;
@@ -276,4 +276,8 @@
     self.pickerView = nil;
 }
 
+- (void)reloadRestos
+{
+    _restos = [[RestoStore sharedStore] locations];
+}
 @end
