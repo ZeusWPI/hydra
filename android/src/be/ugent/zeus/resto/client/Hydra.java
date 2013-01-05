@@ -6,10 +6,8 @@ import android.view.View;
 import be.ugent.zeus.resto.client.data.services.HTTPIntentService;
 import be.ugent.zeus.resto.client.data.services.UpdaterService;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.zubhium.ZubhiumSDK;
 
 /**
@@ -18,13 +16,11 @@ import com.zubhium.ZubhiumSDK;
  */
 public class Hydra extends SherlockActivity {
 
-  GoogleAnalyticsTracker tracker;
   ZubhiumSDK sdk;
 
-  private void link(int id, final Class activity, final String name) {
+  private void link(int id, final Class activity) {
     findViewById(id).setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
-        tracker.trackPageView("/" + name);
         startActivity(new Intent(Hydra.this, activity));
       }
     });
@@ -39,22 +35,16 @@ public class Hydra extends SherlockActivity {
         // We are registering update receiver
     	sdk.registerUpdateReceiver(Hydra.this);
     }
-
-    tracker = GoogleAnalyticsTracker.getInstance();
-
-    // Start the tracker in automatic dispatch mode...
-    tracker.startNewSession("UA-25444917-3", 20, this);
-    tracker.trackPageView("/Home");
-
+    
     setContentView(R.layout.hydra);
     setTitle("");
 
-    link(R.id.home_btn_news, News.class, "News");
-    link(R.id.home_btn_calendar, Calendar.class, "Calendar");
-    link(R.id.home_btn_info, Info.class, "Info");
-    link(R.id.home_btn_menu, RestoMenu.class, "RestoMenu");
-    link(R.id.home_btn_gsr, GSR.class, "GSR");
-    link(R.id.home_btn_schamper, SchamperDaily.class, "Schamper");
+    link(R.id.home_btn_news, News.class);
+    link(R.id.home_btn_calendar, Calendar.class);
+    link(R.id.home_btn_info, Info.class);
+    link(R.id.home_btn_menu, RestoMenu.class);
+    link(R.id.home_btn_gsr, GSR.class);
+    link(R.id.home_btn_schamper, SchamperDaily.class);
 
     Intent intent = new Intent(this, UpdaterService.class);
     intent.putExtra(HTTPIntentService.FORCE_UPDATE, true);
@@ -84,12 +74,22 @@ public class Hydra extends SherlockActivity {
   }
 
   @Override
+  public void onStart() {
+    super.onStart();
+    EasyTracker.getInstance().activityStart(this); // Add this method.
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EasyTracker.getInstance().activityStop(this); // Add this method.
+  }
+  
+  @Override
   protected void onDestroy() {
 	if(sdk != null){
 		sdk.unRegisterUpdateReceiver();     // Don't forget to unregister receiver
 	}
-    // Stop the tracker when it is no longer needed.
-    tracker.stopSession();
     super.onDestroy();
   }
 }

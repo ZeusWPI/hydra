@@ -3,6 +3,7 @@ package be.ugent.zeus.resto.client;
 import java.util.List;
 
 import com.actionbarsherlock.app.SherlockListActivity;
+import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -100,5 +101,17 @@ public class GSR extends SherlockListActivity {
           break;
       }
     }
+  }  
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    EasyTracker.getInstance().activityStart(this); // Add this method.
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EasyTracker.getInstance().activityStop(this); // Add this method.
   }
 }

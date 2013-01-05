@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+  <!--Replace placeholder ID with your tracking ID-->
+  <string name="ga_trackingId">UA-25444917-3</string>
+
+  <!--Enable Activity tracking-->
+  <bool name="ga_autoActivityTracking">true</bool>
+
+  <!-- The screen names that will appear in your reporting -->
+  <string name="be.ugent.zeus.resto.client.Hydra">Home</string>
+  <string name="be.ugent.zeus.resto.client.Info">Info</string>
+  <string name="be.ugent.zeus.resto.client.News">News</string>
+  <string name="be.ugent.zeus.resto.client.RestoMenu">Resto Menu</string>
+  <string name="be.ugent.zeus.resto.client.SchamperDaily">Schamper</string>
+  <string name="be.ugent.zeus.resto.client.GSR">GSR</string>
+  <!--  TODO: Add one for Urgent -->
+  
+  <!--Enable automatic exception tracking-->
+  <bool name="ga_reportUncaughtExceptions">true</bool>
+</resources>
+

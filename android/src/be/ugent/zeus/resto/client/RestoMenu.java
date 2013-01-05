@@ -29,6 +29,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  *
@@ -242,5 +243,17 @@ public class RestoMenu extends SherlockActivity {
       // Won't happen, versionCode is present in the manifest!
       return 0;
     }
+  }  
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    EasyTracker.getInstance().activityStart(this); // Add this method.
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EasyTracker.getInstance().activityStop(this); // Add this method.
   }
 }

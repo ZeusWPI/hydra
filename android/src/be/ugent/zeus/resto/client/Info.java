@@ -18,6 +18,7 @@ import com.dd.plist.NSDictionary;
 import com.dd.plist.NSObject;
 import com.dd.plist.NSString;
 import com.dd.plist.XMLPropertyListParser;
+import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  *
@@ -117,5 +118,17 @@ public class Info extends SherlockListActivity {
         }
     };
 
+  }  
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    EasyTracker.getInstance().activityStart(this); // Add this method.
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EasyTracker.getInstance().activityStop(this); // Add this method.
   }
 }

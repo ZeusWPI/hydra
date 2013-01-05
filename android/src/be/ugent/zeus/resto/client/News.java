@@ -8,6 +8,8 @@ import be.ugent.zeus.resto.client.data.NewsItem;
 import be.ugent.zeus.resto.client.data.NewsList;
 import be.ugent.zeus.resto.client.data.caches.NewsCache;
 import com.actionbarsherlock.app.SherlockListActivity;
+import com.google.analytics.tracking.android.EasyTracker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,5 +45,17 @@ public class News extends SherlockListActivity {
     Intent intent = new Intent(this, NewsItemActivity.class);
     intent.putExtra("item", item);
     startActivity(intent);
+  }  
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    EasyTracker.getInstance().activityStart(this); // Add this method.
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EasyTracker.getInstance().activityStop(this); // Add this method.
   }
 }

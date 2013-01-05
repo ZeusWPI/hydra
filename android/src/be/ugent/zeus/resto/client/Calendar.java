@@ -14,6 +14,8 @@ import be.ugent.zeus.resto.client.ui.ActivityAdapter;
 import be.ugent.zeus.resto.client.ui.SwipeyTabs;
 import be.ugent.zeus.resto.client.ui.SwipeyTabsAdapter;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.google.analytics.tracking.android.EasyTracker;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,5 +146,17 @@ public class Calendar extends SherlockActivity {
 
     ref.add(java.util.Calendar.DATE, offset);
     return ref.get(java.util.Calendar.DAY_OF_MONTH) == date.get(java.util.Calendar.DAY_OF_MONTH);
+  }
+  
+  @Override
+  public void onStart() {
+    super.onStart();
+    EasyTracker.getInstance().activityStart(this); // Add this method.
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EasyTracker.getInstance().activityStop(this); // Add this method.
   }
 }
