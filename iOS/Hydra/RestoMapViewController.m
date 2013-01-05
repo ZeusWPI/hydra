@@ -10,12 +10,15 @@
 #import "RestoLocation.h"
 #import "RestoStore.h"
 
+#define kUpdateDistance 100.0
 @interface RestoMapViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) NSArray *restos;
 @property (nonatomic, strong) UIPickerView *pickerView;
-@property (nonatomic) NSInteger selectedRow;
+@property (nonatomic, strong) RestoLocation *selectedResto;
+@property (nonatomic, strong) MKUserLocation *prevLocation;
+@property (nonatomic, strong) NSMutableDictionary *distances;
 
 @end
 
@@ -36,8 +39,7 @@
     [center addObserver:self selector:@selector(reloadRestos) name:RestoStoreDidUpdateInfoNotification
                  object:nil];
     
-    self.selectedRow = 0;
-    
+    self.selectedResto = self.restos[0];    
 }
 
 - (void)viewDidUnload
@@ -89,38 +91,15 @@
     
     [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
-    
-    [self.pickerView selectRow:self.selectedRow inComponent:0 animated:NO];
+
+    NSInteger row = [self.restos indexOfObject:self.selectedResto];
+    row = row == NSNotFound? 0 : row;
+    [self.pickerView selectRow:row inComponent:0 animated:NO];
 }
 
 - (IBAction)routeToClosestResto:(id)sender
 {
-    // Check for iOS 6
-    Class mapItemClass = [MKMapItem class];
-    RestoLocation *closestResto = self.restos[0];
-    CLLocationCoordinate2D coordinate = closestResto.coordinate;
-    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
-    {
-        // Create an MKMapItem to pass to the Maps app
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
-                                                       addressDictionary:nil];
-        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-        [mapItem setName:closestResto.title];
-        
-        // Set the directions mode to "Walking"
-        NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking};
-        // Get the "Current User Location" MKMapItem
-        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
-        // Pass the current location and destination map items to the Maps app
-        // Set the direction mode in the launchOptions dictionary
-        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
-                       launchOptions:launchOptions];
-    }else {
-        //iOs < 6 use maps.apple.com
-        NSString* url = [NSString stringWithFormat: @"http://maps.apple.com/maps?saddr=%f,%f",
-                         coordinate.latitude, coordinate.longitude];
-        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
-    }
+    [self openMapWithRestoLocation:self.restos[0]];
 }
 
 - (IBAction)returnToInfoView:(id)sender{
@@ -140,7 +119,7 @@
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{    
+{
     UILabel *title = nil, *distance = nil;
     if (!view) {
         // Location name
@@ -162,10 +141,8 @@
 
     RestoLocation *resto = self.restos[row];
     title.text = resto.title;
-    
-    CLLocation *restoLoc = [[CLLocation alloc] initWithLatitude:resto.coordinate.latitude
-                                                      longitude:resto.coordinate.longitude];
-    CLLocationDistance restoDist = [worldView.userLocation.location distanceFromLocation:restoLoc];
+
+    CLLocationDistance restoDist = [self.distances[resto.title] doubleValue];
     if (restoDist < 2000) {
         distance.text = [NSString stringWithFormat:@"%.0f m", restoDist];
     }
@@ -177,18 +154,23 @@
 }
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    self.selectedRow = row;
-    
+{    
     RestoLocation *resto = self.restos[row];
+    self.selectedResto = resto;
+
+    [self setRegionFromUserToResto:resto];
+}
+
+- (void)setRegionFromUserToResto:(RestoLocation*)resto
+{
     CLLocationCoordinate2D userLocation = worldView.userLocation.coordinate;
-    
+
     // Top right corner
     CLLocationCoordinate2D topRightCoor = CLLocationCoordinate2DMake(
         fmax(resto.coordinate.latitude, userLocation.latitude),
         fmax(resto.coordinate.longitude, userLocation.longitude));
     MKMapPoint mtr = MKMapPointForCoordinate(topRightCoor);
-    
+
     // Top left corner
     CLLocationCoordinate2D botLeftCoor = CLLocationCoordinate2DMake(
         fmin(resto.coordinate.latitude, userLocation.latitude),
@@ -206,45 +188,50 @@
 {
     if (self.pickerView != nil){
         NSInteger row = [self.pickerView selectedRowInComponent:0];
-        // Check for iOS 6
-        Class mapItemClass = [MKMapItem class];
-        //iOs 6
-        RestoLocation *closestResto = [self.restos objectAtIndex:row];
-        CLLocationCoordinate2D coordinate = closestResto.coordinate;
-        if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
-        {
-            // Create an MKMapItem to pass to the Maps app
-            MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
-                                                           addressDictionary:nil];
-            MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-            [mapItem setName:closestResto.title];
-            
-            // Set the directions mode to "Walking"
-            NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking};
-            // Get the "Current User Location" MKMapItem
-            MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
-            // Pass the current location and destination map items to the Maps app
-            // Set the direction mode in the launchOptions dictionary
-            [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
-                           launchOptions:launchOptions];
-        }else{
-            //iOs < 6 use maps.apple.com
-            NSString* url = [NSString stringWithFormat: @"http://maps.apple.com/maps?saddr=%f,%f",
-                             coordinate.latitude, coordinate.longitude];
-            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
-        }
+        RestoLocation *selResto = [self.restos objectAtIndex:row];
+        [self openMapWithRestoLocation:selResto];
     }
 }
 
+- (void)openMapWithRestoLocation:(RestoLocation*)resto
+{
+    // Check for iOS 6
+    Class mapItemClass = [MKMapItem class];
+    //iOs 6
+    CLLocationCoordinate2D coordinate = resto.coordinate;
+    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+    {
+        // Create an MKMapItem to pass to the Maps app
+        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
+                                                       addressDictionary:nil];
+        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+        [mapItem setName:resto.title];
+
+        // Set the directions mode to "Walking"
+        NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking};
+        // Get the "Current User Location" MKMapItem
+        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+        // Pass the current location and destination map items to the Maps app
+        // Set the direction mode in the launchOptions dictionary
+        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
+                       launchOptions:launchOptions];
+    }else{
+        //iOs < 6 use maps.apple.com
+        NSString* url = [NSString stringWithFormat: @"http://maps.apple.com/maps?saddr=%f,%f",
+                         coordinate.latitude, coordinate.longitude];
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+    }
+}
 #pragma mark Map delegate
 
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation 
 {
-    CLLocationCoordinate2D loc = [userLocation coordinate];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
-    [worldView setRegion:region animated:YES];
-
-    [self reorderLocations];
+    if ((self.prevLocation == nil) || [userLocation.location distanceFromLocation:self.prevLocation.location] > kUpdateDistance){
+        self.prevLocation = userLocation;
+        [self recalculateDistances];
+        [self reorderLocations];
+        [self setRegionFromUserToResto:self.selectedResto];
+    }
 }
 
 - (void)reorderLocations
@@ -253,20 +240,26 @@
         return;
     }
 
-    // TODO: perhaps cache the distances?
     self.restos = [self.restos sortedArrayUsingComparator: ^(id a, id b) {
-        CLLocation *aa = [[CLLocation alloc] initWithLatitude:((RestoLocation*)a).coordinate.latitude
-                                                    longitude:((RestoLocation*)a).coordinate.longitude];
-        CLLocation *bb = [[CLLocation alloc] initWithLatitude:((RestoLocation*)b).coordinate.latitude
-                                                    longitude:((RestoLocation*)b).coordinate.longitude];
 
-        CLLocationDistance aDist = [worldView.userLocation.location distanceFromLocation:aa];
-        CLLocationDistance bDist = [worldView.userLocation.location distanceFromLocation:bb];
+        double aDist = [self.distances[((RestoLocation*)a).title] doubleValue];
+        double bDist = [self.distances[((RestoLocation*)b).title] doubleValue];
 
         return [@(aDist) compare:@(bDist)];
     }];
 
     [self.pickerView reloadAllComponents];
+}
+
+- (void)recalculateDistances
+{
+    NSMutableDictionary* distances = [[NSMutableDictionary alloc] initWithCapacity:self.restos.count];
+    for (RestoLocation* resto in self.restos) {
+        CLLocation *restoLoc = [[CLLocation alloc] initWithLatitude:resto.coordinate.latitude
+                                                    longitude:resto.coordinate.longitude];
+        distances[resto.title] = [NSNumber numberWithDouble:[worldView.userLocation.location distanceFromLocation:restoLoc]];
+    }
+    self.distances = distances;
 }
 
 - (void)dismissActionSheet:(id)sender
@@ -278,6 +271,8 @@
 
 - (void)reloadRestos
 {
-    _restos = [[RestoStore sharedStore] locations];
+    self.restos = [RestoStore sharedStore].locations;
+    [self recalculateDistances];
+    [self reorderLocations];
 }
 @end

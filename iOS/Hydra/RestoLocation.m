@@ -8,7 +8,7 @@
 
 #import "RestoLocation.h"
 #import <RestKit/RestKit.h>
-
+#define kCoordinateScaleFactor 1000000.0
 @implementation RestoLocation
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)c title:(NSString *)t
@@ -60,7 +60,7 @@
 
 - (CLLocationCoordinate2D)coordinate
 {
-    return CLLocationCoordinate2DMake(self.latitude/1000000.0, self.longitude/1000000.0);
+    return CLLocationCoordinate2DMake(self.latitude/kCoordinateScaleFactor, self.longitude/kCoordinateScaleFactor);
 }
 
 - (NSString *)title
