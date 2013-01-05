@@ -77,7 +77,12 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(reloadMenu)
                    name:RestoStoreDidReceiveMenuNotification object:nil];
+    [center addObserver:self selector:@selector(reloadInfo)
+                   name:RestoStoreDidUpdateInfoNotification object:nil];
+
+    // Update views
     [self reloadMenu];
+    [self reloadInfo];
 
     // Setup scrollview
     [self updateView:self.menuSheetA toIndex:0];
@@ -186,9 +191,10 @@
 {
     if (!self.days.count) [self calculateDays];
 
+    RestoStore *store = [RestoStore sharedStore];
     NSMutableArray *menus = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < self.days.count; i++) {
-        id menu = [[RestoStore sharedStore] menuForDay:self.days[i]];
+        id menu = [store menuForDay:self.days[i]];
         if (!menu) menu = [NSNull null];
         menus[i] = menu;
     }
@@ -210,6 +216,11 @@
         [self.menuSheetB configureWithDay:self.days[nextIndex]
                                      menu:self.menus[nextIndex]];
     }
+}
+
+- (void)reloadInfo
+{
+    self.infoSheet.legend = [RestoStore sharedStore].legend;
 }
 
 #pragma mark View scrolling and page changing

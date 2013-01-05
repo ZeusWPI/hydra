@@ -6,26 +6,22 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 
-#import "RestoLegend.h"
+#import "RestoLegendItem.h"
 #import <RestKit/RestKit.h>
 
-@implementation RestoLegend
+@implementation RestoLegendItem
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<RestoLegend with key: %@ and value %@",
-            self.key, self.value];
+    return [NSString stringWithFormat:@"<RestoLegend for key '%@'>", self.key];
 }
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 {
     // Create mapping for locations
     RKObjectMapping *legendMapping = [RKObjectMapping mappingForClass:self];
-    //[legendMapping setForceCollectionMapping:YES];
-    [legendMapping mapKeyPath:@"key" toAttribute:@"key"];
-    [legendMapping mapKeyPath:@"value" toAttribute:@"value"];
-    [legendMapping mapKeyPath:@"style" toAttribute:@"style"];
-    
+    [legendMapping mapAttributes:@"key", @"value", @"style", nil];
+
     // Register mapping
     [mappingProvider setObjectMapping:legendMapping forKeyPath:@"legend"];
 }
@@ -48,15 +44,16 @@
 }
 
 #pragma mark isEqual and hash implementation
+
 - (BOOL)isEqual:(id)other {
     if (other == self)
         return YES;
     if (!other || ![other isKindOfClass:[self class]])
         return NO;
-    return [self isEqualToRestoLegend:other];
+    return [self isEqualToRestoLegendItem:other];
 }
 
-- (BOOL)isEqualToRestoLegend:(RestoLegend *)aLegend {
+- (BOOL)isEqualToRestoLegendItem:(RestoLegendItem *)aLegend {
     if (self == aLegend)
         return YES;
     if (![[self key] isEqualToString:[aLegend key]])
@@ -67,4 +64,5 @@
         return NO;
     return YES;
 }
+
 @end

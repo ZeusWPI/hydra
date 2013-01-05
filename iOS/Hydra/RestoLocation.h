@@ -12,14 +12,14 @@
 
 @class RKObjectMappingProvider;
 
-@interface RestoMapPoint : NSObject <MKAnnotation, NSCoding>
+@interface RestoLocation : NSObject <MKAnnotation, NSCoding>
 
-- (id) initWithCoordinate:(CLLocationCoordinate2D)c andTitle:(NSString*)t;
+@property (nonatomic, assign) CLLocationDegrees latitude;
+@property (nonatomic, assign) CLLocationDegrees longitude;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *address;
 
-@property(nonatomic,readonly) CLLocationCoordinate2D coordinate;
-@property(nonatomic,copy) NSString *title;
-@property(nonatomic,copy) NSString *address;
-
+- (id) initWithCoordinate:(CLLocationCoordinate2D)c title:(NSString*)t;
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 
 @end

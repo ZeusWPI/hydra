@@ -7,7 +7,7 @@
 //
 
 #import "RestoMapViewController.h"
-#import "RestoMapPoint.h"
+#import "RestoLocation.h"
 
 @interface RestoMapViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -21,11 +21,11 @@
 
 - (NSArray*)generateRestoList
 {
-    RestoMapPoint *astrid = [[RestoMapPoint alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.026952, 3.712086) andTitle:@"Resto Astrid"];
+    RestoLocation *astrid = [[RestoLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.026952, 3.712086) title:@"Resto Astrid"];
 
-    RestoMapPoint *brug = [[RestoMapPoint alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.045613, 3.727147) andTitle:@"Resto De Brug"];
+    RestoLocation *brug = [[RestoLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.045613, 3.727147) title:@"Resto De Brug"];
     
-    RestoMapPoint *coupure = [[RestoMapPoint alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.053252, 3.707671) andTitle:@"Resto Coupure"];
+    RestoLocation *coupure = [[RestoLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.053252, 3.707671) title:@"Resto Coupure"];
     
     return [[NSArray alloc] initWithObjects:brug, coupure, astrid,nil];
 }
@@ -107,7 +107,7 @@
     if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
     {
         // Create an MKMapItem to pass to the Maps app
-        RestoMapPoint *closestResto = self.restos[0];
+        RestoLocation *closestResto = self.restos[0];
         CLLocationCoordinate2D coordinate = closestResto.coordinate;
         MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
                                                        addressDictionary:nil];
@@ -162,7 +162,7 @@
         distance = (UILabel *)title.subviews[0];
     }
 
-    RestoMapPoint *resto = self.restos[row];
+    RestoLocation *resto = self.restos[row];
     title.text = resto.title;
     
     CLLocation *restoLoc = [[CLLocation alloc] initWithLatitude:resto.coordinate.latitude
@@ -181,7 +181,7 @@
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     //TODO get users location and selected resto on the map, zoom out if needed
-    RestoMapPoint *resto = self.restos[row];
+    RestoLocation *resto = self.restos[row];
     CLLocationCoordinate2D userLocation = worldView.userLocation.coordinate;
     
     // Top right corner
@@ -210,7 +210,7 @@
         // Check for iOS 6
         Class mapItemClass = [MKMapItem class];
         //iOs 6
-        RestoMapPoint *closestResto = [self.restos objectAtIndex:row];
+        RestoLocation *closestResto = [self.restos objectAtIndex:row];
         CLLocationCoordinate2D coordinate = closestResto.coordinate;
         if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
         {
@@ -254,10 +254,10 @@
     // TODO: keep selection when user has already selected something
     // TODO: perhaps cache the distances?
     self.restos = [self.restos sortedArrayUsingComparator: ^(id a, id b) {
-        CLLocation *aa = [[CLLocation alloc] initWithLatitude:((RestoMapPoint*)a).coordinate.latitude
-                                                    longitude:((RestoMapPoint*)a).coordinate.longitude];
-        CLLocation *bb = [[CLLocation alloc] initWithLatitude:((RestoMapPoint*)b).coordinate.latitude
-                                                    longitude:((RestoMapPoint*)b).coordinate.longitude];
+        CLLocation *aa = [[CLLocation alloc] initWithLatitude:((RestoLocation*)a).coordinate.latitude
+                                                    longitude:((RestoLocation*)a).coordinate.longitude];
+        CLLocation *bb = [[CLLocation alloc] initWithLatitude:((RestoLocation*)b).coordinate.latitude
+                                                    longitude:((RestoLocation*)b).coordinate.longitude];
 
         CLLocationDistance aDist = [worldView.userLocation.location distanceFromLocation:aa];
         CLLocationDistance bDist = [worldView.userLocation.location distanceFromLocation:bb];

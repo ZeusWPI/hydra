@@ -10,7 +10,7 @@
 
 @class RKObjectMappingProvider;
 
-@interface RestoLegend : NSObject <NSCoding>
+@interface RestoLegendItem : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) NSString *value;

@@ -9,14 +9,16 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *const RestoStoreDidReceiveMenuNotification;
+extern NSString *const RestoStoreDidUpdateInfoNotification;
 
 @class RestoMenu;
 
 @interface RestoStore : NSObject
 
 + (RestoStore *)sharedStore;
+
 - (RestoMenu *)menuForDay:(NSDate *)day;
-- (NSArray*)allLocations;
-- (NSArray*)allLegends;
+- (NSArray*)locations;
+- (NSArray*)legend;
 
 @end

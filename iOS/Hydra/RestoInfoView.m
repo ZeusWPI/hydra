@@ -7,18 +7,18 @@
 //
 
 #import "RestoInfoView.h"
-#import "RestoLegend.h"
+#import "RestoLegendItem.h"
 #import "RestoMapViewController.h"
 #import "RestoStore.h"
 #import "AppDelegate.h"
 
 @interface RestoInfoView () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSArray *legends;
-
 @property (nonatomic, unsafe_unretained) UITableView *tableView;
 @property (nonatomic, unsafe_unretained) UIActivityIndicatorView *spinner;
 
+@property (nonatomic, unsafe_unretained) UIButton *legendButton;
+@property (nonatomic, unsafe_unretained) UIButton *mapButton;
 
 @end
 @implementation RestoInfoView
@@ -28,7 +28,6 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        [self configure];
         [self createView];
     }
     return self;
@@ -84,40 +83,9 @@
     [self.tableView.tableHeaderView addSubview:headerTitle];
 }
 
-# pragma Configure dataSource
-- (void)configure
+- (void)setLegend:(NSArray *)legend
 {
-    /*// Check for updates
-     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-     [center addObserver:self selector:@selector(legendUpdated:)
-     name:RestoStoreDidReceiveMenuNotification
-     object:nil];
-     [self loadLegends];//*/
-    // array
-    // TODO: storage and json temporary like this without json
-    RestoLegend *aanbevolen = [[RestoLegend alloc] init];
-    aanbevolen.key = @"vet";
-    aanbevolen.value = @"Aanbevolen menu: 0,50 euro korting reeds verrekend in de prijs (cfr. gezondheidsbeleid in de resto's.)";
-    aanbevolen.style = @"bold";
-    RestoLegend *sterretje = [[RestoLegend alloc] init];
-    sterretje.key = @"*";
-    sterretje.value = @"menu niet verkrijgbaar in resto Diergeneeskunde, Boudewijn en St. Jansvest";
-    sterretje.style = @"";
-    RestoLegend *haakje = [[RestoLegend alloc] init];
-    haakje.key = @"#";
-    haakje.value = @"menu niet verkrijgbaar in resto Boudewijn";
-    haakje.style = @"";
-    RestoLegend *frietjes = [[RestoLegend alloc] init];
-    frietjes.key = @"";
-    frietjes.value = @"Frietjes of kroketten: +0,20 euro bij menu";
-    frietjes.style = @"";
-    RestoLegend *snack = [[RestoLegend alloc] init];
-    snack.key = @"";
-    snack.value = @"In resto St. Jansvest, Diergeneeskunde en Boudewijn wordt dagelijks bijkomend een snackgerecht aangeboden.";
-    snack.style = @"";
-    
-    NSMutableArray *array = [[NSMutableArray alloc] initWithObjects:aanbevolen, sterretje, haakje, frietjes, snack, nil];
-    self.legends = array;
+    _legend = legend;
     [self.tableView reloadData];
 }
 
@@ -125,12 +93,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.legends.count;
+    return self.legend.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RestoLegend *legend = (self.legends)[indexPath.row];
+    RestoLegendItem *legend = self.legend[indexPath.row];
     static NSString *cellIdentifier = @"RestoLegendViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(!cell) {
@@ -175,24 +143,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RestoLegend *legend = (self.legends)[indexPath.row];
+    RestoLegendItem *legend = self.legend[indexPath.row];
     
     CGSize constraintSize = CGSizeMake(150.0f, MAXFLOAT);
     CGSize labelSize = [legend.value sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     return (labelSize.height+20);
 }
 
-#pragma update methods
-
-- (void)loadLegends
-{
-    self.legends = [[RestoStore sharedStore] allLegends];
-}
-
-- (void)menuUpdated:(NSNotification *)notification
-{
-    DLog(@"Legend updated!");
-    [self loadLegends];
-    [self.tableView reloadData];
-}
 @end

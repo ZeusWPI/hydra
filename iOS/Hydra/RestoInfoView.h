@@ -10,9 +10,8 @@
 
 @interface RestoInfoView : UIView
 
-- (id)initWithFrame:(CGRect)frame;
+@property (nonatomic, strong) NSArray *legend;
 
-@property (nonatomic, unsafe_unretained) UIButton *legendButton;
-@property (nonatomic, unsafe_unretained) UIButton *mapButton;
+- (id)initWithFrame:(CGRect)frame;
 
 @end

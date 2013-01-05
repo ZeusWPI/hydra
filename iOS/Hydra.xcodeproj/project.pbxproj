@@ -21,12 +21,12 @@
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
-		90EB7BEA1688ECE300A9582D /* RestoLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegend.m */; };
+		90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegendItem.m */; };
 		90F0525E168C663F004CAFFC /* RestoMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F0525C168C663F004CAFFC /* RestoMapViewController.m */; };
 		90F0525F168C663F004CAFFC /* RestoMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F0525D168C663F004CAFFC /* RestoMapViewController.xib */; };
 		90F05261168C7022004CAFFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F05260168C7022004CAFFC /* CoreLocation.framework */; };
 		90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F05262168C7726004CAFFC /* MapKit.framework */; };
-		90F05266168C7D19004CAFFC /* RestoMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F05265168C7D19004CAFFC /* RestoMapPoint.m */; };
+		90F05266168C7D19004CAFFC /* RestoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F05265168C7D19004CAFFC /* RestoLocation.m */; };
 		F5016BA6162756F300BBDB0A /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA5162756F300BBDB0A /* ActivityViewController.m */; };
 		F5016BA91627665800BBDB0A /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */; };
 		F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CD15BDC1E600A697F8 /* info-kalender.html */; };
@@ -214,15 +214,15 @@
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
 		90EB7BE11688BCC700A9582D /* RestoInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoInfoView.h; sourceTree = "<group>"; };
 		90EB7BE21688BCC700A9582D /* RestoInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoInfoView.m; sourceTree = "<group>"; };
-		90EB7BE81688ECE300A9582D /* RestoLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegend.h; sourceTree = "<group>"; };
-		90EB7BE91688ECE300A9582D /* RestoLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLegend.m; sourceTree = "<group>"; };
+		90EB7BE81688ECE300A9582D /* RestoLegendItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegendItem.h; sourceTree = "<group>"; };
+		90EB7BE91688ECE300A9582D /* RestoLegendItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLegendItem.m; sourceTree = "<group>"; };
 		90F0525B168C663F004CAFFC /* RestoMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMapViewController.h; sourceTree = "<group>"; };
 		90F0525C168C663F004CAFFC /* RestoMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMapViewController.m; sourceTree = "<group>"; };
 		90F0525D168C663F004CAFFC /* RestoMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestoMapViewController.xib; sourceTree = "<group>"; };
 		90F05260168C7022004CAFFC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		90F05262168C7726004CAFFC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		90F05264168C7D19004CAFFC /* RestoMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMapPoint.h; sourceTree = "<group>"; };
-		90F05265168C7D19004CAFFC /* RestoMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMapPoint.m; sourceTree = "<group>"; };
+		90F05264168C7D19004CAFFC /* RestoLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLocation.h; sourceTree = "<group>"; };
+		90F05265168C7D19004CAFFC /* RestoLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLocation.m; sourceTree = "<group>"; };
 		F5016BA4162756F300BBDB0A /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		F5016BA5162756F300BBDB0A /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		F5016BA71627665800BBDB0A /* ActivityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailViewController.h; sourceTree = "<group>"; };
@@ -735,10 +735,10 @@
 				F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */,
 				F5F43C4215BAD2EB003C2AAE /* AssociationStore.h */,
 				F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */,
-				90EB7BE81688ECE300A9582D /* RestoLegend.h */,
-				90EB7BE91688ECE300A9582D /* RestoLegend.m */,
-				90F05264168C7D19004CAFFC /* RestoMapPoint.h */,
-				90F05265168C7D19004CAFFC /* RestoMapPoint.m */,
+				90EB7BE81688ECE300A9582D /* RestoLegendItem.h */,
+				90EB7BE91688ECE300A9582D /* RestoLegendItem.m */,
+				90F05264168C7D19004CAFFC /* RestoLocation.h */,
+				90F05265168C7D19004CAFFC /* RestoLocation.m */,
 				F55895C215B60F450001B399 /* RestoMenu.h */,
 				F55895C315B60F450001B399 /* RestoMenu.m */,
 				F55895C515B6100C0001B399 /* RestoStore.h */,
@@ -1038,9 +1038,9 @@
 				F53A5E8416700B29009EA4CC /* MediaApplication.m in Sources */,
 				F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */,
 				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
-				90EB7BEA1688ECE300A9582D /* RestoLegend.m in Sources */,
+				90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */,
 				90F0525E168C663F004CAFFC /* RestoMapViewController.m in Sources */,
-				90F05266168C7D19004CAFFC /* RestoMapPoint.m in Sources */,
+				90F05266168C7D19004CAFFC /* RestoLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
