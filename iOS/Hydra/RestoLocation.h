@@ -14,8 +14,8 @@
 
 @interface RestoLocation : NSObject <MKAnnotation, NSCoding>
 
-@property (nonatomic, assign) CLLocationDegrees latitude;
-@property (nonatomic, assign) CLLocationDegrees longitude;
+@property (nonatomic, assign) NSInteger latitude;
+@property (nonatomic, assign) NSInteger longitude;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *address;
 

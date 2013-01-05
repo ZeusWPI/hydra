@@ -8,27 +8,18 @@
 
 #import "RestoMapViewController.h"
 #import "RestoLocation.h"
+#import "RestoStore.h"
 
 @interface RestoMapViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) NSArray *restos;
 @property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic) NSInteger selectedRow;
 
 @end
 
 @implementation RestoMapViewController
-
-- (NSArray*)generateRestoList
-{
-    RestoLocation *astrid = [[RestoLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.026952, 3.712086) title:@"Resto Astrid"];
-
-    RestoLocation *brug = [[RestoLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.045613, 3.727147) title:@"Resto De Brug"];
-    
-    RestoLocation *coupure = [[RestoLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(51.053252, 3.707671) title:@"Resto Coupure"];
-    
-    return [[NSArray alloc] initWithObjects:brug, coupure, astrid,nil];
-}
 
 #pragma mark Setting up the view & viewcontroller
 
@@ -37,14 +28,15 @@
     [super viewDidLoad];
 
     // Add restos to map
-    self.restos = [self generateRestoList];
+    self.restos = [[RestoStore sharedStore] locations];
     [worldView addAnnotations:self.restos];
 
     // Check for updates
-   /* NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(locationsUpdated:)
-                   name:RestoStoreDidReceiveLocationNotification
-                 object:nil];//*/
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(locationsUpdated:) name:RestoStoreDidUpdateInfoNotification
+                 object:nil];
+    
+    self.selectedRow = 0;
     
 }
 
@@ -65,7 +57,7 @@
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:nil];
     
-    // Create datepicker
+    // Create pickerView
     self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
     self.pickerView.showsSelectionIndicator = YES;
     self.pickerView.dataSource = self;
@@ -97,18 +89,19 @@
     
     [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
+    
+    [self.pickerView selectRow:self.selectedRow inComponent:0 animated:NO];
 }
 
 - (IBAction)routeToClosestResto:(id)sender
 {
-    // TODO implement route to closest resto
     // Check for iOS 6
     Class mapItemClass = [MKMapItem class];
+    RestoLocation *closestResto = self.restos[0];
+    CLLocationCoordinate2D coordinate = closestResto.coordinate;
     if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
     {
         // Create an MKMapItem to pass to the Maps app
-        RestoLocation *closestResto = self.restos[0];
-        CLLocationCoordinate2D coordinate = closestResto.coordinate;
         MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
                                                        addressDictionary:nil];
         MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
@@ -122,6 +115,11 @@
         // Set the direction mode in the launchOptions dictionary
         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
                        launchOptions:launchOptions];
+    }else {
+        //iOs < 6 use maps.apple.com
+        NSString* url = [NSString stringWithFormat: @"http://maps.apple.com/maps?saddr=%f,%f",
+                         coordinate.latitude, coordinate.longitude];
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
     }
 }
 
@@ -142,7 +140,7 @@
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
+{    
     UILabel *title = nil, *distance = nil;
     if (!view) {
         // Location name
@@ -180,7 +178,8 @@
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    //TODO get users location and selected resto on the map, zoom out if needed
+    self.selectedRow = row;
+    
     RestoLocation *resto = self.restos[row];
     CLLocationCoordinate2D userLocation = worldView.userLocation.coordinate;
     
@@ -229,7 +228,10 @@
             [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
                            launchOptions:launchOptions];
         }else{
-            //iOs < 6 use maps.apple.com?
+            //iOs < 6 use maps.apple.com
+            NSString* url = [NSString stringWithFormat: @"http://maps.apple.com/maps?saddr=%f,%f",
+                             coordinate.latitude, coordinate.longitude];
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
     }
 }
@@ -251,7 +253,6 @@
         return;
     }
 
-    // TODO: keep selection when user has already selected something
     // TODO: perhaps cache the distances?
     self.restos = [self.restos sortedArrayUsingComparator: ^(id a, id b) {
         CLLocation *aa = [[CLLocation alloc] initWithLatitude:((RestoLocation*)a).coordinate.latitude

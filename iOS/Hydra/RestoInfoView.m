@@ -17,9 +17,6 @@
 @property (nonatomic, unsafe_unretained) UITableView *tableView;
 @property (nonatomic, unsafe_unretained) UIActivityIndicatorView *spinner;
 
-@property (nonatomic, unsafe_unretained) UIButton *legendButton;
-@property (nonatomic, unsafe_unretained) UIButton *mapButton;
-
 @end
 @implementation RestoInfoView
 

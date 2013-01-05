@@ -52,7 +52,7 @@
 {
     [coder encodeDouble:self.longitude forKey:@"longitude"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];
-    [coder encodeObject:self.title forKey:@"title"];
+    [coder encodeObject:self.name forKey:@"name"];
     [coder encodeObject:self.address forKey:@"address"];
 }
 
@@ -60,7 +60,7 @@
 
 - (CLLocationCoordinate2D)coordinate
 {
-    return CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    return CLLocationCoordinate2DMake(self.latitude/1000000.0, self.longitude/1000000.0);
 }
 
 - (NSString *)title
