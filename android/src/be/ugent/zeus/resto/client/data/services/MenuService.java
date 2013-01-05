@@ -45,6 +45,15 @@ public class MenuService extends HTTPIntentService {
     String formatted = FORMAT.format(date.getTime());
     Menu menu = null;
     try {
+      // TODO: Use ISO calendar (weak + year of week of year) to avoid edge cases
+      // e.g. December 31st, 2012 is week 1 for year 2013.
+      // If that is not possible, consider calculating these values for the next sunday
+      // which will always be in the correct week.
+      //
+      // You might need to set these too:
+      // date.setMinimalDaysInFirstWeek(4);
+      // date.setFirstDayOfWeek(Calendar.MONDAY);
+
       String url = String.format(MENU_URL, date.get(Calendar.YEAR), date.get(Calendar.WEEK_OF_YEAR));
       Log.i("[MenuService]", "Fetching menus from " + url);
       String content = fetch(url);
