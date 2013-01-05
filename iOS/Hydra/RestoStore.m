@@ -151,7 +151,9 @@ NSString *const RestoStoreDidUpdateInfoNotification =
         DLog(@"Fetching resto information for %d/%d", year, week);
         [self.activeRequests addObject:path];
         [self.objectManager loadObjectsAtResourcePath:path usingBlock:^(RKObjectLoader *loader) {
-            [RestoMenu registerObjectMappingWith:loader.mappingProvider];
+            RKObjectMappingProvider *mapping = [RKObjectMappingProvider objectMappingProvider];
+            [RestoMenu registerObjectMappingWith:mapping];
+            loader.mappingProvider = mapping;
             loader.delegate = self;
         }];
     }
@@ -180,8 +182,10 @@ NSString *const RestoStoreDidUpdateInfoNotification =
         DLog(@"Updating resto meta-information");
         [self.activeRequests addObject:kRestoInfoPath];
         [self.objectManager loadObjectsAtResourcePath:kRestoInfoPath usingBlock:^(RKObjectLoader *loader) {
-            [RestoLegendItem registerObjectMappingWith:loader.mappingProvider];
-            [RestoLocation registerObjectMappingWith:loader.mappingProvider];
+            RKObjectMappingProvider *mapping = [RKObjectMappingProvider objectMappingProvider];
+            [RestoLegendItem registerObjectMappingWith:mapping];
+            [RestoLocation registerObjectMappingWith:mapping];
+            loader.mappingProvider = mapping;
             loader.delegate = self;
         }];
     }

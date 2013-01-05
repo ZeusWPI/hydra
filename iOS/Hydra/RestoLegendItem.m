@@ -16,7 +16,7 @@
     return [NSString stringWithFormat:@"<RestoLegend for key '%@'>", self.key];
 }
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
 {
     // Create mapping for locations
     RKObjectMapping *legendMapping = [RKObjectMapping mappingForClass:self];
