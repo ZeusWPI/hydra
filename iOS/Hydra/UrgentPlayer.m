@@ -42,6 +42,10 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (void)start
 {
+    if (self.isPlaying) {
+        return;
+    }
+
     NSError *error;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
 
@@ -55,25 +59,17 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange,
                                     audioRouteChangeListenerCallback, NULL);
 
-    [audioSession setActive:YES error:&error];
-    if (error) {
-        NSLog(@"Error in AVAudioSession.setActive: %@", [error localizedDescription]);
-        return;
-    }
-
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
+    // TODO: sometimes the app will livelock when it's called here from
+    // the lock screen and an error occurs.
     [super start];
 }
 
 - (void)stop
 {
-    NSError *error;
-    [[AVAudioSession sharedInstance] setActive:NO error:&error];
-    if (error) {
-        NSLog(@"Error in AVAudioSession.setActive: %@", [error localizedDescription]);
-        return;
-    }
+    AudioSessionRemovePropertyListenerWithUserData(kAudioSessionProperty_AudioRouteChange,
+                                                   audioRouteChangeListenerCallback, NULL);
     [super stop];
 }
 

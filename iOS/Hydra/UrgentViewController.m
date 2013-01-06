@@ -28,16 +28,12 @@
 
 -(IBAction)streamPlay:(id)sender
 {
-    if (![[UrgentPlayer sharedPlayer] isPlaying]){
-        [[UrgentPlayer sharedPlayer] start];
-    }
+    [[UrgentPlayer sharedPlayer] start];
 }
 
 -(IBAction)streamPause:(id)sender
 {
-    if([[UrgentPlayer sharedPlayer] isPlaying]){
-        [[UrgentPlayer sharedPlayer] stop];
-    }
+    [[UrgentPlayer sharedPlayer] pause];
 }
 
 @end
