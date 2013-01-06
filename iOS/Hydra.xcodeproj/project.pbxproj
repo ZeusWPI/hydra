@@ -53,6 +53,10 @@
 		F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F557EA45163431FC00635CDD /* schamper-bg@2x.png */; };
 		F55895C415B60F450001B399 /* RestoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C315B60F450001B399 /* RestoMenu.m */; };
 		F55895C715B610140001B399 /* RestoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C615B610130001B399 /* RestoStore.m */; };
+		F56D766C1699ED3B002CF245 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D76681699ED3B002CF245 /* Icon-Small.png */; };
+		F56D766D1699ED3B002CF245 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D76691699ED3B002CF245 /* Icon-Small@2x.png */; };
+		F56D766E1699ED3B002CF245 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D766A1699ED3B002CF245 /* Icon.png */; };
+		F56D766F1699ED3B002CF245 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D766B1699ED3B002CF245 /* Icon@2x.png */; };
 		F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F56F139E169731FE003D4447 /* UrgentViewController.xib */; };
 		F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */; };
 		F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0B15B837F000D2A59E /* icon-meal.png */; };
@@ -113,8 +117,6 @@
 		F5D2B6B715EFEAAF003EA54C /* button-news-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D2B6B615EFEAAF003EA54C /* button-news-active@2x.png */; };
 		F5D36BB715B5BD2A00B6E017 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB315B5BD2A00B6E017 /* Default.png */; };
 		F5D36BB815B5BD2A00B6E017 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB415B5BD2A00B6E017 /* Default@2x.png */; };
-		F5D36BB915B5BD2A00B6E017 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB515B5BD2A00B6E017 /* Icon.png */; };
-		F5D36BBA15B5BD2A00B6E017 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D36BB615B5BD2A00B6E017 /* Icon@2x.png */; };
 		F5D36BC115B5BDA500B6E017 /* SchamperStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D36BC015B5BDA500B6E017 /* SchamperStore.m */; };
 		F5D3B612162EF02F00698C3E /* button-feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D3B610162EF02F00698C3E /* button-feedback.png */; };
 		F5D3B613162EF02F00698C3E /* button-feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D3B611162EF02F00698C3E /* button-feedback@2x.png */; };
@@ -258,6 +260,10 @@
 		F55895C315B60F450001B399 /* RestoMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenu.m; sourceTree = "<group>"; };
 		F55895C515B6100C0001B399 /* RestoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoStore.h; sourceTree = "<group>"; };
 		F55895C615B610130001B399 /* RestoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoStore.m; sourceTree = "<group>"; };
+		F56D76681699ED3B002CF245 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		F56D76691699ED3B002CF245 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		F56D766A1699ED3B002CF245 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		F56D766B1699ED3B002CF245 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		F56F139D169731FE003D4447 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/UrgentViewController.xib; sourceTree = "<group>"; };
 		F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
@@ -331,8 +337,6 @@
 		F5D2B6B615EFEAAF003EA54C /* button-news-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-news-active@2x.png"; sourceTree = "<group>"; };
 		F5D36BB315B5BD2A00B6E017 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		F5D36BB415B5BD2A00B6E017 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		F5D36BB515B5BD2A00B6E017 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		F5D36BB615B5BD2A00B6E017 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperStore.h; sourceTree = "<group>"; };
 		F5D36BC015B5BDA500B6E017 /* SchamperStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperStore.m; sourceTree = "<group>"; };
 		F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Hydra-Prefix.pch"; path = "Hydra/Hydra-Prefix.pch"; sourceTree = "<group>"; };
@@ -532,6 +536,17 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		F56D76701699ED4D002CF245 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				F56D76681699ED3B002CF245 /* Icon-Small.png */,
+				F56D76691699ED3B002CF245 /* Icon-Small@2x.png */,
+				F56D766A1699ED3B002CF245 /* Icon.png */,
+				F56D766B1699ED3B002CF245 /* Icon@2x.png */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
 		F57CB9DB15B84C4E00D87CB3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -639,17 +654,16 @@
 		F5BAEC911518868200F6A1B1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F5BAEC961518868200F6A1B1 /* main.m */,
 				F5F43C1315BAC8A7003C2AAE /* Associations.plist */,
 				F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */,
 				F5D36BB315B5BD2A00B6E017 /* Default.png */,
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
 				F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */,
-				F5D36BB515B5BD2A00B6E017 /* Icon.png */,
-				F5D36BB615B5BD2A00B6E017 /* Icon@2x.png */,
+				F56D76701699ED4D002CF245 /* Icons */,
 				F53D2488159DB4DB00F408AB /* Images */,
 				F59D170615BD7CE500B6F892 /* Resources */,
-				F5BAEC961518868200F6A1B1 /* main.m */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -897,8 +911,6 @@
 				F58408C2159DDA0E00EE7010 /* button-schamper.png in Resources */,
 				F5D36BB715B5BD2A00B6E017 /* Default.png in Resources */,
 				F5D36BB815B5BD2A00B6E017 /* Default@2x.png in Resources */,
-				F5D36BB915B5BD2A00B6E017 /* Icon.png in Resources */,
-				F5D36BBA15B5BD2A00B6E017 /* Icon@2x.png in Resources */,
 				F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */,
 				F54B160315B7FFE6000A4407 /* resto-logo@2x.png in Resources */,
 				F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */,
@@ -961,6 +973,10 @@
 				F54AB5A6166FF510006C1189 /* button-urgent@2x.png in Resources */,
 				90F0525F168C663F004CAFFC /* RestoMapViewController.xib in Resources */,
 				F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */,
+				F56D766C1699ED3B002CF245 /* Icon-Small.png in Resources */,
+				F56D766D1699ED3B002CF245 /* Icon-Small@2x.png in Resources */,
+				F56D766E1699ED3B002CF245 /* Icon.png in Resources */,
+				F56D766F1699ED3B002CF245 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
