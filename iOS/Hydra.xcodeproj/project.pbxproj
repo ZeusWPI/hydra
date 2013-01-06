@@ -31,6 +31,7 @@
 		F5016BA91627665800BBDB0A /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */; };
 		F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CD15BDC1E600A697F8 /* info-kalender.html */; };
 		F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */; };
+		F50A6086169A0EBC0048B919 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F50A6085169A0EBC0048B919 /* iTunesArtwork */; };
 		F50EE09715B5F587000F1992 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EE09515B5F587000F1992 /* WebViewController.m */; };
 		F520A2DD166E933500EE340F /* icon-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DB166E933500EE340F /* icon-calendar.png */; };
 		F520A2E0166E999400EE340F /* icon-calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DF166E999400EE340F /* icon-calendar@2x.png */; };
@@ -231,6 +232,7 @@
 		F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailViewController.m; sourceTree = "<group>"; };
 		F50527CD15BDC1E600A697F8 /* info-kalender.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-kalender.html"; sourceTree = "<group>"; };
 		F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-studentenartsen.html"; sourceTree = "<group>"; };
+		F50A6085169A0EBC0048B919 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		F50EE09415B5F587000F1992 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		F50EE09515B5F587000F1992 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		F520A2DB166E933500EE340F /* icon-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-calendar.png"; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				F56D76691699ED3B002CF245 /* Icon-Small@2x.png */,
 				F56D766A1699ED3B002CF245 /* Icon.png */,
 				F56D766B1699ED3B002CF245 /* Icon@2x.png */,
+				F50A6085169A0EBC0048B919 /* iTunesArtwork */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -977,6 +980,7 @@
 				F56D766D1699ED3B002CF245 /* Icon-Small@2x.png in Resources */,
 				F56D766E1699ED3B002CF245 /* Icon.png in Resources */,
 				F56D766F1699ED3B002CF245 /* Icon@2x.png in Resources */,
+				F50A6086169A0EBC0048B919 /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1014,7 +1018,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "if [ $CONFIGURATION == Release ]; then\n  echo \"Bumping build number...\"\n  plist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n  # increment the build number (ie 1.0.115 to 1.0.116)\n  full_version=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${plist}\")\n  if [[ \"${full_version}\" == \"\" ]]; then\n    echo \"No build number in $plist\"\n    exit 2\n  fi\n\n  version=${full_version%.*}\n  build=${full_version##*.}\n\n  new_version=\"$version.$(($build+1))\"\n  /usr/libexec/Plistbuddy -c \"Set CFBundleVersion $new_version\" \"${plist}\"\n  echo \"Bumped build number to $new_version\"\nelse\n  echo \"$CONFIGURATION build - Not bumping build number\"\nfi";
+			shellScript = "if [ $CONFIGURATION == Release ]; then\n  echo \"Bumping build number...\"\n  plist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n  # increment the build number (ie 1.0.115 to 1.0.116)\n  full_version=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"${plist}\")\n  if [[ \"${full_version}\" == \"\" ]]; then\n    echo \"No build number in $plist\"\n    exit 2\n  fi\n\n  version=${full_version%.*}\n  build=${full_version##*.}\n\n  new_version=\"$version.$(($build+1))\"\n  /usr/libexec/Plistbuddy -c \"Set :CFBundleVersion $new_version\" \"${plist}\"\n  echo \"Bumped build number to $new_version\"\n\n  echo \"Removing -dev suffix...\"\n  plist=\"$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH\"\n\n  # remove dev suffix\n  bundle_identifier=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleIdentifier\" \"${plist}\")\n  new_identifier=${bundle_identifier%-*}\n  /usr/libexec/Plistbuddy -c \"Set :CFBundleIdentifier $new_identifier\" \"${plist}\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
