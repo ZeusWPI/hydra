@@ -32,6 +32,8 @@
 		F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CD15BDC1E600A697F8 /* info-kalender.html */; };
 		F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */; };
 		F50A6086169A0EBC0048B919 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F50A6085169A0EBC0048B919 /* iTunesArtwork */; };
+		F50C12CA169A222600F0D010 /* nowplaying-urgent.png in Resources */ = {isa = PBXBuildFile; fileRef = F50C12C9169A222600F0D010 /* nowplaying-urgent.png */; };
+		F50C12CC169A225800F0D010 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F50C12CB169A225800F0D010 /* MediaPlayer.framework */; };
 		F50EE09715B5F587000F1992 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EE09515B5F587000F1992 /* WebViewController.m */; };
 		F520A2DD166E933500EE340F /* icon-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DB166E933500EE340F /* icon-calendar.png */; };
 		F520A2E0166E999400EE340F /* icon-calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DF166E999400EE340F /* icon-calendar@2x.png */; };
@@ -233,6 +235,8 @@
 		F50527CD15BDC1E600A697F8 /* info-kalender.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-kalender.html"; sourceTree = "<group>"; };
 		F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-studentenartsen.html"; sourceTree = "<group>"; };
 		F50A6085169A0EBC0048B919 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		F50C12C9169A222600F0D010 /* nowplaying-urgent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nowplaying-urgent.png"; sourceTree = "<group>"; };
+		F50C12CB169A225800F0D010 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		F50EE09415B5F587000F1992 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		F50EE09515B5F587000F1992 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		F520A2DB166E933500EE340F /* icon-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-calendar.png"; sourceTree = "<group>"; };
@@ -394,20 +398,21 @@
 			files = (
 				3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */,
 				3B93FBA7163095F900C962DC /* AudioToolbox.framework in Frameworks */,
-				F5BC3D88162EB8E900E4A902 /* libz.dylib in Frameworks */,
+				F5EBF139159E13D900EB5D26 /* CoreData.framework in Frameworks */,
+				F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */,
+				90F05261168C7022004CAFFC /* CoreLocation.framework in Frameworks */,
+				F5EBF137159E13D300EB5D26 /* CFNetwork.framework in Frameworks */,
 				44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */,
 				446378FC162DA12D008D47F2 /* EventKit.framework in Frameworks */,
-				F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */,
-				F5EBF13F159E13ED00EB5D26 /* SystemConfiguration.framework in Frameworks */,
-				F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */,
-				F5EBF13B159E13DF00EB5D26 /* Security.framework in Frameworks */,
-				F5EBF139159E13D900EB5D26 /* CoreData.framework in Frameworks */,
-				F5EBF137159E13D300EB5D26 /* CFNetwork.framework in Frameworks */,
-				F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */,
 				F5BAEC8D1518868200F6A1B1 /* Foundation.framework in Frameworks */,
-				F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */,
 				90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */,
-				90F05261168C7022004CAFFC /* CoreLocation.framework in Frameworks */,
+				F50C12CC169A225800F0D010 /* MediaPlayer.framework in Frameworks */,
+				F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */,
+				F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */,
+				F5EBF13B159E13DF00EB5D26 /* Security.framework in Frameworks */,
+				F5EBF13F159E13ED00EB5D26 /* SystemConfiguration.framework in Frameworks */,
+				F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */,
+				F5BC3D88162EB8E900E4A902 /* libz.dylib in Frameworks */,
 				F5BC3D8B162EB91F00E4A902 /* libTestFlight.a in Frameworks */,
 				F5A651EE168DB0E7008F93EC /* libGoogleAnalytics.a in Frameworks */,
 				F5A651EF168DB123008F93EC /* libRestKit.a in Frameworks */,
@@ -528,6 +533,7 @@
 				F5C4618C166E442000874D79 /* navigation-down@2x.png */,
 				F5C4618D166E442000874D79 /* navigation-up.png */,
 				F5C4618E166E442000874D79 /* navigation-up@2x.png */,
+				F50C12C9169A222600F0D010 /* nowplaying-urgent.png */,
 				F5329E0015B9858900C4C5DF /* resto-closed.jpg */,
 				F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */,
 				F54B160015B7FFE6000A4407 /* resto-logo.png */,
@@ -626,6 +632,7 @@
 				F5FFDAF6168DB18F00662662 /* GoogleAnalytics */,
 				F5BC3D87162EB8E900E4A902 /* libz.dylib */,
 				90F05262168C7726004CAFFC /* MapKit.framework */,
+				F50C12CB169A225800F0D010 /* MediaPlayer.framework */,
 				F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */,
 				F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */,
 				F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */,
@@ -981,6 +988,7 @@
 				F56D766E1699ED3B002CF245 /* Icon.png in Resources */,
 				F56D766F1699ED3B002CF245 /* Icon@2x.png in Resources */,
 				F50A6086169A0EBC0048B919 /* iTunesArtwork in Resources */,
+				F50C12CA169A222600F0D010 /* nowplaying-urgent.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,8 +8,7 @@
 
 #import "UrgentPlayer.h"
 #import <AVFoundation/AVFoundation.h>
-
-// TODO: set the lock icon to urgent.fm
+#import <MediaPlayer/MediaPlayer.h>
 
 void audioRouteChangeListenerCallback (void                   *inUserData,
                                        AudioSessionPropertyID inPropertyID,
@@ -20,12 +19,26 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 + (UrgentPlayer *)sharedPlayer
 {
-    static UrgentPlayer *urgentPlayer = nil;
-    if(!urgentPlayer) {
+    static UrgentPlayer *sharedInstance = nil;
+
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        // TODO: use http://urgent.stream.flumotion.com/urgent/high.mp3.m3u
         NSURL *url = [NSURL URLWithString:@"http://195.10.10.207/urgent/high.mp3"];
-        urgentPlayer = [[UrgentPlayer alloc] initWithURL:url];
+        sharedInstance = [[UrgentPlayer alloc] initWithURL:url];
+    });
+
+    return sharedInstance;
+}
+
+- (id)initWithURL:(NSURL *)url_
+{
+    if (self = [super initWithURL:url_]) {
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(updateNowPlaying:)
+                       name:ASStatusChangedNotification object:self];
     }
-    return urgentPlayer;
+    return self;
 }
 
 - (void)handleRemoteEvent:(UIEvent *)event
@@ -73,9 +86,32 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     [super stop];
 }
 
-@end
+- (void)updateNowPlaying:(NSNotification *)notification
+{
+    // Available since iOS5
+    if ([MPNowPlayingInfoCenter class]) {
+        MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
+        if (self.isPlaying) {
+            UIImage *cover = [UIImage imageNamed:@"nowplaying-urgent"];
+            MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:cover];
+            center.nowPlayingInfo = @{
+                // TODO: get program name
+                MPMediaItemPropertyTitle: @"Urgent.fm",
+                MPMediaItemPropertyArtwork: artwork
+            };
+        }
+        else if (self.isPaused) {
+            center.nowPlayingInfo =  @{
+                MPMediaItemPropertyTitle: @"Urgent.fm"
+            };
+        }
+        else {
+            center.nowPlayingInfo = nil;
+        }
+    }
+}
 
-#pragma mark - Audio session callback
+@end
 
 // Audio session callback function for responding to audio route changes. If playing
 // back application audio when the headset is unplugged, this callback pauses

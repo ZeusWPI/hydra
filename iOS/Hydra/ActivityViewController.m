@@ -85,7 +85,9 @@
     btn.enabled = self.days.count > 0;
     self.navigationItem.rightBarButtonItem = btn;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activitiesUpdated:) name:AssociationStoreDidUpdateActivitiesNotification object:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(activitiesUpdated:)
+                   name:AssociationStoreDidUpdateActivitiesNotification object:nil];
 }
 
 - (void)viewDidUnload
