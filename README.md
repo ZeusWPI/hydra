@@ -1,5 +1,7 @@
 # Hydra
 
+![Hydra logo](http://i.imgur.com/uJhbJ.png)
+
 Android and iOS application providing all the information a student at [Ghent University](http://www.ugent.be/) needs.
 
 This application was developed by [Zeus WPI](http://zeus.ugent.be), the computer science working group. Please contact [hydra@zeus.ugent.be](mailto:hydra@zeus.ugent.be) with any questions.

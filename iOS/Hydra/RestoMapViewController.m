@@ -49,7 +49,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-# pragma Buttons
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker trackView:@"Resto Menu"];
+}
+
+# pragma mark - Buttons
 
 - (IBAction)togglePickerView:(id)sender
 {
@@ -106,7 +112,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark Pickerview delegate
+#pragma mark - Pickerview delegate
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
@@ -222,7 +228,7 @@
         [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
     }
 }
-#pragma mark Map delegate
+#pragma mark - Map delegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation 
 {
