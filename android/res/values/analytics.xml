@@ -11,7 +11,7 @@
   <string name="be.ugent.zeus.resto.client.Hydra">Home</string>
   <string name="be.ugent.zeus.resto.client.Info">Info</string>
   <string name="be.ugent.zeus.resto.client.News">News</string>
-  <string name="be.ugent.zeus.resto.client.Calendar">Calendar</string>
+  <string name="be.ugent.zeus.resto.client.Calendar">Activities</string>
   <string name="be.ugent.zeus.resto.client.RestoMenu">Resto Menu</string>
   <string name="be.ugent.zeus.resto.client.SchamperDaily">Schamper</string>
   <string name="be.ugent.zeus.resto.client.GSR">GSR</string>
