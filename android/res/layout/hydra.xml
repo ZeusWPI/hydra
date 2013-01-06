@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<be.ugent.zeus.resto.client.ui.DashboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<be.ugent.zeus.Hydra.ui.DashboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/ugent_blue_light">
@@ -34,4 +34,4 @@
             style="@style/DashboardButton"
             android:background="@drawable/schamper" />
   </LinearLayout>
-</be.ugent.zeus.resto.client.ui.DashboardLayout>
+</be.ugent.zeus.Hydra.ui.DashboardLayout>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:zeus="http://schemas.android.com/apk/res/be.ugent.zeus.resto.client"
+  xmlns:zeus="http://schemas.android.com/apk/res/be.ugent.zeus.Hydra"
   android:orientation="vertical"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
 
-  <be.ugent.zeus.resto.client.ui.SwipeyTabs
+  <be.ugent.zeus.Hydra.ui.SwipeyTabs
     android:id="@+id/tabs"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"

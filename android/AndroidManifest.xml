@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  android:versionCode="8" android:versionName="1.0-beta"
-  package="be.ugent.zeus.resto.client">
-
+  android:versionCode="10" android:versionName="1.0-beta"
+  package="be.ugent.zeus.Hydra">
+  <!-- versionCode format: x.y without the . -->
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -37,37 +37,37 @@
     </receiver>
     <service android:name=".data.services.UpdaterService">
       <intent-filter>
-        <action android:name="be.ugent.zeus.resto.client.data.services.UpdaterService" />
+        <action android:name="be.ugent.zeus.Hydra.data.services.UpdaterService" />
       </intent-filter>
     </service>
     <service android:name=".data.services.MenuService">
       <intent-filter>
-        <action android:name="be.ugent.zeus.resto.client.data.services.MenuService" />
+        <action android:name="be.ugent.zeus.Hydra.data.services.MenuService" />
       </intent-filter>
     </service>
     <service android:name=".data.services.RestoService">
       <intent-filter>
-        <action android:name="be.ugent.zeus.resto.client.data.services.RestoService" />
+        <action android:name="be.ugent.zeus.Hydra.data.services.RestoService" />
       </intent-filter>
     </service>
     <service android:name=".data.services.ActivityIntentService">
       <intent-filter>
-        <action android:name="be.ugent.zeus.resto.client.data.services.ActivityIntentService" />
+        <action android:name="be.ugent.zeus.Hydra.data.services.ActivityIntentService" />
       </intent-filter>
     </service>
     <service android:name=".data.services.NewsIntentService">
       <intent-filter>
-        <action android:name="be.ugent.zeus.resto.client.data.services.NewsIntentService" />
+        <action android:name="be.ugent.zeus.Hydra.data.services.NewsIntentService" />
       </intent-filter>
     </service>
     <service android:name=".data.services.GSRIntentService">
       <intent-filter>
-        <action android:name="be.ugent.zeus.resto.client.data.services.GSRIntentService" />
+        <action android:name="be.ugent.zeus.Hydra.data.services.GSRIntentService" />
       </intent-filter>
     </service>
     <service android:name=".data.services.SchamperDailyService">
       <intent-filter>
-        <action android:name="be.ugent.zeus.resto.client.data.services.SchamperDailyService" />
+        <action android:name="be.ugent.zeus.Hydra.data.services.SchamperDailyService" />
       </intent-filter>
     </service>
     <uses-library android:name="com.google.android.maps" />
