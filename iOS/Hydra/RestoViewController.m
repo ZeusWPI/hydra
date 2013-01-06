@@ -149,6 +149,12 @@
     contentView.layer.masksToBounds = YES;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker trackView:@"Resto Menu"];
+}
+
 - (void)viewDidLayoutSubviews
 {
     // Restyle the sheets to keep the shadow the right size
@@ -162,7 +168,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark Buttons
+#pragma mark - Buttons
 
 - (void)mapButtonTouched:(UIButton *)sender
 {
@@ -170,7 +176,7 @@
     [self presentModalViewController:c animated:YES];
 }
 
-#pragma mark Loading days & menus
+#pragma mark - Loading days & menus
 
 - (void)calculateDays
 {
@@ -223,7 +229,7 @@
     self.infoSheet.legend = [RestoStore sharedStore].legend;
 }
 
-#pragma mark View scrolling and page changing
+#pragma mark - View scrolling and page changing
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
