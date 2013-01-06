@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/ab-sherlock-4.1.0/libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="/home/tnaessens/Documents/Projects/Zeus WPI/hydra/android/libs/zubhiumsdk.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
