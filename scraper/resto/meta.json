@@ -6,7 +6,7 @@
             "value": "Aanbevolen menu: € 0,50 korting reeds verrekend in de prijs."
         }, {
             "key": "*",
-            "value": "Menu niet verkrijgbaar in resto Diergeneeskunde, Boudewijn en St. Jansvest.\n\nIn deze resto's wordt dagelijks bijkomend een snackgerecht aangeboden."
+            "value": "Menu niet verkrijgbaar in resto's Diergeneeskunde, Boudewijn en St. Jansvest."
         }, {
             "key": "#",
             "value": "Menu niet verkrijgbaar in resto Boudewijn"
@@ -14,42 +14,42 @@
     ],
     "locations": [
         {
-            "name": "Astrid",
+            "name": "Resto Astrid",
             "address": "Krijgslaan 250",
             "latitude": 51026952,
             "longitude": 3712086
         }, {
-            "name": "Boudewijn",
+            "name": "Resto Boudewijn",
             "address": "Harelbekestraat 70",
             "latitude": 51026508,
             "longitude": 3730189
         }, {
-            "name": "De Brug",
+            "name": "Resto De Brug",
             "address": "Sint-Pietersnieuwstraat 45",
             "latitude": 51045613,
             "longitude":  3727147
         }, {
-            "name": "Diergeneeskunde",
+            "name": "Resto Diergeneeskunde",
             "address": "Salisburylaan 133, Merelbeke",
             "latitude": 50998369,
             "longitude": 3766454
         }, {
-            "name": "FPPW",
+            "name": "Resto FPPW",
             "address": "Henri Dunantlaan 2",
             "latitude": 51049023,
             "longitude": 3704017
         }, {
-            "name": "Campus Coupure",
+            "name": "Resto Campus Coupure",
             "address": "Coupure Links 653",
             "latitude": 51053252,
             "longitude": 3707671
         }, {
-            "name": "Sint-Jansvest",
+            "name": "Resto Sint-Jansvest",
             "address": "Sint-Jansvest 24",
             "latitude": 51049773,
             "longitude": 3727377
         }, {
-            "name": "Kantienberg",
+            "name": "Resto Kantienberg",
             "address": "Stalhof 45",
             "latitude": 51039852,
             "longitude": 3728759
