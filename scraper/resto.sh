@@ -6,4 +6,4 @@ ln -s menu/`date +%Y` resto/week
 
 # Run scraper
 python resto.py
-#rsync -a resto ~/public/api/1.0
+rsync -a resto ~/public/api/1.0
