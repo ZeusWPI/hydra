@@ -30,6 +30,10 @@
 
 - (void)viewDidLoad
 {
+#if TESTFLIGHT_ENABLED
+    self.feedbackButton.hidden = NO;
+#endif
+
     self.requiredMoves = @[
         @(UISwipeGestureRecognizerDirectionUp), @(UISwipeGestureRecognizerDirectionUp),
         @(UISwipeGestureRecognizerDirectionDown), @(UISwipeGestureRecognizerDirectionDown),
@@ -51,6 +55,7 @@
     self.restoButton = nil;
     self.urgentButton = nil;
     self.schamperButton = nil;
+    self.feedbackButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -369,6 +369,7 @@
 		F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F5EBF14A159E1E3600EB5D26 /* SchamperArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperArticle.h; sourceTree = "<group>"; };
 		F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperArticle.m; sourceTree = "<group>"; };
+		F5EF89A5169B7F3900AAA934 /* Hydra.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Hydra.entitlements; path = Hydra/Hydra.entitlements; sourceTree = "<group>"; };
 		F5F43C1315BAC8A7003C2AAE /* Associations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Associations.plist; path = Resources/Associations.plist; sourceTree = "<group>"; };
 		F5F43C3C15BAD246003C2AAE /* AssociationNewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationNewsItem.h; sourceTree = "<group>"; };
 		F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssociationNewsItem.m; sourceTree = "<group>"; };
@@ -669,6 +670,7 @@
 				F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */,
 				F5D36BB315B5BD2A00B6E017 /* Default.png */,
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
+				F5EF89A5169B7F3900AAA934 /* Hydra.entitlements */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
 				F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */,
 				F56D76701699ED4D002CF245 /* Icons */,
@@ -1026,7 +1028,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "if [ $CONFIGURATION == Release ]; then\n  echo \"Bumping build number...\"\n  plist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n  # increment the build number (ie 1.0.115 to 1.0.116)\n  full_version=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"${plist}\")\n  if [[ \"${full_version}\" == \"\" ]]; then\n    echo \"No build number in $plist\"\n    exit 2\n  fi\n\n  version=${full_version%.*}\n  build=${full_version##*.}\n\n  new_version=\"$version.$(($build+1))\"\n  /usr/libexec/Plistbuddy -c \"Set :CFBundleVersion $new_version\" \"${plist}\"\n  echo \"Bumped build number to $new_version\"\n\n  echo \"Removing -dev suffix...\"\n  plist=\"$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH\"\n\n  # remove dev suffix\n  bundle_identifier=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleIdentifier\" \"${plist}\")\n  new_identifier=${bundle_identifier%-*}\n  /usr/libexec/Plistbuddy -c \"Set :CFBundleIdentifier $new_identifier\" \"${plist}\"\nfi";
+			shellScript = "src_plist=${PROJECT_DIR}/${INFOPLIST_FILE}\nbuild_plist=${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\n\nif [ $CONFIGURATION == Release ]; then\n    # increment the build number (ie 1.0.115 to 1.0.116)\n    echo \"Bumping build number...\"\n\n    full_version=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"${src_plist}\")\n    if [[ \"${full_version}\" == \"\" ]]; then\n        echo \"No build number in ${src_plist}\"\n        exit 2\n    fi\n\n    version=${full_version%.*}\n    build=${full_version##*.}\n\n    new_version=\"$version.$(($build+1))\"\n    /usr/libexec/Plistbuddy -c \"Set :CFBundleVersion $new_version\" \"${src_plist}\"\n    echo \"Bumped build number to $new_version\"   \nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1124,10 +1126,9 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_SHADOW = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
@@ -1139,7 +1140,6 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1153,9 +1153,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_SHADOW = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
@@ -1169,16 +1169,17 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		F5BAECC01518868200F6A1B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Hydra/Hydra.entitlements;
+				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME} β";
+				CUSTOM_IDENTIFIER_SUFFIX = "-dev";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Hydra-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1193,9 +1194,11 @@
 		F5BAECC11518868200F6A1B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Hydra/Hydra.entitlements;
+				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME}";
+				CUSTOM_IDENTIFIER_SUFFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Hydra-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

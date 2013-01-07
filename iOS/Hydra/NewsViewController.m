@@ -24,7 +24,6 @@
 @implementation NewsViewController
 
 - (id) initWithAssociations:(NSArray *)associations{
-    self = [super init];
     if (self = [super init]) {
         self.associations = associations;
         [self refreshNewsItems];
