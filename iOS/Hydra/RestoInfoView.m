@@ -41,16 +41,16 @@
     [self addSubview:backgroundView];
 
     // Header view
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 220)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 210)];
 
     // logo
     UIImage *logo = [UIImage imageNamed:@"resto-logo.png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:logo];
-    [imageView setFrame:CGRectMake(90, 10, 100, 100)];
+    [imageView setFrame:CGRectMake(90, 0, 100, 100)];
     [headerView addSubview:imageView];
 
     // resto info
-    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, imageView.frame.size.height + 10,
+    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, CGRectGetMaxY(imageView.frame),
                                                                    self.frame.size.width - 60, 80)];
     infoLabel.text = @"De resto's van de UGent zijn elke weekdag open van 11u15 tot 14u. 's Avonds kan je ook terecht in resto De Brug van 17u30 tot 21u.";
     infoLabel.backgroundColor = [UIColor clearColor];
@@ -59,9 +59,9 @@
     infoLabel.textAlignment = UITextAlignmentCenter;
     infoLabel.numberOfLines = 4;
     [headerView addSubview:infoLabel];
-    
+
     // title
-    CGRect titleFrame = CGRectMake(0, infoLabel.frame.origin.y + 85, self.frame.size.width, 20);
+    CGRect titleFrame = CGRectMake(0, CGRectGetMaxY(infoLabel.frame) + 5, self.frame.size.width, 20);
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:titleFrame];
     headerTitle.text = @"Legende";
     headerTitle.textAlignment = NSTextAlignmentCenter;
@@ -81,7 +81,7 @@
     tableView.backgroundColor = [UIColor clearColor];
     tableView.allowsSelection = NO;
     tableView.tableHeaderView = headerView;
-    tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
+    tableView.contentInset = UIEdgeInsetsMake(10, 0, 15, 0);
     tableView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
     [self addSubview:tableView];
     self.tableView = tableView;
@@ -119,8 +119,6 @@
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.textLabel.textAlignment = UITextAlignmentRight;
     }
-
-    cell.backgroundColor = [UIColor blueColor];
 
     cell.detailTextLabel.text = legend.value;
     cell.textLabel.text = legend.key;
