@@ -12,14 +12,12 @@
 #import "RestoStore.h"
 #import "AppDelegate.h"
 
-
-#define kCellTitleLabel 101
-#define kCellSubtitleLabel 102
+#define kCellKeyLabel 101
+#define kCellValueLabel 102
 
 @interface RestoInfoView () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, unsafe_unretained) UITableView *tableView;
-@property (nonatomic, unsafe_unretained) UIActivityIndicatorView *spinner;
 
 @end
 @implementation RestoInfoView
@@ -45,7 +43,7 @@
     [self addSubview:backgroundView];
 
     // Header view
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 210)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 208)];
 
     // logo
     UIImage *logo = [UIImage imageNamed:@"resto-logo.png"];
@@ -85,7 +83,7 @@
     tableView.backgroundColor = [UIColor clearColor];
     tableView.allowsSelection = NO;
     tableView.tableHeaderView = headerView;
-    tableView.contentInset = UIEdgeInsetsMake(10, 0, 15, 0);
+    tableView.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
     tableView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
     [self addSubview:tableView];
     self.tableView = tableView;
@@ -108,49 +106,51 @@
 {
     RestoLegendItem *legend = self.legend[indexPath.row];
 
-    UILabel *titleLabel, *subtitleLabel;
+    UILabel *keyLabel, *valueLabel;
 
 	static NSString *cellIdentifier = @"RestoLegendViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:cellIdentifier];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
         cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
 
-        CGRect titleFrame = CGRectMake(20, 4, 40, 20);
-        titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
-        titleLabel.tag = kCellTitleLabel;
-        titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
-        titleLabel.backgroundColor = [UIColor clearColor];
-        titleLabel.textColor = [UIColor whiteColor];
-        [cell.contentView addSubview:titleLabel];
+        keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, 14)];
+        keyLabel.tag = kCellKeyLabel;
+        keyLabel.font = [UIFont boldSystemFontOfSize:13];
+        keyLabel.backgroundColor = [UIColor clearColor];
+        keyLabel.textColor = [UIColor whiteColor];
+        keyLabel.textAlignment = UITextAlignmentRight;
+        [cell.contentView addSubview:keyLabel];
 
-        CGFloat height = [self tableView:tableView heightForRowAtIndexPath:indexPath];
-        CGFloat x = CGRectGetMaxX(titleFrame);
-        CGRect subtitleFrame = CGRectMake(x, 4, CGRectGetMaxX(self.frame) - x, height);
-        subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
-        subtitleLabel.numberOfLines = 0;
-        subtitleLabel.lineBreakMode = UILineBreakModeWordWrap;
-        subtitleLabel.tag = kCellSubtitleLabel;
-        subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
-        subtitleLabel.backgroundColor = [UIColor clearColor];
-        subtitleLabel.textColor = [UIColor whiteColor];
-        [cell.contentView addSubview:subtitleLabel];
+        CGFloat valueX = CGRectGetMaxX(keyLabel.frame) + 10;
+        CGRect valueFrame = CGRectMake(valueX, 0, cell.frame.size.width - valueX - 20,
+                                       cell.frame.size.height - 5);
+        valueLabel = [[UILabel alloc] initWithFrame:valueFrame];
+        valueLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight
+                                    | UIViewAutoresizingFlexibleWidth;
+        valueLabel.numberOfLines = 0;
+        valueLabel.lineBreakMode = UILineBreakModeWordWrap;
+        valueLabel.tag = kCellValueLabel;
+        valueLabel.font = [UIFont systemFontOfSize:13];
+        valueLabel.backgroundColor = [UIColor clearColor];
+        valueLabel.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:valueLabel];
     }
     else {
-        titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
-        subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
+        keyLabel = (UILabel *)[cell viewWithTag:kCellKeyLabel];
+        valueLabel = (UILabel *)[cell viewWithTag:kCellValueLabel];
     }
 
     if ([legend.style isEqual:@"bold"]) {
-        titleLabel.font = [UIFont boldSystemFontOfSize:13];
+        keyLabel.font = [UIFont boldSystemFontOfSize:13];
     } else {
-        titleLabel.font = [UIFont systemFontOfSize:13];
+        keyLabel.font = [UIFont systemFontOfSize:13];
     }
 
-    subtitleLabel.text = legend.value;
-    titleLabel.text = legend.key;
+    valueLabel.text = legend.value;
+    keyLabel.text = legend.key;
 
     return cell;
 
@@ -164,7 +164,7 @@
     CGSize labelSize = [legend.value sizeWithFont:[UIFont systemFontOfSize:13]
                                 constrainedToSize:constraintSize
                                     lineBreakMode:UILineBreakModeWordWrap];
-    return labelSize.height;
+    return labelSize.height + 5;
 }
 
 @end
