@@ -22,7 +22,6 @@
 		906504BD169B146E005782DA /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906504BC169B146E005782DA /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906504BF169B147A005782DA /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906504BE169B147A005782DA /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906504C1169B148F005782DA /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906504C0169B148F005782DA /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		9065059F169B1C60005782DA /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9065059C169B1C46005782DA /* libfacebook_ios_sdk.a */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
 		90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegendItem.m */; };
@@ -156,20 +155,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9065059B169B1C46005782DA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 90650593169B1C46005782DA /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
-		};
-		9065059D169B1C46005782DA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 90650593169B1C46005782DA /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B9CBC519152537270036AA71;
-			remoteInfo = FacebookSDKTests;
-		};
 		F5A651DF168DAFCA008F93EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
@@ -236,7 +221,6 @@
 		906504BC169B146E005782DA /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		906504BE169B147A005782DA /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		906504C0169B148F005782DA /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		90650593169B1C46005782DA /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "External/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
 		90EB7BE11688BCC700A9582D /* RestoInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoInfoView.h; sourceTree = "<group>"; };
@@ -440,7 +424,6 @@
 				F5BC3D88162EB8E900E4A902 /* libz.dylib in Frameworks */,
 				F5BC3D8B162EB91F00E4A902 /* libTestFlight.a in Frameworks */,
 				F5A651EE168DB0E7008F93EC /* libGoogleAnalytics.a in Frameworks */,
-				9065059F169B1C60005782DA /* libfacebook_ios_sdk.a in Frameworks */,
 				F5A651EF168DB123008F93EC /* libRestKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,15 +474,6 @@
 				3B93FBA91630969900C962DC /* UrgentPlayer.m */,
 			);
 			name = Urgent;
-			sourceTree = "<group>";
-		};
-		90650594169B1C46005782DA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9065059C169B1C46005782DA /* libfacebook_ios_sdk.a */,
-				9065059E169B1C46005782DA /* FacebookSDKTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		F53D2488159DB4DB00F408AB /* Images */ = {
@@ -655,7 +629,6 @@
 		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				90650593169B1C46005782DA /* facebook-ios-sdk.xcodeproj */,
 				906504C0169B148F005782DA /* AdSupport.framework */,
 				906504BE169B147A005782DA /* Social.framework */,
 				906504BC169B146E005782DA /* Accounts.framework */,
@@ -890,10 +863,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 90650594169B1C46005782DA /* Products */;
-					ProjectRef = 90650593169B1C46005782DA /* facebook-ios-sdk.xcodeproj */;
-				},
-				{
 					ProductGroup = F5A651D8168DAFCA008F93EC /* Products */;
 					ProjectRef = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
 				},
@@ -907,20 +876,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9065059C169B1C46005782DA /* libfacebook_ios_sdk.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libfacebook_ios_sdk.a;
-			remoteRef = 9065059B169B1C46005782DA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9065059E169B1C46005782DA /* FacebookSDKTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FacebookSDKTests.octest;
-			remoteRef = 9065059D169B1C46005782DA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		F5A651E0168DAFCA008F93EC /* libRestKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
