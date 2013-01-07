@@ -12,6 +12,10 @@
 #import "RestoStore.h"
 #import "AppDelegate.h"
 
+
+#define kCellTitleLabel 101
+#define kCellSubtitleLabel 102
+
 @interface RestoInfoView () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, unsafe_unretained) UITableView *tableView;
@@ -103,36 +107,48 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RestoLegendItem *legend = self.legend[indexPath.row];
-    static NSString *cellIdentifier = @"RestoLegendViewCell";
+
+    UILabel *titleLabel, *subtitleLabel;
+
+	static NSString *cellIdentifier = @"RestoLegendViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:cellIdentifier];
-        // detailTextLabel contains explanation
-        cell.detailTextLabel.textColor = [UIColor whiteColor];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
-        cell.detailTextLabel.textAlignment = UITextAlignmentLeft;
-        cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
-        cell.detailTextLabel.numberOfLines = 0;
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+        cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+        cell.backgroundColor = [UIColor clearColor];
 
-        // textLabel contains key
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.textLabel.textAlignment = UITextAlignmentRight;
-    }
+        CGRect titleFrame = CGRectMake(20, 4, 250, 20);
+        titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
+        titleLabel.tag = kCellTitleLabel;
+        titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+        [cell.contentView addSubview:titleLabel];
 
-    cell.backgroundColor = [UIColor blueColor];
-
-    cell.detailTextLabel.text = legend.value;
-    cell.textLabel.text = legend.key;
-
-    if ([legend.style isEqual:@"bold"]) {
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:13];
+        CGRect subtitleFrame = CGRectMake(20, 24, 250, 16);
+        subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
+        subtitleLabel.tag = kCellSubtitleLabel;
+        subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
+        subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
+        [cell.contentView addSubview:subtitleLabel];
     }
     else {
-        cell.textLabel.font = [UIFont systemFontOfSize:13];
+        titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
+        subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
     }
 
+
+    if ([legend.style isEqual:@"bold"]) {
+        subtitleLabel.font = [UIFont boldSystemFontOfSize:13];
+    } else {
+        titleLabel.font = [UIFont systemFontOfSize:13];
+    }
+
+    subtitleLabel.text = @"test";
+    titleLabel.text = legend.key;
+
     return cell;
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
