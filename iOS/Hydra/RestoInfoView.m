@@ -117,19 +117,25 @@
                                       reuseIdentifier:cellIdentifier];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
         cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
-        cell.backgroundColor = [UIColor clearColor];
 
-        CGRect titleFrame = CGRectMake(20, 4, 250, 20);
+        CGRect titleFrame = CGRectMake(20, 4, 40, 20);
         titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
         titleLabel.tag = kCellTitleLabel;
         titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.textColor = [UIColor whiteColor];
         [cell.contentView addSubview:titleLabel];
 
-        CGRect subtitleFrame = CGRectMake(20, 24, 250, 16);
+        CGFloat height = [self tableView:tableView heightForRowAtIndexPath:indexPath];
+        CGFloat x = CGRectGetMaxX(titleFrame);
+        CGRect subtitleFrame = CGRectMake(x, 4, CGRectGetMaxX(self.frame) - x, height);
         subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
+        subtitleLabel.numberOfLines = 0;
+        subtitleLabel.lineBreakMode = UILineBreakModeWordWrap;
         subtitleLabel.tag = kCellSubtitleLabel;
         subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
-        subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
+        subtitleLabel.backgroundColor = [UIColor clearColor];
+        subtitleLabel.textColor = [UIColor whiteColor];
         [cell.contentView addSubview:subtitleLabel];
     }
     else {
@@ -138,12 +144,12 @@
     }
 
     if ([legend.style isEqual:@"bold"]) {
-        subtitleLabel.font = [UIFont boldSystemFontOfSize:13];
+        titleLabel.font = [UIFont boldSystemFontOfSize:13];
     } else {
         titleLabel.font = [UIFont systemFontOfSize:13];
     }
 
-    subtitleLabel.text = @"test";
+    subtitleLabel.text = legend.value;
     titleLabel.text = legend.key;
 
     return cell;
@@ -154,7 +160,7 @@
 {
     RestoLegendItem *legend = self.legend[indexPath.row];
     
-    CGSize constraintSize = CGSizeMake(150, CGFLOAT_MAX);
+    CGSize constraintSize = CGSizeMake(200, CGFLOAT_MAX);
     CGSize labelSize = [legend.value sizeWithFont:[UIFont systemFontOfSize:13]
                                 constrainedToSize:constraintSize
                                     lineBreakMode:UILineBreakModeWordWrap];
