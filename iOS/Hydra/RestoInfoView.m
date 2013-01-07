@@ -33,18 +33,15 @@
 - (void)createView
 {
     // background
-
     UIImage *background = [UIImage imageNamed:@"header-bg.png"];
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
     backgroundView.image = background;
     backgroundView.contentMode = UIViewContentModeScaleToFill;
-    backgroundView.autoresizingMask = self.autoresizingMask;
+    backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:backgroundView];
-    
-    
+
     // Header view
-    
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.frame.size.width,220)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 220)];
 
     // logo
     UIImage *logo = [UIImage imageNamed:@"resto-logo.png"];
@@ -53,7 +50,8 @@
     [headerView addSubview:imageView];
 
     // resto info
-    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.frame.size.height + 10, self.frame.size.width, 80)];
+    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, imageView.frame.size.height + 10,
+                                                                   self.frame.size.width - 60, 80)];
     infoLabel.text = @"De resto's van de UGent zijn elke weekdag open van 11u15 tot 14u. 's Avonds kan je ook terecht in resto De Brug van 17u30 tot 21u.";
     infoLabel.backgroundColor = [UIColor clearColor];
     infoLabel.textColor = [UIColor whiteColor];
@@ -63,17 +61,19 @@
     [headerView addSubview:infoLabel];
     
     // title
-    CGRect titleFrame = CGRectMake(0, infoLabel.frame.origin.y + 80, self.frame.size.width, 20);
+    CGRect titleFrame = CGRectMake(0, infoLabel.frame.origin.y + 85, self.frame.size.width, 20);
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:titleFrame];
     headerTitle.text = @"Legende";
     headerTitle.textAlignment = NSTextAlignmentCenter;
-    headerTitle.font = [UIFont boldSystemFontOfSize:18];
+    headerTitle.font = [UIFont boldSystemFontOfSize:13];
     headerTitle.textColor = [UIColor whiteColor];
     headerTitle.backgroundColor = [UIColor clearColor];
     [headerView addSubview:headerTitle];
-    
+
     // Tableview
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, self.bounds.size.width, self.bounds.size.height)                                                              style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:self.bounds
+                                                          style:UITableViewStylePlain];
+    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.bounces = NO;
@@ -81,9 +81,10 @@
     tableView.backgroundColor = [UIColor clearColor];
     tableView.allowsSelection = NO;
     tableView.tableHeaderView = headerView;
+    tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
+    tableView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
     [self addSubview:tableView];
     self.tableView = tableView;
-    
 }
 
 - (void)setLegend:(NSArray *)legend
@@ -107,40 +108,30 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
                                       reuseIdentifier:cellIdentifier];
-        //set cell textLabel, contains value
-        [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13]];
-        [cell.detailTextLabel setTextAlignment:NSTextAlignmentLeft];
+        // detailTextLabel contains explanation
+        cell.detailTextLabel.textColor = [UIColor whiteColor];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
+        cell.detailTextLabel.textAlignment = UITextAlignmentLeft;
         cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
         cell.detailTextLabel.numberOfLines = 0;
-        //set cell detailTextLabel, to contain key, if key
-        [cell.textLabel setTextColor:[UIColor whiteColor]];
-        [cell.textLabel setTextAlignment:NSTextAlignmentLeft];
+
+        // textLabel contains key
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.textLabel.textAlignment = UITextAlignmentRight;
+    }
+
+    cell.backgroundColor = [UIColor blueColor];
+
+    cell.detailTextLabel.text = legend.value;
+    cell.textLabel.text = legend.key;
+
+    if ([legend.style isEqual:@"bold"]) {
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:13];
     }
     else {
-        
+        cell.textLabel.font = [UIFont systemFontOfSize:13];
     }
-    // textLabel
-    CGSize constraintSize = CGSizeMake(150.0f, MAXFLOAT);
-    CGSize labelSize = [legend.value sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-    [cell.detailTextLabel setFrame:CGRectMake(60, 0, labelSize.width, labelSize.height)];
-    cell.detailTextLabel.text = legend.value;
-    
-    
-    // detailTextLabel
-    [cell.textLabel setFont:[UIFont systemFontOfSize:15]];
-    // look to styles
-    if (legend.key != nil) {
-        cell.textLabel.text = legend.key;
-    }
-    if (legend.style != nil){
-        if ([legend.style rangeOfString:@"bold"].location != NSNotFound) {
-            [cell.textLabel setFont:[UIFont boldSystemFontOfSize:15]];
-        }
-        if ([legend.style rangeOfString:@"underline"].location != NSNotFound) {
-            //TODO set underlined
-        }
-    }
+
     return cell;
 }
 
@@ -148,9 +139,11 @@
 {
     RestoLegendItem *legend = self.legend[indexPath.row];
     
-    CGSize constraintSize = CGSizeMake(150.0f, MAXFLOAT);
-    CGSize labelSize = [legend.value sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-    return (labelSize.height+20);
+    CGSize constraintSize = CGSizeMake(150, CGFLOAT_MAX);
+    CGSize labelSize = [legend.value sizeWithFont:[UIFont systemFontOfSize:13]
+                                constrainedToSize:constraintSize
+                                    lineBreakMode:UILineBreakModeWordWrap];
+    return labelSize.height;
 }
 
 @end
