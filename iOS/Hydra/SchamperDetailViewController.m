@@ -9,9 +9,12 @@
 #import "SchamperDetailViewController.h"
 #import "NSDateFormatter+AppLocale.h"
 
-@interface SchamperDetailViewController () <UIGestureRecognizerDelegate>
+@interface SchamperDetailViewController () <UIGestureRecognizerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) SchamperArticle *article;
+
+@property (nonatomic, assign) CGFloat startContentOffset;
+@property (nonatomic, assign) CGFloat lastContentOffset;
 
 @end
 
@@ -48,6 +51,7 @@
 
     NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     [self.webView loadHTMLString:html baseURL:bundeUrl];
+    self.webView.scrollView.delegate = self;
 
     // Recognize taps
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] init];
@@ -69,7 +73,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-
     self.navigationController.navigationBar.translucent = NO;
 }
 
@@ -85,6 +88,30 @@
     return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
 }
 
+- (void)shareButtonTapped:(id)sender
+{
+    // TODO: implement share button
+    VLog(sender);
+}
+
+#pragma mark - Navigation bar madness
+
+- (void)setNavigationBarHidden:(BOOL)hide
+{
+    BOOL current = self.navigationController.navigationBarHidden;
+    if (current == hide) return;
+
+    // Don't do anything if the content's not big enough
+    UIScrollView *scrollView = self.webView.scrollView;
+    CGSize contentSize = scrollView.contentSize;
+    if (contentSize.height <= self.view.frame.size.height) return;
+
+    [self.navigationController setNavigationBarHidden:hide animated:YES];
+
+    scrollView.contentInset = UIEdgeInsetsMake(hide ? -44 : 0, 0, 0, 0);
+    scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(hide ? 0 : 44, 0, 0, 0);
+}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
@@ -93,31 +120,38 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)didRecognizeTap:(UIEvent *)event
 {
-    // Don't do anything if the content's not big enough
-    CGSize contentSize = self.webView.scrollView.contentSize;
-    if (contentSize.height <= self.view.frame.size.height) return;
-
-    BOOL hidden = self.navigationController.navigationBarHidden;
-    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
-
-    // Save the contentoffset, we'll need to restore it later
-    CGPoint contentOffset = self.webView.scrollView.contentOffset;
-
-    UIEdgeInsets insets = hidden ? UIEdgeInsetsZero : UIEdgeInsetsMake(-44, 0, 0, 0);
-    self.webView.scrollView.contentInset = insets;
-    self.webView.scrollView.contentOffset = contentOffset;
-
-    // Prevent the view from landing in the top buffer zone
-    if (contentOffset.y <= 44) {
-        CGPoint newOffset = hidden ? CGPointZero : CGPointMake(0, 44);
-        [self.webView.scrollView setContentOffset:newOffset animated:YES];
+    CGFloat currentOffset = self.webView.scrollView.contentOffset.y;
+    if (currentOffset > 44) {
+        [self setNavigationBarHidden:!self.navigationController.navigationBarHidden];
     }
 }
 
-- (void)shareButtonTapped:(id)sender
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    // TODO: implement share button
-    VLog(sender);
+    self.startContentOffset = self.lastContentOffset = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat currentOffset = scrollView.contentOffset.y;
+    CGFloat differenceFromStart = self.startContentOffset - currentOffset;
+    CGFloat differenceFromLast = self.lastContentOffset - currentOffset;
+    self.lastContentOffset = currentOffset;
+
+    // Always show navigation bar in top section
+    if (currentOffset <= 44) {
+        [self setNavigationBarHidden:NO];
+    }
+    // Check if tracking at high enough speed
+    else if (scrollView.tracking && abs(differenceFromLast) > 1) {
+        [self setNavigationBarHidden:(differenceFromStart < 0)];
+    }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    [self setNavigationBarHidden:NO];
+    return YES;
 }
 
 @end
