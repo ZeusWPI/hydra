@@ -27,13 +27,15 @@ public class SchamperDailyItem extends SherlockActivity {
 		String date = String.format(new SimpleDateFormat("dd MMM yyyy hh:mm").format(item.pubDate));
 
 		String html =
-			   "<body>"
+			   "<head>"
+			 + "	<link rel='stylesheet' type='text/css' href='schamper.css' />"
+			 + "</head>"
+			 + "<body>"
 			 + "	<header><h1>" + item.title + "</h1><p class='meta'>" + date + "<br />door " + item.creator + "</div></header>"
 			 + "	<div class='content'>" + item.description + "</div>"
 			 + "</body>";
 
 		WebView content = (WebView) findViewById(R.id.schamper_item);
-		String withCss = "<link rel=\"stylesheet\" type=\"text/css\" href=\"schamper.css\" />" + html;
-		content.loadDataWithBaseURL("file:///android_asset/", withCss, "text/html", "UTF-8", null);
+		content.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null);
 	}
 }
