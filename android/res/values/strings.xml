@@ -8,7 +8,7 @@
 
     <!-- Activity titles -->
     <string name="title_news">News</string>
-    <string name="title_calendar">Calendar</string>
+    <string name="title_calendar">Activities</string>
     <string name="title_info">Info</string>
     <string name="title_menu">Resto Menu</string>
     <string name="title_gsr">GSR</string>

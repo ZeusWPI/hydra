@@ -60,7 +60,7 @@ public abstract class HTTPIntentService extends IntentService {
     StatusLine status = response.getStatusLine();
     if (200 <= status.getStatusCode() && status.getStatusCode() < 300) {
       HttpEntity entity = response.getEntity();
-      return entity == null ? null : EntityUtils.toString(entity);
+      return entity == null ? null : EntityUtils.toString(entity, "UTF-8");
     } else if (status.getStatusCode() == 304) {
       return null;
     } else {
