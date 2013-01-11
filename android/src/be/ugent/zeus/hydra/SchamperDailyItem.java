@@ -34,7 +34,6 @@ public class SchamperDailyItem extends SherlockActivity {
 
 		WebView content = (WebView) findViewById(R.id.schamper_item);
 		String withCss = "<link rel=\"stylesheet\" type=\"text/css\" href=\"schamper.css\" />" + html;
-		Log.d("Log", html);
 		content.loadDataWithBaseURL("file:///android_asset/", withCss, "text/html", "UTF-8", null);
 	}
 }
