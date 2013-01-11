@@ -13,7 +13,7 @@ header {
     font-family: 'Lucida Grande', 'Trebuchet MS', Arial, sans-serif;
     text-align: center;
     color: #fff;
-    padding: 47px 0 3px; margin: 0;
+    padding: 3px 0; margin: 0;
     background: url('schamper-bg.png');
     border-bottom: 1px solid #ccc;
 }
