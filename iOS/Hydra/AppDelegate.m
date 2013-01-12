@@ -10,6 +10,7 @@
 #import "UIColor+AppColors.h"
 #import "DashboardViewController.h"
 #import <RestKit/RestKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "TestFlight.h"
 
 #define kTestFlightToken @"5bc4ec5d-0095-4731-bb0c-ebb0b41ff14a"
@@ -53,6 +54,12 @@
     [self.window setRootViewController:self.navController];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [[FBSession activeSession] handleOpenURL:url];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -152,7 +152,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker trackView:@"Resto Menu"];
+    GAI_Track(@"Resto Menu");
 }
 
 - (void)viewDidLayoutSubviews

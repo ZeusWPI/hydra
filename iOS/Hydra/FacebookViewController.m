@@ -16,42 +16,28 @@
 
 @implementation FacebookViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if ([[FBSession activeSession] isOpen]){
+    if ([FBSession activeSession].isOpen){
         // facebook is logged in
         [self loadLoggedInView];
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(IBAction)loginButtonPressed:(id)sender
 {
     [self.spinner startAnimating];
     FacebookLogin *delegate = [FacebookLogin sharedLogin];
-    DLog(@"Facebook login button was pushed");
     if([delegate openSessionWithAllowLoginUI:YES]){
+        DLog(@"Facebook login worked");
         // yes => log in worked
-        [self.logInButton setHidden:YES];
-        [self.logOutButton setHidden:NO];
+        self.logInButton.hidden = YES;
+        self.logOutButton.hidden = NO;
         [self loadLoggedInView];
     }else {
+        DLog(@"Facebook login failed");
         // log in failed
     }
     [self.spinner stopAnimating];
@@ -65,6 +51,9 @@
 
 - (void)loadLoggedInView
 {
+    self.logInButton.hidden = YES;
+    self.logOutButton.hidden = NO;
+
     FBEventView *eventView = [[FBEventView alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 300)];
     [eventView configureWithEventID:@"171216039688617"];
     [self.view addSubview:eventView];

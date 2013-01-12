@@ -3,13 +3,12 @@ package be.ugent.zeus.hydra;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import be.ugent.zeus.hydra.R;
-import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.UpdaterService;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.analytics.tracking.android.EasyTracker;
 import com.zubhium.ZubhiumSDK;
 
 /**
@@ -19,6 +18,7 @@ import com.zubhium.ZubhiumSDK;
 public class Hydra extends SherlockActivity {
 
   ZubhiumSDK sdk;
+  public static final boolean BETA = true;
 
   private void link(int id, final Class activity) {
     findViewById(id).setOnClickListener(new View.OnClickListener() {
@@ -32,12 +32,12 @@ public class Hydra extends SherlockActivity {
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
 
-    sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "e5e19897556febaf2ecd9be4d04fe0");
+    sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
     if(sdk != null){
         // We are registering update receiver
     	sdk.registerUpdateReceiver(Hydra.this);
     }
-    
+
     setContentView(R.layout.hydra);
     setTitle("");
 
@@ -52,24 +52,25 @@ public class Hydra extends SherlockActivity {
     intent.putExtra(HTTPIntentService.FORCE_UPDATE, true);
     startService(intent);
   }
-
-  /*
+  
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getSupportMenuInflater();
     inflater.inflate(R.menu.hydra, menu);
-    return true;
+    return super.onCreateOptionsMenu(menu);
   }
-  */
-
+  
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     // Handle item selection
     switch (item.getItemId()) {
-      case R.id.settings:
-        Intent intent = new Intent(this, Settings.class);
-        startActivity(intent);
-        return true;
+//      case R.id.settings:
+//        Intent intent = new Intent(this, Settings.class);
+//        startActivity(intent);
+//        return true;
+      case R.id.feedbackButton:
+	 setupFeedback();
+	 return true;
       default:
         return super.onOptionsItemSelected(item);
     }
@@ -78,14 +79,15 @@ public class Hydra extends SherlockActivity {
   @Override
   public void onStart() {
     super.onStart();
-    EasyTracker.getInstance().activityStart(this); // Add this method.
+    // EasyTracker.getInstance().activityStart(this); // Add this method.
   }
 
   @Override
   public void onStop() {
     super.onStop();
-    EasyTracker.getInstance().activityStop(this); // Add this method.
+    // EasyTracker.getInstance().activityStop(this);  // Add this method.
   }
+ 
   
   @Override
   protected void onDestroy() {
@@ -94,4 +96,14 @@ public class Hydra extends SherlockActivity {
 	}
     super.onDestroy();
   }
+  
+  protected void setupFeedback() {
+        /**
+         * Now lets listen to users, by enabling in app help desk. *
+         */
+    	if(sdk != null){
+    		sdk.openFeedbackDialog(Hydra.this);
+    	}
+    }
+  
 }

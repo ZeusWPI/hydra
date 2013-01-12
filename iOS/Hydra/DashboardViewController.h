@@ -11,12 +11,13 @@
 
 @interface DashboardViewController : UIViewController
 
-@property (nonatomic, assign) IBOutlet BadgedButton *newsButton;
-@property (nonatomic, assign) IBOutlet BadgedButton *activitiesButton;
-@property (nonatomic, assign) IBOutlet BadgedButton *infoButton;
-@property (nonatomic, assign) IBOutlet BadgedButton *restoButton;
-@property (nonatomic, assign) IBOutlet BadgedButton *urgentButton;
-@property (nonatomic, assign) IBOutlet BadgedButton *schamperButton;
+@property (nonatomic, unsafe_unretained) IBOutlet BadgedButton *newsButton;
+@property (nonatomic, unsafe_unretained) IBOutlet BadgedButton *activitiesButton;
+@property (nonatomic, unsafe_unretained) IBOutlet BadgedButton *infoButton;
+@property (nonatomic, unsafe_unretained) IBOutlet BadgedButton *restoButton;
+@property (nonatomic, unsafe_unretained) IBOutlet BadgedButton *urgentButton;
+@property (nonatomic, unsafe_unretained) IBOutlet BadgedButton *schamperButton;
+@property (nonatomic, unsafe_unretained) IBOutlet UIButton *feedbackButton;
 
 - (IBAction)showNews:(id)sender;
 - (IBAction)showActivities:(id)sender;

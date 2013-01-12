@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SchamperArticle.h"
 
-@interface WebViewController : GAITrackedViewController <UIWebViewDelegate>
+@interface WebViewController : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, readonly) UIWebView *webView;
+@property (nonatomic, strong) NSString *trackedViewName;
 
 - (void)loadHtml:(NSString *)path;
 

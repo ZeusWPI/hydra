@@ -31,6 +31,10 @@
 
 - (void)viewDidLoad
 {
+#if TESTFLIGHT_ENABLED
+    self.feedbackButton.hidden = NO;
+#endif
+
     self.requiredMoves = @[
         @(UISwipeGestureRecognizerDirectionUp), @(UISwipeGestureRecognizerDirectionUp),
         @(UISwipeGestureRecognizerDirectionDown), @(UISwipeGestureRecognizerDirectionDown),
@@ -52,6 +56,7 @@
     self.restoButton = nil;
     self.urgentButton = nil;
     self.schamperButton = nil;
+    self.feedbackButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,7 +69,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker trackView:@"Home"];
+    GAI_Track(@"Home");
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -140,7 +145,6 @@
 - (void)configureMoveDetectionForMove:(NSUInteger)move
 {
     if (move == [self.requiredMoves count]) {
-        
     	UrgentPlayer *urgentPlayer = [UrgentPlayer sharedPlayer];
         [urgentPlayer start];
         //TODO continue playing when app quits.

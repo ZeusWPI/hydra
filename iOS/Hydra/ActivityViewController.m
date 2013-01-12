@@ -119,7 +119,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker trackView:@"Activities"];
+    GAI_Track(@"Activities");
 }
 
 #pragma mark - Table view delegate

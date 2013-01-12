@@ -14,7 +14,7 @@ extern NSString *const FBSessionStateChangedNotification;
 @interface FacebookLogin : UIResponder
 
 + (NSString *)FBErrorCodeDescription:(FBErrorCode) code;
-+ (FacebookLogin*) sharedLogin;
++ (FacebookLogin*)sharedLogin;
 
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
 

@@ -24,7 +24,6 @@
 @implementation NewsViewController
 
 - (id) initWithAssociations:(NSArray *)associations{
-    self = [super init];
     if (self = [super init]) {
         self.associations = associations;
         [self refreshNewsItems];
@@ -51,7 +50,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker trackView:@"News"];
+    GAI_Track(@"News");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

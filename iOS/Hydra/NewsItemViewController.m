@@ -45,8 +45,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSString *view = [@"News > " stringByAppendingString:self.newsItem.title];
-    [[GAI sharedInstance].defaultTracker trackView:view];
+    GAI_Track([@"News > " stringByAppendingString:self.newsItem.title]);
 }
 
 @end
