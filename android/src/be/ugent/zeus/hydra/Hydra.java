@@ -9,6 +9,8 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.zubhium.ZubhiumSDK;
 
 /**
@@ -32,11 +34,19 @@ public class Hydra extends SherlockActivity {
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
 
+    // Zubhium
     sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
     if(sdk != null){
         // We are registering update receiver
     	sdk.registerUpdateReceiver(Hydra.this);
     }
+    
+    // Google Analytics
+    if(BuildConfig.DEBUG) {
+       GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
+       googleAnalytics.setAppOptOut(true);
+    }
+
 
     setContentView(R.layout.hydra);
     setTitle("");
@@ -79,13 +89,13 @@ public class Hydra extends SherlockActivity {
   @Override
   public void onStart() {
     super.onStart();
-    // EasyTracker.getInstance().activityStart(this); // Add this method.
+    EasyTracker.getInstance().activityStart(this); // Add this method.
   }
 
   @Override
   public void onStop() {
     super.onStop();
-    // EasyTracker.getInstance().activityStop(this);  // Add this method.
+    EasyTracker.getInstance().activityStop(this);  // Add this method.
   }
  
   
