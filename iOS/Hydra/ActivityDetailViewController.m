@@ -69,8 +69,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSString *view = [@"Activity > " stringByAppendingString:self.activity.title];
-    [[GAI sharedInstance].defaultTracker trackView:view];
+    GAI_Track([@"Activity > " stringByAppendingString:self.activity.title]);
 }
 
 - (void)reloadFields

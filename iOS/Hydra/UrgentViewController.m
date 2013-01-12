@@ -23,7 +23,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker trackView:@"Urgent"];
+    GAI_Track(@"Urgent");
 }
 
 -(IBAction)streamPlay:(id)sender

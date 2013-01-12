@@ -68,7 +68,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker trackView:@"Home"];
+    GAI_Track(@"Home");
 }
 
 - (void)viewWillDisappear:(BOOL)animated

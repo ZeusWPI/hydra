@@ -50,7 +50,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker trackView:@"News"];
+    GAI_Track(@"News");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
