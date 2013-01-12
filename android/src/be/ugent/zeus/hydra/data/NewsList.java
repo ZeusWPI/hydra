@@ -40,23 +40,10 @@ public class NewsList extends ArrayAdapter<NewsItem> {
     TextView association = (TextView) row.findViewById(R.id.news_item_association);
     association.setText(Html.fromHtml(item.club));
 
-    String shorty = intelligentCutOff(item.description);
-
     TextView shorttxt = (TextView) row.findViewById(R.id.news_item_short);
-    shorttxt.setText(Html.fromHtml(shorty));
+    shorttxt.setText(Html.fromHtml(item.description));
+    
     return row;
-  }
-
-  private String intelligentCutOff(String description) {
-    if (description.length() < SHORT_TEXT_LENGTH) {
-      return description;
-    }
-
-    int cutoff = SHORT_TEXT_LENGTH;
-    while (cutoff > 100 && !Character.isWhitespace(description.charAt(cutoff - 1))) {
-      cutoff--;
-    }
-    return description.substring(0, cutoff) + "...";
   }
 
   private class NewsItemComparator implements Comparator<NewsItem> {
