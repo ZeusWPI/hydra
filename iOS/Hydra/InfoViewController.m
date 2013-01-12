@@ -97,11 +97,13 @@
     }
     
     // Show an icon, depending on the subview
-    if (item[@"url"]) {
-        UIImageView *linkAccossory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"external-link.png"]
-                                                       highlightedImage:[UIImage imageNamed:@"external-link-active.png"]];
-        linkAccossory.contentMode = UIViewContentModeScaleAspectFit;
-        cell.accessoryView = linkAccossory;
+    if (item[@"url-ios"] || item[@"url"]) {
+        UIImage *linkImage = [UIImage imageNamed:@"external-link.png"];
+        UIImage *highlightedLinkImage = [UIImage imageNamed:@"external-link-active.png"];
+        UIImageView *linkAccessory = [[UIImageView alloc] initWithImage:linkImage
+                                                       highlightedImage:highlightedLinkImage];
+        linkAccessory.contentMode = UIViewContentModeScaleAspectFit;
+        cell.accessoryView = linkAccessory;
     }
     else {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -134,13 +136,16 @@
 
         [self.navigationController pushViewController:c animated:YES];
     }
-    else if(item[@"url"]) {
-        NSURL *url = [NSURL URLWithString:item[@"url"]];
+    else if(item[@"url-ios"] || item[@"url"]) {
+        NSURL *url = nil;
+        if (item[@"url-ios"]) url = [NSURL URLWithString:item[@"url-ios"]];
+        else url = [NSURL URLWithString:item[@"url"]];
+
         [[UIApplication sharedApplication] openURL:url];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     else {
-        DLog(@"Unknown action in %@", item);
+        NSLog(@"Unknown action in %@", item);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }

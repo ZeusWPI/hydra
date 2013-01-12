@@ -34,8 +34,10 @@
 		<string>info-library</string>
 		<key>title</key>
 		<string>Bibliotheek</string>
-		<key>url</key>
+		<key>url-ios</key>
 		<string>itms-apps://itunes.apple.com/us/app/ub-gent/id362022518?mt=8</string>
+		<key>url-android</key>
+		<string>market://details?id=com.bredir.boopsie.ubgent</string>
 	</dict>
 	<dict>
 		<key>image</key>
