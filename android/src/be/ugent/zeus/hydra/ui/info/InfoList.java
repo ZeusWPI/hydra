@@ -54,7 +54,9 @@ public class InfoList implements ListAdapter {
     text.setText(((NSString) dict.objectForKey("title")).toString());
     text.setGravity(Gravity.CENTER_VERTICAL);
     text.setPadding(5, 5, 5, 0);
-    text.setHeight(62);
+    
+    double density = context.getResources().getDisplayMetrics().density;
+    text.setHeight((int) (48.0 * density + 0.5));
 
     NSString image = (NSString) dict.objectForKey("image");
     if (image != null) {
