@@ -64,7 +64,7 @@ public class Info extends SherlockListActivity {
       Intent intent = new Intent(this, Info.class);
       intent.putExtra("content", wrapper);
       startActivity(intent);
-    } else if ((action = item.objectForKey("url")) != null) {
+    } else if ((action = item.objectForKey("url")) != null || (action = item.objectForKey("url-android")) != null) {
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(((NSString) action).toString())));
     } else if ((action = item.objectForKey("html")) != null) {
       Intent intent = new Intent(this, InfoWebActivity.class);
