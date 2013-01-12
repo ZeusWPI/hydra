@@ -29,7 +29,7 @@
     //NSString *query = [NSString stringWithFormat:@"{'info_event':'%@', 'friends_event':'%@'}",subq1, subq2];
     NSString *query = [NSString stringWithFormat:@"%@", subq1];
 
-    NSLog(query);
+    VLog(query);
     // Set up the query parameter
     NSDictionary *queryParam = [NSDictionary dictionaryWithObjectsAndKeys:
                                 query, @"q", nil];
@@ -49,7 +49,7 @@
                           }];
     query = [NSString stringWithFormat:@"%@", subq2];
 
-    NSLog(query);
+    VLog(query);
     // Set up the query parameter
     queryParam = [NSDictionary dictionaryWithObjectsAndKeys:
                                 query, @"q", nil];

@@ -1,6 +1,3 @@
 [submodule "iOS/External/RestKit"]
 	path = iOS/External/RestKit
 	url = git://github.com/Javache/RestKit.git
-[submodule "iOS/External/FacebookSDK"]
-	path = iOS/External/FacebookSDK
-	url = git://github.com/facebook/facebook-ios-sdk

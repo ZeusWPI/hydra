@@ -1,0 +1,17 @@
+
+PODS:
+- Facebook-iOS-SDK (3.1.1)
+- GoogleAnalytics-iOS-SDK (2.0beta4)
+- TestFlightSDK (1.2)
+
+DEPENDENCIES:
+- Facebook-iOS-SDK (~> 3.1)
+- GoogleAnalytics-iOS-SDK (~> 2.0beta4)
+- TestFlightSDK (~> 1.2)
+
+SPEC CHECKSUMS:
+  Facebook-iOS-SDK: 5fc068ebfd8c8c9b0fad476bc36dbbf1fffeebc8
+  GoogleAnalytics-iOS-SDK: 1c699283af9e57051bdbff753c53ea787b1371aa
+  TestFlightSDK: 29e194fb148e4861f92e4c1195b9697e1f3ad19a
+
+COCOAPODS: 0.16.0
