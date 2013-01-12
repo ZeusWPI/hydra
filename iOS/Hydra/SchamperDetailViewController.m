@@ -9,7 +9,7 @@
 #import "SchamperDetailViewController.h"
 #import "NSDateFormatter+AppLocale.h"
 
-@interface SchamperDetailViewController () <UIGestureRecognizerDelegate, UIScrollViewDelegate>
+@interface SchamperDetailViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) SchamperArticle *article;
 
@@ -51,14 +51,11 @@
 
     NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     [self.webView loadHTMLString:html baseURL:bundeUrl];
-    self.webView.scrollView.delegate = self;
 
-    // Recognize taps
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] init];
-    tapRecognizer.delegate = self;
-    tapRecognizer.numberOfTapsRequired = 1;
-    [tapRecognizer addTarget:self action:@selector(didRecognizeTap:)];
-    [self.webView addGestureRecognizer:tapRecognizer];
+    UIScrollView *scrollView = self.webView.scrollView;
+    scrollView.delegate = self;
+    scrollView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+    scrollView.scrollIndicatorInsets = scrollView.contentInset;
 
     // Add share button
     UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
@@ -108,22 +105,8 @@
 
     [self.navigationController setNavigationBarHidden:hide animated:YES];
 
-    scrollView.contentInset = UIEdgeInsetsMake(hide ? -44 : 0, 0, 0, 0);
-    scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(hide ? 0 : 44, 0, 0, 0);
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
-}
-
-- (void)didRecognizeTap:(UIEvent *)event
-{
-    CGFloat currentOffset = self.webView.scrollView.contentOffset.y;
-    if (currentOffset > 44) {
-        [self setNavigationBarHidden:!self.navigationController.navigationBarHidden];
-    }
+    scrollView.contentInset = UIEdgeInsetsMake(hide ? 0 : 44, 0, 0, 0);
+    scrollView.scrollIndicatorInsets = scrollView.contentInset;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -139,10 +122,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     self.lastContentOffset = currentOffset;
 
     // Always show navigation bar in top section
-    if (currentOffset <= 44) {
+    if (currentOffset <= 10) {
         [self setNavigationBarHidden:NO];
     }
-    // Check if tracking at high enough speed
+    // Check if scrolling at high enough speed
     else if (scrollView.tracking && abs(differenceFromLast) > 1) {
         [self setNavigationBarHidden:(differenceFromStart < 0)];
     }
