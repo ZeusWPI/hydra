@@ -37,7 +37,7 @@ import com.google.analytics.tracking.android.EasyTracker;
  *
  * @author Thomas Meire
  */
-public class RestoMenu extends SherlockActivity {
+public class RestoMenu extends AbstractSherlockActivity {
 
   private static final String VERSION = "be.ugent.zeus.hydra.version";
   private SharedPreferences prefs;

@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author blackskad
  */
-public class News extends SherlockListActivity {
+public class News extends AbstractSherlockListActivity {
 
   @Override
   public void onCreate(Bundle icicle) {

@@ -15,7 +15,7 @@ import be.ugent.zeus.hydra.data.NewsItem;
  *
  * @author blackskad
  */
-public class NewsItemActivity extends SherlockActivity {
+public class NewsItemActivity extends AbstractSherlockActivity {
 
   /**
    * Called when the activity is first created.

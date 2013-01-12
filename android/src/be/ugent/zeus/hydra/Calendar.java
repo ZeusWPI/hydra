@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author blackskad
  */
-public class Calendar extends SherlockActivity {
+public class Calendar extends AbstractSherlockActivity {
 
   private static final int VIEWABLE_DATES = 7;
   private ViewPager pager;

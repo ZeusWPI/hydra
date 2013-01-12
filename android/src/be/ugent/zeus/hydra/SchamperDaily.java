@@ -37,7 +37,7 @@ import be.ugent.zeus.hydra.ui.schamper.ChannelAdapter;
  *
  * @author Thomas Meire
  */
-public class SchamperDaily extends SherlockListActivity {
+public class SchamperDaily extends AbstractSherlockListActivity {
 
   private static final long REFRESH_TIMEOUT = 24 * 60 * 60 * 1000;
   private ChannelCache cache;

@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
  *
  * @author Thomas Meire
  */
-public class InfoWebActivity extends SherlockActivity {
+public class InfoWebActivity extends AbstractSherlockActivity {
 
   @Override
   public void onCreate(Bundle icicle) {

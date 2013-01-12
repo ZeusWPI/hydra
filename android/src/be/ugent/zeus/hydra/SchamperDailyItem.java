@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
  *
  * @author Thomas Meire
  */
-public class SchamperDailyItem extends SherlockActivity {
+public class SchamperDailyItem extends AbstractSherlockActivity {
 
 	@Override
 	public void onCreate(Bundle icicle) {
