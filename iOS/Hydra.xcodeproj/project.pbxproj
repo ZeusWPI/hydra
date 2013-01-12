@@ -102,7 +102,6 @@
 		F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */; };
 		F59D170E15BD811000B6F892 /* info-sport-aanbod.html in Resources */ = {isa = PBXBuildFile; fileRef = F59D170D15BD811000B6F892 /* info-sport-aanbod.html */; };
 		F59D171015BD813E00B6F892 /* webview.css in Resources */ = {isa = PBXBuildFile; fileRef = F59D170F15BD813E00B6F892 /* webview.css */; };
-		F5A651EF168DB123008F93EC /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A651E0168DAFCA008F93EC /* libRestKit.a */; };
 		F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CBD15CF1BA700FE033B /* external-link.png */; };
 		F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CBF15CF1CC500FE033B /* external-link-active.png */; };
 		F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CC015CF1CC500FE033B /* external-link-active@2x.png */; };
@@ -154,41 +153,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F5A651DF168DAFCA008F93EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25160D1614564E810060A5C5;
-			remoteInfo = RestKit;
-		};
-		F5A651E1168DAFCA008F93EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25160D2614564E820060A5C5;
-			remoteInfo = RestKitTests;
-		};
-		F5A651E3168DAFCA008F93EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25160E62145651060060A5C5;
-			remoteInfo = RestKitFramework;
-		};
-		F5A651E5168DAFCA008F93EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 25160E78145651060060A5C5;
-			remoteInfo = RestKitFrameworkTests;
-		};
-		F5A651E7168DAFCA008F93EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 259C301615128079003066A2;
-			remoteInfo = RestKitResources;
-		};
 		F5BAECB21518868200F6A1B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAEC7D1518868100F6A1B1 /* Project object */;
@@ -371,7 +335,6 @@
 		F5EBF115159E040700EB5D26 /* RestoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		F5EBF11A159E092300EB5D26 /* SchamperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperViewController.h; sourceTree = "<group>"; };
 		F5EBF11B159E092300EB5D26 /* SchamperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperViewController.m; sourceTree = "<group>"; };
-		F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = External/RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F5EBF14A159E1E3600EB5D26 /* SchamperArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperArticle.h; sourceTree = "<group>"; };
@@ -416,7 +379,6 @@
 				F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */,
 				F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */,
 				F5BAEC8B1518868200F6A1B1 /* UIKit.framework in Frameworks */,
-				F5A651EF168DB123008F93EC /* libRestKit.a in Frameworks */,
 				B50ED58F220549D98F92E254 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,18 +558,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		F5A651D8168DAFCA008F93EC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F5A651E0168DAFCA008F93EC /* libRestKit.a */,
-				F5A651E2168DAFCA008F93EC /* RestKitTests.octest */,
-				F5A651E4168DAFCA008F93EC /* RestKit.framework */,
-				F5A651E6168DAFCA008F93EC /* RestKitFrameworkTests.octest */,
-				F5A651E8168DAFCA008F93EC /* RestKitResources.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F5BAEC7B1518868100F6A1B1 = {
 			isa = PBXGroup;
 			children = (
@@ -617,7 +567,6 @@
 				F5CFDF851631597E008CBF98 /* External */,
 				F5BAEC891518868200F6A1B1 /* Frameworks */,
 				F5BAEC871518868200F6A1B1 /* Products */,
-				24046D4357E2426386B31283 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -633,6 +582,7 @@
 		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24046D4357E2426386B31283 /* Pods.xcconfig */,
 				E747F0E311D74638A7FC212F /* libPods.a */,
 				F54DC88D16A1A97C00FD212E /* libxml2.dylib */,
 				3B93FB9E1630939200C962DC /* AudioToolbox.framework */,
@@ -648,7 +598,6 @@
 				F50C12CB169A225800F0D010 /* MediaPlayer.framework */,
 				F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */,
 				F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */,
-				F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */,
 				F54DC88516A1A7BE00FD212E /* Security.framework */,
 				F54DC88B16A1A97100FD212E /* SystemConfiguration.framework */,
 				F5BAEC8A1518868200F6A1B1 /* UIKit.framework */,
@@ -842,12 +791,6 @@
 			mainGroup = F5BAEC7B1518868100F6A1B1;
 			productRefGroup = F5BAEC871518868200F6A1B1 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F5A651D8168DAFCA008F93EC /* Products */;
-					ProjectRef = F5EBF120159E134400EB5D26 /* RestKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				F5BAEC851518868200F6A1B1 /* Hydra */,
@@ -855,44 +798,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		F5A651E0168DAFCA008F93EC /* libRestKit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRestKit.a;
-			remoteRef = F5A651DF168DAFCA008F93EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5A651E2168DAFCA008F93EC /* RestKitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RestKitTests.octest;
-			remoteRef = F5A651E1168DAFCA008F93EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5A651E4168DAFCA008F93EC /* RestKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RestKit.framework;
-			remoteRef = F5A651E3168DAFCA008F93EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5A651E6168DAFCA008F93EC /* RestKitFrameworkTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RestKitFrameworkTests.octest;
-			remoteRef = F5A651E5168DAFCA008F93EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5A651E8168DAFCA008F93EC /* RestKitResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RestKitResources.bundle;
-			remoteRef = F5A651E7168DAFCA008F93EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F5BAEC841518868200F6A1B1 /* Resources */ = {
@@ -1142,10 +1047,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1170,10 +1071,6 @@
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -1,17 +1,76 @@
 
 PODS:
 - Facebook-iOS-SDK (3.1.1)
+- FileMD5Hash (0.0.1)
 - GoogleAnalytics-iOS-SDK (2.0beta4)
+- ISO8601DateFormatter (0.6)
+- JSONKit (1.5pre)
+- LibComponentLogging-Core (1.3.1)
+- LibComponentLogging-NSLog (1.0.4):
+  - LibComponentLogging-Core (>= 1.1.6)
+- NSData+Base64 (1.0.0)
+- RestKit/JSON (0.10.1):
+  - RestKit/Network
+  - RestKit/ObjectMapping/CoreData
+  - RestKit/ObjectMapping/JSON
+  - RestKit/UI
+- RestKit/Network (0.10.1):
+  - FileMD5Hash
+  - LibComponentLogging-NSLog (>= 1.0.4)
+  - SOCKit
+  - cocoa-oauth
+- RestKit/ObjectMapping/CoreData (0.10.1):
+  - ISO8601DateFormatter (>= 0.6)
+  - RestKit/Network
+- RestKit/ObjectMapping/JSON (0.10.1):
+  - ISO8601DateFormatter (>= 0.6)
+  - JSONKit (>= 1.5pre)
+  - RestKit/Network
+- RestKit/ObjectMapping/XML (0.10.1):
+  - ISO8601DateFormatter (>= 0.6)
+  - RestKit/Network
+- RestKit/UI (0.10.1)
+- RestKit/XML (0.10.1):
+  - RestKit/Network
+  - RestKit/ObjectMapping/CoreData
+  - RestKit/ObjectMapping/XML
+  - RestKit/UI
+- SOCKit (1.1)
 - TestFlightSDK (1.2)
+- cocoa-oauth (0.0.1):
+  - NSData+Base64 (~> 1.0)
 
 DEPENDENCIES:
 - Facebook-iOS-SDK (~> 3.1)
 - GoogleAnalytics-iOS-SDK (~> 2.0beta4)
+- RestKit/JSON (from `https://github.com/Javache/RestKit.git')
+- RestKit/XML (from `https://github.com/Javache/RestKit.git')
 - TestFlightSDK (~> 1.2)
+
+EXTERNAL SOURCES:
+  RestKit/JSON:
+    :git: https://github.com/Javache/RestKit.git
+  RestKit/XML:
+    :git: https://github.com/Javache/RestKit.git
 
 SPEC CHECKSUMS:
   Facebook-iOS-SDK: 5fc068ebfd8c8c9b0fad476bc36dbbf1fffeebc8
+  FileMD5Hash: c3b015e6fb293eea0a0c276747f61f20408c2644
   GoogleAnalytics-iOS-SDK: 1c699283af9e57051bdbff753c53ea787b1371aa
+  ISO8601DateFormatter: dc05a2481edf49668d85d3ff8c466c32eb544780
+  JSONKit: 3d4708953ea7ae399a49777372d8b060a43ddd27
+  LibComponentLogging-Core: 344f6045453ca28fa8f2909eb9624ec9d15ef256
+  LibComponentLogging-NSLog: a4bb0f6de612eef7b5fcdbd9cc96dc868ba1f2df
+  NSData+Base64: 8b910cb8a64f45daec6fb15936c36a9a911c57ca
+  RestKit/JSON: 43c924173fb1d99a670ce43903dcc793048d7fa3
+  RestKit/Network: 43c924173fb1d99a670ce43903dcc793048d7fa3
+  RestKit/ObjectMapping/CoreData: 43c924173fb1d99a670ce43903dcc793048d7fa3
+  RestKit/ObjectMapping/JSON: 43c924173fb1d99a670ce43903dcc793048d7fa3
+  RestKit/ObjectMapping/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
+  RestKit/UI: 43c924173fb1d99a670ce43903dcc793048d7fa3
+  RestKit/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
+  SOCKit: 179515c1a621dd5652a60e9be02ea4adcd25bc9b
   TestFlightSDK: 29e194fb148e4861f92e4c1195b9697e1f3ad19a
+  cocoa-oauth: 8f4c8b77c77ac660de37f8125557c4ec09b0118a
 
 COCOAPODS: 0.16.0

@@ -1,3 +1,0 @@
-[submodule "iOS/External/RestKit"]
-	path = iOS/External/RestKit
-	url = git://github.com/Javache/RestKit.git
