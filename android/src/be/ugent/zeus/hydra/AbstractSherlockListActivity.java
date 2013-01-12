@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public abstract class AbstractSherlockListActivity extends SherlockListActivity {
 
@@ -37,5 +38,17 @@ public abstract class AbstractSherlockListActivity extends SherlockListActivity 
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance().activityStop(this);
 	}
 }

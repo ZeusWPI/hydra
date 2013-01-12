@@ -149,16 +149,4 @@ public class Calendar extends AbstractSherlockActivity {
     ref.add(java.util.Calendar.DATE, offset);
     return ref.get(java.util.Calendar.DAY_OF_MONTH) == date.get(java.util.Calendar.DAY_OF_MONTH);
   }
-  
-  @Override
-  public void onStart() {
-    super.onStart();
-    EasyTracker.getInstance().activityStart(this); // Add this method.
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-    EasyTracker.getInstance().activityStop(this); // Add this method.
-  }
 }
