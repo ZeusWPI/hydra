@@ -23,8 +23,12 @@
 - (void)configureWithEventID:(NSString*)eventID
 {
     // get information
+
+    // query to get public info from event, number of people attending and picture
     NSString *subq1 = [NSString stringWithFormat:@"SELECT attending_count, pic_big FROM event WHERE eid='%@'",eventID];
-    NSString *subq2 = [NSString stringWithFormat:@"SELECT uid, name FROM user where uid IN (SELECT uid2 from friend WHERE uid2 IN (SELECT uid FROM event_member WHERE eid = '%@') AND uid1 = me())", eventID];
+
+    // query to get friends info from event, which friends are attending
+    NSString *subq2 = [NSString stringWithFormat:@"SELECT uid, name FROM user where uid IN (SELECT uid2 from friend WHERE uid2 IN (SELECT uid FROM event_member WHERE eid = '%@' and rsvp_status = 'attending') AND uid1 = me())", eventID];
 
     //NSString *query = [NSString stringWithFormat:@"{'info_event':'%@', 'friends_event':'%@'}",subq1, subq2];
     NSString *query = [NSString stringWithFormat:@"%@", subq1];
