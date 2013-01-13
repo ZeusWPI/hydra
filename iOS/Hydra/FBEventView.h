@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *attendees;
+@property (strong, nonatomic) NSString *eventID;
 
 - (void)configureWithEventID:(NSString*)eventID;
 

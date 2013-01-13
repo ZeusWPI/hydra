@@ -9,6 +9,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "FBEventView.h"
 
+#define kSquareSize 30
+
 @implementation FBEventView
 
 - (id)initWithFrame:(CGRect)frame
@@ -22,6 +24,10 @@
 
 - (void)configureWithEventID:(NSString*)eventID
 {
+
+    self.eventID = eventID;
+    FBRequestConnection *conn = [[FBRequestConnection alloc] init];
+    
     // get information
 
     // query to get public info from event, number of people attending and picture
@@ -30,15 +36,15 @@
     // query to get friends info from event, which friends are attending
     NSString *subq2 = [NSString stringWithFormat:@"SELECT uid, name FROM user where uid IN (SELECT uid2 from friend WHERE uid2 IN (SELECT uid FROM event_member WHERE eid = '%@' and rsvp_status = 'attending') AND uid1 = me())", eventID];
 
-    //NSString *query = [NSString stringWithFormat:@"{'info_event':'%@', 'friends_event':'%@'}",subq1, subq2];
-    NSString *query = [NSString stringWithFormat:@"%@", subq1];
+    NSString *subq3 = [NSString stringWithFormat:@"SELECT uid, rsvp_status FROM event_member WHERE eid = '%@' AND uid = me() ", eventID];
 
-    VLog(query);
+    //NSString *query = [NSString stringWithFormat:@"{'info_event':'%@', 'friends_event':'%@'}",subq1, subq2];
+
+    VLog(subq1);
     // Set up the query parameter
-    NSDictionary *queryParam = [NSDictionary dictionaryWithObjectsAndKeys:
-                                query, @"q", nil];
-    [FBRequestConnection startWithGraphPath:@"/fql" parameters:queryParam HTTPMethod:@"GET"
-                          completionHandler:^(FBRequestConnection *connection,
+    NSDictionary *queryParam = [NSDictionary dictionaryWithObjectsAndKeys: subq1, @"q", nil];
+    FBRequest *reqEventInfo = [FBRequest requestWithGraphPath:@"/fql" parameters:queryParam HTTPMethod:@"GET"];
+    [conn addRequest:reqEventInfo completionHandler:^(FBRequestConnection *connection,
                                               id result,
                                               NSError *error) {
                               if (error) {
@@ -51,18 +57,94 @@
                                   [self createEventView];
                               }
                           }];
-    query = [NSString stringWithFormat:@"%@", subq2];
-
-    VLog(query);
+    VLog(subq2);
     // Set up the query parameter
     queryParam = [NSDictionary dictionaryWithObjectsAndKeys:
-                                query, @"q", nil];
-    [FBRequestConnection startWithGraphPath:@"/fql" parameters:queryParam HTTPMethod:@"GET"
-                          completionHandler:^(FBRequestConnection *connection,
+                                subq2, @"q", nil];
+    FBRequest *reqEventFriends = [FBRequest requestWithGraphPath:@"/fql" parameters:queryParam HTTPMethod:@"GET"];
+
+    [conn addRequest:reqEventFriends completionHandler:^(FBRequestConnection *connection,
                                               id result,
                                               NSError *error) {
                               [self facebookRequestHandlerConnection:connection result:result error:error];
                           }];
+    
+
+    VLog(subq3);
+    // Set up the query parameter
+    queryParam = [NSDictionary dictionaryWithObjectsAndKeys:subq3, @"q", nil];
+    FBRequest *reqEventUser = [FBRequest requestWithGraphPath:@"/fql" parameters:queryParam HTTPMethod:@"GET"];
+
+    [conn addRequest:reqEventUser completionHandler:^(FBRequestConnection *connection,
+                                              id result,
+                                              NSError *error) {
+                              if (error) {
+                                  NSLog(@"Error: %@", [error localizedDescription]);
+                              } else {
+                                  NSLog(@"Result: %@", result);
+                                  NSArray *arr = (NSArray*)[result objectForKey:@"data"];
+                                  BOOL attending = [arr count] == 1 ? YES : NO;
+                                  if (attending){
+                                      NSString *str = [arr[0] objectForKey:@"rsvp_status"];
+                                      if ([str rangeOfString:@"attending"].location == NSNotFound){
+                                          attending = NO;
+                                      }
+                                  }
+                                  [self userAttending:attending];
+                              }
+                          }];
+    [conn start];
+}
+
+-(void)userAttending:(BOOL)attending
+{
+    UIButton *attendingButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [attendingButton setFrame:CGRectMake(10, 150, 80, 40)];
+
+    [attendingButton setTitle:@"Gaan?" forState:UIControlStateNormal];
+    [attendingButton setTitle:@"Aanwezig" forState:UIControlStateDisabled];
+    [attendingButton setEnabled:!attending];
+    [attendingButton addTarget:self action:@selector(postUserAttendsEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:attendingButton];
+    
+}
+
+-(void)postUserAttendsEvent:(id)sender{
+    VLog(@"Attending button pressed");
+    if([sender isEnabled]){
+        NSString *query = [NSString stringWithFormat:@"%@/attending/me", self.eventID];
+
+        // Ask for rspv_events permissions in context
+        if ([FBSession.activeSession.permissions
+             indexOfObject:@"rsvp_event"] == NSNotFound) {
+            // No permissions found in session, ask for it
+            [FBSession.activeSession
+             reauthorizeWithPublishPermissions:
+             [NSArray arrayWithObject:@"rsvp_event"]
+             defaultAudience:FBSessionDefaultAudienceFriends
+             completionHandler:^(FBSession *session, NSError *error) {
+                 if(error){
+                     [sender setHidden:YES];
+                 }
+                 if (!error) {
+                     // If permissions granted, publish the story
+                 }
+             }];
+        }
+        FBRequestConnection *conn = [[FBRequestConnection alloc] init];
+        FBRequest *req1 = [FBRequest requestForPostWithGraphPath:query graphObject:nil];
+        [conn addRequest:req1 completionHandler:^(FBRequestConnection *connection,
+                                                  id result,
+                                                  NSError *error) {
+            if (error) {
+                NSLog(@"Error: %@", [error localizedDescription]);
+            } else {
+                NSLog(@"Result: %@", result);
+            }
+        }];
+        [conn start];
+        [sender setEnabled:NO];
+    }
 }
 
 -(void)facebookRequestHandlerConnection:(FBRequestConnection*)conn result:(id) result error:(NSError*)error
@@ -72,12 +154,6 @@
     } else {
         //NSLog(@"Result: %@", result);
         NSArray *arr = (NSArray*)[result objectForKey:@"data"];
-        //NSLog(@"About arr, count: %d", [arr count]);
-        /*for (FBGraphObject *obj in arr) {
-            NSString *naam = (NSString*)[obj objectForKey:@"name"];
-            NSString *uid = (NSString*)[obj objectForKey:@"uid"];
-            NSLog(@"%@",naam);
-        }//*/
         if ([arr count]){
             self.data = arr;
             [self createFriendsView];
@@ -91,7 +167,6 @@
     UIImage *eventPic = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:
                                                        [NSURL URLWithString:_imageURL]]];
     UIImageView *picView = [[UIImageView alloc] initWithImage:eventPic];
-    NSLog(@"Size: w %f en h %f , scale: %f", eventPic.size.width, eventPic.size.height, eventPic.scale);
     picView.frame = CGRectMake(0, 0, 100, eventPic.size.height/eventPic.size.width*100);
     [picView sizeThatFits:picView.frame.size];
     [self addSubview:picView];
@@ -115,7 +190,6 @@
     eventFriends.font = [UIFont systemFontOfSize:13];
     [self addSubview:eventFriends];
 
-#define kSquareSize 30
     // create grid from profile pictures 20*20
     maxI = (self.bounds.size.width-110)/kSquareSize;
     maxJ = [_data count]/maxI+1;
