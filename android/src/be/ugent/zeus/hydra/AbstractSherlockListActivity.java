@@ -7,6 +7,9 @@ package be.ugent.zeus.hydra;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.analytics.tracking.android.EasyTracker;
@@ -18,7 +21,7 @@ public abstract class AbstractSherlockListActivity extends SherlockListActivity 
 		super.onCreate(icicle);
 		setTitle(R.string.title_info);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -28,12 +31,27 @@ public abstract class AbstractSherlockListActivity extends SherlockListActivity 
 			case android.R.id.home:
 				// This is called when the Home (Up) button is pressed
 				// in the Action Bar.
-				Intent parentActivityIntent = new Intent(this, Hydra.class);
-				parentActivityIntent.addFlags(
-					 Intent.FLAG_ACTIVITY_CLEAR_TOP
-					 | Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(parentActivityIntent);
-				finish();
+				Intent upIntent = new Intent(this, Hydra.class); // Default to Hydra
+				try {
+					Log.d("Up-button functionality", getIntent().getStringExtra("class"));
+					upIntent = new Intent(this, Class.forName(getIntent().getStringExtra("class")));
+				} catch (NullPointerException ex) {
+					// This may not be nice, but it does work. Clears a LOT of duplicated code
+					// otherwise.
+				} catch (ClassNotFoundException ex) {
+				}
+				if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+					// This activity is not part of the application's task, so create a new task
+					// with a synthesized back stack.
+					TaskStackBuilder.from(this)
+						 .addNextIntent(upIntent)
+						 .startActivities();
+					finish();
+				} else {
+					// This activity is part of the application's task, so simply
+					// navigate up to the hierarchical parent activity.
+					NavUtils.navigateUpTo(this, upIntent);
+				}
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

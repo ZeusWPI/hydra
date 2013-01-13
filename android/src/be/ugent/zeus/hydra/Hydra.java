@@ -2,6 +2,7 @@ package be.ugent.zeus.hydra;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.UpdaterService;
@@ -25,7 +26,9 @@ public class Hydra extends AbstractSherlockActivity {
 	private void link(int id, final Class activity) {
 		findViewById(id).setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				startActivity(new Intent(Hydra.this, activity));
+				Intent intent = new Intent(Hydra.this, activity);
+				intent.putExtra("class", Hydra.class.getCanonicalName());
+				startActivity(intent);
 			}
 		});
 	}
@@ -34,21 +37,29 @@ public class Hydra extends AbstractSherlockActivity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
+
+		Log.d("BuildConfig.DEBUG:", Boolean.toString(BuildConfig.DEBUG));
+
 		// Zubhium
-		sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
-		if (sdk != null) {
-			// We are registering update receiver
-			sdk.registerUpdateReceiver(Hydra.this);
+		if (!BuildConfig.DEBUG) {
+
+			Log.d("Zubhium:", "Enable bugtracking");
+			sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
+			if (sdk != null) {
+				// We are registering update receiver
+				sdk.registerUpdateReceiver(Hydra.this);
+			}
 		}
 
 		// Google Analytics
 		if (BuildConfig.DEBUG) {
+			Log.d("GAnalytics:", "Tracking disabled");
 			GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
 			googleAnalytics.setAppOptOut(true);
 		}
 
 		// Home screen: disable the button
-		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 		setContentView(R.layout.hydra);
 		setTitle("");
