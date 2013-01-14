@@ -9,9 +9,13 @@
 #import "AppDelegate.h"
 #import "UIColor+AppColors.h"
 #import "DashboardViewController.h"
+#import "ShareKitConfigurator.h"
+
 #import <RestKit/RestKit.h>
+#import <ShareKit/SHK.h>
+#import <ShareKit/SHKConfiguration.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import "TestFlight.h"
+#import <TestFlight.h>
 
 #define kTestFlightToken @"5bc4ec5d-0095-4731-bb0c-ebb0b41ff14a"
 #define kGoogleAnalyticsToken @"UA-25444917-3"
@@ -33,17 +37,24 @@
 #endif
 
 #if DEBUG
+    // Change RKLogLevelInfo to RKLoglevelTrace for debugging
     RKLogConfigureByName("RestKit/Network", RKLogLevelInfo);
     RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelInfo);
-#else
-    RKLogConfigureByName("RestKit/Network", RKLogLevelWarning);
-    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelWarning);
 #endif
 
-    // Check for internet connectivity
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
-                                                 name:RKReachabilityWasDeterminedNotification object:nil];
-    [RKReachabilityObserver reachabilityObserverForInternet];
+    // Configure some parts of the application asynchronously
+    dispatch_queue_t async = dispatch_queue_create(NULL, NULL);
+    dispatch_async(async, ^{
+        // Check for internet connectivity
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
+                                                     name:RKReachabilityWasDeterminedNotification object:nil];
+        [RKReachabilityObserver reachabilityObserverForInternet];
+
+        // Configure ShareKit
+        ShareKitConfigurator *config = [[ShareKitConfigurator alloc] init];
+        [SHKConfiguration sharedInstanceWithConfigurator:config];
+        [SHK flushOfflineQueue];
+    });
 
     // Create and setup controllers
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];
@@ -53,6 +64,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:self.navController];
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 

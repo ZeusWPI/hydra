@@ -63,6 +63,8 @@
 		F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F557EA45163431FC00635CDD /* schamper-bg@2x.png */; };
 		F55895C415B60F450001B399 /* RestoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C315B60F450001B399 /* RestoMenu.m */; };
 		F55895C715B610140001B399 /* RestoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C615B610130001B399 /* RestoStore.m */; };
+		F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */; };
+		F55E89F516A4B928008595CB /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F55E89F416A4B928008595CB /* ShareKit.bundle */; };
 		F56D766C1699ED3B002CF245 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D76681699ED3B002CF245 /* Icon-Small.png */; };
 		F56D766D1699ED3B002CF245 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D76691699ED3B002CF245 /* Icon-Small@2x.png */; };
 		F56D766E1699ED3B002CF245 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D766A1699ED3B002CF245 /* Icon.png */; };
@@ -242,6 +244,9 @@
 		F55895C315B60F450001B399 /* RestoMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenu.m; sourceTree = "<group>"; };
 		F55895C515B6100C0001B399 /* RestoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoStore.h; sourceTree = "<group>"; };
 		F55895C615B610130001B399 /* RestoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoStore.m; sourceTree = "<group>"; };
+		F55E89EA16A4AF8E008595CB /* ShareKitConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareKitConfigurator.h; sourceTree = "<group>"; };
+		F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareKitConfigurator.m; sourceTree = "<group>"; };
+		F55E89F416A4B928008595CB /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = "<group>"; };
 		F56D76681699ED3B002CF245 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		F56D76691699ED3B002CF245 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		F56D766A1699ED3B002CF245 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -535,7 +540,7 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		F59CEE9716A189290038FD24 /* Facebook */ = {
+		F59CEE9716A189290038FD24 /* Social */ = {
 			isa = PBXGroup;
 			children = (
 				90C532A916A325A200857EB0 /* FacebookEvent.h */,
@@ -544,8 +549,10 @@
 				F59CEE8216A188050038FD24 /* FacebookLogin.m */,
 				F59CEE8616A188050038FD24 /* FBEventView.h */,
 				F59CEE8716A188050038FD24 /* FBEventView.m */,
+				F55E89EA16A4AF8E008595CB /* ShareKitConfigurator.h */,
+				F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */,
 			);
-			name = Facebook;
+			name = Social;
 			sourceTree = "<group>";
 		};
 		F59D170615BD7CE500B6F892 /* Resources */ = {
@@ -619,7 +626,7 @@
 				F53A5E8316700B28009EA4CC /* MediaApplication.m */,
 				F57CB9DB15B84C4E00D87CB3 /* Categories */,
 				3B059BF215B99B4800B4C1DA /* Custom views */,
-				F59CEE9716A189290038FD24 /* Facebook */,
+				F59CEE9716A189290038FD24 /* Social */,
 				F5EBF11F159E09C700EB5D26 /* Models */,
 				3B93FBA01630942500C962DC /* Urgent */,
 				F5EBF119159E04B500EB5D26 /* ViewControllers */,
@@ -666,6 +673,7 @@
 		F5CFDF851631597E008CBF98 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				F55E89F416A4B928008595CB /* ShareKit.bundle */,
 				F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */,
 				F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */,
 				F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */,
@@ -893,6 +901,7 @@
 				F50A6086169A0EBC0048B919 /* iTunesArtwork in Resources */,
 				F50C12CA169A222600F0D010 /* nowplaying-urgent.png in Resources */,
 				F59CEE8C16A188050038FD24 /* FacebookViewController.xib in Resources */,
+				F55E89F516A4B928008595CB /* ShareKit.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -991,6 +1000,7 @@
 				F59CEE8B16A188050038FD24 /* FacebookViewController.m in Sources */,
 				F59CEE8D16A188050038FD24 /* FBEventView.m in Sources */,
 				90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */,
+				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
