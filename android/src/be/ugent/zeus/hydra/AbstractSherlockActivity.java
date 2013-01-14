@@ -34,13 +34,15 @@ public class AbstractSherlockActivity extends SherlockActivity {
 				// This is called when the Home (Up) button is pressed
 				// in the Action Bar.
 				Intent upIntent = new Intent(this, Hydra.class); // Default to Hydra
-				try {
-					Log.d("Up-button functionality", getIntent().getStringExtra("class"));
-					upIntent = new Intent(this, Class.forName(getIntent().getStringExtra("class")));
-				} catch (NullPointerException ex) {
-					// This may not be nice, but it does work. Avoids a LOT of duplicated code.
-				} catch (ClassNotFoundException ex) {
+				
+				if (getIntent().getStringExtra("class") != null) {
+					try {
+						Log.d("Up-button functionality", getIntent().getStringExtra("class"));
+						upIntent = new Intent(this, Class.forName(getIntent().getStringExtra("class")));
+					} catch (ClassNotFoundException ex) {
+					}
 				}
+				
 				if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
 					// This activity is not part of the application's task, so create a new task
 					// with a synthesized back stack.

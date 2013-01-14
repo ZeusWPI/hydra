@@ -60,6 +60,7 @@ public class Hydra extends AbstractSherlockActivity {
 
 		// Home screen: disable the button
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		getSupportActionBar().setHomeButtonEnabled(false);
 
 		setContentView(R.layout.hydra);
 		setTitle("");
