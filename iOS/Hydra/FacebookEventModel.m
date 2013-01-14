@@ -40,8 +40,7 @@ NSString *const FacebookEventModelDidUpdateNotification = @"FacebookEventModelDi
 
 - (FacebookEvent*)createNewEvent:(NSString*)eventID
 {
-    FacebookEvent *event = [[FacebookEvent alloc] init];
-    [event configureWithEventID:eventID];
+    FacebookEvent *event = [[FacebookEvent alloc] initWithEventID:eventID];
     self.events[eventID] = event;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:FacebookEventModelDidUpdateNotification object:self];

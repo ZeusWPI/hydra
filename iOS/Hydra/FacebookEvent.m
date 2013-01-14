@@ -11,17 +11,23 @@
 #import <FacebookSDK.h>
 
 #define kUpdateInterval 60*60 //Every hour
+
+NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNotification";
+
 @implementation FacebookEvent
 
--(void)configureWithEventID:(NSString *)eventID
+-(FacebookEvent*)initWithEventID:(NSString *)eventID
 {
-    self.eventID = eventID;
-    self.imageURL = nil;
-    self.attendees = nil;
-    self.friendsAttending = nil;
-    self.lastUpdated = nil;
-    self.userAttending = NO;
-    [self requestInfo];
+    if (self = [super init]){
+        self.eventID = eventID;
+        self.imageURL = nil;
+        self.attendees = nil;
+        self.friendsAttending = nil;
+        self.lastUpdated = nil;
+        self.userAttending = NO;
+        [self requestInfo];
+    }
+    return self;
 }
 
 -(void)requestInfo
@@ -42,34 +48,36 @@
 
     if([self usersInfoPermission])
        {
-    [conn addRequest:[self createFriendsAttendingRequest] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (error){
-            NSLog(@"Error: %@", [error localizedDescription]);
-        }else{
-            [self addAttendingFriends:result];
-        }}];
-
+  
     [conn addRequest:[self createUserAttendingRequest] completionHandler:^(FBRequestConnection *connection,
                                                       id result,
                                                       NSError *error) {
         if (error) {
             NSLog(@"Error: %@", [error localizedDescription]);
         } else {
-            NSLog(@"Result userInfo: %@", result);
-            NSArray *arr = (NSArray*)[result objectForKey:@"data"];
-            BOOL attending = [arr count] == 1 ? YES : NO;
+            //NSLog(@"Result userInfo: %@", result);
+            NSArray *obj = (NSArray*)[result objectForKey:@"data"];
+            VLog(obj);
+            
+            BOOL attending = [obj count] == 1 ? YES : NO;
             if (attending){
-                NSString *str = [arr[0] objectForKey:@"rsvp_status"];
-                if ([str rangeOfString:@"attending"].location == NSNotFound){
+                VLog([obj[0] objectForKey:@"rsvp_status"]);
+                
+                NSString *str = (NSString*)[obj[0] objectForKey:@"rsvp_status"];
+                if ([str rangeOfString:@"attend"].location == NSNotFound){
                     attending = NO;
                 }
-        DLog(@"RsvpStatus %@", str);
-        DLog(@"%d",
-             attending);
             }
             self.userAttending = attending;
         }
     }];
+           [conn addRequest:[self createFriendsAttendingRequest] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+               if (error){
+                   NSLog(@"Error: %@", [error localizedDescription]);
+               }else{
+                   [self addAttendingFriends:result];
+               }}];
+
        }
     [conn start];
 }
@@ -115,11 +123,9 @@
     if ([res count]){
         NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:[res count]];
         for (id<FBGraphObject> obj in res){
-            VLog(obj);
             NSString *name = (NSString*)[obj objectForKey:@"name"];
             NSString *uid = (NSString*)[obj objectForKey:@"uid"];
             FacebookEventFriends *friend = [[FacebookEventFriends alloc] initWithName:name andUserID:uid];
-            VLog(friend);
             [arr addObject:friend];
         }
         self.friendsAttending = (NSArray*)arr;
@@ -127,7 +133,7 @@
         self.friendsAttending = [[NSArray alloc] initWithObjects:nil];
     }
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:FacebookEventModelDidUpdateNotification object:[FacebookEventModel sharedModel]];
+    [center postNotificationName:FacebookEventDidUpdateNotification object:self];
 }
 
 #pragma mark Updating
@@ -139,6 +145,7 @@
 }
 
 #pragma mark Permissions
+// checks if a user is logged on
 -(BOOL)usersInfoPermission
 {
     if ([[FBSession activeSession] isOpen]) {
@@ -166,7 +173,6 @@
                      [sender setHidden:YES];
                  }
                  if (!error) {
-                     // If permissions granted, publish the story
                  }
              }];
         }

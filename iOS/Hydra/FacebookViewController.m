@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reloadView) name:FacebookEventModelDidUpdateNotification
+    [center addObserver:self selector:@selector(reloadView) name:FacebookEventDidUpdateNotification
                  object:nil];
     
     [super viewDidLoad];

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const FacebookEventDidUpdateNotification;
+
 @interface FacebookEvent : NSObject
 @property (strong, nonatomic) NSString *eventID;
 @property (strong, nonatomic) NSString *imageURL;
@@ -16,7 +18,7 @@
 @property (strong, nonatomic) NSDate *lastUpdated;
 @property (nonatomic) BOOL userAttending;
 
--(void)configureWithEventID:(NSString*)eventID;
+-(FacebookEvent*)initWithEventID:(NSString*)eventID;
 -(void)postUserAttendsEvent:(id)sender;
 
 @end

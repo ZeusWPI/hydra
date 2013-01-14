@@ -115,7 +115,7 @@
             if([self.event.friendsAttending count] > maxJ*i+j){
                 FBProfilePictureView *profilePic= [[FBProfilePictureView alloc] initWithFrame:CGRectMake(i*kSquareSize, j*kSquareSize, kSquareSize, kSquareSize)];
                 FacebookEventFriends *friend = self.event.friendsAttending[maxJ*i+j];
-                NSLog(@"Index: %d, van %@",maxJ*i+j, friend.uid);
+                //NSLog(@"Index: %d, van %@",maxJ*i+j, friend.uid);
                 [profilePic setProfileID:friend.uid];
                 [gridView addSubview:profilePic];
             }
