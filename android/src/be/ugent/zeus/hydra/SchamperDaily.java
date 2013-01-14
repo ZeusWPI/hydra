@@ -99,6 +99,7 @@ public class SchamperDaily extends AbstractSherlockListActivity {
 
     // Launch a new activity
     Intent intent = new Intent(this, SchamperDailyItem.class);
+    intent.putExtra("class", this.getClass().getCanonicalName());
     intent.putExtra("item", item);
     startActivity(intent);
   }
