@@ -24,7 +24,8 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
 		Item item = (Item) getIntent().getSerializableExtra("item");
 
 
-		String date = String.format(new SimpleDateFormat("dd MMM yyyy hh:mm").format(item.pubDate));
+		String date = String.format(
+			 new SimpleDateFormat("dd MMM yyyy hh:mm", getResources().getConfiguration().locale).format(item.pubDate));
 
 		String html =
 			   "<head>"

@@ -17,6 +17,7 @@ import be.ugent.zeus.hydra.data.Menu;
 import be.ugent.zeus.hydra.data.services.MenuService;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -74,7 +75,7 @@ public class MenuAdapter extends ResultReceiver {
     } else if (isTodayWithOffset(date, 1)) {
       return context.getString(R.string.tomorrow);
     }
-    return new SimpleDateFormat("EEEE dd MMM").format(date.getTime());
+    return new SimpleDateFormat("EEEE dd MMM", context.getResources().getConfiguration().locale).format(date.getTime());
   }
 
   public TextView getTab() {

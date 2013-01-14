@@ -39,7 +39,8 @@ public class NewsList extends ArrayAdapter<NewsItem> {
 
 		String postedBy = getContext().getResources().getString(R.string.posted_by);
 		TextView association = (TextView) row.findViewById(R.id.news_item_association);
-		association.setText(String.format(postedBy, Html.fromHtml(item.club), new SimpleDateFormat("EEEE dd MMM yyyy hh:mm").format(item.date)));
+		association.setText(String.format(postedBy, Html.fromHtml(item.club), 
+			 new SimpleDateFormat("EEEE dd MMM yyyy hh:mm", parent.getContext().getResources().getConfiguration().locale).format(item.date)));
 
 		TextView shorttxt = (TextView) row.findViewById(R.id.news_item_short);
 		shorttxt.setText(Html.fromHtml(item.description));

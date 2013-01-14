@@ -37,7 +37,9 @@ public class Hydra extends AbstractSherlockActivity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
-
+		// Change the localisation to Belgium
+		Localisation.updateLanguage(getApplicationContext());
+		
 		Log.d("BuildConfig.DEBUG:", Boolean.toString(BuildConfig.DEBUG));
 
 		// Zubhium

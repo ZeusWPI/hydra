@@ -57,7 +57,8 @@ public class Calendar extends AbstractSherlockActivity {
     public CalendarTabAdapter() {
       dates = getViewableDates();
       for (java.util.Calendar date : dates) {
-        List<Activity> activities = ActivityCache.getInstance(Calendar.this).get(new SimpleDateFormat("dd-MM-yyyy").format(date.getTime()));
+        List<Activity> activities = ActivityCache.getInstance(Calendar.this).get(
+		  new SimpleDateFormat("dd-MM-yyyy").format(date.getTime()));
 
         /*
          * if (activities == null || activities.isEmpty()) {
@@ -140,7 +141,7 @@ public class Calendar extends AbstractSherlockActivity {
     } else if (isTodayWithOffset(date, 1)) {
       return getString(R.string.tomorrow);
     }
-    return new SimpleDateFormat("EEEE dd MMM").format(date.getTime());
+    return new SimpleDateFormat("EEEE dd MMM", getResources().getConfiguration().locale).format(date.getTime());
   }
 
   private boolean isTodayWithOffset(java.util.Calendar date, int offset) {
