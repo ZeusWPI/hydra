@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HFBEvent.h"
+#import "FacebookEvent.h"
 
 @interface FBEventView : UIView
 
-@property (strong, nonatomic) HFBEvent *event;
+@property (strong, nonatomic) FacebookEvent *event;
 
-- (void)configureWithEvent:(HFBEvent*)event;
+- (void)configureWithEvent:(FacebookEvent*)event;
 - (void)reloadData;
 @end

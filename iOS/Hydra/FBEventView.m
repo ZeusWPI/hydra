@@ -33,7 +33,7 @@
     return self;
 }
 
-- (void)configureWithEvent:(HFBEvent*)event
+- (void)configureWithEvent:(FacebookEvent*)event
 {
     if (event != nil){
         self.event = event;
@@ -114,7 +114,7 @@
         for (j=0; j < maxJ; j++){
             if([self.event.friendsAttending count] > maxJ*i+j){
                 FBProfilePictureView *profilePic= [[FBProfilePictureView alloc] initWithFrame:CGRectMake(i*kSquareSize, j*kSquareSize, kSquareSize, kSquareSize)];
-                HFBEventFriends *friend = self.event.friendsAttending[maxJ*i+j];
+                FacebookEventFriends *friend = self.event.friendsAttending[maxJ*i+j];
                 NSLog(@"Index: %d, van %@",maxJ*i+j, friend.uid);
                 [profilePic setProfileID:friend.uid];
                 [gridView addSubview:profilePic];

@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Zeus WPI. All rights reserved.
 //
 
-#import "HFBEvent.h"
-#import "HFBEventModel.h"
+#import "FacebookEvent.h"
+#import "FacebookEventModel.h"
 #import <FacebookSDK.h>
 
 #define kUpdateInterval 60*60 //Every hour
-@implementation HFBEvent
+@implementation FacebookEvent
 
 -(void)configureWithEventID:(NSString *)eventID
 {
@@ -118,7 +118,7 @@
             VLog(obj);
             NSString *name = (NSString*)[obj objectForKey:@"name"];
             NSString *uid = (NSString*)[obj objectForKey:@"uid"];
-            HFBEventFriends *friend = [[HFBEventFriends alloc] initWithName:name andUserID:uid];
+            FacebookEventFriends *friend = [[FacebookEventFriends alloc] initWithName:name andUserID:uid];
             VLog(friend);
             [arr addObject:friend];
         }
@@ -127,7 +127,7 @@
         self.friendsAttending = [[NSArray alloc] initWithObjects:nil];
     }
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:HFBEventModelDidUpdateNotification object:[HFBEventModel sharedModel]];
+    [center postNotificationName:FacebookEventModelDidUpdateNotification object:[FacebookEventModel sharedModel]];
 }
 
 #pragma mark Updating
@@ -188,9 +188,9 @@
 
 @end
 
-@implementation HFBEventFriends
+@implementation FacebookEventFriends
 
--(HFBEventFriends*)initWithName:(NSString*)name andUserID:(NSString*)uid
+-(FacebookEventFriends*)initWithName:(NSString*)name andUserID:(NSString*)uid
 {
     if(self = [super init]){
         self.name = name;

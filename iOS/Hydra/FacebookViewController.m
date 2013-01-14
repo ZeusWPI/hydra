@@ -10,7 +10,7 @@
 #import "FacebookLogin.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "FBEventView.h"
-#import "HFBEventModel.h"
+#import "FacebookEventModel.h"
 
 @interface FacebookViewController ()
 @property (nonatomic) FBEventView *eventView;
@@ -21,7 +21,7 @@
 - (void)viewDidLoad
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reloadView) name:HFBEventModelDidUpdateNotification
+    [center addObserver:self selector:@selector(reloadView) name:FacebookEventModelDidUpdateNotification
                  object:nil];
     
     [super viewDidLoad];
@@ -59,8 +59,6 @@
 -(void)reloadView
 {
     DLog(@"Reloading data eventview");
-    //HFBEventModel *mod = [HFBEventModel sharedModel];
-    //[self.eventView configureWithEvent:[mod eventForEventID:@"171216039688617"]];
     [self.eventView reloadData];
 }
 
@@ -70,7 +68,7 @@
     self.logOutButton.hidden = NO;
 
     FBEventView *eventView = [[FBEventView alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 300)];
-    HFBEventModel *mod = [HFBEventModel sharedModel];
+    FacebookEventModel *mod = [FacebookEventModel sharedModel];
     [eventView configureWithEvent:[mod eventForEventID:@"171216039688617"]];
     [self.view addSubview:eventView];
     self.eventView = eventView;

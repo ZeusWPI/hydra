@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HFBEvent : NSObject
+@interface FacebookEvent : NSObject
 @property (strong, nonatomic) NSString *eventID;
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *attendees;
@@ -21,10 +21,10 @@
 
 @end
 
-@interface HFBEventFriends : NSObject
+@interface FacebookEventFriends : NSObject
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *uid;
 
--(HFBEventFriends*)initWithName:(NSString*)name andUserID:(NSString*)uid;
+-(FacebookEventFriends*)initWithName:(NSString*)name andUserID:(NSString*)uid;
 @end
