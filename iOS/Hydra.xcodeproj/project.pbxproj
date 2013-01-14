@@ -19,6 +19,8 @@
 		3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FBAB16309E2100C962DC /* AVFoundation.framework */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
+		90C532A716A3258C00857EB0 /* HFBEventModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532A616A3258C00857EB0 /* HFBEventModel.m */; };
+		90C532AB16A325A200857EB0 /* HFBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* HFBEvent.m */; };
 		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
 		90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegendItem.m */; };
 		90F0525E168C663F004CAFFC /* RestoMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F0525C168C663F004CAFFC /* RestoMapViewController.m */; };
@@ -183,6 +185,10 @@
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
+		90C532A516A3258C00857EB0 /* HFBEventModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFBEventModel.h; sourceTree = "<group>"; };
+		90C532A616A3258C00857EB0 /* HFBEventModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFBEventModel.m; sourceTree = "<group>"; };
+		90C532A916A325A200857EB0 /* HFBEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFBEvent.h; sourceTree = "<group>"; };
+		90C532AA16A325A200857EB0 /* HFBEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFBEvent.m; sourceTree = "<group>"; };
 		90EB7BE11688BCC700A9582D /* RestoInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoInfoView.h; sourceTree = "<group>"; };
 		90EB7BE21688BCC700A9582D /* RestoInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoInfoView.m; sourceTree = "<group>"; };
 		90EB7BE81688ECE300A9582D /* RestoLegendItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegendItem.h; sourceTree = "<group>"; };
@@ -539,6 +545,10 @@
 				F59CEE8216A188050038FD24 /* FacebookLogin.m */,
 				F59CEE8616A188050038FD24 /* FBEventView.h */,
 				F59CEE8716A188050038FD24 /* FBEventView.m */,
+				90C532A516A3258C00857EB0 /* HFBEventModel.h */,
+				90C532A616A3258C00857EB0 /* HFBEventModel.m */,
+				90C532A916A325A200857EB0 /* HFBEvent.h */,
+				90C532AA16A325A200857EB0 /* HFBEvent.m */,
 			);
 			name = Facebook;
 			sourceTree = "<group>";
@@ -985,6 +995,8 @@
 				F59CEE8A16A188050038FD24 /* FacebookLogin.m in Sources */,
 				F59CEE8B16A188050038FD24 /* FacebookViewController.m in Sources */,
 				F59CEE8D16A188050038FD24 /* FBEventView.m in Sources */,
+				90C532A716A3258C00857EB0 /* HFBEventModel.m in Sources */,
+				90C532AB16A325A200857EB0 /* HFBEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

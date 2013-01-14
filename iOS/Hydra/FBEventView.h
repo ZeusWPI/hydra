@@ -7,14 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HFBEvent.h"
 
 @interface FBEventView : UIView
 
-@property (strong, nonatomic) NSArray *data;
-@property (strong, nonatomic) NSString *imageURL;
-@property (strong, nonatomic) NSString *attendees;
-@property (strong, nonatomic) NSString *eventID;
+@property (strong, nonatomic) HFBEvent *event;
 
-- (void)configureWithEventID:(NSString*)eventID;
-
+- (void)configureWithEvent:(HFBEvent*)event;
+- (void)reloadData;
 @end
