@@ -18,7 +18,7 @@ extern NSString *const FacebookEventDidUpdateNotification;
 @property (strong, nonatomic) NSDate *lastUpdated;
 @property (nonatomic) BOOL userAttending;
 
--(FacebookEvent*)initWithEventID:(NSString*)eventID;
+-(id)initWithEventID:(NSString*)eventID;
 -(void)postUserAttendsEvent:(id)sender;
 
 @end
@@ -28,5 +28,5 @@ extern NSString *const FacebookEventDidUpdateNotification;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *uid;
 
--(FacebookEventFriends*)initWithName:(NSString*)name andUserID:(NSString*)uid;
+-(id)initWithName:(NSString*)name andUserID:(NSString*)uid;
 @end

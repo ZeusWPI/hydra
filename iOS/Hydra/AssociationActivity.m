@@ -10,6 +10,7 @@
 #import "AssociationStore.h"
 #import <RestKit/RestKit.h>
 #import "NSDate+Utilities.h"
+#import "FacebookEvent.h"
 
 @interface AssociationActivity ()
 
@@ -43,6 +44,17 @@
     return [NSString stringWithFormat:@"<AssociationActivity: '%@' by %@>", self.title, self.associationId];
 }
 
+- (FacebookEvent*)facebookEvent
+{
+    if(!_facebookEvent) {
+        if (!self.eventID) {
+            self.eventID = @"171216039688617";
+        }
+        _facebookEvent = [[FacebookEvent alloc] initWithEventID:self.eventID];
+    }
+    return _facebookEvent;
+}
+
 - (void)setStart:(NSDate *)startTime
 {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -74,6 +86,7 @@
         self.associationId = [coder decodeObjectForKey:@"associationId"];
         self.title = [coder decodeObjectForKey:@"title"];
         self.location = [coder decodeObjectForKey:@"location"];
+        self.eventID = [coder decodeObjectForKey:@"eventID"];
         _start = [coder decodeObjectForKey:@"start"];
         _end = [coder decodeObjectForKey:@"end"];
     }
@@ -87,6 +100,7 @@
     [coder encodeObject:self.location forKey:@"location"];
     [coder encodeObject:self.start forKey:@"start"];
     [coder encodeObject:self.end forKey:@"end"];
+    [coder encodeObject:self.eventID forKey:@"eventID"];
 }
 
 @end

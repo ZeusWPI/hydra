@@ -7,8 +7,8 @@
 //
 
 #import "FacebookEvent.h"
-#import "FacebookEventModel.h"
 #import <FacebookSDK.h>
+#import "FacebookLogin.h"
 
 #define kUpdateInterval 60*60 //Every hour
 
@@ -16,15 +16,10 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
 @implementation FacebookEvent
 
--(FacebookEvent*)initWithEventID:(NSString *)eventID
+-(id)initWithEventID:(NSString *)eventID
 {
     if (self = [super init]){
         self.eventID = eventID;
-        self.imageURL = nil;
-        self.attendees = nil;
-        self.friendsAttending = nil;
-        self.lastUpdated = nil;
-        self.userAttending = NO;
         [self requestInfo];
     }
     return self;
@@ -42,8 +37,10 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         } else {
             NSLog(@"Result basic info: %@", result);
             NSArray *arr = (NSArray*)[result objectForKey:@"data"];
-            self.attendees = (NSString*)[arr[0] objectForKey:@"attending_count"];
-            self.imageURL = (NSString*)[arr[0] objectForKey:@"pic_big"];
+            if ([arr  count] > 0){
+                self.attendees = (NSString*)[arr[0] objectForKey:@"attending_count"];
+                self.imageURL = (NSString*)[arr[0] objectForKey:@"pic_big"];
+            }
         }}];
 
     if([self usersInfoPermission])
@@ -150,6 +147,9 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 {
     if ([[FBSession activeSession] isOpen]) {
         return YES;
+    }else {
+        FacebookLogin* login = [FacebookLogin sharedLogin];
+        return [login openSessionWithAllowLoginUI:YES];
     }
     return NO;
 }
@@ -196,7 +196,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
 @implementation FacebookEventFriends
 
--(FacebookEventFriends*)initWithName:(NSString*)name andUserID:(NSString*)uid
+-(id)initWithName:(NSString*)name andUserID:(NSString*)uid
 {
     if(self = [super init]){
         self.name = name;

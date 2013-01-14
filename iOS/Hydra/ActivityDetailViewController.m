@@ -12,9 +12,11 @@
 #import "NSDateFormatter+AppLocale.h"
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
+#import "FacebookEvent.h"
 
 #define kInfoSection 0
 #define KActionSection 1
+#define kFaceBookSection 2
 
 #define kTitleRow 0
 #define kAssociationRow 1
@@ -46,6 +48,9 @@
 {
     [super viewDidLoad];
     self.title = @"Detail";
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(reloadData) name:FacebookEventDidUpdateNotification
+                 object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,19 +111,37 @@
 
     fields[kLocationRow] = self.activity.location ? self.activity.location : @"";
 
+    
+
     self.fields = fields;
+}
+
+- (void)reloadData
+{
+    DLog(@"reloadData");
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == kInfoSection ? 4 : 1;
+    //return section == kInfoSection ? 4 : 1;
+    if ( section == kInfoSection ){
+        return 4;
+    }else if ( section == KActionSection ){
+        return 1;
+    }else if ( section == kFaceBookSection ){
+        return 1;
+    }
+
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    // TODO: add test if facebook is availble 
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -188,7 +211,7 @@
             return cell;
         }
     }
-    else {
+    else if(indexPath.section == KActionSection){
         static NSString *CellIdentifier = @"ActivityDetailButtonCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (!cell) {
@@ -200,6 +223,19 @@
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
         return cell;
+    }else {
+        static NSString *CellIdentifier = @"FacebookDetailButtonCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:CellIdentifier];
+            cell.textLabel.font = [UIFont systemFontOfSize:12];
+            cell.textLabel.textAlignment = UITextAlignmentCenter;
+        }
+        DLog(@"Attendees: %@", self.activity.facebookEvent.attendees);
+        cell.textLabel.text = [NSString stringWithFormat:@"Er zijn %@ mensen die komen.", self.activity.facebookEvent.attendees];
+        return cell;
+
     }
 }
 

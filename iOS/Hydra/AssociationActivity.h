@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKObjectMappingProvider, Association;
+@class RKObjectMappingProvider, Association, FacebookEvent;
 
 @interface AssociationActivity : NSObject <NSCoding>
 
@@ -17,6 +17,8 @@
 @property (nonatomic, strong) NSString *location;
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;
+@property (nonatomic, strong) NSString *eventID;
+@property (nonatomic, strong) FacebookEvent *facebookEvent;
 
 @property (nonatomic, strong, readonly) Association *association;
 
