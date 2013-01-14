@@ -1,7 +1,11 @@
 body {
   font-family: Helvetica;
-  margin: 8px;
   font-size: 14px;
+  margin: 8px;
+}
+
+.nomargin {
+  margin: 0px;
 }
 
 h2 {
@@ -15,8 +19,10 @@ table {
   width: 100%;
 }
 
-table.sports { margin: -10px -8px 0 -8px; width: 320px; }
-table.hours { margin: 0 -6px 10px -6px; width: 316px; }
+table.sports { width: 100%; }
+table.hours { margin: 0 0 10px 0; width: 100%; }
+
+table.sports.td, table.sports.tr { width: 100%;}
 
 table td {
   padding: 8px 4px;
@@ -33,7 +39,7 @@ table a {
   border-bottom: 1px solid #444;
 }
 
-table tr.even { background: #ced6e0; }
+table.sports tr:nth-child(2n) { background: #ced6e0; }
 
 table.hours td {
   vertical-align: middle;
