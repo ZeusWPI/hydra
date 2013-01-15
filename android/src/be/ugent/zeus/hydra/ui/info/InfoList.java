@@ -2,7 +2,6 @@ package be.ugent.zeus.hydra.ui.info;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
