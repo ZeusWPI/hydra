@@ -90,7 +90,7 @@
 - (void)shareButtonTapped:(id)sender
 {
     // Available since iOS6
-    if (false && [UIActivityViewController class]) {
+    if ([UIActivityViewController class]) {
         NSArray *items = @[ self.article.title, [NSURL URLWithString:self.article.link] ];
         NSArray *activities = @[ [[TUSafariActivity alloc] init] ];
 

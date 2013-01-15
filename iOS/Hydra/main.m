@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AppDelegate.h"
-
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
+        // Force language
+        [[NSUserDefaults standardUserDefaults] setValue:@[@"nl"] forKey:@"AppleLanguages"];
         return UIApplicationMain(argc, argv, @"MediaApplication", @"AppDelegate");
     }
 }
