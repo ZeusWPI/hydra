@@ -37,7 +37,7 @@ import be.ugent.zeus.hydra.ui.schamper.ChannelAdapter;
  *
  * @author Thomas Meire
  */
-public class SchamperDaily extends SherlockListActivity {
+public class SchamperDaily extends AbstractSherlockListActivity {
 
   private static final long REFRESH_TIMEOUT = 24 * 60 * 60 * 1000;
   private ChannelCache cache;
@@ -99,6 +99,7 @@ public class SchamperDaily extends SherlockListActivity {
 
     // Launch a new activity
     Intent intent = new Intent(this, SchamperDailyItem.class);
+    intent.putExtra("class", this.getClass().getCanonicalName());
     intent.putExtra("item", item);
     startActivity(intent);
   }
@@ -173,15 +174,4 @@ public class SchamperDaily extends SherlockListActivity {
     
   }  
 
-  @Override
-  public void onStart() {
-    super.onStart();
-    EasyTracker.getInstance().activityStart(this); // Add this method.
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-    EasyTracker.getInstance().activityStop(this); // Add this method.
-  }
 }

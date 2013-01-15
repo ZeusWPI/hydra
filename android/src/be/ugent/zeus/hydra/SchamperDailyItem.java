@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
  *
  * @author Thomas Meire
  */
-public class SchamperDailyItem extends SherlockActivity {
+public class SchamperDailyItem extends AbstractSherlockActivity {
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -24,10 +24,12 @@ public class SchamperDailyItem extends SherlockActivity {
 		Item item = (Item) getIntent().getSerializableExtra("item");
 
 
-		String date = String.format(new SimpleDateFormat("dd MMM yyyy hh:mm").format(item.pubDate));
+		String date = String.format(
+			 new SimpleDateFormat("dd MMM yyyy hh:mm", getResources().getConfiguration().locale).format(item.pubDate));
 
 		String html =
 			   "<head>"
+			 + "	<meta http-equiv='content-type' content='text/html; charset=utf-8' />"
 			 + "	<link rel='stylesheet' type='text/css' href='schamper.css' />"
 			 + "</head>"
 			 + "<body>"

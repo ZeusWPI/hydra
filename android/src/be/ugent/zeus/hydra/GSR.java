@@ -24,7 +24,7 @@ import be.ugent.zeus.hydra.data.services.HTTPIntentService;
  *
  * @author blackskad
  */
-public class GSR extends SherlockListActivity {
+public class GSR extends AbstractSherlockListActivity {
 
   public static final String CACHE_FILE = "gsr";
   public static final String CACHE_KEY = "gsrItemList";
@@ -104,16 +104,4 @@ public class GSR extends SherlockListActivity {
       }
     }
   }  
-
-  @Override
-  public void onStart() {
-    super.onStart();
-//    EasyTracker.getInstance().activityStart(this); // Add this method.
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-//    EasyTracker.getInstance().activityStop(this); // Add this method.
-  }
 }

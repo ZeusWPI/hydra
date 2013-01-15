@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author blackskad
  */
-public class News extends SherlockListActivity {
+public class News extends AbstractSherlockListActivity {
 
   @Override
   public void onCreate(Bundle icicle) {
@@ -45,19 +45,8 @@ public class News extends SherlockListActivity {
 
     // Launch a new activity
     Intent intent = new Intent(this, NewsItemActivity.class);
+    intent.putExtra("class", this.getClass().getCanonicalName());
     intent.putExtra("item", item);
     startActivity(intent);
   }  
-
-  @Override
-  public void onStart() {
-    super.onStart();
-//    EasyTracker.getInstance().activityStart(this); // Add this method.
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-//    EasyTracker.getInstance().activityStop(this); // Add this method.
-  }
 }

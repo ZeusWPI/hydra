@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author blackskad
  */
-public class Calendar extends SherlockActivity {
+public class Calendar extends AbstractSherlockActivity {
 
   private static final int VIEWABLE_DATES = 7;
   private ViewPager pager;
@@ -57,7 +57,8 @@ public class Calendar extends SherlockActivity {
     public CalendarTabAdapter() {
       dates = getViewableDates();
       for (java.util.Calendar date : dates) {
-        List<Activity> activities = ActivityCache.getInstance(Calendar.this).get(new SimpleDateFormat("dd-MM-yyyy").format(date.getTime()));
+        List<Activity> activities = ActivityCache.getInstance(Calendar.this).get(
+		  new SimpleDateFormat("dd-MM-yyyy").format(date.getTime()));
 
         /*
          * if (activities == null || activities.isEmpty()) {
@@ -140,7 +141,7 @@ public class Calendar extends SherlockActivity {
     } else if (isTodayWithOffset(date, 1)) {
       return getString(R.string.tomorrow);
     }
-    return new SimpleDateFormat("EEEE dd MMM").format(date.getTime());
+    return new SimpleDateFormat("EEEE dd MMM", getResources().getConfiguration().locale).format(date.getTime());
   }
 
   private boolean isTodayWithOffset(java.util.Calendar date, int offset) {
@@ -148,17 +149,5 @@ public class Calendar extends SherlockActivity {
 
     ref.add(java.util.Calendar.DATE, offset);
     return ref.get(java.util.Calendar.DAY_OF_MONTH) == date.get(java.util.Calendar.DAY_OF_MONTH);
-  }
-  
-  @Override
-  public void onStart() {
-    super.onStart();
-//    EasyTracker.getInstance().activityStart(this); // Add this method.
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-//    EasyTracker.getInstance().activityStop(this); // Add this method.
   }
 }
