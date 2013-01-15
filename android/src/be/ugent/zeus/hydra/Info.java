@@ -62,11 +62,15 @@ public class Info extends AbstractSherlockListActivity {
 			NSArrayWrapper wrapper = new NSArrayWrapper((NSArray) action);
 
 			Intent intent = new Intent(this, Info.class);
-			intent.putExtra("class", this.getClass().getSimpleName());
+			intent.putExtra("class", this.getClass().getCanonicalName());
 			intent.putExtra("content", wrapper);
 			startActivity(intent);
 		} else if ((action = item.objectForKey("url")) != null || (action = item.objectForKey("url-android")) != null) {
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(((NSString) action).toString())));
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(((NSString) action).toString()));
+			// Handle external activities as described in 
+			// http://developer.android.com/training/implementing-navigation/descendant.html#external-activities
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+			startActivity(intent);
 		} else if ((action = item.objectForKey("html")) != null) {
 			Intent intent = new Intent(this, InfoWebActivity.class);
 			intent.putExtra("class", this.getClass().getCanonicalName());
