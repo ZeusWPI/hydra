@@ -2,6 +2,7 @@ package be.ugent.zeus.hydra.ui.info;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,14 +59,21 @@ public class InfoList implements ListAdapter {
     double density = context.getResources().getDisplayMetrics().density;
     text.setHeight((int) (48.0 * density + 0.5));
 
+    int iconid = 0;
+    int extid = 0;
+    
     NSString image = (NSString) dict.objectForKey("image");
     if (image != null) {
-      int id = context.getResources().getIdentifier("drawable/" + image.toString().replace("-", "_"), null, "be.ugent.zeus.hydra");
-      if (id != 0) {
-        text.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0);
-        text.setCompoundDrawablePadding(10);
-      }
+      iconid = context.getResources().getIdentifier("drawable/" + image.toString().replace("-", "_"), null, "be.ugent.zeus.hydra");
     }
+    
+    if(dict.objectForKey("url") != null || dict.objectForKey("url-android") != null) {
+        extid = context.getResources().getIdentifier("drawable/external_link", null, "be.ugent.zeus.hydra");
+    }
+    
+    text.setCompoundDrawablesWithIntrinsicBounds(iconid, 0, extid, 0);
+    text.setCompoundDrawablePadding(10);
+    
     return text;
   }
 
