@@ -56,6 +56,7 @@ public class GSR extends AbstractSherlockListActivity {
     // Launch a new activity
     Intent intent = new Intent(this, NewsItemActivity.class);
     intent.putExtra("item", item);
+    intent.putExtra("class", this.getClass().getCanonicalName());
     startActivity(intent);
   }
 
