@@ -13,7 +13,9 @@
 	<style name="Hydra.ActionBar" parent="Widget.Sherlock.Light.ActionBar"> 
 		<item name="background">@drawable/actionbar_background</item>
 		<item name="titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
+		<item name="icon">@drawable/logo</item>
     
+		<item name="android:icon">@drawable/logo</item>
 		<item name="android:background">@drawable/actionbar_background</item>
 		<item name="android:textColor">@color/ugent_white</item>
 		<item name="android:titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
