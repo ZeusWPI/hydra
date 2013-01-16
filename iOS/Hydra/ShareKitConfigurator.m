@@ -42,16 +42,6 @@
 	return @"http://student.ugent.be/hydra/twitter_callback";
 }
 
-- (NSString*)bitLyLogin
-{
-	return @"hydraapp";
-}
-
-- (NSString*)bitLyKey
-{
-	return @"R_33014dfdfc5e6dd6901ad2e45e85bf4e";
-}
-
 - (UIColor *)barTintForView:(UIViewController*)vc
 {
     return [UIColor hydraTintColor];

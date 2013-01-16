@@ -43,7 +43,7 @@
 #endif
 
     // Configure some parts of the application asynchronously
-    dispatch_queue_t async = dispatch_queue_create(NULL, NULL);
+    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, NULL);
     dispatch_async(async, ^{
         // Check for internet connectivity
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)

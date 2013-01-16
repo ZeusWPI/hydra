@@ -14,24 +14,8 @@
 	</array>
 	<key>services</key>
 	<array>
-		<string>SHKKippt</string>
-		<string>SHKReadability</string>
-		<string>SHKEvernote</string>
-		<string>SHKDelicious</string>
 		<string>SHKTwitter</string>
-		<string>SHKDiigo</string>
-		<string>SHKPinboard</string>
-		<string>SHKGoogleReader</string>
 		<string>SHKFacebook</string>
-		<string>SHKVkontakte</string>
-		<string>SHKReadItLater</string>
-		<string>SHKInstapaper</string>
-		<string>SHKTumblr</string>
-		<string>SHKFlickr</string>
-		<string>SHKLinkedIn</string>
-		<string>SHKFoursquareV2</string>
-		<string>SHKInstagram</string>
-		<string>SHKSinaWeibo</string>
 	</array>
 </dict>
 </plist>

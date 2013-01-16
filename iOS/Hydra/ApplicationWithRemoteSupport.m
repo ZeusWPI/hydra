@@ -1,15 +1,15 @@
 //
-//  Application.m
+//  ApplicationWithRemoteSupport.m
 //  Hydra
 //
 //  Created by Pieter De Baets on 06/12/12.
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 
-#import "MediaApplication.h"
+#import "ApplicationWithRemoteSupport.h"
 #import "UrgentPlayer.h"
 
-@implementation MediaApplication
+@implementation ApplicationWithRemoteSupport
 
 - (id)init
 {

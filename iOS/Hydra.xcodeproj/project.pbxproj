@@ -44,7 +44,7 @@
 		F533DABA16315E87001269A8 /* schamper.css in Resources */ = {isa = PBXBuildFile; fileRef = F533DAB916315E87001269A8 /* schamper.css */; };
 		F533DABC163163E2001269A8 /* schamper-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F533DABB163163E2001269A8 /* schamper-bg.png */; };
 		F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F53A5E7516700242009EA4CC /* UrgentViewController.m */; };
-		F53A5E8416700B29009EA4CC /* MediaApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = F53A5E8316700B28009EA4CC /* MediaApplication.m */; };
+		F53A5E8416700B29009EA4CC /* ApplicationWithRemoteSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = F53A5E8316700B28009EA4CC /* ApplicationWithRemoteSupport.m */; };
 		F53D248A159DB50800F408AB /* header-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D2489159DB50800F408AB /* header-bg.png */; };
 		F53D248C159DB51A00F408AB /* hydra.png in Resources */ = {isa = PBXBuildFile; fileRef = F53D248B159DB51A00F408AB /* hydra.png */; };
 		F54AB5A3166FF510006C1189 /* button-urgent-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F54AB59F166FF510006C1189 /* button-urgent-active.png */; };
@@ -221,8 +221,8 @@
 		F533DABB163163E2001269A8 /* schamper-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schamper-bg.png"; sourceTree = "<group>"; };
 		F53A5E7416700242009EA4CC /* UrgentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrgentViewController.h; sourceTree = "<group>"; };
 		F53A5E7516700242009EA4CC /* UrgentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrgentViewController.m; sourceTree = "<group>"; };
-		F53A5E8216700B28009EA4CC /* MediaApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaApplication.h; sourceTree = "<group>"; };
-		F53A5E8316700B28009EA4CC /* MediaApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaApplication.m; sourceTree = "<group>"; };
+		F53A5E8216700B28009EA4CC /* ApplicationWithRemoteSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationWithRemoteSupport.h; sourceTree = "<group>"; };
+		F53A5E8316700B28009EA4CC /* ApplicationWithRemoteSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationWithRemoteSupport.m; sourceTree = "<group>"; };
 		F53D2489159DB50800F408AB /* header-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-bg.png"; sourceTree = "<group>"; };
 		F53D248B159DB51A00F408AB /* hydra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hydra.png; sourceTree = "<group>"; };
 		F54AB59F166FF510006C1189 /* button-urgent-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-urgent-active.png"; sourceTree = "<group>"; };
@@ -429,13 +429,52 @@
 			name = Resto;
 			sourceTree = "<group>";
 		};
-		3B93FBA01630942500C962DC /* Urgent */ = {
+		3B93FBA01630942500C962DC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F5F43C4215BAD2EB003C2AAE /* AssociationStore.h */,
+				F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */,
+				F55895C515B6100C0001B399 /* RestoStore.h */,
+				F55895C615B610130001B399 /* RestoStore.m */,
+				F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */,
+				F5D36BC015B5BDA500B6E017 /* SchamperStore.m */,
 				3B93FBA81630969900C962DC /* UrgentPlayer.h */,
 				3B93FBA91630969900C962DC /* UrgentPlayer.m */,
 			);
-			name = Urgent;
+			name = Services;
+			sourceTree = "<group>";
+		};
+		F536359C16A69C86000A50C4 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				F5016BA71627665800BBDB0A /* ActivityDetailViewController.h */,
+				F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */,
+				F5016BA4162756F300BBDB0A /* ActivityViewController.h */,
+				F5016BA5162756F300BBDB0A /* ActivityViewController.m */,
+			);
+			name = Activities;
+			sourceTree = "<group>";
+		};
+		F536359E16A69C94000A50C4 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				395C117B1627437000B99F9B /* NewsItemViewController.h */,
+				395C117C1627437000B99F9B /* NewsItemViewController.m */,
+				395C117816272D8000B99F9B /* NewsViewController.h */,
+				395C117916272D8000B99F9B /* NewsViewController.m */,
+			);
+			name = News;
+			sourceTree = "<group>";
+		};
+		F536359F16A69C9D000A50C4 /* Schamper */ = {
+			isa = PBXGroup;
+			children = (
+				90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */,
+				90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */,
+				F5EBF11A159E092300EB5D26 /* SchamperViewController.h */,
+				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
+			);
+			name = Schamper;
 			sourceTree = "<group>";
 		};
 		F53D2488159DB4DB00F408AB /* Images */ = {
@@ -622,13 +661,13 @@
 			children = (
 				F5BAEC991518868200F6A1B1 /* AppDelegate.h */,
 				F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */,
-				F53A5E8216700B28009EA4CC /* MediaApplication.h */,
-				F53A5E8316700B28009EA4CC /* MediaApplication.m */,
+				F53A5E8216700B28009EA4CC /* ApplicationWithRemoteSupport.h */,
+				F53A5E8316700B28009EA4CC /* ApplicationWithRemoteSupport.m */,
 				F57CB9DB15B84C4E00D87CB3 /* Categories */,
 				3B059BF215B99B4800B4C1DA /* Custom views */,
-				F59CEE9716A189290038FD24 /* Social */,
 				F5EBF11F159E09C700EB5D26 /* Models */,
-				3B93FBA01630942500C962DC /* Urgent */,
+				3B93FBA01630942500C962DC /* Services */,
+				F59CEE9716A189290038FD24 /* Social */,
 				F5EBF119159E04B500EB5D26 /* ViewControllers */,
 			);
 			path = Hydra;
@@ -686,10 +725,7 @@
 		F5EBF119159E04B500EB5D26 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				F5016BA71627665800BBDB0A /* ActivityDetailViewController.h */,
-				F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */,
-				F5016BA4162756F300BBDB0A /* ActivityViewController.h */,
-				F5016BA5162756F300BBDB0A /* ActivityViewController.m */,
+				F536359C16A69C86000A50C4 /* Activities */,
 				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
 				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
 				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
@@ -698,15 +734,9 @@
 				F59CEE8516A188050038FD24 /* FacebookViewController.xib */,
 				3B436DF615B8915200984D3F /* InfoViewController.h */,
 				3B436DF715B8915200984D3F /* InfoViewController.m */,
-				395C117B1627437000B99F9B /* NewsItemViewController.h */,
-				395C117C1627437000B99F9B /* NewsItemViewController.m */,
-				395C117816272D8000B99F9B /* NewsViewController.h */,
-				395C117916272D8000B99F9B /* NewsViewController.m */,
+				F536359E16A69C94000A50C4 /* News */,
 				3B7AD3B615BC82EB0026BB62 /* Resto */,
-				90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */,
-				90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */,
-				F5EBF11A159E092300EB5D26 /* SchamperViewController.h */,
-				F5EBF11B159E092300EB5D26 /* SchamperViewController.m */,
+				F536359F16A69C9D000A50C4 /* Schamper */,
 				F53A5E7416700242009EA4CC /* UrgentViewController.h */,
 				F53A5E7516700242009EA4CC /* UrgentViewController.m */,
 				F56F139E169731FE003D4447 /* UrgentViewController.xib */,
@@ -725,20 +755,14 @@
 				F5F43C4015BAD2CC003C2AAE /* AssociationActivity.m */,
 				F5F43C3C15BAD246003C2AAE /* AssociationNewsItem.h */,
 				F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */,
-				F5F43C4215BAD2EB003C2AAE /* AssociationStore.h */,
-				F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */,
 				90EB7BE81688ECE300A9582D /* RestoLegendItem.h */,
 				90EB7BE91688ECE300A9582D /* RestoLegendItem.m */,
 				90F05264168C7D19004CAFFC /* RestoLocation.h */,
 				90F05265168C7D19004CAFFC /* RestoLocation.m */,
 				F55895C215B60F450001B399 /* RestoMenu.h */,
 				F55895C315B60F450001B399 /* RestoMenu.m */,
-				F55895C515B6100C0001B399 /* RestoStore.h */,
-				F55895C615B610130001B399 /* RestoStore.m */,
 				F5EBF14A159E1E3600EB5D26 /* SchamperArticle.h */,
 				F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */,
-				F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */,
-				F5D36BC015B5BDA500B6E017 /* SchamperStore.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -990,7 +1014,7 @@
 				3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */,
 				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,
 				F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */,
-				F53A5E8416700B29009EA4CC /* MediaApplication.m in Sources */,
+				F53A5E8416700B29009EA4CC /* ApplicationWithRemoteSupport.m in Sources */,
 				F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */,
 				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
 				90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */,

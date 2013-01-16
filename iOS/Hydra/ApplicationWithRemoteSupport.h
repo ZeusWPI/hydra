@@ -1,5 +1,5 @@
 //
-//  Application.h
+//  ApplicationWithRemoteSupport.h
 //  Hydra
 //
 //  Created by Pieter De Baets on 06/12/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MediaApplication : UIApplication
+@interface ApplicationWithRemoteSupport : UIApplication
 
 @end
