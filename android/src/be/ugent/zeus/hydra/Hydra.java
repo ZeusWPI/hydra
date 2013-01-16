@@ -6,11 +6,10 @@ import android.util.Log;
 import android.view.View;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.UpdaterService;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.zubhium.ZubhiumSDK;
 
@@ -37,9 +36,13 @@ public class Hydra extends AbstractSherlockActivity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
+		// Center the image using a custom layout
+		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		getSupportActionBar().setCustomView(R.layout.abs_main);
+
 		// Change the localisation to Belgium
 		Localisation.updateLanguage(getApplicationContext());
-		
+
 		Log.d("BuildConfig.DEBUG:", Boolean.toString(BuildConfig.DEBUG));
 
 		// Zubhium
