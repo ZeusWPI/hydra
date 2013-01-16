@@ -8,6 +8,8 @@ Hydra 104 v-1.0.beta
 - Added the date and the clubname to News and GSR
 - Added an icon for links to external activities
 - Customized the main menu view to match the iOS view
+- Changed the icon a bit
+- New icon in the actionbar which matches the style better
 
 Hydra 103 v-1.0-beta Jan. 12, 2013, 7:15 a.m.
 Fixed the Info > Bibliotheek to crash. It should redirect to the playstore instead of the appstore now.
