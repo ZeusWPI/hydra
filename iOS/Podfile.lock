@@ -76,7 +76,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Facebook-iOS-SDK: 5fc068ebfd8c8c9b0fad476bc36dbbf1fffeebc8
   FileMD5Hash: c3b015e6fb293eea0a0c276747f61f20408c2644
-  GoogleAnalytics-iOS-SDK: 1c699283af9e57051bdbff753c53ea787b1371aa
+  GoogleAnalytics-iOS-SDK: faed6c1fafabd3363fe7fe39779381274ac771b9
   ISO8601DateFormatter: dc05a2481edf49668d85d3ff8c466c32eb544780
   JSONKit: 3d4708953ea7ae399a49777372d8b060a43ddd27
   LibComponentLogging-Core: 344f6045453ca28fa8f2909eb9624ec9d15ef256
@@ -92,8 +92,8 @@ SPEC CHECKSUMS:
   RestKit/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
   SOCKit: 179515c1a621dd5652a60e9be02ea4adcd25bc9b
   SSKeychain: bae692a4354f48691ca3463a121dc8060f781a7d
-  ShareKit/Facebook: ed286a7795a11346fe27d2ea3b550dbfcd7841bf
-  ShareKit/Twitter: ed286a7795a11346fe27d2ea3b550dbfcd7841bf
+  ShareKit/Facebook: c999dfae0ced83b0f64796724b43711ede9257c3
+  ShareKit/Twitter: c999dfae0ced83b0f64796724b43711ede9257c3
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
   TestFlightSDK: 29e194fb148e4861f92e4c1195b9697e1f3ad19a
   cocoa-oauth: 8f4c8b77c77ac660de37f8125557c4ec09b0118a

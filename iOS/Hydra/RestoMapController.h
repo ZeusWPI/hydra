@@ -1,5 +1,5 @@
 //
-//  RestoMapViewController.h
+//  RestoMapController.h
 //  Hydra
 //
 //  Created by Feliciaan De Palmenaer on 27/12/12.
@@ -10,13 +10,12 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface RestoMapViewController : UIViewController <MKMapViewDelegate>
+@interface RestoMapController : UIViewController <MKMapViewDelegate>
 {
     IBOutlet MKMapView *worldView;
     IBOutlet UIBarButtonItem *returnToInfo;
 }
 
 - (IBAction)togglePickerView:(id)sender;
-- (IBAction)returnToInfoView:(id)sender;
 
 @end

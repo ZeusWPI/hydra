@@ -1,17 +1,19 @@
 //
-//  RestoMapViewController.m
+//  RestoMapController.m
 //  Hydra
 //
 //  Created by Feliciaan De Palmenaer on 27/12/12.
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 
-#import "RestoMapViewController.h"
+#import "RestoMapController.h"
+#import "RestoMenuController.h"
 #import "RestoLocation.h"
 #import "RestoStore.h"
+#import "UINavigationController+ReplaceController.h"
 
 #define kUpdateDistance 100.0
-@interface RestoMapViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface RestoMapController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) NSArray *restos;
@@ -22,37 +24,41 @@
 
 @end
 
-@implementation RestoMapViewController
+@implementation RestoMapController
 
 #pragma mark Setting up the view & viewcontroller
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Resto Kaart";
+
+    // Add button to navigation bar
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self action:@selector(menuButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = menuButton;
 
     // Add restos to map
     [self reloadRestos];
     [worldView addAnnotations:self.restos];
 
-    // Check for updates
+    // Register for updates
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reloadRestos) name:RestoStoreDidUpdateInfoNotification
-                 object:nil];
-    
-    self.selectedResto = self.restos[0];    
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [center addObserver:self selector:@selector(reloadRestos)
+                   name:RestoStoreDidUpdateInfoNotification object:nil];
+    self.selectedResto = self.restos[0];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     GAI_Track(@"Resto Kaart");
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 # pragma mark - Buttons
@@ -64,7 +70,7 @@
                                                     cancelButtonTitle:nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:nil];
-    
+
     // Create pickerView
     self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
     self.pickerView.showsSelectionIndicator = YES;
@@ -84,7 +90,7 @@
     pickerToolbar.tintColor = [UIColor hydraTintColor];
     pickerToolbar.items = @[flexSpace, doneBtn];
     [actionSheet addSubview:pickerToolbar];
-    
+
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 320, 22)];
     title.font = [UIFont boldSystemFontOfSize:18];
     title.text = @"Restos";
@@ -94,7 +100,7 @@
     title.shadowOffset = CGSizeMake(1, 1);
     title.backgroundColor = [UIColor clearColor];
     [actionSheet addSubview:title];
-    
+
     [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
 
@@ -103,13 +109,16 @@
     [self.pickerView selectRow:row inComponent:0 animated:NO];
 }
 
-- (IBAction)routeToClosestResto:(id)sender
+- (void)routeToClosestResto:(id)sender
 {
     [self openMapWithRestoLocation:self.restos[0]];
 }
 
-- (IBAction)returnToInfoView:(id)sender{
-    [self dismissModalViewControllerAnimated:YES];
+- (void)menuButtonTapped:(id)sender
+{
+    RestoMenuController *menuController = [[RestoMenuController alloc] init];
+    [self.navigationController H_replaceViewControllerWith:menuController
+                                                   options:UIViewAnimationOptionTransitionFlipFromLeft];
 }
 
 #pragma mark - Pickerview delegate
@@ -160,7 +169,7 @@
 }
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{    
+{
     RestoLocation *resto = self.restos[row];
     self.selectedResto = resto;
 
@@ -185,7 +194,7 @@
 
     // Map
     MKMapRect mapRect = MKMapRectMake(fmin(mtr.x, mbl.x), fmin(mtr.y, mbl.y), fabs(mtr.x-mbl.x)*1.2, fabs(mtr.y-mbl.y)*1.2);
-    
+
     MKCoordinateRegion region = MKCoordinateRegionForMapRect(mapRect);
     [worldView setRegion:region animated:YES];
 }
@@ -230,7 +239,7 @@
 }
 #pragma mark - Map delegate
 
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     if ((self.prevLocation == nil) || [userLocation.location distanceFromLocation:self.prevLocation.location] > kUpdateDistance){
         self.prevLocation = userLocation;

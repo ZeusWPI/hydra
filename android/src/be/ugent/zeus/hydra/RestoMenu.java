@@ -23,6 +23,7 @@ import be.ugent.zeus.hydra.data.caches.RestoCache;
 import be.ugent.zeus.hydra.ui.SwipeyTabs;
 import be.ugent.zeus.hydra.ui.SwipeyTabsAdapter;
 import be.ugent.zeus.hydra.ui.menu.MenuAdapter;
+import com.actionbarsherlock.app.ActionBar;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -51,7 +52,7 @@ public class RestoMenu extends AbstractSherlockActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
+    
     prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
     int old = prefs.getInt(VERSION, 0);

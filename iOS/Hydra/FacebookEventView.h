@@ -1,5 +1,5 @@
 //
-//  FBEventView.h
+//  FacebookEventView.h
 //  Hydra
 //
 //  Created by Feliciaan De Palmenaer on 7/01/13.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FacebookEvent.h"
 
-@interface FBEventView : UIView
+@interface FacebookEventView : UIView
 
 @property (strong, nonatomic) FacebookEvent *event;
 

@@ -9,11 +9,11 @@
 #import "FacebookViewController.h"
 #import "FacebookLogin.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "FBEventView.h"
+#import "FacebookEventView.h"
 #import "FacebookEvent.h"
 
 @interface FacebookViewController ()
-@property (nonatomic) FBEventView *eventView;
+@property (nonatomic) FacebookEventView *eventView;
 @end
 
 @implementation FacebookViewController
@@ -67,7 +67,7 @@
     self.logInButton.hidden = YES;
     self.logOutButton.hidden = NO;
 
-    FBEventView *eventView = [[FBEventView alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 300)];
+    FacebookEventView *eventView = [[FacebookEventView alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 300)];
     FacebookEvent *fbEvent = [[FacebookEvent alloc] initWithEventID:@"171216039688617"];
     [eventView configureWithEvent:fbEvent];
     [self.view addSubview:eventView];

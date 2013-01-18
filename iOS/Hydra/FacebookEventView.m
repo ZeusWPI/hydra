@@ -1,5 +1,5 @@
 //
-//  FBEventView.m
+//  FacebookEventView.m
 //  Hydra
 //
 //  Created by Feliciaan De Palmenaer on 7/01/13.
@@ -7,11 +7,11 @@
 //
 
 #import <FacebookSDK/FacebookSDK.h>
-#import "FBEventView.h"
+#import "FacebookEventView.h"
 
 #define kSquareSize 30
 
-@interface FBEventView()
+@interface FacebookEventView ()
 
 @property (strong, nonatomic) UIButton *attendingButton;
 @property (strong, nonatomic) UIImageView *picView;
@@ -19,10 +19,9 @@
 @property (strong, nonatomic) UILabel *eventFriends;
 @property (strong, nonatomic) UIView *gridView;
 
-
 @end
 
-@implementation FBEventView
+@implementation FacebookEventView
 
 - (id)initWithFrame:(CGRect)frame
 {
