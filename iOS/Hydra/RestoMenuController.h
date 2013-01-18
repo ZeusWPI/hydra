@@ -1,5 +1,5 @@
 //
-//  RestoViewController.h
+//  RestoMenuController.h
 //  Hydra
 //
 //  Created by Pieter De Baets on 29/06/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RestoViewController : UIViewController
+@interface RestoMenuController : UIViewController
 
 @end

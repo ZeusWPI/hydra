@@ -50,7 +50,7 @@
     self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window setRootViewController:self.navController];
+    self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
     return YES;
 }

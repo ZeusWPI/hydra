@@ -7,7 +7,7 @@
 //
 
 #import "DashboardViewController.h"
-#import "RestoViewController.h"
+#import "RestoMenuController.h"
 #import "SchamperViewController.h"
 #import "InfoViewController.h"
 #import "AssociationStore.h"
@@ -109,7 +109,7 @@
 - (IBAction)showResto:(id)sender
 {
     DLog(@"Dashboard switching to Resto");
-    UIViewController *c = [[RestoViewController alloc] init];
+    UIViewController *c = [[RestoMenuController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
 

@@ -1,23 +1,24 @@
 //
-//  RestoViewController.m
+//  RestoMenuController.m
 //  Hydra
 //
 //  Created by Pieter De Baets on 29/06/12.
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 #import <QuartzCore/QuartzCore.h>
-#import "RestoViewController.h"
+#import "RestoMenuController.h"
 #import "RestoStore.h"
 #import "RestoMenu.h"
 #import "UIColor+AppColors.h"
 #import "NSDate+Utilities.h"
 #import "RestoMenuView.h"
 #import "RestoInfoView.h"
-#import "RestoMapViewController.h"
+#import "RestoMapController.h"
+#import "UINavigationController+ReplaceController.h"
 
 #define kRestoDaysShown 5
 
-@interface RestoViewController () <UIScrollViewDelegate>
+@interface RestoMenuController () <UIScrollViewDelegate>
 
 @property (nonatomic, unsafe_unretained) UIScrollView *scrollView;
 @property (nonatomic, unsafe_unretained) UIPageControl *pageControl;
@@ -32,7 +33,7 @@
 
 @end
 
-@implementation RestoViewController
+@implementation RestoMenuController
 
 #pragma mark Setting up the view & viewcontroller
 
@@ -41,6 +42,7 @@
     CGRect bounds = [UIScreen mainScreen].bounds;
     self.view = [[UIView alloc] initWithFrame:bounds];
     self.view.backgroundColor = [UIColor hydraBackgroundColor];
+    self.title = @"Resto Menu";
 
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:bounds];
     scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -65,13 +67,17 @@
     self.menuSheetA = [self addSheet:[[RestoMenuView alloc] initWithFrame:sheetFrame]];
     self.menuSheetB = [self addSheet:[[RestoMenuView alloc] initWithFrame:sheetFrame]];
     self.infoSheet = [self addSheet:[[RestoInfoView alloc] initWithFrame:sheetFrame]];
+
+    // Add button to navigation bar
+    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc] initWithTitle:@"Kaart"
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self action:@selector(mapButtonTapped:)];
+    [self.navigationItem setRightBarButtonItem:mapButton];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.navigationItem.title = @"Resto Menu";
 
     // Check for updates
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -96,18 +102,25 @@
     self.pageControlUsed = 0;
     self.pageControl.numberOfPages = self.days.count + 1;
     self.pageControl.currentPage = 1;
+}
 
-    // add NavigationBar button
-    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc] initWithTitle:@"Kaart"
-                    style:UIBarButtonItemStylePlain target:self action:@selector(mapButtonTouched:)];
-    [self.navigationItem setRightBarButtonItem:mapButton];
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    GAI_Track(@"Resto Menu");
+}
+
+- (void)viewDidLayoutSubviews
+{
+    // Restyle the sheets to keep the shadow the right size
+    [self setupSheetStyle:self.menuSheetA];
+    [self setupSheetStyle:self.menuSheetB];
+    [self setupSheetStyle:self.infoSheet];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     // Nil weak references
     self.scrollView = nil;
@@ -116,6 +129,19 @@
     self.menuSheetA = nil;
     self.menuSheetB = nil;
 }
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Sheets
+#define kPageCornerRadius 10
 
 - (id)addSheet:(UIView *)contentView
 {
@@ -130,8 +156,6 @@
 
     return contentView;
 }
-
-#define kPageCornerRadius 10
 
 - (void)setupSheetStyle:(UIView *)contentView
 {
@@ -149,31 +173,13 @@
     contentView.layer.masksToBounds = YES;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    GAI_Track(@"Resto Menu");
-}
-
-- (void)viewDidLayoutSubviews
-{
-    // Restyle the sheets to keep the shadow the right size
-    [self setupSheetStyle:self.menuSheetA];
-    [self setupSheetStyle:self.menuSheetB];
-    [self setupSheetStyle:self.infoSheet];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 #pragma mark - Buttons
 
-- (void)mapButtonTouched:(UIButton *)sender
+- (void)mapButtonTapped:(id)sender
 {
-    UIViewController *c = [[RestoMapViewController alloc] init];
-    [self presentModalViewController:c animated:YES];
+    RestoMapController *mapController = [[RestoMapController alloc] init];
+    [self.navigationController H_replaceViewControllerWith:mapController
+                                                   options:UIViewAnimationOptionTransitionFlipFromRight];
 }
 
 #pragma mark - Loading days & menus

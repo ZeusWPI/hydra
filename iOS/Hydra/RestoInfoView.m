@@ -8,7 +8,7 @@
 
 #import "RestoInfoView.h"
 #import "RestoLegendItem.h"
-#import "RestoMapViewController.h"
+#import "RestoMapController.h"
 #import "RestoStore.h"
 #import "AppDelegate.h"
 
