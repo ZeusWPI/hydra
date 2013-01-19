@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <be.ugent.zeus.hydra.ui.DashboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/ugent_blue_light">
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:background="@color/ugent_blue_light">
       
-  <LinearLayout style="@style/DashboardButtonHolder">
-    <Button android:id="@+id/home_btn_news"
-            style="@style/DashboardButton"
-            android:background="@drawable/news" />
-  </LinearLayout>
-  <LinearLayout style="@style/DashboardButtonHolder">
-    <Button android:id="@+id/home_btn_calendar"
-            style="@style/DashboardButton"
-            android:background="@drawable/activities" />
-  </LinearLayout>
-  <LinearLayout style="@style/DashboardButtonHolder">
-    <Button android:id="@+id/home_btn_info"
-            style="@style/DashboardButton"
-            android:background="@drawable/info" />
-  </LinearLayout>
-  <LinearLayout style="@style/DashboardButtonHolder">
-    <Button android:id="@+id/home_btn_menu"
-            style="@style/DashboardButton"
-            android:background="@drawable/resto" />
-  </LinearLayout>
-  <LinearLayout style="@style/DashboardButtonHolder">
-    <Button android:id="@+id/home_btn_gsr"
-            style="@style/DashboardButton"
-            android:background="@drawable/gsr" />
-  </LinearLayout>
-  <LinearLayout style="@style/DashboardButtonHolder">
-    <Button android:id="@+id/home_btn_schamper"
-            style="@style/DashboardButton"
-            android:background="@drawable/schamper" />
-  </LinearLayout>
+    <LinearLayout style="@style/DashboardButtonHolder">
+        <Button android:id="@+id/home_btn_news"
+                style="@style/DashboardButton"
+                android:background="@drawable/news" />
+    </LinearLayout>
+    <LinearLayout style="@style/DashboardButtonHolder">
+        <Button android:id="@+id/home_btn_calendar"
+                style="@style/DashboardButton"
+                android:background="@drawable/activities" />
+    </LinearLayout>
+    <LinearLayout style="@style/DashboardButtonHolder">
+        <Button android:id="@+id/home_btn_info"
+                style="@style/DashboardButton"
+                android:background="@drawable/info" />
+    </LinearLayout>
+    <LinearLayout style="@style/DashboardButtonHolder">
+        <Button android:id="@+id/home_btn_menu"
+                style="@style/DashboardButton"
+                android:background="@drawable/resto" />
+    </LinearLayout>
+    <LinearLayout style="@style/DashboardButtonHolder">
+        <Button android:id="@+id/home_btn_gsr"
+                style="@style/DashboardButton"
+                android:background="@drawable/gsr" />
+    </LinearLayout>
+    <LinearLayout style="@style/DashboardButtonHolder">
+        <Button android:id="@+id/home_btn_schamper"
+                style="@style/DashboardButton"
+                android:background="@drawable/schamper" />
+    </LinearLayout>
 </be.ugent.zeus.hydra.ui.DashboardLayout>

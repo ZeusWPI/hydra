@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="ugent_blue_dark">#0A1E60</color>
-  <color name="ugent_blue_medium">#5365A0</color>
-  <color name="ugent_blue_light">#DEE3EF</color>
-  <color name="ugent_yellow_dark">#FFB300</color>
-  <color name="ugent_yellow_light">#FFF3D6</color>
-  <color name="ugent_white">#EAEAEA</color>
+    <color name="ugent_blue_dark">#0A1E60</color>
+    <color name="ugent_blue_medium">#5365A0</color>
+    <color name="ugent_blue_light">#DEE3EF</color>
+    <color name="ugent_yellow_dark">#FFB300</color>
+    <color name="ugent_yellow_light">#FFF3D6</color>
+    <color name="ugent_white">#EAEAEA</color>
 </resources>

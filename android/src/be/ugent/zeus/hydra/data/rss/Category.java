@@ -8,11 +8,11 @@ import java.io.Serializable;
  */
 public class Category implements Serializable {
 
-  public String domain;
-  public String value;
+    public String domain;
+    public String value;
 
-  @Override
-  public String toString() {
-    return domain + " -> " + value;
-  }
+    @Override
+    public String toString() {
+        return domain + " -> " + value;
+    }
 }

@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resources>
-	<style name="Theme.Hydra.Light" parent="@style/Theme.Sherlock.Light">
-		<item name="actionBarStyle">@style/Hydra.ActionBar</item>
-		<item name="android:actionBarStyle">@style/Hydra.ActionBar</item>
-	</style>
-	<style name="Theme.Hydra.Light.CenteredBig" parent="@style/Theme.Sherlock.Light">
-		<item name="actionBarStyle">@style/Hydra.ActionBar.CenteredBig</item>
-		<item name="android:actionBarStyle">@style/Hydra.ActionBar.CenteredBig</item>
-	</style>
+    <style name="Theme.Hydra.Light" parent="@style/Theme.Sherlock.Light">
+        <item name="actionBarStyle">@style/Hydra.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Hydra.ActionBar</item>
+    </style>
+    <style name="Theme.Hydra.Light.CenteredBig" parent="@style/Theme.Sherlock.Light">
+        <item name="actionBarStyle">@style/Hydra.ActionBar.CenteredBig</item>
+        <item name="android:actionBarStyle">@style/Hydra.ActionBar.CenteredBig</item>
+    </style>
 
-	<style name="Hydra.ActionBar" parent="Widget.Sherlock.Light.ActionBar"> 
-		<item name="background">@drawable/actionbar_background</item>
-		<item name="titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
-		<item name="icon">@drawable/logo</item>
+    <style name="Hydra.ActionBar" parent="Widget.Sherlock.Light.ActionBar"> 
+        <item name="background">@drawable/actionbar_background</item>
+        <item name="titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
+        <item name="icon">@drawable/logo</item>
     
-		<item name="android:icon">@drawable/logo</item>
-		<item name="android:background">@drawable/actionbar_background</item>
-		<item name="android:textColor">@color/ugent_white</item>
-		<item name="android:titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
-	</style>
-	<style name="Hydra.ActionBar.CenteredBig" parent="Widget.Sherlock.Light.ActionBar"> 
-		<item name="background">@drawable/actionbar_background</item>
-		<item name="titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
-		<item name="height">80dip</item>
+        <item name="android:icon">@drawable/logo</item>
+        <item name="android:background">@drawable/actionbar_background</item>
+        <item name="android:textColor">@color/ugent_white</item>
+        <item name="android:titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
+    </style>
+    <style name="Hydra.ActionBar.CenteredBig" parent="Widget.Sherlock.Light.ActionBar"> 
+        <item name="background">@drawable/actionbar_background</item>
+        <item name="titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
+        <item name="height">80dip</item>
     
-		<item name="android:background">@drawable/actionbar_background</item>
-		<item name="android:textColor">@color/ugent_white</item>
-		<item name="android:titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
-		<item name="height">80dip</item>
-	</style>
+        <item name="android:background">@drawable/actionbar_background</item>
+        <item name="android:textColor">@color/ugent_white</item>
+        <item name="android:titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
+        <item name="height">80dip</item>
+    </style>
 
-	<style name="Hydra.ActionBar.TitleTextStyle" parent="@style/TextAppearance.Holo.Medium">
-		<item name="android:textColor">@color/ugent_yellow_light</item>
-	</style>
-	<style name="Hydra.ActionButton.Overflow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
-		<item name="android:src">@drawable/ic_menu_moreoverflow</item>
-	</style>	
+    <style name="Hydra.ActionBar.TitleTextStyle" parent="@style/TextAppearance.Holo.Medium">
+        <item name="android:textColor">@color/ugent_yellow_light</item>
+    </style>
+    <style name="Hydra.ActionButton.Overflow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_menu_moreoverflow</item>
+    </style>	
 	
-	<style name="DashboardButtonHolder">
-		<item name="android:layout_gravity">center</item>
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:gravity">center</item>
-		<item name="android:background">@null</item>
-		<item name="android:padding">10dip</item>
-	</style>
+    <style name="DashboardButtonHolder">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+        <item name="android:padding">10dip</item>
+    </style>
 
-	<style name="DashboardButton">
-		<item name="android:layout_gravity">center</item>
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:gravity">center</item>
-		<item name="android:background">@null</item>
-	</style>
+    <style name="DashboardButton">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+    </style>
 </resources>

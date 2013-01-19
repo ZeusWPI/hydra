@@ -19,94 +19,93 @@ import java.util.List;
  */
 public class Cache<T extends Serializable> {
 
-  private File dir;
+    private File dir;
 
-  public Cache(File dir) {
-    Log.i("[Cache]", dir.getAbsolutePath());
-    if (!dir.exists()) {
-      dir.mkdirs();
+    public Cache(File dir) {
+        Log.i("[Cache]", dir.getAbsolutePath());
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        this.dir = dir;
+        for (File f : dir.listFiles()) {
+            Log.i("[Cache]", "Found cached file " + f.getAbsolutePath());
+        }
     }
-    this.dir = dir;
-    for (File f : dir.listFiles()) {
-      Log.i("[Cache]", "Found cached file " + f.getAbsolutePath());
+
+    /**
+     *
+     * @param key
+     * @return the last modification date as milliseconds since 1970 or -1 of not found
+     */
+    public long lastModified(String key) {
+        File cached = new File(dir, key);
+        if (cached.exists()) {
+            return cached.lastModified();
+        }
+        return -1;
     }
-  }
 
-  /**
-   *
-   * @param key
-   * @return the last modification date as milliseconds since 1970 or -1 of not
-   * found
-   */
-  public long lastModified(String key) {
-    File cached = new File(dir, key);
-    if (cached.exists()) {
-      return cached.lastModified();
+    public T get(String key) {
+        long start = System.currentTimeMillis();
+        Log.i("[Cache]", "Retrieving item: " + key);
+        File cached = new File(dir, key);
+
+        ObjectInputStream stream = null;
+
+        try {
+            stream = new ObjectInputStream(new FileInputStream(cached));
+            T value = (T) stream.readObject();
+            stream.close();
+            Log.i("[Cache]", "Retrieval took " + (System.currentTimeMillis() - start));
+            return value;
+        } catch (Exception ex) {
+            Log.i("[Cache]", "Error reading object to cache " + key);
+            Log.i("[Cache]", ex.toString());
+        }
+        return null;
     }
-    return -1;
-  }
 
-  public T get(String key) {
-    long start = System.currentTimeMillis();
-    Log.i("[Cache]", "Retrieving item: " + key);
-    File cached = new File(dir, key);
+    public void put(String key, T value) {
+        Log.i("[Cache]", "Putting new item: " + key);
+        File cached = new File(dir, key);
 
-    ObjectInputStream stream = null;
-
-    try {
-      stream = new ObjectInputStream(new FileInputStream(cached));
-      T value = (T) stream.readObject();
-      stream.close();
-      Log.i("[Cache]", "Retrieval took " + (System.currentTimeMillis() - start));
-      return value;
-    } catch (Exception ex) {
-      Log.i("[Cache]", "Error reading object to cache " + key);
-      Log.i("[Cache]", ex.toString());
+        ObjectOutputStream stream = null;
+        try {
+            stream = new ObjectOutputStream(new FileOutputStream(cached));
+            stream.writeObject(value);
+            stream.close();
+        } catch (IOException ex) {
+            Log.i("[Cache]", "Error writing object to cache " + key);
+            Log.i("[Cache]", ex.getMessage());
+        }
     }
-    return null;
-  }
 
-  public void put(String key, T value) {
-    Log.i("[Cache]", "Putting new item: " + key);
-    File cached = new File(dir, key);
-
-    ObjectOutputStream stream = null;
-    try {
-      stream = new ObjectOutputStream(new FileOutputStream(cached));
-      stream.writeObject(value);
-      stream.close();
-    } catch (IOException ex) {
-      Log.i("[Cache]", "Error writing object to cache " + key);
-      Log.i("[Cache]", ex.getMessage());
+    public List<T> getAll() {
+        List<T> cached = new ArrayList<T>();
+        for (File f : dir.listFiles()) {
+            T item = get(f.getName());
+            if (item != null) {
+                cached.add(item);
+            }
+        }
+        return cached;
     }
-  }
 
-  public List<T> getAll() {
-    List<T> cached = new ArrayList<T>();
-    for (File f : dir.listFiles()) {
-      T item = get(f.getName());
-      if (item != null) {
-        cached.add(item);
-      }
+    public void invalidate(String key) {
+        File cached = new File(dir, key);
+        if (cached.exists()) {
+            cached.delete();
+        }
     }
-    return cached;
-  }
 
-  public void invalidate(String key) {
-    File cached = new File(dir, key);
-    if (cached.exists()) {
-      cached.delete();
+    public boolean exists(String key) {
+        File cached = new File(dir, key);
+        return cached.exists();
     }
-  }
 
-  public boolean exists(String key) {
-    File cached = new File(dir, key);
-    return cached.exists();
-  }
-
-  public void clear() {
-    for (File f : dir.listFiles()) {
-      f.delete();
+    public void clear() {
+        for (File f : dir.listFiles()) {
+            f.delete();
+        }
     }
-  }
 }

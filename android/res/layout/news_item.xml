@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		  android:orientation="vertical"
-		  android:layout_width="fill_parent"
-		  android:layout_height="wrap_content"
-		  android:paddingBottom="10dp"
-		  android:paddingRight="5dp"
-		  android:paddingLeft="5dp">
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingBottom="10dp"
+              android:paddingRight="5dp"
+              android:paddingLeft="5dp">
 
-	<TextView android:id="@+id/news_item_title"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="3dp"
-		    android:gravity="center_horizontal"
-		    android:textColor="@color/ugent_blue_dark"
-		    android:textStyle="bold"
-		    android:textSize="20dp">
-	</TextView>
+    <TextView android:id="@+id/news_item_title"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:layout_marginBottom="3dp"
+              android:gravity="center_horizontal"
+              android:textColor="@color/ugent_blue_dark"
+              android:textStyle="bold"
+              android:textSize="20dp">
+    </TextView>
 
 
-	<TextView android:id="@+id/news_item_info"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_marginTop="5dp"
-		    android:layout_marginBottom="3dp"
-		    android:gravity="center_horizontal">
-	</TextView>
+    <TextView android:id="@+id/news_item_info"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:layout_marginBottom="3dp"
+              android:gravity="center_horizontal">
+    </TextView>
 
-	<ScrollView android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:paddingTop="5dp">
+    <ScrollView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp">
 
-		<TextView android:id="@+id/news_item_content"
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content">
-		</TextView>
+        <TextView android:id="@+id/news_item_content"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        </TextView>
 
-	</ScrollView>
+    </ScrollView>
 </LinearLayout>

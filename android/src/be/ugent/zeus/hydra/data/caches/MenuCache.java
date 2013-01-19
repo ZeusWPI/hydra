@@ -10,18 +10,18 @@ import java.io.File;
  */
 public class MenuCache extends Cache<Menu> {
 
-  private static MenuCache cache;
+    private static MenuCache cache;
 
-  private MenuCache(File menuCacheDir) {
-    super(menuCacheDir);
-  }
-
-  public static synchronized MenuCache getInstance(Context context) {
-    if (cache == null) {
-      File cacheDir = context.getCacheDir();
-      File menuCacheDir = new File(cacheDir, "menu");
-      cache = new MenuCache(menuCacheDir);
+    private MenuCache(File menuCacheDir) {
+        super(menuCacheDir);
     }
-    return cache;
-  }
+
+    public static synchronized MenuCache getInstance(Context context) {
+        if (cache == null) {
+            File cacheDir = context.getCacheDir();
+            File menuCacheDir = new File(cacheDir, "menu");
+            cache = new MenuCache(menuCacheDir);
+        }
+        return cache;
+    }
 }

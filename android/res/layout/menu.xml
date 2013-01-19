@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:zeus="http://schemas.android.com/apk/res/be.ugent.zeus.hydra"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+              xmlns:zeus="http://schemas.android.com/apk/res/be.ugent.zeus.hydra"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
 
-  <be.ugent.zeus.hydra.ui.SwipeyTabs
-    android:id="@+id/tabs"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/ugent_blue_light"
-    zeus:bottomBarColor="@color/ugent_blue_dark"
-    zeus:tabTextColor="@color/ugent_blue_medium"
-    zeus:bottomBarHeight="3dip"
-    zeus:tabIndicatorHeight="3dip" />
+    <be.ugent.zeus.hydra.ui.SwipeyTabs
+        android:id="@+id/tabs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ugent_blue_light"
+        zeus:bottomBarColor="@color/ugent_blue_dark"
+        zeus:tabTextColor="@color/ugent_blue_medium"
+        zeus:bottomBarHeight="3dip"
+        zeus:tabIndicatorHeight="3dip" />
 
-  <android.support.v4.view.ViewPager
-    android:id="@+id/pager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

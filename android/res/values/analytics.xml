@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <resources>
-  <!--Replace placeholder ID with your tracking ID-->
-  <string name="ga_trackingId">UA-25444917-3</string>
+    <!--Replace placeholder ID with your tracking ID-->
+    <string name="ga_trackingId">UA-25444917-3</string>
 
-  <!--Enable Activity tracking-->
-  <bool name="ga_autoActivityTracking">true</bool>
+    <!--Enable Activity tracking-->
+    <bool name="ga_autoActivityTracking">true</bool>
 
-  <!-- The screen names that will appear in your reporting -->
-  <string name="be.ugent.zeus.hydra.Hydra">Home</string>
-  <string name="be.ugent.zeus.hydra.Info">Info</string>
-  <string name="be.ugent.zeus.hydra.News">News</string>
-  <string name="be.ugent.zeus.hydra.Calendar">Activities</string>
-  <string name="be.ugent.zeus.hydra.RestoMenu">Resto Menu</string>
-  <string name="be.ugent.zeus.hydra.SchamperDaily">Schamper</string>
-  <string name="be.ugent.zeus.hydra.GSR">GSR</string>
-  <!--  TODO: Add one for Urgent -->
+    <!-- The screen names that will appear in your reporting -->
+    <string name="be.ugent.zeus.hydra.Hydra">Home</string>
+    <string name="be.ugent.zeus.hydra.Info">Info</string>
+    <string name="be.ugent.zeus.hydra.News">News</string>
+    <string name="be.ugent.zeus.hydra.Calendar">Activities</string>
+    <string name="be.ugent.zeus.hydra.RestoMenu">Resto Menu</string>
+    <string name="be.ugent.zeus.hydra.SchamperDaily">Schamper</string>
+    <string name="be.ugent.zeus.hydra.GSR">GSR</string>
+    <!--  TODO: Add one for Urgent -->
   
-  <!--Enable automatic exception tracking-->
-  <bool name="ga_reportUncaughtExceptions">true</bool>
+    <!--Enable automatic exception tracking-->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
 </resources>
 

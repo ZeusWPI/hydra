@@ -12,16 +12,16 @@ import java.util.Locale;
 
 public class Localisation extends Application {
 
-	@Override
-	public void onCreate() {
-		updateLanguage(this);
-		super.onCreate();
-	}
+    @Override
+    public void onCreate() {
+        updateLanguage(this);
+        super.onCreate();
+    }
 
-	public static void updateLanguage(Context ctx) {
-		Configuration cfg = new Configuration();
-		cfg.locale = new Locale("nl", "BE");
+    public static void updateLanguage(Context ctx) {
+        Configuration cfg = new Configuration();
+        cfg.locale = new Locale("nl", "BE");
 
-		ctx.getResources().updateConfiguration(cfg, null);
-	}
+        ctx.getResources().updateConfiguration(cfg, null);
+    }
 }

@@ -5,23 +5,23 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
 
-  <be.ugent.zeus.hydra.ui.SwipeyTabs
-    android:id="@+id/tabs"
+    <be.ugent.zeus.hydra.ui.SwipeyTabs
+        android:id="@+id/tabs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ugent_blue_light"
+        zeus:bottomBarColor="@color/ugent_blue_dark"
+        zeus:tabTextColor="@color/ugent_blue_medium"
+        zeus:bottomBarHeight="3dip"
+        zeus:tabIndicatorHeight="3dip" />
+
+    <!--<ListView android:id="@android:id/list"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/ugent_blue_light"
-    zeus:bottomBarColor="@color/ugent_blue_dark"
-    zeus:tabTextColor="@color/ugent_blue_medium"
-    zeus:bottomBarHeight="3dip"
-    zeus:tabIndicatorHeight="3dip" />
+    android:layout_weight="1" /> -->
 
-  <!--<ListView android:id="@android:id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" /> -->
-
-  <android.support.v4.view.ViewPager
-    android:id="@+id/pager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

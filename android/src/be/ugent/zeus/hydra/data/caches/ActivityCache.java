@@ -11,18 +11,18 @@ import java.util.ArrayList;
  */
 public class ActivityCache extends Cache<ArrayList<Activity>> {
 
-  private static ActivityCache cache;
+    private static ActivityCache cache;
 
-  private ActivityCache(File activityCacheDir) {
-    super(activityCacheDir);
-  }
-
-  public static synchronized ActivityCache getInstance(Context context) {
-    if (cache == null) {
-      File cacheDir = context.getCacheDir();
-      File activityCacheDir = new File(cacheDir, "activity");
-      cache = new ActivityCache(activityCacheDir);
+    private ActivityCache(File activityCacheDir) {
+        super(activityCacheDir);
     }
-    return cache;
-  }
+
+    public static synchronized ActivityCache getInstance(Context context) {
+        if (cache == null) {
+            File cacheDir = context.getCacheDir();
+            File activityCacheDir = new File(cacheDir, "activity");
+            cache = new ActivityCache(activityCacheDir);
+        }
+        return cache;
+    }
 }

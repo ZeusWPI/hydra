@@ -15,38 +15,38 @@ import java.util.List;
  */
 public class RestoOverlay extends ItemizedOverlay {
 
-  private List<OverlayItem> items;
-  private Context context;
+    private List<OverlayItem> items;
+    private Context context;
 
-  public RestoOverlay(Context context, List<Resto> restos) {
-    super(boundCenterBottom(context.getResources().getDrawable(android.R.drawable.star_on)));
-    this.context = context;
+    public RestoOverlay(Context context, List<Resto> restos) {
+        super(boundCenterBottom(context.getResources().getDrawable(android.R.drawable.star_on)));
+        this.context = context;
 
-    items = new ArrayList<OverlayItem>();
-    for (Resto resto : restos) {
-      GeoPoint userPoint = new GeoPoint(resto.latitude, resto.longitude);
-      items.add(new OverlayItem(userPoint, resto.name, resto.address));
+        items = new ArrayList<OverlayItem>();
+        for (Resto resto : restos) {
+            GeoPoint userPoint = new GeoPoint(resto.latitude, resto.longitude);
+            items.add(new OverlayItem(userPoint, resto.name, resto.address));
+        }
+        populate();
     }
-    populate();
-  }
 
-  @Override
-  protected boolean onTap(int index) {
-    OverlayItem item = items.get(index);
-    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-    dialog.setTitle(item.getTitle());
-    dialog.setMessage(item.getSnippet());
-    dialog.show();
-    return true;
-  }
+    @Override
+    protected boolean onTap(int index) {
+        OverlayItem item = items.get(index);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle(item.getTitle());
+        dialog.setMessage(item.getSnippet());
+        dialog.show();
+        return true;
+    }
 
-  @Override
-  protected OverlayItem createItem(int i) {
-    return items.get(i);
-  }
+    @Override
+    protected OverlayItem createItem(int i) {
+        return items.get(i);
+    }
 
-  @Override
-  public int size() {
-    return items.size();
-  }
+    @Override
+    public int size() {
+        return items.size();
+    }
 }

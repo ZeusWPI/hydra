@@ -9,18 +9,18 @@ import be.ugent.zeus.hydra.data.caches.GSRCache;
 
 public class GSRIntentService extends AbstractNewsIntentService {
 
-  @Override
-  public boolean filter(String path) {
-    return path.startsWith(GSR.FILTER_PREFIX);
-  }
+    @Override
+    public boolean filter(String path) {
+        return path.startsWith(GSR.FILTER_PREFIX);
+    }
 
-  @Override
-  public String cacheKey() {
-    return GSR.CACHE_KEY;
-  }
+    @Override
+    public String cacheKey() {
+        return GSR.CACHE_KEY;
+    }
 
-  @Override
-  public Cache<ArrayList<NewsItem>> getCache() {
-    return GSRCache.getInstance(this);
-  }
+    @Override
+    public Cache<ArrayList<NewsItem>> getCache() {
+        return GSRCache.getInstance(this);
+    }
 }

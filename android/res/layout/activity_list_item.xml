@@ -7,19 +7,19 @@
               android:paddingBottom="10dp"
               android:paddingLeft="10dp">
 
-  <TextView android:id="@+id/activity_item_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="3dp"
-            android:textStyle="bold"
-            android:textSize="17sp" />
-  <TextView android:id="@+id/activity_item_time_location"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-  <TextView android:id="@+id/activity_item_association"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp" />
+    <TextView android:id="@+id/activity_item_title"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:layout_marginBottom="3dp"
+              android:textStyle="bold"
+              android:textSize="17sp" />
+    <TextView android:id="@+id/activity_item_time_location"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp" />
+    <TextView android:id="@+id/activity_item_association"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="3dp" />
 </LinearLayout>

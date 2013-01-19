@@ -8,16 +8,16 @@ import java.io.Serializable;
  */
 public class Product implements Serializable {
 
-  public String name;
-  public String price;
-  public Boolean recommended;
+    public String name;
+    public String price;
+    public Boolean recommended;
 
-  @Override
-  public String toString() {
-    String str = name + ": " + price;
-    if (recommended) {
-      str += " (recommended)";
+    @Override
+    public String toString() {
+        String str = name + ": " + price;
+        if (recommended) {
+            str += " (recommended)";
+        }
+        return str;
     }
-    return str;
-  }
 }
