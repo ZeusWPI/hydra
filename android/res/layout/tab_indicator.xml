@@ -26,6 +26,7 @@
           android:gravity="center"
           android:focusable="true"
           android:singleLine="true"
+          android:inputType="textNoSuggestions"
           android:capitalize="characters"
           android:textSize="14sp"
           android:textStyle="bold" />
