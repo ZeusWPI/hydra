@@ -1,36 +1,23 @@
 package be.ugent.zeus.hydra;
 
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.analytics.tracking.android.EasyTracker;
-
-import android.app.AlarmManager;
-import android.app.ListActivity;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-import be.ugent.zeus.hydra.R;
-import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.caches.ChannelCache;
-import be.ugent.zeus.hydra.data.receivers.SchamperDailyReceiver;
 import be.ugent.zeus.hydra.data.rss.Channel;
 import be.ugent.zeus.hydra.data.rss.Item;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.SchamperDailyService;
 import be.ugent.zeus.hydra.ui.schamper.ChannelAdapter;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  * TODO: add spinner while loading the feed similar to menu's
@@ -148,30 +135,5 @@ public class SchamperDaily extends AbstractSherlockListActivity {
       }
     }
   }
-
-  public static void scheduleRecurringUpdate(Context context) {
-    AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-    Intent intent = new Intent(context, SchamperDailyReceiver.class);
-    PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-
-    if (prefs.getBoolean("schamper_daily_auto_update", true)) {
-      // get the auto update timeout in minutes
-      int timeout = Integer.parseInt(prefs.getString("schamper_daily_auto_update_timeout", "60"));
-
-      // setup an alarm to refresh the feed every timeout minutes
-      am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), timeout * 60 * 1000, sender);
-
-      Log.d("[SchamperDaily]", "Scheduling recurring update alarm every " + timeout + " minutes.");
-    } else {
-      // cancel the alarm
-      am.cancel(sender);
-
-      Log.d("[SchamperDaily]", "Cancelled recurring update alarm.");
-    }
-    
-  }  
 
 }

@@ -11,7 +11,6 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 	<uses-sdk android:targetSdkVersion="17" android:minSdkVersion="8" />
 
@@ -39,12 +38,7 @@
 		<activity android:name=".RestoMenu" />
 		<activity android:name=".SchamperDaily" />
 		<activity android:name=".SchamperDailyItem" />
-		<receiver android:name=".data.receivers.SchamperDailyReceiver" android:process=":remote" />
-		<receiver android:name=".data.receivers.BootReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED"/>
-			</intent-filter>
-		</receiver>
+
 		<service android:name=".data.services.UpdaterService">
 			<intent-filter>
 				<action android:name="be.ugent.zeus.hydra.data.services.UpdaterService" />

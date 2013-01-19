@@ -36,9 +36,5 @@ public class Settings extends SherlockPreferenceActivity implements SharedPrefer
     if (key == null) {
       Log.e("[Settings]", "WTF, changed preference key is null...?!");
     }
-    Log.d("[Settings]", "Pref changed: " + key);
-    if (key.startsWith("schamper_daily_auto_update")) {
-      SchamperDaily.scheduleRecurringUpdate(this);
-    }
   }
 }
