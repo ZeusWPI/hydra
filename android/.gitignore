@@ -4,3 +4,6 @@ gen
 bin
 local.properties
 default.properties
+nbandroid/
+libs/ab-sherlock-4.2/target/
+libs/ab-sherlock-4.2/nbandroid/
