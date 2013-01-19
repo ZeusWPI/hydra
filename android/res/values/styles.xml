@@ -27,7 +27,6 @@
     
         <item name="android:background">@drawable/actionbar_background</item>
         <item name="android:titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
-        <item name="height">80dip</item>
     </style>
 
     <style name="Hydra.ActionBar.TitleTextStyle" parent="@style/TextAppearance.Holo.Medium">
