@@ -71,3 +71,6 @@ In order of first contribution:
 * Tom Naessens
 * Yasser Deceukelier
 * Feliciaan De Palmenaer
+* Arya Ghodsi
+* Stefaan Vermassen
+* Wouter Pinnoo
