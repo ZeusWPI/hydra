@@ -45,15 +45,15 @@ public class Hydra extends AbstractSherlockActivity {
         Log.d("BuildConfig.DEBUG:", Boolean.toString(BuildConfig.DEBUG));
 
         // Zubhium
-//		if (!BuildConfig.DEBUG) {
-
-        Log.d("Zubhium:", "Enable bugtracking");
-        sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
-        if (sdk != null) {
-            // We are registering update receiver
-            sdk.registerUpdateReceiver(Hydra.this);
-        }
-//		}
+//        if (!BuildConfig.DEBUG) {
+//
+//            Log.d("Zubhium:", "Enable bugtracking");
+//            sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
+//            if (sdk != null) {
+//                // We are registering update receiver
+//                sdk.registerUpdateReceiver(Hydra.this);
+//            }
+//        }
 
         // Google Analytics
         if (BuildConfig.DEBUG) {
