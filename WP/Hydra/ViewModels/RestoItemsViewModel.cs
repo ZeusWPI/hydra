@@ -1,76 +1,69 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 
-namespace HydraWPWay.ViewModels
+namespace Hydra.ViewModels
 {
-    public class NewsItemViewModel : INotifyPropertyChanged
+    public class RestoItemsViewModel : INotifyPropertyChanged
     {
-        private string _title;
-        /// <summary>
-        /// title is used in the view to display its value using a Binding.
-        /// </summary>
-        /// <returns></returns>
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                if (value != _title)
-                {
-                    _title = value;
-                    NotifyPropertyChanged("title");
-                }
-            }
-        }
-
-        private string _author;
-        /// <summary>
-        /// author property is used in the view to display its value using a Binding.
-        /// </summary>
-        /// <returns></returns>
-        public string Author
-        {
-            get
-            {
-                return _author;
-            }
-            set
-            {
-                if (value != _author)
-                {
-                    _author = value;
-                    NotifyPropertyChanged("author");
-                }
-            }
-        }
-
-        private string _content;
+        private string _lineOne;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns></returns>
-        public string Content
+        public string LineOne
         {
             get
             {
-                return _content;
+                return _lineOne;
             }
             set
             {
-                if (value != _content)
+                if (value != _lineOne)
                 {
-                    _content = value;
-                    NotifyPropertyChanged("content");
+                    _lineOne = value;
+                    NotifyPropertyChanged("LineOne");
+                }
+            }
+        }
+
+        private string _lineTwo;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        public string LineTwo
+        {
+            get
+            {
+                return _lineTwo;
+            }
+            set
+            {
+                if (value != _lineTwo)
+                {
+                    _lineTwo = value;
+                    NotifyPropertyChanged("LineTwo");
+                }
+            }
+        }
+
+        private string _lineThree;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        public string LineThree
+        {
+            get
+            {
+                return _lineThree;
+            }
+            set
+            {
+                if (value != _lineThree)
+                {
+                    _lineThree = value;
+                    NotifyPropertyChanged("LineThree");
                 }
             }
         }

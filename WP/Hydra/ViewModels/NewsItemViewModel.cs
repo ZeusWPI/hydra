@@ -1,11 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
-namespace HydraWPWay.ViewModels
+namespace Hydra.ViewModels
 {
-    public class SchamperItemsViewModel : INotifyPropertyChanged
+    public class NewsItemViewModel : INotifyPropertyChanged
     {
         private string _title;
         /// <summary>
@@ -69,44 +67,6 @@ namespace HydraWPWay.ViewModels
                 }
             }
         }
-
-        private string _imagePath;
-        /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
-        /// </summary>
-        /// <returns></returns>
-        public string ImagePath
-        {
-            get
-            {
-                return _imagePath;
-            }
-            set
-            {
-                if (value != _imagePath)
-                {
-                    _imagePath = value;
-                    NotifyPropertyChanged("imagePath");
-                }
-            }
-        }
-
-       
-        private ImageSource _image = null;
-
-        public ImageSource Image
-        {
-            get
-            {
-                if (this._image == null && this._imagePath != null)
-                {
-
-                    this._image = new BitmapImage(new Uri(this._imagePath));
-                }
-                return this._image;
-            }
-        }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

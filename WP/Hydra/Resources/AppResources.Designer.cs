@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HydraWPWay.Resources {
+namespace Hydra.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace HydraWPWay.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HydraWPWay.Resources.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Hydra.Resources.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,24 @@ namespace HydraWPWay.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add.
+        /// </summary>
+        public static string AppBarButtonText {
+            get {
+                return ResourceManager.GetString("AppBarButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu Item.
+        /// </summary>
+        public static string AppBarMenuItemText {
+            get {
+                return ResourceManager.GetString("AppBarMenuItemText", resourceCulture);
             }
         }
         
@@ -84,15 +102,6 @@ namespace HydraWPWay.Resources {
         public static string ResourceLanguage {
             get {
                 return ResourceManager.GetString("ResourceLanguage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sample Runtime Property Value.
-        /// </summary>
-        public static string SampleProperty {
-            get {
-                return ResourceManager.GetString("SampleProperty", resourceCulture);
             }
         }
     }

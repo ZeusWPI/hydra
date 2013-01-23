@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="HydraWPWay.MainPage"
+    x:Class="Hydra.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -36,13 +36,7 @@
          -->
 
          <!--Panorama control-->
-        <phone:Panorama Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}">
-            <!--<phone:Panorama.Background>
-            
-                <ImageBrush ImageSource="/HydraWPWay;component/Assets/PanoramaBackground.png"/>
-            </phone:Panorama.Background>-->
-
-
+        <phone:Panorama Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" Background="#CED6E0">
             <phone:PanoramaItem>
                 <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
                 <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding NewsItems}">
@@ -89,7 +83,7 @@
             <!--Panorama item two-->
             <phone:PanoramaItem>
                 <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding SchamperItems}">
+                <phone:LongListSelector Name="schamperItems" Margin="0,-38,-22,2" ItemsSource="{Binding SchamperItems}" SelectionChanged="SchamperItemTapped">
                     <phone:LongListSelector.ListHeaderTemplate>
                         <DataTemplate>
                             <Grid Margin="12,0,0,38">

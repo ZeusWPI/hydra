@@ -1,16 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 
-namespace HydraWPWay.ViewModels
+namespace Hydra.ViewModels
 {
-    public class RestoItemsViewModel : INotifyPropertyChanged
+    public class ActivityItemsViewModel : INotifyPropertyChanged
     {
         private string _lineOne;
         /// <summary>

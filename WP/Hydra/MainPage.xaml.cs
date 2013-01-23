@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Net;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Hydra.ViewModels;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 
-namespace HydraWPWay
+namespace Hydra
 {
     public partial class MainPage : PhoneApplicationPage
     {
@@ -28,6 +24,11 @@ namespace HydraWPWay
             {
                 App.ViewModel.LoadData();
             }
+        }
+
+        private void SchamperItemTapped(object sender, SelectionChangedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SchamperItem.xaml?article="+App.ViewModel.SchamperItems.IndexOf(schamperItems.SelectedItem as SchamperItemsViewModel), UriKind.Relative));
         }
     }
 }

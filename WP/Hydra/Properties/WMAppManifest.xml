@@ -2,7 +2,7 @@
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US"/>
-  <App xmlns="" ProductID="{94783aeb-b176-40a3-bb97-2149b304eae3}" Title="HydraWPWay" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="HydraWPWay author" Description="Sample description" Publisher="HydraWPWay" PublisherID="{9134bf03-b58f-4337-82c6-18b24ac80ec3}">
+  <App xmlns="" ProductID="{d009f42e-ec32-4a4b-8928-26da8196272d}" Title="Hydra" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Hydra author" Description="Sample description" Publisher="Hydra" PublisherID="{0111dc25-7d54-4898-8ba9-63d99b528d01}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING"/>
@@ -15,12 +15,12 @@
       <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="HydraWPWayToken" TaskName="_default">
+      <PrimaryToken TokenID="HydraToken" TaskName="_default">
         <TemplateFlip>
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>HydraWPWay</Title>
+          <Title>Hydra</Title>
           <BackContent></BackContent>
           <BackBackgroundImageURI></BackBackgroundImageURI>
           <BackTitle></BackTitle>

@@ -1,6 +1,6 @@
-﻿using HydraWPWay.Resources;
+﻿using Hydra.Resources;
 
-namespace HydraWPWay
+namespace Hydra
 {
     /// <summary>
     /// Provides access to string resources.

@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using HydraWPWay.Resources;
+using Hydra.Resources;
 
-namespace HydraWPWay.ViewModels
+namespace Hydra.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
@@ -29,18 +29,6 @@ namespace HydraWPWay.ViewModels
             this.SchamperItems=new ObservableCollection<SchamperItemsViewModel>();
             this.InfoItems=new ObservableCollection<InfoItemsViewModel>();
             this.RestoItems=new ObservableCollection<RestoItemsViewModel>();
-        }
-
-
-        /// <summary>
-        /// Sample property that returns a localized string
-        /// </summary>
-        public string LocalizedSampleProperty
-        {
-            get
-            {
-                return AppResources.SampleProperty;
-            }
         }
 
         public bool IsDataLoaded
@@ -76,11 +64,16 @@ namespace HydraWPWay.ViewModels
                     if(schamperItem.Name=="item")
                     {
                         var dc = XNamespace.Get("http://purl.org/dc/elements/1.1/");
-                        string author = null, title = null, image = null, content = null;
+                        string date=null,author = null, title = null, image = null, content = null;
                         var element = schamperItem.Element(dc+"creator");
                         if (element != null)
                         {
                             author = element.Value;
+                        }
+                        element = schamperItem.Element("pubDate");
+                        if (element != null)
+                        {
+                            date = element.Value;
                         }
                         element = schamperItem.Element(XName.Get("title"));
                         if (element != null)
@@ -92,7 +85,8 @@ namespace HydraWPWay.ViewModels
                         {
                             content = element.Value;
                             string[] inputs = {content};
-                            const string pattern = @"(https?:\/\/.*\.(?:png|jpg|jpeg|gif))";
+                            const string pattern = @"(https?:)?//?[^''""<>]+?\.(jpg|jpeg|gif|png)";
+                            //@"(https?:\/\/.*\.(?:png|jpg|jpeg|gif))";
 
                             var rgx = new Regex(pattern, RegexOptions.IgnoreCase);
 
@@ -109,7 +103,7 @@ namespace HydraWPWay.ViewModels
 
                         }
                         if (SchamperItems != null)
-                            SchamperItems.Add(new SchamperItemsViewModel {Author = author,Content = content,ImagePath = image,Title = title});
+                            SchamperItems.Add(new SchamperItemsViewModel {Author = author,Content = content,ImagePath = image,Title = title,Date = date});
                     }
                 }
         }
