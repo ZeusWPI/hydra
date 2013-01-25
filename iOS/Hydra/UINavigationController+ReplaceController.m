@@ -13,7 +13,7 @@
 
 - (void)H_replaceViewControllerWith:(UIViewController *)controller options:(UIViewAnimationOptions)options
 {
-    [UIView transitionWithView:self.view duration:1.0 options:options
+    [UIView transitionWithView:self.view duration:0.65 options:options
                     animations:^{
                         [self popViewControllerAnimated:NO];
                         [self pushViewController:controller animated:NO];

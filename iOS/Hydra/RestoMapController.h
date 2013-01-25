@@ -7,15 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
 
-@interface RestoMapController : UIViewController <MKMapViewDelegate>
-{
-    IBOutlet MKMapView *worldView;
-    IBOutlet UIBarButtonItem *returnToInfo;
-}
-
-- (IBAction)togglePickerView:(id)sender;
+@interface RestoMapController : UIViewController
 
 @end

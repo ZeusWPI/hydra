@@ -14,12 +14,11 @@
 
 @interface RestoLocation : NSObject <MKAnnotation, NSCoding>
 
-@property (nonatomic, assign) NSInteger latitude;
-@property (nonatomic, assign) NSInteger longitude;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *address;
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
-- (id) initWithCoordinate:(CLLocationCoordinate2D)c title:(NSString*)t;
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 
 @end

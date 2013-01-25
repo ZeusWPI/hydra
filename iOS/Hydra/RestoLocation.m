@@ -8,27 +8,26 @@
 
 #import "RestoLocation.h"
 #import <RestKit/RestKit.h>
-#define kCoordinateScaleFactor 1000000.0
-@implementation RestoLocation
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)c title:(NSString *)t
-{
-    self = [super init];
-    if(self){
-        self.longitude = c.longitude;
-        self.latitude = c.latitude;
-        self.name = t;
-    }
-    return self;
-}
+#define kCoordinateScaleFactor 1000000.0
+
+@interface RestoLocation ()
+
+@property (nonatomic, assign) NSInteger latitude;
+@property (nonatomic, assign) NSInteger longitude;
+
+@end
+
+@implementation RestoLocation
 
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super init]) {
-        self.longitude = [coder decodeDoubleForKey:@"longitude"];
-        self.latitude = [coder decodeDoubleForKey:@"latitude"];
         self.name = [coder decodeObjectForKey:@"name"];
         self.address = [coder decodeObjectForKey:@"address"];
+        self.type = [coder decodeObjectForKey:@"type"];
+        self.longitude = [coder decodeIntegerForKey:@"longitude"];
+        self.latitude = [coder decodeIntegerForKey:@"latitude"];
     }
     return self;
 }
@@ -42,7 +41,7 @@
 {
     // Create mapping for locations
     RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:self];
-    [locationMapping mapAttributes:@"name", @"address", @"longitude", @"latitude", nil];
+    [locationMapping mapAttributes:@"name", @"address", @"type", @"longitude", @"latitude", nil];
 
     // Register mapping
     [mappingProvider setObjectMapping:locationMapping forKeyPath:@"locations"];
@@ -50,10 +49,11 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeDouble:self.longitude forKey:@"longitude"];
-    [coder encodeDouble:self.latitude forKey:@"latitude"];
     [coder encodeObject:self.name forKey:@"name"];
     [coder encodeObject:self.address forKey:@"address"];
+    [coder encodeObject:self.type forKey:@"type"];
+    [coder encodeInteger:self.longitude forKey:@"longitude"];
+    [coder encodeInteger:self.latitude forKey:@"latitude"];
 }
 
 #pragma mark MKAnnotation
@@ -81,13 +81,11 @@
 - (BOOL)isEqualToRestoLocation:(RestoLocation *)aPoint {
     if (self == aPoint)
         return YES;
-    if (![[self name] isEqualToString:[aPoint name]])
+    if (![self.name isEqualToString:aPoint.name])
         return NO;
-    if (![[self address] isEqualToString:[aPoint address]])
+    if (self.longitude != aPoint.longitude)
         return NO;
-    double epsilon = 0.000001;
-    if (!(fabs([self coordinate].latitude - [aPoint coordinate].latitude) <= epsilon &&
-          fabs([self coordinate].longitude - [aPoint coordinate].longitude) <= epsilon))
+    if (self.latitude != aPoint.latitude)
         return NO;
     return YES;
 }

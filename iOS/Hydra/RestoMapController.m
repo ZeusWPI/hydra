@@ -11,22 +11,81 @@
 #import "RestoLocation.h"
 #import "RestoStore.h"
 #import "UINavigationController+ReplaceController.h"
+#import <QuartzCore/QuartzCore.h>
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
-#define kUpdateDistance 100.0
-@interface RestoMapController () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface RestoMapController () <MKMapViewDelegate, UISearchDisplayDelegate,
+    UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) CLLocation *currentLocation;
-@property (nonatomic, strong) NSArray *restos;
-@property (nonatomic, strong) UIPickerView *pickerView;
-@property (nonatomic, strong) RestoLocation *selectedResto;
-@property (nonatomic, strong) MKUserLocation *prevLocation;
+@property (nonatomic, strong) UISearchDisplayController *searchController;
+@property (nonatomic, unsafe_unretained) MKMapView *mapView;
+@property (nonatomic, unsafe_unretained) UIButton *trackButton;
+
+@property (nonatomic, strong) NSArray *mapItems;
+@property (nonatomic, strong) NSArray *filteredMapItems;
 @property (nonatomic, strong) NSMutableDictionary *distances;
+
+@property (nonatomic, strong) CLLocation *lastLocation;
+@property (nonatomic, assign) BOOL locationInitialized;
 
 @end
 
 @implementation RestoMapController
 
 #pragma mark Setting up the view & viewcontroller
+
+- (void)loadView
+{
+    CGRect bounds = [UIScreen mainScreen].bounds;
+    self.view = [[UIView alloc] initWithFrame:bounds];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth
+                               | UIViewAutoresizingFlexibleHeight;
+
+    // Search field
+    CGRect searchBarFrame = CGRectMake(0, 0, bounds.size.width, 44);
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:searchBarFrame];
+    searchBar.placeholder = @"Zoek een resto";
+    [self.view addSubview:searchBar];
+
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar
+                                                              contentsController:self];
+    self.searchController.delegate = self;
+    self.searchController.searchResultsDataSource = self;
+    self.searchController.searchResultsDelegate = self;
+
+    // Performance hack: already load the tableview
+    [self.view addSubview:self.searchController.searchResultsTableView];
+
+    // Map view
+    CGRect mapFrame = CGRectMake(0, 44, bounds.size.width, bounds.size.height - 44);
+    MKMapView *mapView = [[MKMapView alloc] initWithFrame:mapFrame];
+    mapView.delegate = self;
+    mapView.autoresizingMask = self.view.autoresizingMask;
+    mapView.showsUserLocation = YES;
+
+    [self.view addSubview:mapView];
+    self.mapView = mapView;
+
+    // Tracking button
+    UIButton *trackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    trackButton.frame = CGRectMake(bounds.size.width - 50, bounds.size.height - 40, 42, 34);
+    trackButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
+    trackButton.hidden = ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized);
+    [trackButton setBackgroundImage:[UIImage imageNamed:@"button-track"]
+                           forState:UIControlStateNormal];
+    [trackButton setBackgroundImage:[UIImage imageNamed:@"button-track-highlighted"]
+                           forState:UIControlStateHighlighted];
+    [trackButton setBackgroundImage:[UIImage imageNamed:@"button-track-selected"]
+                           forState:UIControlStateSelected];
+    [trackButton setBackgroundImage:[UIImage imageNamed:@"button-track-selected-highlighted"]
+                           forState:UIControlStateSelected|UIControlStateHighlighted];
+    [trackButton addTarget:self action:@selector(trackButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.view addSubview:trackButton];
+    self.trackButton = trackButton;
+    [self trackUser:YES];
+}
 
 - (void)viewDidLoad
 {
@@ -39,15 +98,14 @@
                                                                   target:self action:@selector(menuButtonTapped:)];
     self.navigationItem.rightBarButtonItem = menuButton;
 
-    // Add restos to map
-    [self reloadRestos];
-    [worldView addAnnotations:self.restos];
+    // Load map information and set initial map view
+    [self reloadMapItems];
+    [self resetMapViewRect];
 
     // Register for updates
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reloadRestos)
+    [center addObserver:self selector:@selector(reloadData)
                    name:RestoStoreDidUpdateInfoNotification object:nil];
-    self.selectedResto = self.restos[0];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -61,59 +119,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-# pragma mark - Buttons
-
-- (IBAction)togglePickerView:(id)sender
-{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:nil
-                                                    cancelButtonTitle:nil
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:nil];
-
-    // Create pickerView
-    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
-    self.pickerView.showsSelectionIndicator = YES;
-    self.pickerView.dataSource = self;
-    self.pickerView.delegate = self;
-    [actionSheet addSubview:self.pickerView];
-
-    // Update PickerView contents
-    [self reorderLocations];
-
-    // Create toolbar
-    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                               target:nil action:nil];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Gereed" style:UIBarButtonItemStyleBordered
-                                                               target:self action:@selector(dismissActionSheet:)];
-    UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    pickerToolbar.tintColor = [UIColor hydraTintColor];
-    pickerToolbar.items = @[flexSpace, doneBtn];
-    [actionSheet addSubview:pickerToolbar];
-
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 320, 22)];
-    title.font = [UIFont boldSystemFontOfSize:18];
-    title.text = @"Restos";
-    title.textColor = [UIColor whiteColor];
-    title.textAlignment = UITextAlignmentCenter;
-    title.shadowColor = [UIColor blackColor];
-    title.shadowOffset = CGSizeMake(1, 1);
-    title.backgroundColor = [UIColor clearColor];
-    [actionSheet addSubview:title];
-
-    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
-    [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
-
-    NSInteger row = [self.restos indexOfObject:self.selectedResto];
-    row = row == NSNotFound? 0 : row;
-    [self.pickerView selectRow:row inComponent:0 animated:NO];
-}
-
-- (void)routeToClosestResto:(id)sender
-{
-    [self openMapWithRestoLocation:self.restos[0]];
-}
-
 - (void)menuButtonTapped:(id)sender
 {
     RestoMenuController *menuController = [[RestoMenuController alloc] init];
@@ -121,173 +126,284 @@
                                                    options:UIViewAnimationOptionTransitionFlipFromLeft];
 }
 
-#pragma mark - Pickerview delegate
+#pragma mark - Data
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+- (void)reloadMapItems
 {
-    return 1;
+    [self.mapView removeAnnotations:self.mapItems];
+    self.mapItems = [RestoStore sharedStore].locations;
+    [self.mapView addAnnotations:self.mapItems];
+
+    [self filterMapItems];
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (void)calculateDistances
 {
-    return self.restos.count;
+    CLLocation *user = self.mapView.userLocation.location;
+    NSMutableDictionary *distances = [NSMutableDictionary dictionaryWithCapacity:self.mapItems.count];
+    for (RestoLocation *resto in self.mapItems) {
+        CLLocation *coordinate = [[CLLocation alloc] initWithLatitude:resto.coordinate.latitude
+                                                           longitude:resto.coordinate.longitude];
+        CLLocationDistance distance = [user distanceFromLocation:coordinate];
+        distances[resto.title] = @(distance);
+    }
+    self.distances = distances;
+
+    [self reorderMapItems];
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+- (void)filterMapItems
 {
-    UILabel *title = nil, *distance = nil;
-    if (!view) {
-        // Location name
-        title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
-        title.backgroundColor = [UIColor clearColor];
-        title.font = [UIFont boldSystemFontOfSize:15];
-
-        // Distance to location
-        distance = [[UILabel alloc] initWithFrame:title.bounds];
-        distance.textAlignment = UITextAlignmentRight;
-        distance.backgroundColor = [UIColor clearColor];
-        distance.font = [UIFont systemFontOfSize:13];
-        [title addSubview:distance];
+    NSString *searchString = self.searchController.searchBar.text;
+    if (searchString.length == 0) {
+        self.filteredMapItems = self.mapItems;
     }
     else {
-        title = (UILabel *)view;
-        distance = (UILabel *)title.subviews[0];
+        NSMutableArray *filteredItems = [[NSMutableArray alloc] init];
+        for (RestoLocation *resto in self.mapItems) {
+            NSRange r = [resto.title rangeOfString:searchString options:NSCaseInsensitiveSearch];
+            if (r.location != NSNotFound) {
+                [filteredItems addObject:resto];
+            }
+        }
+        self.filteredMapItems = filteredItems;
     }
 
-    RestoLocation *resto = self.restos[row];
-    title.text = resto.title;
-
-    CLLocationDistance restoDist = [self.distances[resto.title] doubleValue];
-    if (restoDist < 2000) {
-        distance.text = [NSString stringWithFormat:@"%.0f m", restoDist];
-    }
-    else {
-        distance.text = [NSString stringWithFormat:@"%.1f km", restoDist/1000];
-    }
-
-    return title;
+    [self reorderMapItems];
 }
 
-- (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+- (void)reorderMapItems
 {
-    RestoLocation *resto = self.restos[row];
-    self.selectedResto = resto;
-
-    [self setRegionFromUserToResto:resto];
+    self.filteredMapItems = [self.filteredMapItems sortedArrayUsingComparator:^(id a, id b) {
+        NSNumber *distA = self.distances[[a title]];
+        NSNumber *distB = self.distances[[b title]];
+        return [distA compare:distB];
+    }];
 }
 
-- (void)setRegionFromUserToResto:(RestoLocation*)resto
-{
-    CLLocationCoordinate2D userLocation = worldView.userLocation.coordinate;
+#pragma mark - MapView delegate
 
-    // Top right corner
-    CLLocationCoordinate2D topRightCoor = CLLocationCoordinate2DMake(
-        fmax(resto.coordinate.latitude, userLocation.latitude),
-        fmax(resto.coordinate.longitude, userLocation.longitude));
-    MKMapPoint mtr = MKMapPointForCoordinate(topRightCoor);
-
-    // Top left corner
-    CLLocationCoordinate2D botLeftCoor = CLLocationCoordinate2DMake(
-        fmin(resto.coordinate.latitude, userLocation.latitude),
-        fmin(resto.coordinate.longitude, userLocation.longitude));
-    MKMapPoint mbl = MKMapPointForCoordinate(botLeftCoor);
-
-    // Map
-    MKMapRect mapRect = MKMapRectMake(fmin(mtr.x, mbl.x), fmin(mtr.y, mbl.y), fabs(mtr.x-mbl.x)*1.2, fabs(mtr.y-mbl.y)*1.2);
-
-    MKCoordinateRegion region = MKCoordinateRegionForMapRect(mapRect);
-    [worldView setRegion:region animated:YES];
-}
-
-- (void)routeToSelectedResto
-{
-    if (self.pickerView != nil){
-        NSInteger row = [self.pickerView selectedRowInComponent:0];
-        RestoLocation *selResto = [self.restos objectAtIndex:row];
-        [self openMapWithRestoLocation:selResto];
-    }
-}
-
-- (void)openMapWithRestoLocation:(RestoLocation*)resto
-{
-    // Check for iOS 6
-    Class mapItemClass = [MKMapItem class];
-    //iOs 6
-    CLLocationCoordinate2D coordinate = resto.coordinate;
-    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
-    {
-        // Create an MKMapItem to pass to the Maps app
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
-                                                       addressDictionary:nil];
-        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-        [mapItem setName:resto.title];
-
-        // Set the directions mode to "Walking"
-        NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking};
-        // Get the "Current User Location" MKMapItem
-        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
-        // Pass the current location and destination map items to the Maps app
-        // Set the direction mode in the launchOptions dictionary
-        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
-                       launchOptions:launchOptions];
-    }else{
-        //iOs < 6 use maps.apple.com
-        NSString* url = [NSString stringWithFormat: @"http://maps.apple.com/maps?saddr=%f,%f",
-                         coordinate.latitude, coordinate.longitude];
-        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
-    }
-}
-#pragma mark - Map delegate
+#define kUpdateDistance 50.0
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    if ((self.prevLocation == nil) || [userLocation.location distanceFromLocation:self.prevLocation.location] > kUpdateDistance){
-        self.prevLocation = userLocation;
-        [self recalculateDistances];
-        [self reorderLocations];
-        [self setRegionFromUserToResto:self.selectedResto];
-    }
-}
-
-- (void)reorderLocations
-{
-    if (!self.pickerView) {
+    // Ignore old timestamps
+    if (!userLocation.location) {
         return;
     }
 
-    self.restos = [self.restos sortedArrayUsingComparator: ^(id a, id b) {
+    // Location updates are enabled, show the tracking button
+    self.trackButton.hidden = NO;
 
-        double aDist = [self.distances[((RestoLocation*)a).title] doubleValue];
-        double bDist = [self.distances[((RestoLocation*)b).title] doubleValue];
-
-        return [@(aDist) compare:@(bDist)];
-    }];
-
-    [self.pickerView reloadAllComponents];
-}
-
-- (void)recalculateDistances
-{
-    NSMutableDictionary* distances = [[NSMutableDictionary alloc] initWithCapacity:self.restos.count];
-    for (RestoLocation* resto in self.restos) {
-        CLLocation *restoLoc = [[CLLocation alloc] initWithLatitude:resto.coordinate.latitude
-                                                    longitude:resto.coordinate.longitude];
-        distances[resto.title] = [NSNumber numberWithDouble:[worldView.userLocation.location distanceFromLocation:restoLoc]];
+    // Default to user tracking when the user is a relevant area
+    if (!self.locationInitialized) {
+        MKMapPoint userPoint = MKMapPointForCoordinate(userLocation.coordinate);
+        MKMapRect regionOfInterest = [self mapRectOfInterest];
+        if (!MKMapRectContainsPoint(regionOfInterest, userPoint)) {
+            [self trackUser:NO];
+            [self resetMapViewRect];
+        }
+        self.locationInitialized = YES;
     }
-    self.distances = distances;
+
+    if (!self.searchController.active) return;
+    if (self.lastLocation && [userLocation.location distanceFromLocation:self.lastLocation] < kUpdateDistance) {
+        [self calculateDistances];
+        self.lastLocation = userLocation.location;
+    }
 }
 
-- (void)dismissActionSheet:(id)sender
+- (MKMapRect)mapRectOfInterest
 {
-    UIActionSheet *sheet = (UIActionSheet *)[self.pickerView superview];
-    [sheet dismissWithClickedButtonIndex:0 animated:YES];
-    self.pickerView = nil;
+    MKMapRect rect = MKMapRectNull;
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+        if (MKMapRectIsNull(rect)) {
+            rect = pointRect;
+        } else {
+            rect = MKMapRectUnion(rect, pointRect);
+        }
+    }
+    return rect;
 }
 
-- (void)reloadRestos
+- (void)resetMapViewRect
 {
-    self.restos = [RestoStore sharedStore].locations;
-    [self recalculateDistances];
-    [self reorderLocations];
+    // Hardcoded rectangle for the central resto's
+    MKMapRect defaultRect = MKMapRectMake(13.6974e+7, 8.9796e+7, 30e3, 45e3);
+    [self.mapView setVisibleMapRect:defaultRect animated:NO];
 }
+
+#pragma mark - Annotations
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+
+    static NSString *pinIdentifier = @"RestoMapPin";
+    MKPinAnnotationView *view = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
+    if (!view) {
+        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                               reuseIdentifier:@"RestoMapPin"];
+        view.canShowCallout = YES;
+
+        UIButton *routeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        routeButton.frame = CGRectMake(0, 0, 24, 24);
+        [routeButton setImage:[UIImage imageNamed:@"button-route"] forState:UIControlStateNormal];
+        [routeButton addTarget:self action:@selector(routeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        view.leftCalloutAccessoryView = routeButton;
+    }
+    return view;
+}
+
+- (void)routeButtonTapped:(UIButton *)sender
+{
+    // Find annotationview in view hierarchy
+    UIView *view = sender;
+    while (![view isKindOfClass:[MKAnnotationView class]]) {
+        view = view.superview;
+    }
+
+    id<MKAnnotation> annotation = [(MKAnnotationView *)view annotation];
+    CLLocationCoordinate2D coordinates = [annotation coordinate];
+
+    // Check for iOS 6
+    Class mapItemClass = [MKMapItem class];
+    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)]) {
+        // Create an MKMapItem to pass to the Maps app
+        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinates
+                                                       addressDictionary:nil];
+        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+        [mapItem setName:annotation.title];
+
+        // Route between the current location and the mapitem
+        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
+                       launchOptions:@{
+                            MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking
+        }];
+    }
+    // iOS < 6 use maps.apple.com
+    else {
+        CLLocationCoordinate2D user = self.mapView.userLocation.coordinate;
+        NSString *url = [NSString stringWithFormat:@"http://maps.apple.com/maps?saddr=%f,%f&daddr=%f,%f&dirflg=w",
+                         user.latitude, user.longitude, coordinates.latitude, coordinates.longitude];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }
+}
+
+
+
+#pragma mark - User tracking
+
+- (void)trackButtonTapped:(UIButton *)sender
+{
+    BOOL currentlyTracking = (self.mapView.userTrackingMode != MKUserTrackingModeNone);
+    [self trackUser:!currentlyTracking];
+}
+
+- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
+{
+    self.trackButton.selected = (mode != MKUserTrackingModeNone);
+}
+
+- (void)trackUser:(BOOL)track
+{
+    if ([self.mapView respondsToSelector:@selector(setUserTrackingMode:)]) {
+        MKUserTrackingMode newMode = track ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
+        [self.mapView setUserTrackingMode:newMode animated:YES];
+        self.trackButton.selected = track;
+    }
+}
+
+#pragma mark - SearchController delegate
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
+    // Just by accessing the property here, the searchResultsTableView will
+    // be initialized with the correct frame. Crazy shit.
+    [controller searchResultsTableView];
+
+    // After this method the searchcontroller will start its animation, which we
+    // want in on so we execute our hook in the next run loop.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [controller.searchResultsTableView.layer removeAllAnimations];
+        [self.view addSubview:controller.searchResultsTableView];
+
+        // Smooth appearance
+        controller.searchResultsTableView.alpha = 0;
+        [UIView animateWithDuration:0.3 animations:^{
+            controller.searchResultsTableView.alpha = 1;
+        }];
+    });
+
+    [self calculateDistances];
+    [self filterMapItems];
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
+{
+    // Prevent results from disappearing
+    [self.view addSubview:controller.searchResultsTableView];
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterMapItems];
+    return YES;
+}
+
+#pragma mark - SearchController tableView
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.filteredMapItems.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"RestoMapViewCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                      reuseIdentifier:cellIdentifier];
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+        cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+    }
+
+    RestoLocation *resto = self.filteredMapItems[indexPath.row];
+    cell.textLabel.text = resto.name;
+
+    double distance = [self.distances[resto.name] doubleValue];
+    if (distance == 0) {
+        cell.detailTextLabel.text = @"";
+    }
+    else if (distance < 2000) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f m", distance];
+    }
+    else {
+        distance /= 1000;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f km", distance];
+    }
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Keep the search string
+    NSString *search = self.searchDisplayController.searchBar.text;
+    [self.searchDisplayController setActive:NO animated:YES];
+    self.searchDisplayController.searchBar.text = search;
+
+    // Highlight the selected item
+    RestoLocation *selected = self.filteredMapItems[indexPath.row];
+    MKCoordinateSpan span = MKCoordinateSpanMake(0.012, 0.012);
+    MKCoordinateRegion region = MKCoordinateRegionMake(selected.coordinate, span);
+    [self.mapView setRegion:region animated:YES];
+    [self.mapView selectAnnotation:selected animated:YES];
+}
+
 @end

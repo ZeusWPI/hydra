@@ -18,7 +18,7 @@
 #define kRestoInfoPath @"/meta.json"
 #define kRestoMenuPath @"/menu/%d/%d.json"
 
-#define kInfoUpdateIterval (7 * 24 * 60 * 60) /* one week */
+#define kInfoUpdateIterval (24 * 60 * 60) /* one day */
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
@@ -232,6 +232,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     if ([dictionary[@"locations"] count] > 0) {
         self.locations = dictionary[@"locations"];
     }
+    self.infoLastUpdated = [NSDate date];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:RestoStoreDidUpdateInfoNotification object:self];

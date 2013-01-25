@@ -179,7 +179,7 @@
 {
     RestoMapController *mapController = [[RestoMapController alloc] init];
     [self.navigationController H_replaceViewControllerWith:mapController
-                                                   options:UIViewAnimationOptionTransitionFlipFromRight];
+                                                   options:UIViewAnimationOptionTransitionFlipFromLeft];
 }
 
 #pragma mark - Loading days & menus
