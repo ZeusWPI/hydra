@@ -80,6 +80,7 @@
 		F56D766E1699ED3B002CF245 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D766A1699ED3B002CF245 /* Icon.png */; };
 		F56D766F1699ED3B002CF245 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D766B1699ED3B002CF245 /* Icon@2x.png */; };
 		F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F56F139E169731FE003D4447 /* UrgentViewController.xib */; };
+		F56F9D0F16B32F710020856B /* InfoPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F56F9D0E16B32F710020856B /* InfoPageControl.m */; };
 		F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */; };
 		F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0B15B837F000D2A59E /* icon-meal.png */; };
 		F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0C15B837F000D2A59E /* icon-soup.png */; };
@@ -273,6 +274,8 @@
 		F56D766A1699ED3B002CF245 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		F56D766B1699ED3B002CF245 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		F56F139D169731FE003D4447 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/UrgentViewController.xib; sourceTree = "<group>"; };
+		F56F9D0D16B32F710020856B /* InfoPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoPageControl.h; sourceTree = "<group>"; };
+		F56F9D0E16B32F710020856B /* InfoPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPageControl.m; sourceTree = "<group>"; };
 		F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		F57E7E0B15B837F000D2A59E /* icon-meal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-meal.png"; sourceTree = "<group>"; };
@@ -430,6 +433,8 @@
 			children = (
 				3BAFFE7C15BB04B600921E7D /* BadgedButton.h */,
 				3BAFFE7D15BB04B600921E7D /* BadgedButton.m */,
+				F56F9D0D16B32F710020856B /* InfoPageControl.h */,
+				F56F9D0E16B32F710020856B /* InfoPageControl.m */,
 			);
 			name = "Custom views";
 			sourceTree = "<group>";
@@ -1067,6 +1072,7 @@
 				90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */,
 				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 				F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */,
+				F56F9D0F16B32F710020856B /* InfoPageControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

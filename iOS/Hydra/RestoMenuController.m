@@ -6,14 +6,15 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 #import <QuartzCore/QuartzCore.h>
-#import "RestoMenuController.h"
-#import "RestoStore.h"
-#import "RestoMenu.h"
-#import "UIColor+AppColors.h"
+#import "InfoPageControl.h"
 #import "NSDate+Utilities.h"
-#import "RestoMenuView.h"
 #import "RestoInfoView.h"
 #import "RestoMapController.h"
+#import "RestoMenu.h"
+#import "RestoMenuController.h"
+#import "RestoMenuView.h"
+#import "RestoStore.h"
+#import "UIColor+AppColors.h"
 #import "UINavigationController+ReplaceController.h"
 
 #define kRestoDaysShown 5
@@ -21,7 +22,7 @@
 @interface RestoMenuController () <UIScrollViewDelegate>
 
 @property (nonatomic, unsafe_unretained) UIScrollView *scrollView;
-@property (nonatomic, unsafe_unretained) UIPageControl *pageControl;
+@property (nonatomic, unsafe_unretained) InfoPageControl *pageControl;
 @property (nonatomic, unsafe_unretained) RestoInfoView *infoSheet;
 @property (nonatomic, unsafe_unretained) RestoMenuView *menuSheetA;
 @property (nonatomic, unsafe_unretained) RestoMenuView *menuSheetB;
@@ -53,7 +54,7 @@
     self.scrollView = scrollView;
 
     CGRect pageControlFrame = CGRectMake(0, bounds.size.height - 36, bounds.size.width, 36);
-    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
+    InfoPageControl *pageControl = [[InfoPageControl alloc] initWithFrame:pageControlFrame];
     pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [pageControl addTarget:self action:@selector(pageChanged:)
           forControlEvents:UIControlEventValueChanged];
