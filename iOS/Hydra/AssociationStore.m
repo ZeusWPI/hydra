@@ -44,8 +44,15 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     static AssociationStore *sharedInstance = nil;
     if (!sharedInstance) {
         // Try restoring the store from archive
-        sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:self.storeCachePath];
-        if (!sharedInstance) sharedInstance = [[AssociationStore alloc] init];
+        @try {
+            sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:self.storeCachePath];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Got exception will reading Associatons archive: %@", exception);
+        }
+        @finally {
+            if (!sharedInstance) sharedInstance = [[AssociationStore alloc] init];
+        }
     }
     return sharedInstance;
 }

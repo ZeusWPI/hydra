@@ -32,8 +32,15 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     static SchamperStore *sharedInstance = nil;
     if (!sharedInstance) {
         // Try restoring the store from archive
-        sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:self.articleCachePath];
-        if (!sharedInstance) sharedInstance = [[SchamperStore alloc] init];
+        @try {
+            sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:self.articleCachePath];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Got exception will reading Schamper archive: %@", exception);
+        }
+        @finally {
+            if (!sharedInstance) sharedInstance = [[SchamperStore alloc] init];
+        }
     }
     return sharedInstance;
 }

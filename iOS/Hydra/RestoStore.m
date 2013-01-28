@@ -44,8 +44,15 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     static RestoStore *sharedInstance = nil;
     if (!sharedInstance) {
         // Try restoring the store from archive
-        sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self menuCachePath]];
-        if (!sharedInstance) sharedInstance = [[RestoStore alloc] init];
+        @try {
+            sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self menuCachePath]];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Got exception will reading Resto archive: %@", exception);
+        }
+        @finally {
+            if (!sharedInstance) sharedInstance = [[RestoStore alloc] init];
+        }
     }
     return sharedInstance;
 }
@@ -56,7 +63,6 @@ NSString *const RestoStoreDidUpdateInfoNotification =
         self.menus = [[NSMutableDictionary alloc] init];
         self.locations = [[NSArray alloc] init];
         self.legend = [[NSArray alloc] init];
-        self.infoLastUpdated = nil;
 
         [self sharedInit];
     }
