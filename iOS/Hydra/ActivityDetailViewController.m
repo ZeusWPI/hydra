@@ -23,6 +23,8 @@
 #define kDateRow 2
 #define kLocationRow 3
 
+#define ENABLE_FACEBOOK 0
+
 @interface ActivityDetailViewController () <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
@@ -48,9 +50,12 @@
 {
     [super viewDidLoad];
     self.title = @"Detail";
+
+#if ENABLE_FACEBOOK
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(reloadData) name:FacebookEventDidUpdateNotification
                  object:nil];
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -126,22 +131,29 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return section == kInfoSection ? 4 : 1;
-    if ( section == kInfoSection ){
+    return section == kInfoSection ? 4 : 1;
+    if (section == kInfoSection) {
         return 4;
-    }else if ( section == KActionSection ){
-        return 1;
-    }else if ( section == kFaceBookSection ){
+    }
+    else if (section == KActionSection) {
         return 1;
     }
+#if ENABLE_FACEBOOK
+    else if ( section == kFaceBookSection ){
+        return 1;
+    }
+#endif
 
     return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // TODO: add test if facebook is availble 
+#if ENABLE_FACEBOOK
     return 3;
+#else
+    return 2;
+#endif
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -223,7 +235,9 @@
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
         return cell;
-    }else {
+    }
+#if ENABLE_FACEBOOK
+    else {
         static NSString *CellIdentifier = @"FacebookDetailButtonCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (!cell) {
@@ -237,6 +251,9 @@
         return cell;
 
     }
+#else
+    return nil;
+#endif
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
