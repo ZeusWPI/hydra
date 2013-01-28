@@ -48,7 +48,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
             sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self menuCachePath]];
         }
         @catch (NSException *exception) {
-            NSLog(@"Got exception will reading Resto archive: %@", exception);
+            NSLog(@"Got exception while reading Resto archive: %@", exception);
         }
         @finally {
             if (!sharedInstance) sharedInstance = [[RestoStore alloc] init];
