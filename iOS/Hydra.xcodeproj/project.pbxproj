@@ -373,7 +373,6 @@
 		F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F5EBF14A159E1E3600EB5D26 /* SchamperArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperArticle.h; sourceTree = "<group>"; };
 		F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperArticle.m; sourceTree = "<group>"; };
-		F5EF89A5169B7F3900AAA934 /* Hydra.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Hydra.entitlements; path = Hydra/Hydra.entitlements; sourceTree = "<group>"; };
 		F5F43C1315BAC8A7003C2AAE /* Associations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Associations.plist; path = Resources/Associations.plist; sourceTree = "<group>"; };
 		F5F43C3C15BAD246003C2AAE /* AssociationNewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationNewsItem.h; sourceTree = "<group>"; };
 		F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssociationNewsItem.m; sourceTree = "<group>"; };
@@ -723,7 +722,6 @@
 				F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */,
 				F5D36BB315B5BD2A00B6E017 /* Default.png */,
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
-				F5EF89A5169B7F3900AAA934 /* Hydra.entitlements */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
 				F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */,
 				F56D76701699ED4D002CF245 /* Icons */,
@@ -1174,7 +1172,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24046D4357E2426386B31283 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Hydra/Hydra.entitlements;
 				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME} β";
 				CUSTOM_IDENTIFIER_SUFFIX = "-dev";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1193,7 +1190,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24046D4357E2426386B31283 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Hydra/Hydra.entitlements;
 				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME}";
 				CUSTOM_IDENTIFIER_SUFFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
