@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSArray *meat;
 @property (nonatomic, strong) NSArray *vegetables;
 @property (nonatomic, strong) RestoMenuItem *soup;
+@property (nonatomic, strong) NSDate *lastUpdated;
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 

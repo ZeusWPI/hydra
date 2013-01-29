@@ -50,6 +50,7 @@
         self.meat = [coder decodeObjectForKey:@"meat"];
         self.vegetables = [coder decodeObjectForKey:@"vegetables"];
         self.soup = [coder decodeObjectForKey:@"soup"];
+        self.lastUpdated = [coder decodeObjectForKey:@"lastUpdated"];
     }
     return self;
 }
@@ -61,6 +62,7 @@
     [coder encodeObject:self.meat forKey:@"meat"];
     [coder encodeObject:self.vegetables forKey:@"vegetables"];
     [coder encodeObject:self.soup forKey:@"soup"];
+    [coder encodeObject:self.lastUpdated forKey:@"lastUpdated"];
 }
 
 @end

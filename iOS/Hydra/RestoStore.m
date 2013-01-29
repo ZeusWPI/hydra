@@ -19,6 +19,7 @@
 #define kRestoMenuPath @"/menu/%d/%d.json"
 
 #define kInfoUpdateIterval (24 * 60 * 60) /* one day */
+#define kMenuUpdateIterval (24 * 60 * 60)
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
@@ -142,7 +143,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 
     day = [day dateAtStartOfDay];
     RestoMenu *menu = self.menus[day];
-    if (!menu) {
+    if (!menu || [menu.lastUpdated timeIntervalSinceNow] < -kMenuUpdateIterval) {
         [self fetchMenuForWeek:day.week year:day.yearOfCalendarWeek];
     }
     return menu;
@@ -180,7 +181,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 - (void)refreshInfo
 {
     // Check if an update is required
-    if ([[NSDate date] timeIntervalSinceDate:self.infoLastUpdated] < kInfoUpdateIterval) {
+    if ([self.infoLastUpdated timeIntervalSinceNow] > -kInfoUpdateIterval) {
         return;
     }
 
@@ -216,6 +217,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     [self delayActiveRequestRemoval:objectLoader.resourcePath];
     for (RestoMenu *menu in objects) {
         NSDate *day = [[menu day] dateAtStartOfDay];
+        menu.lastUpdated = [NSDate date];
         self.menus[day] = menu;
     }
 
