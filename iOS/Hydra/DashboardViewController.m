@@ -21,7 +21,7 @@
 @interface DashboardViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UISwipeGestureRecognizer *gestureRecognizer;
-@property (nonatomic, strong) UITextField *codeField;
+@property (nonatomic, unsafe_unretained) UITextField *codeField;
 @property (nonatomic, strong) NSArray *requiredMoves;
 @property (nonatomic, assign) NSUInteger movesPerformed;
 
@@ -42,21 +42,7 @@
         @(UISwipeGestureRecognizerDirectionLeft), @(UISwipeGestureRecognizerDirectionRight),
         @"b", @"a"
     ];
-}
-
-- (void)viewDidUnload
-{
-    self.gestureRecognizer = nil;
     self.codeField = nil;
-    self.requiredMoves = nil;
-
-    self.newsButton = nil;
-    self.activitiesButton = nil;
-    self.infoButton = nil;
-    self.restoButton = nil;
-    self.urgentButton = nil;
-    self.schamperButton = nil;
-    self.feedbackButton = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

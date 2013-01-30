@@ -37,7 +37,7 @@ PODS:
   - RestKit/ObjectMapping/XML
   - RestKit/UI
 - SOCKit (1.1)
-- SSKeychain (0.1.4)
+- SSKeychain (0.2.1)
 - ShareKit/Facebook (2.0):
   - Facebook-iOS-SDK (~> 3.1)
   - Reachability
@@ -91,7 +91,7 @@ SPEC CHECKSUMS:
   RestKit/UI: 43c924173fb1d99a670ce43903dcc793048d7fa3
   RestKit/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
   SOCKit: 179515c1a621dd5652a60e9be02ea4adcd25bc9b
-  SSKeychain: bae692a4354f48691ca3463a121dc8060f781a7d
+  SSKeychain: ffa1a79eb716d9ed1ca184fb0cf218087ca28486
   ShareKit/Facebook: c999dfae0ced83b0f64796724b43711ede9257c3
   ShareKit/Twitter: c999dfae0ced83b0f64796724b43711ede9257c3
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b

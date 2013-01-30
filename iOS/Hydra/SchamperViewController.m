@@ -24,8 +24,20 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
         self.articles = [[SchamperStore sharedStore] articles];
+
+        // Check for updates
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(articlesUpdated:)
+                       name:SchamperStoreDidUpdateArticlesNotification
+                     object:nil];
+        [[SchamperStore sharedStore] updateArticles];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -39,20 +51,7 @@
                                                           target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:bb];
 
-    // Check for updates
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(articlesUpdated:)
-                   name:SchamperStoreDidUpdateArticlesNotification
-                 object:nil];
-    [[SchamperStore sharedStore] updateArticles];
-
     // TODO: show loading overlay when no items found yet
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated

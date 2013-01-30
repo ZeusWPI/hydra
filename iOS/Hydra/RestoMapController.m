@@ -35,6 +35,17 @@
 
 #pragma mark Setting up the view & viewcontroller
 
+- (id)init
+{
+    if (self = [super init]) {
+        // Register for updates
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(reloadData)
+                       name:RestoStoreDidUpdateInfoNotification object:nil];
+    }
+    return self;
+}
+
 - (void)loadView
 {
     CGRect bounds = [UIScreen mainScreen].bounds;
@@ -60,9 +71,8 @@
     // Map view
     CGRect mapFrame = CGRectMake(0, 44, bounds.size.width, bounds.size.height - 44);
     MKMapView *mapView = [[MKMapView alloc] initWithFrame:mapFrame];
-    mapView.delegate = self;
     mapView.autoresizingMask = self.view.autoresizingMask;
-    mapView.showsUserLocation = YES;
+    mapView.delegate = self;
 
     [self.view addSubview:mapView];
     self.mapView = mapView;
@@ -84,7 +94,6 @@
 
     [self.view addSubview:trackButton];
     self.trackButton = trackButton;
-    [self trackUser:YES];
 }
 
 - (void)viewDidLoad
@@ -102,10 +111,9 @@
     [self reloadMapItems];
     [self resetMapViewRect];
 
-    // Register for updates
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reloadData)
-                   name:RestoStoreDidUpdateInfoNotification object:nil];
+    // Only do this after the annotations have been added
+    self.mapView.showsUserLocation = YES;
+    [self trackUser:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -116,6 +124,9 @@
 
 - (void)dealloc
 {
+    // Make sure no reference is left
+    self.mapView.delegate = nil;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -203,6 +214,7 @@
             [self trackUser:NO];
             [self resetMapViewRect];
         }
+
         self.locationInitialized = YES;
     }
 
@@ -293,8 +305,6 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
 }
-
-
 
 #pragma mark - User tracking
 

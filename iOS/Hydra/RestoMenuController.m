@@ -38,6 +38,19 @@
 
 #pragma mark Setting up the view & viewcontroller
 
+- (id)init
+{
+    if (self = [super init]) {
+        // Check for updates
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(reloadMenu)
+                       name:RestoStoreDidReceiveMenuNotification object:nil];
+        [center addObserver:self selector:@selector(reloadInfo)
+                       name:RestoStoreDidUpdateInfoNotification object:nil];
+    }
+    return self;
+}
+
 - (void)loadView
 {
     CGRect bounds = [UIScreen mainScreen].bounds;
@@ -80,13 +93,6 @@
 {
     [super viewDidLoad];
 
-    // Check for updates
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reloadMenu)
-                   name:RestoStoreDidReceiveMenuNotification object:nil];
-    [center addObserver:self selector:@selector(reloadInfo)
-                   name:RestoStoreDidUpdateInfoNotification object:nil];
-
     // Update views
     [self reloadMenu];
     [self reloadInfo];
@@ -117,18 +123,6 @@
     [self setupSheetStyle:self.menuSheetA];
     [self setupSheetStyle:self.menuSheetB];
     [self setupSheetStyle:self.infoSheet];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-
-    // Nil weak references
-    self.scrollView = nil;
-    self.pageControl = nil;
-    self.infoSheet = nil;
-    self.menuSheetA = nil;
-    self.menuSheetB = nil;
 }
 
 - (void)dealloc
