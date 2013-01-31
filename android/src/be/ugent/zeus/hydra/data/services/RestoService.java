@@ -9,6 +9,7 @@ import be.ugent.zeus.hydra.data.caches.RestoCache;
 import java.util.HashMap;
 import java.util.List;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -34,13 +35,14 @@ public class RestoService extends HTTPIntentService {
         Log.i("[RestoFetcherThread]", "Fetching resto's from " + RESTO_URL);
 
         try {
-            JSONArray data = new JSONArray(fetch(RESTO_URL));
+            JSONObject raw_data = new JSONObject(fetch(RESTO_URL));
+            JSONArray data = new JSONArray(raw_data.getString("locations"));
             Resto[] restos = parseJsonArray(data, Resto.class);
             for (Resto r : restos) {
                 cache.put(r.name, r);
             }
         } catch (Exception e) {
-            Log.e("[RestoService]", "An exception occured while parsing the json response!");
+            Log.e("[RestoService]", "An exception occured while parsing the json response!" + e.getMessage());
         }
     }
 
