@@ -36,7 +36,7 @@ public class NewsItemActivity extends AbstractSherlockActivity {
         String postedBy = getResources().getString(R.string.posted_by);
         TextView association = (TextView) findViewById(R.id.news_item_info);
         association.setText(String.format(postedBy, Html.fromHtml(item.club),
-            new SimpleDateFormat("EEEE dd MMM yyyy hh:mm", getResources().getConfiguration().locale).format(item.date)));
+            new SimpleDateFormat("EEEE dd MMM yyyy hh:mm", Hydra.LOCALE).format(item.date)));
 
         TextView content = (TextView) findViewById(R.id.news_item_content);
         content.setText(Html.fromHtml(item.description.replace("\n", "<br>")));

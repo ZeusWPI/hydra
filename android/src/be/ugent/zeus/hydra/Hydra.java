@@ -12,6 +12,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.zubhium.ZubhiumSDK;
+import java.util.Locale;
 
 /**
  *
@@ -20,16 +21,9 @@ import com.zubhium.ZubhiumSDK;
 public class Hydra extends AbstractSherlockActivity {
 
     ZubhiumSDK sdk;
-
-    private void link(int id, final Class activity) {
-        findViewById(id).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(Hydra.this, activity);
-                intent.putExtra("class", Hydra.class.getCanonicalName());
-                startActivity(intent);
-            }
-        });
-    }
+    public static final Locale LOCALE = new Locale("nl", "BE");
+    private static final boolean DEBUG = true;
+    private static final boolean BETA = true;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -39,24 +33,20 @@ public class Hydra extends AbstractSherlockActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_main);
 
-        // Change the localisation to Belgium
-        Localisation.updateLanguage(getApplicationContext());
-
         Log.d("BuildConfig.DEBUG:", Boolean.toString(BuildConfig.DEBUG));
 
         // Zubhium
-//        if (!BuildConfig.DEBUG) {
-//
-//            Log.d("Zubhium:", "Enable bugtracking");
-//            sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
-//            if (sdk != null) {
-//                // We are registering update receiver
-//                sdk.registerUpdateReceiver(Hydra.this);
-//            }
-//        }
+        if (!DEBUG) {
+            Log.d("Zubhium:", "Enable bugtracking");
+            sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
+            if (sdk != null) {
+                // We are registering update receiver
+                sdk.registerUpdateReceiver(Hydra.this);
+            }
+        }
 
         // Google Analytics
-        if (BuildConfig.DEBUG) {
+        if (!BETA) {
             Log.d("GAnalytics:", "Tracking disabled");
             GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
             googleAnalytics.setAppOptOut(true);
@@ -79,6 +69,16 @@ public class Hydra extends AbstractSherlockActivity {
         Intent intent = new Intent(this, UpdaterService.class);
         intent.putExtra(HTTPIntentService.FORCE_UPDATE, true);
         startService(intent);
+    }
+
+    private void link(int id, final Class activity) {
+        findViewById(id).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(Hydra.this, activity);
+                intent.putExtra("class", Hydra.class.getCanonicalName());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

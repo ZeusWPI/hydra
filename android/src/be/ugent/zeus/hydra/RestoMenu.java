@@ -220,6 +220,12 @@ public class RestoMenu extends AbstractSherlockActivity {
         switch (item.getItemId()) {
             case R.id.show_about:
                 showAboutDialog();
+                return true;
+            case R.id.show_map:
+                Intent intent = new Intent(this, BuildingMap.class);
+                intent.putExtra("class", this.getClass().getCanonicalName());
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -300,7 +306,7 @@ public class RestoMenu extends AbstractSherlockActivity {
             } else if (isTodayWithOffset(date, 1)) {
                 return context.getString(R.string.tomorrow);
             }
-            return new SimpleDateFormat("EEEE dd MMM", context.getResources().getConfiguration().locale).format(date.getTime());
+            return new SimpleDateFormat("EEEE dd MMM", Hydra.LOCALE).format(date.getTime());
         }
 
         public TextView getTab() {

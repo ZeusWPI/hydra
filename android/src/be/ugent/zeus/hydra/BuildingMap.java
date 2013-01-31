@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author Thomas Meire
  */
-public class BuildingMap extends MapActivity {
+public class BuildingMap extends AbstractMapActivity {
 
     private MapView map;
     private MyLocationOverlay myLocOverlay;

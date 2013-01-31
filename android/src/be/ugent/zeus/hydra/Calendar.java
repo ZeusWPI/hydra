@@ -141,7 +141,7 @@ public class Calendar extends AbstractSherlockActivity {
         } else if (isTodayWithOffset(date, 1)) {
             return getString(R.string.tomorrow);
         }
-        return new SimpleDateFormat("EEEE dd MMM", getResources().getConfiguration().locale).format(date.getTime());
+        return new SimpleDateFormat("EEEE dd MMM", Hydra.LOCALE).format(date.getTime());
     }
 
     private boolean isTodayWithOffset(java.util.Calendar date, int offset) {

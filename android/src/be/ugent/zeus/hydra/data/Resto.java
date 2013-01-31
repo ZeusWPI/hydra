@@ -12,4 +12,5 @@ public class Resto implements Serializable {
     public String address;
     public Integer longitude;
     public Integer latitude;
+    public boolean resto;
 }

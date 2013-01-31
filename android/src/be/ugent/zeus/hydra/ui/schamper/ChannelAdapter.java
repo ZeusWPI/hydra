@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import be.ugent.zeus.hydra.Hydra;
 import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.rss.Channel;
 import be.ugent.zeus.hydra.data.rss.Item;
@@ -38,7 +39,7 @@ public class ChannelAdapter extends ArrayAdapter<Item> {
 
         TextView date = (TextView) row.findViewById(R.id.schamper_item_date);
         date.setText(String.format(postedBy, item.creator,
-            new SimpleDateFormat("EEEE dd MMM yyyy hh:mm", parent.getResources().getConfiguration().locale).format(item.pubDate)));
+            new SimpleDateFormat("EEEE dd MMM yyyy hh:mm", Hydra.LOCALE).format(item.pubDate)));
         return row;
     }
 }
