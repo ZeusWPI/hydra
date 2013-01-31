@@ -6,7 +6,7 @@
       android:layout_height="fill_parent">
     
     <item android:id="@+id/show_map"
-          android:icon="@android:drawable/ic_menu_info_details"
+          android:icon="@android:drawable/ic_dialog_map"
           android:title="@string/show_map"
           android:showAsAction="ifRoom" />
     
