@@ -195,6 +195,7 @@
 #pragma mark - MapView delegate
 
 #define kUpdateDistance 50.0
+#define kRectOfInterestMargin 2000.0
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
@@ -237,7 +238,7 @@
             rect = MKMapRectUnion(rect, pointRect);
         }
     }
-    return rect;
+    return MKMapRectInset(rect, -kRectOfInterestMargin, -kRectOfInterestMargin);
 }
 
 - (void)resetMapViewRect

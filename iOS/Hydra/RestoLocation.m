@@ -9,12 +9,10 @@
 #import "RestoLocation.h"
 #import <RestKit/RestKit.h>
 
-#define kCoordinateScaleFactor 1000000.0
-
 @interface RestoLocation ()
 
-@property (nonatomic, assign) NSInteger latitude;
-@property (nonatomic, assign) NSInteger longitude;
+@property (nonatomic, assign) CLLocationDegrees latitude;
+@property (nonatomic, assign) CLLocationDegrees longitude;
 
 @end
 
@@ -26,8 +24,8 @@
         self.name = [coder decodeObjectForKey:@"name"];
         self.address = [coder decodeObjectForKey:@"address"];
         self.type = [coder decodeObjectForKey:@"type"];
-        self.longitude = [coder decodeIntegerForKey:@"longitude"];
-        self.latitude = [coder decodeIntegerForKey:@"latitude"];
+        self.longitude = [coder decodeDoubleForKey:@"longitude"];
+        self.latitude = [coder decodeDoubleForKey:@"latitude"];
     }
     return self;
 }
@@ -52,15 +50,15 @@
     [coder encodeObject:self.name forKey:@"name"];
     [coder encodeObject:self.address forKey:@"address"];
     [coder encodeObject:self.type forKey:@"type"];
-    [coder encodeInteger:self.longitude forKey:@"longitude"];
-    [coder encodeInteger:self.latitude forKey:@"latitude"];
+    [coder encodeDouble:self.longitude forKey:@"longitude"];
+    [coder encodeDouble:self.latitude forKey:@"latitude"];
 }
 
 #pragma mark MKAnnotation
 
 - (CLLocationCoordinate2D)coordinate
 {
-    return CLLocationCoordinate2DMake(self.latitude/kCoordinateScaleFactor, self.longitude/kCoordinateScaleFactor);
+    return CLLocationCoordinate2DMake(self.latitude, self.longitude);
 }
 
 - (NSString *)title
