@@ -1,22 +1,14 @@
 package be.ugent.zeus.hydra;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.widget.Toast;
-import be.ugent.zeus.hydra.R;
-import be.ugent.zeus.hydra.R;
-import be.ugent.zeus.hydra.data.Resto;
-import be.ugent.zeus.hydra.data.caches.RestoCache;
-import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.RestoService;
-import be.ugent.zeus.hydra.ui.map.RestoOverlay;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.maps.MyLocationOverlay;
-import com.google.android.maps.Overlay;
-import java.util.List;
 
 /**
  *
@@ -24,7 +16,8 @@ import java.util.List;
  */
 public class BuildingMap extends AbstractMapActivity {
 
-    private MapView map;
+    private MapView mapView;
+    private GoogleMap map;
     private MyLocationOverlay myLocOverlay;
     private RestoResultReceiver receiver = new RestoResultReceiver();
 
@@ -35,42 +28,49 @@ public class BuildingMap extends AbstractMapActivity {
         setTitle(R.string.title_buildings);
         setContentView(R.layout.restomap);
 
-        map = (MapView) findViewById(R.id.mapview);
+        mapView = (MapView) findViewById(R.id.mapview);
+        mapView.onCreate(savedInstanceState);
+        map = mapView.getMap();
+        //map.getCameraPosition()
 
-        // try to add an overlay with resto's
-        addRestoOverlay(false);
 
-        // enable the zoom controls
-        map.setBuiltInZoomControls(true);
+//        try to add an overlay with resto's
+//        addRestoOverlay(false);
 
-        // center the map somewhere in Ghent
-        map.getController().setCenter(new GeoPoint(51045792, 3722391));
-        map.getController().setZoom(13);
+//        center the map somewhere in Ghent
+//        map.getController().setCenter(new GeoPoint(51045792, 3722391));
+//        map.getController().setZoom(13);
 
-        // Add a standard overlay containing the users location
-        myLocOverlay = new MyLocationOverlay(this, map);
-        myLocOverlay.enableMyLocation();
+//        GoogleMapOptions options = new GoogleMapOptions();
+//        options.camera(new CameraPosition(new LatLng(0, 0), 15, 0, 0));
 
-        List<Overlay> overlays = map.getOverlays();
-        overlays.add(myLocOverlay);
+//
+//        // Add a standard overlay containing the users location
+//        myLocOverlay = new MyLocationOverlay(this, map);
+//        myLocOverlay.enableMyLocation();
+//
+//        List<Overlay> overlays = map.getOverlays();
+//        overlays.add(myLocOverlay);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        myLocOverlay.disableMyLocation();
+//        myLocOverlay.disableMyLocation();
     }
 
     @Override
     public void onResume() {
+        mapView.onResume();
         super.onResume();
-        myLocOverlay.enableMyLocation();
+//        myLocOverlay.enableMyLocation();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        myLocOverlay.disableMyLocation();
+        mapView.onDestroy();
+//        myLocOverlay.disableMyLocation();
     }
 
     @Override
@@ -78,25 +78,24 @@ public class BuildingMap extends AbstractMapActivity {
         return false;
     }
 
-    private void addRestoOverlay(boolean synced) {
-        final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
-
-        if (restos.size() > 0) {
-            List<Overlay> overlays = map.getOverlays();
-            overlays.add(new RestoOverlay(BuildingMap.this, restos));
-            map.postInvalidate();
-        } else {
-            if (!synced) {
-                // start the intent service to fetch the list of resto's
-                Intent intent = new Intent(this, RestoService.class);
-                intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
-                startService(intent);
-            } else {
-                Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
+//    private void addRestoOverlay(boolean synced) {
+//        final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
+//
+//        if (restos.size() > 0) {
+//            List<Overlay> overlays = map.getOverlays();
+//            overlays.add(new RestoOverlay(BuildingMap.this, restos));
+//            map.postInvalidate();
+//        } else {
+//            if (!synced) {
+//                // start the intent service to fetch the list of resto's
+//                Intent intent = new Intent(this, RestoService.class);
+//                intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
+//                startService(intent);
+//            } else {
+//                Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
     private class RestoResultReceiver extends ResultReceiver {
 
         public RestoResultReceiver() {
@@ -106,7 +105,7 @@ public class BuildingMap extends AbstractMapActivity {
         @Override
         protected void onReceiveResult(int code, Bundle data) {
             if (code == RestoService.STATUS_FINISHED) {
-                addRestoOverlay(true);
+//                addRestoOverlay(true);
             }
         }
     }
