@@ -1,31 +1,25 @@
 package be.ugent.zeus.hydra;
 
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 import be.ugent.zeus.hydra.data.services.RestoService;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 
 /**
  *
  * @author Thomas Meire
  */
-public class BuildingMap extends AbstractMapActivity {
+public class BuildingMap extends SherlockFragmentActivity {
 
-    private MapView mapView;
     private GoogleMap map;
-    private OnLocationChangedListener mListener;
-    private LocationManager locationManager;
     private RestoResultReceiver receiver = new RestoResultReceiver();
 
     @Override
@@ -34,11 +28,9 @@ public class BuildingMap extends AbstractMapActivity {
 
         setTitle(R.string.title_buildings);
         setContentView(R.layout.restomap);
-
-        mapView = (MapView) findViewById(R.id.mapview);
-        mapView.onCreate(savedInstanceState);
-
-        map = mapView.getMap();
+        
+        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+        
         try {
             MapsInitializer.initialize(this);
         } catch (GooglePlayServicesNotAvailableException ex) {
@@ -84,17 +76,14 @@ public class BuildingMap extends AbstractMapActivity {
 
     @Override
     public void onResume() {
-        mapView.onResume();
         super.onResume();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
     }
 
-    @Override
     protected boolean isRouteDisplayed() {
         return false;
     }
