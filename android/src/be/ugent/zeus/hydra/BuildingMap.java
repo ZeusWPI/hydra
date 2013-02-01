@@ -2,13 +2,17 @@ package be.ugent.zeus.hydra;
 
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.util.Log;
 import be.ugent.zeus.hydra.data.services.RestoService;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.maps.MyLocationOverlay;
+import java.util.logging.Level;
 
 /**
  *
@@ -31,21 +35,23 @@ public class BuildingMap extends AbstractMapActivity {
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
         map = mapView.getMap();
-        //map.getCameraPosition()
+        try {
+            MapsInitializer.initialize(this);
+        } catch (GooglePlayServicesNotAvailableException ex) {
+            Log.e("GPS:", "Error" + ex);
+        }
+        
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(51.052833, 3.723335));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
+
+        map.moveCamera(center);
+        map.animateCamera(zoom);
 
 
 //        try to add an overlay with resto's
 //        addRestoOverlay(false);
-
-//        center the map somewhere in Ghent
-//        map.getController().setCenter(new GeoPoint(51045792, 3722391));
-//        map.getController().setZoom(13);
-
-//        GoogleMapOptions options = new GoogleMapOptions();
-//        options.camera(new CameraPosition(new LatLng(0, 0), 15, 0, 0));
-
 //
-//        // Add a standard overlay containing the users location
+//        Add a standard overlay containing the users location
 //        myLocOverlay = new MyLocationOverlay(this, map);
 //        myLocOverlay.enableMyLocation();
 //
