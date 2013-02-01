@@ -52,7 +52,7 @@ public class NewsList extends ArrayAdapter<NewsItem> {
     private class NewsItemComparator implements Comparator<NewsItem> {
 
         public int compare(NewsItem item1, NewsItem item2) {
-            return item1.date.compareTo(item2.date);
+            return item2.date.compareTo(item1.date);
         }
     }
 }
