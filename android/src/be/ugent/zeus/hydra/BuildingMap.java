@@ -5,7 +5,10 @@ import android.os.ResultReceiver;
 import android.util.Log;
 import be.ugent.zeus.hydra.data.services.RestoService;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  *
- * @author Thomas Meire
+ * @author Tom Naessens
  */
 public class BuildingMap extends AbstractSherlockFragmentActivity {
 
@@ -26,11 +29,31 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle(R.string.title_buildings);
+        setTitle(R.string.title_restomap);
         setContentView(R.layout.restomap);
-        
-        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-        
+
+        setUpMapIfNeeded();
+    }
+
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (map == null) {
+            map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+
+            // Check if we were successful in obtaining the map.
+            if (map != null) {
+                // The Map is verified. It is now safe to manipulate the map.
+                setUpMap();
+            } else {
+                int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+                if(result != ConnectionResult.SUCCESS) {
+                    GooglePlayServicesUtil.getErrorDialog(result, this, 1);
+                }
+            }
+        }
+    }
+
+    public void setUpMap() {
         try {
             MapsInitializer.initialize(this);
         } catch (GooglePlayServicesNotAvailableException ex) {
@@ -45,7 +68,8 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
 
         CameraUpdate center;
         CameraUpdate zoom;
-        // Is the user in Ghent?
+
+//        Is the user in Ghent?
 //        if (bounds.contains(location)) {
 //            center = CameraUpdateFactory.newLatLng(location);
 //            zoom = CameraUpdateFactory.zoomTo(6);
@@ -60,11 +84,11 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
 
 //        try to add an overlay with resto's
 //        addRestoOverlay(false);
-//
+
 //        Add a standard overlay containing the users location
 //        myLocOverlay = new MyLocationOverlay(this, map);
 //        myLocOverlay.enableMyLocation();
-//
+
 //        List<Overlay> overlays = map.getOverlays();
 //        overlays.add(myLocOverlay);
     }
@@ -77,6 +101,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
     @Override
     public void onResume() {
         super.onResume();
+        setUpMapIfNeeded();
     }
 
     @Override
