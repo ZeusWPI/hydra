@@ -5,16 +5,12 @@
  */
 package be.ugent.zeus.hydra;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
-import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.analytics.tracking.android.EasyTracker;
 
-public abstract class AbstractSherlockListActivity extends SherlockListActivity {
+public class AbstractSherlockFragmentActivity extends SherlockFragmentActivity {
 
     @Override
     public void onCreate(Bundle icicle) {

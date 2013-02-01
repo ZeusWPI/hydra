@@ -32,6 +32,7 @@ public class Info extends AbstractSherlockListActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        setTitle(R.string.title_info);
 
         NSArrayWrapper wrapper = (NSArrayWrapper) getIntent().getParcelableExtra("content");
         NSArray content;

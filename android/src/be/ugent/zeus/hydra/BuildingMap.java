@@ -17,7 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
  *
  * @author Thomas Meire
  */
-public class BuildingMap extends SherlockFragmentActivity {
+public class BuildingMap extends AbstractSherlockFragmentActivity {
 
     private GoogleMap map;
     private RestoResultReceiver receiver = new RestoResultReceiver();
