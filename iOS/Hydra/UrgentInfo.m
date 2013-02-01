@@ -6,24 +6,24 @@
 //  Copyright (c) 2013 Zeus WPI. All rights reserved.
 //
 
-#import "URGentInfo.h"
+#import "UrgentInfo.h"
 
-NSString *const URGentNowPlayingUpdateNotification = @"URGentNowPlayingUpdateNotification";
+NSString *const UrgentNowPlayingUpdateNotification = @"UrgentNowPlayingUpdateNotification";
 
-@interface URGentInfo()
+@interface UrgentInfo()
 
 @property (atomic) BOOL update;
 @property (nonatomic) NSTimer* timer;
 
 @end
 
-@implementation URGentInfo
+@implementation UrgentInfo
 
-+ (URGentInfo *)sharedInfo
++ (UrgentInfo *)sharedInfo
 {
-    static URGentInfo *sharedInstance = nil;
+    static UrgentInfo *sharedInstance = nil;
     if (!sharedInstance) {
-        sharedInstance = [[URGentInfo alloc] init];
+        sharedInstance = [[UrgentInfo alloc] init];
     }
     return sharedInstance;
 }
@@ -43,11 +43,14 @@ NSString *const URGentNowPlayingUpdateNotification = @"URGentNowPlayingUpdateNot
     [self updateNowPlaying];
 
     if (self.timer == nil)
+    {
         self.timer = [NSTimer scheduledTimerWithTimeInterval:30.0
                                      target:self
                                    selector:@selector(updateNowPlaying)
                                    userInfo:nil
                                     repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    }
 }
 
 - (void) stopUpdating
@@ -55,12 +58,14 @@ NSString *const URGentNowPlayingUpdateNotification = @"URGentNowPlayingUpdateNot
     self.update = NO;
     
     if (self.timer != nil)
+    {
         [self.timer invalidate];
+    }
 }
 
 - (void) updateNowPlaying
 {
-    NSString* url = @"http://urgent.fm/nowplaying/livetrack.txt";
+    NSString *const url = @"http://urgent.fm/nowplaying/livetrack.txt";
     NSURL *urlRequest = [NSURL URLWithString:url];
     NSError *err = nil;
 
@@ -71,18 +76,22 @@ NSString *const URGentNowPlayingUpdateNotification = @"URGentNowPlayingUpdateNot
         VLog(err);
         //Handle 
     }
-    if ([txt rangeOfString:@"Geen plaat(info)"].location == NSNotFound){
+    VLog(txt);
+    if ( ![txt isEqualToString:@"Geen plaat(info)"] ){
         if(self.nowPlaying == nil || [txt rangeOfString:self.nowPlaying].location == NSNotFound){
             // song playing and is not same song
             self.prevPlaying = self.nowPlaying;
             self.nowPlaying = txt;
-            VLog(txt);
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:UrgentNowPlayingUpdateNotification object:self];
         }
     } else {
         if ( self.nowPlaying != nil ){
             // set nowPlaying as prevPlaying
             self.prevPlaying = self.nowPlaying;
             self.nowPlaying = nil;
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:UrgentNowPlayingUpdateNotification object:self];
         }
     }
 }

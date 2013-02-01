@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-extern NSString *const URGentNowPlayingUpdateNotification;
+extern NSString *const UrgentNowPlayingUpdateNotification;
 
-@interface URGentInfo : NSObject
+@interface UrgentInfo : NSObject
 
-@property (retain, strong) NSString* prevPlaying;
-@property (retain, strong) NSString* nowPlaying;
+@property (retain, strong) NSString *prevPlaying;
+@property (retain, strong) NSString *nowPlaying;
 
 - (void) startUpdating;
 - (void) stopUpdating;
 
-+ (URGentInfo*) sharedInfo;
++ (UrgentInfo *)sharedInfo;
 
 @end
