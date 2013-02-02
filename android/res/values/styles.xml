@@ -22,6 +22,7 @@
     </style>
     <style name="Hydra.ActionBar.CenteredBig" parent="Widget.Sherlock.Light.ActionBar"> 
         <item name="height">80dip</item>
+        <item name="android:height">80dip</item>
         
         <item name="background">@drawable/actionbar_background</item>
         <item name="android:background">@drawable/actionbar_background</item>
@@ -30,9 +31,10 @@
         <item name="android:titleTextStyle">@style/Hydra.ActionBar.TitleTextStyle</item>
     </style>
 
-    <style name="Hydra.ActionBar.TitleTextStyle" parent="@style/TextAppearance.Holo.Medium">
+    <style name="Hydra.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Medium">
         <item name="android:textColor">@color/ugent_white</item>
     </style>
+    
     <style name="Hydra.ActionButton.Overflow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_menu_moreoverflow</item>
     </style>	

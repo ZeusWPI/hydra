@@ -9,6 +9,8 @@ import be.ugent.zeus.hydra.data.Resto;
 import be.ugent.zeus.hydra.data.caches.RestoCache;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.RestoService;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -106,10 +108,6 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
         super.onDestroy();
     }
 
-    protected boolean isRouteDisplayed() {
-        return false;
-    }
-
     private void addRestos(boolean synced) {
         final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
 
@@ -127,6 +125,24 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
             } else {
                 Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.building_search, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                onSearchRequested();
+                return true;
+            default:
+                return false;
         }
     }
 
