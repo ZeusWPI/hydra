@@ -31,23 +31,35 @@
 
         <activity android:name=".Hydra" 
                   android:logo="@drawable/hydra"
-                  android:theme="@style/Theme.Hydra.Light.CenteredBig">
+                  android:theme="@style/Theme.Hydra.Light.CenteredBig"
+                  android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Settings" />
-        <activity android:name=".News" />
-        <activity android:name=".NewsItemActivity" />
-        <activity android:name=".Calendar" />
-        <activity android:name=".Info" />
-        <activity android:name=".InfoWebActivity" />
-        <activity android:name=".GSR" />
-        <activity android:name=".BuildingMap" />
-        <activity android:name=".RestoMenu" />
-        <activity android:name=".SchamperDaily" />
-        <activity android:name=".SchamperDailyItem" />
+        <activity android:name=".Settings"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".News"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".NewsItemActivity"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".Calendar"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".Info"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".InfoWebActivity"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".GSR"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".BuildingMap"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".RestoMenu"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".SchamperDaily"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".SchamperDailyItem"
+                  android:configChanges="screenSize|orientation" />
 
         <service android:name=".data.services.UpdaterService">
             <intent-filter>
