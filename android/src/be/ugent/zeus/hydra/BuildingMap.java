@@ -125,7 +125,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
                 intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
                 startService(intent);
             } else {
-                 Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -139,7 +139,11 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
         @Override
         protected void onReceiveResult(int code, Bundle data) {
             if (code == RestoService.STATUS_FINISHED) {
-                addRestos(true);
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        addRestos(true);
+                    }
+                });
             }
         }
     }
