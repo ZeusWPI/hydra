@@ -42,7 +42,7 @@ public class RestoService extends HTTPIntentService {
                 cache.put(r.name, r);
             }
         } catch (Exception e) {
-            Log.e("[RestoService]", "An exception occured while parsing the json response!" + e.getMessage());
+            Log.e("[RestoService]", "An exception occured while parsing the json response! " + e.getMessage());
         }
     }
 

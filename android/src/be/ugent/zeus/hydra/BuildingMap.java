@@ -1,11 +1,14 @@
 package be.ugent.zeus.hydra;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.widget.Toast;
+import be.ugent.zeus.hydra.data.Resto;
+import be.ugent.zeus.hydra.data.caches.RestoCache;
+import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.RestoService;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -15,6 +18,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import java.util.List;
 
 /**
  *
@@ -46,7 +51,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
                 setUpMap();
             } else {
                 int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-                if(result != ConnectionResult.SUCCESS) {
+                if (result != ConnectionResult.SUCCESS) {
                     GooglePlayServicesUtil.getErrorDialog(result, this, 1);
                 }
             }
@@ -81,16 +86,8 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
         map.moveCamera(center);
         map.animateCamera(zoom);
 
+        addRestos(false);
 
-//        try to add an overlay with resto's
-//        addRestoOverlay(false);
-
-//        Add a standard overlay containing the users location
-//        myLocOverlay = new MyLocationOverlay(this, map);
-//        myLocOverlay.enableMyLocation();
-
-//        List<Overlay> overlays = map.getOverlays();
-//        overlays.add(myLocOverlay);
     }
 
     @Override
@@ -113,24 +110,26 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
         return false;
     }
 
-//    private void addRestoOverlay(boolean synced) {
-//        final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
-//
-//        if (restos.size() > 0) {
-//            List<Overlay> overlays = map.getOverlays();
-//            overlays.add(new RestoOverlay(BuildingMap.this, restos));
-//            map.postInvalidate();
-//        } else {
-//            if (!synced) {
-//                // start the intent service to fetch the list of resto's
-//                Intent intent = new Intent(this, RestoService.class);
-//                intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
-//                startService(intent);
-//            } else {
-//                Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
+    private void addRestos(boolean synced) {
+        final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
+
+        if (restos.size() > 0) {
+            for (Resto resto : restos) {
+                map.addMarker((new MarkerOptions()
+                    .position(new LatLng(resto.latitude, resto.longitude))
+                    .title(resto.name)));
+            }
+        } else {
+            if (!synced) {
+                Intent intent = new Intent(this, RestoService.class);
+                intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
+                startService(intent);
+            } else {
+                 Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private class RestoResultReceiver extends ResultReceiver {
 
         public RestoResultReceiver() {
@@ -140,7 +139,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
         @Override
         protected void onReceiveResult(int code, Bundle data) {
             if (code == RestoService.STATUS_FINISHED) {
-//                addRestoOverlay(true);
+                addRestos(true);
             }
         }
     }

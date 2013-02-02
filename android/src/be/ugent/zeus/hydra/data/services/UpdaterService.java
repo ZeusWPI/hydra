@@ -2,6 +2,7 @@ package be.ugent.zeus.hydra.data.services;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import be.ugent.zeus.hydra.data.caches.VersionCache;
