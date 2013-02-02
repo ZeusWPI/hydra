@@ -1,70 +1,96 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Hydra.ViewModels
 {
     public class InfoItemsViewModel : INotifyPropertyChanged
     {
-        private string _lineOne;
+        private string _title;
         /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// this property is used in the view to display its value using a Binding.
         /// </summary>
-        /// <returns></returns>
-        public string LineOne
+        /// <returns>title of the info item</returns>
+        public string Title
         {
             get
             {
-                return _lineOne;
+                return _title;
             }
             set
             {
-                if (value != _lineOne)
+                if (value != _title)
                 {
-                    _lineOne = value;
-                    NotifyPropertyChanged("LineOne");
+                    _title = value;
+                    NotifyPropertyChanged("title");
                 }
             }
         }
 
-        private string _lineTwo;
-        /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
-        /// </summary>
-        /// <returns></returns>
-        public string LineTwo
+        private string _link;
+        public string Link
         {
-            get
-            {
-                return _lineTwo;
-            }
+            get { return _link; }
             set
             {
-                if (value != _lineTwo)
+                if (value != null)
                 {
-                    _lineTwo = value;
-                    NotifyPropertyChanged("LineTwo");
+                    if (!value.StartsWith("http"))
+                    {
+                        _link = "Resources/" + value;
+                    }
+                    else
+                    {
+                        _link = value;
+                    }
                 }
             }
         }
 
-        private string _lineThree;
+        public List<InfoItemsViewModel> Children
+        {
+            get; set;
+        }
+
+        private string _imagePath;
         /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        ///  this property is used in the view to display its value using a Binding.
         /// </summary>
-        /// <returns></returns>
-        public string LineThree
+        /// <returns>imagepath extracted from xml</returns>
+        public string ImagePath
         {
             get
             {
-                return _lineThree;
+                return _imagePath;
             }
             set
             {
-                if (value != _lineThree)
+                if (value != _imagePath)
                 {
-                    _lineThree = value;
-                    NotifyPropertyChanged("LineThree");
+                    _imagePath = "Assets/"+value+".png";
+                    NotifyPropertyChanged("imagePath");
                 }
+            }
+        }
+
+        /// <summary>
+        /// this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns>the image itself</returns>
+        private ImageSource _image;
+
+        public ImageSource Image
+        {
+            get
+            {
+                if (_image == null && _imagePath != null)
+                {
+
+                    _image = new BitmapImage(new Uri(@_imagePath,UriKind.Relative));
+                }
+                return _image;
             }
         }
 

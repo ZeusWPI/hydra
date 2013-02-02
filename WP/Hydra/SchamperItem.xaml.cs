@@ -7,6 +7,7 @@ namespace Hydra
 {
     public partial class SchamperItem : PhoneApplicationPage
     {
+        private const string Header ="<html><head><link rel='stylesheet' type='text/css' href='../Assets/schamper.css'></head>";
         public SchamperItem()
         {
             InitializeComponent();
@@ -21,7 +22,10 @@ namespace Hydra
             {
                 author.Text = item.Author;
                 title.Text = item.FullTitle;
-                browser.NavigateToString(item.Content);
+                browser.NavigateToString(Header+item.Content+"</html>");
+            }else
+            {
+                //TODO:let's go back, shall we
             }
         }
     }

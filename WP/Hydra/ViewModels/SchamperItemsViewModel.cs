@@ -7,38 +7,35 @@ namespace Hydra.ViewModels
 {
     public class SchamperItemsViewModel : INotifyPropertyChanged
     {
-        private string _title;
         /// <summary>
         /// title is used in the view to display its value using a Binding.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returns title and if needed truncates manually</returns>
         public string Title
         {
             get
             {
-                if (_title.Length > 30)
+                if (FullTitle.Length > 30)
                 {
                     const int i = 31;
-                    if (i == _title.Length)
-                        return _title.Substring(0, i);
-                    return _title.Substring(0, i - 3) + "...";
+                    if (i == FullTitle.Length)
+                        return FullTitle.Substring(0, i);
+                    return FullTitle.Substring(0, i - 3) + "...";
                 }
-                return _title;
+                return FullTitle;
             }
             set
             {
-                if (value != _title)
+                if (value != FullTitle)
                 {
-                    _title = value;
+                    FullTitle = value;
                     NotifyPropertyChanged("title");
                 }
             }
         }
 
-        public string FullTitle
-        {
-            get { return _title; }
-        }
+        public string FullTitle { get; private set; }
+
         private string _date;
         public string Date
         {
@@ -60,7 +57,7 @@ namespace Hydra.ViewModels
         /// <summary>
         /// author property is used in the view to display its value using a Binding.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The authors name and date of publshing</returns>
         public string Author
         {
             get
@@ -81,9 +78,9 @@ namespace Hydra.ViewModels
 
         private string _content;
         /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        ///  this property is used in the view to display its value using a Binding.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>summary/content of the article extracted from xml</returns>
         public string Content
         {
             get
@@ -102,9 +99,9 @@ namespace Hydra.ViewModels
 
         private string _imagePath;
         /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        ///  this property is used in the view to display its value using a Binding.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>imagepath extracted from xml</returns>
         public string ImagePath
         {
             get
