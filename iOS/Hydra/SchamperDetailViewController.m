@@ -11,7 +11,7 @@
 #import <ShareKit/SHK.h>
 #import <TUSafariActivity.h>
 
-@interface SchamperDetailViewController () <UIScrollViewDelegate>
+@interface SchamperDetailViewController () <UIGestureRecognizerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) SchamperArticle *article;
 
@@ -58,6 +58,13 @@
     scrollView.delegate = self;
     scrollView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
     scrollView.scrollIndicatorInsets = scrollView.contentInset;
+
+    // Recognize taps
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] init];
+    tapRecognizer.delegate = self;
+    tapRecognizer.numberOfTapsRequired = 1;
+    [tapRecognizer addTarget:self action:@selector(didRecognizeTap:)];
+    [self.webView addGestureRecognizer:tapRecognizer];
 
     // Add share button
     UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
@@ -111,7 +118,20 @@
     }
 }
 
-#pragma mark - Navigation bar madness
+#pragma mark - Gesture recognizer
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (void)didRecognizeTap:(UIEvent *)event
+{
+    [self setNavigationBarHidden:NO];
+}
+
+#pragma mark - Navigation bar
 
 - (void)setNavigationBarHidden:(BOOL)hide
 {
@@ -144,6 +164,10 @@
     // Always show navigation bar in top section
     if (currentOffset <= 10) {
         [self setNavigationBarHidden:NO];
+    }
+    // Ignore events from the bottom bounce
+    else if (currentOffset >= scrollView.contentSize.height - scrollView.frame.size.height) {
+        return;
     }
     // Check if scrolling at high enough speed
     else if (scrollView.tracking && abs(differenceFromLast) > 1) {

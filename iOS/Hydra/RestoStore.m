@@ -18,7 +18,8 @@
 #define kRestoInfoPath @"/meta.json"
 #define kRestoMenuPath @"/menu/%d/%d.json"
 
-#define kInfoUpdateIterval (7 * 24 * 60 * 60) /* one week */
+#define kInfoUpdateIterval (24 * 60 * 60) /* one day */
+#define kMenuUpdateIterval (24 * 60 * 60)
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
@@ -44,8 +45,15 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     static RestoStore *sharedInstance = nil;
     if (!sharedInstance) {
         // Try restoring the store from archive
-        sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self menuCachePath]];
-        if (!sharedInstance) sharedInstance = [[RestoStore alloc] init];
+        @try {
+            sharedInstance = [NSKeyedUnarchiver unarchiveObjectWithFile:[self menuCachePath]];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Got exception while reading Resto archive: %@", exception);
+        }
+        @finally {
+            if (!sharedInstance) sharedInstance = [[RestoStore alloc] init];
+        }
     }
     return sharedInstance;
 }
@@ -56,7 +64,6 @@ NSString *const RestoStoreDidUpdateInfoNotification =
         self.menus = [[NSMutableDictionary alloc] init];
         self.locations = [[NSArray alloc] init];
         self.legend = [[NSArray alloc] init];
-        self.infoLastUpdated = nil;
 
         [self sharedInit];
     }
@@ -136,7 +143,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 
     day = [day dateAtStartOfDay];
     RestoMenu *menu = self.menus[day];
-    if (!menu) {
+    if (!menu || [menu.lastUpdated timeIntervalSinceNow] < -kMenuUpdateIterval) {
         [self fetchMenuForWeek:day.week year:day.yearOfCalendarWeek];
     }
     return menu;
@@ -174,7 +181,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 - (void)refreshInfo
 {
     // Check if an update is required
-    if ([[NSDate date] timeIntervalSinceDate:self.infoLastUpdated] < kInfoUpdateIterval) {
+    if ([self.infoLastUpdated timeIntervalSinceNow] > -kInfoUpdateIterval) {
         return;
     }
 
@@ -210,6 +217,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     [self delayActiveRequestRemoval:objectLoader.resourcePath];
     for (RestoMenu *menu in objects) {
         NSDate *day = [[menu day] dateAtStartOfDay];
+        menu.lastUpdated = [NSDate date];
         self.menus[day] = menu;
     }
 
@@ -232,6 +240,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     if ([dictionary[@"locations"] count] > 0) {
         self.locations = dictionary[@"locations"];
     }
+    self.infoLastUpdated = [NSDate date];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:RestoStoreDidUpdateInfoNotification object:self];

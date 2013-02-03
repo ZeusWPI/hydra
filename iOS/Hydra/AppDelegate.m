@@ -43,7 +43,7 @@
 #endif
 
     // Configure some parts of the application asynchronously
-    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, NULL);
+    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
         // Check for internet connectivity
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
@@ -114,7 +114,7 @@
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{
             kErrorTitleKey: @"Geen internetverbinding",
             kErrorDescriptionKey: @"Sommige onderdelen van Hydra vereisen een "
-                                  @"internetverbinding en zullen mogelijk niet "
+                                  @"internetverbinding en zullen mogelijks niet "
                                   @"correct werken."}];
         [self handleError:error];
     }

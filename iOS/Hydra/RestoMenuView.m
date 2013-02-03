@@ -91,7 +91,7 @@
     self.tableView = tableView;
 
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    spinner.center = self.center;
+    spinner.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     spinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
                              | UIViewAutoresizingFlexibleBottomMargin;
     [self addSubview:spinner];
@@ -236,17 +236,16 @@
     UIView *header = [[UIView alloc] initWithFrame:headerFrame];
     header.backgroundColor = [UIColor whiteColor];
 
-    UIFont *font = [UIFont fontWithName:@"Baskerville-SemiBold" size:20];
+    UIFont *font = [UIFont fontWithName:@"Futura-Medium" size:18];
     CGSize textSize = [title sizeWithFont:font];
-    CGFloat offsetX = roundf((self.bounds.size.width - textSize.width) / 2);
+    CGFloat offsetX = roundf((self.bounds.size.width - textSize.width - 34) / 2);
 
-    CGRect iconFrame = CGRectMake(offsetX - kSectionHeaderHeight, 13,
-                                  kSectionHeaderHeight - 15, kSectionHeaderHeight - 18);
+    CGRect iconFrame = CGRectMake(offsetX - 20, 13, 30, 30);
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:iconFrame];
     iconView.image = image;
     [header addSubview:iconView];
     
-    CGRect titleFrame = CGRectMake(offsetX, 12, textSize.width, kSectionHeaderHeight - 18);
+    CGRect titleFrame = CGRectMake(offsetX + 17, 19, textSize.width, 22);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
     titleLabel.textAlignment = UITextAlignmentCenter;
     titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;

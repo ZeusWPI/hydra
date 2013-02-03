@@ -6,14 +6,15 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 #import <QuartzCore/QuartzCore.h>
-#import "RestoMenuController.h"
-#import "RestoStore.h"
-#import "RestoMenu.h"
-#import "UIColor+AppColors.h"
+#import "InfoPageControl.h"
 #import "NSDate+Utilities.h"
-#import "RestoMenuView.h"
 #import "RestoInfoView.h"
 #import "RestoMapController.h"
+#import "RestoMenu.h"
+#import "RestoMenuController.h"
+#import "RestoMenuView.h"
+#import "RestoStore.h"
+#import "UIColor+AppColors.h"
 #import "UINavigationController+ReplaceController.h"
 
 #define kRestoDaysShown 5
@@ -21,7 +22,7 @@
 @interface RestoMenuController () <UIScrollViewDelegate>
 
 @property (nonatomic, unsafe_unretained) UIScrollView *scrollView;
-@property (nonatomic, unsafe_unretained) UIPageControl *pageControl;
+@property (nonatomic, unsafe_unretained) InfoPageControl *pageControl;
 @property (nonatomic, unsafe_unretained) RestoInfoView *infoSheet;
 @property (nonatomic, unsafe_unretained) RestoMenuView *menuSheetA;
 @property (nonatomic, unsafe_unretained) RestoMenuView *menuSheetB;
@@ -36,6 +37,19 @@
 @implementation RestoMenuController
 
 #pragma mark Setting up the view & viewcontroller
+
+- (id)init
+{
+    if (self = [super init]) {
+        // Check for updates
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(reloadMenu)
+                       name:RestoStoreDidReceiveMenuNotification object:nil];
+        [center addObserver:self selector:@selector(reloadInfo)
+                       name:RestoStoreDidUpdateInfoNotification object:nil];
+    }
+    return self;
+}
 
 - (void)loadView
 {
@@ -53,7 +67,7 @@
     self.scrollView = scrollView;
 
     CGRect pageControlFrame = CGRectMake(0, bounds.size.height - 36, bounds.size.width, 36);
-    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
+    InfoPageControl *pageControl = [[InfoPageControl alloc] initWithFrame:pageControlFrame];
     pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [pageControl addTarget:self action:@selector(pageChanged:)
           forControlEvents:UIControlEventValueChanged];
@@ -78,13 +92,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Check for updates
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reloadMenu)
-                   name:RestoStoreDidReceiveMenuNotification object:nil];
-    [center addObserver:self selector:@selector(reloadInfo)
-                   name:RestoStoreDidUpdateInfoNotification object:nil];
 
     // Update views
     [self reloadMenu];
@@ -116,18 +123,6 @@
     [self setupSheetStyle:self.menuSheetA];
     [self setupSheetStyle:self.menuSheetB];
     [self setupSheetStyle:self.infoSheet];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-
-    // Nil weak references
-    self.scrollView = nil;
-    self.pageControl = nil;
-    self.infoSheet = nil;
-    self.menuSheetA = nil;
-    self.menuSheetB = nil;
 }
 
 - (void)dealloc
@@ -179,7 +174,7 @@
 {
     RestoMapController *mapController = [[RestoMapController alloc] init];
     [self.navigationController H_replaceViewControllerWith:mapController
-                                                   options:UIViewAnimationOptionTransitionFlipFromRight];
+                                                   options:UIViewAnimationOptionTransitionFlipFromLeft];
 }
 
 #pragma mark - Loading days & menus

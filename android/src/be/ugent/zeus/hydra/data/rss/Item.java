@@ -11,16 +11,16 @@ import java.util.List;
  */
 public class Item implements Serializable {
 
-  public String title;
-  public String link;
-  public String description;
-  public String comments;
-  public Date pubDate;
-  public String creator;
-  public List<Category> categories = new ArrayList<Category>();
+    public String title;
+    public String link;
+    public String description;
+    public String comments;
+    public Date pubDate;
+    public String creator;
+    public List<Category> categories = new ArrayList<Category>();
 
-  @Override
-  public String toString() {
-    return "'" + title + "' by " + creator;
-  }
+    @Override
+    public String toString() {
+        return "'" + title + "' by " + creator;
+    }
 }

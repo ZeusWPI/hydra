@@ -9,18 +9,18 @@ import be.ugent.zeus.hydra.data.NewsItem;
 
 public class GSRCache extends Cache<ArrayList<NewsItem>> {
 
-  private static GSRCache cache;
+    private static GSRCache cache;
 
-  private GSRCache(File gsrCacheDir) {
-    super(gsrCacheDir);
-  }
-
-  public static synchronized GSRCache getInstance(Context context) {
-    if (cache == null) {
-      File cacheDir = context.getCacheDir();
-      File gsrCacheDir = new File(cacheDir, GSR.CACHE_FILE);
-      cache = new GSRCache(gsrCacheDir);
+    private GSRCache(File gsrCacheDir) {
+        super(gsrCacheDir);
     }
-    return cache;
-  }
+
+    public static synchronized GSRCache getInstance(Context context) {
+        if (cache == null) {
+            File cacheDir = context.getCacheDir();
+            File gsrCacheDir = new File(cacheDir, GSR.CACHE_FILE);
+            cache = new GSRCache(gsrCacheDir);
+        }
+        return cache;
+    }
 }

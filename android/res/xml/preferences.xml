@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <PreferenceCategory android:title="@string/title_schamper">
-    <CheckBoxPreference android:key="schamper_daily_auto_update"
-            android:title="@string/preferences_schamper_daily_auto_update"
-            android:defaultValue="true" />
-    <ListPreference android:key="schamper_daily_auto_update_timeout"
-            android:title="@string/preferences_schamper_daily_auto_update_timeout"
-            android:dependency="schamper_daily_auto_update"
-            android:defaultValue="60"
-            android:entries="@array/timeoutNames"
-            android:entryValues="@array/timeoutValues" />
-  </PreferenceCategory>
+    <PreferenceCategory android:title="@string/title_schamper">
+        <CheckBoxPreference android:key="schamper_daily_auto_update"
+                            android:title="@string/preferences_schamper_daily_auto_update"
+                            android:defaultValue="true" />
+        <ListPreference android:key="schamper_daily_auto_update_timeout"
+                        android:title="@string/preferences_schamper_daily_auto_update_timeout"
+                        android:dependency="schamper_daily_auto_update"
+                        android:defaultValue="60"
+                        android:entries="@array/timeoutNames"
+                        android:entryValues="@array/timeoutValues" />
+    </PreferenceCategory>
 </PreferenceScreen>

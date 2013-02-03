@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		  android:orientation="vertical"
-		  android:layout_width="fill_parent"
-		  android:layout_height="wrap_content"
-		  android:paddingBottom="10dp"
-		  android:paddingLeft="10dp">
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingBottom="10dp"
+              android:paddingLeft="10dp">
 
-	<TextView android:id="@+id/schamper_item_title"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="5dp"
-		android:layout_marginBottom="3dp"
-		android:textColor="@color/ugent_blue_dark"
-		android:textStyle="bold"
-		android:textSize="15dp">
-	</TextView>
-	<TextView android:id="@+id/schamper_item_date"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-	</TextView>
+    <TextView android:id="@+id/schamper_item_title"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:layout_marginBottom="3dp"
+              android:textColor="@color/ugent_blue_dark"
+              android:textStyle="bold"
+              android:textSize="15dp">
+    </TextView>
+    <TextView android:id="@+id/schamper_item_date"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+    </TextView>
 </LinearLayout>

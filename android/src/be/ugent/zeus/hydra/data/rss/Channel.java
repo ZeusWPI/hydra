@@ -10,19 +10,19 @@ import java.util.List;
  */
 public class Channel implements Serializable {
 
-  public String title;
-  public String link;
-  public String description;
-  public String language;
-  public List<Item> items = new ArrayList<Item>();
+    public String title;
+    public String link;
+    public String description;
+    public String language;
+    public List<Item> items = new ArrayList<Item>();
 
-  @Override
-  public String toString() {
-    String result = "Channel '" + title + "' (" + language + ", " + items.size() + " items): \n" + link + "\n" + description;
+    @Override
+    public String toString() {
+        String result = "Channel '" + title + "' (" + language + ", " + items.size() + " items): \n" + link + "\n" + description;
 
-    for (Item item : items) {
-      result += "\n" + item;
+        for (Item item : items) {
+            result += "\n" + item;
+        }
+        return result;
     }
-    return result;
-  }
 }

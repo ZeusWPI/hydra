@@ -13,11 +13,12 @@
 #import "AssociationNewsItem.h"
 #import "Association.h"
 #import "NSDateFormatter+AppLocale.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface NewsViewController ()
 
 @property (nonatomic, strong) NSArray *associations;
-@property (nonatomic, strong) NSMutableArray *newsItems;
+@property (nonatomic, strong) NSArray *newsItems;
 
 @end
 
@@ -43,14 +44,22 @@
     [center addObserver:self selector:@selector(newsUpdated:)
                 name:AssociationStoreDidUpdateNewsNotification
                 object:nil];
-     
-    // TODO: show loading overlay when no items found yet
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     GAI_Track(@"News");
+
+    if (self.newsItems.count == 0) {
+        [SVProgressHUD show];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -60,11 +69,12 @@
 
 - (void)refreshNewsItems
 {
-    self.newsItems = [NSMutableArray new];
+    NSMutableArray *newsItems = [NSMutableArray new];
     for (Association *association in self.associations) {
-        NSArray *newsItems = [[AssociationStore sharedStore] newsItemsForAssocation:association];
-        [self.newsItems addObjectsFromArray:newsItems];
+        NSArray *items = [[AssociationStore sharedStore] newsItemsForAssocation:association];
+        [newsItems addObjectsFromArray:items];
     }
+    self.newsItems = newsItems;
 }
 
 #pragma mark - Table view data source
@@ -104,6 +114,17 @@
     DLog(@"Updating tableView for news items");
     [self refreshNewsItems];
     [self.tableView reloadData];
+
+    // Hide or update HUD
+    if ([SVProgressHUD isVisible]) {
+        if (self.newsItems.count > 0) {
+            [SVProgressHUD dismiss];
+        }
+        else {
+            NSString *errorMsg = @"Geen nieuws gevonden";
+            [SVProgressHUD showErrorWithStatus:errorMsg];
+        }
+    }
 }
 
 #pragma mark - Table view delegate

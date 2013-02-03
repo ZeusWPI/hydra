@@ -21,32 +21,32 @@ import java.util.List;
  */
 public class News extends AbstractSherlockListActivity {
 
-  @Override
-  public void onCreate(Bundle icicle) {
-    super.onCreate(icicle);
-    setTitle(R.string.title_news);
-    getListView().setCacheColorHint(0);
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        setTitle(R.string.title_news);
+        getListView().setCacheColorHint(0);
 
-    NewsCache cache = NewsCache.getInstance(this);
+        NewsCache cache = NewsCache.getInstance(this);
 
-    List<NewsItem> items = new ArrayList<NewsItem>();
-    for (ArrayList<NewsItem> subset : cache.getAll()) {
-      items.addAll(subset);
+        List<NewsItem> items = new ArrayList<NewsItem>();
+        for (ArrayList<NewsItem> subset : cache.getAll()) {
+            items.addAll(subset);
+        }
+        setListAdapter(new NewsList(this, items));
     }
-    setListAdapter(new NewsList(this, items));
-  }
 
-  @Override
-  protected void onListItemClick(ListView l, View v, int position, long id) {
-    super.onListItemClick(l, v, position, id);
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
-    // Get the item that was clicked
-    NewsItem item = (NewsItem) getListAdapter().getItem(position);
+        // Get the item that was clicked
+        NewsItem item = (NewsItem) getListAdapter().getItem(position);
 
-    // Launch a new activity
-    Intent intent = new Intent(this, NewsItemActivity.class);
-    intent.putExtra("class", this.getClass().getCanonicalName());
-    intent.putExtra("item", item);
-    startActivity(intent);
-  }  
+        // Launch a new activity
+        Intent intent = new Intent(this, NewsItemActivity.class);
+        intent.putExtra("class", this.getClass().getCanonicalName());
+        intent.putExtra("item", item);
+        startActivity(intent);
+    }
 }

@@ -17,46 +17,46 @@ import java.util.List;
  */
 public class ActivityAdapter extends ArrayAdapter<Activity> {
 
-  private List<Activity> activities;
+    private List<Activity> activities;
 
-  public ActivityAdapter(Context context, List<Activity> activities) {
-    super(context, 0);
-    this.activities = activities;
-  }
-
-  @Override
-  public int getCount() {
-    return (activities != null) ? activities.size() : 0;
-  }
-
-  @Override
-  public Activity getItem(int item) {
-    return activities.get(item);
-  }
-
-  @Override
-  public View getView(int item, View repurposed, ViewGroup parent) {
-    View row = repurposed;
-    if (row == null) {
-      LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      row = inflater.inflate(R.layout.activity_list_item, parent, false);
+    public ActivityAdapter(Context context, List<Activity> activities) {
+        super(context, 0);
+        this.activities = activities;
     }
 
-    Activity activity = activities.get(item);
+    @Override
+    public int getCount() {
+        return (activities != null) ? activities.size() : 0;
+    }
 
-    String title = getContext().getResources().getString(R.string.activity_item_title);
+    @Override
+    public Activity getItem(int item) {
+        return activities.get(item);
+    }
 
-    TextView titleView = (TextView) row.findViewById(R.id.activity_item_title);
-    titleView.setText(Html.fromHtml(String.format(title, activity.start, activity.title)));
+    @Override
+    public View getView(int item, View repurposed, ViewGroup parent) {
+        View row = repurposed;
+        if (row == null) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(R.layout.activity_list_item, parent, false);
+        }
 
-    String location = getContext().getResources().getString(R.string.activity_item_time_location);
+        Activity activity = activities.get(item);
 
-    TextView locationView = (TextView) row.findViewById(R.id.activity_item_time_location);
-    locationView.setText(Html.fromHtml(String.format(location, activity.start, activity.end, activity.location)));
+        String title = getContext().getResources().getString(R.string.activity_item_title);
 
-    TextView association = (TextView) row.findViewById(R.id.activity_item_association);
-    association.setText(Html.fromHtml(activity.association_id));
+        TextView titleView = (TextView) row.findViewById(R.id.activity_item_title);
+        titleView.setText(Html.fromHtml(String.format(title, activity.start, activity.title)));
 
-    return row;
-  }
+        String location = getContext().getResources().getString(R.string.activity_item_time_location);
+
+        TextView locationView = (TextView) row.findViewById(R.id.activity_item_time_location);
+        locationView.setText(Html.fromHtml(String.format(location, activity.start, activity.end, activity.location)));
+
+        TextView association = (TextView) row.findViewById(R.id.activity_item_association);
+        association.setText(Html.fromHtml(activity.association_id));
+
+        return row;
+    }
 }

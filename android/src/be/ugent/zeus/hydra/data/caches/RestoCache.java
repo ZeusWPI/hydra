@@ -10,19 +10,19 @@ import java.io.File;
  */
 public class RestoCache extends Cache<Resto> {
 
-  // fixme: do we need a map of caches here?
-  private static RestoCache cache;
+    // fixme: do we need a map of caches here?
+    private static RestoCache cache;
 
-  private RestoCache(File restoCacheDir) {
-    super(restoCacheDir);
-  }
-
-  public static synchronized RestoCache getInstance(Context context) {
-    if (cache == null) {
-      File cacheDir = context.getCacheDir();
-      File restoCacheDir = new File(cacheDir, "resto");
-      cache = new RestoCache(restoCacheDir);
+    private RestoCache(File restoCacheDir) {
+        super(restoCacheDir);
     }
-    return cache;
-  }
+
+    public static synchronized RestoCache getInstance(Context context) {
+        if (cache == null) {
+            File cacheDir = context.getCacheDir();
+            File restoCacheDir = new File(cacheDir, "resto");
+            cache = new RestoCache(restoCacheDir);
+        }
+        return cache;
+    }
 }

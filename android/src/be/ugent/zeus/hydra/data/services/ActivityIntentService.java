@@ -18,48 +18,48 @@ import java.util.Map.Entry;
  */
 public class ActivityIntentService extends HTTPIntentService {
 
-  public ActivityIntentService() {
-    super("ActivityIntentService");
-  }
-
-  @Override
-  protected void onHandleIntent(Intent intent) {
-    final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
-
-    if (receiver != null) {
-      receiver.send(STATUS_STARTED, Bundle.EMPTY);
+    public ActivityIntentService() {
+        super("ActivityIntentService");
     }
 
-    ActivityXmlParser parser = new ActivityXmlParser();
-    try {
-      List<Activity> activities = parser.parse(fetch(HYDRA_BASE_URL + "all_activities.xml"));
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
 
-      Map<String, ArrayList<Activity>> groups = new HashMap<String, ArrayList<Activity>>();
-
-      // group them in lists by date
-      for (Activity activity : activities) {
-        ArrayList<Activity> group = groups.get(activity.date);
-        if (group == null) {
-          group = new ArrayList<Activity>();
-          groups.put(activity.date, group);
+        if (receiver != null) {
+            receiver.send(STATUS_STARTED, Bundle.EMPTY);
         }
-        group.add(activity);
-      }
 
-      ActivityCache cache = ActivityCache.getInstance(this);
+        ActivityXmlParser parser = new ActivityXmlParser();
+        try {
+            List<Activity> activities = parser.parse(fetch(HYDRA_BASE_URL + "all_activities.xml"));
 
-      // dump the lists in the cache
-      for (Entry<String, ArrayList<Activity>> group : groups.entrySet()) {
-        cache.put(group.getKey(), group.getValue());
-      }
-    } catch (Exception e) {
-      if (receiver != null) {
-        receiver.send(STATUS_ERROR, Bundle.EMPTY);
-      }
-      return;
+            Map<String, ArrayList<Activity>> groups = new HashMap<String, ArrayList<Activity>>();
+
+            // group them in lists by date
+            for (Activity activity : activities) {
+                ArrayList<Activity> group = groups.get(activity.date);
+                if (group == null) {
+                    group = new ArrayList<Activity>();
+                    groups.put(activity.date, group);
+                }
+                group.add(activity);
+            }
+
+            ActivityCache cache = ActivityCache.getInstance(this);
+
+            // dump the lists in the cache
+            for (Entry<String, ArrayList<Activity>> group : groups.entrySet()) {
+                cache.put(group.getKey(), group.getValue());
+            }
+        } catch (Exception e) {
+            if (receiver != null) {
+                receiver.send(STATUS_ERROR, Bundle.EMPTY);
+            }
+            return;
+        }
+        if (receiver != null) {
+            receiver.send(STATUS_FINISHED, Bundle.EMPTY);
+        }
     }
-    if (receiver != null) {
-      receiver.send(STATUS_FINISHED, Bundle.EMPTY);
-    }
-  }
 }

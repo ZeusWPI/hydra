@@ -8,8 +8,9 @@ import java.io.Serializable;
  */
 public class Resto implements Serializable {
 
-  public String name;
-  public String address;
-  public Integer longitude;
-  public Integer latitude;
+    public String name;
+    public String address;
+    public Double longitude;
+    public Double latitude;
+    public boolean resto;
 }

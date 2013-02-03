@@ -1,113 +1,251 @@
 package be.ugent.zeus.hydra;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.util.Log;
+import android.widget.SearchView;
 import android.widget.Toast;
-import be.ugent.zeus.hydra.R;
-import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.Resto;
 import be.ugent.zeus.hydra.data.caches.RestoCache;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.RestoService;
-import be.ugent.zeus.hydra.ui.map.RestoOverlay;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
+import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
-import com.google.android.maps.MyLocationOverlay;
-import com.google.android.maps.Overlay;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  *
- * @author Thomas Meire
+ * @author Tom Naessens
  */
-public class BuildingMap extends MapActivity {
+public class BuildingMap extends AbstractSherlockFragmentActivity implements GoogleMap.OnMarkerClickListener {
 
-  private MapView map;
-  private MyLocationOverlay myLocOverlay;
-  private RestoResultReceiver receiver = new RestoResultReceiver();
+    private GoogleMap map;
+    private RestoResultReceiver receiver = new RestoResultReceiver();
+    private HashMap<String, Marker> markerMap;
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    setTitle(R.string.title_buildings);
-    setContentView(R.layout.restomap);
+        setTitle(R.string.title_restomap);
+        setContentView(R.layout.restomap);
 
-    map = (MapView) findViewById(R.id.mapview);
+        markerMap = new HashMap<String, Marker>();
 
-    // try to add an overlay with resto's
-    addRestoOverlay(false);
 
-    // enable the zoom controls
-    map.setBuiltInZoomControls(true);
+        setUpMapIfNeeded();
 
-    // center the map somewhere in Ghent
-    map.getController().setCenter(new GeoPoint(51045792, 3722391));
-    map.getController().setZoom(13);
-
-    // Add a standard overlay containing the users location
-    myLocOverlay = new MyLocationOverlay(this, map);
-    myLocOverlay.enableMyLocation();
-
-    List<Overlay> overlays = map.getOverlays();
-    overlays.add(myLocOverlay);
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
-    myLocOverlay.disableMyLocation();
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    myLocOverlay.enableMyLocation();
-  }
-
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    myLocOverlay.disableMyLocation();
-  }
-
-  @Override
-  protected boolean isRouteDisplayed() {
-    return false;
-  }
-
-  private void addRestoOverlay(boolean synced) {
-    final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
-
-    if (restos.size() > 0) {
-      List<Overlay> overlays = map.getOverlays();
-      overlays.add(new RestoOverlay(BuildingMap.this, restos));
-      map.postInvalidate();
-    } else {
-      if (!synced) {
-        // start the intent service to fetch the list of resto's
-        Intent intent = new Intent(this, RestoService.class);
-        intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
-        startService(intent);
-      } else {
-        Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
-      }
-    }
-  }
-
-  private class RestoResultReceiver extends ResultReceiver {
-
-    public RestoResultReceiver() {
-      super(null);
+        handleIntent(getIntent());
     }
 
     @Override
-    protected void onReceiveResult(int code, Bundle data) {
-      if (code == RestoService.STATUS_FINISHED) {
-        addRestoOverlay(true);
-      }
+    public void onNewIntent(Intent intent) {
+        setIntent(intent);
+        handleIntent(intent);
     }
-  }
+
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (map == null) {
+            map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+
+            // Check if we were successful in obtaining the map.
+            if (map != null) {
+                // The Map is verified. It is now safe to manipulate the map.
+                setUpMap();
+            } else {
+                int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+                if (result != ConnectionResult.SUCCESS) {
+                    GooglePlayServicesUtil.getErrorDialog(result, this, 1);
+                }
+            }
+        }
+    }
+
+    public void setUpMap() {
+        try {
+            MapsInitializer.initialize(this);
+        } catch (GooglePlayServicesNotAvailableException ex) {
+            Log.e("GPS:", "Error" + ex);
+        }
+
+        map.setMyLocationEnabled(true);
+        map.setOnMarkerClickListener(this);
+
+//        TODO: Fix the map on the users location when he is in Ghent
+//        LatLng location = new LatLng(map.getMyLocation().getLatitude(), map.getMyLocation().getLongitude());
+//        LatLngBounds bounds = new LatLngBounds(new LatLng(51.016347, 3.677673), new LatLng(51.072684, 3.746338));
+
+        CameraUpdate center;
+        CameraUpdate zoom;
+
+//        Is the user in Ghent?
+//        if (bounds.contains(location)) {
+//            center = CameraUpdateFactory.newLatLng(location);
+//            zoom = CameraUpdateFactory.zoomTo(6);
+//        } else {
+        center = CameraUpdateFactory.newLatLng(new LatLng(51.052833, 3.723335));
+        zoom = CameraUpdateFactory.zoomTo(13);
+//        }
+
+        map.moveCamera(center);
+        map.animateCamera(zoom);
+
+        addRestos(false);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    private void addRestos(boolean synced) {
+        final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
+        if (restos.size() > 0) {
+            for (Resto resto : restos) {
+                MarkerOptions markerOptions = new MarkerOptions()
+                    .position(new LatLng(resto.latitude, resto.longitude))
+                    .title(resto.name);
+
+                Marker marker = map.addMarker(markerOptions);
+                markerMap.put(resto.name, marker);
+            }
+        } else {
+            if (!synced) {
+                Intent intent = new Intent(this, RestoService.class);
+                intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
+                startService(intent);
+            } else {
+                Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.building_search, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                //onSearchRequested();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doSearch(query);
+        }
+    }
+
+    private void doSearch(String queryStr) {
+        if (markerMap.containsKey(queryStr)) {
+            Marker foundMarker = markerMap.get(queryStr);
+            updateMarkerDistance(foundMarker);
+            foundMarker.showInfoWindow();
+            map.moveCamera(CameraUpdateFactory.newLatLng(foundMarker.getPosition()));
+
+        } else {
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(BuildingMap.this, "No Resto found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    public boolean onMarkerClick(Marker marker) {
+        updateMarkerDistance(marker);
+        marker.showInfoWindow();
+
+        return true;
+    }
+
+    public void updateMarkerDistance(Marker marker) {
+        if (map.getMyLocation() == null) {
+
+            marker.setSnippet("");
+
+        } else {
+
+            float[] results = new float[1];
+
+            Location.distanceBetween(map.getMyLocation().getLatitude(), map.getMyLocation().getLongitude(),
+                marker.getPosition().latitude, marker.getPosition().longitude, results);
+
+            double distance = results[0];
+
+            if (distance < 2000) {
+                marker.setSnippet(String.format("Afstand %.0f m", results[0]));
+            } else {
+                marker.setSnippet(String.format("Afstand %.1f km", results[0] / 1000.0));
+            }
+
+
+        }
+    }
+
+    private class RestoResultReceiver extends ResultReceiver {
+
+        public RestoResultReceiver() {
+            super(null);
+        }
+
+        @Override
+        protected void onReceiveResult(int code, Bundle data) {
+            if (code == RestoService.STATUS_FINISHED) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        addRestos(true);
+                    }
+                });
+            }
+        }
+    }
 }

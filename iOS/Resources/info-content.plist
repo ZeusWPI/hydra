@@ -4,6 +4,24 @@
 <array>
 	<dict>
 		<key>image</key>
+		<string>info-library</string>
+		<key>title</key>
+		<string>Bibliotheek</string>
+		<key>url-ios</key>
+		<string>itms-apps://itunes.apple.com/us/app/ub-gent/id362022518?mt=8</string>
+		<key>url-android</key>
+		<string>market://details?id=com.bredir.boopsie.ubgent</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>info-minerva</string>
+		<key>title</key>
+		<string>Minerva Mobile</string>
+		<key>url</key>
+		<string>http://minerva.ugent.be/mobile/</string>
+	</dict>
+	<dict>
+		<key>image</key>
 		<string>info-sports</string>
 		<key>title</key>
 		<string>Sportvoorzieningen</string>
@@ -31,16 +49,6 @@
 	</dict>
 	<dict>
 		<key>image</key>
-		<string>info-library</string>
-		<key>title</key>
-		<string>Bibliotheek</string>
-		<key>url-ios</key>
-		<string>itms-apps://itunes.apple.com/us/app/ub-gent/id362022518?mt=8</string>
-		<key>url-android</key>
-		<string>market://details?id=com.bredir.boopsie.ubgent</string>
-	</dict>
-	<dict>
-		<key>image</key>
 		<string>info-bicycle</string>
 		<key>title</key>
 		<string>Fietsen</string>
@@ -49,7 +57,7 @@
 	</dict>
 	<dict>
 		<key>image</key>
-		<string>info-studentdoctors</string>
+		<string>info-doctors</string>
 		<key>title</key>
 		<string>Studentenartsen</string>
 		<key>html</key>

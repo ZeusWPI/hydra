@@ -8,8 +8,8 @@ import java.io.Serializable;
  */
 public class Menu implements Serializable {
 
-  public boolean open;
-  public Product soup;
-  public Product[] meat;
-  public String[] vegetables;
+    public boolean open;
+    public Product soup;
+    public Product[] meat;
+    public String[] vegetables;
 }

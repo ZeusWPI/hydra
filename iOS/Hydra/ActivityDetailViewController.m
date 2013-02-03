@@ -24,6 +24,8 @@
 #define kDateRow 2
 #define kLocationRow 3
 
+#define ENABLE_FACEBOOK 0
+
 @interface ActivityDetailViewController () <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
@@ -49,9 +51,12 @@
 {
     [super viewDidLoad];
     self.title = @"Detail";
+
+#if ENABLE_FACEBOOK
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(reloadData) name:FacebookEventDidUpdateNotification
                  object:nil];
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -112,7 +117,7 @@
 
     fields[kLocationRow] = self.activity.location ? self.activity.location : @"";
 
-    
+
 
     self.fields = fields;
 }
@@ -127,24 +132,28 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return section == kInfoSection ? 4 : 1;
-    if ( section == kInfoSection ){
-        return 4;
-    }else if ( section == KActionSection ){
-        return 1;
-    }else if ( section == kFaceBookSection ){
-        return 2;
-    }else if ( section == kFaceBookSection+1){
-        return 1;
+    switch(section) {
+        case kInfoSection:
+            return 4;
+        case KActionSection:
+            return 1;
+        case kFaceBookSection:
+            return 2;
+        case (kFaceBookButtonSection + 1):
+            return 1;
+        default:
+            return 0;
     }
-
-    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // TODO: add test if facebook is availble 
+    // TODO: add test if facebook is availble
+#if ENABLE_FACEBOOK
     return 4;
+#else
+    return 2;
+#endif
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -226,7 +235,9 @@
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
         return cell;
-    }else if(indexPath.section == kFaceBookSection){
+    }
+#if ENABLE_FACEBOOK
+    else if (indexPath.section == kFaceBookSection) {
         static NSString *CellIdentifier = @"FacebookDetailButtonCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (!cell) {
@@ -248,29 +259,33 @@
                 break;
         }
         return cell;
-        }else {
-            static NSString *CellIdentifier = @"FacebookButtonCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:CellIdentifier];
-                cell.textLabel.text = self.activity.facebookEvent.userAttending ? @"Aanwezig" : @"Gaan";
-                cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-                cell.textLabel.textColor = [UIColor detailLabelTextColor];
-                cell.textLabel.textAlignment = UITextAlignmentCenter;
-            }
-           /* if (!cell) {
-                UIButton *attendingButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                [attendingButton setFrame:CGRectMake(10, 150, 80, 40)];
-
-                [attendingButton setTitle:@"Gaan?" forState:UIControlStateNormal];
-                [attendingButton setTitle:@"Aanwezig" forState:UIControlStateDisabled];
-                [attendingButton setEnabled:!self.activity.facebookEvent.userAttending];
-                [attendingButton addTarget:self.activity.facebookEvent action:@selector(postUserAttendsEvent:) forControlEvents:UIControlEventTouchUpInside];
-                [cell addSubview:attendingButton];
-            }//*/
-            return cell;
     }
+    else {
+        static NSString *CellIdentifier = @"FacebookButtonCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:CellIdentifier];
+            cell.textLabel.text = self.activity.facebookEvent.userAttending ? @"Aanwezig" : @"Gaan";
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+            cell.textLabel.textColor = [UIColor detailLabelTextColor];
+            cell.textLabel.textAlignment = UITextAlignmentCenter;
+        }
+       /* if (!cell) {
+            UIButton *attendingButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [attendingButton setFrame:CGRectMake(10, 150, 80, 40)];
+
+            [attendingButton setTitle:@"Gaan?" forState:UIControlStateNormal];
+            [attendingButton setTitle:@"Aanwezig" forState:UIControlStateDisabled];
+            [attendingButton setEnabled:!self.activity.facebookEvent.userAttending];
+            [attendingButton addTarget:self.activity.facebookEvent action:@selector(postUserAttendsEvent:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:attendingButton];
+        }//*/
+        return cell;
+    }
+#else
+    return nil;
+#endif
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath

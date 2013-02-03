@@ -1,3 +1,7 @@
+Hydra 106 v-1.0.beta
+- Removed the red line appearing sometimes under the menu & activities tabs
+- The loading indicator is consistent during the app now
+
 Hydra 104 v-1.0.beta
 - As all our content is Dutch, the app is now entirely Dutch to.
 - Fixed the localisation of some dates & messages

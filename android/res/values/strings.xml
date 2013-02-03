@@ -15,6 +15,11 @@
     <string name="title_schamper">Schamper Daily</string>
     <string name="title_preferences">Voorkeuren</string>
     <string name="title_buildings">UGent Gebouwen</string>
+    <string name="title_restomap">UGent Restos</string>
+    
+    <string name="search_title">Zoek</string>
+    <string name="resto_search_label"></string>
+    <string name="resto_search_hint">Zoek Resto...</string>
 
     <!-- Club activity strings -->
     <string name="activity_item_title">%1$s %2$s</string>

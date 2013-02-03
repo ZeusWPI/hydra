@@ -14,49 +14,49 @@ import java.io.InputStreamReader;
  */
 public class InfoWebActivity extends AbstractSherlockActivity {
 
-	@Override
-	public void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
-		setContentView(R.layout.info_web_activity);
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        setContentView(R.layout.info_web_activity);
 
-		String page = getContent(getIntent().getStringExtra("page"));
+        String page = getContent(getIntent().getStringExtra("page"));
 
-		WebView view = (WebView) findViewById(R.id.webview);
-		view.getSettings().setLoadWithOverviewMode(true);
-		view.getSettings().setUseWideViewPort(true);
-		view.loadDataWithBaseURL("file:///android_asset/", page, "text/html", "utf8", null);
-	}
+        WebView view = (WebView) findViewById(R.id.webview);
+        view.getSettings().setLoadWithOverviewMode(true);
+        view.getSettings().setUseWideViewPort(true);
+        view.loadDataWithBaseURL("file:///android_asset/", page, "text/html", "utf8", null);
+    }
 
-	private String getResourceName(String name) {
-		int idx = name.indexOf(".html");
-		if (idx != -1) {
-			name = name.substring(0, idx);
-		}
-		return "raw/" + name.replace("-", "_");
-	}
+    private String getResourceName(String name) {
+        int idx = name.indexOf(".html");
+        if (idx != -1) {
+            name = name.substring(0, idx);
+        }
+        return "raw/" + name.replace("-", "_");
+    }
 
-	private String getContent(String name) {
-		StringBuilder out = new StringBuilder();
+    private String getContent(String name) {
+        StringBuilder out = new StringBuilder();
 
-		BufferedReader reader = null;
-		try {
-			int id = getResources().getIdentifier(getResourceName(name), null, "be.ugent.zeus.hydra");
-			reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(id)));
-			String line;
-			while ((line = reader.readLine()) != null) {
-				out.append(line).append("\n");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-		}
-		return out.toString();
-	}
+        BufferedReader reader = null;
+        try {
+            int id = getResources().getIdentifier(getResourceName(name), null, "be.ugent.zeus.hydra");
+            reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(id)));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                out.append(line).append("\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return out.toString();
+    }
 }

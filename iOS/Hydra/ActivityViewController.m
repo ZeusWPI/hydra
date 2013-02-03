@@ -13,6 +13,7 @@
 #import "NSDate+Utilities.h"
 #import "ActivityDetailViewController.h"
 #import "NSDateFormatter+AppLocale.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
@@ -33,8 +34,56 @@
     if (self = [super initWithStyle:UITableViewStylePlain]) {
         self.count = 0;
         [self refreshActivities];
+
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(activitiesUpdated:)
+                       name:AssociationStoreDidUpdateActivitiesNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.title = @"Activiteiten";
+
+    // Switch dates using the calendar icon
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-calendar.png"]
+                                                            style:UIBarButtonItemStylePlain
+                                                           target:self action:@selector(dateButtonTapped:)];
+    btn.enabled = self.days.count > 0;
+    self.navigationItem.rightBarButtonItem = btn;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    // Make sure we scroll with any selection that may have been set
+    [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:NO];
+
+    // Call super last, as it will clear the selection
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    GAI_Track(@"Activities");
+
+    // Show loading indicator when no content is found yet
+    if (self.days.count == 0) {
+        [SVProgressHUD show];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 - (void)refreshActivities
@@ -73,53 +122,21 @@
     [self.tableView reloadData];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.title = @"Activiteiten";
-
-    // Switch dates using the calendar icon
-    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-calendar.png"]
-                                                            style:UIBarButtonItemStylePlain
-                                                           target:self action:@selector(dateButtonTapped:)];
-    btn.enabled = self.days.count > 0;
-    self.navigationItem.rightBarButtonItem = btn;
-
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(activitiesUpdated:)
-                   name:AssociationStoreDidUpdateActivitiesNotification object:nil];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)activitiesUpdated:(NSNotification *)notification
 {
     [self refreshActivities];
     [self.tableView reloadData];
-}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-    // TODO: show loading overlay when no items found yet
-
-    // Make sure we scroll with any selection that may have been set
-    [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:NO];
-
-    // Call super last, as it will clear the selection
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    GAI_Track(@"Activities");
+    // Hide or update HUD
+    if ([SVProgressHUD isVisible]) {
+        if (self.days.count > 0) {
+            [SVProgressHUD dismiss];
+        }
+        else {
+            NSString *errorMsg = @"Geen activiteiten gevonden";
+            [SVProgressHUD showErrorWithStatus:errorMsg];
+        }
+    }
 }
 
 #pragma mark - Table view delegate
