@@ -11,6 +11,7 @@
 #import "SchamperArticle.h"
 #import "SchamperDetailViewController.h"
 #import "SORelativeDateTransformer.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface SchamperViewController ()
 
@@ -20,7 +21,7 @@
 
 @implementation SchamperViewController
 
-- init
+- (id)init
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
         self.articles = [[SchamperStore sharedStore] articles];
@@ -45,19 +46,27 @@
     [super viewDidLoad];
 
     // Set title in navigation bar, slightly different title on return button
-    [[self navigationItem] setTitle:@"Schamper Daily"];
+    [self.navigationItem setTitle:@"Schamper Daily"];
     UIBarButtonItem *bb = [[UIBarButtonItem alloc] initWithTitle:@"Schamper"
                                                            style:UIBarButtonItemStyleBordered
                                                           target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:bb];
-
-    // TODO: show loading overlay when no items found yet
+    [self.navigationItem setBackBarButtonItem:bb];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     GAI_Track(@"Schamper");
+
+    if (self.articles.count == 0) {
+        [SVProgressHUD show];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -98,6 +107,17 @@
     DLog(@"Updating tableView");
     self.articles = [notification.object articles];
     [self.tableView reloadData];
+
+    // Hide or update HUD
+    if ([SVProgressHUD isVisible]) {
+        if (self.articles.count > 0) {
+            [SVProgressHUD dismiss];
+        }
+        else {
+            NSString *errorMsg = @"Geen artikels gevonden";
+            [SVProgressHUD showErrorWithStatus:errorMsg];
+        }
+    }
 }
 
 #pragma mark - Table view delegate

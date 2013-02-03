@@ -13,6 +13,7 @@
 #import "NSDate+Utilities.h"
 #import "ActivityDetailViewController.h"
 #import "NSDateFormatter+AppLocale.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
@@ -61,10 +62,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-
-    // TODO: show loading overlay when no items found yet
-
     // Make sure we scroll with any selection that may have been set
     [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:NO];
 
@@ -76,6 +73,17 @@
 {
     [super viewDidAppear:animated];
     GAI_Track(@"Activities");
+
+    // Show loading indicator when no content is found yet
+    if (self.days.count == 0) {
+        [SVProgressHUD show];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 - (void)refreshActivities
@@ -118,6 +126,17 @@
 {
     [self refreshActivities];
     [self.tableView reloadData];
+
+    // Hide or update HUD
+    if ([SVProgressHUD isVisible]) {
+        if (self.days.count > 0) {
+            [SVProgressHUD dismiss];
+        }
+        else {
+            NSString *errorMsg = @"Geen activiteiten gevonden";
+            [SVProgressHUD showErrorWithStatus:errorMsg];
+        }
+    }
 }
 
 #pragma mark - Table view delegate

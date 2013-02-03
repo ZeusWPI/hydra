@@ -22,7 +22,6 @@ NSString *const AssociationStoreDidUpdateNewsNotification =
 NSString *const AssociationStoreDidUpdateActivitiesNotification =
     @"AssociationStoreDidUpdateActivitiesNotification";
 
-
 @interface AssociationStore () <NSCoding, RKObjectLoaderDelegate, RKRequestDelegate>
 
 @property (nonatomic, strong) NSDictionary *associations;

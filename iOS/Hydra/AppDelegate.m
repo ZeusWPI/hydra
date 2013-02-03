@@ -114,7 +114,7 @@
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{
             kErrorTitleKey: @"Geen internetverbinding",
             kErrorDescriptionKey: @"Sommige onderdelen van Hydra vereisen een "
-                                  @"internetverbinding en zullen mogelijk niet "
+                                  @"internetverbinding en zullen mogelijks niet "
                                   @"correct werken."}];
         [self handleError:error];
     }
