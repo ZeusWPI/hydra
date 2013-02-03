@@ -61,7 +61,9 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 {
     if (self = [super init]) {
         self.articles = [decoder decodeObjectForKey:@"articles"];
+        AssertClassOrNil(self.articles, NSArray);
         self.lastUpdated = [decoder decodeObjectForKey:@"lastUpdated"];
+        AssertClassOrNil(self.lastUpdated, NSDate);
         self.active = false;
     }
     return self;

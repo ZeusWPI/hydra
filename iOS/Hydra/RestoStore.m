@@ -89,9 +89,13 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 {
     if (self = [super init]) {
         self.menus = [decoder decodeObjectForKey:@"menus"];
+        AssertClassOrNil(self.menus, NSMutableDictionary);
         self.locations = [decoder decodeObjectForKey:@"locations"];
+        AssertClassOrNil(self.locations, NSArray);
         self.legend = [decoder decodeObjectForKey:@"legend"];
+        AssertClassOrNil(self.legend, NSArray);
         self.infoLastUpdated = [decoder decodeObjectForKey:@"infoLastUpdated"];
+        AssertClassOrNil(self.infoLastUpdated, NSDate);
 
         [self sharedInit];
     }

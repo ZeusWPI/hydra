@@ -94,7 +94,7 @@
     NSDate *now = [NSDate date];
     NSMutableDictionary *groups = [[NSMutableDictionary alloc] init];
 
-    for (AssociationActivity *activity in [store allActivities]) {
+    for (AssociationActivity *activity in store.activities) {
         NSDate *day = [activity.start dateAtStartOfDay];
 
         // Check that activity is not over yet
