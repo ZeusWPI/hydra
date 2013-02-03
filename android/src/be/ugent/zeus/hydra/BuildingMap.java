@@ -1,9 +1,14 @@
 package be.ugent.zeus.hydra;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.widget.SearchView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Resto;
 import be.ugent.zeus.hydra.data.caches.RestoCache;
@@ -17,20 +22,28 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
+import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.maps.GeoPoint;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  *
  * @author Tom Naessens
  */
-public class BuildingMap extends AbstractSherlockFragmentActivity {
+public class BuildingMap extends AbstractSherlockFragmentActivity implements GoogleMap.OnMarkerClickListener {
 
     private GoogleMap map;
     private RestoResultReceiver receiver = new RestoResultReceiver();
+    private HashMap<String, Marker> markerMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +52,18 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
         setTitle(R.string.title_restomap);
         setContentView(R.layout.restomap);
 
+        markerMap = new HashMap<String, Marker>();
+
+
         setUpMapIfNeeded();
+
+        handleIntent(getIntent());
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        setIntent(intent);
+        handleIntent(intent);
     }
 
     private void setUpMapIfNeeded() {
@@ -68,6 +92,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
         }
 
         map.setMyLocationEnabled(true);
+        map.setOnMarkerClickListener(this);
 
 //        TODO: Fix the map on the users location when he is in Ghent
 //        LatLng location = new LatLng(map.getMyLocation().getLatitude(), map.getMyLocation().getLongitude());
@@ -110,12 +135,14 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
 
     private void addRestos(boolean synced) {
         final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
-
         if (restos.size() > 0) {
             for (Resto resto : restos) {
-                map.addMarker((new MarkerOptions()
+                MarkerOptions markerOptions = new MarkerOptions()
                     .position(new LatLng(resto.latitude, resto.longitude))
-                    .title(resto.name)));
+                    .title(resto.name);
+
+                Marker marker = map.addMarker(markerOptions);
+                markerMap.put(resto.name, marker);
             }
         } else {
             if (!synced) {
@@ -132,6 +159,10 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getSupportMenuInflater().inflate(R.menu.building_search, menu);
 
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
         return true;
     }
 
@@ -139,10 +170,65 @@ public class BuildingMap extends AbstractSherlockFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
-                onSearchRequested();
+                //onSearchRequested();
                 return true;
             default:
                 return false;
+        }
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doSearch(query);
+        }
+    }
+
+    private void doSearch(String queryStr) {
+        if (markerMap.containsKey(queryStr)) {
+            Marker foundMarker = markerMap.get(queryStr);
+            updateMarkerDistance(foundMarker);
+            foundMarker.showInfoWindow();
+            map.moveCamera(CameraUpdateFactory.newLatLng(foundMarker.getPosition()));
+
+        } else {
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(BuildingMap.this, "No Resto found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    public boolean onMarkerClick(Marker marker) {
+        updateMarkerDistance(marker);
+        marker.showInfoWindow();
+
+        return true;
+    }
+
+    public void updateMarkerDistance(Marker marker) {
+        if (map.getMyLocation() == null) {
+
+            marker.setSnippet("");
+
+        } else {
+
+            float[] results = new float[1];
+
+            Location.distanceBetween(map.getMyLocation().getLatitude(), map.getMyLocation().getLongitude(),
+                marker.getPosition().latitude, marker.getPosition().longitude, results);
+
+            double distance = results[0];
+
+            if (distance > 2500.0) {
+                marker.setSnippet(String.format("Afstand %.1f km", results[0] / 1000.0));
+            } else {
+
+                marker.setSnippet(String.format("Afstand %.1f m", results[0]));
+            }
+
+
         }
     }
 

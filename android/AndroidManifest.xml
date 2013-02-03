@@ -52,8 +52,19 @@
                   android:configChanges="screenSize|orientation" />
         <activity android:name=".GSR"
                   android:configChanges="screenSize|orientation" />
+        
         <activity android:name=".BuildingMap"
-                  android:configChanges="screenSize|orientation" />
+                  android:label="@string/resto_search_label"
+                  android:launchMode="singleTop"
+                  android:configChanges="screenSize|orientation" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"
+                        android:launchMode="singleTop" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/resto_search" />
+        </activity>
+        
         <activity android:name=".RestoMenu"
                   android:configChanges="screenSize|orientation" />
         <activity android:name=".SchamperDaily"

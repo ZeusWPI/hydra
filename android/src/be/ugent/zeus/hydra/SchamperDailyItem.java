@@ -23,7 +23,8 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
 
         Item item = (Item) getIntent().getSerializableExtra("item");
 
-
+        setTitle(item.title);
+        
         String date = String.format(
             new SimpleDateFormat("dd MMM yyyy hh:mm", Hydra.LOCALE).format(item.pubDate));
 
