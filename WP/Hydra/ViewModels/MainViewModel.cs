@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -42,15 +44,73 @@ namespace Hydra.ViewModels
         /// </summary>
         public void LoadData()
         {
-            var fetch=new WebClient();
-            fetch.DownloadStringAsync(new Uri(SchamperApi));
-            fetch.DownloadStringCompleted += ProcessSchamper;
-
+            
+            LoadSchamper();
+            LoadInfo();
          
 
             this.IsDataLoaded = true;
         }
 
+        public void LoadSchamper()
+        {
+            var fetch = new WebClient();
+            fetch.DownloadStringAsync(new Uri(SchamperApi));
+            fetch.DownloadStringCompleted += ProcessSchamper;
+        }
+
+        public void LoadResto()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadInfo()
+        {
+            
+                var document = XElement.Load("Resources/info-content.plist");
+
+
+                foreach (var element in document.Elements())
+                {
+                    if (element.Name == "array")
+                    {
+                        foreach (var dict in element.Elements(XName.Get("dict")))
+                        {
+                            string title = null, imagePath = null, link = null;
+                            var subcontent = new List<InfoItemsViewModel>();
+                            foreach (var node in dict.Elements())
+                            {
+                               
+                                var el=(XElement)node.NextNode;
+                                if (el != null && node.Value == "title")
+                                {
+                                    
+                                    title = el.Value;
+                                }
+                                if (el != null && node.Value == "image")
+                                {
+
+                                    imagePath = el.Value+"@2x";
+                                }
+                                if (el != null && node.Value == "html")
+                                {
+
+                                    link = el.Value;
+                                }
+
+                                if (node.Value == "subcontent")
+                                {
+                                    if (el != null)
+                                        subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel() {Title = ((XElement) xElement.NextNode).Value, Link = ((XElement) xElement.NextNode.NextNode.NextNode).Value});
+                                }
+
+                            }
+                            InfoItems.Add(new InfoItemsViewModel(){Children = subcontent,ImagePath = imagePath,Link = link,Title = title});
+                            
+                        }
+                    }
+                }
+        }
 
         public void ProcessSchamper(object sender, DownloadStringCompletedEventArgs e)
         {
@@ -86,8 +146,7 @@ namespace Hydra.ViewModels
                             content = element.Value;
                             string[] inputs = {content};
                             const string pattern = @"(https?:)?//?[^''""<>]+?\.(jpg|jpeg|gif|png)";
-                            //@"(https?:\/\/.*\.(?:png|jpg|jpeg|gif))";
-
+                            
                             var rgx = new Regex(pattern, RegexOptions.IgnoreCase);
 
                             foreach (string input in inputs)
@@ -117,5 +176,7 @@ namespace Hydra.ViewModels
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        
     }
 }
