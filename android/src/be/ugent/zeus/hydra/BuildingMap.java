@@ -221,11 +221,10 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
 
             double distance = results[0];
 
-            if (distance > 2500.0) {
-                marker.setSnippet(String.format("Afstand %.1f km", results[0] / 1000.0));
+            if (distance < 2000) {
+                marker.setSnippet(String.format("Afstand %.0f m", results[0]));
             } else {
-
-                marker.setSnippet(String.format("Afstand %.1f m", results[0]));
+                marker.setSnippet(String.format("Afstand %.1f km", results[0] / 1000.0));
             }
 
 
