@@ -13,26 +13,21 @@
 
 @implementation UrgentViewController
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-
+    [super viewWillAppear:animated];
     [[UrgentInfo sharedInfo] startUpdating];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[UrgentInfo sharedInfo] startUpdating];
-
     GAI_Track(@"Urgent");
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-
     [[UrgentInfo sharedInfo] stopUpdating];
 }
 

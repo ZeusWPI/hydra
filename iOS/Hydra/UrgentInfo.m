@@ -13,9 +13,10 @@ NSString *const UrgentProgramUpdateNotification = @"UrgentProgramUpdateNotificat
 
 @interface UrgentInfo()
 
-@property (atomic) BOOL update;
-@property (nonatomic) NSTimer* trackTimer;
-@property (nonatomic) NSTimer* progTimer;
+// TODO: check if this really needs to be atomic
+@property (atomic, assign) BOOL update;
+@property (nonatomic, strong) NSTimer *trackTimer;
+@property (nonatomic, strong) NSTimer *progTimer;
 
 @end
 

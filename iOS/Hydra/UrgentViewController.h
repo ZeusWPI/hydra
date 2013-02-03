@@ -14,4 +14,5 @@
 -(IBAction)streamPause:(id)sender;
 -(IBAction)nowPlaying:(id)sender;
 -(IBAction)prevPlaying:(id)sender;
+
 @end
