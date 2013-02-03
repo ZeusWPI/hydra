@@ -80,15 +80,19 @@ def get_article_body(page):
 
         # Image
         elif node.name == 'div' and node.prop('class').find('img-regulier') >= 0:
-            image = node.xpathEval('.//img')[0]
-            image.setProp('src', 'http://www.schamper.ugent.be' + image.prop('src'))
+            # Multiple images are possible
+            images = node.xpathEval(".//div[@id='image-and-caption']")
+            for imageWrapper in images:
+                # Make relative URL absolute
+                image = imageWrapper.xpathEval('.//img')[0]
+                image.setProp('src', 'http://www.schamper.ugent.be' + image.prop('src'))
 
-            captionText = ''
-            caption = node.xpathEval(".//div[@class='caption-text']")
-            if len(caption) > 0:
-                captionText = caption[0].children.serialize('utf-8')
+                captionText = ''
+                caption = imageWrapper.xpathEval(".//div[@class='caption-text']")
+                if len(caption) > 0:
+                    captionText = caption[0].children.serialize('utf-8')
 
-            result += '<div class="image"><p>' + image.serialize('UTF-8') + captionText + '</p></div>'
+                result += '<div class="image"><p>' + image.serialize('UTF-8') + captionText + '</p></div>'
 
     return result
 
