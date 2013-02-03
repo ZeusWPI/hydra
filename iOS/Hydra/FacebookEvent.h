@@ -20,6 +20,7 @@ extern NSString *const FacebookEventDidUpdateNotification;
 
 -(id)initWithEventID:(NSString*)eventID;
 -(void)postUserAttendsEvent:(id)sender;
+-(void)postUserAttendsEvent;
 
 @end
 

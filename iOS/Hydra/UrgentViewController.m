@@ -8,6 +8,7 @@
 
 #import "UrgentViewController.h"
 #import "UrgentPlayer.h"
+#import "UrgentInfo.h"
 #import <AVFoundation/AVFoundation.h>
 
 @implementation UrgentViewController
@@ -18,12 +19,23 @@
     // Do any additional setup after loading the view from its nib.
 
     [[UrgentPlayer sharedPlayer] start];
+
+    [[UrgentInfo sharedInfo] startUpdating];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [[UrgentInfo sharedInfo] startUpdating];
+
     GAI_Track(@"Urgent");
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+
+    [[UrgentInfo sharedInfo] stopUpdating];
 }
 
 -(IBAction)streamPlay:(id)sender
@@ -34,6 +46,16 @@
 -(IBAction)streamPause:(id)sender
 {
     [[UrgentPlayer sharedPlayer] pause];
+}
+
+-(IBAction)nowPlaying:(id)sender
+{
+    VLog([[UrgentInfo sharedInfo] nowPlaying]);
+}
+
+-(IBAction)prevPlaying:(id)sender
+{
+    VLog([[UrgentInfo sharedInfo] prevPlaying]);
 }
 
 @end

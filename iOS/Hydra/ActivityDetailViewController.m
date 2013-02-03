@@ -17,6 +17,7 @@
 #define kInfoSection 0
 #define KActionSection 1
 #define kFaceBookSection 2
+#define kFaceBookButtonSection 3
 
 #define kTitleRow 0
 #define kAssociationRow 1
@@ -132,6 +133,8 @@
     }else if ( section == KActionSection ){
         return 1;
     }else if ( section == kFaceBookSection ){
+        return 2;
+    }else if ( section == kFaceBookSection+1){
         return 1;
     }
 
@@ -141,7 +144,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // TODO: add test if facebook is availble 
-    return 3;
+    return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -223,7 +226,7 @@
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
         return cell;
-    }else {
+    }else if(indexPath.section == kFaceBookSection){
         static NSString *CellIdentifier = @"FacebookDetailButtonCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (!cell) {
@@ -232,20 +235,52 @@
             cell.textLabel.font = [UIFont systemFontOfSize:12];
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
-        DLog(@"Attendees: %@", self.activity.facebookEvent.attendees);
-        cell.textLabel.text = [NSString stringWithFormat:@"Er zijn %@ mensen die komen.", self.activity.facebookEvent.attendees];
+        switch (indexPath.row) {
+            case 0:
+                DLog(@"Attendees: %@", self.activity.facebookEvent.attendees);
+                cell.detailTextLabel.text = @"Gasten";
+                cell.textLabel.text = [NSString stringWithFormat:@"Er zijn %@ mensen die komen.", self.activity.facebookEvent.attendees];
+                break;
+            case 1:
+                cell.detailTextLabel.text = @"Vrienden";
+                DLog(@"Friends: %d", [self.activity.facebookEvent.friendsAttending count]);
+                cell.textLabel.text = [NSString stringWithFormat:@"Er zijn %d vrienden die komen.", [self.activity.facebookEvent.friendsAttending count]];
+                break;
+        }
         return cell;
+        }else {
+            static NSString *CellIdentifier = @"FacebookButtonCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:CellIdentifier];
+                cell.textLabel.text = self.activity.facebookEvent.userAttending ? @"Aanwezig" : @"Gaan";
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+                cell.textLabel.textColor = [UIColor detailLabelTextColor];
+                cell.textLabel.textAlignment = UITextAlignmentCenter;
+            }
+           /* if (!cell) {
+                UIButton *attendingButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                [attendingButton setFrame:CGRectMake(10, 150, 80, 40)];
 
+                [attendingButton setTitle:@"Gaan?" forState:UIControlStateNormal];
+                [attendingButton setTitle:@"Aanwezig" forState:UIControlStateDisabled];
+                [attendingButton setEnabled:!self.activity.facebookEvent.userAttending];
+                [attendingButton addTarget:self.activity.facebookEvent action:@selector(postUserAttendsEvent:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:attendingButton];
+            }//*/
+            return cell;
     }
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return indexPath.section == 1 ? indexPath : nil;
+    return indexPath.section == 1 || (indexPath.section == kFaceBookButtonSection) ? indexPath : nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == KActionSection){
     EKEventStore *store = [[EKEventStore alloc] init];
     if([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
         [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
@@ -257,6 +292,9 @@
     }
     else {
         [self addEventToCalendarStore:store];
+    }
+    }else if(indexPath.section == kFaceBookButtonSection){
+        [self.activity.facebookEvent postUserAttendsEvent];
     }
 }
 

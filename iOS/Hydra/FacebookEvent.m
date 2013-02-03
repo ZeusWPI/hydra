@@ -158,19 +158,27 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 -(void)postUserAttendsEvent:(id)sender{
     VLog(@"Attending button pressed");
     if([sender isEnabled]){
-        NSString *query = [NSString stringWithFormat:@"%@/attending/me", self.eventID];
+        [self postUserAttendsEvent];
+        [sender setEnabled:NO];
+    }
+}
 
-        // Ask for rspv_events permissions in context
-        if ([FBSession.activeSession.permissions
-             indexOfObject:@"rsvp_event"] == NSNotFound) {
-            // No permissions found in session, ask for it
+-(void)postUserAttendsEvent{
+    VLog(@"Attending button pressed");
+    NSString *query = [NSString stringWithFormat:@"%@/attending/me", self.eventID];
+
+    // Ask for rspv_events permissions in context
+    if ([FBSession.activeSession.permissions
+         indexOfObject:@"rsvp_event"] == NSNotFound) {
+         // No permissions found in session, ask for it
             [FBSession.activeSession
              reauthorizeWithPublishPermissions:
              [NSArray arrayWithObject:@"rsvp_event"]
              defaultAudience:FBSessionDefaultAudienceFriends
              completionHandler:^(FBSession *session, NSError *error) {
                  if(error){
-                     [sender setHidden:YES];
+                     //error
+                     VLog(error);
                  }
                  if (!error) {
                  }
@@ -188,8 +196,6 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
             }
         }];
         [conn start];
-        [sender setEnabled:NO];
-    }
 }
 
 @end
