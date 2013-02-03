@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 extern NSString *const UrgentNowPlayingUpdateNotification;
+extern NSString *const UrgentProgramUpdateNotification;
 
 @interface UrgentInfo : NSObject
 
 @property (retain, strong) NSString *prevPlaying;
 @property (retain, strong) NSString *nowPlaying;
+@property (retain, strong) NSString *currentProgram;
 
 - (void) startUpdating;
 - (void) stopUpdating;

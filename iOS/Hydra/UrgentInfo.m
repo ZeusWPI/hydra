@@ -9,11 +9,13 @@
 #import "UrgentInfo.h"
 
 NSString *const UrgentNowPlayingUpdateNotification = @"UrgentNowPlayingUpdateNotification";
+NSString *const UrgentProgramUpdateNotification = @"UrgentProgramUpdateNotification";
 
 @interface UrgentInfo()
 
 @property (atomic) BOOL update;
-@property (nonatomic) NSTimer* timer;
+@property (nonatomic) NSTimer* trackTimer;
+@property (nonatomic) NSTimer* progTimer;
 
 @end
 
@@ -41,15 +43,24 @@ NSString *const UrgentNowPlayingUpdateNotification = @"UrgentNowPlayingUpdateNot
 {
     self.update = YES;
     [self updateNowPlaying];
-
-    if (self.timer == nil)
+    [self updateCurrentProgram];
+    if (self.trackTimer == nil)
     {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:30.0
+        self.trackTimer = [NSTimer scheduledTimerWithTimeInterval:30.0
                                      target:self
                                    selector:@selector(updateNowPlaying)
                                    userInfo:nil
                                     repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+        [[NSRunLoop mainRunLoop] addTimer:self.trackTimer forMode:NSRunLoopCommonModes];
+    }
+    if (self.progTimer == nil)
+    {
+        self.progTimer = [NSTimer scheduledTimerWithTimeInterval:900.0
+                                                           target:self
+                                                         selector:@selector(updateCurrentProgram)
+                                                         userInfo:nil
+                                                          repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:self.progTimer forMode:NSRunLoopCommonModes];
     }
 }
 
@@ -57,16 +68,21 @@ NSString *const UrgentNowPlayingUpdateNotification = @"UrgentNowPlayingUpdateNot
 {
     self.update = NO;
     
-    if (self.timer != nil)
+    if (self.trackTimer != nil)
     {
-        [self.timer invalidate];
+        [self.trackTimer invalidate];
+        self.trackTimer = nil;
+    }
+    if (self.progTimer != nil)
+    {
+        [self.progTimer invalidate];
+        self.progTimer = nil;
     }
 }
 
-- (void) updateNowPlaying
+- (NSString*) stringFromURLString:(NSString*)urlstring
 {
-    NSString *const url = @"http://urgent.fm/nowplaying/livetrack.txt";
-    NSURL *urlRequest = [NSURL URLWithString:url];
+    NSURL *urlRequest = [NSURL URLWithString:urlstring];
     NSError *err = nil;
 
     NSString *txt = [NSString stringWithContentsOfURL:urlRequest encoding:NSUTF8StringEncoding error:&err];
@@ -74,11 +90,21 @@ NSString *const UrgentNowPlayingUpdateNotification = @"UrgentNowPlayingUpdateNot
     if(err)
     {
         VLog(err);
-        //Handle 
+        //Handle
     }
+
+    return txt;
+}
+
+
+- (void) updateNowPlaying
+{
+    NSString *const url = @"http://urgent.fm/nowplaying/livetrack.txt";
+    NSString *txt = [self stringFromURLString:url];
+
     VLog(txt);
     if ( ![txt isEqualToString:@"Geen plaat(info)"] ){
-        if(self.nowPlaying == nil || [txt rangeOfString:self.nowPlaying].location == NSNotFound){
+        if(self.nowPlaying == nil || ![txt isEqualToString: self.nowPlaying]){
             // song playing and is not same song
             self.prevPlaying = self.nowPlaying;
             self.nowPlaying = txt;
@@ -93,6 +119,19 @@ NSString *const UrgentNowPlayingUpdateNotification = @"UrgentNowPlayingUpdateNot
             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
             [center postNotificationName:UrgentNowPlayingUpdateNotification object:self];
         }
+    }
+}
+
+- (void) updateCurrentProgram
+{
+    NSString *const url = @"http://urgent.fm/nowplaying/program.php";
+    NSString *txt = [self stringFromURLString:url];
+
+    VLog(txt);
+    if (self.currentProgram == nil || ![txt isEqualToString:self.currentProgram]){
+        self.currentProgram = txt;
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:UrgentNowPlayingUpdateNotification object:self];
     }
 }
 
