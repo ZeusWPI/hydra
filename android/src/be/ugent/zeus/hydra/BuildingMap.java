@@ -4,9 +4,11 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import be.ugent.zeus.hydra.data.Resto;
 import be.ugent.zeus.hydra.data.caches.RestoCache;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.RestoService;
+import be.ugent.zeus.hydra.ui.map.DirectionMarker;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
@@ -22,24 +25,19 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
-import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.maps.GeoPoint;
-import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  *
  * @author Tom Naessens
  */
-public class BuildingMap extends AbstractSherlockFragmentActivity implements GoogleMap.OnMarkerClickListener {
+public class BuildingMap extends AbstractSherlockFragmentActivity implements GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap map;
     private RestoResultReceiver receiver = new RestoResultReceiver();
@@ -93,6 +91,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
 
         map.setMyLocationEnabled(true);
         map.setOnMarkerClickListener(this);
+        map.setOnInfoWindowClickListener(this);
 
 //        TODO: Fix the map on the users location when he is in Ghent
 //        LatLng location = new LatLng(map.getMyLocation().getLatitude(), map.getMyLocation().getLongitude());
@@ -106,12 +105,13 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
 //            center = CameraUpdateFactory.newLatLng(location);
 //            zoom = CameraUpdateFactory.zoomTo(6);
 //        } else {
-        center = CameraUpdateFactory.newLatLng(new LatLng(51.052833, 3.723335));
+        center = CameraUpdateFactory.newLatLng(new LatLng(51.042833, 3.723335));
         zoom = CameraUpdateFactory.zoomTo(13);
 //        }
 
         map.moveCamera(center);
         map.animateCamera(zoom);
+        map.setInfoWindowAdapter(new DirectionMarker(getLayoutInflater()));
 
         addRestos(false);
 
@@ -172,9 +172,8 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
             case R.id.search:
                 //onSearchRequested();
                 return true;
-            default:
-                return false;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void handleIntent(Intent intent) {
@@ -222,13 +221,19 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
             double distance = results[0];
 
             if (distance < 2000) {
-                marker.setSnippet(String.format("Afstand %.0f m", results[0]));
+                marker.setSnippet(String.format("Afstand: %.0f m", results[0]));
             } else {
-                marker.setSnippet(String.format("Afstand %.1f km", results[0] / 1000.0));
+                marker.setSnippet(String.format("Afstand: %.1f km", results[0] / 1000.0));
             }
 
 
         }
+    }
+
+    public void onInfoWindowClick(Marker marker) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("http://maps.google.com/maps?q=%s,%s", marker.getPosition().latitude, marker.getPosition().longitude)));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        startActivity(intent);
     }
 
     private class RestoResultReceiver extends ResultReceiver {

@@ -23,7 +23,7 @@ public class AbstractSherlockFragmentActivity extends SherlockFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return HomeButtonHelper.onOptionsItemSelected(item, this);
     }
-
+    
     @Override
     public void onStart() {
         super.onStart();
