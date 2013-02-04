@@ -14,8 +14,9 @@
 #import <RestKit/RestKit.h>
 
 #define kBaseUrl @"http://student.ugent.be/hydra/api/1.0"
-#define kActivitiesResource @"all_activities.json"
-#define kNewsResource @"all_news.json"
+#define kActivitiesResource @"/all_activities.json"
+#define kNewsResource @"/all_news.json"
+#define kUpdateInterval (5*60)
 
 NSString *const AssociationStoreDidUpdateNewsNotification =
     @"AssociationStoreDidUpdateNewsNotification";
@@ -28,8 +29,11 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 @property (nonatomic, strong) NSArray *newsItems;
 @property (nonatomic, strong) NSArray *activities;
 
+@property (nonatomic, strong) NSDate *newsLastUpdated;
+@property (nonatomic, strong) NSDate *activitiesLastUpdated;
+
 @property (nonatomic, strong) RKObjectManager *objectManager;
-@property (nonatomic, strong) NSMutableDictionary *activeRequests;
+@property (nonatomic, strong) NSMutableArray *activeRequests;
 
 @end
 
@@ -67,8 +71,13 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)sharedInit
 {
-    self.activeRequests = [[NSMutableDictionary alloc] init];
-    [self initializeObjectManager];
+    self.activeRequests = [[NSMutableArray alloc] init];
+    self.newsLastUpdated = [NSDate dateWithTimeIntervalSince1970:0];
+    self.activitiesLastUpdated = [NSDate dateWithTimeIntervalSince1970:0];
+
+    self.objectManager = [RKObjectManager managerWithBaseURLString:kBaseUrl];
+    self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    [self.objectManager.client.requestCache invalidateAll];
 }
 
 #pragma mark - Caching
@@ -136,24 +145,35 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (NSArray *)activities
 {
-    //[self fetchResourceUpdate:kActivitiesResource forTarget:[NSNull null]
-    //              withVersion:self.activitiesVersion];
+    [self updateResource:kActivitiesResource lastUpdated:self.activitiesLastUpdated class:[AssociationActivity class]];
     return _activities;
 }
 
 - (NSArray *)newsItems
 {
+    [self updateResource:kNewsResource lastUpdated:self.newsLastUpdated class:[AssociationNewsItem class]];
     return _newsItems;
 }
 
 #pragma mark - RestKit Object loading
 
-- (void)initializeObjectManager
+- (void)updateResource:(NSString *)resource lastUpdated:(NSDate *)lastUpdated class:(Class)class
 {
-    self.objectManager = [RKObjectManager managerWithBaseURLString:kBaseUrl];
-    [AssociationActivity registerObjectMappingWith:[self.objectManager mappingProvider]];
-    [AssociationNewsItem registerObjectMappingWith:[self.objectManager mappingProvider]];
-    [[self.objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
+    // Check if an update is required
+    if ([lastUpdated timeIntervalSinceNow] > -kUpdateInterval) {
+        return;
+    }
+
+    if (![self.activeRequests containsObject:resource]) {
+        DLog(@"Updating %@", resource);
+        [self.activeRequests addObject:resource];
+        [self.objectManager loadObjectsAtResourcePath:resource usingBlock:^(RKObjectLoader *loader) {
+            RKObjectMappingProvider *mapping = [RKObjectMappingProvider objectMappingProvider];
+            [class registerObjectMappingWith:mapping];
+            loader.mappingProvider = mapping;
+            loader.delegate = self;
+        }];
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
@@ -166,13 +186,14 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     if (objectLoader) {
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-            [self.activeRequests removeObjectForKey:objectLoader.resourcePath];
+            [self.activeRequests removeObject:objectLoader.resourcePath];
         });
     }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
+    VLog(objects);
     /*NSString *notification = nil;
     NSDictionary *userInfo = nil;
     NSLog(@"Retrieved resource \"%@\"", objectLoader.resourcePath);

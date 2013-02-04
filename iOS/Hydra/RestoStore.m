@@ -19,7 +19,7 @@
 #define kRestoMenuPath @"/menu/%d/%d.json"
 
 #define kInfoUpdateIterval (24 * 60 * 60) /* one day */
-#define kMenuUpdateIterval (24 * 60 * 60)
+#define kMenuUpdateIterval (12 * 60 * 60)
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
