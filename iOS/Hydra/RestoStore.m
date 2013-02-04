@@ -81,6 +81,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     // Initialize objectManager
     self.objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
     self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    self.objectManager.client.cachePolicy = RKRequestCachePolicyEnabled;
 }
 
 #pragma mark - Caching

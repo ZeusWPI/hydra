@@ -106,8 +106,9 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     // will not be received properly and all kinds of weird stuff happen
     if (!self.objectManager) {
         self.objectManager = [RKObjectManager managerWithBaseURLString:kSchamperUrl];
-        [SchamperArticle registerObjectMappingWith:[self.objectManager mappingProvider]];
-        [[self.objectManager requestQueue] setShowsNetworkActivityIndicatorWhenBusy:YES];
+        [SchamperArticle registerObjectMappingWith:self.objectManager.mappingProvider];
+        self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+        self.objectManager.client.cachePolicy = RKRequestCachePolicyEnabled;
     }
     [self.objectManager loadObjectsAtResourcePath:@"" delegate:self];
 }

@@ -16,7 +16,7 @@
 #define kBaseUrl @"http://student.ugent.be/hydra/api/1.0"
 #define kActivitiesResource @"/all_activities.json"
 #define kNewsResource @"/all_news.json"
-#define kUpdateInterval (5*60)
+#define kUpdateInterval (5 * 60)
 
 NSString *const AssociationStoreDidUpdateNewsNotification =
     @"AssociationStoreDidUpdateNewsNotification";
@@ -25,7 +25,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 @interface AssociationStore () <NSCoding, RKObjectLoaderDelegate, RKRequestDelegate>
 
-@property (nonatomic, strong) NSDictionary *associations;
+@property (nonatomic, strong) NSDictionary *associationLookup;
 @property (nonatomic, strong) NSArray *newsItems;
 @property (nonatomic, strong) NSArray *activities;
 
@@ -61,9 +61,6 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 {
     self = [super init];
     if (self) {
-        self.associations = [Association updateAssociations:nil];
-        self.newsItems = nil;
-        self.activities = nil;
         [self sharedInit];
     }
     return self;
@@ -71,13 +68,15 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)sharedInit
 {
+    self.associationLookup = [Association updateAssociations:self.associationLookup];
+
     self.activeRequests = [[NSMutableArray alloc] init];
     self.newsLastUpdated = [NSDate dateWithTimeIntervalSince1970:0];
     self.activitiesLastUpdated = [NSDate dateWithTimeIntervalSince1970:0];
 
     self.objectManager = [RKObjectManager managerWithBaseURLString:kBaseUrl];
     self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
-    [self.objectManager.client.requestCache invalidateAll];
+    self.objectManager.client.cachePolicy = RKRequestCachePolicyEnabled;
 }
 
 #pragma mark - Caching
@@ -85,15 +84,18 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        NSArray *associations = [decoder decodeObjectForKey:@"associations"];
-        AssertClassOrNil(associations, NSArray);
-        _associations = [Association updateAssociations:associations];
+        _associationLookup = [decoder decodeObjectForKey:@"associationLookup"];
+        AssertClassOrNil(_associationLookup, NSDictionary);
 
         _newsItems = [decoder decodeObjectForKey:@"newsItems"];
         AssertClassOrNil(_newsItems, NSArray);
+        _newsLastUpdated = [decoder decodeObjectForKey:@"newsLastUpdated"];
+        AssertClassOrNil(_newsLastUpdated, NSDate);
 
         _activities = [decoder decodeObjectForKey:@"activities"];
         AssertClassOrNil(_activities, NSArray);
+        _activitiesLastUpdated = [decoder decodeObjectForKey:@"activitiesLastUpdated"];
+        AssertClassOrNil(_activitiesLastUpdated, NSDate);
 
         [self sharedInit];
     }
@@ -102,9 +104,11 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:_associations forKey:@"associations"];
+    [coder encodeObject:_associationLookup forKey:@"associationLookup"];
     [coder encodeObject:_newsItems forKey:@"newsItems"];
+    [coder encodeObject:_newsLastUpdated forKey:@"newsLastUpdated"];
     [coder encodeObject:_activities forKey:@"activities"];
+    [coder encodeObject:_activitiesLastUpdated forKey:@"activitiesLastUpdated"];
 }
 
 + (NSString *)storeCachePath
@@ -126,12 +130,12 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (NSArray *)assocations
 {
-    return [self.associations allValues];
+    return [self.associationLookup allValues];
 }
 
 - (Association *)associationWithName:(NSString *)internalName
 {
-    Association *association = self.associations[internalName];
+    Association *association = self.associationLookup[internalName];
 
     // If the association is unknown, just give a fake record
     if (!association) {
@@ -193,37 +197,26 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
-    VLog(objects);
-    /*NSString *notification = nil;
-    NSDictionary *userInfo = nil;
+    NSString *notification = nil;
     NSLog(@"Retrieved resource \"%@\"", objectLoader.resourcePath);
 
     // Received some NewsItems
-    id targetObject = self.activeRequests[objectLoader.resourcePath];
-    if ([targetObject isKindOfClass:[Association class]]) {
-        Association *assoc = targetObject;
-        self.newsItems[assoc] = @{
-            @"version": self.resourceState[assoc.internalName][@"version"],
-            @"contents": objects
-        };
+    if ([objectLoader.resourcePath isEqualToString:kNewsResource]) {
+        self.newsItems = objects;
         notification = AssociationStoreDidUpdateNewsNotification;
-        userInfo = @{ @"association" : assoc, @"newsItems": objects };
     }
     // Received Activities
-    else {
+    else if ([objectLoader.resourcePath isEqualToString:kActivitiesResource]) {
         self.activities = objects;
-
-        NSDictionary *state = self.resourceState[kActivitiesResource];
-        self.activitiesVersion = [state[@"version"] intValue];
         notification = AssociationStoreDidUpdateActivitiesNotification;
     }
 
     // Send notification
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:notification object:self userInfo:userInfo];
+    [center postNotificationName:notification object:self userInfo:nil];
 
-    [self.activeRequests removeObjectForKey:objectLoader.resourcePath];
-    [self updateStoreCache];*/
+    [self.activeRequests removeObject:objectLoader.resourcePath];
+    [self updateStoreCache];
 }
 
 @end
