@@ -13,7 +13,7 @@
     <string name="be.ugent.zeus.hydra.News">News</string>
     <string name="be.ugent.zeus.hydra.Calendar">Activities</string>
     <string name="be.ugent.zeus.hydra.RestoMenu">Resto Menu</string>
-    <string name="be.ugent.zeus.hydra.BuildingMap">Resto Gebouwen</string>
+    <string name="be.ugent.zeus.hydra.BuildingMap">Resto Map</string>
     <string name="be.ugent.zeus.hydra.SchamperDaily">Schamper</string>
     <string name="be.ugent.zeus.hydra.GSR">GSR</string>
     <!--  TODO: Add one for Urgent -->

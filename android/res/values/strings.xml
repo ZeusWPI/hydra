@@ -11,11 +11,10 @@
     <string name="title_calendar">Activiteiten</string>
     <string name="title_info">Info</string>
     <string name="title_menu">Resto Menu</string>
+    <string name="title_restomap">Resto Map</string>
     <string name="title_gsr">Gentse Studentenraad</string>
     <string name="title_schamper">Schamper Daily</string>
     <string name="title_preferences">Voorkeuren</string>
-    <string name="title_buildings">UGent Gebouwen</string>
-    <string name="title_restomap">UGent Restos</string>
     
     <string name="search_title">Zoek</string>
     <string name="resto_search_label"></string>

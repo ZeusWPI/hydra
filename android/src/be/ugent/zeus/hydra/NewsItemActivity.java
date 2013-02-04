@@ -10,6 +10,7 @@ import android.widget.TextView;
 import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.NewsItem;
+import com.google.analytics.tracking.android.EasyTracker;
 import java.text.SimpleDateFormat;
 
 /**
@@ -30,6 +31,8 @@ public class NewsItemActivity extends AbstractSherlockActivity {
 
         NewsItem item = (NewsItem) getIntent().getSerializableExtra("item");
 
+        EasyTracker.getTracker().trackView("News/" + item.title);
+        
         TextView title = (TextView) findViewById(R.id.news_item_title);
         title.setText(item.title);
 

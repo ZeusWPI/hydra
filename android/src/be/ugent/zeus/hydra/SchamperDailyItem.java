@@ -6,6 +6,7 @@ import android.webkit.WebView;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.rss.Item;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.google.analytics.tracking.android.EasyTracker;
 import java.text.SimpleDateFormat;
 
 /**
@@ -21,6 +22,7 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
         super.onCreate(icicle);
         setContentView(R.layout.schamper_item);
 
+        
         Item item = (Item) getIntent().getSerializableExtra("item");
 
         setTitle(item.title);
@@ -38,6 +40,9 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
             + "	<div class='content'>" + item.description + "</div>"
             + "</body>";
 
+        
+        EasyTracker.getTracker().trackView("Schamper/" + item.title);
+        
         WebView content = (WebView) findViewById(R.id.schamper_item);
         content.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null);
     }

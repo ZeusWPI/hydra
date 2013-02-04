@@ -41,6 +41,7 @@ public class Info extends AbstractSherlockListActivity {
         } else {
             try {
                 content = (NSArray) XMLPropertyListParser.parse(getResources().openRawResource(R.raw.info_content));
+
             } catch (Exception ex) {
                 Log.e("[Hydra.Info]", "Failed to parse the info content!");
                 ex.printStackTrace();
@@ -48,6 +49,16 @@ public class Info extends AbstractSherlockListActivity {
                 return;
             }
         }
+
+        if (getIntent() != null) {
+            if (getIntent().getStringExtra("tracking") == null) {
+                getIntent().putExtra("tracking", "Info");
+            } else {
+                EasyTracker.getTracker().trackView(getIntent().getStringExtra("tracking"));
+                Log.i("Tracking", getIntent().getStringExtra("tracking"));
+            }
+        }
+
         setListAdapter(new InfoList(this, content));
     }
 
@@ -64,17 +75,28 @@ public class Info extends AbstractSherlockListActivity {
 
             Intent intent = new Intent(this, Info.class);
             intent.putExtra("class", this.getClass().getCanonicalName());
+            intent.putExtra("tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
             intent.putExtra("content", wrapper);
             startActivity(intent);
+
         } else if ((action = item.objectForKey("url")) != null || (action = item.objectForKey("url-android")) != null) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(((NSString) action).toString()));
             // Handle external activities as described in 
             // http://developer.android.com/training/implementing-navigation/descendant.html#external-activities
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+            // We can't call the code in the onCreate as we may be opening the play store, so track it here.
+            EasyTracker.getTracker().trackView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
+            Log.i("Tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
+
             startActivity(intent);
         } else if ((action = item.objectForKey("html")) != null) {
             Intent intent = new Intent(this, InfoWebActivity.class);
             intent.putExtra("class", this.getClass().getCanonicalName());
+            
+            EasyTracker.getTracker().trackView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
+            Log.i("Tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
+            
             intent.putExtra("page", ((NSString) action).toString());
             startActivity(intent);
         } else if ((action = item.objectForKey("association")) != null) {

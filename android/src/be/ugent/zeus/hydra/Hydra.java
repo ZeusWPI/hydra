@@ -33,8 +33,6 @@ public class Hydra extends AbstractSherlockActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_main);
 
-        Log.d("BuildConfig.DEBUG:", Boolean.toString(BuildConfig.DEBUG));
-
         // Zubhium
         if (!DEBUG) {
             Log.d("Zubhium:", "Enable bugtracking");
@@ -46,7 +44,7 @@ public class Hydra extends AbstractSherlockActivity {
         }
 
         // Google Analytics
-        if (!BETA) {
+         if (BETA || DEBUG) {
             Log.d("GAnalytics:", "Tracking disabled");
             GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
             googleAnalytics.setAppOptOut(true);
