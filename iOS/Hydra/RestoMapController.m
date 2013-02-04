@@ -99,7 +99,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Resto Kaart";
+    self.title = @"Resto Map";
 
     // Add button to navigation bar
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
