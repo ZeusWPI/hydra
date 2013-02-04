@@ -12,15 +12,19 @@
 
 @interface AssociationActivity : NSObject <NSCoding>
 
-@property (nonatomic, strong) NSString *associationId;
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *location;
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;
-@property (nonatomic, strong) NSString *eventID;
-@property (nonatomic, strong) FacebookEvent *facebookEvent;
+@property (nonatomic, strong) NSString *location;
+@property (nonatomic, assign) double longitude;
+@property (nonatomic, assign) double latitude;
+@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSArray *categories;
+@property (nonatomic, assign) BOOL highlighted;
 
 @property (nonatomic, strong, readonly) Association *association;
+@property (nonatomic, strong, readonly) FacebookEvent *facebookEvent;
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 
