@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"> 
     <item android:state_focused="true" android:state_pressed="true" 
-          android:drawable="@drawable/schamper_active" /> 
+          android:drawable="@drawable/urgent_active" /> 
     <item android:state_focused="false" android:state_pressed="true" 
-          android:drawable="@drawable/schamper_active" /> 
-    <item android:drawable="@drawable/schamper_normal" /> 
+          android:drawable="@drawable/urgent_active" /> 
+    <item android:drawable="@drawable/urgent_normal" /> 
 </selector>

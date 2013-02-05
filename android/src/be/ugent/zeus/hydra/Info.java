@@ -22,6 +22,7 @@ import com.dd.plist.NSObject;
 import com.dd.plist.NSString;
 import com.dd.plist.XMLPropertyListParser;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.GoogleAnalytics;
 
 /**
  *
@@ -63,6 +64,11 @@ public class Info extends AbstractSherlockListActivity {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
@@ -93,10 +99,10 @@ public class Info extends AbstractSherlockListActivity {
         } else if ((action = item.objectForKey("html")) != null) {
             Intent intent = new Intent(this, InfoWebActivity.class);
             intent.putExtra("class", this.getClass().getCanonicalName());
-            
+
             EasyTracker.getTracker().trackView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
             Log.i("Tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
-            
+
             intent.putExtra("page", ((NSString) action).toString());
             startActivity(intent);
         } else if ((action = item.objectForKey("association")) != null) {

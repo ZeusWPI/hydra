@@ -25,9 +25,9 @@
                 android:background="@drawable/resto" />
     </LinearLayout>
     <LinearLayout style="@style/DashboardButtonHolder">
-        <Button android:id="@+id/home_btn_gsr"
+        <Button android:id="@+id/home_btn_urgent"
                 style="@style/DashboardButton"
-                android:background="@drawable/gsr" />
+                android:background="@drawable/urgent" />
     </LinearLayout>
     <LinearLayout style="@style/DashboardButtonHolder">
         <Button android:id="@+id/home_btn_schamper"

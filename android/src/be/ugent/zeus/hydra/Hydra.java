@@ -10,6 +10,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.zubhium.ZubhiumSDK;
 import java.util.Locale;
@@ -42,13 +43,13 @@ public class Hydra extends AbstractSherlockActivity {
                 sdk.registerUpdateReceiver(Hydra.this);
             }
         }
-
+        
         // Google Analytics
-         if (BETA || DEBUG) {
-            Log.d("GAnalytics:", "Tracking disabled");
-            GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
-            googleAnalytics.setAppOptOut(true);
-        }
+//         if (BETA || DEBUG) {
+//            Log.d("GAnalytics:", "Tracking disabled");
+//            GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
+//            googleAnalytics.setAppOptOut(true);
+//        }
 
         // Home screen: disable the button
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -61,7 +62,7 @@ public class Hydra extends AbstractSherlockActivity {
         link(R.id.home_btn_calendar, Calendar.class);
         link(R.id.home_btn_info, Info.class);
         link(R.id.home_btn_menu, RestoMenu.class);
-        link(R.id.home_btn_gsr, GSR.class);
+        link(R.id.home_btn_urgent, Urgent.class);
         link(R.id.home_btn_schamper, SchamperDaily.class);
 
         Intent intent = new Intent(this, UpdaterService.class);
