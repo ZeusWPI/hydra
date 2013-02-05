@@ -10,9 +10,8 @@
 
 @interface UrgentViewController : UIViewController
 
--(IBAction)streamPlay:(id)sender;
--(IBAction)streamPause:(id)sender;
--(IBAction)nowPlaying:(id)sender;
--(IBAction)prevPlaying:(id)sender;
+@property (nonatomic, unsafe_unretained) IBOutlet UIButton *playButton;
+
+- (IBAction)playButtonTapped:(id)sender;
 
 @end

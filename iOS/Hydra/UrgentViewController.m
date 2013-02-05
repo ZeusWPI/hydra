@@ -13,6 +13,31 @@
 
 @implementation UrgentViewController
 
+- (id)init
+{
+    if (self = [super init]) {
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(playerStatusChanged:)
+                       name:ASStatusChangedNotification object:nil];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidLoad
+{
+    // Set state for highlighted|selected
+    UIImage *selectedImage = [self.playButton imageForState:UIControlStateSelected];
+    [self.playButton setImage:selectedImage forState:UIControlStateSelected|UIControlStateHighlighted];
+
+    // Initialize state
+    [self playerStatusChanged:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -31,24 +56,21 @@
     [[UrgentInfo sharedInfo] stopUpdating];
 }
 
--(IBAction)streamPlay:(id)sender
+- (void)playButtonTapped:(id)sender
 {
-    [[UrgentPlayer sharedPlayer] start];
+    UrgentPlayer *player = [UrgentPlayer sharedPlayer];
+    if ([player isPlaying]) {
+        [player pause];
+    }
+    else {
+        [player start];
+    }
 }
 
--(IBAction)streamPause:(id)sender
+- (void)playerStatusChanged:(NSNotification *)notification
 {
-    [[UrgentPlayer sharedPlayer] pause];
-}
-
--(IBAction)nowPlaying:(id)sender
-{
-    VLog([[UrgentInfo sharedInfo] nowPlaying]);
-}
-
--(IBAction)prevPlaying:(id)sender
-{
-    VLog([[UrgentInfo sharedInfo] prevPlaying]);
+    // Update play button
+    self.playButton.selected = [[UrgentPlayer sharedPlayer] isPlaying];
 }
 
 @end
