@@ -12,6 +12,7 @@
 
 @interface AssociationNewsItem ()
 
+@property (nonatomic, strong) NSString *associationId;
 @property (nonatomic, strong) Association *association;
 
 @end
@@ -21,15 +22,10 @@
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
-    [objectMapping mapAttributes:@"title", @"date", nil];
-    [objectMapping mapKeyPath:@"description" toAttribute:@"body"];
-    [objectMapping mapKeyPath:@"association_id" toAttribute:@"associationId"];
+    [objectMapping mapAttributes:@"title", @"date", @"content", @"highlighted", nil];
+    [objectMapping mapKeyPath:@"association" toAttribute:@"associationId"];
     
-    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
-    [dayFormatter setDateFormat:@"dd/MM/yyyy"];
-    [objectMapping setDateFormatters:@[ dayFormatter ]];
-    
-    [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@"newsItem"];
+    [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@""];
 }
 
 - (NSString *)description
@@ -53,7 +49,8 @@
         self.associationId = [coder decodeObjectForKey:@"associationId"];
         self.title = [coder decodeObjectForKey:@"title"];
         self.date = [coder decodeObjectForKey:@"date"];
-        self.body = [coder decodeObjectForKey:@"body"];
+        self.content = [coder decodeObjectForKey:@"content"];
+        self.highlighted = [coder decodeBoolForKey:@"highlighted"];
     }
     return self;
 }
@@ -63,7 +60,8 @@
     [coder encodeObject:self.associationId forKey:@"associationId"];
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeObject:self.date forKey:@"date"];
-    [coder encodeObject:self.body forKey:@"body"];
+    [coder encodeObject:self.content forKey:@"content"];
+    [coder encodeBool:self.highlighted forKey:@"highlighted"];
 }
 
 @end

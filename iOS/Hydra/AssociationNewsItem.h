@@ -12,10 +12,10 @@
 
 @interface AssociationNewsItem : NSObject <NSCoding>
 
-@property (nonatomic, strong) NSString *associationId;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSDate *date;
-@property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, assign) BOOL highlighted;
 
 @property (nonatomic, strong, readonly) Association *association;
 

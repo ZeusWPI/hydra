@@ -57,3 +57,4 @@
 
 #define ZAssert(condition, ...) do { if (!(condition)) { ALog(__VA_ARGS__); }} while(0)
 #define NSStringFromBOOL(aBOOL) (aBOOL ? @"YES" : @"NO")
+#define AssertClassOrNil(var, clazz) do { if (![(var) isKindOfClass:[clazz class]]) { var = nil; } } while(0)

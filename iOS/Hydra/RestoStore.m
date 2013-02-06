@@ -19,7 +19,7 @@
 #define kRestoMenuPath @"/menu/%d/%d.json"
 
 #define kInfoUpdateIterval (24 * 60 * 60) /* one day */
-#define kMenuUpdateIterval (24 * 60 * 60)
+#define kMenuUpdateIterval (12 * 60 * 60)
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
@@ -81,6 +81,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     // Initialize objectManager
     self.objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
     self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    self.objectManager.client.cachePolicy = RKRequestCachePolicyEnabled;
 }
 
 #pragma mark - Caching
@@ -89,9 +90,13 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 {
     if (self = [super init]) {
         self.menus = [decoder decodeObjectForKey:@"menus"];
+        AssertClassOrNil(self.menus, NSMutableDictionary);
         self.locations = [decoder decodeObjectForKey:@"locations"];
+        AssertClassOrNil(self.locations, NSArray);
         self.legend = [decoder decodeObjectForKey:@"legend"];
+        AssertClassOrNil(self.legend, NSArray);
         self.infoLastUpdated = [decoder decodeObjectForKey:@"infoLastUpdated"];
+        AssertClassOrNil(self.infoLastUpdated, NSDate);
 
         [self sharedInit];
     }

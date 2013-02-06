@@ -38,7 +38,7 @@
     bodyField.dataDetectorTypes = UIDataDetectorTypeLink
                                 | UIDataDetectorTypePhoneNumber
                                 | UIDataDetectorTypeAddress;
-    bodyField.text = self.newsItem.body;
+    bodyField.text = self.newsItem.content;
     [self.view addSubview:bodyField];
 }
 

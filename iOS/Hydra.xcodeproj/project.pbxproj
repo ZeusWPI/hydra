@@ -677,8 +677,6 @@
 				F59CEE8216A188050038FD24 /* FacebookLogin.m */,
 				F59CEE8616A188050038FD24 /* FacebookEventView.h */,
 				F59CEE8716A188050038FD24 /* FacebookEventView.m */,
-				F59CEE8416A188050038FD24 /* FacebookViewController.m */,
-				F59CEE8516A188050038FD24 /* FacebookViewController.xib */,
 				F55E89EA16A4AF8E008595CB /* ShareKitConfigurator.h */,
 				F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */,
 			);
@@ -821,6 +819,8 @@
 				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
 				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
 				F59CEE8316A188050038FD24 /* FacebookViewController.h */,
+				F59CEE8416A188050038FD24 /* FacebookViewController.m */,
+				F59CEE8516A188050038FD24 /* FacebookViewController.xib */,
 				3B436DF615B8915200984D3F /* InfoViewController.h */,
 				3B436DF715B8915200984D3F /* InfoViewController.m */,
 				F536359E16A69C94000A50C4 /* News */,

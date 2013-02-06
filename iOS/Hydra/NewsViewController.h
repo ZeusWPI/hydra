@@ -10,6 +10,4 @@
 
 @interface NewsViewController : UITableViewController
 
-- (id) initWithAssociations: (NSArray *)associations;
-
 @end
