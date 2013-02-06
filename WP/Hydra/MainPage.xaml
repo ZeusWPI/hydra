@@ -42,16 +42,15 @@
          <!--Panorama control-->
         
         <phone:Panorama Name="mainPanorama" Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"  SelectionChanged="MainPanoramaSelectionChangedShowApplicationBar">
-            <phone:PanoramaItem Name="nieuws" Header="Nieuws">
-                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding NewsItems}">
+            <phone:PanoramaItem Name="news" Header="Nieuws">
+               <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding NewsItems}" SelectionChanged="NewsItemTapped">
                     
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
                                 <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                                    <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextTitle2Style}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                                    <TextBlock Text="{Binding Assocition}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -60,13 +59,16 @@
             </phone:PanoramaItem>
             
             
-            <phone:PanoramaItem Name="activiteiten" Header="Activiteiten">
-                <!--Single line list with text wrapping-->
-                <phone:LongListSelector Margin="0,0,-22,0" ItemsSource="{Binding ActivityItems}">
+            <phone:PanoramaItem Name="activities" Header="Activiteiten">
+                <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding ActivityItems}" SelectionChanged="ActivityItemTapped">
+
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,-6,0,12">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                                <StackPanel Width="311" Margin="8,-7,0,0">
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextTitle2Style}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                                    <TextBlock Text="{Binding Assocition}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
@@ -114,7 +116,6 @@
             </phone:PanoramaItem>
 
             <phone:PanoramaItem Name="resto" Header="Resto Menu">
-                <!--Single line list with text wrapping-->
                 <phone:LongListSelector Margin="0,0,-22,0" ItemsSource="{Binding RestoItems}">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
@@ -128,7 +129,6 @@
 
 
             <phone:PanoramaItem Name="urgent" Header="URGentFM">
-                <!--Single line list with text wrapping-->
                
             </phone:PanoramaItem>
 

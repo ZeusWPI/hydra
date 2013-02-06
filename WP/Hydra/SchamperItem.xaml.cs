@@ -7,7 +7,7 @@ namespace Hydra
 {
     public partial class SchamperItem : PhoneApplicationPage
     {
-        private const string Header ="<html><head><link rel='stylesheet' type='text/css' href='../Assets/schamper.css'></head>";
+        private const string Header ="<html><head><link rel='stylesheet' type='text/css' href='../Resources/schamper.css'></head>";
         public SchamperItem()
         {
             InitializeComponent();
