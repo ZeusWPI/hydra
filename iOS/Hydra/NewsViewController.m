@@ -32,7 +32,7 @@
                        name:AssociationStoreDidUpdateNewsNotification
                      object:nil];
 
-        self.newsItems = [AssociationStore sharedStore].newsItems;
+        [self loadNews];
     }
     return self;
 }
@@ -111,14 +111,29 @@
     NSString *detailText = [NSString stringWithFormat:@"%@, %@", [dateFormatter stringFromDate:newsItem.date], association.displayName];
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
+
+    if (newsItem.highlighted) {
+        UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-star"]];
+        cell.accessoryView = star;
+    }
+    else {
+        cell.accessoryView = nil;
+    }
     
     return cell;
+}
+
+- (void)loadNews
+{
+    NSArray *newsItems = [AssociationStore sharedStore].newsItems;
+    NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    self.newsItems = [newsItems sortedArrayUsingDescriptors:@[desc]];
 }
 
 - (void)newsUpdated:(NSNotification *)notification
 {
     DLog(@"Updating tableView for news items");
-    self.newsItems = [AssociationStore sharedStore].newsItems;
+    [self loadNews];
     [self.tableView reloadData];
 
     // Hide or update HUD
