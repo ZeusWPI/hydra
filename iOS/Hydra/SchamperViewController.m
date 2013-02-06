@@ -52,15 +52,14 @@
                                                           target:nil action:nil];
     [self.navigationItem setBackBarButtonItem:bb];
 
-    if([UIRefreshControl class]) {
+    if ([UIRefreshControl class]) {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         refreshControl.tintColor = [UIColor hydraTintColor];
         [refreshControl addTarget:self action:@selector(didPullRefreshControl:)
                  forControlEvents:UIControlEventValueChanged];
 
         self.refreshControl = refreshControl;
-    }
-    
+    }    
 }
 
 - (void)didPullRefreshControl:(id)sender

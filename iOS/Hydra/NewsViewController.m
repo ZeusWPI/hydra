@@ -46,7 +46,8 @@
 {
     [super viewDidLoad];
     self.title = @"Nieuws";
-    if([UIRefreshControl class]) {
+
+    if ([UIRefreshControl class]) {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         refreshControl.tintColor = [UIColor hydraTintColor];
         [refreshControl addTarget:self action:@selector(didPullRefreshControl:)
@@ -130,6 +131,7 @@
             [SVProgressHUD showErrorWithStatus:errorMsg];
         }
     }
+    
     if ([UIRefreshControl class]) {
         [self.refreshControl endRefreshing];
     }
