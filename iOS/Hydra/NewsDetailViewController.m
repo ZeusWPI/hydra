@@ -58,8 +58,8 @@
     formatttedDate = [formatttedDate stringByReplacingCharactersInRange:NSMakeRange(0, 1)
                       withString:[[formatttedDate substringToIndex:1] capitalizedString]];
 
-    UIFont *metaFont = [UIFont systemFontOfSize:14];
-    CGRect dateFrame = CGRectMake(10, CGRectGetMaxY(titleFrame) + 4, contentSize.width, 15);
+    UIFont *metaFont = [UIFont systemFontOfSize:15];
+    CGRect dateFrame = CGRectMake(10, CGRectGetMaxY(titleFrame) + 4, contentSize.width, 18);
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:dateFrame];
     dateLabel.backgroundColor = [UIColor clearColor];
     dateLabel.font = metaFont;
@@ -97,8 +97,9 @@
     bodyField.autoresizingMask = UIViewAutoresizingFlexibleWidth
                                | UIViewAutoresizingFlexibleHeight;
     bodyField.editable = NO;
+    bodyField.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     bodyField.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 0, 0);
-    bodyField.font = [UIFont systemFontOfSize:14];
+    bodyField.font = [UIFont systemFontOfSize:16];
     bodyField.dataDetectorTypes = UIDataDetectorTypeLink
                                 | UIDataDetectorTypePhoneNumber
                                 | UIDataDetectorTypeAddress;
