@@ -463,7 +463,7 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
         mNotification.tickerText = text;
         mNotification.icon = R.drawable.button_urgent_play;
         mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-        mNotification.setLatestEventInfo(getApplicationContext(), "RandomMusicPlayer",
+        mNotification.setLatestEventInfo(getApplicationContext(), "Urgent.fm livestream",
             text, pi);
         startForeground(NOTIFICATION_ID, mNotification);
     }
