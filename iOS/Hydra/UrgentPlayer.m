@@ -7,13 +7,35 @@
 //
 
 #import "UrgentPlayer.h"
+#import "NSDate+Utilities.h"
+
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <RestKit/RestKit.h>
+
+#define kSongUpdateInterval 30
+#define kShowUpdateInterval (30*60)
+#define kDefaultSongInfo @"Geen plaat(info)"
+
+#define kSongResourcePath @"http://urgent.fm/nowplaying/livetrack.txt"
+#define kShowResourcePath @"http://urgent.fm/nowplaying/program.php"
+
+NSString *const UrgentPlayerDidUpdateSongNotification =
+    @"UrgentPlayerDidUpdateSongNotification";
+NSString *const UrgentPlayerDidUpdateShowNotification =
+    @"UrgentPlayerDidUpdateShowNotification";
 
 void audioRouteChangeListenerCallback (void                   *inUserData,
                                        AudioSessionPropertyID inPropertyID,
                                        UInt32                 inPropertyValueSize,
                                        const void             *inPropertyValue);
+
+@interface UrgentPlayer () <NSURLConnectionDelegate>
+
+@property (nonatomic, strong) NSTimer *updateSongTimer;
+@property (nonatomic, strong) NSTimer *updateShowTimer;
+
+@end
 
 @implementation UrgentPlayer
 
@@ -35,7 +57,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 {
     if (self = [super initWithURL:url_]) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserver:self selector:@selector(updateNowPlaying:)
+        [center addObserver:self selector:@selector(playerStateChanged:)
                        name:ASStatusChangedNotification object:self];
     }
     return self;
@@ -74,9 +96,11 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
-    // TODO: sometimes the app will livelock when it's called here from
-    // the lock screen and an error occurs.
-    [super start];
+    // Reset the player state
+    @synchronized (self) {
+        errorCode = AS_NO_ERROR;
+        [super start];
+    }
 }
 
 - (void)stop
@@ -86,22 +110,53 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     [super stop];
 }
 
-- (void)updateNowPlaying:(NSNotification *)notification
+#pragma mark - Timer management
+
+- (void)playerStateChanged:(NSNotification *)notification
 {
+    DLog(@"%d", self.state);
+
+    // Update timers
+    if (!self.isIdle) {
+        // The state of updateSongTimer and updateShowTimer should always be equal
+        if (![self.updateSongTimer isValid]) {
+            [self scheduleTimers];
+        }
+    }
+    else {
+        [self cancelTimers];
+    }
+
     // Available since iOS5
     if ([MPNowPlayingInfoCenter class]) {
         MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
         if (self.isPlaying) {
+            // Cover art
             UIImage *cover = [UIImage imageNamed:@"nowplaying-urgent"];
             MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:cover];
+
+            // Meta-data
+            NSString *albumTitle = @"Urgent.fm";
+            if (self.currentShow) {
+                albumTitle = [self.currentShow stringByAppendingString:@" - Urgent.fm"];
+            }
+            NSString *title;
+            if (self.currentSong && ![self.currentSong isEqualToString:kDefaultSongInfo]) {
+                title = self.currentSong;
+            }
+            else {
+                title = albumTitle;
+                albumTitle = @"";
+            }
+
             center.nowPlayingInfo = @{
-                // TODO: get program name
-                MPMediaItemPropertyTitle: @"Urgent.fm",
+                MPMediaItemPropertyTitle: title,
+                MPMediaItemPropertyAlbumTitle: albumTitle,
                 MPMediaItemPropertyArtwork: artwork
             };
         }
         else if (self.isPaused) {
-            center.nowPlayingInfo =  @{
+            center.nowPlayingInfo = @{
                 MPMediaItemPropertyTitle: @"Urgent.fm"
             };
         }
@@ -109,6 +164,96 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
             center.nowPlayingInfo = nil;
         }
     }
+}
+
+- (void)scheduleTimers
+{
+    // Update songs every 30 seconds
+    self.updateSongTimer = [NSTimer timerWithTimeInterval:kSongUpdateInterval target:self
+                                                 selector:@selector(songUpdateTimerFired:)
+                                                 userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.updateSongTimer forMode:NSDefaultRunLoopMode];
+    [self.updateSongTimer fire];
+
+    // Update show every 30 minutes
+    self.updateShowTimer = [NSTimer timerWithTimeInterval:kShowUpdateInterval target:self
+                                                 selector:@selector(showUpdateTimerFired:)
+                                                 userInfo:nil repeats:YES];
+
+    // Schedule the timer for the next half hour
+    NSDate *next = [[NSDate date] dateByAddingMinutes:30];
+    self.updateShowTimer.fireDate = [next dateBySubtractingMinutes:(next.minute % 30)];
+
+    [[NSRunLoop currentRunLoop] addTimer:self.updateShowTimer forMode:NSDefaultRunLoopMode];
+    [self.updateShowTimer fire];
+}
+
+- (void)cancelTimers
+{
+    [self.updateSongTimer invalidate];
+    self.updateSongTimer = nil;
+    [self.updateShowTimer invalidate];
+    self.updateShowTimer = nil;
+}
+
+#pragma mark - Fetching resources
+
+- (void)songUpdateTimerFired:(NSTimer *)sender
+{
+    DLog(@"Updating current song");
+    [self fetchString:kSongResourcePath withCompletion:^(NSString *song) {
+        BOOL requiresNotification = ![self.currentSong isEqualToString:song];
+
+        // Just overwrite the currentSong value if it didn't contain info
+        if ([self.currentSong isEqualToString:kDefaultSongInfo]) {
+            self.currentSong = song;
+        }
+        else {
+            self.previousSong = self.currentSong;
+            self.currentSong = song;
+        }
+
+        if (requiresNotification) {
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:UrgentPlayerDidUpdateSongNotification object:self];
+        }
+    }];
+}
+
+- (void)showUpdateTimerFired:(NSTimer *)sender
+{
+    DLog(@"Updating current show");
+    [self fetchString:kShowResourcePath withCompletion:^(NSString *show) {
+        VLog(show);
+        if (![self.currentShow isEqualToString:show]) {
+            self.currentShow = show;
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:UrgentPlayerDidUpdateShowNotification object:self];
+        }
+    }];
+}
+
+- (void)fetchString:(NSString *)resource withCompletion:(void (^)(NSString *result))completion
+{
+    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    dispatch_async(async, ^{
+        NSURL *resourceUrl = [NSURL URLWithString:resource];
+
+        NSError *error = nil;
+        NSString *result = [NSString stringWithContentsOfURL:resourceUrl
+                                                    encoding:NSUTF8StringEncoding
+                                                       error:&error];
+        NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        result = [result stringByTrimmingCharactersInSet:set];
+        if (error) {
+            NSLog(@"Error while fetching resource %@: %@", resource, error);
+            return;
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(result);
+        });
+    });
 }
 
 @end
@@ -151,7 +296,8 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         if (routeChangeReason == kAudioSessionRouteChangeReason_OldDeviceUnavailable) {
             NSLog(@"Output device removed, so application audio was paused.");
             [player pause];
-        } else {
+        }
+        else {
             DLog(@"A route change occurred that does not require pausing of application audio.");
         }
     }

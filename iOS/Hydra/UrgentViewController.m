@@ -8,7 +8,6 @@
 
 #import "UrgentViewController.h"
 #import "UrgentPlayer.h"
-#import "UrgentInfo.h"
 #import <AVFoundation/AVFoundation.h>
 
 @implementation UrgentViewController
@@ -38,22 +37,10 @@
     [self playerStatusChanged:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[UrgentInfo sharedInfo] startUpdating];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     GAI_Track(@"Urgent");
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [[UrgentInfo sharedInfo] stopUpdating];
 }
 
 - (void)playButtonTapped:(id)sender
