@@ -85,6 +85,12 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     return [cacheDirectory stringByAppendingPathComponent:@"schamper.archive"];
 }
 
+- (void)reloadArticles
+{
+    [self.objectManager.client.requestCache invalidateAll];
+    [self updateArticles];
+}
+
 - (void)saveStoreCache
 {
     [NSKeyedArchiver archiveRootObject:self toFile:self.class.articleCachePath];

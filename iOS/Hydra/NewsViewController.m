@@ -46,6 +46,19 @@
 {
     [super viewDidLoad];
     self.title = @"Nieuws";
+    if([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.tintColor = [UIColor hydraTintColor];
+        [refreshControl addTarget:self action:@selector(didPullRefreshControl:)
+                 forControlEvents:UIControlEventValueChanged];
+
+        self.refreshControl = refreshControl;
+    }
+}
+
+- (void)didPullRefreshControl:(id)sender
+{
+    [[AssociationStore sharedStore] reloadNewsItems];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -116,6 +129,9 @@
             NSString *errorMsg = @"Geen nieuws gevonden";
             [SVProgressHUD showErrorWithStatus:errorMsg];
         }
+    }
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
     }
 }
 

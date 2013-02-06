@@ -51,6 +51,21 @@
                                                            style:UIBarButtonItemStyleBordered
                                                           target:nil action:nil];
     [self.navigationItem setBackBarButtonItem:bb];
+
+    if([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.tintColor = [UIColor hydraTintColor];
+        [refreshControl addTarget:self action:@selector(didPullRefreshControl:)
+                 forControlEvents:UIControlEventValueChanged];
+
+        self.refreshControl = refreshControl;
+    }
+    
+}
+
+- (void)didPullRefreshControl:(id)sender
+{
+    [[SchamperStore sharedStore] reloadArticles];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -117,6 +132,10 @@
             NSString *errorMsg = @"Geen artikels gevonden";
             [SVProgressHUD showErrorWithStatus:errorMsg];
         }
+    }
+
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
     }
 }
 

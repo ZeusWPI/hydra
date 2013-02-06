@@ -58,6 +58,15 @@
                                                            target:self action:@selector(dateButtonTapped:)];
     btn.enabled = self.days.count > 0;
     self.navigationItem.rightBarButtonItem = btn;
+
+    if([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.tintColor = [UIColor hydraTintColor];
+        [refreshControl addTarget:self action:@selector(didPullRefreshControl:)
+                 forControlEvents:UIControlEventValueChanged];
+
+        self.refreshControl = refreshControl;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,6 +93,11 @@
 {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
+}
+
+- (void)didPullRefreshControl:(id)sender
+{
+    [[AssociationStore sharedStore] reloadActivities];
 }
 
 - (void)refreshActivities
@@ -136,6 +150,10 @@
             NSString *errorMsg = @"Geen activiteiten gevonden";
             [SVProgressHUD showErrorWithStatus:errorMsg];
         }
+    }
+
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
     }
 }
 
