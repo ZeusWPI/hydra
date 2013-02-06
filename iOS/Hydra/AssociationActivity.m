@@ -7,15 +7,13 @@
 //
 
 #import "AssociationActivity.h"
-#import "AssociationStore.h"
-#import <RestKit/RestKit.h>
+#import "Association.h"
 #import "NSDate+Utilities.h"
 #import "FacebookEvent.h"
+#import <RestKit/RestKit.h>
 
 @interface AssociationActivity ()
 
-@property (nonatomic, strong) NSString *associationId;
-@property (nonatomic, strong) Association *association;
 @property (nonatomic, strong) NSString *facebookId;
 @property (nonatomic, strong) FacebookEvent *facebookEvent;
 
@@ -23,23 +21,23 @@
 
 @implementation AssociationActivity
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
++ (RKObjectMapping *)objectMapping
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
 
     [objectMapping mapAttributes:@"title", @"location", @"start", @"end", @"url",
         @"longitude", @"latitude", @"description", @"url", @"categories",
         @"highlighted", nil];
-    [objectMapping mapKeyPathsToAttributes:
-        @"association", @"associationId",
-        @"facebook_id", @"facebookId", nil];
+    [objectMapping mapKeyPathsToAttributes:@"facebook_id", @"facebookId", nil];
+    [objectMapping mapRelationship:@"association" withMapping:[Association objectMapping]];
 
-    [mappingProvider registerObjectMapping:objectMapping withRootKeyPath:@""];
+    return objectMapping;
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<AssociationActivity: '%@' by %@ on %@>", self.title, self.associationId, self.start];
+    return [NSString stringWithFormat:@"<AssociationActivity: '%@' by %@ on %@>",
+            self.title, self.association.displayName, self.start];
 }
 
 - (FacebookEvent *)facebookEvent
@@ -50,21 +48,13 @@
     return _facebookEvent;
 }
 
-- (Association *)association
-{
-    if (!_association) {
-        _association = [[AssociationStore sharedStore] associationWithName:self.associationId];
-    }
-    return _association;
-}
-
 #pragma mark - NSCoding
 
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super init]) {
         self.title = [coder decodeObjectForKey:@"title"];
-        self.associationId = [coder decodeObjectForKey:@"associationId"];
+        self.association = [coder decodeObjectForKey:@"association"];
         self.start = [coder decodeObjectForKey:@"start"];
         self.end = [coder decodeObjectForKey:@"end"];
         self.location = [coder decodeObjectForKey:@"location"];
@@ -82,7 +72,7 @@
 - (void)encodeWithCoder:(NSCoder *)coder
 {
     [coder encodeObject:self.title forKey:@"title"];
-    [coder encodeObject:self.associationId forKey:@"associationId"];
+    [coder encodeObject:self.association forKey:@"association"];
     [coder encodeObject:self.start forKey:@"start"];
     [coder encodeObject:self.end forKey:@"end"];
     [coder encodeObject:self.location forKey:@"location"];

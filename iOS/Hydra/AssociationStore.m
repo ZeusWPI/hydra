@@ -149,19 +149,21 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (NSArray *)activities
 {
-    [self updateResource:kActivitiesResource lastUpdated:self.activitiesLastUpdated class:[AssociationActivity class]];
+    [self updateResource:kActivitiesResource lastUpdated:self.activitiesLastUpdated
+           objectMapping:[AssociationActivity objectMapping]];
     return _activities;
 }
 
 - (NSArray *)newsItems
 {
-    [self updateResource:kNewsResource lastUpdated:self.newsLastUpdated class:[AssociationNewsItem class]];
+    [self updateResource:kNewsResource lastUpdated:self.newsLastUpdated
+           objectMapping:[AssociationNewsItem objectMapping]];
     return _newsItems;
 }
 
 #pragma mark - RestKit Object loading
 
-- (void)updateResource:(NSString *)resource lastUpdated:(NSDate *)lastUpdated class:(Class)class
+- (void)updateResource:(NSString *)resource lastUpdated:(NSDate *)lastUpdated objectMapping:(RKObjectMapping *)mapping
 {
     // Check if an update is required
     if ([lastUpdated timeIntervalSinceNow] > -kUpdateInterval) {
@@ -172,9 +174,9 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
         DLog(@"Updating %@", resource);
         [self.activeRequests addObject:resource];
         [self.objectManager loadObjectsAtResourcePath:resource usingBlock:^(RKObjectLoader *loader) {
-            RKObjectMappingProvider *mapping = [RKObjectMappingProvider objectMappingProvider];
-            [class registerObjectMappingWith:mapping];
-            loader.mappingProvider = mapping;
+            RKObjectMappingProvider *mappingProvider = [RKObjectMappingProvider objectMappingProvider];
+            [mappingProvider registerObjectMapping:mapping withRootKeyPath:@""];
+            loader.mappingProvider = mappingProvider;
             loader.delegate = self;
         }];
     }

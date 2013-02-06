@@ -8,17 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKObjectMappingProvider, Association;
+@class RKObjectMapping, Association;
 
 @interface AssociationNewsItem : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) Association *association;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, assign) BOOL highlighted;
 
-@property (nonatomic, strong, readonly) Association *association;
-
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (RKObjectMapping *)objectMapping;
 
 @end

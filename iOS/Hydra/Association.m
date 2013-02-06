@@ -8,6 +8,7 @@
 
 #import "Association.h"
 #import "NSDate+Utilities.h"
+#import <RestKit/RestKit.h>
 
 NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
 
@@ -52,7 +53,6 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
         assoc.displayName = props[@"displayName"];
         assoc.fullName = props[@"fullName"];
         assoc.internalName = props[@"internalName"];
-        assoc.parentAssociation = props[@"parentAssociation"];
 
         associations[assoc.internalName] = assoc;
     }
@@ -64,6 +64,16 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
     return [NSString stringWithFormat:@"<Association: %@>", self.displayName];
 }
 
++ (RKObjectMapping *)objectMapping
+{
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self];
+    [mapping mapKeyPathsToAttributes:
+        @"internal_name", @"internalName",
+        @"full_name", @"fullName",
+        @"display_name", @"displayName", nil];
+    return mapping;
+}
+
 #pragma mark - NSCoding
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -72,7 +82,6 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
         self.displayName = [coder decodeObjectForKey:@"displayName"];
         self.fullName = [coder decodeObjectForKey:@"fullName"];
         self.internalName = [coder decodeObjectForKey:@"internalName"];
-        self.parentAssociation = [coder decodeObjectForKey:@"parentAssociation"];
     }
     return self;
 }
@@ -82,7 +91,6 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
     [coder encodeObject:self.displayName forKey:@"displayName"];
     [coder encodeObject:self.fullName forKey:@"fullName"];
     [coder encodeObject:self.internalName forKey:@"internalName"];
-    [coder encodeObject:self.parentAssociation forKey:@"parentAssociation"];
 }
 
 #pragma mark - NSCopying
