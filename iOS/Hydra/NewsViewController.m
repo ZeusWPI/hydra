@@ -9,7 +9,7 @@
 #import "NewsViewController.h"
 #import "AssociationStore.h"
 #import "AssociationNewsItem.h"
-#import "NewsItemViewController.h"
+#import "NewsDetailViewController.h"
 #import "AssociationNewsItem.h"
 #import "Association.h"
 #import "NSDateFormatter+AppLocale.h"
@@ -23,7 +23,7 @@
 
 @implementation NewsViewController
 
-- (id) init
+- (id)init
 {
     if (self = [super init]) {
         // Check for updates
@@ -105,10 +105,10 @@
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
-        dateFormatter.dateFormat = @"EEEE d MMMM";
+        dateFormatter.dateFormat = @"EE d MMM";
     }
 
-    NSString *detailText = [NSString stringWithFormat:@"%@, %@", association.displayName, [dateFormatter stringFromDate:newsItem.date]];
+    NSString *detailText = [NSString stringWithFormat:@"%@, %@", [dateFormatter stringFromDate:newsItem.date], association.displayName];
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
     
@@ -142,7 +142,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AssociationNewsItem *item = self.newsItems[indexPath.row];
-    NewsItemViewController *c = [[NewsItemViewController alloc] initWithNewsItem:item];
+    NewsDetailViewController *c = [[NewsDetailViewController alloc] initWithNewsItem:item];
     [self.navigationController pushViewController:c animated:YES];
 }
 

@@ -96,15 +96,7 @@
 
     NSMutableArray *fields = [[NSMutableArray alloc] init];
     fields[kTitleRow] = self.activity.title;
-
-    Association *association = self.activity.association;
-    if (association.fullName) {
-        fields[kAssociationRow] = [NSString stringWithFormat:@"%@ (%@)",
-                                   association.displayName, association.fullName];
-    }
-    else {
-        fields[kAssociationRow] = association.displayName;
-    }
+    fields[kAssociationRow] = self.activity.association.displayedFullName;
 
     if (self.activity.end) {
         fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",

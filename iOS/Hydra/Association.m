@@ -59,6 +59,16 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
     return associations;
 }
 
+- (NSString *)displayedFullName
+{
+    if (self.fullName) {
+        return [NSString stringWithFormat:@"%@ (%@)", self.displayName, self.fullName];
+    }
+    else {
+        return self.displayName;
+    }
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"<Association: %@>", self.displayName];
