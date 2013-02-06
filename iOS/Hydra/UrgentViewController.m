@@ -18,6 +18,10 @@
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(playerStatusChanged:)
                        name:ASStatusChangedNotification object:nil];
+        [center addObserver:self selector:@selector(songUpdated:)
+                       name:UrgentPlayerDidUpdateSongNotification object:nil];
+        [center addObserver:self selector:@selector(showUpdated:)
+                       name:UrgentPlayerDidUpdateShowNotification object:nil];
     }
     return self;
 }
@@ -58,6 +62,17 @@
 {
     // Update play button
     self.playButton.selected = [[UrgentPlayer sharedPlayer] isPlaying];
+}
+
+- (void)songUpdated:(NSNotification *)notification
+{
+    self.songLabel.text = [UrgentPlayer sharedPlayer].currentSong;
+    self.previousSongLabel.text = [UrgentPlayer sharedPlayer].previousSong;
+}
+
+- (void)showUpdated:(NSNotification *)notification
+{
+    self.showLabel.text = [UrgentPlayer sharedPlayer].currentShow;
 }
 
 @end

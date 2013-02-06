@@ -150,6 +150,7 @@
 		F5C46190166E442000874D79 /* navigation-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5C4618C166E442000874D79 /* navigation-down@2x.png */; };
 		F5C46191166E442000874D79 /* navigation-up.png in Resources */ = {isa = PBXBuildFile; fileRef = F5C4618D166E442000874D79 /* navigation-up.png */; };
 		F5C46192166E442000874D79 /* navigation-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5C4618E166E442000874D79 /* navigation-up@2x.png */; };
+		F5CE522216C2BDA70033A52B /* Errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5CE522016C2BDA70033A52B /* Errors.strings */; };
 		F5CFAA3D15BD9B87008E75B0 /* info-fietsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */; };
 		F5D2B6B515EFE2DE003EA54C /* button-news@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D2B6B415EFE2DE003EA54C /* button-news@2x.png */; };
 		F5D2B6B715EFEAAF003EA54C /* button-news-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D2B6B615EFEAAF003EA54C /* button-news-active@2x.png */; };
@@ -376,6 +377,7 @@
 		F5C4618C166E442000874D79 /* navigation-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-down@2x.png"; sourceTree = "<group>"; };
 		F5C4618D166E442000874D79 /* navigation-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-up.png"; sourceTree = "<group>"; };
 		F5C4618E166E442000874D79 /* navigation-up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-up@2x.png"; sourceTree = "<group>"; };
+		F5CE522116C2BDA70033A52B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Hydra/nl.lproj/Errors.strings; sourceTree = "<group>"; };
 		F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-fietsen.html"; sourceTree = "<group>"; };
 		F5D2B6B015EFE0DE003EA54C /* button-gsr-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gsr-active@2x.png"; sourceTree = "<group>"; };
 		F5D2B6B115EFE0DE003EA54C /* button-gsr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gsr@2x.png"; sourceTree = "<group>"; };
@@ -772,6 +774,7 @@
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
 				F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */,
+				F5CE522016C2BDA70033A52B /* Errors.strings */,
 				F56D76701699ED4D002CF245 /* Icons */,
 				F53D2488159DB4DB00F408AB /* Images */,
 				F59D170615BD7CE500B6F892 /* Resources */,
@@ -1038,6 +1041,7 @@
 				F5B650AB16C1336800989ADB /* bg-urgent@2x.jpg in Resources */,
 				F5B650AE16C135A900989ADB /* urgent-logo.png in Resources */,
 				F5B650AF16C135A900989ADB /* urgent-logo@2x.png in Resources */,
+				F5CE522216C2BDA70033A52B /* Errors.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1167,6 +1171,14 @@
 				F56F139D169731FE003D4447 /* nl */,
 			);
 			name = UrgentViewController.xib;
+			sourceTree = "<group>";
+		};
+		F5CE522016C2BDA70033A52B /* Errors.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5CE522116C2BDA70033A52B /* nl */,
+			);
+			name = Errors.strings;
 			sourceTree = "<group>";
 		};
 		F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */ = {

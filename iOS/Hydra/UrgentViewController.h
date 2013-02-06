@@ -11,6 +11,9 @@
 @interface UrgentViewController : UIViewController
 
 @property (nonatomic, unsafe_unretained) IBOutlet UIButton *playButton;
+@property (nonatomic, unsafe_unretained) IBOutlet UILabel *showLabel;
+@property (nonatomic, unsafe_unretained) IBOutlet UILabel *songLabel;
+@property (nonatomic, unsafe_unretained) IBOutlet UILabel *previousSongLabel;
 
 - (IBAction)playButtonTapped:(id)sender;
 
