@@ -93,19 +93,30 @@
     // Body
     CGRect bodyFrame = CGRectMake(0, CGRectGetMaxY(headerFrame), viewSize.width,
                                   viewSize.height - CGRectGetMaxY(headerFrame));
-    UITextView *bodyField = [[UITextView alloc] initWithFrame:bodyFrame];
-    bodyField.autoresizingMask = UIViewAutoresizingFlexibleWidth
-                               | UIViewAutoresizingFlexibleHeight;
-    bodyField.editable = NO;
-    bodyField.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
-    bodyField.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 0, 0);
-    bodyField.font = [UIFont systemFontOfSize:16];
-    bodyField.dataDetectorTypes = UIDataDetectorTypeLink
-                                | UIDataDetectorTypePhoneNumber
-                                | UIDataDetectorTypeAddress;
-    bodyField.text = self.newsItem.content;
+    UIWebView *bodyView = [[UIWebView alloc] initWithFrame:bodyFrame];
+    bodyView.autoresizingMask = UIViewAutoresizingFlexibleWidth
+                              | UIViewAutoresizingFlexibleHeight;
 
-    [self.view addSubview:bodyField];
+    // Remove background from webView
+    bodyView.backgroundColor = [UIColor whiteColor];
+    id scrollView = [bodyView.subviews objectAtIndex:0];
+    [scrollView setContentInset:UIEdgeInsetsMake(5, 0, 0, 0)];
+    [scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(10, 0, 0, 0)];
+    for (UIView *subview in [scrollView subviews]) {
+        if ([subview isKindOfClass:[UIImageView class]]) {
+            subview.hidden = YES;
+        }
+    }
+
+    NSString *bodyHtml = [NSString stringWithFormat:
+                          @"<head>"
+                          @"<link rel='stylesheet' type='text/css' href='webview.css' />"
+                          @"</head>"
+                          @"<body>%@</body>", self.newsItem.content];
+    NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+    [bodyView loadHTMLString:bodyHtml baseURL:bundeUrl];
+
+    [self.view addSubview:bodyView];
     [self.view addSubview:headerView];
     [self.view addSubview:titleLabel];
     [self.view addSubview:dateLabel];
