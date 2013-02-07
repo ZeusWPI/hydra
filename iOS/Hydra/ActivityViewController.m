@@ -260,7 +260,7 @@
 
             UIImageView *star = [[UIImageView alloc] initWithImage:
                                  [UIImage imageNamed:@"icon-star"]];
-            star.frame = CGRectMake(280, 6, 34, 34);
+            star.frame = CGRectMake(286, 8, 28, 28);
             [cell.contentView addSubview:star];
         }
         else {
