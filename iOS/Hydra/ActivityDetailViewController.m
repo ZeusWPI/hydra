@@ -109,8 +109,6 @@
 
     fields[kLocationRow] = self.activity.location ? self.activity.location : @"";
 
-
-
     self.fields = fields;
 }
 

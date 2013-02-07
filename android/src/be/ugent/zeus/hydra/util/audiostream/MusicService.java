@@ -463,7 +463,7 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
         mNotification.tickerText = text;
         mNotification.icon = R.drawable.button_urgent_play;
         mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-        mNotification.setLatestEventInfo(getApplicationContext(), "RandomMusicPlayer",
+        mNotification.setLatestEventInfo(getApplicationContext(), "Urgent.fm livestream",
             text, pi);
         startForeground(NOTIFICATION_ID, mNotification);
     }
@@ -494,8 +494,6 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
     }
     
     public void onLostAudioFocus(boolean canDuck) {
-        Toast.makeText(getApplicationContext(), "lost audio focus." + (canDuck ? "can duck"
-            : "no duck"), Toast.LENGTH_SHORT).show();
         mAudioFocus = canDuck ? AudioFocus.NoFocusCanDuck : AudioFocus.NoFocusNoDuck;
 
         // start/restart/pause media player with new focus settings
