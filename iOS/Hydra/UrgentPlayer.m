@@ -135,7 +135,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
         if (self.isPlaying) {
             // Cover art
-            UIImage *cover = [UIImage imageNamed:@"nowplaying-urgent"];
+            UIImage *cover = [UIImage imageNamed:@"urgent-nowplaying.jpg"];
             MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:cover];
 
             // Meta-data
