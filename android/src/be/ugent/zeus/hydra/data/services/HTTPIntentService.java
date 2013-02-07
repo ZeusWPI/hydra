@@ -22,13 +22,13 @@ import org.json.JSONObject;
  * @author Thomas Meire
  */
 public abstract class HTTPIntentService extends IntentService {
-
+    
     public static final int STATUS_STARTED = 0x1;
     public static final int STATUS_ERROR = 0x2;
     public static final int STATUS_FINISHED = 0x3;
     public static final String FORCE_UPDATE = "force-update";
     public static final String RESULT_RECEIVER_EXTRA = "result-receiver";
-    protected static final String HYDRA_BASE_URL = "http://golive.myverso.com/ugent/";
+    protected static final String HYDRA_BASE_URL = "http://student.ugent.be/hydra/api/1.0/";
 
     public HTTPIntentService(String name) {
         super(name);
@@ -78,6 +78,8 @@ public abstract class HTTPIntentService extends IntentService {
                     f.set(instance, parseJsonObject((JSONObject) o, f.getType()));
                 } else if (o.getClass().equals(JSONArray.class)) {
                     f.set(instance, parseJsonArray((JSONArray) o, f.getType().getComponentType()));
+                } else if(o.equals(JSONObject.NULL)) {
+                    f.set(instance, null);
                 } else {
                     f.set(instance, o);
                 }

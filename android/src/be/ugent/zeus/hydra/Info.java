@@ -41,7 +41,8 @@ public class Info extends AbstractSherlockListActivity {
             content = wrapper.array;
         } else {
             try {
-                content = (NSArray) XMLPropertyListParser.parse(getResources().openRawResource(R.raw.info_content));
+                content = (NSArray) XMLPropertyListParser.parse(getResources()
+                    .openRawResource(R.raw.info_content));
 
             } catch (Exception ex) {
                 Log.e("[Hydra.Info]", "Failed to parse the info content!");
@@ -53,9 +54,9 @@ public class Info extends AbstractSherlockListActivity {
 
         if (getIntent() != null) {
             if (getIntent().getStringExtra("tracking") == null) {
-                getIntent().putExtra("tracking", "Info");
+                getIntent().putExtra("tracking", "/Info");
             } else {
-                EasyTracker.getTracker().trackView(getIntent().getStringExtra("tracking"));
+                EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking"));
                 Log.i("Tracking", getIntent().getStringExtra("tracking"));
             }
         }
@@ -92,7 +93,7 @@ public class Info extends AbstractSherlockListActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
             // We can't call the code in the onCreate as we may be opening the play store, so track it here.
-            EasyTracker.getTracker().trackView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
+            EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
             Log.i("Tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
 
             startActivity(intent);
@@ -100,7 +101,7 @@ public class Info extends AbstractSherlockListActivity {
             Intent intent = new Intent(this, InfoWebActivity.class);
             intent.putExtra("class", this.getClass().getCanonicalName());
 
-            EasyTracker.getTracker().trackView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
+            EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
             Log.i("Tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
 
             intent.putExtra("page", ((NSString) action).toString());

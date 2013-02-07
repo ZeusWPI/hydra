@@ -2,6 +2,7 @@ package be.ugent.zeus.hydra.data;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.Hydra;
 import be.ugent.zeus.hydra.R;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
@@ -40,11 +42,17 @@ public class NewsList extends ArrayAdapter<NewsItem> {
 
         String postedBy = getContext().getResources().getString(R.string.posted_by);
         TextView association = (TextView) row.findViewById(R.id.news_item_association);
-        association.setText(String.format(postedBy, Html.fromHtml(item.club),
-            new SimpleDateFormat("EEEE dd MMM yyyy hh:mm", Hydra.LOCALE).format(item.date)));
+        try {
+            association.setText(String.format(postedBy, Html.fromHtml(item.association.display_name),
+                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE).parse(item.date)));
+        } catch (ParseException ex) {
+            Log.w("Parse error", "");
+            ex.printStackTrace();
+        }
+
 
         TextView shorttxt = (TextView) row.findViewById(R.id.news_item_short);
-        shorttxt.setText(Html.fromHtml(item.description));
+        shorttxt.setText(Html.fromHtml(item.content));
 
         return row;
     }

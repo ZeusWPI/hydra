@@ -125,6 +125,9 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     }
     else {
         [self cancelTimers];
+        self.currentShow = nil;
+        self.currentSong = nil;
+        self.previousSong = nil;
     }
 
     // Available since iOS5
@@ -132,7 +135,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
         if (self.isPlaying) {
             // Cover art
-            UIImage *cover = [UIImage imageNamed:@"nowplaying-urgent"];
+            UIImage *cover = [UIImage imageNamed:@"urgent-nowplaying.jpg"];
             MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:cover];
 
             // Meta-data
@@ -214,6 +217,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         }
 
         if (requiresNotification) {
+            DLog(@"currentSong = %@, previousSong = %@", self.currentSong, self.previousSong);
             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
             [center postNotificationName:UrgentPlayerDidUpdateSongNotification object:self];
         }
@@ -241,7 +245,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
         NSError *error = nil;
         NSString *result = [NSString stringWithContentsOfURL:resourceUrl
-                                                    encoding:NSUTF8StringEncoding
+                                                    encoding:NSISOLatin1StringEncoding
                                                        error:&error];
         NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
         result = [result stringByTrimmingCharactersInSet:set];

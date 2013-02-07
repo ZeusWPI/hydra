@@ -41,7 +41,7 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
             + "</body>";
 
         
-        EasyTracker.getTracker().trackView("Schamper/" + item.title);
+        EasyTracker.getTracker().sendView("/Schamper/" + item.title);
         
         WebView content = (WebView) findViewById(R.id.schamper_item);
         content.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null);

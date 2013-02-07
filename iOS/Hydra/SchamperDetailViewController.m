@@ -54,7 +54,8 @@
     NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     [self.webView loadHTMLString:html baseURL:bundeUrl];
 
-    UIScrollView *scrollView = self.webView.scrollView;
+    // iOS4 doesn't have the scrollView property
+    UIScrollView *scrollView = (UIScrollView *)[self.webView.subviews objectAtIndex:0];
     scrollView.delegate = self;
     scrollView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
     scrollView.scrollIndicatorInsets = scrollView.contentInset;
@@ -139,7 +140,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (current == hide) return;
 
     // Don't do anything if the content's not big enough
-    UIScrollView *scrollView = self.webView.scrollView;
+    // iOS4 doesn't have the scrollView property
+    UIScrollView *scrollView = (UIScrollView *)[self.webView.subviews objectAtIndex:0];
     CGSize contentSize = scrollView.contentSize;
     if (contentSize.height <= self.view.frame.size.height) return;
 
