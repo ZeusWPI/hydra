@@ -13,6 +13,8 @@
 @property (nonatomic, unsafe_unretained) IBOutlet UIButton *playButton;
 @property (nonatomic, unsafe_unretained) IBOutlet UILabel *songLabel;
 @property (nonatomic, unsafe_unretained) IBOutlet UILabel *previousSongLabel;
+@property (nonatomic, unsafe_unretained) IBOutlet UIView *songWrapper;
+@property (nonatomic, unsafe_unretained) IBOutlet UIView *previousSongWrapper;
 
 - (IBAction)playButtonTapped:(id)sender;
 - (IBAction)homeButtonTapped:(id)sender;

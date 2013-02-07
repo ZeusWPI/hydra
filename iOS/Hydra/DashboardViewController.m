@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad
 {
-#if TESTFLIGHT_ENABLED
+#if TestFlightEnabled
     self.feedbackButton.hidden = NO;
 #endif
 
@@ -116,13 +116,6 @@
 - (IBAction)showFeedbackView:(id)sender
 {
     [TestFlight openFeedbackView];
-}
-
--(IBAction)showFacebook:(id)sender
-{
-    DLog(@"Dashboard switching to Facebook view");
-    UIViewController *c = [[FacebookViewController alloc] init];
-    [self.navigationController pushViewController:c animated:YES];
 }
 
 #pragma mark - Surprise feature

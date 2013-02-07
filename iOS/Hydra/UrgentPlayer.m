@@ -117,7 +117,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     DLog(@"%d", self.state);
 
     // Update timers
-    if (!self.isIdle) {
+    if (self.isWaiting || self.isPlaying) {
         // The state of updateSongTimer and updateShowTimer should always be equal
         if (![self.updateSongTimer isValid]) {
             [self scheduleTimers];
@@ -171,6 +171,8 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (void)scheduleTimers
 {
+    // TODO: check if these are still called when the app has gone to background
+
     // Update songs every 30 seconds
     self.updateSongTimer = [NSTimer timerWithTimeInterval:kSongUpdateInterval target:self
                                                  selector:@selector(songUpdateTimerFired:)
@@ -211,7 +213,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         if ([self.currentSong isEqualToString:kDefaultSongInfo]) {
             self.currentSong = song;
         }
-        else {
+        else if (![self.currentSong isEqualToString:song]) {
             self.previousSong = self.currentSong;
             self.currentSong = song;
         }

@@ -26,6 +26,5 @@
 - (IBAction)showUrgent:(id)sender;
 - (IBAction)showSchamper:(id)sender;
 - (IBAction)showFeedbackView:(id)sender;
-- (IBAction)showFacebook:(id)sender;
 
 @end
