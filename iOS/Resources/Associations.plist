@@ -4,32 +4,34 @@
 <array>
 	<dict>
 		<key>displayName</key>
-		<string>Dienst StudentenActiviteiten</string>
-		<key>internalName</key>
-		<string>DSA</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
 		<string>Chemica</string>
 		<key>internalName</key>
 		<string>CHEMICA</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Dentalia</string>
 		<key>internalName</key>
 		<string>DENTALIA</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Filologica</string>
 		<key>internalName</key>
 		<string>FILOLOGICA</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Faculteiten Konvent</string>
 		<key>internalName</key>
+		<string>FKCENTRAAL</string>
+		<key>parentAssociation</key>
 		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
@@ -37,167 +39,223 @@
 		<string>Gentse Biologische Kring</string>
 		<key>internalName</key>
 		<string>GBK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Geografica</string>
 		<key>internalName</key>
 		<string>GEOGRAFI</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Geologica</string>
 		<key>internalName</key>
 		<string>GEOLOGIC</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Gentse Farmaceutische Kring</string>
 		<key>internalName</key>
 		<string>GFK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>HILOK</string>
 		<key>internalName</key>
 		<string>HILOK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>KunstHistorische Kring</string>
 		<key>internalName</key>
 		<string>KHK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Kring Moraal en Filosofie</string>
 		<key>internalName</key>
 		<string>KMF</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Lombrosiana</string>
 		<key>internalName</key>
 		<string>LOMBRO</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Oosterse Afrikaanse Kring</string>
 		<key>internalName</key>
 		<string>OAK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Politeia</string>
 		<key>internalName</key>
 		<string>POLITEIA</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Politeia</string>
 		<key>internalName</key>
 		<string>POLITEIA</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Slavia</string>
 		<key>internalName</key>
 		<string>SLAVIA</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Biomedische Kring</string>
 		<key>internalName</key>
 		<string>VBK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Diergeneeskundige Kring</string>
 		<key>internalName</key>
 		<string>VDK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Economische Kring</string>
 		<key>internalName</key>
 		<string>VEK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Geneeskundige Kring</string>
 		<key>internalName</key>
 		<string>VGKFGEN</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Geschiedkundige Kring</string>
 		<key>internalName</key>
 		<string>VGKFLWI</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Logopedische en Audiologische Kring</string>
 		<key>internalName</key>
 		<string>VLAK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Levenstechnische Kring</string>
 		<key>internalName</key>
 		<string>VLK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Psychologische en Pedagogische Kring</string>
 		<key>internalName</key>
 		<string>VPPK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Rechtsgenootschap</string>
 		<key>internalName</key>
 		<string>VRG</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vlaamse Technische Kring</string>
 		<key>internalName</key>
 		<string>VTK</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>WiNA</string>
 		<key>internalName</key>
 		<string>WINA</string>
+		<key>parentAssociation</key>
+		<string>FKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Home Astrid</string>
 		<key>internalName</key>
 		<string>ASTRID</string>
+		<key>parentAssociation</key>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Home Bertha</string>
 		<key>internalName</key>
 		<string>BERTHA</string>
+		<key>parentAssociation</key>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Home Boudewijn</string>
 		<key>internalName</key>
 		<string>BOUDEWIJN</string>
+		<key>parentAssociation</key>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Home Fabiola</string>
 		<key>internalName</key>
 		<string>FABIOLA</string>
+		<key>parentAssociation</key>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Home Konvent</string>
 		<key>internalName</key>
+		<string>HKCENTRAAL</string>
+		<key>parentAssociation</key>
 		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
@@ -205,12 +263,16 @@
 		<string>Home Vermeylen</string>
 		<key>internalName</key>
 		<string>VERMEYL</string>
+		<key>parentAssociation</key>
+		<string>HKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>AIESEC</string>
 		<key>internalName</key>
 		<string>AIESEC</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -219,6 +281,8 @@
 		<string>Chinese Student Association Ghent</string>
 		<key>internalName</key>
 		<string>CHISAG</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -227,11 +291,15 @@
 		<string>Erasmus Student Network</string>
 		<key>internalName</key>
 		<string>ESN</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Internationaal Konvent</string>
 		<key>internalName</key>
+		<string>IKCENTRAAL</string>
+		<key>parentAssociation</key>
 		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
@@ -241,30 +309,40 @@
 		<string>International Students Association Ghent </string>
 		<key>internalName</key>
 		<string>ISAG</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Students Welcome Club</string>
 		<key>internalName</key>
 		<string>SWC</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Tomo No Kai</string>
 		<key>internalName</key>
 		<string>TNOK</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vinasag</string>
 		<key>internalName</key>
 		<string>VINASAG</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Fotoklas</string>
 		<key>internalName</key>
 		<string>FOTOKLAS</string>
+		<key>parentAssociation</key>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -273,6 +351,8 @@
 		<string>Gentse Universitaire Dansclub</string>
 		<key>internalName</key>
 		<string>GUDC</string>
+		<key>parentAssociation</key>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -281,12 +361,16 @@
 		<string>Gents Universitair Harmonie Orkest</string>
 		<key>internalName</key>
 		<string>GUHO</string>
+		<key>parentAssociation</key>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Gents Universitair Koor</string>
 		<key>internalName</key>
 		<string>GUK</string>
+		<key>parentAssociation</key>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -295,11 +379,15 @@
 		<string>Gents Universitair Symfonisch Orkest</string>
 		<key>internalName</key>
 		<string>GUSO</string>
+		<key>parentAssociation</key>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Kultureel Konvent</string>
 		<key>internalName</key>
+		<string>KULTKCENTRAAL</string>
+		<key>parentAssociation</key>
 		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
@@ -307,23 +395,31 @@
 		<string>Matrak</string>
 		<key>internalName</key>
 		<string>MATRAK</string>
+		<key>parentAssociation</key>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Schildersatelier</string>
 		<key>internalName</key>
 		<string>SCHILDER</string>
+		<key>parentAssociation</key>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Studentenfanfare Ghendt</string>
 		<key>internalName</key>
 		<string>SF</string>
+		<key>parentAssociation</key>
+		<string>KULTKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Massacantus</string>
 		<key>internalName</key>
+		<string>MCANTUS</string>
+		<key>parentAssociation</key>
 		<string>MCANTUS</string>
 	</dict>
 	<dict>
@@ -331,12 +427,16 @@
 		<string>Actief Linkse Studenten</string>
 		<key>internalName</key>
 		<string>ALS</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Animo StuGent</string>
 		<key>internalName</key>
 		<string>ANIMO</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -345,12 +445,16 @@
 		<string>Christen Democratische Studenten</string>
 		<key>internalName</key>
 		<string>CDS</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Comac</string>
 		<key>internalName</key>
 		<string>COMAC</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -359,6 +463,8 @@
 		<string>StudentenPastoraal Gent</string>
 		<key>internalName</key>
 		<string>GPS</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -367,18 +473,24 @@
 		<string>Groene Alternatieve Studenten</string>
 		<key>internalName</key>
 		<string>GRAS</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Jonge Europese Federalisten</string>
 		<key>internalName</key>
 		<string>JEF</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Jong N-VA UGent</string>
 		<key>internalName</key>
 		<string>JONGNVA</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -387,6 +499,8 @@
 		<string>Katholiek Vlaams Hoogstudenten Verbond</string>
 		<key>internalName</key>
 		<string>KVHV</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -395,12 +509,16 @@
 		<string>Liberaal Vlaams Studentenverbond</string>
 		<key>internalName</key>
 		<string>LVSV</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Minos Gent</string>
 		<key>internalName</key>
 		<string>MINOS</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -409,23 +527,31 @@
 		<string>Nationalistische Studentenvereniging</string>
 		<key>internalName</key>
 		<string>NSV</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Politiek en Filosofisch Konvent</string>
 		<key>internalName</key>
 		<string>PFKCENTRAAL</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>'t Zal Wel Gaan</string>
+		<string>&apos;t Zal Wel Gaan</string>
 		<key>internalName</key>
 		<string>TZAL</string>
+		<key>parentAssociation</key>
+		<string>PFKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Schamper</string>
 		<key>internalName</key>
+		<string>SCHAMPER</string>
+		<key>parentAssociation</key>
 		<string>SCHAMPER</string>
 	</dict>
 	<dict>
@@ -433,143 +559,183 @@
 		<string>Vader Aalsterse</string>
 		<key>internalName</key>
 		<string>AALSTERSE</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Antwerpen Boven</string>
 		<key>internalName</key>
 		<string>AB</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Brugse Universitaire Kring</string>
 		<key>internalName</key>
 		<string>BUK</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Deliria</string>
 		<key>internalName</key>
 		<string>DELIRIA</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>De Dijlebrassers</string>
 		<key>internalName</key>
 		<string>DIJLEBRASSERS</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Dionysus</string>
 		<key>internalName</key>
 		<string>DIONYSUS</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Moeder Domper</string>
 		<key>internalName</key>
 		<string>DOMPER</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Moeder Egmont</string>
 		<key>internalName</key>
 		<string>EGMONT</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Geeraard</string>
 		<key>internalName</key>
 		<string>GEERAARD</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Internia</string>
 		<key>internalName</key>
 		<string>INTERNIA</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Laetitia</string>
 		<key>internalName</key>
 		<string>LAETITIA</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Limburgia</string>
 		<key>internalName</key>
 		<string>LIMBURGIA</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Moeder Oilsjterse</string>
 		<key>internalName</key>
 		<string>OILSJTERSE</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Payottenland</string>
 		<key>internalName</key>
 		<string>PAYOTTEN</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Rodenbach</string>
 		<key>internalName</key>
 		<string>RODENBACH</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Scaldis</string>
 		<key>internalName</key>
 		<string>SCALDIS</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Sd'A Gent</string>
+		<string>Sd&apos;A Gent</string>
 		<key>internalName</key>
 		<string>SDA</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Seniorenkonvent Ghendt</string>
 		<key>internalName</key>
 		<string>SKCENTRAAL</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>'t Stropke</string>
+		<string>&apos;t Stropke</string>
 		<key>internalName</key>
 		<string>STROPKE</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Wase Club</string>
 		<key>internalName</key>
 		<string>WASE</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Westlandia</string>
 		<key>internalName</key>
 		<string>WESTLANDIA</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>'t Wielke</string>
+		<string>&apos;t Wielke</string>
 		<key>internalName</key>
 		<string>WIELKE</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Gentse Studentenraad</string>
-		<key>internalName</key>
-		<string>STVCENTRAAL</string>
+		<key>parentAssociation</key>
+		<string>SKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Urgent.fm</string>
 		<key>internalName</key>
+		<string>URGENT</string>
+		<key>parentAssociation</key>
 		<string>URGENT</string>
 	</dict>
 	<dict>
@@ -579,30 +745,40 @@
 		<string>Amnesty International Studentenkern Gent</string>
 		<key>internalName</key>
 		<string>AIS</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Asante</string>
 		<key>internalName</key>
 		<string>ASANTE</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Archeologische Werkgroep</string>
 		<key>internalName</key>
 		<string>AW</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>CenEka</string>
 		<key>internalName</key>
 		<string>CENEKA</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>De Loeiende Koe</string>
 		<key>internalName</key>
 		<string>DLK</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -611,6 +787,8 @@
 		<string>Flanders Youth Society for Entrepreneurship</string>
 		<key>internalName</key>
 		<string>FLYSE</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -619,59 +797,79 @@
 		<string>IEEE Student Branch Gent</string>
 		<key>internalName</key>
 		<string>IEEE</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Klassieke Kring</string>
 		<key>internalName</key>
 		<string>KK</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>MaCht</string>
 		<key>internalName</key>
 		<string>MACHT</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Noord-Zuid Studenten</string>
 		<key>internalName</key>
 		<string>ONZ</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>PKarus</string>
 		<key>internalName</key>
 		<string>PKARUS</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Poutrix</string>
 		<key>internalName</key>
 		<string>POUTRIX</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>PRIME</string>
 		<key>internalName</key>
 		<string>PRIME</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Verkeerd Geparkeerd</string>
 		<key>internalName</key>
 		<string>VG</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Vereniging Voor Natuurkunde</string>
 		<key>internalName</key>
 		<string>VVN</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
 		<string>Werkgroepen &amp; Vereningingen Konvent</string>
 		<key>internalName</key>
+		<string>WVKCENTRAAL</string>
+		<key>parentAssociation</key>
 		<string>WVKCENTRAAL</string>
 	</dict>
 	<dict>
@@ -679,6 +877,8 @@
 		<string>Zeus WPI</string>
 		<key>internalName</key>
 		<string>ZEUS</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
 	</dict>
 </array>
 </plist>
