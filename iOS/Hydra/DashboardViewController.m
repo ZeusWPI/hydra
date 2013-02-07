@@ -17,6 +17,7 @@
 #import "TestFlight.h"
 #import "UrgentPlayer.h"
 #import "FacebookViewController.h"
+#import "PreferencesViewController.h"
 
 @interface DashboardViewController () <UITextFieldDelegate>
 
@@ -125,6 +126,13 @@
     [self.navigationController pushViewController:c animated:YES];
 }
 
+-(IBAction)showPreferences:(id)sender
+{
+    DLog(@"Dashboard switching to Preferences view");
+    UIViewController *c = [[PreferencesViewController alloc] init];
+    [self.navigationController pushViewController:c animated:YES];
+}
+
 #pragma mark - Surprise feature
 
 - (void)configureMoveDetectionForMove:(NSUInteger)move
@@ -202,4 +210,8 @@
     return NO;
 }
 
+- (void)viewDidUnload {
+    [self setPreferencesButton:nil];
+    [super viewDidUnload];
+}
 @end

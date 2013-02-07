@@ -21,5 +21,7 @@
 + (NSDictionary *)updateAssociations:(NSDictionary *)associations;
 
 + (RKObjectMapping *)objectMapping;
++ (NSDictionary *)loadFromPlist;
+
 
 @end

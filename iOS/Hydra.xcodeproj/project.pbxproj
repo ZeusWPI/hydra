@@ -17,6 +17,7 @@
 		3B93FBA7163095F900C962DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FB9E1630939200C962DC /* AudioToolbox.framework */; };
 		3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B93FBA91630969900C962DC /* UrgentPlayer.m */; };
 		3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FBAB16309E2100C962DC /* AVFoundation.framework */; };
+		445C81F516C3DB0B0080819C /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445C81F416C3DB0B0080819C /* PreferencesViewController.m */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
@@ -214,6 +215,8 @@
 		3B93FBAB16309E2100C962DC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3BAFFE7C15BB04B600921E7D /* BadgedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgedButton.h; sourceTree = "<group>"; };
 		3BAFFE7D15BB04B600921E7D /* BadgedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgedButton.m; sourceTree = "<group>"; };
+		445C81F316C3DB0B0080819C /* PreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesViewController.h; sourceTree = "<group>"; };
+		445C81F416C3DB0B0080819C /* PreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
@@ -837,6 +840,8 @@
 				F56F139E169731FE003D4447 /* UrgentViewController.xib */,
 				F50EE09415B5F587000F1992 /* WebViewController.h */,
 				F50EE09515B5F587000F1992 /* WebViewController.m */,
+				445C81F316C3DB0B0080819C /* PreferencesViewController.h */,
+				445C81F416C3DB0B0080819C /* PreferencesViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1151,6 +1156,7 @@
 				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 				F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */,
 				F56F9D0F16B32F710020856B /* InfoPageControl.m in Sources */,
+				445C81F516C3DB0B0080819C /* PreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
