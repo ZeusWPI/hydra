@@ -176,7 +176,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *name;
-    if (false) {
+    if (tableView == self.tableView) {
         name = ((Association*)self.associations[self.konventen[indexPath.section]][indexPath.row]).internalName;
     }
     else {
