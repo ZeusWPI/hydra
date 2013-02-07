@@ -125,6 +125,9 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     }
     else {
         [self cancelTimers];
+        self.currentShow = nil;
+        self.currentSong = nil;
+        self.previousSong = nil;
     }
 
     // Available since iOS5
