@@ -217,6 +217,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         }
 
         if (requiresNotification) {
+            DLog(@"currentSong = %@, previousSong = %@", self.currentSong, self.previousSong);
             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
             [center postNotificationName:UrgentPlayerDidUpdateSongNotification object:self];
         }
@@ -244,7 +245,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
         NSError *error = nil;
         NSString *result = [NSString stringWithContentsOfURL:resourceUrl
-                                                    encoding:NSUTF8StringEncoding
+                                                    encoding:NSISOLatin1StringEncoding
                                                        error:&error];
         NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
         result = [result stringByTrimmingCharactersInSet:set];
