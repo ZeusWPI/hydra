@@ -189,46 +189,95 @@
 {
     UILabel *titleLabel, *subtitleLabel;
 
-	static NSString *CellIdentifier = @"ActivityCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:CellIdentifier];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
-        cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
-
-        CGRect titleFrame = CGRectMake(60, 4, 250, 20);
-        titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
-        titleLabel.tag = kCellTitleLabel;
-        titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
-        titleLabel.highlightedTextColor = [UIColor whiteColor];
-        [cell.contentView addSubview:titleLabel];
-
-        CGRect subtitleFrame = CGRectMake(60, 24, 250, 16);
-        subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
-        subtitleLabel.tag = kCellSubtitleLabel;
-        subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
-        subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
-        subtitleLabel.highlightedTextColor = [UIColor whiteColor];
-        [cell.contentView addSubview:subtitleLabel];
-    }
-    else {
-        titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
-        subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
-    }
-
-    static NSDateFormatter *dateFormatter = nil;
-    if (!dateFormatter) {
-        dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
-        dateFormatter.dateFormat = @"HH.mm";
-    }
-
     NSDate *date = self.days[indexPath.section];
     AssociationActivity *activity = self.data[date][indexPath.row];
+    static NSString *NoHighlightCellIdentifier = @"ActivityCellNoHighlight";
+    static NSString *HighlightCellIdentifier = @"ActivityCellHighlight";
+    UITableViewCell *cell;
 
-    cell.textLabel.text = [dateFormatter stringFromDate:activity.start];
-    titleLabel.text = activity.title;
-    subtitleLabel.text = activity.association.displayName;
+    if (!activity.highlighted) {
+        // request cell without the special star view
+        cell = [tableView dequeueReusableCellWithIdentifier:NoHighlightCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:NoHighlightCellIdentifier];
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+            cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+
+            CGRect titleFrame = CGRectMake(60, 4, 250, 20);
+            titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
+            titleLabel.tag = kCellTitleLabel;
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+            titleLabel.highlightedTextColor = [UIColor whiteColor];
+            [cell.contentView addSubview:titleLabel];
+
+            CGRect subtitleFrame = CGRectMake(60, 24, 250, 16);
+            subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
+            subtitleLabel.tag = kCellSubtitleLabel;
+            subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
+            subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
+            subtitleLabel.highlightedTextColor = [UIColor whiteColor];
+            [cell.contentView addSubview:subtitleLabel];
+        }
+        else {
+            titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
+            subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
+        }
+
+        static NSDateFormatter *dateFormatter = nil;
+        if (!dateFormatter) {
+            dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
+            dateFormatter.dateFormat = @"HH.mm";
+        }
+
+        cell.textLabel.text = [dateFormatter stringFromDate:activity.start];
+        titleLabel.text = activity.title;
+        subtitleLabel.text = activity.association.displayName;
+    }
+    else {
+        // request cell with special star view
+        cell = [tableView dequeueReusableCellWithIdentifier:HighlightCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:HighlightCellIdentifier];
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+            cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+
+            CGRect titleFrame = CGRectMake(60, 4, 220, 20);
+            titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
+            titleLabel.tag = kCellTitleLabel;
+            titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+            titleLabel.highlightedTextColor = [UIColor whiteColor];
+            [cell.contentView addSubview:titleLabel];
+
+            CGRect subtitleFrame = CGRectMake(60, 24, 220, 16);
+            subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
+            subtitleLabel.tag = kCellSubtitleLabel;
+            subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
+            subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
+            subtitleLabel.highlightedTextColor = [UIColor whiteColor];
+            [cell.contentView addSubview:subtitleLabel];
+
+            UIImageView *star = [[UIImageView alloc] initWithImage:
+                                 [UIImage imageNamed:@"icon-star"]];
+            star.frame = CGRectMake(280, 6, 34, 34);
+            [cell.contentView addSubview:star];
+        }
+        else {
+            titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
+            subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
+        }
+
+        static NSDateFormatter *dateFormatter = nil;
+        if (!dateFormatter) {
+            dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
+            dateFormatter.dateFormat = @"HH.mm";
+        }
+
+        cell.textLabel.text = [dateFormatter stringFromDate:activity.start];
+        titleLabel.text = activity.title;
+        subtitleLabel.text = activity.association.displayName;
+    }
 
     return cell;
 }
