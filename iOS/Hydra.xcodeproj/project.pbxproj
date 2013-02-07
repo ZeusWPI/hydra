@@ -18,6 +18,8 @@
 		3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B93FBA91630969900C962DC /* UrgentPlayer.m */; };
 		3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FBAB16309E2100C962DC /* AVFoundation.framework */; };
 		445C81F516C3DB0B0080819C /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445C81F416C3DB0B0080819C /* PreferencesViewController.m */; };
+		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
+		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
@@ -217,6 +219,8 @@
 		3BAFFE7D15BB04B600921E7D /* BadgedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgedButton.m; sourceTree = "<group>"; };
 		445C81F316C3DB0B0080819C /* PreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesViewController.h; sourceTree = "<group>"; };
 		445C81F416C3DB0B0080819C /* PreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
+		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
+		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
@@ -547,6 +551,8 @@
 		F53D2488159DB4DB00F408AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				445C81FA16C45D7A0080819C /* button-settings.png */,
+				445C81FB16C45D7A0080819C /* button-settings@2x.png */,
 				F5B650A816C1336800989ADB /* bg-urgent.jpg */,
 				F5B650A916C1336800989ADB /* bg-urgent@2x.jpg */,
 				F5B6509816C129B700989ADB /* btn-urgent-bg-highlighted.png */,
@@ -1055,6 +1061,8 @@
 				F5CE522216C2BDA70033A52B /* Errors.strings in Resources */,
 				F5B86E1916C30EF900BC5D66 /* icon-star@2x.png in Resources */,
 				F5B86EE216C3106100BC5D66 /* icon-star.png in Resources */,
+				445C81FC16C45D7A0080819C /* button-settings.png in Resources */,
+				445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
