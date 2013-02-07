@@ -53,7 +53,7 @@ public class Info extends AbstractSherlockListActivity {
 
         if (getIntent() != null) {
             if (getIntent().getStringExtra("tracking") == null) {
-                getIntent().putExtra("tracking", "Info");
+                getIntent().putExtra("tracking", "/Info");
             } else {
                 EasyTracker.getTracker().trackView(getIntent().getStringExtra("tracking"));
                 Log.i("Tracking", getIntent().getStringExtra("tracking"));
