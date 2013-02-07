@@ -29,7 +29,7 @@ public class NewsItemActivity extends AbstractSherlockActivity {
 
         NewsItem item = (NewsItem) getIntent().getSerializableExtra("item");
 
-        EasyTracker.getTracker().sendView("/News/" + item.title);
+        EasyTracker.getTracker().sendView("News > " + item.title);
 
         TextView title = (TextView) findViewById(R.id.news_item_title);
         title.setText(item.title);
