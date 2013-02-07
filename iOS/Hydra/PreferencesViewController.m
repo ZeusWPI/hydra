@@ -56,7 +56,9 @@
 {
     NSArray *arr = [[Association loadFromPlist] allValues];
     self.konventen = [[NSSet setWithArray:[arr valueForKey:@"parentAssociation"]] allObjects];
-    
+    self.filteredKonventen = [NSMutableArray arrayWithArray:self.konventen];
+
+
     NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
     for (NSString *name in self.konventen) {
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"%K == %@",
@@ -65,7 +67,6 @@
     }
     self.associations = tmp;
     self.filteredAssociations = [NSMutableDictionary dictionaryWithDictionary:self.associations];
-    self.filteredKonventen = [NSMutableArray arrayWithArray:self.konventen];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -80,11 +81,14 @@
     searchText = [searchText lowercaseString];
     if ([searchText length] > 0) {
         for(NSString *konvent in [self.associations allKeys]) {
-            self.filteredAssociations[konvent] = [self.associations[konvent] filteredArrayUsingPredicate:
-                            [NSPredicate predicateWithBlock:^(id ass, NSDictionary *bindings){
-                return (BOOL)([[((Association *)ass).displayedFullName lowercaseString]
-                 rangeOfString:searchText].location != NSNotFound);
-            }]];
+            NSPredicate *filterPred = [NSPredicate predicateWithBlock:
+                                       ^(id association, NSDictionary *bindings){
+                return (BOOL)([[((Association *)association).displayedFullName lowercaseString]
+                               rangeOfString:searchText].location != NSNotFound);
+            }];
+
+            self.filteredAssociations[konvent] = [self.associations[konvent] filteredArrayUsingPredicate:filterPred];
+            
             if ([self.filteredAssociations[konvent] count] == 0) {
                 [self.filteredKonventen removeObject:konvent];
             }
@@ -99,6 +103,7 @@
 
 - (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
 {
+    // Updates the regular tableView after cancel has been pressed.
     [self.tableView reloadData];
 }
 
