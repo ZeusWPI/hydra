@@ -214,7 +214,7 @@
 
             UIImageView *star = [[UIImageView alloc] initWithImage:
                                  [UIImage imageNamed:@"icon-star"]];
-            star.frame = CGRectMake(286, 8, 28, 28);
+            star.frame = CGRectMake(286, 8, 27, 27);
             [cell.contentView addSubview:star];
         }
 
@@ -254,7 +254,6 @@
     subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
     subtitleLabel.highlightedTextColor = [UIColor whiteColor];
     [cell.contentView addSubview:subtitleLabel];
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

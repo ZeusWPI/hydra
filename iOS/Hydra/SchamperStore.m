@@ -114,7 +114,6 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
         self.objectManager = [RKObjectManager managerWithBaseURLString:kSchamperUrl];
         [SchamperArticle registerObjectMappingWith:self.objectManager.mappingProvider];
         self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
-        self.objectManager.client.cachePolicy = RKRequestCachePolicyEnabled;
     }
     [self.objectManager loadObjectsAtResourcePath:@"" delegate:self];
 }

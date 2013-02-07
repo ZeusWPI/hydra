@@ -37,6 +37,10 @@
     UIImage *selectedImage = [self.playButton imageForState:UIControlStateSelected];
     [self.playButton setImage:selectedImage forState:UIControlStateSelected|UIControlStateHighlighted];
 
+    // Initialize fields
+    [self songUpdated:nil];
+    [self showUpdated:nil];
+
     // Initialize state
     [self playerStatusChanged:nil];
 }
