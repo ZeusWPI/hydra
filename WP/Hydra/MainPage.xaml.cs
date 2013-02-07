@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Hydra.ViewModels;
@@ -24,6 +25,7 @@ namespace Hydra
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
+                appbar.ApplicationBar.IsVisible = true;
             }
         }
         
@@ -34,6 +36,20 @@ namespace Hydra
             var schamperitem = e.AddedItems[0] as SchamperItemsViewModel;
             if (schamperitem != null)
                 NavigationService.Navigate(new Uri("/SchamperItem.xaml?article="+App.ViewModel.SchamperItems.IndexOf(schamperitem), UriKind.Relative));
+        }
+
+        private void NewsItemTapped(object sender, SelectionChangedEventArgs e)
+        {
+            var newsItem = e.AddedItems[0] as NewsItemViewModel;
+            if (newsItem != null)
+                NavigationService.Navigate(new Uri("/NewsItem.xaml?newsItem=" + App.ViewModel.NewsItems.IndexOf(newsItem), UriKind.Relative));
+        }
+
+        private void ActivityItemTapped(object sender, SelectionChangedEventArgs e)
+        {
+            var activityItem = e.AddedItems[0] as ActivityItemsViewModel;
+            if (activityItem != null)
+                NavigationService.Navigate(new Uri("/ActivityItem.xaml?activityItem=" + App.ViewModel.ActivityItems.IndexOf(activityItem), UriKind.Relative));
         }
 
         private void InfoItemTapped(object sender, SelectionChangedEventArgs e)
@@ -71,7 +87,7 @@ namespace Hydra
             var panoramaItem = e.AddedItems[0] as PanoramaItem;
             if (panoramaItem == null) return;
             var header = (string) panoramaItem.Name;
-            if(header!=null && (header.Equals("schamper") || header.Equals("resto")))
+            if(header!=null && !(header.Equals("urgent")||header.Equals("info")))
             {
                 appbar.ApplicationBar.IsVisible = true;
             }
@@ -93,14 +109,19 @@ namespace Hydra
                     {
                         App.ViewModel.LoadSchamper();
                     }
-                    else
+                    else if(name.Equals("resto"))
                     {
                         App.ViewModel.LoadResto();
+                    }else if (name.Equals("news"))
+                    {
+                        App.ViewModel.LoadNews();
+                    }else if(name.Equals("activities"))
+                    {
+                        App.ViewModel.LoadInfo();
                     }
                 }
-                var toast = new ShellToast();
-                toast.Title = "Synchroniseren voltooid!";
-                toast.Show();
+                MessageBox.Show("Synchroniseren voltooid!");
+                
 
             }
         }

@@ -15,10 +15,10 @@ extern NSString *const RestoStoreDidUpdateInfoNotification;
 
 @interface RestoStore : NSObject
 
-+ (RestoStore *)sharedStore;
+@property (nonatomic, strong, readonly) NSArray *locations;
+@property (nonatomic, strong, readonly) NSArray *legend;
 
++ (RestoStore *)sharedStore;
 - (RestoMenu *)menuForDay:(NSDate *)day;
-- (NSArray*)locations;
-- (NSArray*)legend;
 
 @end

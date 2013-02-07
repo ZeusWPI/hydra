@@ -16,5 +16,7 @@ extern NSString *const SchamperStoreDidUpdateArticlesNotification;
 
 + (SchamperStore *)sharedStore;
 - (void)updateArticles;
+- (void)reloadArticles;
+
 
 @end

@@ -9,7 +9,7 @@
 #import "NewsViewController.h"
 #import "AssociationStore.h"
 #import "AssociationNewsItem.h"
-#import "NewsItemViewController.h"
+#import "NewsDetailViewController.h"
 #import "AssociationNewsItem.h"
 #import "Association.h"
 #import "NSDateFormatter+AppLocale.h"
@@ -17,33 +17,49 @@
 
 @interface NewsViewController ()
 
-@property (nonatomic, strong) NSArray *associations;
 @property (nonatomic, strong) NSArray *newsItems;
 
 @end
 
 @implementation NewsViewController
 
-- (id) initWithAssociations:(NSArray *)associations{
+- (id)init
+{
     if (self = [super init]) {
-        self.associations = associations;
-        [self refreshNewsItems];
+        // Check for updates
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(newsUpdated:)
+                       name:AssociationStoreDidUpdateNewsNotification
+                     object:nil];
+
+        [self loadNews];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     
-    // Set title in navigation bar, slightly different title on return button
-    [self.navigationItem setTitle:@"Nieuws"];
+    self.title = @"Nieuws";
 
-    // Check for updates
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(newsUpdated:)
-                name:AssociationStoreDidUpdateNewsNotification
-                object:nil];
+    if ([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.tintColor = [UIColor hydraTintColor];
+        [refreshControl addTarget:self action:@selector(didPullRefreshControl:)
+                 forControlEvents:UIControlEventValueChanged];
+
+        self.refreshControl = refreshControl;
+    }
+}
+
+- (void)didPullRefreshControl:(id)sender
+{
+    [[AssociationStore sharedStore] reloadNewsItems];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -65,16 +81,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)refreshNewsItems
-{
-    NSMutableArray *newsItems = [NSMutableArray new];
-    for (Association *association in self.associations) {
-        NSArray *items = [[AssociationStore sharedStore] newsItemsForAssocation:association];
-        [newsItems addObjectsFromArray:items];
-    }
-    self.newsItems = newsItems;
 }
 
 #pragma mark - Table view data source
@@ -99,20 +105,35 @@
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
-        dateFormatter.dateFormat = @"EEEE d MMMM";
+        dateFormatter.dateFormat = @"EE d MMM";
     }
 
-    NSString *detailText = [NSString stringWithFormat:@"%@, %@", association.displayName, [dateFormatter stringFromDate:newsItem.date]];
+    NSString *detailText = [NSString stringWithFormat:@"%@, %@", [dateFormatter stringFromDate:newsItem.date], association.displayName];
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
+
+    if (newsItem.highlighted) {
+        UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-star"]];
+        cell.accessoryView = star;
+    }
+    else {
+        cell.accessoryView = nil;
+    }
     
     return cell;
+}
+
+- (void)loadNews
+{
+    NSArray *newsItems = [AssociationStore sharedStore].newsItems;
+    NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    self.newsItems = [newsItems sortedArrayUsingDescriptors:@[desc]];
 }
 
 - (void)newsUpdated:(NSNotification *)notification
 {
     DLog(@"Updating tableView for news items");
-    [self refreshNewsItems];
+    [self loadNews];
     [self.tableView reloadData];
 
     // Hide or update HUD
@@ -125,6 +146,10 @@
             [SVProgressHUD showErrorWithStatus:errorMsg];
         }
     }
+    
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
+    }
 }
 
 #pragma mark - Table view delegate
@@ -132,7 +157,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AssociationNewsItem *item = self.newsItems[indexPath.row];
-    NewsItemViewController *c = [[NewsItemViewController alloc] initWithNewsItem:item];
+    NewsDetailViewController *c = [[NewsDetailViewController alloc] initWithNewsItem:item];
     [self.navigationController pushViewController:c animated:YES];
 }
 

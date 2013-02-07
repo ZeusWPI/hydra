@@ -15,12 +15,14 @@ extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 
 @interface AssociationStore : NSObject
 
-@property (nonatomic, strong, readonly) NSArray *allAssociations;
-@property (nonatomic, strong, readonly) NSArray *allActivities;
+@property (nonatomic, strong, readonly) NSArray *assocations;
+@property (nonatomic, strong, readonly) NSArray *activities;
+@property (nonatomic, strong, readonly) NSArray *newsItems;
 
 + (AssociationStore *)sharedStore;
 
 - (Association *)associationWithName:(NSString *)internalName;
-- (NSArray *)newsItemsForAssocation:(Association *)association;
+- (void)reloadNewsItems;
+- (void)reloadActivities;
 
 @end

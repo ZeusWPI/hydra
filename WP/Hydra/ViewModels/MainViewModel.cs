@@ -1,4 +1,7 @@
-﻿using System;
+﻿using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -6,15 +9,15 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Hydra.Resources;
 
 namespace Hydra.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         private const string SchamperApi = "http://zeus.ugent.be/hydra/api/1.0/schamper/daily.xml";
-     
-
+        private const string ActivityApi = "http://student.ugent.be/hydra/api/1.0/all_activities.json";
+        private const string NewsApi = "http://student.ugent.be/hydra/api/1.0/all_news.json";
+        
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
@@ -26,11 +29,11 @@ namespace Hydra.ViewModels
        
         public MainViewModel()
         {
-            this.NewsItems = new ObservableCollection<NewsItemViewModel>();
-            this.ActivityItems=new ObservableCollection<ActivityItemsViewModel>();
-            this.SchamperItems=new ObservableCollection<SchamperItemsViewModel>();
-            this.InfoItems=new ObservableCollection<InfoItemsViewModel>();
-            this.RestoItems=new ObservableCollection<RestoItemsViewModel>();
+            NewsItems = new ObservableCollection<NewsItemViewModel>();
+            ActivityItems=new ObservableCollection<ActivityItemsViewModel>();
+            SchamperItems=new ObservableCollection<SchamperItemsViewModel>();
+            InfoItems=new ObservableCollection<InfoItemsViewModel>();
+            RestoItems=new ObservableCollection<RestoItemsViewModel>();
         }
 
         public bool IsDataLoaded
@@ -44,12 +47,13 @@ namespace Hydra.ViewModels
         /// </summary>
         public void LoadData()
         {
-            
+            LoadNews();
+            LoadActivities();
             LoadSchamper();
             LoadInfo();
          
 
-            this.IsDataLoaded = true;
+            IsDataLoaded = true;
         }
 
         public void LoadSchamper()
@@ -57,12 +61,59 @@ namespace Hydra.ViewModels
             var fetch = new WebClient();
             fetch.DownloadStringAsync(new Uri(SchamperApi));
             fetch.DownloadStringCompleted += ProcessSchamper;
+            IsDataLoaded = false;
         }
 
+        public void LoadNews()
+        {
+            var fetch = new WebClient();
+            fetch.DownloadStringAsync(new Uri(NewsApi));
+            fetch.DownloadStringCompleted += ProcessNews;
+            IsDataLoaded = false;
+        }
+
+        public void LoadActivities()
+        {
+            var fetch = new WebClient();
+            fetch.DownloadStringAsync(new Uri(ActivityApi));
+            fetch.DownloadStringCompleted += ProcessActivities;
+            IsDataLoaded = false;
+        }
         public void LoadResto()
         {
             throw new NotImplementedException();
         }
+
+
+        public void ProcessNews(object sender, DownloadStringCompletedEventArgs e)
+        {
+                var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+                var list = new ObservableCollection<NewsItemViewModel>();
+                var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
+                list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
+
+            foreach (var newsItemView in list)
+            {
+                NewsItems.Add(newsItemView);
+            }
+            IsDataLoaded = true;
+
+        }
+
+        public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
+        {
+            var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+            var list = new ObservableCollection<ActivityItemsViewModel>();
+            var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<ActivityItemsViewModel>));
+            list = (ObservableCollection<ActivityItemsViewModel>)serializer.ReadObject(ms);
+
+            foreach (var newsItemView in list)
+            {
+                ActivityItems.Add(newsItemView);
+            }
+            IsDataLoaded = true;
+        }
+
 
         public void LoadInfo()
         {
@@ -101,11 +152,11 @@ namespace Hydra.ViewModels
                                 if (node.Value == "subcontent")
                                 {
                                     if (el != null)
-                                        subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel() {Title = ((XElement) xElement.NextNode).Value, Link = ((XElement) xElement.NextNode.NextNode.NextNode).Value});
+                                        subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel {Title = ((XElement) xElement.NextNode).Value, Link = ((XElement) xElement.NextNode.NextNode.NextNode).Value});
                                 }
 
                             }
-                            InfoItems.Add(new InfoItemsViewModel(){Children = subcontent,ImagePath = imagePath,Link = link,Title = title});
+                            InfoItems.Add(new InfoItemsViewModel {Children = subcontent,ImagePath = imagePath,Link = link,Title = title});
                             
                         }
                     }
@@ -165,6 +216,7 @@ namespace Hydra.ViewModels
                             SchamperItems.Add(new SchamperItemsViewModel {Author = author,Content = content,ImagePath = image,Title = title,Date = date});
                     }
                 }
+            IsDataLoaded = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
