@@ -28,12 +28,20 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 -(void)requestInfo
 {
     self.lastUpdated = [NSDate date];
+
+    if (self.eventID == nil){
+        return;
+    }
+
+    if (![[FBSession activeSession] isOpen]) {
+        [FBSession openActiveSessionWithAllowLoginUI:NO];
+    }
     
     FBRequestConnection *conn = [[FBRequestConnection alloc] init];
 
     [conn addRequest:[self createBasicInfoQuery] completionHandler:^(FBRequestConnection *connection,id result,NSError *error) {
         if (error) {
-            NSLog(@"Error: %@", [error localizedDescription]);
+            NSLog(@"Basic Info Error: %@", [error localizedDescription]);
         } else {
             NSLog(@"Result basic info: %@", result);
             NSArray *arr = (NSArray*)[result objectForKey:@"data"];
@@ -41,7 +49,11 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
                 self.attendees = (NSString*)[arr[0] objectForKey:@"attending_count"];
                 self.imageURL = (NSString*)[arr[0] objectForKey:@"pic_big"];
             }
-        }}];
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:FacebookEventDidUpdateNotification object:self];
+            VLog(self.attendees);
+        }
+    }];
 
     if([self usersInfoPermission])
        {
@@ -50,7 +62,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
                                                       id result,
                                                       NSError *error) {
         if (error) {
-            NSLog(@"Error: %@", [error localizedDescription]);
+            NSLog(@"User Attending Error: %@", [error localizedDescription]);
         } else {
             //NSLog(@"Result userInfo: %@", result);
             NSArray *obj = (NSArray*)[result objectForKey:@"data"];
@@ -65,12 +77,13 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
                     attending = NO;
                 }
             }
+
             self.userAttending = attending;
         }
     }];
            [conn addRequest:[self createFriendsAttendingRequest] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                if (error){
-                   NSLog(@"Error: %@", [error localizedDescription]);
+                   NSLog(@"Friends attending Error: %@", [error localizedDescription]);
                }else{
                    [self addAttendingFriends:result];
                }}];
@@ -164,7 +177,11 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 }
 
 -(void)postUserAttendsEvent{
-    VLog(@"Attending button pressed");
+    
+    if (self.userAttending){
+        return;
+    }
+    
     NSString *query = [NSString stringWithFormat:@"%@/attending/me", self.eventID];
 
     // Ask for rspv_events permissions in context
@@ -193,7 +210,10 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
                 NSLog(@"Error: %@", [error localizedDescription]);
             } else {
                 NSLog(@"Result: %@", result);
+                self.userAttending = YES;
             }
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:FacebookEventDidUpdateNotification object:self];
         }];
         [conn start];
 }

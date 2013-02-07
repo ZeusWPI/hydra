@@ -26,9 +26,9 @@
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
 
     [objectMapping mapAttributes:@"title", @"location", @"start", @"end", @"url",
-        @"longitude", @"latitude", @"description", @"url", @"categories",
+        @"longitude", @"latitude", @"url", @"categories",
         @"highlighted", nil];
-    [objectMapping mapKeyPathsToAttributes:@"facebook_id", @"facebookId", nil];
+    [objectMapping mapKeyPathsToAttributes:@"facebook_id", @"facebookId", @"description",@"html_description" , nil];
     [objectMapping mapRelationship:@"association" withMapping:[Association objectMapping]];
 
     return objectMapping;
@@ -61,7 +61,7 @@
         self.longitude = [coder decodeDoubleForKey:@"longitude"];
         self.latitude = [coder decodeDoubleForKey:@"latitude"];
         self.facebookId = [coder decodeObjectForKey:@"facebookId"];
-        self.description = [coder decodeObjectForKey:@"description"];
+        self.html_description = [coder decodeObjectForKey:@"html_description"];
         self.url = [coder decodeObjectForKey:@"url"];
         self.categories = [coder decodeObjectForKey:@"categories"];
         self.highlighted = [coder decodeBoolForKey:@"highlighted"];
@@ -79,7 +79,7 @@
     [coder encodeDouble:self.longitude forKey:@"longitude"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];
     [coder encodeObject:self.facebookId forKey:@"facebookId"];
-    [coder encodeObject:self.description forKey:@"description"];
+    [coder encodeObject:self.html_description forKey:@"html_description"];
     [coder encodeObject:self.url forKey:@"url"];
     [coder encodeObject:self.categories forKey:@"categories"];
     [coder encodeBool:self.highlighted forKey:@"highlighted"];

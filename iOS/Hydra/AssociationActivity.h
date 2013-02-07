@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSString *location;
 @property (nonatomic, assign) double longitude;
 @property (nonatomic, assign) double latitude;
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *html_description;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, assign) BOOL highlighted;
