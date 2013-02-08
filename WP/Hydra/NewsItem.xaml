@@ -26,7 +26,7 @@
         <Border Grid.Row="0" Margin="12,17,0,28">
     		<Grid>
                 <TextBlock x:Name="title" Margin="9,-7,0,-32"  TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}" Text="{Binding FullTitle}"/>
-                <TextBlock x:Name="associatie" TextWrapping="Wrap" Text="{Binding Assocition}" Margin="9,73,284,-64"/>
+                <TextBlock x:Name="associatie" TextWrapping="Wrap" Text="{Binding Assocition.Dn}" Margin="9,73,284,-64"/>
     			<TextBlock x:Name="date" Text="{Binding Date}" Margin="293,73,0,-64"/>
     		</Grid>
     	</Border>
@@ -37,7 +37,7 @@
                 <ColumnDefinition Width="31*"/>
                 <ColumnDefinition Width="26*"/>
             </Grid.ColumnDefinitions>
-            <phone:WebBrowser x:Name="browser" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="633" Width="436" Grid.ColumnSpan="2"/>
+            <phone:WebBrowser x:Name="browser"  HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="633" Width="436" Grid.ColumnSpan="2"/>
 
         </Grid>
     </Grid>

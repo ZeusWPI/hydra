@@ -579,10 +579,6 @@
 		F53D2488159DB4DB00F408AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				445C81FA16C45D7A0080819C /* button-settings.png */,
-				445C81FB16C45D7A0080819C /* button-settings@2x.png */,
-				F5B650A816C1336800989ADB /* bg-urgent.jpg */,
-				F5B650A916C1336800989ADB /* bg-urgent@2x.jpg */,
 				F5B6509816C129B700989ADB /* btn-urgent-bg-highlighted.png */,
 				F5B6509916C129B700989ADB /* btn-urgent-bg-highlighted@2x.png */,
 				F5B6509A16C129B700989ADB /* btn-urgent-bg.png */,
@@ -629,6 +625,8 @@
 				F5FC116D15F0211300B3F127 /* button-schamper-active@2x.png */,
 				F58408B6159DDA0E00EE7010 /* button-schamper.png */,
 				F5FC116E15F0211300B3F127 /* button-schamper@2x.png */,
+				445C81FA16C45D7A0080819C /* button-settings.png */,
+				445C81FB16C45D7A0080819C /* button-settings@2x.png */,
 				F531DE8C16B31FFC0050D88B /* button-track-highlighted.png */,
 				F531DE6A16B30A0F0050D88B /* button-track-highlighted@2x.png */,
 				F531DE8D16B31FFC0050D88B /* button-track-selected-highlighted.png */,

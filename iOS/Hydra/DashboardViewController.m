@@ -19,6 +19,8 @@
 #import "FacebookViewController.h"
 #import "PreferencesViewController.h"
 
+#define EasterEggEnabled 0
+
 @interface DashboardViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UISwipeGestureRecognizer *gestureRecognizer;
@@ -32,10 +34,11 @@
 
 - (void)viewDidLoad
 {
-#if TESTFLIGHT_ENABLED
+#if TestFlightEnabled
     self.feedbackButton.hidden = NO;
 #endif
 
+#if EasterEggEnabled
     self.requiredMoves = @[
         @(UISwipeGestureRecognizerDirectionUp), @(UISwipeGestureRecognizerDirectionUp),
         @(UISwipeGestureRecognizerDirectionDown), @(UISwipeGestureRecognizerDirectionDown),
@@ -44,13 +47,17 @@
         @"b", @"a"
     ];
     self.codeField = nil;
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+
+#if EasterEggEnabled
     [self configureMoveDetectionForMove:0];
+#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -119,13 +126,6 @@
     [TestFlight openFeedbackView];
 }
 
--(IBAction)showFacebook:(id)sender
-{
-    DLog(@"Dashboard switching to Facebook view");
-    UIViewController *c = [[FacebookViewController alloc] init];
-    [self.navigationController pushViewController:c animated:YES];
-}
-
 -(IBAction)showPreferences:(id)sender
 {
     DLog(@"Dashboard switching to Preferences view");
@@ -135,12 +135,12 @@
 
 #pragma mark - Surprise feature
 
+#if EasterEggEnabled
 - (void)configureMoveDetectionForMove:(NSUInteger)move
 {
     if (move == [self.requiredMoves count]) {
     	UrgentPlayer *urgentPlayer = [UrgentPlayer sharedPlayer];
         [urgentPlayer start];
-        //TODO continue playing when app quits.
         
         UILog(@"Congratulations, you won the game!");
         move = 0;
@@ -209,9 +209,6 @@
     [self configureMoveDetectionForMove:0];
     return NO;
 }
+#endif
 
-- (void)viewDidUnload {
-    [self setPreferencesButton:nil];
-    [super viewDidUnload];
-}
 @end

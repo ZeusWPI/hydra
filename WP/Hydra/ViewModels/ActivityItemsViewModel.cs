@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
@@ -13,16 +12,14 @@ namespace Hydra.ViewModels
 
         // example given 
         //{
-        //    "title": "Jobfair",
-        //    "association": "VTK",
-        //    "start": "2013-02-26T10:00:00Z",
-        //    "end": "2013-02-26T10:00:00Z",
-        //    "location": "ICC Gent",
-        //    "longitude": 51.03701, "latitude": 3.72139,
-        //    "description": "Op onze jaarlijkse VTK Jobfair brengen we zoveel mogelijk bedrijven die geïnteresseerd zijn om ingenieurs aan te werven, samen onder een dak.</p><p>Aan de verschillende bedrijfsstanden die het ICC vullen, kan je allerhande informatie vergaren en eerste gesprekken aanknopen. Verder zijn er ook bedrijfspresentaties en een gezellige bar. <br />Ook voor eerste masters kan dit een heel interessante dag zijn. Kom allemaal zeker eens een kijkje nemen.</p><p>De bedrijfspresentaties starten om 13u. Schrijf je onderaan deze pagina in. Na de presentatie word je getrakteerd op een broodje. De volgende bedrijven zullen dit jaar een presentatie geven: <a href=\"http://www.basf.com/group/corporate/en/\">BASF</a>",
-        //    "url": "http://vtk.ugent.be/recruitment/events/2013/02/26/jobfair/",
-        //    "facebook_id": "326901177416254",
-        //    "categories": ["recruitment"]
+        //{"title":"Skireis",
+        //"start":"2013-02-07T00:01:00+01:00",
+        //"end":"2013-02-07T00:00:00+01:00",
+        //"location":"Les Menuires, Les Trois Vall\u00e9es, Frankrijk",
+        //"description":null,
+        //"url":null,"facebook_id":null,
+        //"categories":null,"highlighted":0,
+        //"association":{"internal_name":"SKCENTRAAL","full_name":null,"display_name":"Senioren Konvent"}}
         //},
 
 
@@ -34,13 +31,12 @@ namespace Hydra.ViewModels
         [DataMember(Name = "location")]
         public string Location
         {
-            get
-            {
-                return _location;
+            get {
+                return _location ?? "Onbekend";
             }
             set
             {
-                if (value != _location)
+                if (value != _location && value!="null")
                 {
                     _location = value;
                     NotifyPropertyChanged("location");
@@ -55,17 +51,14 @@ namespace Hydra.ViewModels
         [DataMember(Name = "description")]
         public new string Content
         {
-            get
-            {
-                return _content;
+            get {
+                return _content ?? "Onbekend";
             }
             set
             {
-                if (value != _content)
-                {
-                    _content = value;
-                    NotifyPropertyChanged("content");
-                }
+                if (value == _content || value == null) return;
+                _content = value;
+                NotifyPropertyChanged("content");
             }
         }
 
@@ -144,6 +137,10 @@ namespace Hydra.ViewModels
         {
             get
             {
+                if (_date == null)
+                {
+                    return "Onbekend";
+                }
                 DateTime itemDateTime = DateTime.Parse(_date);
                 return itemDateTime.ToString("g", new CultureInfo("nl-BE"));
             }
@@ -167,6 +164,10 @@ namespace Hydra.ViewModels
         {
             get
             {
+                if(_endDate==null)
+                {
+                    return "Onbekend";
+                }
                 DateTime itemDateTime = DateTime.Parse(_endDate);
                 return itemDateTime.ToString("g", new CultureInfo("nl-BE"));
             }

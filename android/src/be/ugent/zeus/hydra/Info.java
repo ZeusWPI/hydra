@@ -54,7 +54,7 @@ public class Info extends AbstractSherlockListActivity {
 
         if (getIntent() != null) {
             if (getIntent().getStringExtra("tracking") == null) {
-                getIntent().putExtra("tracking", "/Info");
+                getIntent().putExtra("tracking", "Info");
             } else {
                 EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking"));
                 Log.i("Tracking", getIntent().getStringExtra("tracking"));
@@ -93,16 +93,16 @@ public class Info extends AbstractSherlockListActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
             // We can't call the code in the onCreate as we may be opening the play store, so track it here.
-            EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
-            Log.i("Tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
+            EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking") + " > " + item.objectForKey("title"));
+            Log.i("Tracking", getIntent().getStringExtra("tracking") + " > " + item.objectForKey("title"));
 
             startActivity(intent);
         } else if ((action = item.objectForKey("html")) != null) {
             Intent intent = new Intent(this, InfoWebActivity.class);
             intent.putExtra("class", this.getClass().getCanonicalName());
 
-            EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
-            Log.i("Tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
+            EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking") + " > " + item.objectForKey("title"));
+            Log.i("Tracking", getIntent().getStringExtra("tracking") + " > " + item.objectForKey("title"));
 
             intent.putExtra("page", ((NSString) action).toString());
             startActivity(intent);

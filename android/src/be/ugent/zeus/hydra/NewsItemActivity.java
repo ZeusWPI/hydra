@@ -29,7 +29,7 @@ public class NewsItemActivity extends AbstractSherlockActivity {
 
         NewsItem item = (NewsItem) getIntent().getSerializableExtra("item");
 
-        EasyTracker.getTracker().sendView("/News/" + item.title);
+        EasyTracker.getTracker().sendView("News > " + item.title);
 
         TextView title = (TextView) findViewById(R.id.news_item_title);
         title.setText(item.title);
@@ -37,8 +37,13 @@ public class NewsItemActivity extends AbstractSherlockActivity {
         String postedBy = getResources().getString(R.string.posted_by);
         TextView association = (TextView) findViewById(R.id.news_item_info);
         try {
-            association.setText(String.format(postedBy, Html.fromHtml(item.association.display_name),
+            String poster = item.association.display_name;
+            if (item.association.full_name != null) {
+                poster += " (" + item.association.full_name + ")";
+            }
+            association.setText(String.format(postedBy, Html.fromHtml(poster),
                 new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE).parse(item.date)));
+
         } catch (ParseException ex) {
             Log.w("Parse error", "");
             ex.printStackTrace();

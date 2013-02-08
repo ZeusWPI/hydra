@@ -17,6 +17,7 @@ namespace Hydra.ViewModels
         private const string SchamperApi = "http://zeus.ugent.be/hydra/api/1.0/schamper/daily.xml";
         private const string ActivityApi = "http://student.ugent.be/hydra/api/1.0/all_activities.json";
         private const string NewsApi = "http://student.ugent.be/hydra/api/1.0/all_news.json";
+        private const string RestoApi = "";
         
         /// <summary>
         /// A collection for ItemViewModel objects.
@@ -87,10 +88,9 @@ namespace Hydra.ViewModels
 
         public void ProcessNews(object sender, DownloadStringCompletedEventArgs e)
         {
-                var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
-                var list = new ObservableCollection<NewsItemViewModel>();
-                var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
-                list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
+             var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
+                var list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
 
             foreach (var newsItemView in list)
             {
@@ -103,9 +103,8 @@ namespace Hydra.ViewModels
         public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
         {
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
-            var list = new ObservableCollection<ActivityItemsViewModel>();
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<ActivityItemsViewModel>));
-            list = (ObservableCollection<ActivityItemsViewModel>)serializer.ReadObject(ms);
+            var list = (ObservableCollection<ActivityItemsViewModel>)serializer.ReadObject(ms);
 
             foreach (var newsItemView in list)
             {
