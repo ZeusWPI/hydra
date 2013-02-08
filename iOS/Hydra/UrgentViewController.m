@@ -174,6 +174,7 @@
             self.previousSongLabel.text = previousSong;
             self.songLabel.text = currentSong;
 
+            // Animate the appearance of previousSong
             if (previousSong.length > 0) {
                 CGRect originalPreviousFrame = self.previousSongWrapper.frame;
                 self.previousSongWrapper.frame = self.songWrapper.frame;
@@ -182,6 +183,7 @@
                 }];
             }
 
+            // Animate the appearance of currentSong
             CGRect originalFrame = self.songWrapper.frame;
             self.songWrapper.frame = CGRectOffset(originalFrame, 0, originalFrame.size.height);
             self.songWrapper.alpha = 0;
@@ -195,6 +197,9 @@
 
 - (void)animatePreviousWrapperWithCompletion:(void (^)())completion
 {
+    // If there currently is a previousSong we will fade it out quickly
+    // and then start the next animation. If it's not we can start
+    // the next animation immediately.
     if (self.previousSongLabel.text.length > 0) {
         [UIView animateWithDuration:0.15 animations:^{
             self.previousSongWrapper.alpha = 0;
