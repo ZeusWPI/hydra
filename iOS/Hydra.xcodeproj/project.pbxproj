@@ -17,6 +17,9 @@
 		3B93FBA7163095F900C962DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FB9E1630939200C962DC /* AudioToolbox.framework */; };
 		3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B93FBA91630969900C962DC /* UrgentPlayer.m */; };
 		3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FBAB16309E2100C962DC /* AVFoundation.framework */; };
+		445C81F516C3DB0B0080819C /* AssociationPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445C81F416C3DB0B0080819C /* AssociationPreferenceController.m */; };
+		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
+		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
@@ -36,6 +39,7 @@
 		F50EE09715B5F587000F1992 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EE09515B5F587000F1992 /* WebViewController.m */; };
 		F520A2DD166E933500EE340F /* icon-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DB166E933500EE340F /* icon-calendar.png */; };
 		F520A2E0166E999400EE340F /* icon-calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DF166E999400EE340F /* icon-calendar@2x.png */; };
+		F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F521D11516C53A1200B686B2 /* PreferencesController.m */; };
 		F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */ = {isa = PBXBuildFile; fileRef = F52B9B76168507BD000B71D6 /* NSDateFormatter+AppLocale.m */; };
 		F531DE6516B2E41B0050D88B /* button-route@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F531DE6416B2E41B0050D88B /* button-route@2x.png */; };
 		F531DE6816B2EE720050D88B /* button-route.png in Resources */ = {isa = PBXBuildFile; fileRef = F531DE6716B2EE720050D88B /* button-route.png */; };
@@ -227,6 +231,10 @@
 		3B93FBAB16309E2100C962DC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3BAFFE7C15BB04B600921E7D /* BadgedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgedButton.h; sourceTree = "<group>"; };
 		3BAFFE7D15BB04B600921E7D /* BadgedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgedButton.m; sourceTree = "<group>"; };
+		445C81F316C3DB0B0080819C /* AssociationPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationPreferenceController.h; sourceTree = "<group>"; };
+		445C81F416C3DB0B0080819C /* AssociationPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssociationPreferenceController.m; sourceTree = "<group>"; };
+		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
+		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
@@ -255,6 +263,8 @@
 		F50EE09515B5F587000F1992 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		F520A2DB166E933500EE340F /* icon-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-calendar.png"; sourceTree = "<group>"; };
 		F520A2DF166E999400EE340F /* icon-calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-calendar@2x.png"; sourceTree = "<group>"; };
+		F521D11416C53A1200B686B2 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
+		F521D11516C53A1200B686B2 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		F52B9B75168507BD000B71D6 /* NSDateFormatter+AppLocale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+AppLocale.h"; sourceTree = "<group>"; };
 		F52B9B76168507BD000B71D6 /* NSDateFormatter+AppLocale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+AppLocale.m"; sourceTree = "<group>"; };
 		F531DE6416B2E41B0050D88B /* button-route@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-route@2x.png"; sourceTree = "<group>"; };
@@ -536,6 +546,17 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
+		F521D11316C5386F00B686B2 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				445C81F316C3DB0B0080819C /* AssociationPreferenceController.h */,
+				445C81F416C3DB0B0080819C /* AssociationPreferenceController.m */,
+				F521D11416C53A1200B686B2 /* PreferencesController.h */,
+				F521D11516C53A1200B686B2 /* PreferencesController.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
 		F536359C16A69C86000A50C4 /* Activities */ = {
 			isa = PBXGroup;
 			children = (
@@ -618,6 +639,8 @@
 				F5FC116D15F0211300B3F127 /* button-schamper-active@2x.png */,
 				F58408B6159DDA0E00EE7010 /* button-schamper.png */,
 				F5FC116E15F0211300B3F127 /* button-schamper@2x.png */,
+				445C81FA16C45D7A0080819C /* button-settings.png */,
+				445C81FB16C45D7A0080819C /* button-settings@2x.png */,
 				F531DE8C16B31FFC0050D88B /* button-track-highlighted.png */,
 				F531DE6A16B30A0F0050D88B /* button-track-highlighted@2x.png */,
 				F531DE8D16B31FFC0050D88B /* button-track-selected-highlighted.png */,
@@ -872,6 +895,7 @@
 				3B436DF615B8915200984D3F /* InfoViewController.h */,
 				3B436DF715B8915200984D3F /* InfoViewController.m */,
 				F536359E16A69C94000A50C4 /* News */,
+				F521D11316C5386F00B686B2 /* Preferences */,
 				3B7AD3B615BC82EB0026BB62 /* Resto */,
 				F536359F16A69C9D000A50C4 /* Schamper */,
 				F53A5E7416700242009EA4CC /* UrgentViewController.h */,
@@ -1087,6 +1111,8 @@
 				F5CE522216C2BDA70033A52B /* Errors.strings in Resources */,
 				F5B86E1916C30EF900BC5D66 /* icon-star@2x.png in Resources */,
 				F5B86EE216C3106100BC5D66 /* icon-star.png in Resources */,
+				445C81FC16C45D7A0080819C /* button-settings.png in Resources */,
+				445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */,
 				F5E851BE16C43174003DF993 /* btn-urgent-facebook.png in Resources */,
 				F5E851BF16C43174003DF993 /* btn-urgent-facebook@2x.png in Resources */,
 				F5E851C016C43174003DF993 /* btn-urgent-home.png in Resources */,
@@ -1204,7 +1230,9 @@
 				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 				F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */,
 				F56F9D0F16B32F710020856B /* InfoPageControl.m in Sources */,
+				445C81F516C3DB0B0080819C /* AssociationPreferenceController.m in Sources */,
 				F5DF2FB916C41DDE003B05EC /* MarqueeLabel.m in Sources */,
+				F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,12 +62,30 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
 
 - (NSString *)displayedFullName
 {
-    if (self.fullName) {
-        return [NSString stringWithFormat:@"%@ (%@)", self.displayName, self.fullName];
+    if (_fullName) {
+        return [NSString stringWithFormat:@"%@ (%@)", _displayName, _fullName];
     }
     else {
-        return self.displayName;
+        return _displayName;
     }
+}
+
+- (NSString *)fullName
+{
+    if (_fullName) {
+        return _fullName;
+    }
+    else {
+        return _displayName;
+    }
+}
+
+- (BOOL)matches:(NSString *)query
+{
+    NSStringCompareOptions opts = NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch;
+    return [_internalName rangeOfString:query options:opts].location != NSNotFound ||
+           [_displayName rangeOfString:query options:opts].location != NSNotFound ||
+           [_fullName rangeOfString:query options:opts].location != NSNotFound;
 }
 
 - (NSString *)description

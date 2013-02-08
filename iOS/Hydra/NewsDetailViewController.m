@@ -33,7 +33,7 @@
     CGSize contentSize = CGSizeMake(viewSize.width - 20, CGFLOAT_MAX);
     self.view.backgroundColor = [UIColor whiteColor];
 
-    self.navigationItem.title = @"Nieuwsbericht";
+    self.title = @"Nieuwsbericht";
 
     // Title
     UIFont *titleFont = [UIFont boldSystemFontOfSize:19];
