@@ -1,18 +1,18 @@
 //
-//  PreferencesViewController.m
+//  AssociationPreferenceController.m
 //  Hydra
 //
 //  Created by Toon Willems on 07/02/13.
 //  Copyright (c) 2013 Zeus WPI. All rights reserved.
 //
 
-#import "PreferencesViewController.h"
+#import "AssociationPreferenceController.h"
 #import "Association.h"
 #import "AssociationStore.h"
 
 #define kAssociationsPref @"preferredAssociations"
 
-@interface PreferencesViewController () <UISearchDisplayDelegate>
+@interface AssociationPreferenceController () <UISearchDisplayDelegate>
 
 @property (nonatomic, strong) NSArray *convents;
 @property (nonatomic, strong) NSDictionary *associations;
@@ -22,8 +22,10 @@
 
 @end
 
-@implementation PreferencesViewController
-- (id)init {
+@implementation AssociationPreferenceController
+
+- (id)init
+{
     if (self = [super initWithStyle:UITableViewStylePlain]) {
         [self loadAssocations];
         if ([[NSUserDefaults standardUserDefaults] objectForKey:kAssociationsPref] == nil){
@@ -52,7 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Voorkeuren";
+    self.title = @"Verenigingen";
 }
 
 - (void)viewDidAppear:(BOOL)animated

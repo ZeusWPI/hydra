@@ -7,17 +7,14 @@
 //
 
 #import "DashboardViewController.h"
-#import "RestoMenuController.h"
-#import "SchamperViewController.h"
-#import "InfoViewController.h"
-#import "AssociationStore.h"
 #import "NewsViewController.h"
 #import "ActivityViewController.h"
+#import "InfoViewController.h"
+#import "RestoMenuController.h"
 #import "UrgentViewController.h"
+#import "SchamperViewController.h"
+#import "PreferencesController.h"
 #import "TestFlight.h"
-#import "UrgentPlayer.h"
-#import "FacebookViewController.h"
-#import "PreferencesViewController.h"
 
 #define EasterEggEnabled 0
 
@@ -128,8 +125,8 @@
 
 -(IBAction)showPreferences:(id)sender
 {
-    DLog(@"Dashboard switching to Preferences view");
-    UIViewController *c = [[PreferencesViewController alloc] init];
+    DLog(@"Dashboard switching to Preferences");
+    UIViewController *c = [[PreferencesController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
 

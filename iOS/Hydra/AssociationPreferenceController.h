@@ -1,5 +1,5 @@
 //
-//  PreferencesViewController.h
+//  AssociationPreferenceController.h
 //  Hydra
 //
 //  Created by Toon Willems on 07/02/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PreferencesViewController : UITableViewController
+@interface AssociationPreferenceController : UITableViewController
 
 @end
