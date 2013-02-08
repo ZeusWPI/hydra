@@ -23,4 +23,6 @@
 + (NSDictionary *)updateAssociations:(NSDictionary *)associations;
 + (RKObjectMapping *)objectMapping;
 
+- (BOOL)matches:(NSString *)query;
+
 @end

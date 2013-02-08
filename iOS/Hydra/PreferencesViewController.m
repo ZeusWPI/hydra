@@ -91,12 +91,13 @@
 
 #pragma mark - Search Control Delegate
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)query
 {
-    if (searchString.length > 0) {
+    if (query.length > 0) {
         for(NSString *convent in [self.associations allKeys]) {
-            NSPredicate *filter = [NSPredicate predicateWithFormat:@"displayedFullName CONTAINS[cd] %@"
-                                                     argumentArray:@[searchString]];
+            NSPredicate *filter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                return [evaluatedObject matches:query];
+            }];
             self.filteredAssociations[convent] = [self.associations[convent] filteredArrayUsingPredicate:filter];
 
             // Remove convent from list if it does not have any items
@@ -118,6 +119,11 @@
     }
 
     return YES;
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source

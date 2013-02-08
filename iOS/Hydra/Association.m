@@ -80,6 +80,14 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
     }
 }
 
+- (BOOL)matches:(NSString *)query
+{
+    NSStringCompareOptions opts = NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch;
+    return [_internalName rangeOfString:query options:opts].location != NSNotFound ||
+           [_displayName rangeOfString:query options:opts].location != NSNotFound ||
+           [_fullName rangeOfString:query options:opts].location != NSNotFound;
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"<Association: %@>", self.displayName];
