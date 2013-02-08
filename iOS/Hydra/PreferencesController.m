@@ -60,7 +60,7 @@
             switch (indexPath.row) {
                 case 0: {
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.textLabel.text = @"Filter berichten";
+                    cell.textLabel.text = @"Filter inhoud";
 
                     CGRect toggleRect = CGRectMake(225, 9, 0, 0);
                     UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
@@ -95,10 +95,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (section == kFilterSection) {
-        CGRect infoRect = CGRectMake(10, 3, 300, 50);
+        CGRect infoRect = CGRectMake(10, 3, 300, 56);
         UILabel *info = [[UILabel alloc] initWithFrame:infoRect];
         info.backgroundColor = [UIColor clearColor];
-        info.font = [UIFont systemFontOfSize:13];
+        info.font = [UIFont systemFontOfSize:14];
         info.text = @"Selecteer verenigingen om activiteiten en "
                      "nieuwsberichten te filteren. Berichten die in de kijker "
                      "staan worden steeds getoond.";

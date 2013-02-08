@@ -416,14 +416,6 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Massacantus</string>
-		<key>internalName</key>
-		<string>MCANTUS</string>
-		<key>parentAssociation</key>
-		<string>MCANTUS</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
 		<string>Actief Linkse Studenten</string>
 		<key>internalName</key>
 		<string>ALS</string>
