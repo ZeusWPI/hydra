@@ -18,9 +18,11 @@
 @property (nonatomic, strong) NSString *parentAssociation;
 @property (nonatomic, strong, readonly) NSString *displayedFullName;
 
-// Check that the current association list is up-to-date with the one provided in the application bundle
+// Check that the current association list is up-to-date with the one provided
+// in the application bundle
 + (NSDictionary *)updateAssociations:(NSDictionary *)associations;
-
 + (RKObjectMapping *)objectMapping;
+
+- (BOOL)matches:(NSString *)query;
 
 @end

@@ -46,7 +46,7 @@
     [super viewDidLoad];
 
     // Set title in navigation bar, slightly different title on return button
-    [self.navigationItem setTitle:@"Schamper Daily"];
+    self.title = @"Schamper Daily";
     UIBarButtonItem *bb = [[UIBarButtonItem alloc] initWithTitle:@"Schamper"
                                                            style:UIBarButtonItemStyleBordered
                                                           target:nil action:nil];
