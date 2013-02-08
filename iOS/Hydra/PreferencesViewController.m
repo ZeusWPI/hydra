@@ -12,7 +12,7 @@
 
 #define kAssociationsPref @"preferredAssociations"
 
-@interface PreferencesViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
+@interface PreferencesViewController () <UISearchDisplayDelegate>
 
 @property (nonatomic, strong) NSArray *convents;
 @property (nonatomic, strong) NSDictionary *associations;
@@ -39,7 +39,6 @@
     [super loadView];
 
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    searchBar.delegate = self;
     searchBar.placeholder = @"Zoek een vereniging";
     self.tableView.tableHeaderView = searchBar;
 
@@ -92,12 +91,12 @@
 
 #pragma mark - Search Control Delegate
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    if (searchText.length > 0) {
+    if (searchString.length > 0) {
         for(NSString *convent in [self.associations allKeys]) {
             NSPredicate *filter = [NSPredicate predicateWithFormat:@"displayedFullName CONTAINS[cd] %@"
-                                                     argumentArray:@[searchText]];
+                                                     argumentArray:@[searchString]];
             self.filteredAssociations[convent] = [self.associations[convent] filteredArrayUsingPredicate:filter];
 
             // Remove convent from list if it does not have any items
@@ -118,13 +117,7 @@
         self.filteredConvents = [self.convents mutableCopy];
     }
 
-    [self.tableView reloadData];
-}
-
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
-{
-    // Updates the regular tableView after cancel has been pressed.
-    [self.tableView reloadData];
+    return YES;
 }
 
 #pragma mark - Table view data source

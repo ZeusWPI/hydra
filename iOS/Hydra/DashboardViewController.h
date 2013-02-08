@@ -18,7 +18,7 @@
 @property (nonatomic, unsafe_unretained) IBOutlet BadgedButton *urgentButton;
 @property (nonatomic, unsafe_unretained) IBOutlet BadgedButton *schamperButton;
 @property (nonatomic, unsafe_unretained) IBOutlet UIButton *feedbackButton;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton *preferencesButton;
+@property (nonatomic, unsafe_unretained) IBOutlet UIButton *preferencesButton;
 
 - (IBAction)showNews:(id)sender;
 - (IBAction)showActivities:(id)sender;
