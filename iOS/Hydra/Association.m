@@ -62,11 +62,21 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
 
 - (NSString *)displayedFullName
 {
-    if (self.fullName) {
-        return [NSString stringWithFormat:@"%@ (%@)", self.displayName, self.fullName];
+    if (_fullName) {
+        return [NSString stringWithFormat:@"%@ (%@)", _displayName, _fullName];
     }
     else {
-        return self.displayName;
+        return _displayName;
+    }
+}
+
+- (NSString *)fullName
+{
+    if (_fullName) {
+        return _fullName;
+    }
+    else {
+        return _displayName;
     }
 }
 
