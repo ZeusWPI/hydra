@@ -34,7 +34,7 @@
     <string name="loading">Laden…</string>
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
-    <string name="posted_by">Door %1$s op %2$s</string>
+    <string name="posted_by">%1$s door %2$s</string>
 
     <string name="soup">Soep</string>
     <string name="meat">Vlees &amp; Veggie</string>

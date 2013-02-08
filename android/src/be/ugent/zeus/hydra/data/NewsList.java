@@ -2,6 +2,7 @@ package be.ugent.zeus.hydra.data;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +14,15 @@ import be.ugent.zeus.hydra.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import org.ocpsoft.prettytime.PrettyTime;
 
 public class NewsList extends ArrayAdapter<NewsItem> {
 
     /**
      * The length of the article previews, in number of characters.
      */
-    private static final int SHORT_TEXT_LENGTH = 150;
 
     public NewsList(Context context, List<NewsItem> objects) {
         super(context, R.layout.news_list_item, objects);
@@ -43,8 +45,12 @@ public class NewsList extends ArrayAdapter<NewsItem> {
         String postedBy = getContext().getResources().getString(R.string.posted_by);
         TextView association = (TextView) row.findViewById(R.id.news_item_association);
         try {
-            association.setText(String.format(postedBy, Html.fromHtml(item.association.display_name),
-                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE).parse(item.date)));
+            PrettyTime p = new PrettyTime(Hydra.LOCALE);
+            Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE).parse(item.date);
+            CharSequence dateStr = p.format(date);
+
+            association.setText(
+                String.format(postedBy, dateStr, Html.fromHtml(item.association.display_name)));
         } catch (ParseException ex) {
             Log.w("Parse error", "");
             ex.printStackTrace();

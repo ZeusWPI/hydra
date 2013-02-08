@@ -2,6 +2,7 @@ package be.ugent.zeus.hydra;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
@@ -10,6 +11,7 @@ import be.ugent.zeus.hydra.data.NewsItem;
 import com.google.analytics.tracking.android.EasyTracker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -41,8 +43,9 @@ public class NewsItemActivity extends AbstractSherlockActivity {
             if (item.association.full_name != null) {
                 poster += " (" + item.association.full_name + ")";
             }
-            association.setText(String.format(postedBy, Html.fromHtml(poster),
-                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE).parse(item.date)));
+
+            Date date = new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).parse(item.date);
+            association.setText(String.format(postedBy, Html.fromHtml(poster), date));
 
         } catch (ParseException ex) {
             Log.w("Parse error", "");
