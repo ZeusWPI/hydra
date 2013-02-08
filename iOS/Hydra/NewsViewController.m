@@ -67,6 +67,7 @@
     [super viewDidAppear:animated];
     GAI_Track(@"News");
 
+    // TODO: what if there are 0 due to filters
     if (self.newsItems.count == 0) {
         [SVProgressHUD show];
     }
@@ -126,6 +127,19 @@
 - (void)loadNews
 {
     NSArray *newsItems = [AssociationStore sharedStore].newsItems;
+
+    // Filter news items
+    // TODO: move stuff to preferences class
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"useAssociationFilter"]) {
+        NSArray *associations = [defaults objectForKey:@"preferredAssociations"];
+        NSPredicate *pred = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
+            return [associations containsObject:[obj association].internalName] ||
+                   [obj highlighted];
+        }];
+        newsItems = [newsItems filteredArrayUsingPredicate:pred];
+    }
+
     NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
     self.newsItems = [newsItems sortedArrayUsingDescriptors:@[desc]];
 }

@@ -178,8 +178,6 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (void)scheduleTimers
 {
-    // TODO: check if these are still called when the app has gone to background
-
     // Update songs every 30 seconds
     self.updateSongTimer = [NSTimer timerWithTimeInterval:kSongUpdateInterval target:self
                                                  selector:@selector(songUpdateTimerFired:)
@@ -214,7 +212,12 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 {
     DLog(@"Updating current song");
     [self fetchString:kSongResourcePath withCompletion:^(NSString *song) {
+        BOOL isNoSongInfo = [song isEqualToString:kDefaultSongInfo];
         BOOL requiresNotification = ![self.currentSong isEqualToString:song];
+
+        if (!self.currentSong && isNoSongInfo) {
+            return;
+        }
 
         // Just overwrite the currentSong value if it didn't contain info
         if ([self.currentSong isEqualToString:kDefaultSongInfo]) {
