@@ -17,7 +17,7 @@ public class Activity implements Serializable {
     public String description;
     public String url;
     public String facebook_id;
-    public String categories;
-    public boolean highlighted;
+    public String[] categories;
+    public int highlighted;
     public Association association;
 }

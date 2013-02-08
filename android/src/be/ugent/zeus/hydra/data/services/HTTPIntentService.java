@@ -22,7 +22,7 @@ import org.json.JSONObject;
  * @author Thomas Meire
  */
 public abstract class HTTPIntentService extends IntentService {
-    
+
     public static final int STATUS_STARTED = 0x1;
     public static final int STATUS_ERROR = 0x2;
     public static final int STATUS_FINISHED = 0x3;
@@ -78,7 +78,7 @@ public abstract class HTTPIntentService extends IntentService {
                     f.set(instance, parseJsonObject((JSONObject) o, f.getType()));
                 } else if (o.getClass().equals(JSONArray.class)) {
                     f.set(instance, parseJsonArray((JSONArray) o, f.getType().getComponentType()));
-                } else if(o.equals(JSONObject.NULL)) {
+                } else if (o.equals(JSONObject.NULL)) {
                     f.set(instance, null);
                 } else {
                     f.set(instance, o);

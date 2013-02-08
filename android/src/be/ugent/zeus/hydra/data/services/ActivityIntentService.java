@@ -3,6 +3,7 @@ package be.ugent.zeus.hydra.data.services;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.util.Log;
 import be.ugent.zeus.hydra.data.Activity;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import java.text.SimpleDateFormat;
@@ -34,7 +35,7 @@ public class ActivityIntentService extends HTTPIntentService {
         }
 
         try {
-            JSONArray data = new JSONArray(fetch(HYDRA_BASE_URL + "all_activities.xml"));
+            JSONArray data = new JSONArray(fetch(HYDRA_BASE_URL + "all_activities.json"));
             Activity[] activities = parseJsonArray(data, Activity.class);
 
             Map<String, ArrayList<Activity>> groups = new HashMap<String, ArrayList<Activity>>();
@@ -43,7 +44,8 @@ public class ActivityIntentService extends HTTPIntentService {
             for (Activity activity : activities) {
                 /* This is ugly, but it's still neater than converting everything to a Date and
                  * back again to store it */
-                activity.date = activity.start.substring(0, 9);
+                activity.date = activity.start.substring(0, 10);
+                Log.i("Header ID", activity.date);
                 ArrayList<Activity> group = groups.get(activity.date);
                 if (group == null) {
                     group = new ArrayList<Activity>();
@@ -62,6 +64,7 @@ public class ActivityIntentService extends HTTPIntentService {
             if (receiver != null) {
                 receiver.send(STATUS_ERROR, Bundle.EMPTY);
             }
+            e.printStackTrace();
             return;
         }
         if (receiver != null) {
