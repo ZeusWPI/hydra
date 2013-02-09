@@ -77,7 +77,7 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
         if (convertView == null) {
             holder = new HeaderViewHolder();
             convertView = inflater.inflate(R.layout.activity_list_header, parent, false);
-            holder.text1 = (TextView) convertView.findViewById(R.id.text1);
+            holder.header_text = (TextView) convertView.findViewById(R.id.header_text);
             convertView.setTag(holder);
         } else {
             holder = (HeaderViewHolder) convertView.getTag();
@@ -90,7 +90,7 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
         } catch (ParseException ex) {
         }
         String headerChar = new SimpleDateFormat("dd MMMM").format(date);
-        holder.text1.setText(headerChar);
+        holder.header_text.setText(headerChar);
         return convertView;
     }
 
@@ -109,7 +109,7 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
 
     class HeaderViewHolder {
 
-        TextView text1;
+        TextView header_text;
     }
 
     class ViewHolder {
