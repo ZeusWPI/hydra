@@ -13,6 +13,7 @@
 + (UIColor *)hydraTintColor;
 + (UIColor *)hydraBackgroundColor;
 
-+ (UIColor *)detailLabelTextColor;
++ (UIColor *)H_detailLabelTextColor;
++ (UIColor *)H_hintColor;
 
 @end

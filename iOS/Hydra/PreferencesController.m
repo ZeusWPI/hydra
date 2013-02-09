@@ -11,6 +11,7 @@
 
 #define kFilterSection 0
 #define kFilterPref @"useAssociationFilter"
+#define kAssociationsPref @"preferredAssociations"
 
 @implementation PreferencesController
 
@@ -32,6 +33,9 @@
 {
     [super viewDidAppear:animated];
     GAI_Track(@"Voorkeuren");
+
+    // Reload changes
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -55,6 +59,7 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     switch (indexPath.section) {
         case kFilterSection:
             switch (indexPath.row) {
@@ -64,17 +69,19 @@
 
                     CGRect toggleRect = CGRectMake(225, 9, 0, 0);
                     UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
-                    toggle.on = [[NSUserDefaults standardUserDefaults] boolForKey:kFilterPref];
+                    toggle.on = [settings boolForKey:kFilterPref];
                     [toggle addTarget:self action:@selector(filterSwitch:didToggle:)
                                  forControlEvents:UIControlEventValueChanged];
                     [cell addSubview:toggle];
                 } break;
 
-                case 1:
+                case 1: {
                     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                     cell.textLabel.text = @"Verenigingen";
+                    NSArray *associations = [settings objectForKey:kAssociationsPref];
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d geselecteerd", associations.count];
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;
+                } break;
             }
             break;
     }
@@ -107,7 +114,7 @@
         info.shadowColor = [UIColor whiteColor];
         info.shadowOffset = CGSizeMake(0, 1);
         info.textAlignment = UITextAlignmentCenter;
-        info.textColor = [UIColor colorWithWhite:0.2 alpha:1];
+        info.textColor = [UIColor H_hintColor];
 
         UIView *wrapper = [[UIView alloc] initWithFrame:CGRectZero];
         [wrapper addSubview:info];

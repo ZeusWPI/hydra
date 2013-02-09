@@ -33,7 +33,7 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
         self.count = 0;
-        [self refreshActivities];
+        [self loadActivities];
 
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(activitiesUpdated:)
@@ -100,25 +100,37 @@
     [[AssociationStore sharedStore] reloadActivities];
 }
 
-- (void)refreshActivities
+- (void)loadActivities
 {
-    AssociationStore *store = [AssociationStore sharedStore];
+    NSArray *activities = [AssociationStore sharedStore].activities;
+
+    // Filter activities
+    // TODO: move stuff to preferences class
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"useAssociationFilter"]) {
+        NSArray *associations = [defaults objectForKey:@"preferredAssociations"];
+        NSPredicate *pred = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
+            return [associations containsObject:[obj association].internalName] ||
+                   [obj highlighted];
+        }];
+        activities = [activities filteredArrayUsingPredicate:pred];
+    }
 
     // Group activities by day
     NSDate *now = [NSDate date];
     NSMutableDictionary *groups = [[NSMutableDictionary alloc] init];
 
-    for (AssociationActivity *activity in store.activities) {
+    for (AssociationActivity *activity in activities) {
         NSDate *day = [activity.start dateAtStartOfDay];
 
         // Check that activity is not over yet
         if (!activity.end || [activity.end isEarlierThanDate:now]) continue;
 
-        NSMutableArray *activities = groups[day];
-        if (!activities) {
-            groups[day] = activities = [[NSMutableArray alloc] init];
+        NSMutableArray *group = groups[day];
+        if (!group) {
+            groups[day] = group = [[NSMutableArray alloc] init];
         }
-        [activities addObject:activity];
+        [group addObject:activity];
     }
 
     self.days = [[groups allKeys] sortedArrayUsingSelector:@selector(compare:)];
@@ -138,7 +150,7 @@
 
 - (void)activitiesUpdated:(NSNotification *)notification
 {
-    [self refreshActivities];
+    [self loadActivities];
     [self.tableView reloadData];
 
     // Hide or update HUD

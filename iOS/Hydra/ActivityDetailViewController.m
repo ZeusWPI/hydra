@@ -221,7 +221,7 @@
                                           reuseIdentifier:CellIdentifier];
             cell.textLabel.text = @"Toevoegen aan agenda";
             cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-            cell.textLabel.textColor = [UIColor detailLabelTextColor];
+            cell.textLabel.textColor = [UIColor H_detailLabelTextColor];
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
         return cell;
