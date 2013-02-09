@@ -1,24 +1,16 @@
 package be.ugent.zeus.hydra;
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
-import be.ugent.zeus.hydra.R;
-import be.ugent.zeus.hydra.R;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Activity;
+import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
-import be.ugent.zeus.hydra.ui.ActivityAdapter;
-import be.ugent.zeus.hydra.ui.SwipeyTabs;
-import be.ugent.zeus.hydra.ui.SwipeyTabsAdapter;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.google.analytics.tracking.android.EasyTracker;
-
-import java.text.SimpleDateFormat;
+import be.ugent.zeus.hydra.ui.ActivityListAdapter;
+import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,127 +19,55 @@ import java.util.List;
  *
  * @author blackskad
  */
-public class Calendar extends AbstractSherlockActivity {
+public class Calendar extends AbstractSherlockActivity implements OnScrollListener,
+    AdapterView.OnItemClickListener {
 
-    private static final int VIEWABLE_DATES = 7;
-    private ViewPager pager;
-    private SwipeyTabs tabs;
-    private CalendarTabAdapter adapter;
+    private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
+    private int firstVisible;
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         setTitle(R.string.title_calendar);
+        
+        StickyListHeadersListView stickyList = (StickyListHeadersListView) findViewById(R.id.list);
+        stickyList.setOnScrollListener(this);
+        stickyList.setOnItemClickListener(this);
 
-        pager = (ViewPager) findViewById(R.id.pager);
-        tabs = (SwipeyTabs) findViewById(R.id.tabs);
-        pager.setOnPageChangeListener(tabs);
+        if (savedInstanceState != null) {
+            firstVisible = savedInstanceState.getInt(KEY_LIST_POSITION);
+        }
 
-        adapter = new CalendarTabAdapter();
-        pager.setAdapter(adapter);
-        tabs.setAdapter(adapter);
+        ActivityCache cache = ActivityCache.getInstance(this);
+
+        List<Activity> items = new ArrayList<Activity>();
+        for (ArrayList<Activity> subset : cache.getAll()) {
+            items.addAll(subset);
+        }
+
+        stickyList.setAdapter(new ActivityListAdapter(this, items));
+        stickyList.setSelection(firstVisible);
     }
 
-    private class CalendarTabAdapter extends PagerAdapter implements SwipeyTabsAdapter {
-
-        private List<java.util.Calendar> dates;
-        private List<ListView> views = new ArrayList<ListView>(VIEWABLE_DATES);
-
-        public CalendarTabAdapter() {
-            dates = getViewableDates();
-            for (java.util.Calendar date : dates) {
-                List<Activity> activities = ActivityCache.getInstance(Calendar.this).get(
-                    new SimpleDateFormat("dd-MM-yyyy").format(date.getTime()));
-
-                /*
-                 * if (activities == null || activities.isEmpty()) {
-                 * Toast.makeText(this, "No activities available!",
-                 * Toast.LENGTH_SHORT).show(); finish(); }
-                 */
-
-                ListView calendar = new ListView(Calendar.this);
-                calendar.setAdapter(new ActivityAdapter(Calendar.this, null));
-                views.add(calendar);
-            }
-        }
-
-        public int getCount() {
-            return 5;
-        }
-
-        public TextView getTab(final int position, SwipeyTabs root) {
-            java.util.Calendar date = dates.get(position);
-            TextView title = (TextView) LayoutInflater.from(Calendar.this).inflate(R.layout.tab_indicator, null, false);
-            title.setText(getStringFromCalendar(date));
-
-            title.setOnClickListener(new View.OnClickListener() {
-                public void onClick(final View v) {
-                    pager.setCurrentItem(position);
-                }
-            });
-            return title;
-        }
-
-        @Override
-        public Object instantiateItem(View collection, int position) {
-            ((ViewPager) collection).addView(views.get(position), 0);
-
-            return views.get(position);
-        }
-
-        @Override
-        public void destroyItem(View collection, int position, Object view) {
-            ((ViewPager) collection).removeView((View) view);
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((View) object);
-        }
-
-        @Override
-        public void startUpdate(View view) {
-        }
-
-        @Override
-        public void finishUpdate(View view) {
-        }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public void restoreState(Parcelable prclbl, ClassLoader cl) {
-        }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_LIST_POSITION, firstVisible);
     }
 
-    private List<java.util.Calendar> getViewableDates() {
-        List<java.util.Calendar> days = new ArrayList<java.util.Calendar>(VIEWABLE_DATES);
-
-        java.util.Calendar instance = java.util.Calendar.getInstance();
-        for (int i = 0; i < VIEWABLE_DATES; i++) {
-            days.add((java.util.Calendar) instance.clone());
-            instance.add(java.util.Calendar.DATE, 1);
-        }
-        return days;
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem,
+        int visibleItemCount, int totalItemCount) {
+        this.firstVisible = firstVisibleItem;
     }
 
-    private String getStringFromCalendar(java.util.Calendar date) {
-        if (isTodayWithOffset(date, 0)) {
-            return getString(R.string.today);
-        } else if (isTodayWithOffset(date, 1)) {
-            return getString(R.string.tomorrow);
-        }
-        return new SimpleDateFormat("EEEE dd MMM", Hydra.LOCALE).format(date.getTime());
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
     }
 
-    private boolean isTodayWithOffset(java.util.Calendar date, int offset) {
-        java.util.Calendar ref = java.util.Calendar.getInstance();
-
-        ref.add(java.util.Calendar.DATE, offset);
-        return ref.get(java.util.Calendar.DAY_OF_MONTH) == date.get(java.util.Calendar.DAY_OF_MONTH);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "Item " + position + " clicked!", Toast.LENGTH_SHORT).show();
     }
 }

@@ -25,7 +25,7 @@ namespace Hydra
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
-                appbar.ApplicationBar.IsVisible = true;
+                //appbar.ApplicationBar.IsVisible = true;
             }
         }
         
@@ -82,20 +82,20 @@ namespace Hydra
              
         }
 
-        private void MainPanoramaSelectionChangedShowApplicationBar(object sender, SelectionChangedEventArgs e)
-        {
-            var panoramaItem = e.AddedItems[0] as PanoramaItem;
-            if (panoramaItem == null) return;
-            var header = (string) panoramaItem.Name;
-            if(header!=null && !(header.Equals("urgent")||header.Equals("info")))
-            {
-                appbar.ApplicationBar.IsVisible = true;
-            }
-            else
-            {
-                appbar.ApplicationBar.IsVisible = false;
-            }
-        }
+        //private void MainPanoramaSelectionChangedShowApplicationBar(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var panoramaItem = e.AddedItems[0] as PanoramaItem;
+        //    if (panoramaItem == null) return;
+        //    var header = (string) panoramaItem.Name;
+        //    if(header!=null && !(header.Equals("urgent")||header.Equals("info")))
+        //    {
+        //        appbar.ApplicationBar.IsVisible = true;
+        //    }
+        //    else
+        //    {
+        //        appbar.ApplicationBar.IsVisible = false;
+        //    }
+        //}
 
         private void Reload(object sender, EventArgs e)
         {

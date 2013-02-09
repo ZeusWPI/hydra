@@ -85,6 +85,12 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     return [cacheDirectory stringByAppendingPathComponent:@"schamper.archive"];
 }
 
+- (void)reloadArticles
+{
+    [self.objectManager.client.requestCache invalidateAll];
+    [self updateArticles];
+}
+
 - (void)saveStoreCache
 {
     [NSKeyedArchiver archiveRootObject:self toFile:self.class.articleCachePath];
@@ -108,7 +114,6 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
         self.objectManager = [RKObjectManager managerWithBaseURLString:kSchamperUrl];
         [SchamperArticle registerObjectMappingWith:self.objectManager.mappingProvider];
         self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
-        self.objectManager.client.cachePolicy = RKRequestCachePolicyEnabled;
     }
     [self.objectManager loadObjectsAtResourcePath:@"" delegate:self];
 }

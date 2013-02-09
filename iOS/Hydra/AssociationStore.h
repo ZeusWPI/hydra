@@ -22,5 +22,7 @@ extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 + (AssociationStore *)sharedStore;
 
 - (Association *)associationWithName:(NSString *)internalName;
+- (void)reloadNewsItems;
+- (void)reloadActivities;
 
 @end

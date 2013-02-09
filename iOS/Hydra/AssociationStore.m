@@ -161,12 +161,26 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     return _newsItems;
 }
 
+- (void)reloadActivities
+{
+    [self.objectManager.client.requestCache invalidateAll];
+    [self updateResource:kActivitiesResource lastUpdated:nil
+           objectMapping:[AssociationActivity objectMapping]];
+}
+
+- (void)reloadNewsItems
+{
+    [self.objectManager.client.requestCache invalidateAll];
+    [self updateResource:kNewsResource lastUpdated:nil
+           objectMapping:[AssociationNewsItem objectMapping]];
+}
+
 #pragma mark - RestKit Object loading
 
 - (void)updateResource:(NSString *)resource lastUpdated:(NSDate *)lastUpdated objectMapping:(RKObjectMapping *)mapping
 {
     // Check if an update is required
-    if ([lastUpdated timeIntervalSinceNow] > -kUpdateInterval) {
+    if (lastUpdated && [lastUpdated timeIntervalSinceNow] > -kUpdateInterval) {
         return;
     }
 

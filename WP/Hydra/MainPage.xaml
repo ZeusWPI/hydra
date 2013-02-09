@@ -12,11 +12,11 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
-	<phone:PhoneApplicationPage.ApplicationBar>
+	<!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar x:Name="appbar_items"  IsVisible="False" IsMenuEnabled="False">
 			<shell:ApplicationBarIconButton Click="Reload" IconUri="/Assets/AppBar/sync.png" IsEnabled="True" Text="Sync"/>
 		</shell:ApplicationBar>
-	</phone:PhoneApplicationPage.ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>-->
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
@@ -40,100 +40,102 @@
          -->
 
          <!--Panorama control-->
+
+      <!--//SelectionChanged="MainPanoramaSelectionChangedShowApplicationBar">-->
+      <phone:Panorama Name="mainPanorama" Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" >
         
-        <phone:Panorama Name="mainPanorama" Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"  SelectionChanged="MainPanoramaSelectionChangedShowApplicationBar">
-            <phone:PanoramaItem Name="news" Header="Nieuws">
-               <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding NewsItems}" SelectionChanged="NewsItemTapped">
-                    
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextTitle2Style}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                                    <TextBlock Text="{Binding Assocition}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </phone:PanoramaItem>
-            
-            
-            <phone:PanoramaItem Name="activities" Header="Activiteiten">
-                <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding ActivityItems}" SelectionChanged="ActivityItemTapped">
+        <phone:PanoramaItem Name="news" Header="Nieuws">
+          <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding NewsItems}" SelectionChanged="NewsItemTapped">
 
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextTitle2Style}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                                    <TextBlock Text="{Binding Assocition}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </phone:PanoramaItem>
-
-            <!--Panorama item two-->
-            <phone:PanoramaItem Name="schamper" Header="Schamper">
-                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Name="schamperItemsListSelector" Margin="0,-38,-22,2" ItemsSource="{Binding SchamperItems}" SelectionChanged="SchamperItemTapped">
-
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <!--Replace rectangle with image-->
-                                <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
-                                <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                                    <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-                
-            </phone:PanoramaItem>
-
-            <!--Panorama item two-->
-            <phone:PanoramaItem Name="info" Header="Info">
-                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Name="infoItemsListSelector" Margin="0,-38,-22,2" ItemsSource="{Binding InfoItems}" SelectionChanged="InfoItemTapped">
-                   
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <!--Replace rectangle with image-->
-                                <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
-                                <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextLargeStyle}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </phone:PanoramaItem>
-
-            <phone:PanoramaItem Name="resto" Header="Resto Menu">
-                <phone:LongListSelector Margin="0,0,-22,0" ItemsSource="{Binding RestoItems}">
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,-6,0,12">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </phone:PanoramaItem>
+            <phone:LongListSelector.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                  <StackPanel Width="311" Margin="8,-7,0,0">
+                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextTitle2Style}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                    <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                  </StackPanel>
+                </StackPanel>
+              </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+          </phone:LongListSelector>
+        </phone:PanoramaItem>
 
 
-            <phone:PanoramaItem Name="urgent" Header="URGentFM">
-               
-            </phone:PanoramaItem>
+        <phone:PanoramaItem Name="activities" Header="Activiteiten">
+          <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding ActivityItems}" SelectionChanged="ActivityItemTapped">
+
+            <phone:LongListSelector.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                  <StackPanel Width="311" Margin="8,-7,0,0">
+                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextTitle2Style}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                    <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                  </StackPanel>
+                </StackPanel>
+              </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+          </phone:LongListSelector>
+        </phone:PanoramaItem>
+
+        <!--Panorama item two-->
+        <phone:PanoramaItem Name="schamper" Header="Schamper">
+          <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
+          <phone:LongListSelector Name="schamperItemsListSelector" Margin="0,-38,-22,2" ItemsSource="{Binding SchamperItems}" SelectionChanged="SchamperItemTapped">
+
+            <phone:LongListSelector.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                  <!--Replace rectangle with image-->
+                  <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
+                  <StackPanel Width="311" Margin="8,-7,0,0">
+                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                    <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                  </StackPanel>
+                </StackPanel>
+              </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+          </phone:LongListSelector>
+
+        </phone:PanoramaItem>
+
+        <!--Panorama item two-->
+        <phone:PanoramaItem Name="info" Header="Info">
+          <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
+          <phone:LongListSelector Name="infoItemsListSelector" Margin="0,-38,-22,2" ItemsSource="{Binding InfoItems}" SelectionChanged="InfoItemTapped">
+
+            <phone:LongListSelector.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                  <!--Replace rectangle with image-->
+                  <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
+                  <StackPanel Width="311" Margin="8,-7,0,0">
+                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextLargeStyle}" />
+                  </StackPanel>
+                </StackPanel>
+              </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+          </phone:LongListSelector>
+        </phone:PanoramaItem>
+
+        <phone:PanoramaItem Name="resto" Header="Resto Menu">
+          <phone:LongListSelector Margin="0,0,-22,0" ItemsSource="{Binding RestoItems}">
+            <phone:LongListSelector.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Margin="0,-6,0,12">
+                  <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
+                </StackPanel>
+              </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+          </phone:LongListSelector>
+        </phone:PanoramaItem>
 
 
-        </phone:Panorama>
+        <phone:PanoramaItem Name="urgent" Header="URGentFM">
+
+        </phone:PanoramaItem>
+
+
+      </phone:Panorama>
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
             aligned on common boundaries.  The image has a top margin of -32px to

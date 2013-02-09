@@ -19,7 +19,7 @@
     <string name="be.ugent.zeus.hydra.RestoMenu">Resto Menu</string>
     <string name="be.ugent.zeus.hydra.BuildingMap">Resto Map</string>
     <string name="be.ugent.zeus.hydra.SchamperDaily">Schamper</string>
-    <string name="be.ugent.zeus.hydra.GSR">GSR</string>
+    <string name="be.ugent.zeus.hydra.Urgent">Urgent</string>
     <!--  TODO: Add one for Urgent -->
   
     <!--Enable automatic exception tracking-->

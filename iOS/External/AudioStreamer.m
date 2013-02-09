@@ -1861,7 +1861,7 @@ cleanup:
 //  Enable this logging to measure how many buffers are queued at any time.
 //
 #if LOG_QUEUED_BUFFERS
-	NSLog(@"Queued buffers: %ld", buffersUsed);
+	NSLog(@"Queued buffers: %d", buffersUsed);
 #endif
 	
 	pthread_cond_signal(&queueBufferReadyCondition);

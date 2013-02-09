@@ -10,17 +10,11 @@ namespace Hydra.ViewModels
     {
 
         //      example given
-        //[
-        //    {
-        //        "title": "Zeus zoekt medewerkers voor 12urenloop!",
-        //        "association": "ZEUS", // for unknown clubs just use this as the display value
-        //        "date": "2013-02-1T10:00:00Z",
-        //        "content": "Op onze jaarlijkse VTK Jobfair brengen we zoveel mogelijk bedrijven die geÃ¯nteresseerd zijn om ingenieurs aan te werven, samen onder een dak.
-        //</p><p>Aan de verschillende bedrijfsstanden die het ICC vullen, kan je allerhande informatie vergaren en eerste gesprekken aanknopen. Verder zijn er ook bedrijfspresentaties en een gezellige bar. <br />Ook voor eerste masters kan dit een heel interessante dag zijn. Kom allemaal zeker eens een kijkje nemen.
-        //</p><p>De bedrijfspresentaties starten om 13u. Schrijf je onderaan deze pagina in. Na de presentatie word je getrakteerd op een broodje. De volgende bedrijven zullen dit jaar een presentatie geven: <a href=\"http://www.basf.com/group/corporate/en/\">BASF</a>", // markdown rendered as html
-        //    "highlighted": true
-        //    },
-        //]
+        //{"title":"Open repetitie GUK",
+        //"content":"<p>Dinsdag 2 oktober houdt het Gents Universitair Koor haar tweede open repetitie!\nWaar? De Therminal - Trechterzaal. Hoveniersberg 24\nWanneer? 19u45-22u\nAlle ge\u00efnteresseerden welkom<\/p>\n",
+        //"date":"2012-10-01T21:32:35+02:00",
+        //"association":{"internal_name":"GUK","full_name":null,"display_name":"Gents Universitair Koor"},
+        //"highlighted":0}
 
 
         /// <summary>
@@ -54,23 +48,23 @@ namespace Hydra.ViewModels
         public string FullTitle { get; protected set; }
 
 
-        [DataMember(Name = "association")]
-        protected string _assocition;
+        private Association _association;
         /// <summary>
         /// author property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns>the asociation linked to this new item</returns>
-        public string Assocition
+        [DataMember(Name = "association")]
+        public Association Assocition
         {
             get
             {
-                return _assocition;
+                return _association;
             }
             set
             {
-                if (value != _assocition)
+                if (value != _association)
                 {
-                    _assocition = value;
+                    _association = value;
                     NotifyPropertyChanged("association");
                 }
             }
@@ -128,5 +122,28 @@ namespace Hydra.ViewModels
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+
+    [DataContract(Name = "association")]
+    public class Association
+    {
+        [DataMember(Name = "internal_name")]
+        public string In { get; set; }
+
+        private string _fn;
+        
+        [DataMember(Name = "full_name")]
+        public string Fn { 
+            get { return _fn ?? "Onbekend"; }
+            set
+            {
+                 if (_fn != null && value != _fn && value!=null)
+                {
+                    _fn = value;
+                }
+            }
+        }
+        [DataMember(Name = "display_name")]
+        public string Dn { get; set; }
     }
 }

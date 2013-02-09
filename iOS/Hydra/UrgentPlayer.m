@@ -117,7 +117,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     DLog(@"%d", self.state);
 
     // Update timers
-    if (!self.isIdle) {
+    if (self.isWaiting || self.isPlaying) {
         // The state of updateSongTimer and updateShowTimer should always be equal
         if (![self.updateSongTimer isValid]) {
             [self scheduleTimers];
@@ -125,44 +125,54 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     }
     else {
         [self cancelTimers];
+        self.currentShow = nil;
+        self.currentSong = nil;
+        self.previousSong = nil;
     }
 
+    [self updateNowPlaying];
+}
+
+- (void)updateNowPlaying
+{
     // Available since iOS5
-    if ([MPNowPlayingInfoCenter class]) {
-        MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
-        if (self.isPlaying) {
-            // Cover art
-            UIImage *cover = [UIImage imageNamed:@"nowplaying-urgent"];
-            MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:cover];
+    if (![MPNowPlayingInfoCenter class]) {
+        return;
+    }
 
-            // Meta-data
-            NSString *albumTitle = @"Urgent.fm";
-            if (self.currentShow) {
-                albumTitle = [self.currentShow stringByAppendingString:@" - Urgent.fm"];
-            }
-            NSString *title;
-            if (self.currentSong && ![self.currentSong isEqualToString:kDefaultSongInfo]) {
-                title = self.currentSong;
-            }
-            else {
-                title = albumTitle;
-                albumTitle = @"";
-            }
+    MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
+    if (self.isPlaying) {
+        // Cover art
+        UIImage *cover = [UIImage imageNamed:@"urgent-nowplaying.jpg"];
+        MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:cover];
 
-            center.nowPlayingInfo = @{
-                MPMediaItemPropertyTitle: title,
-                MPMediaItemPropertyAlbumTitle: albumTitle,
-                MPMediaItemPropertyArtwork: artwork
-            };
+        // Meta-data
+        NSString *albumTitle = @"Urgent.fm";
+        if (self.currentShow) {
+            albumTitle = [self.currentShow stringByAppendingString:@" - Urgent.fm"];
         }
-        else if (self.isPaused) {
-            center.nowPlayingInfo = @{
-                MPMediaItemPropertyTitle: @"Urgent.fm"
-            };
+        NSString *title;
+        if (self.currentSong && ![self.currentSong isEqualToString:kDefaultSongInfo]) {
+            title = self.currentSong;
         }
         else {
-            center.nowPlayingInfo = nil;
+            title = albumTitle;
+            albumTitle = @"";
         }
+
+        center.nowPlayingInfo = @{
+            MPMediaItemPropertyTitle: title,
+            MPMediaItemPropertyAlbumTitle: albumTitle,
+            MPMediaItemPropertyArtwork: artwork
+        };
+    }
+    else if (self.isPaused) {
+        center.nowPlayingInfo = @{
+            MPMediaItemPropertyTitle: @"Urgent.fm"
+        };
+    }
+    else {
+        center.nowPlayingInfo = nil;
     }
 }
 
@@ -202,18 +212,25 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 {
     DLog(@"Updating current song");
     [self fetchString:kSongResourcePath withCompletion:^(NSString *song) {
+        BOOL isNoSongInfo = [song isEqualToString:kDefaultSongInfo];
         BOOL requiresNotification = ![self.currentSong isEqualToString:song];
+
+        if (!self.currentSong && isNoSongInfo) {
+            return;
+        }
 
         // Just overwrite the currentSong value if it didn't contain info
         if ([self.currentSong isEqualToString:kDefaultSongInfo]) {
             self.currentSong = song;
         }
-        else {
+        else if (![self.currentSong isEqualToString:song]) {
             self.previousSong = self.currentSong;
             self.currentSong = song;
         }
 
+        [self updateNowPlaying];
         if (requiresNotification) {
+            DLog(@"currentSong = %@, previousSong = %@", self.currentSong, self.previousSong);
             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
             [center postNotificationName:UrgentPlayerDidUpdateSongNotification object:self];
         }
@@ -224,9 +241,11 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 {
     DLog(@"Updating current show");
     [self fetchString:kShowResourcePath withCompletion:^(NSString *show) {
-        VLog(show);
         if (![self.currentShow isEqualToString:show]) {
+            DLog(@"currentShow = %@", show);
             self.currentShow = show;
+            [self updateNowPlaying];
+
             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
             [center postNotificationName:UrgentPlayerDidUpdateShowNotification object:self];
         }
@@ -241,7 +260,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
         NSError *error = nil;
         NSString *result = [NSString stringWithContentsOfURL:resourceUrl
-                                                    encoding:NSUTF8StringEncoding
+                                                    encoding:NSISOLatin1StringEncoding
                                                        error:&error];
         NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
         result = [result stringByTrimmingCharactersInSet:set];

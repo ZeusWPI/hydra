@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:background="@drawable/activity_list_item_border"
-              android:layout_width="fill_parent"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:paddingBottom="10dp"
-              android:paddingLeft="10dp">
-
-    <TextView android:id="@+id/activity_item_title"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="3dp"
-              android:textStyle="bold"
-              android:textSize="17sp" />
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp">
+    
     <TextView android:id="@+id/activity_item_time_location"
-              android:layout_width="fill_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginTop="5dp" />
-    <TextView android:id="@+id/activity_item_association"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="3dp" />
+              android:textSize="30dp" 
+              android:background="#ff0000" 
+              android:gravity="center"/>
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView android:id="@+id/activity_item_title"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:layout_marginBottom="3dp"
+                  android:textColor="@color/ugent_blue_dark"
+                  android:textStyle="bold"
+                  android:textSize="20dp"
+                  android:background="#0000ff" 
+                  android:maxLines="1"
+                  android:ellipsize="end" />
+    
+        <TextView android:id="@+id/activity_item_association"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="15dp"
+                  android:background="#00ff00" 
+                  android:maxLines="1"
+                  android:ellipsize="end" />
+    </LinearLayout>
+    
+    
 </LinearLayout>
+

@@ -1,10 +1,9 @@
 package be.ugent.zeus.hydra.data.caches;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.content.Context;
 import be.ugent.zeus.hydra.data.NewsItem;
+import java.io.File;
+import java.util.ArrayList;
 
 public class NewsCache extends Cache<ArrayList<NewsItem>> {
 

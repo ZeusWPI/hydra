@@ -98,15 +98,7 @@
 
     NSMutableArray *fields = [[NSMutableArray alloc] init];
     fields[kTitleRow] = self.activity.title;
-
-    Association *association = self.activity.association;
-    if (association.fullName) {
-        fields[kAssociationRow] = [NSString stringWithFormat:@"%@ (%@)",
-                                   association.displayName, association.fullName];
-    }
-    else {
-        fields[kAssociationRow] = association.displayName;
-    }
+    fields[kAssociationRow] = self.activity.association.displayedFullName;
 
     if (self.activity.end) {
         fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
@@ -118,11 +110,7 @@
     }
 
     fields[kLocationRow] = self.activity.location ? self.activity.location : @"";
-
     fields[kDescriptionRow] = self.activity.html_description ? self.activity.html_description : @"";
-    if (self.activity.html_description != nil){
-        VLog(self.activity.html_description);
-    }
 
     self.fields = fields;
 }
@@ -285,7 +273,7 @@
                                           reuseIdentifier:CellIdentifier];
             cell.textLabel.text = @"Toevoegen aan agenda";
             cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-            cell.textLabel.textColor = [UIColor detailLabelTextColor];
+            cell.textLabel.textColor = [UIColor H_detailLabelTextColor];
             cell.textLabel.textAlignment = UITextAlignmentCenter;
         }
         return cell;

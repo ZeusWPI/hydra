@@ -33,7 +33,7 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
         self.count = 0;
-        [self refreshActivities];
+        [self loadActivities];
 
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(activitiesUpdated:)
@@ -58,6 +58,15 @@
                                                            target:self action:@selector(dateButtonTapped:)];
     btn.enabled = self.days.count > 0;
     self.navigationItem.rightBarButtonItem = btn;
+
+    if ([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.tintColor = [UIColor hydraTintColor];
+        [refreshControl addTarget:self action:@selector(didPullRefreshControl:)
+                 forControlEvents:UIControlEventValueChanged];
+
+        self.refreshControl = refreshControl;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,25 +95,42 @@
     [SVProgressHUD dismiss];
 }
 
-- (void)refreshActivities
+- (void)didPullRefreshControl:(id)sender
 {
-    AssociationStore *store = [AssociationStore sharedStore];
+    [[AssociationStore sharedStore] reloadActivities];
+}
+
+- (void)loadActivities
+{
+    NSArray *activities = [AssociationStore sharedStore].activities;
+
+    // Filter activities
+    // TODO: move stuff to preferences class
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"useAssociationFilter"]) {
+        NSArray *associations = [defaults objectForKey:@"preferredAssociations"];
+        NSPredicate *pred = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
+            return [associations containsObject:[obj association].internalName] ||
+                   [obj highlighted];
+        }];
+        activities = [activities filteredArrayUsingPredicate:pred];
+    }
 
     // Group activities by day
     NSDate *now = [NSDate date];
     NSMutableDictionary *groups = [[NSMutableDictionary alloc] init];
 
-    for (AssociationActivity *activity in store.activities) {
+    for (AssociationActivity *activity in activities) {
         NSDate *day = [activity.start dateAtStartOfDay];
 
         // Check that activity is not over yet
         if (!activity.end || [activity.end isEarlierThanDate:now]) continue;
 
-        NSMutableArray *activities = groups[day];
-        if (!activities) {
-            groups[day] = activities = [[NSMutableArray alloc] init];
+        NSMutableArray *group = groups[day];
+        if (!group) {
+            groups[day] = group = [[NSMutableArray alloc] init];
         }
-        [activities addObject:activity];
+        [group addObject:activity];
     }
 
     self.days = [[groups allKeys] sortedArrayUsingSelector:@selector(compare:)];
@@ -124,7 +150,7 @@
 
 - (void)activitiesUpdated:(NSNotification *)notification
 {
-    [self refreshActivities];
+    [self loadActivities];
     [self.tableView reloadData];
 
     // Hide or update HUD
@@ -136,6 +162,10 @@
             NSString *errorMsg = @"Geen activiteiten gevonden";
             [SVProgressHUD showErrorWithStatus:errorMsg];
         }
+    }
+
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
     }
 }
 
@@ -171,33 +201,38 @@
 {
     UILabel *titleLabel, *subtitleLabel;
 
-	static NSString *CellIdentifier = @"ActivityCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:CellIdentifier];
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
-        cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+    NSDate *date = self.days[indexPath.section];
+    AssociationActivity *activity = self.data[date][indexPath.row];
+    static NSString *NoHighlightCellIdentifier = @"ActivityCellNoHighlight";
+    static NSString *HighlightCellIdentifier = @"ActivityCellHighlight";
+    UITableViewCell *cell;
 
-        CGRect titleFrame = CGRectMake(60, 4, 250, 20);
-        titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
-        titleLabel.tag = kCellTitleLabel;
-        titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
-        titleLabel.highlightedTextColor = [UIColor whiteColor];
-        [cell.contentView addSubview:titleLabel];
-
-        CGRect subtitleFrame = CGRectMake(60, 24, 250, 16);
-        subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
-        subtitleLabel.tag = kCellSubtitleLabel;
-        subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
-        subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
-        subtitleLabel.highlightedTextColor = [UIColor whiteColor];
-        [cell.contentView addSubview:subtitleLabel];
+    if (!activity.highlighted) {
+        // request cell without the special star view
+        cell = [tableView dequeueReusableCellWithIdentifier:NoHighlightCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:NoHighlightCellIdentifier];
+            [self setupCell:cell withWidth:250];
+        }
     }
     else {
-        titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
-        subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
+        // request cell with special star view
+        cell = [tableView dequeueReusableCellWithIdentifier:HighlightCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:HighlightCellIdentifier];
+            [self setupCell:cell withWidth:220];
+
+            UIImageView *star = [[UIImageView alloc] initWithImage:
+                                 [UIImage imageNamed:@"icon-star"]];
+            star.frame = CGRectMake(286, 8, 27, 27);
+            [cell.contentView addSubview:star];
+        }
+
     }
+    titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
+    subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
 
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
@@ -205,14 +240,32 @@
         dateFormatter.dateFormat = @"HH.mm";
     }
 
-    NSDate *date = self.days[indexPath.section];
-    AssociationActivity *activity = self.data[date][indexPath.row];
-
     cell.textLabel.text = [dateFormatter stringFromDate:activity.start];
     titleLabel.text = activity.title;
     subtitleLabel.text = activity.association.displayName;
 
     return cell;
+}
+
+- (void)setupCell:(UITableViewCell *)cell withWidth:(int)width
+{
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+    cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+
+    CGRect titleFrame = CGRectMake(60, 4, width, 20);
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
+    titleLabel.tag = kCellTitleLabel;
+    titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+    titleLabel.highlightedTextColor = [UIColor whiteColor];
+    [cell.contentView addSubview:titleLabel];
+
+    CGRect subtitleFrame = CGRectMake(60, 24, width, 16);
+    UILabel *subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
+    subtitleLabel.tag = kCellSubtitleLabel;
+    subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
+    subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
+    subtitleLabel.highlightedTextColor = [UIColor whiteColor];
+    [cell.contentView addSubview:subtitleLabel];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

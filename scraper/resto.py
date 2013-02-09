@@ -55,26 +55,27 @@ def parse_menu_from_html(page):
 	for row in rows:
 		cells = row.xpathEval('.//td')
 
-		if len(cells[0].content.strip()) != 0:
+		if cells[2].content.lower().strip() == 'gesloten':
+			menu[day]['open'] = False
+
+		elif cells[0].content.strip() != '':
 			# first row of a day
 			day = str(friday - timedelta(dayOfWeek))
 			dayOfWeek -= 1
 			menu[day] = {}
-			if cells[2].content.strip() == 'Gesloten':
-				menu[day]['open'] = False
-			else:
+			if cells[1].content.strip() != '':
 				menu[day]['open'] = True
 				menu[day]['soup'] = {'name' : cells[1].content.strip()}
 				menu[day]['meat'] = get_meat_and_price(cells[2])
 				menu[day]['vegetables'] = [cells[3].content.strip()]
 
-		elif len(cells[1].content.strip()) != 0 and menu[day]['open']:
+		elif cells[1].content.strip() != '' and menu[day]['open']:
 			# second row of a day
 			menu[day]['soup']['price'] = cells[1].content.strip()
 			menu[day]['meat'].extend(get_meat_and_price(cells[2]))
 			menu[day]['vegetables'].append(cells[3].content.strip())
 
-		elif len(cells[2].content.strip()) != 0 and menu[day]['open']:
+		elif cells[2].content.strip() != '' and menu[day]['open']:
 			# the third and forth row of a day (sometimes it's empty)
 			menu[day]['meat'].extend(get_meat_and_price(cells[2]))
 

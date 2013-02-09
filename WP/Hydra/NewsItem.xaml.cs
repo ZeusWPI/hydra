@@ -8,7 +8,7 @@ namespace Hydra
 {
     public partial class NewsItem : PhoneApplicationPage
     {
-        private const string Header = "<html><head><link rel='stylesheet' type='text/css' href='../Resources/webview.css'></head><body>";
+        private const string Header = "<html><head><link rel='stylesheet' type='text/css' href='~/Resources/webview.css'></head><body>";
         public NewsItem()
         {
             InitializeComponent();

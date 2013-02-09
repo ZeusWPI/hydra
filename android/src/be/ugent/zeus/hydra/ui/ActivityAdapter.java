@@ -55,7 +55,7 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
         locationView.setText(Html.fromHtml(String.format(location, activity.start, activity.end, activity.location)));
 
         TextView association = (TextView) row.findViewById(R.id.activity_item_association);
-        association.setText(Html.fromHtml(activity.association_id));
+        association.setText(Html.fromHtml(activity.association.full_name));
 
         return row;
     }

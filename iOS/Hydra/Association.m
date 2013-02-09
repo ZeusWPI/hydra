@@ -53,10 +53,39 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
         assoc.displayName = props[@"displayName"];
         assoc.fullName = props[@"fullName"];
         assoc.internalName = props[@"internalName"];
+        assoc.parentAssociation = props[@"parentAssociation"];
 
         associations[assoc.internalName] = assoc;
     }
     return associations;
+}
+
+- (NSString *)displayedFullName
+{
+    if (_fullName) {
+        return [NSString stringWithFormat:@"%@ (%@)", _displayName, _fullName];
+    }
+    else {
+        return _displayName;
+    }
+}
+
+- (NSString *)fullName
+{
+    if (_fullName) {
+        return _fullName;
+    }
+    else {
+        return _displayName;
+    }
+}
+
+- (BOOL)matches:(NSString *)query
+{
+    NSStringCompareOptions opts = NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch;
+    return [_internalName rangeOfString:query options:opts].location != NSNotFound ||
+           [_displayName rangeOfString:query options:opts].location != NSNotFound ||
+           [_fullName rangeOfString:query options:opts].location != NSNotFound;
 }
 
 - (NSString *)description
@@ -82,6 +111,7 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
         self.displayName = [coder decodeObjectForKey:@"displayName"];
         self.fullName = [coder decodeObjectForKey:@"fullName"];
         self.internalName = [coder decodeObjectForKey:@"internalName"];
+        self.parentAssociation = [coder decodeObjectForKey:@"parentAssociation"];
     }
     return self;
 }
@@ -91,6 +121,7 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
     [coder encodeObject:self.displayName forKey:@"displayName"];
     [coder encodeObject:self.fullName forKey:@"fullName"];
     [coder encodeObject:self.internalName forKey:@"internalName"];
+    [coder encodeObject:self.parentAssociation forKey:@"parentAssociation"];
 }
 
 #pragma mark - NSCopying

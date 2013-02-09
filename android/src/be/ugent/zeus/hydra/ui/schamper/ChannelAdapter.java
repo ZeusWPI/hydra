@@ -11,6 +11,7 @@ import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.rss.Channel;
 import be.ugent.zeus.hydra.data.rss.Item;
 import java.text.SimpleDateFormat;
+import org.ocpsoft.prettytime.PrettyTime;
 
 /**
  *
@@ -38,8 +39,9 @@ public class ChannelAdapter extends ArrayAdapter<Item> {
         String postedBy = getContext().getResources().getString(R.string.posted_by);
 
         TextView date = (TextView) row.findViewById(R.id.schamper_item_date);
-        date.setText(String.format(postedBy, item.creator,
-            new SimpleDateFormat("EEEE dd MMM yyyy hh:mm", Hydra.LOCALE).format(item.pubDate)));
+
+
+        date.setText(String.format(postedBy, new PrettyTime(Hydra.LOCALE).format(item.pubDate), item.creator));
         return row;
     }
 }

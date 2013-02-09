@@ -9,7 +9,7 @@
 #import "NewsViewController.h"
 #import "AssociationStore.h"
 #import "AssociationNewsItem.h"
-#import "NewsItemViewController.h"
+#import "NewsDetailViewController.h"
 #import "AssociationNewsItem.h"
 #import "Association.h"
 #import "NSDateFormatter+AppLocale.h"
@@ -23,7 +23,7 @@
 
 @implementation NewsViewController
 
-- (id) init
+- (id)init
 {
     if (self = [super init]) {
         // Check for updates
@@ -32,7 +32,7 @@
                        name:AssociationStoreDidUpdateNewsNotification
                      object:nil];
 
-        self.newsItems = [AssociationStore sharedStore].newsItems;
+        [self loadNews];
     }
     return self;
 }
@@ -46,6 +46,20 @@
 {
     [super viewDidLoad];
     self.title = @"Nieuws";
+
+    if ([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.tintColor = [UIColor hydraTintColor];
+        [refreshControl addTarget:self action:@selector(didPullRefreshControl:)
+                 forControlEvents:UIControlEventValueChanged];
+
+        self.refreshControl = refreshControl;
+    }
+}
+
+- (void)didPullRefreshControl:(id)sender
+{
+    [[AssociationStore sharedStore] reloadNewsItems];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -53,6 +67,7 @@
     [super viewDidAppear:animated];
     GAI_Track(@"News");
 
+    // TODO: what if there are 0 due to filters
     if (self.newsItems.count == 0) {
         [SVProgressHUD show];
     }
@@ -91,20 +106,48 @@
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
-        dateFormatter.dateFormat = @"EEEE d MMMM";
+        dateFormatter.dateFormat = @"EE d MMM";
     }
 
-    NSString *detailText = [NSString stringWithFormat:@"%@, %@", association.displayName, [dateFormatter stringFromDate:newsItem.date]];
+    NSString *detailText = [NSString stringWithFormat:@"%@, %@", [dateFormatter stringFromDate:newsItem.date], association.displayName];
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
+
+    if (newsItem.highlighted) {
+        UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-star"]];
+        cell.accessoryView = star;
+    }
+    else {
+        cell.accessoryView = nil;
+    }
     
     return cell;
+}
+
+- (void)loadNews
+{
+    NSArray *newsItems = [AssociationStore sharedStore].newsItems;
+
+    // Filter news items
+    // TODO: move stuff to preferences class
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"useAssociationFilter"]) {
+        NSArray *associations = [defaults objectForKey:@"preferredAssociations"];
+        NSPredicate *pred = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
+            return [associations containsObject:[obj association].internalName] ||
+                   [obj highlighted];
+        }];
+        newsItems = [newsItems filteredArrayUsingPredicate:pred];
+    }
+
+    NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    self.newsItems = [newsItems sortedArrayUsingDescriptors:@[desc]];
 }
 
 - (void)newsUpdated:(NSNotification *)notification
 {
     DLog(@"Updating tableView for news items");
-    self.newsItems = [AssociationStore sharedStore].newsItems;
+    [self loadNews];
     [self.tableView reloadData];
 
     // Hide or update HUD
@@ -117,6 +160,10 @@
             [SVProgressHUD showErrorWithStatus:errorMsg];
         }
     }
+    
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
+    }
 }
 
 #pragma mark - Table view delegate
@@ -124,7 +171,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AssociationNewsItem *item = self.newsItems[indexPath.row];
-    NewsItemViewController *c = [[NewsItemViewController alloc] initWithNewsItem:item];
+    NewsDetailViewController *c = [[NewsDetailViewController alloc] initWithNewsItem:item];
     [self.navigationController pushViewController:c animated:YES];
 }
 
