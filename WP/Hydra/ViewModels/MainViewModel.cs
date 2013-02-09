@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System;
@@ -9,6 +10,8 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Hydra.ViewModels
 {
@@ -17,8 +20,8 @@ namespace Hydra.ViewModels
         private const string SchamperApi = "http://zeus.ugent.be/hydra/api/1.0/schamper/daily.xml";
         private const string ActivityApi = "http://student.ugent.be/hydra/api/1.0/all_activities.json";
         private const string NewsApi = "http://student.ugent.be/hydra/api/1.0/all_news.json";
-        private const string RestoApi = "";
-        
+        private const string RestoApi = "http://zeus.ugent.be/hydra/api/1.0/resto/week/";
+
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
@@ -26,15 +29,15 @@ namespace Hydra.ViewModels
         public ObservableCollection<ActivityItemsViewModel> ActivityItems { get; private set; }
         public ObservableCollection<SchamperItemsViewModel> SchamperItems { get; private set; }
         public ObservableCollection<InfoItemsViewModel> InfoItems { get; private set; }
-        public ObservableCollection<RestoItemsViewModel> RestoItems { get; private set; }
-       
+        public ObservableCollection<RestoItemsViewModel> RestoItems { get; private set; } 
+
         public MainViewModel()
         {
             NewsItems = new ObservableCollection<NewsItemViewModel>();
-            ActivityItems=new ObservableCollection<ActivityItemsViewModel>();
-            SchamperItems=new ObservableCollection<SchamperItemsViewModel>();
-            InfoItems=new ObservableCollection<InfoItemsViewModel>();
-            RestoItems=new ObservableCollection<RestoItemsViewModel>();
+            ActivityItems = new ObservableCollection<ActivityItemsViewModel>();
+            SchamperItems = new ObservableCollection<SchamperItemsViewModel>();
+            InfoItems = new ObservableCollection<InfoItemsViewModel>();
+            RestoItems = new ObservableCollection<RestoItemsViewModel>();
         }
 
         public bool IsDataLoaded
@@ -43,18 +46,18 @@ namespace Hydra.ViewModels
             private set;
         }
 
+
+
         /// <summary>
         /// Creates and adds a few ItemViewModel objects into the NewsItems collection.
         /// </summary>
         public void LoadData()
         {
             LoadNews();
+            LoadResto();
             LoadActivities();
             LoadSchamper();
             LoadInfo();
-         
-
-            IsDataLoaded = true;
         }
 
         public void LoadSchamper()
@@ -82,15 +85,52 @@ namespace Hydra.ViewModels
         }
         public void LoadResto()
         {
-            throw new NotImplementedException();
+            var week = new CultureInfo("nl-BE").Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay,
+                                                                        DayOfWeek.Monday);
+            var fetch = new WebClient();
+            fetch.DownloadStringCompleted += ProcessResto;
+            fetch.DownloadStringAsync(new Uri(RestoApi + week + ".json"));
+            IsDataLoaded = false;
+
+        }
+
+        public void  ProcessResto(object sender, DownloadStringCompletedEventArgs e)
+        {
+            var ob = (JObject)JsonConvert.DeserializeObject(e.Result);
+
+            foreach (var day in ob)
+            {
+               // if (DateTime.Parse(day.Key) > DateTime.Now) continue;
+                bool open;
+                try
+                {
+                    open = (bool) day.Value.ElementAt(1).ElementAt(0);
+                }catch(Exception)
+                {
+                    //closed
+                    continue;
+                }
+                var dishes= (from daydish in day.Value.ElementAt(0)
+                             from ddish in daydish.Distinct()
+                             select new Dish
+                                        {
+                                            Name = (string) ddish["name"], Price = (string) ddish["price"], Recommended = (bool) ddish["recommended"]
+                                        }).ToList();
+
+                var soup = day.Value.ElementAt(2).Values().Select(soupp => (string) soupp).ToList();
+                var veg = day.Value.ElementAt(3).Values().Select(veggie => (string) veggie).ToList();
+                RestoItems.Add(new RestoItemsViewModel {Day = new Day {Dishes = dishes,Date = day.Key,Open = open, Soup = soup, Vegetables = veg}});      
+            }
+
+            IsDataLoaded = true;
         }
 
 
         public void ProcessNews(object sender, DownloadStringCompletedEventArgs e)
         {
-             var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
-             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
-                var list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
+            var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+            var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
+            var list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
 
             foreach (var newsItemView in list)
             {
@@ -116,50 +156,50 @@ namespace Hydra.ViewModels
 
         public void LoadInfo()
         {
-            
-                var document = XElement.Load("Resources/info-content.plist");
+
+            var document = XElement.Load("Resources/info-content.plist");
 
 
-                foreach (var element in document.Elements())
+            foreach (var element in document.Elements())
+            {
+                if (element.Name == "array")
                 {
-                    if (element.Name == "array")
+                    foreach (var dict in element.Elements(XName.Get("dict")))
                     {
-                        foreach (var dict in element.Elements(XName.Get("dict")))
+                        string title = null, imagePath = null, link = null;
+                        var subcontent = new List<InfoItemsViewModel>();
+                        foreach (var node in dict.Elements())
                         {
-                            string title = null, imagePath = null, link = null;
-                            var subcontent = new List<InfoItemsViewModel>();
-                            foreach (var node in dict.Elements())
+
+                            var el = (XElement)node.NextNode;
+                            if (el != null && node.Value == "title")
                             {
-                               
-                                var el=(XElement)node.NextNode;
-                                if (el != null && node.Value == "title")
-                                {
-                                    
-                                    title = el.Value;
-                                }
-                                if (el != null && node.Value == "image")
-                                {
 
-                                    imagePath = el.Value+"@2x";
-                                }
-                                if (el != null && node.Value == "html")
-                                {
-
-                                    link = el.Value;
-                                }
-
-                                if (node.Value == "subcontent")
-                                {
-                                    if (el != null)
-                                        subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel {Title = ((XElement) xElement.NextNode).Value, Link = ((XElement) xElement.NextNode.NextNode.NextNode).Value});
-                                }
-
+                                title = el.Value;
                             }
-                            InfoItems.Add(new InfoItemsViewModel {Children = subcontent,ImagePath = imagePath,Link = link,Title = title});
-                            
+                            if (el != null && node.Value == "image")
+                            {
+
+                                imagePath = el.Value + "@2x";
+                            }
+                            if (el != null && node.Value == "html")
+                            {
+
+                                link = el.Value;
+                            }
+
+                            if (node.Value == "subcontent")
+                            {
+                                if (el != null)
+                                    subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel { Title = ((XElement)xElement.NextNode).Value, Link = ((XElement)xElement.NextNode.NextNode.NextNode).Value });
+                            }
+
                         }
+                        InfoItems.Add(new InfoItemsViewModel { Children = subcontent, ImagePath = imagePath, Link = link, Title = title });
+
                     }
                 }
+            }
         }
 
         public void ProcessSchamper(object sender, DownloadStringCompletedEventArgs e)
@@ -171,11 +211,11 @@ namespace Hydra.ViewModels
             if (xElement != null)
                 foreach (var schamperItem in xElement.Elements())
                 {
-                    if(schamperItem.Name=="item")
+                    if (schamperItem.Name == "item")
                     {
                         var dc = XNamespace.Get("http://purl.org/dc/elements/1.1/");
-                        string date=null,author = null, title = null, image = null, content = null;
-                        var element = schamperItem.Element(dc+"creator");
+                        string date = null, author = null, title = null, image = null, content = null;
+                        var element = schamperItem.Element(dc + "creator");
                         if (element != null)
                         {
                             author = element.Value;
@@ -194,9 +234,9 @@ namespace Hydra.ViewModels
                         if (element != null)
                         {
                             content = element.Value;
-                            string[] inputs = {content};
+                            string[] inputs = { content };
                             const string pattern = @"(https?:)?//?[^''""<>]+?\.(jpg|jpeg|gif|png)";
-                            
+
                             var rgx = new Regex(pattern, RegexOptions.IgnoreCase);
 
                             foreach (string input in inputs)
@@ -205,14 +245,14 @@ namespace Hydra.ViewModels
                                 if (matches.Count > 0)
                                 {
                                     foreach (Match match in matches)
-                                        image=match.Value;
+                                        image = match.Value;
                                 }
                             }
 
 
                         }
                         if (SchamperItems != null)
-                            SchamperItems.Add(new SchamperItemsViewModel {Author = author,Content = content,ImagePath = image,Title = title,Date = date});
+                            SchamperItems.Add(new SchamperItemsViewModel { Author = author, Content = content, ImagePath = image, Title = title, Date = date });
                     }
                 }
             IsDataLoaded = true;
@@ -228,6 +268,6 @@ namespace Hydra.ViewModels
             }
         }
 
-        
+
     }
 }

@@ -5,18 +5,21 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Hydra="clr-namespace:Hydra"
+                            mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
-	<!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar x:Name="appbar_items"  IsVisible="False" IsMenuEnabled="False">
-			<shell:ApplicationBarIconButton Click="Reload" IconUri="/Assets/AppBar/sync.png" IsEnabled="True" Text="Sync"/>
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar IsVisible="False">
+			<shell:ApplicationBar.MenuItems>
+				<shell:ApplicationBarMenuItem IsEnabled="True" Text="Legende"/>
+				<shell:ApplicationBarMenuItem IsEnabled="True" Text="Locaties resto's"/>
+			</shell:ApplicationBar.MenuItems>
 		</shell:ApplicationBar>
-	</phone:PhoneApplicationPage.ApplicationBar>-->
+	</phone:PhoneApplicationPage.ApplicationBar>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
@@ -40,9 +43,9 @@
          -->
 
          <!--Panorama control-->
+        
 
-      <!--//SelectionChanged="MainPanoramaSelectionChangedShowApplicationBar">-->
-      <phone:Panorama Name="mainPanorama" Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" >
+        <phone:Panorama Name="mainPanorama" Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"  SelectionChanged="MainPanoramaSelectionChangedShowApplicationBar">
         
         <phone:PanoramaItem Name="news" Header="Nieuws">
           <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding NewsItems}" SelectionChanged="NewsItemTapped">
@@ -117,24 +120,52 @@
           </phone:LongListSelector>
         </phone:PanoramaItem>
 
-        <phone:PanoramaItem Name="resto" Header="Resto Menu">
-          <phone:LongListSelector Margin="0,0,-22,0" ItemsSource="{Binding RestoItems}">
-            <phone:LongListSelector.ItemTemplate>
-              <DataTemplate>
-                <StackPanel Margin="0,-6,0,12">
-                  <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
-                </StackPanel>
-              </DataTemplate>
-            </phone:LongListSelector.ItemTemplate>
-          </phone:LongListSelector>
-        </phone:PanoramaItem>
+        <phone:PanoramaItem Name="resto" Header="Resto Menu" Height="611" >
+                <Grid HorizontalAlignment="Left" Height="483" VerticalAlignment="Top" Width="420">
+                    <Button Content="Vorige" HorizontalAlignment="Left" Margin="0,-58,0,0" VerticalAlignment="Top" Click="Back"/>
+                    <Button Content="Volgende" HorizontalAlignment="Left" Margin="272,-58,0,0" VerticalAlignment="Top" Click="Next" />
+                    <Image HorizontalAlignment="Left" Height="60" Margin="10,10,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/icon-meal@2x.png"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[0].Name}" VerticalAlignment="Top" Margin="10,70,0,0" Height="26" Width="288"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[1].Name}" VerticalAlignment="Top" Margin="10,96,0,0" Height="26" Width="288"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[2].Name}" VerticalAlignment="Top" Margin="10,122,0,0" Height="26" Width="288"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[3].Name}" VerticalAlignment="Top" Margin="10,153,0,0" Height="26" Width="288"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="75,39,0,0" Height="26" Width="107" RenderTransformOrigin="1.449,0.154">
+                    	<Run Text="Vlees"/>
+                    	<LineBreak/>
+                    	<Run/>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="303,39,0,0" Height="26" Width="107">
+                    	<Run Text="Prijs"/>
+                    	<Run/>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[0].Price}" VerticalAlignment="Top" Margin="303,65,0,0" Height="26" Width="76"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[1].Price}" VerticalAlignment="Top" Margin="303,96,0,0" Height="26" Width="76"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[2].Price}" VerticalAlignment="Top" Margin="303,122,0,0" Height="26" Width="76" RenderTransformOrigin="1.944,1.692"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[3].Price}" VerticalAlignment="Top" Margin="303,148,0,0" Height="26" Width="76"/>
+                    <Image HorizontalAlignment="Left" Height="60" Margin="10,171,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/icon-soup@2x.png"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="75,200,0,0" Height="26" Width="107" RenderTransformOrigin="1.449,0.154">
+                    	<Run Text="Soep"/>
+                    	<LineBreak/>
+                    	<Run/>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Soup[0]}" VerticalAlignment="Top" Margin="10,237,0,0" Height="26" Width="293"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Soup[1]}" VerticalAlignment="Top" Margin="303,237,0,0" Height="26" Width="76" RenderTransformOrigin="1.944,1.692"/>
+                    <Image HorizontalAlignment="Left" Height="60" Margin="10,269,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/icon-vegetables@2x.png"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="75,303,0,0" Height="26" Width="107" RenderTransformOrigin="1.449,0.154" Text="Groenten"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Vegetables[0]}" VerticalAlignment="Top" Margin="10,334,0,0" Height="26" Width="288"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Vegetables[1]}" VerticalAlignment="Top" Margin="10,365,0,0" Height="26" Width="288"/>
+                    
+                    
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Date}" VerticalAlignment="Top" Margin="117,-35,0,0" Height="26" Width="150"/>
+
+                </Grid>
+            </phone:PanoramaItem>
 
 
         <phone:PanoramaItem Name="urgent" Header="URGentFM">
 
         </phone:PanoramaItem>
-
-
+            
       </phone:Panorama>
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
