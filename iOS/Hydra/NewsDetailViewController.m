@@ -11,7 +11,7 @@
 #import "NSDateFormatter+AppLocale.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface NewsDetailViewController ()
+@interface NewsDetailViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) AssociationNewsItem *newsItem;
 
@@ -96,6 +96,7 @@
     UIWebView *bodyView = [[UIWebView alloc] initWithFrame:bodyFrame];
     bodyView.autoresizingMask = UIViewAutoresizingFlexibleWidth
                               | UIViewAutoresizingFlexibleHeight;
+    bodyView.delegate = self;
 
     // Remove background from webView
     bodyView.backgroundColor = [UIColor whiteColor];
@@ -127,6 +128,13 @@
 {
     [super viewDidAppear:animated];
     GAI_Track([@"News > " stringByAppendingString:self.newsItem.title]);
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType == UIWebViewNavigationTypeOther) return YES;
+    [[UIApplication sharedApplication] openURL:[request URL]];
+    return NO;
 }
 
 @end
