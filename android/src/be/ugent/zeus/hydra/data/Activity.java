@@ -10,7 +10,7 @@ import java.util.Date;
 public class Activity implements Serializable {
 
     public String title;
-    public String date;
+    public Date date;
     public String start;
     public String end;
     public String location;

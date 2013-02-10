@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
+import be.ugent.zeus.hydra.Hydra;
 import be.ugent.zeus.hydra.data.Activity;
+import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +23,7 @@ import org.json.JSONArray;
  */
 public class ActivityIntentService extends HTTPIntentService {
 
+    public static final String FEED_NAME = "activities-feed-name";
     public static final String ACTIVITY_URL = "all_activities.json";
 
     public ActivityIntentService() {
@@ -36,30 +40,20 @@ public class ActivityIntentService extends HTTPIntentService {
 
         try {
             JSONArray data = new JSONArray(fetch(HYDRA_BASE_URL + "all_activities.json"));
-            Activity[] activities = parseJsonArray(data, Activity.class);
-
-            Map<String, ArrayList<Activity>> groups = new HashMap<String, ArrayList<Activity>>();
+            ArrayList<Activity> activities = new ArrayList<Activity>(Arrays.asList(parseJsonArray(data, Activity.class)));
 
             // group them in lists by date
             for (Activity activity : activities) {
                 /* This is ugly, but it's still neater than converting everything to a Date and
                  * back again to store it */
-                activity.date = activity.start.substring(0, 10);
-                Log.i("Header ID", activity.date);
-                ArrayList<Activity> group = groups.get(activity.date);
-                if (group == null) {
-                    group = new ArrayList<Activity>();
-                    groups.put(activity.date, group);
-                }
-                group.add(activity);
+                activity.date = new SimpleDateFormat("yyyy-MM-dd", Hydra.LOCALE)
+                    .parse(activity.start.substring(0, 10));
             }
 
             ActivityCache cache = ActivityCache.getInstance(this);
 
-            // dump the lists in the cache
-            for (Entry<String, ArrayList<Activity>> group : groups.entrySet()) {
-                cache.put(group.getKey(), group.getValue());
-            }
+            cache.put(FEED_NAME, activities);
+
         } catch (Exception e) {
             if (receiver != null) {
                 receiver.send(STATUS_ERROR, Bundle.EMPTY);
