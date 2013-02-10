@@ -29,20 +29,25 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         self.eventId = @"141011552728829";
         [self update];
 
-        // TODO: listen for facebook state changes so we can remove
-        // all user specific state
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(facebookSessionStateChanged:)
+                       name:FacebookSessionStateChangedNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Fetching info
 
 - (void)update
 {
-    DLog(@"%f", [self.lastUpdated timeIntervalSinceNow]);
-
-    // DEBUG: force opening session
-    [[FacebookSession sharedSession] openSessionWithAllowLoginUI:YES];
+    if (self.lastUpdated && [self.lastUpdated timeIntervalSinceNow] > -kUpdateInterval) {
+        return;
+    }
 
     FBRequestConnection *connection = [[FBRequestConnection alloc] init];
     [self fetchEventInfo:connection];
@@ -86,7 +91,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
 - (void)fetchUserInfo:(FBRequestConnection *)conn
 {
-    if (![[FBSession activeSession] isOpen]) {
+    if (![FacebookSession sharedSession].open) {
         return;
     }
 
@@ -117,7 +122,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
 - (void)fetchFriendsInfo:(FBRequestConnection *)conn
 {
-    if (![[FBSession activeSession] isOpen]) {
+    if (![FacebookSession sharedSession].open) {
         return;
     }
 
@@ -198,6 +203,20 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         }];
         [conn start];
 } */
+
+#pragma mark - Facebook session state
+
+- (void)facebookSessionStateChanged:(NSNotification *)notification
+{
+    FBSession *session = [notification object];
+    if (![session isOpen]) {
+        self.userRsvp = nil;
+        self.friendsAttending = nil;
+
+        // Force update on next access
+        self.lastUpdated = nil;
+    }
+}
 
 @end
 

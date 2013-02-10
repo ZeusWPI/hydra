@@ -13,11 +13,14 @@
 #define kAppAccessToken @"146947948791011|QqOR99OREkC_vAvOkfJm2tp-02k"
 
 NSString *const FacebookSessionStateChangedNotification =
-    @"be.ugent.zeus.Hydra:FacebookSessionStateChangedNotification";
+    @"FacebookSessionStateChangedNotification";
+NSString *const FacebookUserInfoUpdatedNotifcation =
+    @"FacebookUserInfoUpdatedNotifcation";
 
 @interface FacebookSession ()
 
 @property (nonatomic, strong) NSString *appAccessToken;
+@property (nonatomic, strong) id<FBGraphUser> userInfo;
 
 @end
 
@@ -32,7 +35,9 @@ NSString *const FacebookSessionStateChangedNotification =
     return sharedInstance;
 }
 
-- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI
+#pragma mark - Session management
+
+- (BOOL)openWithAllowLoginUI:(BOOL)allowLoginUI
 {
     FBSessionStateHandler handler = ^(FBSession *session, FBSessionState state, NSError *error) {
         [self sessionStateChanged:session state:state error:error];
@@ -43,6 +48,16 @@ NSString *const FacebookSessionStateChangedNotification =
                                          completionHandler:handler];
 }
 
+- (void)close
+{
+    [[FBSession activeSession] closeAndClearTokenInformation];
+}
+
+- (BOOL)open
+{
+    return [[FBSession activeSession] isOpen];
+}
+
 - (void)sessionStateChanged:(FBSession *)session state:(FBSessionState)state error:(NSError *)error
 {
     DLog(@"%@", session);
@@ -50,6 +65,7 @@ NSString *const FacebookSessionStateChangedNotification =
     switch (state) {
         case FBSessionStateClosed:
         case FBSessionStateClosedLoginFailed:
+            self.userInfo = nil;
             [[FBSession activeSession] closeAndClearTokenInformation];
             break;
         default:
@@ -71,7 +87,33 @@ NSString *const FacebookSessionStateChangedNotification =
     }*/
 }
 
-#pragma mark - Requests
+#pragma mark - User info
+
+- (id<FBGraphUser>)userInfo
+{
+    if (self.open && !_userInfo) {
+        [self updateUserInfo];
+    }
+    return _userInfo;
+}
+
+- (void)updateUserInfo
+{
+    FBRequest *request = [FBRequest requestForMe];
+    [request startWithCompletionHandler:^(FBRequestConnection *c, id result, NSError *error) {
+        if (error) {
+            NSLog(@"Error while fetching user information: %@", [error localizedDescription]);
+        }
+        else {
+            self.userInfo = result;
+
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:FacebookUserInfoUpdatedNotifcation object:result];
+        }
+    }];
+}
+
+#pragma mark - Request helpers
 
 - (FBRequest *)requestWithGraphPath:(NSString *)path parameters:(NSDictionary *)parameters
 {

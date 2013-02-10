@@ -8,8 +8,11 @@
 
 #import "PreferencesController.h"
 #import "AssociationPreferenceController.h"
+#import "FacebookSession.h"
 
 #define kFilterSection 0
+#define kFacebookSection 1
+
 #define kFilterPref @"useAssociationFilter"
 #define kAssociationsPref @"preferredAssociations"
 
@@ -18,9 +21,19 @@
 - (id)init
 {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-        // Custom initialization
+        // Listen for facebook state changes
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(facebookUpdated:)
+                       name:FacebookSessionStateChangedNotification object:nil];
+        [center addObserver:self selector:@selector(facebookUpdated:)
+                       name:FacebookUserInfoUpdatedNotifcation object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -42,12 +55,19 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    switch (section) {
+        case kFilterSection:
+            return 2;
+        case kFacebookSection:
+            return 1;
+        default:
+            return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,6 +104,21 @@
                 } break;
             }
             break;
+        case kFacebookSection: {
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.textLabel.text = @"Facebook";
+
+            FacebookSession *session = [FacebookSession sharedSession];
+            if (session.open) {
+                id<FBGraphUser> userInfo = [session userInfo];
+                cell.detailTextLabel.text = userInfo ? [userInfo name] : @"Aangemeld";
+            }
+            else {
+                cell.detailTextLabel.text = @"Niet aangemeld";
+            }
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+        } break;
     }
 
     return cell;
@@ -92,7 +127,7 @@
 - (CGFloat)tableView:tableView heightForFooterInSection:(NSInteger)section
 {
     if (section == kFilterSection) {
-        return 150;
+        return 58;
     }
     else {
         return 0;
@@ -125,7 +160,6 @@
     }
 }
 
-
 #pragma mark - Table view delegate
 
 - (void)filterSwitch:(UISwitch *)toggle didToggle:(NSNotification *)notification
@@ -145,7 +179,29 @@
                 } break;
             }
             break;
+        case kFacebookSection: {
+            FacebookSession *session = [FacebookSession sharedSession];
+            if (session.open) {
+                [session close];
+            }
+            else {
+                [session openWithAllowLoginUI:YES];
+            }
+
+            [tableView reloadRowsAtIndexPaths:@[ indexPath ]
+                             withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        } break;
     }
+}
+
+#pragma mark - Notifications
+
+- (void)facebookUpdated:(NSNotification *)notification
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:kFacebookSection];
+    [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

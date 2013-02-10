@@ -10,6 +10,7 @@
 #import "UIColor+AppColors.h"
 #import "DashboardViewController.h"
 #import "ShareKitConfigurator.h"
+#import "FacebookSession.h"
 
 #import <RestKit/RestKit.h>
 #import <ShareKit/SHK.h>
@@ -55,6 +56,9 @@
         [SHKConfiguration sharedInstanceWithConfigurator:config];
         [SHK flushOfflineQueue];
     });
+
+    // Restore Facebook-session
+    [[FacebookSession sharedSession] openWithAllowLoginUI:NO];
 
     // Create and setup controllers
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];

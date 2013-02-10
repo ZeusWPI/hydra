@@ -10,12 +10,17 @@
 #import <FacebookSDK/FacebookSDK.h>
 
 extern NSString *const FacebookSessionStateChangedNotification;
+extern NSString *const FacebookUserInfoUpdatedNotifcation;
 
 @interface FacebookSession : NSObject
 
 + (FacebookSession *)sharedSession;
 
-- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
+@property (nonatomic, readonly) BOOL open;
+@property (nonatomic, readonly) id<FBGraphUser> userInfo;
+
+- (BOOL)openWithAllowLoginUI:(BOOL)allowLoginUI;
+- (void)close;
 
 - (FBRequest *)requestWithQuery:(NSString *)query;
 - (FBRequest *)requestWithGraphPath:(NSString *)path parameters:(NSDictionary *)parameters;
