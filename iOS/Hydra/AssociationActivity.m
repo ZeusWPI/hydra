@@ -26,9 +26,9 @@
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
 
     [objectMapping mapAttributes:@"title", @"location", @"start", @"end", @"url",
-        @"longitude", @"latitude", @"url", @"categories",
-        @"highlighted", nil];
-    [objectMapping mapKeyPathsToAttributes:@"facebook_id", @"facebookId", @"description",@"html_description" , nil];
+        @"latitude", @"longitude", @"url", @"categories", @"highlighted", nil];
+    [objectMapping mapKeyPathsToAttributes:@"facebook_id", @"facebookId",
+        @"description", @"htmlDescription", nil];
     [objectMapping mapRelationship:@"association" withMapping:[Association objectMapping]];
 
     return objectMapping;
@@ -43,7 +43,7 @@
 - (FacebookEvent *)facebookEvent
 {
     if(!_facebookEvent && self.facebookId) {
-        _facebookEvent = [[FacebookEvent alloc] initWithEventID:self.facebookId];
+        _facebookEvent = [[FacebookEvent alloc] initWithEventId:self.facebookId];
     }
     return _facebookEvent;
 }
@@ -61,7 +61,7 @@
         self.longitude = [coder decodeDoubleForKey:@"longitude"];
         self.latitude = [coder decodeDoubleForKey:@"latitude"];
         self.facebookId = [coder decodeObjectForKey:@"facebookId"];
-        self.html_description = [coder decodeObjectForKey:@"html_description"];
+        self.htmlDescription = [coder decodeObjectForKey:@"html_description"];
         self.url = [coder decodeObjectForKey:@"url"];
         self.categories = [coder decodeObjectForKey:@"categories"];
         self.highlighted = [coder decodeBoolForKey:@"highlighted"];
@@ -78,8 +78,8 @@
     [coder encodeObject:self.location forKey:@"location"];
     [coder encodeDouble:self.longitude forKey:@"longitude"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];
-    [coder encodeObject:self.facebookId forKey:@"facebookId"];
-    [coder encodeObject:self.html_description forKey:@"html_description"];
+    [coder encodeInteger:self.facebookId forKey:@"facebookId"];
+    [coder encodeObject:self.htmlDescription forKey:@"html_description"];
     [coder encodeObject:self.url forKey:@"url"];
     [coder encodeObject:self.categories forKey:@"categories"];
     [coder encodeBool:self.highlighted forKey:@"highlighted"];

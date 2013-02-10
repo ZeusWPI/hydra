@@ -1,5 +1,5 @@
 //
-//  HFBEvent.m
+//  FacebookEvent.m
 //  Hydra
 //
 //  Created by Feliciaan De Palmenaer on 13/01/13.
@@ -8,181 +8,162 @@
 
 #import "FacebookEvent.h"
 #import <FacebookSDK.h>
-#import "FacebookLogin.h"
+#import "FacebookSession.h"
 
-#define kUpdateInterval 60*60 //Every hour
+#define kUpdateInterval (15 * 60) /* Update every 15 minutes */
 
 NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNotification";
 
+@interface FacebookEvent ()
+
+@property (nonatomic, strong) NSString *eventId;
+@property (nonatomic, strong) NSDate *lastUpdated;
+
+@end
+
 @implementation FacebookEvent
 
--(id)initWithEventID:(NSString *)eventID
+- (id)initWithEventId:(NSString *)eventId
 {
-    if (self = [super init]){
-        self.eventID = eventID;
-        [self requestInfo];
+    if (self = [super init]) {
+        self.eventId = @"141011552728829";
+        [self update];
+
+        // TODO: listen for facebook state changes so we can remove
+        // all user specific state
     }
     return self;
 }
 
--(void)requestInfo
-{
-    self.lastUpdated = [NSDate date];
+#pragma mark - Fetching info
 
-    if (self.eventID == nil){
+- (void)update
+{
+    DLog(@"%f", [self.lastUpdated timeIntervalSinceNow]);
+
+    // DEBUG: force opening session
+    [[FacebookSession sharedSession] openSessionWithAllowLoginUI:YES];
+
+    FBRequestConnection *connection = [[FBRequestConnection alloc] init];
+    [self fetchEventInfo:connection];
+    [self fetchUserInfo:connection];
+    [self fetchFriendsInfo:connection];
+    [connection start];
+
+    self.lastUpdated = [NSDate date];
+}
+
+- (void)fetchEventInfo:(FBRequestConnection *)conn
+{
+    NSString *q = [NSString stringWithFormat:
+                   @"SELECT attending_count, pic_square, pic_big "
+                    "FROM event WHERE eid = '%@'", self.eventId];
+    FBRequest *request = [[FacebookSession sharedSession] requestWithQuery:q];
+
+    [conn addRequest:request completionHandler:^(FBRequestConnection *c, id result, NSError *error) {
+        if (error) {
+            NSLog(@"Error while fetching information on event '%@': %@",
+                  self.eventId, [error localizedDescription]);
+            return;
+        }
+
+        if ([result[@"data"] count] > 0) {
+            self.valid = YES;
+
+            NSDictionary *data = result[@"data"][0];
+            self.attendees = [data[@"attending_count"] intValue];
+            self.squareImageUrl = data[@"pic_square"];
+            self.largeImageUrl = data[@"pic_big"];
+
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:FacebookEventDidUpdateNotification object:self];
+        }
+        else {
+            NSLog(@"Could not find information on event '%@'", self.eventId);
+        }
+    }];
+}
+
+- (void)fetchUserInfo:(FBRequestConnection *)conn
+{
+    if (![[FBSession activeSession] isOpen]) {
         return;
     }
 
+    NSString *q = [NSString stringWithFormat:
+                   @"SELECT rsvp_status FROM event_member "
+                    "WHERE eid = '%@' AND uid = me()", self.eventId];
+    FBRequest *request = [[FacebookSession sharedSession] requestWithQuery:q];
+
+    [conn addRequest:request completionHandler:^(FBRequestConnection *c, id result, NSError *error) {
+        if (error) {
+            NSLog(@"Error while fetching user information on event '%@': %@",
+                  self.eventId, [error localizedDescription]);
+            return;
+        }
+
+        if ([result[@"data"] count] > 0) {
+            NSDictionary *data = result[@"data"][0];
+            _userRsvp = data[@"rsvp_status"];
+        }
+        else {
+            _userRsvp = nil;
+        }
+
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:FacebookEventDidUpdateNotification object:self];
+    }];
+}
+
+- (void)fetchFriendsInfo:(FBRequestConnection *)conn
+{
     if (![[FBSession activeSession] isOpen]) {
-        [FBSession openActiveSessionWithAllowLoginUI:NO];
+        return;
     }
-    
-    FBRequestConnection *conn = [[FBRequestConnection alloc] init];
 
-    [conn addRequest:[self createBasicInfoQuery] completionHandler:^(FBRequestConnection *connection,id result,NSError *error) {
+    NSString *q = [NSString stringWithFormat:
+                   @"SELECT name, pic_square FROM user WHERE uid IN "
+                    "(SELECT uid2 FROM friend WHERE uid1 = me() AND uid2 IN "
+                    "(SELECT uid FROM event_member WHERE eid = '%@' AND "
+                    "rsvp_status = 'attending'))", self.eventId];
+    FBRequest *request = [[FacebookSession sharedSession] requestWithQuery:q];
+
+    [conn addRequest:request completionHandler:^(FBRequestConnection *c, id result, NSError *error) {
         if (error) {
-            NSLog(@"Basic Info Error: %@", [error localizedDescription]);
-        } else {
-            NSLog(@"Result basic info: %@", result);
-            NSArray *arr = (NSArray*)[result objectForKey:@"data"];
-            if ([arr  count] > 0){
-                self.attendees = (NSString*)[arr[0] objectForKey:@"attending_count"];
-                self.imageURL = (NSString*)[arr[0] objectForKey:@"pic_big"];
-            }
-            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-            [center postNotificationName:FacebookEventDidUpdateNotification object:self];
-            VLog(self.attendees);
+            NSLog(@"Error while fetching friends information on event '%@': %@",
+                  self.eventId, [error localizedDescription]);
+            return;
         }
+
+        NSMutableArray *friendsAttending = [NSMutableArray array];
+        for (NSDictionary *item in result[@"data"]) {
+            FacebookEventFriend *friend = [[FacebookEventFriend alloc]
+                                           initWithName:item[@"name"]
+                                               photoUrl:item[@"pic_square"]];
+            [friendsAttending addObject:friend];
+        }
+        self.friendsAttending = friendsAttending;
+
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:FacebookEventDidUpdateNotification object:self];
     }];
-
-    if([self usersInfoPermission])
-       {
-  
-    [conn addRequest:[self createUserAttendingRequest] completionHandler:^(FBRequestConnection *connection,
-                                                      id result,
-                                                      NSError *error) {
-        if (error) {
-            NSLog(@"User Attending Error: %@", [error localizedDescription]);
-        } else {
-            //NSLog(@"Result userInfo: %@", result);
-            NSArray *obj = (NSArray*)[result objectForKey:@"data"];
-            VLog(obj);
-            
-            BOOL attending = [obj count] == 1 ? YES : NO;
-            if (attending){
-                VLog([obj[0] objectForKey:@"rsvp_status"]);
-                
-                NSString *str = (NSString*)[obj[0] objectForKey:@"rsvp_status"];
-                if ([str rangeOfString:@"attend"].location == NSNotFound){
-                    attending = NO;
-                }
-            }
-
-            self.userAttending = attending;
-        }
-    }];
-           [conn addRequest:[self createFriendsAttendingRequest] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-               if (error){
-                   NSLog(@"Friends attending Error: %@", [error localizedDescription]);
-               }else{
-                   [self addAttendingFriends:result];
-               }}];
-
-       }
-    [conn start];
 }
 
+#pragma mark - Submitting info
 
-#pragma mark Queries
--(FBRequest*)createRequestFromQuery:(NSString*)query
+- (void)setUserRsvp:(NSString *)userRsvp
 {
-    // Set up the query parameter
-    NSDictionary *queryParam = [NSDictionary dictionaryWithObjectsAndKeys: query, @"q", nil];
-    FBRequest *request = [FBRequest requestWithGraphPath:@"/fql" parameters:queryParam HTTPMethod:@"GET"];
-    return request;
+    // TODO
 }
 
--(FBRequest*)createBasicInfoQuery
-{
-    // returns the number of people attending, and link to picture
-    NSString *query = [NSString stringWithFormat:@"SELECT attending_count, pic_big FROM event WHERE eid='%@'",self.eventID];
-    VLog(query);
-    return [self createRequestFromQuery:query];
-}
-
--(FBRequest*)createFriendsAttendingRequest
-{
-    // query to get friends info from event, which friends are attending
-    NSString *query = [NSString stringWithFormat:@"SELECT uid, name FROM user where uid IN (SELECT uid2 from friend WHERE uid2 IN (SELECT uid FROM event_member WHERE eid = '%@' and rsvp_status = 'attending') AND uid1 = me())", self.eventID];
-    VLog(query);
-    return [self createRequestFromQuery:query];
-}
-
--(FBRequest*)createUserAttendingRequest
-{
-    NSString *query = [NSString stringWithFormat:@"SELECT uid, rsvp_status FROM event_member WHERE eid = '%@' AND uid = me() ", self.eventID];
-    VLog(query);
-    return [self createRequestFromQuery:query];
-}
-
-#pragma mark Result
-- (void)addAttendingFriends:(id)result
-{
-   // VLog(result);
-    NSArray *res = (NSArray*)[result objectForKey:@"data"];
-    if ([res count]){
-        NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:[res count]];
-        for (id<FBGraphObject> obj in res){
-            NSString *name = (NSString*)[obj objectForKey:@"name"];
-            NSString *uid = (NSString*)[obj objectForKey:@"uid"];
-            FacebookEventFriends *friend = [[FacebookEventFriends alloc] initWithName:name andUserID:uid];
-            [arr addObject:friend];
-        }
-        self.friendsAttending = (NSArray*)arr;
-    }else{
-        self.friendsAttending = [[NSArray alloc] initWithObjects:nil];
-    }
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:FacebookEventDidUpdateNotification object:self];
-}
-
-#pragma mark Updating
--(void)update
-{
-    if ([self.lastUpdated timeIntervalSinceNow] > kUpdateInterval) {
-        [self requestInfo];
-    }
-}
-
-#pragma mark Permissions
-// checks if a user is logged on
--(BOOL)usersInfoPermission
-{
-    if ([[FBSession activeSession] isOpen]) {
-        return YES;
-    }else {
-        FacebookLogin* login = [FacebookLogin sharedLogin];
-        return [login openSessionWithAllowLoginUI:YES];
-    }
-    return NO;
-}
-
-#pragma mark User attends event
--(void)postUserAttendsEvent:(id)sender{
-    VLog(@"Attending button pressed");
-    if([sender isEnabled]){
-        [self postUserAttendsEvent];
-        [sender setEnabled:NO];
-    }
-}
-
+/*
 -(void)postUserAttendsEvent{
     
     if (self.userAttending){
         return;
     }
     
-    NSString *query = [NSString stringWithFormat:@"%@/attending/me", self.eventID];
+    NSString *query = [NSString stringWithFormat:@"%@/attending/me", self.eventId];
 
     // Ask for rspv_events permissions in context
     if ([FBSession.activeSession.permissions
@@ -216,18 +197,21 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
             [center postNotificationName:FacebookEventDidUpdateNotification object:self];
         }];
         [conn start];
-}
+} */
 
 @end
 
-@implementation FacebookEventFriends
+@implementation FacebookEventFriend
 
--(id)initWithName:(NSString*)name andUserID:(NSString*)uid
+- (id)initWithName:(NSString *)name photoUrl:(NSString *)url;
 {
-    if(self = [super init]){
+    if (self = [super init]) {
         self.name = name;
-        self.uid = uid;
+        if (url) {
+            self.photoUrl = [NSURL URLWithString:url];
+        }
     }
     return self;
 }
+
 @end
