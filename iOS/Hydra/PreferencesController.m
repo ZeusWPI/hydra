@@ -194,7 +194,11 @@
         case kFacebookSection: {
             FacebookSession *session = [FacebookSession sharedSession];
             if (session.open) {
-                UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Facebook" delegate:self cancelButtonTitle:@"Annuleren" destructiveButtonTitle:@"Afmelden" otherButtonTitles:nil];
+                UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Facebook"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Annuleren"
+                                                     destructiveButtonTitle:@"Afmelden"
+                                                          otherButtonTitles:nil];
                 [sheet showInView:self.view];
             }
             else {
@@ -217,7 +221,7 @@
                           withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark ActionSheet callback
+#pragma mark - ActionSheet callback
 
 - (void)actionSheet:(UIActionSheet *)sheet clickedButtonAtIndex:(NSInteger)index
 {

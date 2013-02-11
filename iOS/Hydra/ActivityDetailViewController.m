@@ -27,10 +27,12 @@
 #define kGuestsRow 3
 #define kFriendsRow 4
 #define kDescriptionRow 5
+#define kUrlRow 6
 
 #define kImageViewTag 501
 #define kBorderOverlayTag 502
 #define kImageContainerTag 503
+#define kWebViewTag 504
 
 @interface ActivityDetailViewController () <EKEventEditViewDelegate>
 
@@ -133,6 +135,7 @@
 
     fields[kFriendsRow] = @"";
     fields[kDescriptionRow] = self.activity.htmlDescription ? self.activity.htmlDescription : @"";
+    fields[kUrlRow] = self.activity.url ? self.activity.url : @"";
 
     self.fields = fields;
 
@@ -155,6 +158,7 @@
         case kInfoSection: {
             NSUInteger rows = 3;
             if (self.activity.htmlDescription.length > 0) rows++;
+            if (self.activity.url.length > 0) rows++;
 
             // Facebook-rows?
             FacebookEvent *event = self.activity.facebookEvent;
@@ -200,10 +204,16 @@
             if (row == kFriendsRow) {
                 minHeight = 36; // Quick ugly shortcut
             }
+
             // TODO: Bug? This check should not be required, but sometimes
             // this method is called with an indexPath it cannot handle...
             if (row < self.fields.count) {
                 text = self.fields[row];
+            }
+
+            // Long url's should just be cut off
+            if (row == kUrlRow) {
+                text = @"http://";
             }
         } break;
     }
@@ -284,9 +294,6 @@
                                           reuseIdentifier:CellIdentifier];
             cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
             cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:13];
-            cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            cell.detailTextLabel.numberOfLines = 0;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
 
         NSUInteger row = [self virtualRowAtIndexPath:indexPath];
@@ -303,15 +310,31 @@
             case kGuestsRow:
                 cell.textLabel.text = @"Gasten";
                 break;
+            case kUrlRow:
+                cell.textLabel.text = @"Meer info";
+                break;
+            default:
+                cell.textLabel.text = @"";
+                break;
         }
         cell.detailTextLabel.text = self.fields[row];
 
         // Defaults
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = nil;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.detailTextLabel.numberOfLines = 0;
         [[cell viewWithTag:kBorderOverlayTag] removeFromSuperview];
         [[cell viewWithTag:kImageContainerTag] removeFromSuperview];
 
-        if (row == kGuestsRow) {
+        // Customize per row
+        if (row == kLocationRow) {
+            if (self.activity.latitude != 0 && self.activity.longitude != 0) {
+                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            }
+        }
+        else if (row == kGuestsRow) {
             FacebookEvent *event = self.activity.facebookEvent;
             if (event.valid) {
                 cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
@@ -339,6 +362,18 @@
                 friendsContainer.tag = kImageContainerTag;
                 [cell addSubview:friendsContainer];
             }
+        }
+        else if (row == kUrlRow) {
+            VLog(cell);
+            UIImage *linkImage = [UIImage imageNamed:@"external-link.png"];
+            UIImage *highlightedLinkImage = [UIImage imageNamed:@"external-link-active.png"];
+            UIImageView *linkAccessory = [[UIImageView alloc] initWithImage:linkImage
+                                                           highlightedImage:highlightedLinkImage];
+            linkAccessory.contentMode = UIViewContentModeScaleAspectFit;
+            cell.accessoryView = linkAccessory;
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.detailTextLabel.numberOfLines = 1;
+            cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         }
 
         return cell;
@@ -387,21 +422,15 @@
     NSUInteger row = indexPath.row;
 
     FacebookEvent *event = self.activity.facebookEvent;
-    if (row >= kGuestsRow) {
-        if (!event.valid) {
-            row += 2;
-        }
-    }
+    if (row >= kGuestsRow && !event.valid) row += 2;
     if (row >= kFriendsRow) {
         if (event.valid && event.friendsAttending.count == 0) {
             row++;
         }
     }
-    if (row >= kDescriptionRow) {
-        if (self.activity.htmlDescription.length == 0) {
-            row++;
-        }
-    }
+    if (row >= kDescriptionRow && self.activity.htmlDescription.length == 0) row++;
+    if (row >= kUrlRow && self.activity.url.length == 0) row++;
+
     return row;
 }
 
@@ -431,6 +460,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
+        case kInfoSection : {
+            NSUInteger row = [self virtualRowAtIndexPath:indexPath];
+            if (row == kUrlRow) {
+                NSURL *url = [NSURL URLWithString:self.activity.url];
+                [[UIApplication sharedApplication] openURL:url];
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }
+        } break;
         case kActionSection: {
             EKEventStore *store = [[EKEventStore alloc] init];
             if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {

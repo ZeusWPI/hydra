@@ -204,7 +204,6 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
             return;
         }
 
-        // TODO: shuffle result
         NSMutableArray *friendsAttending = [NSMutableArray array];
         for (NSDictionary *item in result[@"data"]) {
             FacebookEventFriend *friend = [[FacebookEventFriend alloc]
