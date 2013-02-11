@@ -108,7 +108,6 @@
     NSMutableArray *fields = [[NSMutableArray alloc] init];
     fields[kAssociationRow] = self.activity.association.displayedFullName;
 
-    // TODO: check if spans multiple days
     if (self.activity.end) {
         if ([[self.activity.start dateByAddingDays:1] compare:self.activity.end] != NSOrderedAscending) {
             fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
