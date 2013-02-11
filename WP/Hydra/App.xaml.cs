@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -29,6 +31,8 @@ namespace Hydra
                 return viewModel;
             }
         }
+
+        
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -138,7 +142,8 @@ namespace Hydra
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
+           // RootFrame = new PhoneApplicationFrame();
+            RootFrame = new TransitionFrame(); 
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Handle navigation failures
@@ -146,6 +151,8 @@ namespace Hydra
 
             // Handle reset requests for clearing the backstack
             RootFrame.Navigated += CheckForResetNavigation;
+            
+            RootFrame.Background = Resources["MainBackground"] as ImageBrush;
 
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;

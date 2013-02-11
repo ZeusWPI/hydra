@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Hydra.ViewModels
 {
     public class RestoItemsViewModel
     {
+        
 
         //    "2013-02-18": {
         //    "meat": [
@@ -46,6 +48,7 @@ namespace Hydra.ViewModels
 
     public class Day
     {
+        private readonly string[] _months = new string[] { "januari", "februari", "maart", "april", "mei", "juni", "juli","augustus","september","november","oktober","december" };
         private List<Dish> _dishes; 
         public List<Dish> Dishes { get
         {
@@ -67,9 +70,13 @@ namespace Hydra.ViewModels
         public string Date { 
             get
             {
-                if (_date != null)
+                if (_date == null)
                 {
-                    var date = DateTime.Parse(_date).Date;
+                    return "Laden...";
+                }
+                else
+                {
+                    var date = DateTime.Parse(_date, new CultureInfo("nl-BE")).Date;
                     if (date.Equals(DateTime.Now.Date))
                         return "Vandaag";
                     else if (date.Equals(DateTime.Now.AddDays(1).Date))
@@ -78,12 +85,8 @@ namespace Hydra.ViewModels
                         return "Overmorgen";
                     else
                     {
-                        return _date;
+                        return date.DayOfWeek + " " + date.Day + " " + _months[date.Month - 1];
                     }
-                }
-                else
-                {
-                    return "Laden...";
                 }
             }
             set
@@ -144,6 +147,6 @@ namespace Hydra.ViewModels
         private string _price;
         public string Price { get { return _price ?? "Laden..."; } set { if (value != _price) _price = value; } }
 
-        public bool Recommended { get; set; }
+        public bool IsRecommended { get; set; }
     }
 }

@@ -14,39 +14,28 @@ namespace Hydra
             {
                 flag = (bool)value;
             }
-            else if (value is bool?)
+            if (flag && (string)parameter != "toggle")
             {
-                var nullable = (bool?)value;
-                flag = nullable.GetValueOrDefault();
+                return Application.Current.Resources["Recommended"];
             }
-            if (parameter != null)
+            else if (!flag && (string)parameter != "toggle")
             {
-                if (bool.Parse((string)parameter))
-                {
-                    flag = !flag;
-                }
-            }
-            if (flag)
+                return Application.Current.Resources["Normal"];
+            }else if((string)parameter=="toggle")
             {
-                return Visibility.Visible;
-            }
-            else
+                if (flag)
+                    return "Aan";
+                else
+                    return "Uit";
+            }else
             {
-                return Visibility.Collapsed;
+                return null;
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var back = ((value is Visibility) && (((Visibility)value) == Visibility.Visible));
-            if (parameter != null)
-            {
-                if ((bool)parameter)
-                {
-                    back = !back;
-                }
-            }
-            return back;
+            throw new NotImplementedException();
         }
     }
 }

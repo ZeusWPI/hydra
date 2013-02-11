@@ -1,30 +1,35 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Navigation;
 using Hydra.ViewModels;
 using Microsoft.Phone.Controls;
-
+using Microsoft.Phone.Shell;
 namespace Hydra
 {
-    public partial class MainPage
+    public partial class MainPage:PhoneApplicationPage
     {
         private int _restoItem;
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-            DataContext = App.ViewModel;
             _restoItem = 0;
+            ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
+	      
         }
+
+       
 
         // Load data for the ViewModel NewsItems
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-                LoadResto();
-            }
+           
+            if (App.ViewModel.IsDataLoaded) return;
+            App.ViewModel.LoadData();
+            DataContext = App.ViewModel;
+            LoadResto();
         }
 
         private void LoadResto()
@@ -35,27 +40,36 @@ namespace Hydra
 
         private void SchamperItemTapped(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems[0] == null) return;
             var schamperitem = e.AddedItems[0] as SchamperItemsViewModel;
             if (schamperitem != null)
                 NavigationService.Navigate(new Uri("/SchamperItem.xaml?article=" + App.ViewModel.SchamperItems.IndexOf(schamperitem), UriKind.Relative));
+
+            schamperLLS.SelectedItem = null;
         }
 
         private void NewsItemTapped(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems[0] == null) return;
             var newsItem = e.AddedItems[0] as NewsItemViewModel;
             if (newsItem != null)
                 NavigationService.Navigate(new Uri("/NewsItem.xaml?newsItem=" + App.ViewModel.NewsItems.IndexOf(newsItem), UriKind.Relative));
+
+            newsLLS.SelectedItem = null;
         }
 
         private void ActivityItemTapped(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems[0] == null) return;
             var activityItem = e.AddedItems[0] as ActivityItemsViewModel;
             if (activityItem != null)
                 NavigationService.Navigate(new Uri("/ActivityItem.xaml?activityItem=" + App.ViewModel.ActivityItems.IndexOf(activityItem), UriKind.Relative));
+            activityLLS.SelectedItem = null;
         }
 
         private void InfoItemTapped(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems[0] == null) return;
             var infoItem = e.AddedItems[0] as InfoItemsViewModel;
             Uri uri = null;
             var idx = App.ViewModel.InfoItems.IndexOf(infoItem);
@@ -83,47 +97,55 @@ namespace Hydra
                 NavigationService.Navigate(uri);
             }
 
+            infoLLS.SelectedItem = null;
         }
 
         private void MainPanoramaSelectionChangedShowApplicationBar(object sender, SelectionChangedEventArgs e)
         {
-            var panoramaItem = e.AddedItems[0] as PanoramaItem;
-            if (panoramaItem == null) return;
-            var header = panoramaItem.Name;
+            var pivotItem = e.AddedItems[0] as PivotItem;
+            if (pivotItem == null) return;
+            var header = pivotItem.Name;
             if (header != null && header.Equals("resto"))
             {
                 LoadResto();
-                appbar.ApplicationBar.IsVisible = true;
-            }
-            else
+                ApplicationBar = (ApplicationBar)Resources["RestoAppBar"];
+            }else
             {
-                DataContext = App.ViewModel;
-                appbar.ApplicationBar.IsVisible = false;
+                ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
             }
         }
 
-        private void Next(object sender, System.Windows.RoutedEventArgs e)
+        private void BackAppBar(object sender, EventArgs e)
         {
-            if (_restoItem < App.ViewModel.RestoItems.Count-1)
-            {
-                _restoItem++;
-                LoadResto();
-            }
-
-        }
-
-        private void Back(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if(_restoItem>App.ViewModel.RestoItems.Count)
-            {
-                _restoItem--;
-            }
             if (_restoItem > 0)
             {
                 _restoItem--;
                 LoadResto();
             }
+            else
+            {
+                //TODO:
+                //disable button when there is no entry to go to
+            }
+        }
 
+        private void NextAppBar(object sender, EventArgs e)
+        {
+            if (_restoItem < App.ViewModel.RestoItems.Count - 1)
+            {
+                _restoItem++;
+                LoadResto();
+            }
+            else
+            {
+                //TODO:
+                //disable button when there is no entry to go to
+            }
+        }
+
+        private void SettingsAppBar(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
         }
 
         //private void Reload(object sender, EventArgs e)
@@ -150,6 +172,13 @@ namespace Hydra
         //            }
         //        }
         //    }
+        //}
+
+        //private void GridClick(object sender, System.Windows.RoutedEventArgs e)
+        //{
+        //    var item = Convert.ToInt32(((TextBlock) sender).Name.Substring(1));
+        //    mainPanorama.DefaultItem = mainPanorama.Items[item];
+
         //}
 
 

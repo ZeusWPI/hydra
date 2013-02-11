@@ -21,6 +21,8 @@ namespace Hydra.ViewModels
         private const string ActivityApi = "http://student.ugent.be/hydra/api/1.0/all_activities.json";
         private const string NewsApi = "http://student.ugent.be/hydra/api/1.0/all_news.json";
         private const string RestoApi = "http://zeus.ugent.be/hydra/api/1.0/resto/week/";
+        private bool _news, _activity, _schamper, _info, _resto;
+        private bool isFilteringChecked;
 
         /// <summary>
         /// A collection for ItemViewModel objects.
@@ -40,16 +42,21 @@ namespace Hydra.ViewModels
             RestoItems = new ObservableCollection<RestoItemsViewModel>();
         }
 
+
+        public bool IsChecked
+        {
+            get { return isFilteringChecked; }
+            set {isFilteringChecked = value; }
+        }
         public bool IsDataLoaded
         {
-            get;
-            private set;
+            get { return _news && _activity && _schamper && _info && _resto; }
+            private set { throw new NotImplementedException(); }
         }
 
 
-
         /// <summary>
-        /// Creates and adds a few ItemViewModel objects into the NewsItems collection.
+        /// Creates and adds the data to the viewmodels
         /// </summary>
         public void LoadData()
         {
@@ -59,43 +66,44 @@ namespace Hydra.ViewModels
             LoadSchamper();
             LoadInfo();
         }
-
+        
         public void LoadSchamper()
         {
             var fetch = new WebClient();
-            fetch.DownloadStringAsync(new Uri(SchamperApi));
+            _schamper = false;
             fetch.DownloadStringCompleted += ProcessSchamper;
-            IsDataLoaded = false;
+            fetch.DownloadStringAsync(new Uri(SchamperApi));
         }
 
         public void LoadNews()
         {
             var fetch = new WebClient();
-            fetch.DownloadStringAsync(new Uri(NewsApi));
+            _news = false;
             fetch.DownloadStringCompleted += ProcessNews;
-            IsDataLoaded = false;
+            fetch.DownloadStringAsync(new Uri(NewsApi));
         }
 
         public void LoadActivities()
         {
             var fetch = new WebClient();
-            fetch.DownloadStringAsync(new Uri(ActivityApi));
+            _activity = false;
             fetch.DownloadStringCompleted += ProcessActivities;
-            IsDataLoaded = false;
+            fetch.DownloadStringAsync(new Uri(ActivityApi));
         }
         public void LoadResto()
         {
             var week = new CultureInfo("nl-BE").Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay,
                                                                         DayOfWeek.Monday);
             var fetch = new WebClient();
+            _resto = false;
             fetch.DownloadStringCompleted += ProcessResto;
             fetch.DownloadStringAsync(new Uri(RestoApi + week + ".json"));
-            IsDataLoaded = false;
 
         }
 
         public void  ProcessResto(object sender, DownloadStringCompletedEventArgs e)
         {
+            if (e.Error != null || e.Cancelled) return;
             var ob = (JObject)JsonConvert.DeserializeObject(e.Result);
 
             foreach (var day in ob)
@@ -114,20 +122,21 @@ namespace Hydra.ViewModels
                              from ddish in daydish.Distinct()
                              select new Dish
                                         {
-                                            Name = (string) ddish["name"], Price = (string) ddish["price"], Recommended = (bool) ddish["recommended"]
+                                            Name = (string) ddish["name"], Price = (string) ddish["price"], IsRecommended = (bool) ddish["recommended"]
                                         }).ToList();
 
                 var soup = day.Value.ElementAt(2).Values().Select(soupp => (string) soupp).ToList();
                 var veg = day.Value.ElementAt(3).Values().Select(veggie => (string) veggie).ToList();
                 RestoItems.Add(new RestoItemsViewModel {Day = new Day {Dishes = dishes,Date = day.Key,Open = open, Soup = soup, Vegetables = veg}});      
             }
+            _resto = true;
 
-            IsDataLoaded = true;
         }
 
 
         public void ProcessNews(object sender, DownloadStringCompletedEventArgs e)
         {
+            if (e.Error != null || e.Cancelled) return;
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
             var list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
@@ -136,12 +145,12 @@ namespace Hydra.ViewModels
             {
                 NewsItems.Add(newsItemView);
             }
-            IsDataLoaded = true;
-
+            _news = true;
         }
 
         public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
         {
+            if (e.Error != null || e.Cancelled) return;
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<ActivityItemsViewModel>));
             var list = (ObservableCollection<ActivityItemsViewModel>)serializer.ReadObject(ms);
@@ -150,7 +159,7 @@ namespace Hydra.ViewModels
             {
                 ActivityItems.Add(newsItemView);
             }
-            IsDataLoaded = true;
+            _activity = true;
         }
 
 
@@ -200,6 +209,7 @@ namespace Hydra.ViewModels
                     }
                 }
             }
+            _info = true;
         }
 
         public void ProcessSchamper(object sender, DownloadStringCompletedEventArgs e)
@@ -255,7 +265,7 @@ namespace Hydra.ViewModels
                             SchamperItems.Add(new SchamperItemsViewModel { Author = author, Content = content, ImagePath = image, Title = title, Date = date });
                     }
                 }
-            IsDataLoaded = true;
+            _schamper = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

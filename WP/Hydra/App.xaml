@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:converter="clr-namespace:Hydra" >
 
     <!--Application Resources-->
     <Application.Resources>
+        
         <sys:Double x:Key="PanoramaItemHeaderFontSize">66</sys:Double>
 
         <Style x:Key="PanoramaItemHeaderTextStyle" TargetType="TextBlock">
@@ -15,8 +17,20 @@
             <Setter Property="FontSize" Value="{StaticResource PanoramaItemHeaderFontSize}"/>
             <Setter Property="CharacterSpacing" Value="-35"/>
         </Style>
+
+
+        <Style x:Name="Recommended" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style x:Name="Normal" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+
+
+        <converter:BooleanToVisibilityConverter x:Key="boolean" />
         
         <local:LocalizedStrings xmlns:local="clr-namespace:Hydra" x:Key="LocalizedStrings"/>
+        <ImageBrush x:Key="MainBackground" ImageSource="/Assets/hydraBackGround.png" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
