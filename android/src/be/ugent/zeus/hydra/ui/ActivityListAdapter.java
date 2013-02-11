@@ -77,39 +77,26 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
         if (convertView == null) {
             holder = new HeaderViewHolder();
             convertView = inflater.inflate(R.layout.activity_list_header, parent, false);
-            holder.text1 = (TextView) convertView.findViewById(R.id.text1);
+            holder.header_text = (TextView) convertView.findViewById(R.id.header_text);
             convertView.setTag(holder);
         } else {
             holder = (HeaderViewHolder) convertView.getTag();
         }
-        //set header text as first char in name
 
-        Date date = null;
-        try {
-            date = new SimpleDateFormat("yyyy-MM-dd", Hydra.LOCALE).parse(activities[position].date);
-        } catch (ParseException ex) {
-        }
-        String headerChar = new SimpleDateFormat("dd MMMM").format(date);
-        holder.text1.setText(headerChar);
+        String headerChar = new SimpleDateFormat("dd MMMM").format(activities[position].date);
+        holder.header_text.setText(headerChar);
         return convertView;
     }
 
     //remember that these have to be static, postion=1 should walys return the same Id that is.
     @Override
     public long getHeaderId(int position) {
-        Date date = null;
-        try {
-            //return the first character of the country as ID because this is what headers are based upon
-            date = new SimpleDateFormat("yyyy-MM-dd", Hydra.LOCALE).parse(activities[position].date);
-        } catch (ParseException ex) {
-        }
-
-        return date.getTime();
+        return activities[position].date.getTime();
     }
 
     class HeaderViewHolder {
 
-        TextView text1;
+        TextView header_text;
     }
 
     class ViewHolder {

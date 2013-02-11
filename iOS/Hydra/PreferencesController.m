@@ -16,6 +16,8 @@
 #define kFilterPref @"useAssociationFilter"
 #define kAssociationsPref @"preferredAssociations"
 
+#define kSwitchTag 500
+
 @implementation PreferencesController
 
 - (id)init
@@ -85,10 +87,13 @@
             switch (indexPath.row) {
                 case 0: {
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.textLabel.text = @"Filter inhoud";
+                    cell.textLabel.text = @"Beperk inhoud";
+                    cell.detailTextLabel.text = @"";
+                    cell.accessoryType = UITableViewCellAccessoryNone;
 
                     CGRect toggleRect = CGRectMake(225, 9, 0, 0);
                     UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
+                    toggle.tag = kSwitchTag;
                     toggle.on = [settings boolForKey:kFilterPref];
                     [toggle addTarget:self action:@selector(filterSwitch:didToggle:)
                                  forControlEvents:UIControlEventValueChanged];
@@ -101,6 +106,8 @@
                     NSArray *associations = [settings objectForKey:kAssociationsPref];
                     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d geselecteerd", associations.count];
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                    [[cell viewWithTag:kSwitchTag] removeFromSuperview];
                 } break;
             }
             break;
@@ -137,12 +144,12 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (section == kFilterSection) {
-        CGRect infoRect = CGRectMake(10, 3, 300, 56);
+        CGRect infoRect = CGRectMake(10, 3, 300, 58);
         UILabel *info = [[UILabel alloc] initWithFrame:infoRect];
         info.backgroundColor = [UIColor clearColor];
         info.font = [UIFont systemFontOfSize:14];
-        info.text = @"Selecteer verenigingen om activiteiten en "
-                     "nieuwsberichten te filteren. Berichten die in de kijker "
+        info.text = @"Selecteer verenigingen om activiteiten en nieuws"
+                     "berichten te filteren. Berichten die in de kijker "
                      "staan worden steeds getoond.";
         info.lineBreakMode = UILineBreakModeWordWrap;
         info.numberOfLines = 0;
@@ -164,7 +171,8 @@
 
 - (void)filterSwitch:(UISwitch *)toggle didToggle:(NSNotification *)notification
 {
-    [[NSUserDefaults standardUserDefaults] setBool:toggle.on forKey:kFilterPref];
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    [settings setBool:toggle.on forKey:kFilterPref];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

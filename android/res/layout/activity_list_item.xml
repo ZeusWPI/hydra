@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:paddingBottom="10dp"
-              android:paddingLeft="10dp"
-              android:paddingRight="10dp">
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
     
     <TextView android:id="@+id/activity_item_time_location"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textSize="30dp" 
-              android:background="#ff0000" 
+              android:layout_height="50dp"
+              android:textSize="16dp" 
+              android:textStyle="bold"
+              android:padding="10dp"
               android:gravity="center"/>
     
     <LinearLayout
@@ -23,22 +20,24 @@
         <TextView android:id="@+id/activity_item_title"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginBottom="3dp"
                   android:textColor="@color/ugent_blue_dark"
                   android:textStyle="bold"
                   android:textSize="20dp"
-                  android:background="#0000ff" 
-                  android:maxLines="1"
-                  android:ellipsize="end" />
+                  android:singleLine="true"
+                  android:paddingTop="3dp"
+                  android:includeFontPadding="false"
+                  android:scrollHorizontally="true"
+                  android:ellipsize="marquee" />
     
         <TextView android:id="@+id/activity_item_association"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textSize="15dp"
-                  android:background="#00ff00" 
-                  android:maxLines="1"
-                  android:ellipsize="end" />
+                  android:paddingTop="-5dp"
+                  android:singleLine="true"
+                  android:includeFontPadding="false"
+                  android:scrollHorizontally="true"
+                  android:ellipsize="marquee" />
     </LinearLayout>
     
     

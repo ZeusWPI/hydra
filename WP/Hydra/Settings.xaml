@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="Hydra.InfoItemSubcontent"
+    x:Class="Hydra.Settings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -13,7 +13,6 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="False">
-
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
             <toolkit:NavigationInTransition.Backward>
@@ -43,22 +42,13 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Name="title" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="Instellingen" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
-
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <phone:LongListSelector Name="list" Margin="0,0,-22,0"  SelectionChanged="ItemSelected">
-                <phone:LongListSelector.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="0,-6,0,12">
-                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle1Style}" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </phone:LongListSelector.ItemTemplate>
-            </phone:LongListSelector>
-        </Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"/>
+        <toolkit:ToggleSwitch x:Name="toggleSwitch" Checked="ToggleSwitch_OnChecked" Unchecked="ToggleSwitchUnChecked" Header="Beperk inhoud" IsChecked="{Binding IsChecked}" Content="{Binding IsChecked,Converter={StaticResource boolean},ConverterParameter=toggle}" Margin="12,10,12,522" Grid.Row="1" />
+        
     </Grid>
 
 </phone:PhoneApplicationPage>

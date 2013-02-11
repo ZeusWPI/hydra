@@ -38,6 +38,8 @@
 		<string>itms-apps://itunes.apple.com/us/app/ub-gent/id362022518?mt=8</string>
 		<key>url-android</key>
 		<string>market://details?id=com.bredir.boopsie.ubgent</string>
+		<key>html</key>
+		<string>http://lib.ugent.be</string>
 	</dict>
 	<dict>
 		<key>image</key>
