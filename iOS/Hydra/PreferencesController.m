@@ -18,6 +18,10 @@
 
 #define kSwitchTag 500
 
+@interface PreferencesController () <UIActionSheetDelegate>
+
+@end
+
 @implementation PreferencesController
 
 - (id)init
@@ -191,7 +195,8 @@
             FacebookSession *session = [FacebookSession sharedSession];
             if (session.open) {
                 // TODO: show actionpicker to allow logoff
-                [session close];
+                UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Facebook" delegate:self cancelButtonTitle:@"Annuleren" destructiveButtonTitle:@"Afmelden" otherButtonTitles:nil];
+                [sheet showInView:self.view];
             }
             else {
                 [session openWithAllowLoginUI:YES];
@@ -211,6 +216,16 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:kFacebookSection];
     [self.tableView reloadRowsAtIndexPaths:@[ indexPath ]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark ActionSheet callback
+
+- (void)actionSheet:(UIActionSheet *)sheet clickedButtonAtIndex:(NSInteger)index
+{
+    if (index == 0) {
+        FacebookSession *session = [FacebookSession sharedSession];
+        [session close];
+    }
 }
 
 @end
