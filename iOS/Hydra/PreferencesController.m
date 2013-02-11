@@ -194,7 +194,6 @@
         case kFacebookSection: {
             FacebookSession *session = [FacebookSession sharedSession];
             if (session.open) {
-                // TODO: show actionpicker to allow logoff
                 UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Facebook" delegate:self cancelButtonTitle:@"Annuleren" destructiveButtonTitle:@"Afmelden" otherButtonTitles:nil];
                 [sheet showInView:self.view];
             }
