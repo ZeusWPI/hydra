@@ -11,6 +11,7 @@
 #import "Association.h"
 #import "NSDateFormatter+AppLocale.h"
 #import "FacebookEvent.h"
+#import "NSDate+Utilities.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <EventKit/EventKit.h>
@@ -109,9 +110,16 @@
 
     // TODO: check if spans multiple days
     if (self.activity.end) {
-        fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
-                            [dateStartFormatter stringFromDate:self.activity.start],
-                            [dateEndFormatter stringFromDate:self.activity.end]];
+        if ([[self.activity.start dateByAddingDays:1] compare:self.activity.end] != NSOrderedAscending) {
+            fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
+                                [dateStartFormatter stringFromDate:self.activity.start],
+                                [dateEndFormatter stringFromDate:self.activity.end]];
+        }
+        else {
+            fields[kDateRow] = [NSString stringWithFormat:@"%@ -\n%@",
+                                [dateStartFormatter stringFromDate:self.activity.start],
+                                [dateStartFormatter stringFromDate:self.activity.end]];
+        }
     }
     else {
         fields[kDateRow] = [dateStartFormatter stringFromDate:self.activity.start];
