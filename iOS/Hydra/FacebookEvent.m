@@ -77,8 +77,22 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
             NSDictionary *data = result[@"data"][0];
             self.attendees = [data[@"attending_count"] intValue];
-            self.squareImageUrl = data[@"pic_square"];
-            self.largeImageUrl = data[@"pic_big"];
+
+            NSString *squareImageUrl = data[@"pic_square"];
+            if (squareImageUrl) {
+                self.squareImageUrl = [NSURL URLWithString:squareImageUrl];
+            }
+            else {
+                self.squareImageUrl = nil;
+            }
+
+            NSString *bigImageUrl = data[@"pic_big"];
+            if (bigImageUrl) {
+                self.bigImageUrl = [NSURL URLWithString:bigImageUrl];
+            }
+            else {
+                self.bigImageUrl = nil;
+            }
 
             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
             [center postNotificationName:FacebookEventDidUpdateNotification object:self];
