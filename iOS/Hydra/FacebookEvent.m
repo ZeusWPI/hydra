@@ -9,6 +9,7 @@
 #import "FacebookEvent.h"
 #import <FacebookSDK.h>
 #import "FacebookSession.h"
+#import "NSMutableArray+Shuffling.h"
 
 #define kUpdateInterval (15 * 60) /* Update every 15 minutes */
 
@@ -41,6 +42,16 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)showExternally
+{
+    UIApplication *app = [UIApplication sharedApplication];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://event/%@", self.eventId]];
+    if (![app canOpenURL:url]) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.facebook.com/events/%@", self.eventId]];
+    }
+    [app openURL:url];
+}
+
 #pragma mark - Fetching info
 
 - (void)update
@@ -61,7 +72,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 - (void)fetchEventInfo:(FBRequestConnection *)conn
 {
     NSString *q = [NSString stringWithFormat:
-                   @"SELECT attending_count, pic_square, pic_big "
+                   @"SELECT attending_count, pic, pic_big "
                     "FROM event WHERE eid = '%@'", self.eventId];
     FBRequest *request = [[FacebookSession sharedSession] requestWithQuery:q];
 
@@ -78,20 +89,20 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
             NSDictionary *data = result[@"data"][0];
             self.attendees = [data[@"attending_count"] intValue];
 
-            NSString *squareImageUrl = data[@"pic_square"];
-            if (squareImageUrl) {
-                self.squareImageUrl = [NSURL URLWithString:squareImageUrl];
+            NSString *smallImageUrl = data[@"pic"];
+            if (smallImageUrl) {
+                self.smallImageUrl = [NSURL URLWithString:smallImageUrl];
             }
             else {
-                self.squareImageUrl = nil;
+                self.smallImageUrl = nil;
             }
 
-            NSString *bigImageUrl = data[@"pic_big"];
-            if (bigImageUrl) {
-                self.bigImageUrl = [NSURL URLWithString:bigImageUrl];
+            NSString *largeImageUrl = data[@"pic_big"];
+            if (largeImageUrl) {
+                self.largeImageUrl = [NSURL URLWithString:largeImageUrl];
             }
             else {
-                self.bigImageUrl = nil;
+                self.largeImageUrl = nil;
             }
 
             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -154,6 +165,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
             return;
         }
 
+        // TODO: shuffle result
         NSMutableArray *friendsAttending = [NSMutableArray array];
         for (NSDictionary *item in result[@"data"]) {
             FacebookEventFriend *friend = [[FacebookEventFriend alloc]
@@ -161,6 +173,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
                                                photoUrl:item[@"pic_square"]];
             [friendsAttending addObject:friend];
         }
+        [friendsAttending H_shuffle];
         self.friendsAttending = friendsAttending;
 
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

@@ -81,6 +81,7 @@
 		F567044616BD5D8100C6B00D /* icon-vegetables@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044216BD5D8100C6B00D /* icon-vegetables@2x.png */; };
 		F567044716BD5D8100C6B00D /* info-minerva.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044316BD5D8100C6B00D /* info-minerva.png */; };
 		F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */; };
+		F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */; };
 		F56D766C1699ED3B002CF245 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D76681699ED3B002CF245 /* Icon-Small.png */; };
 		F56D766D1699ED3B002CF245 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D76691699ED3B002CF245 /* Icon-Small@2x.png */; };
 		F56D766E1699ED3B002CF245 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D766A1699ED3B002CF245 /* Icon.png */; };
@@ -311,6 +312,8 @@
 		F567044316BD5D8100C6B00D /* info-minerva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-minerva.png"; sourceTree = "<group>"; };
 		F569582516AA095800C45D00 /* UINavigationController+ReplaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+ReplaceController.h"; sourceTree = "<group>"; };
 		F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+ReplaceController.m"; sourceTree = "<group>"; };
+		F56B176F16C9069300AB59D6 /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
+		F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
 		F56D76681699ED3B002CF245 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		F56D76691699ED3B002CF245 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		F56D766A1699ED3B002CF245 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -724,6 +727,8 @@
 				F52B9B76168507BD000B71D6 /* NSDateFormatter+AppLocale.m */,
 				F569582516AA095800C45D00 /* UINavigationController+ReplaceController.h */,
 				F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */,
+				F56B176F16C9069300AB59D6 /* NSMutableArray+Shuffling.h */,
+				F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1217,6 +1222,7 @@
 				445C81F516C3DB0B0080819C /* AssociationPreferenceController.m in Sources */,
 				F5DF2FB916C41DDE003B05EC /* MarqueeLabel.m in Sources */,
 				F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */,
+				F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

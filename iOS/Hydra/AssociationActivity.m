@@ -83,6 +83,8 @@
     [coder encodeObject:self.url forKey:@"url"];
     [coder encodeObject:self.categories forKey:@"categories"];
     [coder encodeBool:self.highlighted forKey:@"highlighted"];
+
+    // TODO: cache facebookEvent
 }
 
 @end

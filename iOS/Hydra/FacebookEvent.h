@@ -14,14 +14,16 @@ extern NSString *const FacebookEventDidUpdateNotification;
 
 @property (nonatomic, assign) BOOL valid;
 
-@property (nonatomic, strong) NSURL *squareImageUrl;
-@property (nonatomic, strong) NSURL *bigImageUrl;
+@property (nonatomic, strong) NSURL *smallImageUrl;
+@property (nonatomic, strong) NSURL *largeImageUrl;
 
 @property (nonatomic, assign) NSUInteger attendees;
 @property (nonatomic, strong) NSArray *friendsAttending;
 @property (nonatomic, strong) NSString *userRsvp; /* attending, unsure, declined, or not_replied */
 
 - (id)initWithEventId:(NSString *)eventId;
+- (void)update;
+- (void)showExternally;
 
 @end
 

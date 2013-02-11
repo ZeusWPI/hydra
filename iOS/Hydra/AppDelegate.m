@@ -145,13 +145,34 @@ BOOL errorDialogShown = false;
     if (!title) title = @"Fout";
 
     NSString *message = error.userInfo[kErrorDescriptionKey];
+    if (!message) message = [error localizedDescription];
     if (!message) message = @"Er trad een onbekende fout op.";
 
     // Try to improve the error message
     if ([error.domain isEqual:RKErrorDomain]) {
         title = @"Netwerkfout";
         message = @"Er trad een fout op het bij het ophalen van externe informatie. "
-                  @"Gelieve later opnieuw te proberen.";
+                   "Gelieve later opnieuw te proberen.";
+    }
+    else if ([error.domain isEqual:FacebookSDKDomain]) {
+        title = @"Facebook";
+        switch (error.code) {
+            case FBErrorLoginFailedOrCancelled:
+                message = @"Er was een probleem bij het aanmelden. Controleer "
+                           "of Hydra toegang heeft tot je Facebook-account "
+                           "in de systeem-instellingen";
+                break;
+            case FBErrorRequestConnectionApi:
+            case FBErrorProtocolMismatch:
+            case FBErrorHTTPError:
+            case FBErrorNonTextMimeTypeReturned:
+                message = @"Er trad een netwerkfout op. Gelieve later opnieuw"
+                           "te proberen.";
+                break;
+            default:
+                message = @"Er trad een onbekende fout op.";
+                break;
+        }
     }
 
     // Show an alert
