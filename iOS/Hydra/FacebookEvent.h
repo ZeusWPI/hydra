@@ -10,7 +10,7 @@
 
 extern NSString *const FacebookEventDidUpdateNotification;
 
-@interface FacebookEvent : NSObject
+@interface FacebookEvent : NSObject <NSCoding>
 
 @property (nonatomic, assign) BOOL valid;
 
@@ -27,7 +27,7 @@ extern NSString *const FacebookEventDidUpdateNotification;
 
 @end
 
-@interface FacebookEventFriend : NSObject
+@interface FacebookEventFriend : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSURL *photoUrl;

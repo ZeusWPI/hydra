@@ -200,7 +200,11 @@
             if (row == kFriendsRow) {
                 minHeight = 36; // Quick ugly shortcut
             }
-            text = self.fields[row];
+            // TODO: Bug? This check should not be required, but sometimes
+            // this method is called with an indexPath it cannot handle...
+            if (row < self.fields.count) {
+                text = self.fields[row];
+            }
         } break;
     }
 
@@ -247,7 +251,7 @@
 
         cell.textLabel.text = self.activity.title;
 
-        // TODO: make this image tappable to view the full size?
+        // TODO: make this image tappable to view the full size
         NSURL *url = self.activity.facebookEvent.smallImageUrl;
         if (url) {
             CGRect imageRect = CGRectMake(-1, 0, 70, 70);
@@ -256,7 +260,7 @@
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.layer.masksToBounds = YES;
             imageView.layer.cornerRadius = 5;
-            imageView.layer.borderWidth = 1;
+            imageView.layer.borderWidth = 1.2;
             imageView.layer.borderColor = [UIColor colorWithWhite:0.65 alpha:1].CGColor;
             imageView.tag = kImageViewTag;
             [imageView setImageWithURL:url];

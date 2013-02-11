@@ -190,6 +190,7 @@
         case kFacebookSection: {
             FacebookSession *session = [FacebookSession sharedSession];
             if (session.open) {
+                // TODO: show actionpicker to allow logoff
                 [session close];
             }
             else {

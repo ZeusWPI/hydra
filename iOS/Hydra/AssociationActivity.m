@@ -61,10 +61,11 @@
         self.longitude = [coder decodeDoubleForKey:@"longitude"];
         self.latitude = [coder decodeDoubleForKey:@"latitude"];
         self.facebookId = [coder decodeObjectForKey:@"facebookId"];
-        self.htmlDescription = [coder decodeObjectForKey:@"html_description"];
+        self.htmlDescription = [coder decodeObjectForKey:@"htmlDescription"];
         self.url = [coder decodeObjectForKey:@"url"];
         self.categories = [coder decodeObjectForKey:@"categories"];
         self.highlighted = [coder decodeBoolForKey:@"highlighted"];
+        self.facebookEvent = [coder decodeObjectForKey:@"facebookEvent"];
     }
     return self;
 }
@@ -78,13 +79,12 @@
     [coder encodeObject:self.location forKey:@"location"];
     [coder encodeDouble:self.longitude forKey:@"longitude"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];
-    [coder encodeInteger:self.facebookId forKey:@"facebookId"];
-    [coder encodeObject:self.htmlDescription forKey:@"html_description"];
+    [coder encodeObject:self.facebookId forKey:@"facebookId"];
+    [coder encodeObject:self.htmlDescription forKey:@"htmlDescription"];
     [coder encodeObject:self.url forKey:@"url"];
     [coder encodeObject:self.categories forKey:@"categories"];
     [coder encodeBool:self.highlighted forKey:@"highlighted"];
-
-    // TODO: cache facebookEvent
+    [coder encodeObject:_facebookEvent forKey:@"facebookEvent"];
 }
 
 @end

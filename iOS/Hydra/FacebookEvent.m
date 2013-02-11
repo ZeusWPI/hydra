@@ -52,6 +52,42 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
     [app openURL:url];
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super init]) {
+        self.valid = [coder decodeBoolForKey:@"valid"];
+        self.eventId = [coder decodeObjectForKey:@"eventId"];
+        self.lastUpdated = [coder decodeObjectForKey:@"lastUpdated"];
+        self.smallImageUrl = [coder decodeObjectForKey:@"smallImageUrl"];
+        self.largeImageUrl = [coder decodeObjectForKey:@"largeImageUrl"];
+        self.attendees = [coder decodeIntegerForKey:@"attendees"];
+
+        NSString *accessToken = [coder decodeObjectForKey:@"fbAccessToken"];
+        if ([accessToken isEqualToString:[FBSession activeSession].accessToken]) {
+            self.friendsAttending = [coder decodeObjectForKey:@"friendsAttending"];
+            self.userRsvp = [coder decodeObjectForKey:@"userRsvp"];
+        }
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeBool:self.valid forKey:@"valid"];
+    [coder encodeObject:self.eventId forKey:@"eventId"];
+    [coder encodeObject:self.lastUpdated forKey:@"lastUpdated"];
+    [coder encodeObject:self.smallImageUrl forKey:@"smallImageUrl"];
+    [coder encodeObject:self.largeImageUrl forKey:@"largeImageUrl"];
+    [coder encodeInteger:self.attendees forKey:@"attendees"];
+
+    // Store user-specific details with the access-token used
+    [coder encodeObject:[FBSession activeSession].accessToken forKey:@"fbAccessToken"];
+    [coder encodeObject:self.friendsAttending forKey:@"friendsAttending"];
+    [coder encodeObject:self.userRsvp forKey:@"userRsvp"];
+}
+
 #pragma mark - Fetching info
 
 - (void)update
@@ -261,6 +297,21 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         }
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super init]) {
+        self.name = [coder decodeObjectForKey:@"name"];
+        self.photoUrl = [coder decodeObjectForKey:@"photoUrl"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.name forKey:@"name"];
+    [coder encodeObject:self.photoUrl forKey:@"photoUrl"];
 }
 
 @end

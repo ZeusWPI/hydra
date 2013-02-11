@@ -11,6 +11,7 @@
 #import "AssociationActivity.h"
 #import "AssociationNewsItem.h"
 #import "AppDelegate.h"
+#import "FacebookEvent.h"
 #import <RestKit/RestKit.h>
 
 #define kBaseUrl @"http://student.ugent.be/hydra/api/1.0"
@@ -71,12 +72,19 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     self.associationLookup = [Association updateAssociations:self.associationLookup];
 
     self.activeRequests = [[NSMutableArray alloc] init];
-    self.newsLastUpdated = [NSDate dateWithTimeIntervalSince1970:0];
-    self.activitiesLastUpdated = [NSDate dateWithTimeIntervalSince1970:0];
-
     self.objectManager = [RKObjectManager managerWithBaseURLString:kBaseUrl];
     self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
     self.objectManager.client.cachePolicy = RKRequestCachePolicyEnabled;
+
+    // Listen for facebook-updates to activities
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(facebookEventUpdated:)
+                   name:FacebookEventDidUpdateNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Caching
@@ -123,7 +131,11 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)updateStoreCache
 {
-    [NSKeyedArchiver archiveRootObject:self toFile:self.class.storeCachePath];
+    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    dispatch_async(async, ^{
+        DLog(@"Updating store cache");
+        [NSKeyedArchiver archiveRootObject:self toFile:self.class.storeCachePath];
+    });
 }
 
 #pragma mark - Accessors
@@ -219,11 +231,13 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     // Received some NewsItems
     if ([objectLoader.resourcePath isEqualToString:kNewsResource]) {
         self.newsItems = objects;
+        self.newsLastUpdated = [NSDate date];
         notification = AssociationStoreDidUpdateNewsNotification;
     }
     // Received Activities
     else if ([objectLoader.resourcePath isEqualToString:kActivitiesResource]) {
         self.activities = objects;
+        self.activitiesLastUpdated = [NSDate date];
         notification = AssociationStoreDidUpdateActivitiesNotification;
     }
 
@@ -232,6 +246,15 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     [center postNotificationName:notification object:self userInfo:nil];
 
     [self.activeRequests removeObject:objectLoader.resourcePath];
+    [self updateStoreCache];
+}
+
+#pragma mark - Notifications
+
+- (void)facebookEventUpdated:(NSNotification *)notification
+{
+    // TODO: schedule it for within 30 seconds so multiple updates
+    // can be combined
     [self updateStoreCache];
 }
 
