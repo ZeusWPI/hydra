@@ -27,7 +27,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 - (id)initWithEventId:(NSString *)eventId
 {
     if (self = [super init]) {
-        self.eventId = @"141011552728829";
+        self.eventId = eventId;
         [self update];
 
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -71,6 +71,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
 - (void)fetchEventInfo:(FBRequestConnection *)conn
 {
+    NSLog(@"Fetching information on event '%@'", self.eventId);
     NSString *q = [NSString stringWithFormat:
                    @"SELECT attending_count, pic, pic_big "
                     "FROM event WHERE eid = '%@'", self.eventId];
@@ -120,6 +121,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         return;
     }
 
+    NSLog(@"Fetching user information on event '%@'", self.eventId);
     NSString *q = [NSString stringWithFormat:
                    @"SELECT rsvp_status FROM event_member "
                     "WHERE eid = '%@' AND uid = me()", self.eventId];
@@ -151,6 +153,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         return;
     }
 
+    NSLog(@"Fetching friends information on event '%@'", self.eventId);
     NSString *q = [NSString stringWithFormat:
                    @"SELECT name, pic_square FROM user WHERE uid IN "
                     "(SELECT uid2 FROM friend WHERE uid1 = me() AND uid2 IN "

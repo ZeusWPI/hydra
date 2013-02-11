@@ -200,7 +200,6 @@
             if (row == kFriendsRow) {
                 minHeight = 36; // Quick ugly shortcut
             }
-
             text = self.fields[row];
         } break;
     }
@@ -248,6 +247,7 @@
 
         cell.textLabel.text = self.activity.title;
 
+        // TODO: make this image tappable to view the full size?
         NSURL *url = self.activity.facebookEvent.smallImageUrl;
         if (url) {
             CGRect imageRect = CGRectMake(-1, 0, 70, 70);
@@ -316,13 +316,12 @@
             if (event.friendsAttending.count > 0) {
                 // Overlay border to next cell
                 CGRect overlayFrame = CGRectInset(cell.bounds, 10, 0);
-                overlayFrame.origin.y = overlayFrame.size.height - 5;
-                overlayFrame.size.height = 5;
+                overlayFrame.origin.y = overlayFrame.size.height - 1;
+                overlayFrame.size.height = 2;
 
                 UIView *overlay = [[UIView alloc] initWithFrame:overlayFrame];
                 overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth
-                                         | UIViewAutoresizingFlexibleHeight;
-                overlay.backgroundColor = [UIColor whiteColor];
+                                         | UIViewAutoresizingFlexibleTopMargin;
                 overlay.tag = kBorderOverlayTag;
                 [cell addSubview:overlay];
 
@@ -330,7 +329,7 @@
                 // issues with cells overlapping each other
                 UIView *friendsContainer = [self createFriendsView:event.friendsAttending];
                 CGRect containerFrame = friendsContainer.frame;
-                containerFrame.origin = CGPointMake(95, overlayFrame.origin.y - 1);
+                containerFrame.origin = CGPointMake(95, cell.frame.size.height - 6);
                 friendsContainer.frame = containerFrame;
                 friendsContainer.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
                 friendsContainer.tag = kImageContainerTag;
@@ -370,6 +369,15 @@
     return nil;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Fix background-color
+    UIView *overlay = [cell viewWithTag:kBorderOverlayTag];
+    if (overlay) {
+        overlay.backgroundColor = cell.backgroundColor;
+    }
+}
+
 - (NSUInteger)virtualRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger row = indexPath.row;
@@ -381,7 +389,7 @@
         }
     }
     if (row >= kFriendsRow) {
-        if (event.friendsAttending.count == 0) {
+        if (event.valid && event.friendsAttending.count == 0) {
             row++;
         }
     }
@@ -390,7 +398,6 @@
             row++;
         }
     }
-
     return row;
 }
 
