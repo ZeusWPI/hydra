@@ -29,9 +29,9 @@
     <string name="settings">Settings</string>
     <string name="inappsupport">Feedback</string>
     <string name="pref_filter">Filter</string>
-    <string name="pref_filter_activites">Filter verenigingen</string>
-    <string name="pref_filter_activities_summary">Filter verenigingen uit het nieuws en activiteiten</string>
-    <string name="pref_filter_activities_list">Kies verenigingen</string>
+    <string name="pref_filter_activites">Toon alle verenigingen</string>
+    <string name="pref_filter_activities_summary">Selecteer verenigingen om activiteiten en nieuwsberichten te filteren. Berichten die in de kijker staan worden steeds getoond.</string>
+    <string name="pref_filter_activities_list">Selectie</string>
 
     <!-- other stuff -->
     <string name="loading">Laden…</string>
