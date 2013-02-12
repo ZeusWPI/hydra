@@ -59,7 +59,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
-        <phone:Pivot x:Name="mainPanorama" Title="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"  SelectionChanged="MainPanoramaSelectionChangedShowApplicationBar">
+        <phone:Pivot x:Name="mainPivot" Title="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"  SelectionChanged="mainPivotSelectionChangedShowApplicationBar">
 
             <phone:PivotItem x:Name="news" Header="Nieuws">
 
@@ -67,7 +67,7 @@
 
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility }}" >
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility}}" >
                                 <StackPanel Width="311" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
                                     <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0"/>
@@ -84,7 +84,7 @@
                 <phone:LongListSelector Margin="0,-38,-22,2" x:Name="activityLLS" ItemsSource="{Binding ActivityItems}" SelectionChanged="ActivityItemTapped">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility }}">
                                 <StackPanel Width="311" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
                                     <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0"  />

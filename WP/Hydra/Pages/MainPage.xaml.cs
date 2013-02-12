@@ -18,19 +18,26 @@ namespace Hydra.Pages
             InitializeComponent();
             _restoItem = 0;
             ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
+            var dt = new System.Windows.Threading.DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 0,3600000)};
+            dt.Tick += LoadData;
+            dt.Start();
 	      
         }
 
-       
+        private void LoadData(object sender, EventArgs e)
+        {
+            App.ViewModel.LoadData();
+            DataContext = App.ViewModel;
+            LoadResto();
+        }
+
 
         // Load data for the ViewModel NewsItems
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
            
             if (App.ViewModel.IsDataLoaded) return;
-            App.ViewModel.LoadData();
-            DataContext = App.ViewModel;
-            LoadResto();
+            LoadData(null, null);
         }
 
         private void LoadResto()
@@ -101,7 +108,7 @@ namespace Hydra.Pages
             infoLLS.SelectedItem = null;
         }
 
-        private void MainPanoramaSelectionChangedShowApplicationBar(object sender, SelectionChangedEventArgs e)
+        private void mainPivotSelectionChangedShowApplicationBar(object sender, SelectionChangedEventArgs e)
         {
             var pivotItem = e.AddedItems[0] as PivotItem;
             if (pivotItem == null) return;
@@ -159,40 +166,6 @@ namespace Hydra.Pages
         {
             NavigationService.Navigate(new Uri("/Pages/RestoLocations.xaml", UriKind.Relative));
         }
-
-        //private void Reload(object sender, EventArgs e)
-        //{
-        //    var panoramaItem = mainPanorama.SelectedItem as PanoramaItem;
-        //    if (panoramaItem != null)
-        //    {
-        //        var name = panoramaItem.Name;
-        //        if (name != null)
-        //        {
-        //            if (name.Equals("schamper"))
-        //            {
-        //                App.ViewModel.LoadSchamper();
-        //            }
-        //            else if(name.Equals("resto"))
-        //            {
-        //                App.ViewModel.LoadResto();
-        //            }else if (name.Equals("news"))
-        //            {
-        //                App.ViewModel.LoadNews();
-        //            }else if(name.Equals("activities"))
-        //            {
-        //                App.ViewModel.LoadInfo();
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private void GridClick(object sender, System.Windows.RoutedEventArgs e)
-        //{
-        //    var item = Convert.ToInt32(((TextBlock) sender).Name.Substring(1));
-        //    mainPanorama.DefaultItem = mainPanorama.Items[item];
-
-        //}
-
 
     }
 }
