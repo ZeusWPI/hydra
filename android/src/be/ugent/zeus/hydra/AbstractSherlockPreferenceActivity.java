@@ -6,13 +6,13 @@
 package be.ugent.zeus.hydra;
 
 import android.os.Bundle;
-import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.analytics.tracking.android.EasyTracker;
 
-public abstract class AbstractSherlockListActivity extends SherlockListActivity {
+public class AbstractSherlockPreferenceActivity extends SherlockPreferenceActivity {
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -27,7 +27,7 @@ public abstract class AbstractSherlockListActivity extends SherlockListActivity 
         inflater.inflate(R.menu.settings, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return ActionBarHelper.onOptionsItemSelected(item, this);

@@ -5,18 +5,26 @@
  */
 package be.ugent.zeus.hydra;
 
+import be.ugent.zeus.hydra.settings.Settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class HomeButtonHelper {
-
+public class ActionBarHelper {
+        
     public static boolean onOptionsItemSelected(MenuItem item, Activity activity) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.settings:
+                Intent intent = new Intent(activity, Settings.class);
+                activity.startActivity(intent);
+                return true;
             case android.R.id.home:
                 // This is called when the Home (Up) button is pressed
                 // in the Action Bar.

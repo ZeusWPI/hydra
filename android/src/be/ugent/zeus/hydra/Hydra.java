@@ -91,10 +91,6 @@ public class Hydra extends AbstractSherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-//			case R.id.settings:
-//				Intent intent = new Intent(this, Settings.class);
-//				startActivity(intent);
-//				return true;
             case R.id.feedbackButton:
                 setupFeedback();
                 return true;

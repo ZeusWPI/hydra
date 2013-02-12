@@ -7,6 +7,8 @@ package be.ugent.zeus.hydra;
 
 import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.analytics.tracking.android.EasyTracker;
 
@@ -20,10 +22,17 @@ public class AbstractSherlockFragmentActivity extends SherlockFragmentActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return HomeButtonHelper.onOptionsItemSelected(item, this);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return super.onCreateOptionsMenu(menu);
     }
-    
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return ActionBarHelper.onOptionsItemSelected(item, this);
+    }
+
     @Override
     public void onStart() {
         super.onStart();

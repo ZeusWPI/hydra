@@ -1,23 +1,21 @@
-package be.ugent.zeus.hydra;
+/**
+ *
+ * @author Tom Naessens Tom.Naessens@UGent.be 3de Bachelor Informatica Universiteit Gent
+ *
+ */
+package be.ugent.zeus.hydra.settings;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView;
-import android.widget.Toast;
-import be.ugent.zeus.hydra.data.Activity;
-import be.ugent.zeus.hydra.data.caches.ActivityCache;
-import be.ugent.zeus.hydra.ui.ActivityListAdapter;
+import be.ugent.zeus.hydra.AbstractSherlockActivity;
+import be.ugent.zeus.hydra.R;
+import com.dd.plist.NSArray;
+import com.dd.plist.XMLPropertyListParser;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- * @author blackskad
- */
-public class Calendar extends AbstractSherlockActivity implements OnScrollListener,
-    AdapterView.OnItemClickListener {
+public class AssociationsFilter extends AbstractSherlockActivity implements AbsListView.OnScrollListener {
 
     private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
     private int firstVisible;
@@ -26,24 +24,26 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        setTitle(R.string.title_calendar);
+        setTitle(R.string.title_settings_associations_filter);
 
         StickyListHeadersListView stickyList = (StickyListHeadersListView) findViewById(R.id.list);
         stickyList.setOnScrollListener(this);
-        stickyList.setOnItemClickListener(this);
 
+        // We can't put extra's in the HTML, so let's do it here.
+        getIntent().putExtra("class", Settings.class.getCanonicalName());
+        
         if (savedInstanceState != null) {
             firstVisible = savedInstanceState.getInt(KEY_LIST_POSITION);
         }
-
-        ActivityCache cache = ActivityCache.getInstance(this);
-
-        List<Activity> items = new ArrayList<Activity>();
-        for (ArrayList<Activity> subset : cache.getAll()) {
-            items.addAll(subset);
+        NSArray assocations = null;
+        try {
+            assocations = (NSArray) XMLPropertyListParser.parse(getResources()
+                .openRawResource(R.raw.assocations));
+        } catch (Exception ex) {
+            Logger.getLogger(AssociationsFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        stickyList.setAdapter(new ActivityListAdapter(this, items));
+        stickyList.setAdapter(new AssociationsFilterListAdapter(this, assocations));
         stickyList.setSelection(firstVisible);
     }
 
@@ -61,10 +61,5 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "Item " + position + " clicked!", Toast.LENGTH_SHORT).show();
     }
 }
