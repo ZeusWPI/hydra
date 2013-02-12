@@ -34,13 +34,15 @@
 #define kImageViewTag 501
 #define kBorderOverlayTag 502
 #define kImageContainerTag 503
-#define kWebViewTag 504
+#define kTextViewTag 504
 
 @interface ActivityDetailViewController () <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
 @property (nonatomic, strong) NSArray *fields;
 @property (nonatomic, strong) id<ActivityListDelegate> listDelegate;
+
+@property (nonatomic, strong) UITextView *descriptionView;
 
 @end
 
@@ -142,7 +144,7 @@
     }
 
     fields[kFriendsRow] = @"";
-    fields[kDescriptionRow] = self.activity.htmlDescription ? self.activity.htmlDescription : @"";
+    fields[kDescriptionRow] = self.activity.descriptionText ? self.activity.descriptionText : @"";
     fields[kUrlRow] = self.activity.url ? self.activity.url : @"";
 
     self.fields = fields;
@@ -165,7 +167,7 @@
             return 1;
         case kInfoSection: {
             NSUInteger rows = 3;
-            if (self.activity.htmlDescription.length > 0) rows++;
+            if (self.activity.descriptionText.length > 0) rows++;
             if (self.activity.url.length > 0) rows++;
 
             // Facebook-rows?
@@ -223,6 +225,15 @@
             if (row == kUrlRow) {
                 text = @"http://";
             }
+            // Different calculation for UITextView
+            else if (row == kDescriptionRow) {
+                if (self.descriptionView) {
+                    return self.descriptionView.contentSize.height;
+                }
+                else {
+                    return 44;
+                }
+            }
         } break;
     }
 
@@ -238,7 +249,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 1;
+    return (section == 2) ? 0 : 1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -267,7 +278,9 @@
             cell.textLabel.shadowOffset = CGSizeMake(0, 1);
         }
 
+        cell.indentationLevel = 0;
         cell.textLabel.text = self.activity.title;
+        [[cell.contentView viewWithTag:kImageViewTag] removeFromSuperview];
 
         // TODO: make this image tappable to view the full size
         NSURL *url = self.activity.facebookEvent.smallImageUrl;
@@ -286,10 +299,6 @@
 
             // Inset text
             cell.indentationLevel = 7; // 70pt
-        }
-        else {
-            [[cell.contentView viewWithTag:kImageViewTag] removeFromSuperview];
-            cell.indentationLevel = 0;
         }
 
         return cell;
@@ -335,6 +344,7 @@
         cell.detailTextLabel.numberOfLines = 0;
         [[cell viewWithTag:kBorderOverlayTag] removeFromSuperview];
         [[cell viewWithTag:kImageContainerTag] removeFromSuperview];
+        [[cell viewWithTag:kTextViewTag] removeFromSuperview];
 
         // Customize per row
         if (row == kLocationRow) {
@@ -371,10 +381,31 @@
                 [cell addSubview:friendsContainer];
             }
         }
+        else if (row == kDescriptionRow) {
+            if (!self.descriptionView) {
+                CGRect bounds = cell.contentView.bounds;
+                UITextView *descriptionView = [[UITextView alloc] initWithFrame:bounds];
+                descriptionView.autoresizingMask = UIViewAutoresizingFlexibleWidth
+                                                 | UIViewAutoresizingFlexibleHeight;
+                descriptionView.backgroundColor = [UIColor clearColor];
+                descriptionView.bounces = NO;
+                descriptionView.dataDetectorTypes = UIDataDetectorTypeLink
+                                                  | UIDataDetectorTypePhoneNumber;
+                descriptionView.editable = NO;
+                descriptionView.font = [UIFont systemFontOfSize:13];
+                descriptionView.tag = kTextViewTag;
+                descriptionView.scrollEnabled = NO;
+                self.descriptionView = descriptionView;
+
+                [tableView reloadData];
+            }
+            self.descriptionView.text = self.fields[row];
+            [cell.contentView addSubview:self.descriptionView];
+            cell.detailTextLabel.text = nil;
+        }
         else if (row == kUrlRow) {
-            VLog(cell);
-            UIImage *linkImage = [UIImage imageNamed:@"external-link.png"];
-            UIImage *highlightedLinkImage = [UIImage imageNamed:@"external-link-active.png"];
+            UIImage *linkImage = [UIImage imageNamed:@"external-link"];
+            UIImage *highlightedLinkImage = [UIImage imageNamed:@"external-link-active"];
             UIImageView *linkAccessory = [[UIImageView alloc] initWithImage:linkImage
                                                            highlightedImage:highlightedLinkImage];
             linkAccessory.contentMode = UIViewContentModeScaleAspectFit;
@@ -436,7 +467,7 @@
             row++;
         }
     }
-    if (row >= kDescriptionRow && self.activity.htmlDescription.length == 0) row++;
+    if (row >= kDescriptionRow && self.activity.descriptionText.length == 0) row++;
     if (row >= kUrlRow && self.activity.url.length == 0) row++;
 
     return row;

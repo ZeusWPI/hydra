@@ -28,7 +28,7 @@
     [objectMapping mapAttributes:@"title", @"location", @"start", @"end", @"url",
         @"latitude", @"longitude", @"url", @"categories", @"highlighted", nil];
     [objectMapping mapKeyPathsToAttributes:@"facebook_id", @"facebookId",
-        @"description", @"htmlDescription", nil];
+        @"description", @"descriptionText", nil];
     [objectMapping mapRelationship:@"association" withMapping:[Association objectMapping]];
 
     return objectMapping;
@@ -61,7 +61,7 @@
         self.longitude = [coder decodeDoubleForKey:@"longitude"];
         self.latitude = [coder decodeDoubleForKey:@"latitude"];
         self.facebookId = [coder decodeObjectForKey:@"facebookId"];
-        self.htmlDescription = [coder decodeObjectForKey:@"htmlDescription"];
+        self.descriptionText = [coder decodeObjectForKey:@"descriptionText"];
         self.url = [coder decodeObjectForKey:@"url"];
         self.categories = [coder decodeObjectForKey:@"categories"];
         self.highlighted = [coder decodeBoolForKey:@"highlighted"];
@@ -80,7 +80,7 @@
     [coder encodeDouble:self.longitude forKey:@"longitude"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];
     [coder encodeObject:self.facebookId forKey:@"facebookId"];
-    [coder encodeObject:self.htmlDescription forKey:@"htmlDescription"];
+    [coder encodeObject:self.descriptionText forKey:@"descriptionText"];
     [coder encodeObject:self.url forKey:@"url"];
     [coder encodeObject:self.categories forKey:@"categories"];
     [coder encodeBool:self.highlighted forKey:@"highlighted"];

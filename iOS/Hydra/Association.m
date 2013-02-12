@@ -108,20 +108,20 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super init]) {
-        self.displayName = [coder decodeObjectForKey:@"displayName"];
-        self.fullName = [coder decodeObjectForKey:@"fullName"];
-        self.internalName = [coder decodeObjectForKey:@"internalName"];
-        self.parentAssociation = [coder decodeObjectForKey:@"parentAssociation"];
+        _displayName = [coder decodeObjectForKey:@"displayName"];
+        _fullName = [coder decodeObjectForKey:@"fullName"];
+        _internalName = [coder decodeObjectForKey:@"internalName"];
+        _parentAssociation = [coder decodeObjectForKey:@"parentAssociation"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:self.displayName forKey:@"displayName"];
-    [coder encodeObject:self.fullName forKey:@"fullName"];
-    [coder encodeObject:self.internalName forKey:@"internalName"];
-    [coder encodeObject:self.parentAssociation forKey:@"parentAssociation"];
+    [coder encodeObject:_displayName forKey:@"displayName"];
+    [coder encodeObject:_fullName forKey:@"fullName"];
+    [coder encodeObject:_internalName forKey:@"internalName"];
+    [coder encodeObject:_parentAssociation forKey:@"parentAssociation"];
 }
 
 #pragma mark - NSCopying
