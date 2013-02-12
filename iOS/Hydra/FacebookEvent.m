@@ -10,6 +10,7 @@
 #import <FacebookSDK.h>
 #import "FacebookSession.h"
 #import "NSMutableArray+Shuffling.h"
+#import "AppDelegate.h"
 
 #define kUpdateInterval (15 * 60) /* Update every 15 minutes */
 
@@ -66,8 +67,8 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
         NSString *accessToken = [coder decodeObjectForKey:@"fbAccessToken"];
         if ([accessToken isEqualToString:[FBSession activeSession].accessToken]) {
-            self.friendsAttending = [coder decodeObjectForKey:@"friendsAttending"];
-            self.userRsvp = [coder decodeObjectForKey:@"userRsvp"];
+            _friendsAttending = [coder decodeObjectForKey:@"friendsAttending"];
+            _userRsvp = [coder decodeObjectForKey:@"userRsvp"];
         }
     }
     return self;
@@ -84,8 +85,8 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
     // Store user-specific details with the access-token used
     [coder encodeObject:[FBSession activeSession].accessToken forKey:@"fbAccessToken"];
-    [coder encodeObject:self.friendsAttending forKey:@"friendsAttending"];
-    [coder encodeObject:self.userRsvp forKey:@"userRsvp"];
+    [coder encodeObject:_friendsAttending forKey:@"friendsAttending"];
+    [coder encodeObject:_userRsvp forKey:@"userRsvp"];
 }
 
 #pragma mark - Fetching info
@@ -223,51 +224,54 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
 - (void)setUserRsvp:(NSString *)userRsvp
 {
-    // TODO
-}
-
-/*
--(void)postUserAttendsEvent{
-    
-    if (self.userAttending){
+    if ([userRsvp isEqualToString:_userRsvp]) {
         return;
     }
-    
-    NSString *query = [NSString stringWithFormat:@"%@/attending/me", self.eventId];
 
-    // Ask for rspv_events permissions in context
-    if ([FBSession.activeSession.permissions
-         indexOfObject:@"rsvp_event"] == NSNotFound) {
-         // No permissions found in session, ask for it
-            [FBSession.activeSession
-             reauthorizeWithPublishPermissions:
-             [NSArray arrayWithObject:@"rsvp_event"]
-             defaultAudience:FBSessionDefaultAudienceFriends
-             completionHandler:^(FBSession *session, NSError *error) {
-                 if(error){
-                     //error
-                     VLog(error);
-                 }
-                 if (!error) {
-                 }
-             }];
-        }
-        FBRequestConnection *conn = [[FBRequestConnection alloc] init];
-        FBRequest *req1 = [FBRequest requestForPostWithGraphPath:query graphObject:nil];
-        [conn addRequest:req1 completionHandler:^(FBRequestConnection *connection,
-                                                  id result,
-                                                  NSError *error) {
-            if (error) {
-                NSLog(@"Error: %@", [error localizedDescription]);
-            } else {
-                NSLog(@"Result: %@", result);
-                self.userAttending = YES;
-            }
-            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-            [center postNotificationName:FacebookEventDidUpdateNotification object:self];
+    // Open facebook-session
+    FBSession *fb = [FBSession activeSession];
+    if (![fb isOpen]) {
+        [[FacebookSession sharedSession] openWithAllowLoginUI:YES completion:^{
+            self.userRsvp = userRsvp;
         }];
-        [conn start];
-} */
+    }
+    // Check for permissions
+    else if (![fb.permissions containsObject:@"rsvp_event"]) {
+        NSLog(@"Requesting publishPermission 'rsvp_event'");
+        [fb reauthorizeWithPublishPermissions:@[ @"rsvp_event" ]
+                              defaultAudience:FBSessionDefaultAudienceFriends
+                            completionHandler:^(FBSession *session, NSError *error) {
+            if (error) {
+                AppDelegate *delegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
+                [delegate handleError:error];
+            }
+            else {
+                self.userRsvp = userRsvp;
+            }
+        }];
+    }
+    else {
+        // Real consistency in these API's
+        if ([userRsvp isEqualToString:@"unsure"]) {
+            userRsvp = @"maybe";
+        }
+        NSString *path = [NSString stringWithFormat:@"%@/%@", self.eventId, userRsvp];
+        FBRequest *req = [FBRequest requestForPostWithGraphPath:path graphObject:nil];
+        NSLog(@"POSTing presence to %@", path);
+        [req startWithCompletionHandler:^(FBRequestConnection *c, id result, NSError *error) {
+            if (error) {
+                AppDelegate *delegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
+                [delegate handleError:error];
+            }
+            else {
+                _userRsvp = userRsvp;
+
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:FacebookEventDidUpdateNotification object:self];
+            }
+        }];
+    }
+}
 
 #pragma mark - Facebook session state
 

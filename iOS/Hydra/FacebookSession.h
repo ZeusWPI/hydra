@@ -20,6 +20,7 @@ extern NSString *const FacebookUserInfoUpdatedNotifcation;
 @property (nonatomic, readonly) id<FBGraphUser> userInfo;
 
 - (BOOL)openWithAllowLoginUI:(BOOL)allowLoginUI;
+- (BOOL)openWithAllowLoginUI:(BOOL)allowLoginUI completion:(void (^)())completion;
 - (void)close;
 
 - (FBRequest *)requestWithQuery:(NSString *)query;

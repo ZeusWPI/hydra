@@ -31,12 +31,16 @@
 #define kDescriptionRow 5
 #define kUrlRow 6
 
+#define kRsvpActionRow 0
+#define kCalendarActionRow 1
+
 #define kImageViewTag 501
 #define kBorderOverlayTag 502
 #define kImageContainerTag 503
 #define kTextViewTag 504
+#define kDetailLabelTag 505
 
-@interface ActivityDetailViewController () <EKEventEditViewDelegate>
+@interface ActivityDetailViewController () <EKEventEditViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
 @property (nonatomic, strong) NSArray *fields;
@@ -176,9 +180,13 @@
             if (event.friendsAttending.count > 0) rows++;
 
             return rows;
-        };
-        case kActionSection:
-            return 1;
+        } break;
+
+        case kActionSection: {
+            FacebookEvent *event = self.activity.facebookEvent;
+            return event.valid ? 2 : 1;
+        } break;
+
         default:
             return 0;
     }
@@ -233,6 +241,13 @@
                 else {
                     return 44;
                 }
+            }
+        } break;
+
+        case kActionSection: {
+            FacebookEvent *event = self.activity.facebookEvent;
+            if (indexPath.row == kRsvpActionRow && event.valid && event.userRsvp) {
+                return 48;
             }
         } break;
     }
@@ -347,6 +362,7 @@
         [[cell viewWithTag:kTextViewTag] removeFromSuperview];
 
         // Customize per row
+        // TODO: make the location go to a seperate view with just a map
         if (row == kLocationRow) {
             if (self.activity.latitude != 0 && self.activity.longitude != 0) {
                 cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
@@ -383,8 +399,7 @@
         }
         else if (row == kDescriptionRow) {
             if (!self.descriptionView) {
-                CGRect bounds = cell.contentView.bounds;
-                UITextView *descriptionView = [[UITextView alloc] initWithFrame:bounds];
+                UITextView *descriptionView = [[UITextView alloc] init];
                 descriptionView.autoresizingMask = UIViewAutoresizingFlexibleWidth
                                                  | UIViewAutoresizingFlexibleHeight;
                 descriptionView.backgroundColor = [UIColor clearColor];
@@ -397,9 +412,10 @@
                 descriptionView.scrollEnabled = NO;
                 self.descriptionView = descriptionView;
 
-                [tableView reloadData];
+                [tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.1];
             }
             self.descriptionView.text = self.fields[row];
+            self.descriptionView.frame = cell.contentView.bounds;
             [cell.contentView addSubview:self.descriptionView];
             cell.detailTextLabel.text = nil;
         }
@@ -423,27 +439,53 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:CellIdentifier];
-            cell.textLabel.text = @"Toevoegen aan agenda";
             cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
             cell.textLabel.textColor = [UIColor H_detailLabelTextColor];
             cell.textLabel.textAlignment = UITextAlignmentCenter;
+            cell.textLabel.numberOfLines = 0;
+            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         }
+        else {
+            [[cell viewWithTag:kDetailLabelTag] removeFromSuperview];
+        }
+
+        FacebookEvent *event = self.activity.facebookEvent;
+        if (event.valid && indexPath.row == kRsvpActionRow) {
+            if (!event.userRsvp || [event.userRsvp isEqualToString:@"not_replied"]) {
+                cell.textLabel.text = @"Bevestig aanwezigheid";
+            }
+            else {
+                cell.textLabel.text = @"Aanwezigheid wijzigen\n ";
+
+                NSString *rsvpDescription = @"misschien";
+                if ([event.userRsvp isEqualToString:@"attending"]) {
+                    rsvpDescription = @"aanwezig";
+                }
+                else if ([event.userRsvp isEqualToString:@"declined"]) {
+                    rsvpDescription = @"niet aanwezig";
+                }
+
+                NSString *detailLabelText = [NSString stringWithFormat:@"Momenteel sta je op '%@'",
+                                             rsvpDescription];
+
+                CGRect detailFrame = CGRectMake(0, 24, cell.contentView.bounds.size.width, 16);
+                UILabel *detailLabel = [[UILabel alloc] initWithFrame:detailFrame];
+                detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+                detailLabel.backgroundColor = [UIColor clearColor];
+                detailLabel.font = [UIFont systemFontOfSize:13];
+                detailLabel.text = detailLabelText;
+                detailLabel.textAlignment = UITextAlignmentCenter;
+                detailLabel.textColor = [UIColor colorWithWhite:0.4 alpha:1];
+                detailLabel.tag = kDetailLabelTag;
+                [cell.contentView addSubview:detailLabel];
+            }
+        }
+        else {
+            cell.textLabel.text = @"Toevoegen aan agenda";
+        }
+
         return cell;
     }
-    /*else if (indexPath.section == kFaceBookButtonSection) {
-        static NSString *CellIdentifier = @"FacebookButtonCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:CellIdentifier];
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-            cell.textLabel.textColor = [UIColor H_detailLabelTextColor];
-            cell.textLabel.textAlignment = UITextAlignmentCenter;
-        }
-        cell.textLabel.text = @"TEST";
-        //cell.textLabel.text = self.activity.facebookEvent.userAttending ? @"Aanwezig" : @"Deelnemen";
-        return cell;
-    }*/
     return nil;
 }
 
@@ -509,17 +551,16 @@
            
         } break;
         case kActionSection: {
-            EKEventStore *store = [[EKEventStore alloc] init];
-            if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
-                [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-                    if (!granted) return;
-
-                    [self performSelectorOnMainThread:@selector(addEventToCalendarStore:)
-                                          withObject:store waitUntilDone:NO];
-                }];
+            FacebookEvent *event = self.activity.facebookEvent;
+            if (event.valid && indexPath.row == kRsvpActionRow) {
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Bevestig aanwezigheid" delegate:self
+                                              cancelButtonTitle:@"Annuleren" destructiveButtonTitle:nil
+                                              otherButtonTitles:@"Aanwezig", @"Misschien", @"Niet aanwezig", nil];
+                [actionSheet showInView:self.view];
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
             else {
-                [self addEventToCalendarStore:store];
+                [self addEventToCalendar];
             }
         } break;
     }
@@ -554,7 +595,23 @@
     }
 }
 
-- (void)addEventToCalendarStore:(EKEventStore *)store
+- (void)addEventToCalendar
+{
+    EKEventStore *store = [[EKEventStore alloc] init];
+    if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
+        [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+            if (!granted) return;
+
+            [self performSelectorOnMainThread:@selector(addEventWithCalendarStore:)
+                                   withObject:store waitUntilDone:NO];
+        }];
+    }
+    else {
+        [self addEventWithCalendarStore:store];
+    }
+}
+
+- (void)addEventWithCalendarStore:(EKEventStore *)store
 {
     EKEvent *event  = [EKEvent eventWithEventStore:store];
     event.title     = self.activity.title;
@@ -578,6 +635,21 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSString *answer = nil;
+    switch(buttonIndex) {
+        case 0: answer = @"attending"; break;
+        case 1: answer = @"unsure"; break;
+        case 2: answer = @"declined"; break;
+    }
+
+    if (answer) {
+        // TODO: show some kind of spinner to show activity
+        self.activity.facebookEvent.userRsvp = answer;
+    }
+}
+
 #pragma mark - Segmented control
 
 - (void)enableSegments:(UISegmentedControl *)control
@@ -597,6 +669,7 @@
         self.activity = [self.listDelegate activityAfter:self.activity];
     }
 
+    self.descriptionView = nil;
     [self reloadFields];
     [self viewDidAppear:NO]; // Trigger analytics
     [self enableSegments:control];

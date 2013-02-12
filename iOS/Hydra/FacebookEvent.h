@@ -19,6 +19,7 @@ extern NSString *const FacebookEventDidUpdateNotification;
 
 @property (nonatomic, assign) NSUInteger attendees;
 @property (nonatomic, strong) NSArray *friendsAttending;
+// TODO: use enum
 @property (nonatomic, strong) NSString *userRsvp; /* attending, unsure, declined, or not_replied */
 
 - (id)initWithEventId:(NSString *)eventId;

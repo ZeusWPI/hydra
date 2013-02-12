@@ -17,7 +17,7 @@
 #define kBaseUrl @"http://student.ugent.be/hydra/api/1.0"
 #define kActivitiesResource @"/all_activities.json"
 #define kNewsResource @"/all_news.json"
-#define kUpdateInterval (5 * 60)
+#define kUpdateInterval (15 * 60)
 
 NSString *const AssociationStoreDidUpdateNewsNotification =
     @"AssociationStoreDidUpdateNewsNotification";
@@ -236,6 +236,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
     // Received Activities
     else if ([objectLoader.resourcePath isEqualToString:kActivitiesResource]) {
+        // TODO: check if some information can be reused, e.g. underlying
+        // FacebookEvent's.
         self.activities = objects;
         self.activitiesLastUpdated = [NSDate date];
         notification = AssociationStoreDidUpdateActivitiesNotification;
