@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.Serialization;
 
-namespace Hydra.ViewModels
+namespace Hydra.Data
 {
+    [DataContract]
     public class RestoItemsViewModel
     {
-        
+
 
         //    "2013-02-18": {
         //    "meat": [
@@ -42,32 +44,34 @@ namespace Hydra.ViewModels
         //    ]
         //}, 
 
-        public  Day Day{get; set; }
-       
+        public Day Day { get; set; }
     }
 
     public class Day
     {
-        private readonly string[] _months = new string[] { "januari", "februari", "maart", "april", "mei", "juni", "juli","augustus","september","november","oktober","december" };
-        private List<Dish> _dishes; 
-        public List<Dish> Dishes { get
+        private readonly string[] _months = new string[] { "januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "november", "oktober", "december" };
+        private List<Dish> _dishes;
+        public List<Dish> Dishes
         {
-            if (_dishes != null)
+            get
             {
-                return _dishes;
+                if (_dishes != null)
+                {
+                    return _dishes;
+                }
+                else
+                {
+                    var li = new List<Dish> { new Dish(), new Dish(), new Dish(), new Dish() };
+                    return li;
+                }
             }
-            else
-            {
-                var li = new List<Dish> {new Dish(), new Dish(), new Dish(), new Dish()};
-                return li;
-            }
-        }
             set { if (value != _dishes) _dishes = value; }
         }
 
 
         private string _date;
-        public string Date { 
+        public string Date
+        {
             get
             {
                 if (_date == null)
@@ -90,30 +94,35 @@ namespace Hydra.ViewModels
                 }
             }
             set
-        {
-            if(!Equals(value, _date))
             {
-                _date = value;
+                if (!Equals(value, _date))
+                {
+                    _date = value;
+                }
             }
-        } }
-        
+        }
+
         public bool Open { get; set; }
 
-        private List<String> _soup; 
-        public List<string> Soup { get
+        private List<String> _soup;
+        public List<string> Soup
         {
-            if(_soup!=null)
-                return _soup;
-            else
+            get
             {
-                var li = new List<string> {"Laden...", "Laden..."};
-                return li;
+                if (_soup != null)
+                    return _soup;
+                else
+                {
+                    var li = new List<string> { "Laden...", "Laden..." };
+                    return li;
+                }
             }
-        } set
-        {
-            if (value != null && value != _soup)
-                _soup = value;
-        } }
+            set
+            {
+                if (value != null && value != _soup)
+                    _soup = value;
+            }
+        }
 
         private List<String> _vegetables;
         public List<string> Vegetables
@@ -124,7 +133,7 @@ namespace Hydra.ViewModels
                     return _vegetables;
                 else
                 {
-                    var li = new List<string> {"Laden...", "Laden..."};
+                    var li = new List<string> { "Laden...", "Laden..." };
                     return li;
                 }
             }
@@ -134,7 +143,7 @@ namespace Hydra.ViewModels
                     _vegetables = value;
             }
         }
-        
+
 
 
     }

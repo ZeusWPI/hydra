@@ -1,12 +1,13 @@
-﻿using System;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Navigation;
-using Hydra.ViewModels;
+using Hydra.Data;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-namespace Hydra
+
+namespace Hydra.Pages
 {
     public partial class MainPage:PhoneApplicationPage
     {
@@ -43,7 +44,7 @@ namespace Hydra
             if (e.AddedItems[0] == null) return;
             var schamperitem = e.AddedItems[0] as SchamperItemsViewModel;
             if (schamperitem != null)
-                NavigationService.Navigate(new Uri("/SchamperItem.xaml?article=" + App.ViewModel.SchamperItems.IndexOf(schamperitem), UriKind.Relative));
+                NavigationService.Navigate(new Uri("/Pages/SchamperItem.xaml?article=" + App.ViewModel.SchamperItems.IndexOf(schamperitem), UriKind.Relative));
 
             schamperLLS.SelectedItem = null;
         }
@@ -53,7 +54,7 @@ namespace Hydra
             if (e.AddedItems[0] == null) return;
             var newsItem = e.AddedItems[0] as NewsItemViewModel;
             if (newsItem != null)
-                NavigationService.Navigate(new Uri("/NewsItem.xaml?newsItem=" + App.ViewModel.NewsItems.IndexOf(newsItem), UriKind.Relative));
+                NavigationService.Navigate(new Uri("/Pages/NewsItem.xaml?newsItem=" + App.ViewModel.NewsItems.IndexOf(newsItem), UriKind.Relative));
 
             newsLLS.SelectedItem = null;
         }
@@ -63,7 +64,7 @@ namespace Hydra
             if (e.AddedItems[0] == null) return;
             var activityItem = e.AddedItems[0] as ActivityItemsViewModel;
             if (activityItem != null)
-                NavigationService.Navigate(new Uri("/ActivityItem.xaml?activityItem=" + App.ViewModel.ActivityItems.IndexOf(activityItem), UriKind.Relative));
+                NavigationService.Navigate(new Uri("/Pages/ActivityItem.xaml?activityItem=" + App.ViewModel.ActivityItems.IndexOf(activityItem), UriKind.Relative));
             activityLLS.SelectedItem = null;
         }
 
@@ -79,13 +80,13 @@ namespace Hydra
             }
             else if (infoItem != null && infoItem.Children.Count == 0 && !infoItem.Link.StartsWith("http"))
             {
-                uri = new Uri("/InfoItemBrowser.xaml?item=" + idx, UriKind.Relative);
+                uri = new Uri("/Pages/InfoItemBrowser.xaml?item=" + idx, UriKind.Relative);
 
 
             }
             else if (infoItem != null && infoItem.Children.Count != 0)
             {
-                uri = new Uri("/InfoItemSubcontent.xaml?item=" + idx, UriKind.Relative);
+                uri = new Uri("/Pages/InfoItemSubcontent.xaml?item=" + idx, UriKind.Relative);
 
             }
             if (uri != null && uri.ToString().StartsWith("http"))
@@ -145,7 +146,18 @@ namespace Hydra
 
         private void SettingsAppBar(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Pages/Settings.xaml", UriKind.Relative));
+        }
+
+        private void LegendAppBar(object sender, EventArgs e)
+        {
+            String legende = App.ViewModel.MetaRestoItem.Legenda.Aggregate<Legenda, string>(null, (current, leg) => current + (leg.Key + ": " + leg.Value + " \n "));
+            MessageBox.Show(legende);
+        }
+
+        private void LocationAppBar(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/RestoLocations.xaml", UriKind.Relative));
         }
 
         //private void Reload(object sender, EventArgs e)

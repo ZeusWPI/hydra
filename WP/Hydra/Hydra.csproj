@@ -91,25 +91,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ActivityItem.xaml.cs">
-      <DependentUpon>ActivityItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BooleanToVisibilityConverter.cs" />
-    <Compile Include="InfoItemBrowser.xaml.cs">
+    <Compile Include="Converters\BooleanToStringConverter.cs" />
+    <Compile Include="Converters\ObjectToStyleConverter.cs" />
+    <Compile Include="Converters\StringToBooleanConverter.cs" />
+    <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Data\AssociationList.cs" />
+    <Compile Include="Converters\BooleanToStyleConverter.cs" />
+    <Compile Include="Data\Settings.cs" />
+    <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="Pages\ActivityItem.xaml.cs">
+      <DependentUpon>ActivityItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InfoItemBrowser.xaml.cs">
       <DependentUpon>InfoItemBrowser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InfoItemSubcontent.xaml.cs">
+    <Compile Include="Pages\InfoItemSubcontent.xaml.cs">
       <DependentUpon>InfoItemSubcontent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NewsItem.xaml.cs">
+    <Compile Include="Pages\NewsItem.xaml.cs">
       <DependentUpon>NewsItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RestoLocations.xaml.cs">
+      <DependentUpon>RestoLocations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SchamperItem.xaml.cs">
+      <DependentUpon>SchamperItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
@@ -117,51 +132,50 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SchamperItem.xaml.cs">
-      <DependentUpon>SchamperItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\ActivityItemsViewModel.cs" />
-    <Compile Include="ViewModels\InfoItemsViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\NewsItemViewModel.cs" />
-    <Compile Include="ViewModels\RestoItemsViewModel.cs" />
-    <Compile Include="ViewModels\SchamperItemsViewModel.cs" />
+    <Compile Include="Data\ActivityItemsViewModel.cs" />
+    <Compile Include="Data\MetaResto.cs" />
+    <Compile Include="Data\InfoItemsViewModel.cs" />
+    <Compile Include="Data\MainViewModel.cs" />
+    <Compile Include="Data\NewsItemViewModel.cs" />
+    <Compile Include="Data\RestoItemsViewModel.cs" />
+    <Compile Include="Data\SchamperItemsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ActivityItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="InfoItemBrowser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="InfoItemSubcontent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="NewsItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SchamperItem.xaml">
+    <Page Include="Pages\ActivityItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Settings.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Pages\InfoItemBrowser.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\InfoItemSubcontent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\NewsItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RestoLocations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\SchamperItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +192,15 @@
     <Content Include="Assets\icon-meal%402x.png" />
     <Content Include="Assets\icon-soup%402x.png" />
     <Content Include="Assets\icon-vegetables%402x.png" />
+    <Content Include="Assets\info-academiccalendar%402x.png" />
+    <Content Include="Assets\info-bicycle%402x.png" />
+    <Content Include="Assets\info-doctors%402x.png" />
+    <Content Include="Assets\info-durfdoen%402x.png" />
+    <Content Include="Assets\info-library%402x.png" />
+    <Content Include="Assets\info-minerva%402x.png" />
+    <Content Include="Assets\info-more%402x.png" />
+    <Content Include="Assets\info-sports%402x.png" />
+    <Content Include="Assets\info-urgent%402x.png" />
     <Content Include="Resources\webview.css" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
@@ -188,7 +211,7 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\Associations.plist" />
+    <Content Include="Resources\Associations.plist" />
     <Content Include="Resources\info-content.plist">
       <SubType>Designer</SubType>
     </Content>
@@ -199,12 +222,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\external-link%402x.png" />
-    <Content Include="Assets\info-academiccalendar%402x.png" />
-    <Content Include="Assets\info-bicycle%402x.png" />
-    <Content Include="Assets\info-library%402x.png" />
-    <Content Include="Assets\info-more%402x.png" />
-    <Content Include="Assets\info-sports%402x.png" />
-    <Content Include="Assets\info-studentdoctors%402x.png" />
     <Content Include="Assets\schamper-bg.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -232,6 +249,7 @@
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +260,7 @@
       <HintPath>packages\Newtonsoft.Json.4.5.11\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

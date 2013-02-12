@@ -1,18 +1,19 @@
-﻿<phone:PhoneApplicationPage
-    x:Class="Hydra.InfoItemBrowser"
+<phone:PhoneApplicationPage
+    x:Class="Hydra.Pages.NewsItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="False">
+
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
             <toolkit:NavigationInTransition.Backward>
@@ -33,6 +34,7 @@
             </toolkit:NavigationOutTransition.Forward>
         </toolkit:NavigationOutTransition>
     </toolkit:TransitionService.NavigationOutTransition>
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -41,13 +43,23 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Name="title" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Border Grid.Row="0" Margin="12,17,0,28">
+    		<Grid>
+                <TextBlock x:Name="title" Margin="9,-7,0,-32"  TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}" Text="{Binding FullTitle}"/>
+                <TextBlock x:Name="associatie" TextWrapping="Wrap" Text="{Binding Assocition.Dn}" Margin="9,73,284,-64"/>
+    			<TextBlock x:Name="date" Text="{Binding Date}" Margin="293,73,0,-64"/>
+    		</Grid>
+    	</Border>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <phone:WebBrowser x:Name="browser" HorizontalAlignment="Left" VerticalAlignment="Top" Height="624" Width="446"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="31*"/>
+                <ColumnDefinition Width="26*"/>
+            </Grid.ColumnDefinitions>
+            <phone:WebBrowser x:Name="browser"  HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="633" Width="436" Grid.ColumnSpan="2"/>
 
         </Grid>
     </Grid>

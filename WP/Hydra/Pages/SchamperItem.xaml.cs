@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 
-namespace Hydra
+namespace Hydra.Pages
 {
     public partial class SchamperItem : PhoneApplicationPage
     {

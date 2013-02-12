@@ -4,14 +4,6 @@
 <array>
 	<dict>
 		<key>displayName</key>
-		<string>Dienst StudentenActiviteiten</string>
-		<key>internalName</key>
-		<string>DSA</string>
-		<key>parentAssociation</key>
-		<string>DSA</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
 		<string>Chemica</string>
 		<key>internalName</key>
 		<string>CHEMICA</string>
@@ -424,14 +416,6 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Massacantus</string>
-		<key>internalName</key>
-		<string>MCANTUS</string>
-		<key>parentAssociation</key>
-		<string>MCANTUS</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
 		<string>Actief Linkse Studenten</string>
 		<key>internalName</key>
 		<string>ALS</string>
@@ -548,7 +532,7 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>'t Zal Wel Gaan</string>
+		<string>&apos;t Zal Wel Gaan</string>
 		<key>internalName</key>
 		<string>TZAL</string>
 		<key>parentAssociation</key>
@@ -692,7 +676,7 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Sd'A Gent</string>
+		<string>Sd&apos;A Gent</string>
 		<key>internalName</key>
 		<string>SDA</string>
 		<key>parentAssociation</key>
@@ -700,7 +684,7 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Seniorenkonvent Ghendt</string>
+		<string>Senioren Konvent</string>
 		<key>internalName</key>
 		<string>SKCENTRAAL</string>
 		<key>parentAssociation</key>
@@ -708,7 +692,7 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>'t Stropke</string>
+		<string>&apos;t Stropke</string>
 		<key>internalName</key>
 		<string>STROPKE</string>
 		<key>parentAssociation</key>
@@ -732,19 +716,11 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>'t Wielke</string>
+		<string>&apos;t Wielke</string>
 		<key>internalName</key>
 		<string>WIELKE</string>
 		<key>parentAssociation</key>
 		<string>SKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Gentse Studentenraad</string>
-		<key>internalName</key>
-		<string>STVCENTRAAL</string>
-		<key>parentAssociation</key>
-		<string>STVCENTRAAL</string>
 	</dict>
 	<dict>
 		<key>displayName</key>
@@ -760,7 +736,7 @@
 		<key>fullName</key>
 		<string>Amnesty International Studentenkern Gent</string>
 		<key>internalName</key>
-		<string>AISG</string>
+		<string>AIS</string>
 		<key>parentAssociation</key>
 		<string>WVKCENTRAAL</string>
 	</dict>
@@ -826,7 +802,7 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>MaCht</string>
+		<string>MaChT</string>
 		<key>internalName</key>
 		<string>MACHT</string>
 		<key>parentAssociation</key>

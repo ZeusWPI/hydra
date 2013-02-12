@@ -1,14 +1,12 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using Hydra.Data;
+using Hydra.Resources;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Hydra.Resources;
-using Hydra.ViewModels;
 
 namespace Hydra
 {
@@ -49,6 +47,7 @@ namespace Hydra
             UnhandledException += Application_UnhandledException;
 
             // Standard XAML initialization
+
             InitializeComponent();
 
             // Phone-specific initialization
@@ -152,7 +151,7 @@ namespace Hydra
             // Handle reset requests for clearing the backstack
             RootFrame.Navigated += CheckForResetNavigation;
             
-            RootFrame.Background = Resources["MainBackground"] as ImageBrush;
+            //RootFrame.Background = Resources["MainBackground"] as ImageBrush;
 
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;

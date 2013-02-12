@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace Hydra.ViewModels
+namespace Hydra.Data
 {
     [DataContract]
     public class ActivityItemsViewModel : NewsItemViewModel
@@ -43,6 +43,8 @@ namespace Hydra.ViewModels
                 }
             }
         }
+
+        
 
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
@@ -85,12 +87,12 @@ namespace Hydra.ViewModels
         }
 
         [DataMember(Name = "latitude")]
-        private float _latitude;
+        private double _latitude;
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns> the content of the news item</returns>
-        public float Latitude
+        public double Latitude
         {
             get
             {
@@ -107,12 +109,12 @@ namespace Hydra.ViewModels
         }
 
         [DataMember(Name = "longitude")]
-        private float _longitude;
+        private double _longitude;
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns> the longitude of the location</returns>
-        public float Longitude
+        public double Longitude
         {
             get
             {

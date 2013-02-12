@@ -1,22 +1,21 @@
-﻿<phone:PhoneApplicationPage
+<phone:PhoneApplicationPage
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:ViewModels="clr-namespace:Hydra.ViewModels" x:Name="MainApp"
-    x:Class="Hydra.MainPage" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="MainApp"
+    x:Class="Hydra.Pages.MainPage" 
     mc:Ignorable="d"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="False">
 
     <phone:PhoneApplicationPage.Resources>
         <shell:ApplicationBar x:Key="RestoAppBar" IsVisible="True">
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem IsEnabled="True" Text="Legende"/>
-                <shell:ApplicationBarMenuItem IsEnabled="True" Text="Locaties resto's"/>
+                <shell:ApplicationBarMenuItem IsEnabled="True" Text="Legende" Click="LegendAppBar"/>
+                <shell:ApplicationBarMenuItem IsEnabled="True" Text="Locaties resto's" Click="LocationAppBar"/>
             </shell:ApplicationBar.MenuItems>
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/back.png" Text="Vorige" Click="BackAppBar"/>
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/next.png" Text="Volgende" Click="NextAppBar"/>
@@ -68,10 +67,10 @@
 
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility }}" >
                                 <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextTitle2Style}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                                    <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
+                                    <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0"/>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -87,8 +86,8 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
                                 <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextTitle2Style}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                                    <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
+                                    <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0"  />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -108,7 +107,7 @@
                                 <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
                                 <StackPanel Width="311" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                                    <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="10,-2,10,0" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -121,14 +120,13 @@
             <phone:PivotItem x:Name="info" Header="Info">
                 <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
                 <phone:LongListSelector x:Name="infoLLS" Margin="0,-38,-22,2" ItemsSource="{Binding InfoItems}" SelectionChanged="InfoItemTapped">
-
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
                                 <!--Replace rectangle with image-->
-                                <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
+                                <Image x:Name="Image"  Width="104" Height="105"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
                                 <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextLargeStyle}" />
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,30,10,0" Style="{StaticResource PhoneTextLargeStyle}" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -146,10 +144,10 @@
     					<LineBreak/>
     					<Run/>
                     </TextBlock>
-                    <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" Text="{Binding Dishes[0].Name}" VerticalAlignment="Top" Margin="10,110,0,0" Height="26" Width="288" Style="{Binding Dishes[0].IsRecommended, Converter={StaticResource boolean}, Mode=OneWay}"/>
-                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[1].Name}" VerticalAlignment="Top" Margin="10,135,0,0" Height="26" Width="288" Style="{Binding Dishes[1].IsRecommended, Converter={StaticResource boolean}, Mode=OneWay}"/>
-                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[2].Name}" VerticalAlignment="Top" Margin="10,160,0,0" Height="26" Width="288" Style="{Binding Dishes[2].IsRecommended, Converter={StaticResource boolean}, Mode=OneWay}"/>
-                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[3].Name}" VerticalAlignment="Top" Margin="10,185,0,0" Height="26" Width="288" Style="{Binding Dishes[3].IsRecommended, Converter={StaticResource boolean}, Mode=OneWay}"/>
+                    <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" Text="{Binding Dishes[0].Name}" VerticalAlignment="Top" Margin="10,110,0,0" Height="26" Width="288" Style="{Binding Dishes[0].IsRecommended, Converter={StaticResource booleanToStyle},ConverterParameter=resto, Mode=OneWay}"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[1].Name}" VerticalAlignment="Top" Margin="10,135,0,0" Height="26" Width="288" Style="{Binding Dishes[1].IsRecommended, Converter={StaticResource booleanToStyle},ConverterParameter=resto, Mode=OneWay}"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[2].Name}" VerticalAlignment="Top" Margin="10,160,0,0" Height="26" Width="288" Style="{Binding Dishes[2].IsRecommended, Converter={StaticResource booleanToStyle},ConverterParameter=resto, Mode=OneWay}"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[3].Name}" VerticalAlignment="Top" Margin="10,185,0,0" Height="26" Width="288" Style="{Binding Dishes[3].IsRecommended, Converter={StaticResource booleanToStyle},ConverterParameter=resto, Mode=OneWay}"/>
 
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[0].Price}" VerticalAlignment="Top" Margin="334,110,0,0" Height="26" Width="76"/>
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Dishes[1].Price}" VerticalAlignment="Top" Margin="334,135,0,0" Height="26" Width="76"/>

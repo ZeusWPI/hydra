@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace Hydra.ViewModels
+namespace Hydra.Data
 {
     [DataContract]
     public class NewsItemViewModel : INotifyPropertyChanged
@@ -42,6 +42,13 @@ namespace Hydra.ViewModels
                     NotifyPropertyChanged("title");
                 }
             }
+        }
+
+        //private bool _highlighted;
+        [DataMember(Name = "highlighted")]
+        public bool IsHighLighted
+        {
+            get; set;
         }
 
         [DataMember(Name = "title")]
@@ -137,13 +144,12 @@ namespace Hydra.ViewModels
             get { return _fn ?? "Onbekend"; }
             set
             {
-                 if (_fn != null && value != _fn && value!=null)
-                {
                     _fn = value;
-                }
             }
         }
         [DataMember(Name = "display_name")]
         public string Dn { get; set; }
+
+        public string Parent { get; set; }
     }
 }

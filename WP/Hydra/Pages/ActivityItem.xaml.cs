@@ -1,14 +1,12 @@
-﻿using System;
+using System;
 using System.Device.Location;
-using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Windows.Navigation;
-using Hydra.ViewModels;
+using Hydra.Data;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 
-namespace Hydra
+namespace Hydra.Pages
 {
     public partial class ActivityItem : PhoneApplicationPage
     {
@@ -39,7 +37,7 @@ namespace Hydra
 
         private void LocationHandler(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            new BingMapsDirectionsTask { End = new LabeledMapLocation(_item.Location, new GeoCoordinate(_item.Longitude, _item.Latitude)) }.Show();
+            new BingMapsDirectionsTask { End = new LabeledMapLocation(_item.Location, new GeoCoordinate(_item.Latitude, _item.Longitude)) }.Show();
            
         }
 
