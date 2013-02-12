@@ -15,7 +15,7 @@
 #import "GAI.h"
 #endif
 
-#define PUBLIC_RELEASE 0
+#define PUBLIC_RELEASE 1
 #define BETA_RELEASE !PUBLIC_RELEASE
 
 #if PUBLIC_RELEASE

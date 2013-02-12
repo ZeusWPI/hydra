@@ -9,9 +9,11 @@
 #import "PreferencesController.h"
 #import "AssociationPreferenceController.h"
 #import "FacebookSession.h"
+#import "WebViewController.h"
 
 #define kFilterSection 0
 #define kFacebookSection 1
+#define kInfoSection 2
 
 #define kFilterPref @"useAssociationFilter"
 #define kAssociationsPref @"preferredAssociations"
@@ -61,7 +63,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -71,6 +73,8 @@
             return 2;
         case kFacebookSection:
             return 1;
+        case kInfoSection:
+            return 3;
         default:
             return 0;
     }
@@ -88,6 +92,7 @@
         cell.textLabel.alpha = 1;
         cell.detailTextLabel.alpha = 1;
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [[cell viewWithTag:kSwitchTag] removeFromSuperview];
     }
@@ -141,9 +146,58 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
         } break;
+
+        case kInfoSection:
+            switch (indexPath.row) {
+                case 0: {
+                    static NSString *TextCellIdentifier = @"PreferencesTextCell";
+                    cell = [tableView dequeueReusableCellWithIdentifier:TextCellIdentifier];
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                      reuseIdentifier:CellIdentifier];
+                        cell.textLabel.font = [UIFont systemFontOfSize:14];
+                        cell.textLabel.textAlignment = UITextAlignmentCenter;
+                        cell.textLabel.numberOfLines = 0;
+                        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                    cell.textLabel.text = @"Hydra werd ontwikkeld door Zeus WPI, "
+                                           "de studentenwerkgroep informatica van "
+                                           "de Universiteit Gent, in opdracht van "
+                                           "de Dienst StudentenActiviteiten.";
+                } break;
+
+                case 1: {
+                    UIImage *linkImage = [UIImage imageNamed:@"external-link"];
+                    UIImage *highlightedLinkImage = [UIImage imageNamed:@"external-link-active"];
+                    UIImageView *linkAccessory = [[UIImageView alloc] initWithImage:linkImage
+                                                                   highlightedImage:highlightedLinkImage];
+                    linkAccessory.contentMode = UIViewContentModeScaleAspectFit;
+                    cell.accessoryView = linkAccessory;
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                    cell.textLabel.text = @"Meer informatie";
+                } break;
+
+                case 2: {
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                    cell.textLabel.text = @"Externe componenten";
+                } break;
+            }
+            break;
     }
 
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == kInfoSection && indexPath.row == 0) {
+        return 88;
+    }
+    else {
+        return 44;
+    }
 }
 
 - (CGFloat)tableView:tableView heightForFooterInSection:(NSInteger)section
@@ -222,6 +276,19 @@
                              withRowAnimation:UITableViewRowAnimationAutomatic];
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
         } break;
+        case kInfoSection: {
+            if (indexPath.row == 1) {
+                NSURL *url = [NSURL URLWithString:@"http://zeus.ugent.be/hydra"];
+                [[UIApplication sharedApplication] openURL:url];
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }
+            else if (indexPath.row == 2) {
+                WebViewController *c = [[WebViewController alloc] init];
+                c.title = @"Externe componenten";
+                [c loadHtml:@"pods-acknowledgements.html"];
+                [self.navigationController pushViewController:c animated:YES];
+            }
+        }
     }
 }
 

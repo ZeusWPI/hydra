@@ -14,7 +14,10 @@
 #import "UrgentViewController.h"
 #import "SchamperViewController.h"
 #import "PreferencesController.h"
+
+#if TestFlightEnabled
 #import "TestFlight.h"
+#endif
 
 #define EasterEggEnabled 0
 
@@ -120,7 +123,9 @@
 
 - (IBAction)showFeedbackView:(id)sender
 {
+#if TestFlightEnabled
     [TestFlight openFeedbackView];
+#endif
 }
 
 -(IBAction)showPreferences:(id)sender

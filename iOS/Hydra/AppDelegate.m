@@ -16,7 +16,10 @@
 #import <ShareKit/SHK.h>
 #import <ShareKit/SHKConfiguration.h>
 #import <FacebookSDK/FacebookSDK.h>
+
+#if TestFlightEnabled
 #import <TestFlight.h>
+#endif
 
 #define kTestFlightToken @"5bc4ec5d-0095-4731-bb0c-ebb0b41ff14a"
 #define kGoogleAnalyticsToken @"UA-25444917-3"
