@@ -26,9 +26,9 @@
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
 
     [objectMapping mapAttributes:@"title", @"location", @"start", @"end", @"url",
-        @"longitude", @"latitude", @"description", @"url", @"categories",
-        @"highlighted", nil];
-    [objectMapping mapKeyPathsToAttributes:@"facebook_id", @"facebookId", nil];
+        @"latitude", @"longitude", @"url", @"categories", @"highlighted", nil];
+    [objectMapping mapKeyPathsToAttributes:@"facebook_id", @"facebookId",
+        @"description", @"descriptionText", nil];
     [objectMapping mapRelationship:@"association" withMapping:[Association objectMapping]];
 
     return objectMapping;
@@ -43,7 +43,7 @@
 - (FacebookEvent *)facebookEvent
 {
     if(!_facebookEvent && self.facebookId) {
-        _facebookEvent = [[FacebookEvent alloc] initWithEventID:self.facebookId];
+        _facebookEvent = [[FacebookEvent alloc] initWithEventId:self.facebookId];
     }
     return _facebookEvent;
 }
@@ -61,10 +61,11 @@
         self.longitude = [coder decodeDoubleForKey:@"longitude"];
         self.latitude = [coder decodeDoubleForKey:@"latitude"];
         self.facebookId = [coder decodeObjectForKey:@"facebookId"];
-        self.description = [coder decodeObjectForKey:@"description"];
+        self.descriptionText = [coder decodeObjectForKey:@"descriptionText"];
         self.url = [coder decodeObjectForKey:@"url"];
         self.categories = [coder decodeObjectForKey:@"categories"];
         self.highlighted = [coder decodeBoolForKey:@"highlighted"];
+        self.facebookEvent = [coder decodeObjectForKey:@"facebookEvent"];
     }
     return self;
 }
@@ -79,10 +80,11 @@
     [coder encodeDouble:self.longitude forKey:@"longitude"];
     [coder encodeDouble:self.latitude forKey:@"latitude"];
     [coder encodeObject:self.facebookId forKey:@"facebookId"];
-    [coder encodeObject:self.description forKey:@"description"];
+    [coder encodeObject:self.descriptionText forKey:@"descriptionText"];
     [coder encodeObject:self.url forKey:@"url"];
     [coder encodeObject:self.categories forKey:@"categories"];
     [coder encodeBool:self.highlighted forKey:@"highlighted"];
+    [coder encodeObject:_facebookEvent forKey:@"facebookEvent"];
 }
 
 @end

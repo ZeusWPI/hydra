@@ -91,9 +91,12 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     [self updateArticles];
 }
 
-- (void)saveStoreCache
+- (void)updateStoreCache
 {
-    [NSKeyedArchiver archiveRootObject:self toFile:self.class.articleCachePath];
+    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    dispatch_async(async, ^{
+        [NSKeyedArchiver archiveRootObject:self toFile:self.class.articleCachePath];
+    });
 }
 
 #pragma mark - Article fetching
@@ -135,7 +138,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];
-    [self saveStoreCache];
+    [self updateStoreCache];
 }
 
 @end

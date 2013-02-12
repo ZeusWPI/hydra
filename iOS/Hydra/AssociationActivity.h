@@ -17,9 +17,9 @@
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;
 @property (nonatomic, strong) NSString *location;
-@property (nonatomic, assign) double longitude;
 @property (nonatomic, assign) double latitude;
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, assign) double longitude;
+@property (nonatomic, strong) NSString *descriptionText;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, assign) BOOL highlighted;
