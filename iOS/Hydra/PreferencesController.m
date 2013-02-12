@@ -84,21 +84,26 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier:CellIdentifier];
     }
+    else {
+        cell.textLabel.alpha = 1;
+        cell.detailTextLabel.alpha = 1;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [[cell viewWithTag:kSwitchTag] removeFromSuperview];
+    }
 
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     switch (indexPath.section) {
         case kFilterSection:
             switch (indexPath.row) {
                 case 0: {
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.textLabel.text = @"Beperk inhoud";
+                    cell.textLabel.text = @"Toon alle verenigingen";
                     cell.detailTextLabel.text = @"";
-                    cell.accessoryType = UITableViewCellAccessoryNone;
 
                     CGRect toggleRect = CGRectMake(225, 9, 0, 0);
                     UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
                     toggle.tag = kSwitchTag;
-                    toggle.on = [settings boolForKey:kFilterPref];
+                    toggle.on = ![settings boolForKey:kFilterPref];
                     [toggle addTarget:self action:@selector(filterSwitch:didToggle:)
                                  forControlEvents:UIControlEventValueChanged];
                     [cell addSubview:toggle];
@@ -106,12 +111,18 @@
 
                 case 1: {
                     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                    cell.textLabel.text = @"Verenigingen";
+                    cell.textLabel.text = @"Selectie";
                     NSArray *associations = [settings objectForKey:kAssociationsPref];
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d geselecteerd", associations.count];
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@", associations.count,
+                                                 associations.count == 1 ? @"vereniging" : @"verenigingen"];
 
-                    [[cell viewWithTag:kSwitchTag] removeFromSuperview];
+                    if ([settings boolForKey:kFilterPref]) {
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    }
+                    else {
+                        cell.textLabel.alpha = 0.5;
+                        cell.detailTextLabel.alpha = 0.5;
+                    }
                 } break;
             }
             break;
@@ -176,7 +187,9 @@
 - (void)filterSwitch:(UISwitch *)toggle didToggle:(NSNotification *)notification
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    [settings setBool:toggle.on forKey:kFilterPref];
+    [settings setBool:!toggle.on forKey:kFilterPref];
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:kFilterSection];
+    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
