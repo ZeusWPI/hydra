@@ -15,7 +15,7 @@
 #import "GAI.h"
 #endif
 
-#define PUBLIC_RELEASE 1
+#define PUBLIC_RELEASE 0
 #define BETA_RELEASE !PUBLIC_RELEASE
 
 #if PUBLIC_RELEASE
@@ -55,6 +55,6 @@
 
 #endif
 
-#define ZAssert(condition, ...) do { if (!(condition)) { ALog(__VA_ARGS__); }} while(0)
+#define ZAssert(condition, ...) do { if (!(condition)) { AssertLog(__VA_ARGS__); }} while(0)
 #define NSStringFromBOOL(aBOOL) (aBOOL ? @"YES" : @"NO")
 #define AssertClassOrNil(var, clazz) do { if (![(var) isKindOfClass:[clazz class]]) { var = nil; } } while(0)

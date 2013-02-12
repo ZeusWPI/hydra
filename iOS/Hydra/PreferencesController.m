@@ -203,7 +203,7 @@
 - (CGFloat)tableView:tableView heightForFooterInSection:(NSInteger)section
 {
     if (section == kFilterSection) {
-        return 58;
+        return 68;
     }
     else {
         return 0;

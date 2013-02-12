@@ -51,6 +51,7 @@ PODS:
   - Reachability
   - SSKeychain
 - TUSafariActivity (0.0.1)
+- TestFlightSDK (1.2.3.beta1)
 - cocoa-oauth (0.0.1):
   - NSData+Base64 (~> 1.0)
 
@@ -64,6 +65,7 @@ DEPENDENCIES:
 - ShareKit/Facebook (from `External/ShareKit.podspec')
 - ShareKit/Twitter (from `External/ShareKit.podspec')
 - TUSafariActivity (from `External/TUSafariActivity.podspec')
+- TestFlightSDK (~> 1.2)
 
 EXTERNAL SOURCES:
   RestKit/JSON:
@@ -102,6 +104,7 @@ SPEC CHECKSUMS:
   ShareKit/Facebook: c999dfae0ced83b0f64796724b43711ede9257c3
   ShareKit/Twitter: c999dfae0ced83b0f64796724b43711ede9257c3
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
+  TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
   cocoa-oauth: 8f4c8b77c77ac660de37f8125557c4ec09b0118a
 
 COCOAPODS: 0.16.2
