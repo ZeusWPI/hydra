@@ -16,6 +16,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
+#import <MapKit/MapKit.h>
 #import <QuartzCore/QuartzCore.h>
 
 #define kHeaderSection 0
@@ -474,6 +475,7 @@
                 [[UIApplication sharedApplication] openURL:url];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
+           
         } break;
         case kActionSection: {
             EKEventStore *store = [[EKEventStore alloc] init];
@@ -499,7 +501,30 @@
         if (row == kGuestsRow) {
             [self.activity.facebookEvent showExternally];
         }
+        else if (row == kLocationRow) {
+            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
+                                                                           self.activity.latitude,
+                                                                           self.activity.longitude);
+            //create MKMapItem out of coordinates
+            MKPlacemark* placeMark = [[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil];
+            MKMapItem* destination =  [[MKMapItem alloc] initWithPlacemark:placeMark];
+            destination.name = self.activity.location;
+
+            if([destination respondsToSelector:@selector(openInMapsWithLaunchOptions:)])
+            {
+                //using iOS6 native maps app
+                [destination openInMapsWithLaunchOptions:nil];
+
+            } else{
+
+                //using iOS 5 which has the Google Maps application
+                NSString* url = [NSString stringWithFormat: @"http://maps.apple.com/maps?ll=%f,%f",
+                                 self.activity.latitude, self.activity.longitude];
+                [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+            }
+        }
     }
+
 }
 
 - (void)addEventToCalendarStore:(EKEventStore *)store
