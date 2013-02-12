@@ -31,7 +31,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 @property (nonatomic, strong) RKObjectManager *objectManager;
 @property (nonatomic, strong) NSMutableArray *activeRequests;
 
-@property (nonatomic, strong) NSMutableDictionary *menus;
+@property (atomic, strong) NSMutableDictionary *menus;
 @property (nonatomic, strong) NSArray *locations;
 @property (nonatomic, strong) NSArray *legend;
 @property (nonatomic, strong) NSDate *infoLastUpdated;
@@ -122,20 +122,23 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 
 - (void)updateStoreCache
 {
-    NSDate *today = [[NSDate date] dateAtStartOfDay];
-    NSMutableArray *toRemove = [[NSMutableArray alloc] init];
+    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    dispatch_async(async, ^{
+        NSDate *today = [[NSDate date] dateAtStartOfDay];
+        NSMutableArray *toRemove = [[NSMutableArray alloc] init];
 
-    // Remove all old entries
-    for (NSDate *date in [self.menus keyEnumerator]) {
-        if ([today compare:date] == NSOrderedDescending) {
-            [toRemove addObject:date];
+        // Remove all old entries
+        for (NSDate *date in [self.menus keyEnumerator]) {
+            if ([today compare:date] == NSOrderedDescending) {
+                [toRemove addObject:date];
+            }
         }
-    }
-    [self.menus removeObjectsForKeys:toRemove];
-    DLog(@"Purged %d old menus from RestoStore", [toRemove count]);
+        [self.menus removeObjectsForKeys:toRemove];
+        DLog(@"Purged %d old menus from RestoStore", [toRemove count]);
 
-    NSString *cachePath = [[self class] menuCachePath];
-    [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
+        NSString *cachePath = [[self class] menuCachePath];
+        [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
+    });
 }
 
 #pragma mark - Data management and requests

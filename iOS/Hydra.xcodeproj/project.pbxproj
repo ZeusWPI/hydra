@@ -81,6 +81,7 @@
 		F567044616BD5D8100C6B00D /* icon-vegetables@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044216BD5D8100C6B00D /* icon-vegetables@2x.png */; };
 		F567044716BD5D8100C6B00D /* info-minerva.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044316BD5D8100C6B00D /* info-minerva.png */; };
 		F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */; };
+		F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */; };
 		F56D766C1699ED3B002CF245 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D76681699ED3B002CF245 /* Icon-Small.png */; };
 		F56D766D1699ED3B002CF245 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D76691699ED3B002CF245 /* Icon-Small@2x.png */; };
 		F56D766E1699ED3B002CF245 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F56D766A1699ED3B002CF245 /* Icon.png */; };
@@ -101,10 +102,7 @@
 		F58408C0159DDA0E00EE7010 /* button-resto.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B4159DDA0E00EE7010 /* button-resto.png */; };
 		F58408C1159DDA0E00EE7010 /* button-schamper-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B5159DDA0E00EE7010 /* button-schamper-active.png */; };
 		F58408C2159DDA0E00EE7010 /* button-schamper.png in Resources */ = {isa = PBXBuildFile; fileRef = F58408B6159DDA0E00EE7010 /* button-schamper.png */; };
-		F59CEE8A16A188050038FD24 /* FacebookLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = F59CEE8216A188050038FD24 /* FacebookLogin.m */; };
-		F59CEE8B16A188050038FD24 /* FacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F59CEE8416A188050038FD24 /* FacebookViewController.m */; };
-		F59CEE8C16A188050038FD24 /* FacebookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F59CEE8516A188050038FD24 /* FacebookViewController.xib */; };
-		F59CEE8D16A188050038FD24 /* FacebookEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = F59CEE8716A188050038FD24 /* FacebookEventView.m */; };
+		F59CEE8A16A188050038FD24 /* FacebookSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F59CEE8216A188050038FD24 /* FacebookSession.m */; };
 		F59D16F415BD693F00B6F892 /* info-academiccalendar.png in Resources */ = {isa = PBXBuildFile; fileRef = F59D16E415BD693F00B6F892 /* info-academiccalendar.png */; };
 		F59D16F515BD693F00B6F892 /* info-academiccalendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F59D16E515BD693F00B6F892 /* info-academiccalendar@2x.png */; };
 		F59D16F615BD693F00B6F892 /* info-bicycle.png in Resources */ = {isa = PBXBuildFile; fileRef = F59D16E615BD693F00B6F892 /* info-bicycle.png */; };
@@ -314,6 +312,8 @@
 		F567044316BD5D8100C6B00D /* info-minerva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-minerva.png"; sourceTree = "<group>"; };
 		F569582516AA095800C45D00 /* UINavigationController+ReplaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+ReplaceController.h"; sourceTree = "<group>"; };
 		F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+ReplaceController.m"; sourceTree = "<group>"; };
+		F56B176F16C9069300AB59D6 /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
+		F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
 		F56D76681699ED3B002CF245 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		F56D76691699ED3B002CF245 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		F56D766A1699ED3B002CF245 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -338,13 +338,8 @@
 		F58408B4159DDA0E00EE7010 /* button-resto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-resto.png"; sourceTree = "<group>"; };
 		F58408B5159DDA0E00EE7010 /* button-schamper-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-schamper-active.png"; sourceTree = "<group>"; };
 		F58408B6159DDA0E00EE7010 /* button-schamper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-schamper.png"; sourceTree = "<group>"; };
-		F59CEE8116A188050038FD24 /* FacebookLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookLogin.h; sourceTree = "<group>"; };
-		F59CEE8216A188050038FD24 /* FacebookLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookLogin.m; sourceTree = "<group>"; };
-		F59CEE8316A188050038FD24 /* FacebookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookViewController.h; sourceTree = "<group>"; };
-		F59CEE8416A188050038FD24 /* FacebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookViewController.m; sourceTree = "<group>"; };
-		F59CEE8516A188050038FD24 /* FacebookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FacebookViewController.xib; sourceTree = "<group>"; };
-		F59CEE8616A188050038FD24 /* FacebookEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookEventView.h; sourceTree = "<group>"; };
-		F59CEE8716A188050038FD24 /* FacebookEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookEventView.m; sourceTree = "<group>"; };
+		F59CEE8116A188050038FD24 /* FacebookSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookSession.h; sourceTree = "<group>"; };
+		F59CEE8216A188050038FD24 /* FacebookSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookSession.m; sourceTree = "<group>"; };
 		F59D16E415BD693F00B6F892 /* info-academiccalendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-academiccalendar.png"; sourceTree = "<group>"; };
 		F59D16E515BD693F00B6F892 /* info-academiccalendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-academiccalendar@2x.png"; sourceTree = "<group>"; };
 		F59D16E615BD693F00B6F892 /* info-bicycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-bicycle.png"; sourceTree = "<group>"; };
@@ -732,6 +727,8 @@
 				F52B9B76168507BD000B71D6 /* NSDateFormatter+AppLocale.m */,
 				F569582516AA095800C45D00 /* UINavigationController+ReplaceController.h */,
 				F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */,
+				F56B176F16C9069300AB59D6 /* NSMutableArray+Shuffling.h */,
+				F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -741,10 +738,8 @@
 			children = (
 				90C532A916A325A200857EB0 /* FacebookEvent.h */,
 				90C532AA16A325A200857EB0 /* FacebookEvent.m */,
-				F59CEE8116A188050038FD24 /* FacebookLogin.h */,
-				F59CEE8216A188050038FD24 /* FacebookLogin.m */,
-				F59CEE8616A188050038FD24 /* FacebookEventView.h */,
-				F59CEE8716A188050038FD24 /* FacebookEventView.m */,
+				F59CEE8116A188050038FD24 /* FacebookSession.h */,
+				F59CEE8216A188050038FD24 /* FacebookSession.m */,
 				F55E89EA16A4AF8E008595CB /* ShareKitConfigurator.h */,
 				F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */,
 			);
@@ -889,9 +884,6 @@
 				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
 				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
 				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
-				F59CEE8316A188050038FD24 /* FacebookViewController.h */,
-				F59CEE8416A188050038FD24 /* FacebookViewController.m */,
-				F59CEE8516A188050038FD24 /* FacebookViewController.xib */,
 				3B436DF615B8915200984D3F /* InfoViewController.h */,
 				3B436DF715B8915200984D3F /* InfoViewController.m */,
 				F536359E16A69C94000A50C4 /* News */,
@@ -1081,7 +1073,6 @@
 				F56D766E1699ED3B002CF245 /* Icon.png in Resources */,
 				F56D766F1699ED3B002CF245 /* Icon@2x.png in Resources */,
 				F50A6086169A0EBC0048B919 /* iTunesArtwork in Resources */,
-				F59CEE8C16A188050038FD24 /* FacebookViewController.xib in Resources */,
 				F55E89F516A4B928008595CB /* ShareKit.bundle in Resources */,
 				F531DE6516B2E41B0050D88B /* button-route@2x.png in Resources */,
 				F531DE6816B2EE720050D88B /* button-route.png in Resources */,
@@ -1223,9 +1214,7 @@
 				90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */,
 				90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */,
 				90F05266168C7D19004CAFFC /* RestoLocation.m in Sources */,
-				F59CEE8A16A188050038FD24 /* FacebookLogin.m in Sources */,
-				F59CEE8B16A188050038FD24 /* FacebookViewController.m in Sources */,
-				F59CEE8D16A188050038FD24 /* FacebookEventView.m in Sources */,
+				F59CEE8A16A188050038FD24 /* FacebookSession.m in Sources */,
 				90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */,
 				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 				F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */,
@@ -1233,6 +1222,7 @@
 				445C81F516C3DB0B0080819C /* AssociationPreferenceController.m in Sources */,
 				F5DF2FB916C41DDE003B05EC /* MarqueeLabel.m in Sources */,
 				F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */,
+				F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

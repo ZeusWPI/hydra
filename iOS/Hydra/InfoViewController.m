@@ -88,9 +88,9 @@
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.imageView.image = icon;
 
-        // Ugly fix to add more padding to the image
+        // Add more padding to the images
         cell.indentationLevel = 1;
-        cell.textLabel.text = [@" " stringByAppendingString:cell.textLabel.text];
+        cell.indentationWidth = 15;
     }
     else {
         cell.imageView.image = nil;

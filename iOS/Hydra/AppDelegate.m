@@ -10,6 +10,7 @@
 #import "UIColor+AppColors.h"
 #import "DashboardViewController.h"
 #import "ShareKitConfigurator.h"
+#import "FacebookSession.h"
 
 #import <RestKit/RestKit.h>
 #import <ShareKit/SHK.h>
@@ -56,6 +57,9 @@
         [SHK flushOfflineQueue];
     });
 
+    // Restore Facebook-session
+    [[FacebookSession sharedSession] openWithAllowLoginUI:NO];
+
     // Create and setup controllers
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
@@ -94,11 +98,18 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+    // We need to properly handle activation of the application with regards to Facebook Login
+    // (e.g., returning from iOS 6.0 Login Dialog or from fast app switching).
+    [[FBSession activeSession] handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+
+    // You should also take care of closing the session if the app is about to terminate. 
+    [[FBSession activeSession] close];
 }
 
 - (void)reachabilityStatusDetermined:(NSNotification *)notification
@@ -134,13 +145,34 @@ BOOL errorDialogShown = false;
     if (!title) title = @"Fout";
 
     NSString *message = error.userInfo[kErrorDescriptionKey];
+    if (!message) message = [error localizedDescription];
     if (!message) message = @"Er trad een onbekende fout op.";
 
     // Try to improve the error message
     if ([error.domain isEqual:RKErrorDomain]) {
         title = @"Netwerkfout";
         message = @"Er trad een fout op het bij het ophalen van externe informatie. "
-                  @"Gelieve later opnieuw te proberen.";
+                   "Gelieve later opnieuw te proberen.";
+    }
+    else if ([error.domain isEqual:FacebookSDKDomain]) {
+        title = @"Facebook";
+        switch (error.code) {
+            case FBErrorLoginFailedOrCancelled:
+                message = @"Er was een probleem bij het aanmelden. Controleer "
+                           "of Hydra toegang heeft tot je Facebook-account "
+                           "in de systeem-instellingen";
+                break;
+            case FBErrorRequestConnectionApi:
+            case FBErrorProtocolMismatch:
+            case FBErrorHTTPError:
+            case FBErrorNonTextMimeTypeReturned:
+                message = @"Er trad een netwerkfout op. Gelieve later opnieuw"
+                           "te proberen.";
+                break;
+            default:
+                message = @"Er trad een onbekende fout op.";
+                break;
+        }
     }
 
     // Show an alert

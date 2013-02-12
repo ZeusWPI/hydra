@@ -36,6 +36,9 @@ PODS:
   - RestKit/ObjectMapping/CoreData
   - RestKit/ObjectMapping/XML
   - RestKit/UI
+- SDWebImage (2.7):
+  - SDWebImage/Main (= 2.7)
+- SDWebImage/Main (2.7)
 - SOCKit (1.1)
 - SSKeychain (0.2.1)
 - SVProgressHUD (0.9)
@@ -57,6 +60,7 @@ DEPENDENCIES:
 - GoogleAnalytics-iOS-SDK (~> 2.0beta4)
 - RestKit/JSON (from `https://github.com/Javache/RestKit.git')
 - RestKit/XML (from `https://github.com/Javache/RestKit.git')
+- SDWebImage (~> 2.7)
 - SVProgressHUD (~> 0.9)
 - ShareKit/Facebook (from `External/ShareKit.podspec')
 - ShareKit/Twitter (from `External/ShareKit.podspec')
@@ -92,6 +96,8 @@ SPEC CHECKSUMS:
   RestKit/ObjectMapping/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
   RestKit/UI: 43c924173fb1d99a670ce43903dcc793048d7fa3
   RestKit/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
+  SDWebImage: c3306b8c68f3569f5c676d585ad77393255887dd
+  SDWebImage/Main: c3306b8c68f3569f5c676d585ad77393255887dd
   SOCKit: 179515c1a621dd5652a60e9be02ea4adcd25bc9b
   SSKeychain: ffa1a79eb716d9ed1ca184fb0cf218087ca28486
   SVProgressHUD: 98935fbafaf0031df4a9cafca3c66eaf3da06967
