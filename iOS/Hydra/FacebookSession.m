@@ -43,18 +43,20 @@ NSString *const FacebookUserInfoUpdatedNotifcation =
     return [self openWithAllowLoginUI:allowLoginUI completion:NULL];
 }
 
-- (BOOL)openWithAllowLoginUI:(BOOL)allowLoginUI completion:(void (^)())completion
+- (BOOL)openWithAllowLoginUI:(BOOL)allowLoginUI completion:(void (^)())c
 {
+    // Prevent calling the block twice
+    __block void(^completion)() = c;
     FBSessionStateHandler handler = ^(FBSession *session, FBSessionState state, NSError *error) {
         [self sessionStateChanged:session state:state error:error];
         if (!error && completion) {
             completion();
+            completion = NULL;
         }
     };
 
-    return [FBSession openActiveSessionWithPublishPermissions:@[@"rsvp_event"]
-                                              defaultAudience:FBSessionDefaultAudienceFriends
-                                                 allowLoginUI:allowLoginUI completionHandler:handler];
+    return [FBSession openActiveSessionWithReadPermissions:nil allowLoginUI:allowLoginUI
+                                         completionHandler:handler];
 }
 
 - (void)close

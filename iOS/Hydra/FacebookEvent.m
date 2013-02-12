@@ -29,13 +29,18 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 {
     if (self = [super init]) {
         self.eventId = eventId;
-        [self update];
 
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserver:self selector:@selector(facebookSessionStateChanged:)
-                       name:FacebookSessionStateChangedNotification object:nil];
+        [self sharedInit];
+        [self update];
     }
     return self;
+}
+
+- (void)sharedInit
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(facebookSessionStateChanged:)
+                   name:FacebookSessionStateChangedNotification object:nil];
 }
 
 - (void)dealloc
@@ -70,6 +75,8 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
             _friendsAttending = [coder decodeObjectForKey:@"friendsAttending"];
             _userRsvp = [coder decodeObjectForKey:@"userRsvp"];
         }
+
+        [self sharedInit];
     }
     return self;
 }
@@ -279,12 +286,11 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 {
     FBSession *session = [notification object];
     if (![session isOpen]) {
-        self.userRsvp = nil;
-        self.friendsAttending = nil;
-
-        // Force update on next access
-        self.lastUpdated = nil;
+        _userRsvp = nil;
+        _friendsAttending = nil;
     }
+    // Force update on next access
+    self.lastUpdated = nil;
 }
 
 @end

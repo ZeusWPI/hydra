@@ -465,7 +465,7 @@
                     rsvpDescription = @"niet aanwezig";
                 }
 
-                NSString *detailLabelText = [NSString stringWithFormat:@"Momenteel sta je op '%@'",
+                NSString *detailLabelText = [NSString stringWithFormat:@"Momenteel sta je op '%@'.",
                                              rsvpDescription];
 
                 CGRect detailFrame = CGRectMake(0, 24, cell.contentView.bounds.size.width, 16);
