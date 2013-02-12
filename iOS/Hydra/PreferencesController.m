@@ -11,8 +11,8 @@
 #import "FacebookSession.h"
 #import "WebViewController.h"
 
-#define kFilterSection 0
-#define kFacebookSection 1
+#define kFacebookSection 0
+#define kFilterSection 1
 #define kInfoSection 2
 
 #define kFilterPref @"useAssociationFilter"
@@ -115,7 +115,6 @@
                 } break;
 
                 case 1: {
-                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                     cell.textLabel.text = @"Selectie";
                     NSArray *associations = [settings objectForKey:kAssociationsPref];
                     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@", associations.count,
@@ -123,6 +122,7 @@
 
                     if ([settings boolForKey:kFilterPref]) {
                         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                     }
                     else {
                         cell.textLabel.alpha = 0.5;
@@ -251,11 +251,12 @@
     // Navigation logic may go here. Create and push another view controller.
     switch (indexPath.section) {
         case kFilterSection:
-            switch (indexPath.row) {
-                case 1: {
+            if (indexPath.row == 1) {
+                NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+                if ([settings boolForKey:kFilterPref]) {
                     UIViewController *c = [[AssociationPreferenceController alloc] init];
                     [self.navigationController pushViewController:c animated:YES];
-                } break;
+                }
             }
             break;
         case kFacebookSection: {
