@@ -31,18 +31,8 @@ public class Hydra extends AbstractSherlockActivity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        // First run? If so: set the default preferences
-        boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
-        if (firstrun) {
-            Toast.makeText(this, "First run", Toast.LENGTH_LONG).show();
-            // Save the state
-            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-                .edit()
-                .putBoolean("firstrun", false)
-                .commit();
-            // Set the default preference
-            PreferenceManager.setDefaultValues(this, R.xml.settings, false);
-        }
+        // Set the default preference - won't be changed if the user altered it.
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         // Center the image using a custom layout
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
