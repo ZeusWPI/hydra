@@ -95,11 +95,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToStringConverter.cs" />
+    <Compile Include="Converters\ObjectHeaderActivityToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectHeaderNewsToVisibilityConverter.cs" />
     <Compile Include="Converters\ObjectToStyleConverter.cs" />
     <Compile Include="Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="Data\AssociationList.cs" />
     <Compile Include="Converters\BooleanToStyleConverter.cs" />
+    <Compile Include="Data\KeyedList.cs" />
     <Compile Include="Data\Settings.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Pages\ActivityItem.xaml.cs">

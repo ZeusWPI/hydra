@@ -16,13 +16,18 @@ namespace Hydra.Pages
         // Constructor
         public MainPage()
         {
+            if (!App.ViewModel.HasConnection)
+            {
+                MessageBox.Show("Je hebt momenteel geen verbinding met het internet.\nSommige onderdelen van Hydra hebben internet nodig voor een correcte werking.\nHet zou daarom kunnen dat niet alles correct werkt!");
+
+            }
             InitializeComponent();
             _restoItem = 0;
             ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
             var dt = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 0,60*60*1000)};
             dt.Tick += LoadData;
             dt.Start();
-
+            mainPivot.IsLocked = true;
             var pi = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 100) };
             pi.Tick += CheckData;
             pi.Start();
@@ -34,6 +39,7 @@ namespace Hydra.Pages
         {
             var pi = SystemTray.ProgressIndicator;
             pi.IsVisible = !App.ViewModel.IsDataLoaded;
+            mainPivot.IsLocked = !App.ViewModel.IsDataLoaded;
             if (!App.ViewModel.IsDataLoaded) return;
             var dt = (DispatcherTimer) sender;
             dt.Stop();

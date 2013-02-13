@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Microsoft.Phone.Net.NetworkInformation;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
@@ -52,10 +53,12 @@ namespace Hydra.Data
             ActivityItems = new ObservableCollection<ActivityItemsViewModel>();
             SchamperItems = new ObservableCollection<SchamperItemsViewModel>();
             RestoItems = new ObservableCollection<RestoItemsViewModel>();
+            HasConnection = (NetworkInterface.NetworkInterfaceType != NetworkInterfaceType.None);
             _offset = 0;
             _fromCache = false;
         }
 
+        public bool HasConnection { get; set; }
 
         public bool IsChecked
         {
@@ -92,6 +95,8 @@ namespace Hydra.Data
             ActivityItems.Clear();
             SchamperItems.Clear();
             _fromCache = DateTime.Now.AddMinutes(-60) < _cacheTime;
+            if (!_fromCache && !HasConnection)
+                _fromCache = true;
             LoadNews();
             LoadResto(_offset);
             LoadActivities();
@@ -262,6 +267,7 @@ namespace Hydra.Data
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("meta", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(MetaResto));
             var list = (MetaResto)serializer.ReadObject(ms);
+            if (list == null) return;
             MetaRestoItem = list;
 
             _meta = true;
@@ -276,6 +282,7 @@ namespace Hydra.Data
                 ms = LoadFromStorage(Convert.ToString((_week + _offset)), ".json");
             else
                 ms = SaveToStorage(Convert.ToString((_week + _offset)), ".json", e.Result);
+            if (ms == null) return;
             var ob = (JObject)JsonConvert.DeserializeObject(ms);
 
             foreach (var day in ob)
@@ -325,13 +332,28 @@ namespace Hydra.Data
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("news", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
             var list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
-
+            if (list == null) return;
             foreach (var newsItemView in list)
             {
                 NewsItems.Add(newsItemView);
             }
             _news = true;
+            NotifyPropertyChanged("GroupedNews");
            
+        }
+
+        public List<KeyedList<string, NewsItemViewModel>> GroupedNews
+        {
+            get
+            {
+                var groupedNews =
+                    from news in NewsItems
+                    orderby DateTime.Parse(news.Date, new CultureInfo("nl-BE"))
+                    group news by DateTime.Parse(news.Date, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into newsByDay
+                    select new KeyedList<string, NewsItemViewModel>(newsByDay);
+
+                return new List<KeyedList<string, NewsItemViewModel>>(groupedNews);
+            }
         }
 
 
@@ -346,13 +368,28 @@ namespace Hydra.Data
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("activities", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<ActivityItemsViewModel>));
             var list = (ObservableCollection<ActivityItemsViewModel>)serializer.ReadObject(ms);
-
+            if (list == null) return;
             foreach (var activityItemView in list)
             {
                 ActivityItems.Add(activityItemView);
             }
             _activity = true;
+            NotifyPropertyChanged("GroupedActivities");
            
+        }
+
+        public List<KeyedList<string, ActivityItemsViewModel>> GroupedActivities
+        {
+            get
+            {
+                var groupedActivities =
+                    from activity in ActivityItems
+                    orderby DateTime.Parse(activity.StartDate,new CultureInfo("nl-BE"))
+                    group activity by DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into activitiesByDay
+                    select new KeyedList<string, ActivityItemsViewModel>(activitiesByDay);
+
+                return new List<KeyedList<string, ActivityItemsViewModel>>(groupedActivities);
+            }
         }
 
         public void LoadAssociations()
