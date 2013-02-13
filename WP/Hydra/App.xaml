@@ -38,7 +38,7 @@
 
         <convert:BooleanToStyleConverter x:Key="booleanToStyle" />
         <convert:BooleanToStringConverter x:Key="booleanToString" />
-        <convert:StringToBooleanConverter x:Key="stringToBoolean" />
+        <convert:ObjectToBooleanConverter x:Key="objectToBoolean" />
         <convert:ObjectToVisibilityConverter x:Key="objectToVisbility" />
         <convert:ObjectToStyleConverter x:Key="objectToStyle" />
         

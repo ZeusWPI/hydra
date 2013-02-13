@@ -39,7 +39,7 @@ namespace Hydra.Data
         public ObservableCollection<InfoItemsViewModel> InfoItems { get; private set; }
         public ObservableCollection<RestoItemsViewModel> RestoItems { get; private set; }
         public List<Association> Associtions { get; private set; }
-        public List<Association> PreferredAssociations { get; set; }
+        public ObservableCollection<Association> PreferredAssociations { get; set; }
         public MetaResto MetaRestoItem { get; private set; }
 
 
@@ -47,7 +47,11 @@ namespace Hydra.Data
         {
             InfoItems = new ObservableCollection<InfoItemsViewModel>();
             Associtions = new List<Association>();
-            PreferredAssociations = new List<Association>();
+            PreferredAssociations = new ObservableCollection<Association>();
+            NewsItems = new ObservableCollection<NewsItemViewModel>();
+            ActivityItems = new ObservableCollection<ActivityItemsViewModel>();
+            SchamperItems = new ObservableCollection<SchamperItemsViewModel>();
+            RestoItems = new ObservableCollection<RestoItemsViewModel>();
             _offset = 0;
             _fromCache = false;
         }
@@ -61,29 +65,37 @@ namespace Hydra.Data
         public bool IsDataLoaded
         {
             get { return _news && _activity && _schamper && _info && _resto && _meta && _asso; }
-            private set { throw new NotImplementedException(); }
+        }
+
+        public bool IsEssentialsLoaded
+        {
+            get { return _info && _asso; }
+            
         }
 
 
         /// <summary>
         /// Creates and adds the data to the viewmodels
         /// </summary>
-        public void LoadData()
+        public void LoadData(bool reload)
         {
-            NewsItems = new ObservableCollection<NewsItemViewModel>();
-            ActivityItems = new ObservableCollection<ActivityItemsViewModel>();
-            SchamperItems = new ObservableCollection<SchamperItemsViewModel>();
-            RestoItems = new ObservableCollection<RestoItemsViewModel>();
-
-
-            LoadAssociations();
-            LoadSettings();
+            if(!IsEssentialsLoaded)
+            {
+                
+                LoadInfo();
+                LoadAssociations();
+                LoadSettings();
+            }
+            if (!reload) return;
+            RestoItems.Clear();
+            NewsItems.Clear();
+            ActivityItems.Clear();
+            SchamperItems.Clear();
             _fromCache = DateTime.Now.AddMinutes(-60) < _cacheTime;
             LoadNews();
             LoadResto(_offset);
             LoadActivities();
             LoadSchamper();
-            LoadInfo();
         }
 
         private void LoadSettings()
@@ -171,20 +183,9 @@ namespace Hydra.Data
             }
         }
 
-        public bool PreferredContains(string In)
-        {
-            var i = 0;
-            while (i < PreferredAssociations.Count && PreferredAssociations[i].In != In)
-            {
-                i++;
-            }
-            return i < PreferredAssociations.Count;
-
-        }
-
         public void LoadSchamper()
         {
-            if (!_fromCache)
+            if (!_fromCache || !_isoStore.FileExists("schamper.xml"))
             {
                 var fetch = new WebClient();
                 _schamper = false;
@@ -199,7 +200,7 @@ namespace Hydra.Data
 
         public void LoadNews()
         {
-            if (!_fromCache)
+            if (!_fromCache || !_isoStore.FileExists("news.json"))
             {
                 var fetch = new WebClient();
                 _news = false;
@@ -214,7 +215,7 @@ namespace Hydra.Data
 
         public void LoadActivities()
         {
-            if (!_fromCache)
+            if (!_fromCache || !_isoStore.FileExists("activities.json"))
             {
                 var fetch = new WebClient();
                 _activity = false;
@@ -233,7 +234,7 @@ namespace Hydra.Data
             _week = new CultureInfo("nl-BE").Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay,
                                                                         DayOfWeek.Monday);
 
-            if (!_fromCache)
+            if (!_fromCache || (!_isoStore.FileExists((_week+_offset)+".json")))
             {
                 var fetch = new WebClient();
                 _resto = false;
@@ -245,7 +246,8 @@ namespace Hydra.Data
             }
             else
             {
-                ProcessSchamper(null, null);
+                ProcessResto(null, null);
+                ProcessMetaResto(null,null);
             }
 
         }
@@ -557,7 +559,7 @@ namespace Hydra.Data
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
+        public void NotifyPropertyChanged(String propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (null != handler)
@@ -566,6 +568,14 @@ namespace Hydra.Data
             }
         }
 
+        public bool PreferredContains(string In){
+   	        var i = 0;
+   	        while (i < PreferredAssociations.Count && PreferredAssociations[i].In != In)
+   	        {
+   	            i++;
+   	        }
+   	        return i < PreferredAssociations.Count;
+        }
 
     }
 }
