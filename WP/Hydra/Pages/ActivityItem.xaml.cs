@@ -10,7 +10,6 @@ namespace Hydra.Pages
 {
     public partial class ActivityItem : PhoneApplicationPage
     {
-        private const string Header = "<html><head><link rel='stylesheet' type='text/css' href='../Resources/webview.css'></head><body>";
         private ActivityItemsViewModel _item;
         public ActivityItem()
         {
@@ -25,8 +24,6 @@ namespace Hydra.Pages
             if (_item != null)
             {
                 DataContext = _item;
-                
-                browser.NavigateToString(Header + _item.Content + "</body></html>");
             }
             else
             {

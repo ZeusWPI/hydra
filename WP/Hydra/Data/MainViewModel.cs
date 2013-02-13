@@ -234,7 +234,7 @@ namespace Hydra.Data
             _week = new CultureInfo("nl-BE").Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay,
                                                                         DayOfWeek.Monday);
 
-            if (!_fromCache || (!_isoStore.FileExists((_week+_offset)+".json")))
+            if (!_fromCache || (!_isoStore.FileExists((_week+_offset)+".json")||!_isoStore.FileExists("meta.json")))
             {
                 var fetch = new WebClient();
                 _resto = false;
@@ -265,6 +265,7 @@ namespace Hydra.Data
             MetaRestoItem = list;
 
             _meta = true;
+           
         }
 
         public void ProcessResto(object sender, DownloadStringCompletedEventArgs e)
@@ -309,6 +310,7 @@ namespace Hydra.Data
             if (RestoItems.Count < 7)
                 LoadResto(_offset++);
             _resto = true;
+           
 
         }
 
@@ -329,6 +331,7 @@ namespace Hydra.Data
                 NewsItems.Add(newsItemView);
             }
             _news = true;
+           
         }
 
 
@@ -349,6 +352,7 @@ namespace Hydra.Data
                 ActivityItems.Add(activityItemView);
             }
             _activity = true;
+           
         }
 
         public void LoadAssociations()
@@ -414,6 +418,7 @@ namespace Hydra.Data
                 }
             }
             _asso = true;
+           
         }
 
 
@@ -463,6 +468,7 @@ namespace Hydra.Data
                 }
             }
             _info = true;
+           
         }
 
         public void ProcessSchamper(object sender, DownloadStringCompletedEventArgs e)
@@ -528,6 +534,7 @@ namespace Hydra.Data
                     }
                 }
             _schamper = true;
+           
         }
 
         private string SaveToStorage(string fileName, string extension, string downLoadedString)

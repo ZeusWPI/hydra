@@ -9,7 +9,7 @@
     x:Class="Hydra.Pages.MainPage" 
     mc:Ignorable="d"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
         <shell:ApplicationBar x:Key="RestoAppBar" IsVisible="True">
@@ -27,6 +27,11 @@
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.Resources>
 
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True" Text="Data inladen..." />
+    </shell:SystemTray.ProgressIndicator>
+    
+    
     <phone:PhoneApplicationPage.FontFamily>
         <StaticResource ResourceKey="PhoneFontFamilyNormal"/>
     </phone:PhoneApplicationPage.FontFamily>

@@ -22,8 +22,21 @@ namespace Hydra.Pages
             var dt = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 0,60*60*1000)};
             dt.Tick += LoadData;
             dt.Start();
+
+            var pi = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 100) };
+            pi.Tick += CheckData;
+            pi.Start();
            
 	      
+        }
+
+        private void CheckData(object sender, EventArgs e)
+        {
+            var pi = SystemTray.ProgressIndicator;
+            pi.IsVisible = !App.ViewModel.IsDataLoaded;
+            if (!App.ViewModel.IsDataLoaded) return;
+            var dt = (DispatcherTimer) sender;
+            dt.Stop();
         }
 
         private void LoadData(object sender, EventArgs e)
