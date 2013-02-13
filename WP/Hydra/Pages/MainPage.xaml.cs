@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 using Hydra.Data;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -18,19 +19,44 @@ namespace Hydra.Pages
             InitializeComponent();
             _restoItem = 0;
             ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
+            var dt = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 0,60*60*1000)};
+            dt.Tick += LoadData;
+            dt.Start();
+
+            var pi = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 100) };
+            pi.Tick += CheckData;
+            pi.Start();
+           
 	      
         }
 
-       
+        private void CheckData(object sender, EventArgs e)
+        {
+            var pi = SystemTray.ProgressIndicator;
+            pi.IsVisible = !App.ViewModel.IsDataLoaded;
+            if (!App.ViewModel.IsDataLoaded) return;
+            var dt = (DispatcherTimer) sender;
+            dt.Stop();
+        }
+
+        private void LoadData(object sender, EventArgs e)
+        {
+            var reload = sender is DispatcherTimer;
+            App.ViewModel.LoadData(reload);
+            DataContext = App.ViewModel;
+            App.ViewModel.NotifyPropertyChanged("items");
+            LoadResto();
+        }
+
 
         // Load data for the ViewModel NewsItems
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-           
-            if (App.ViewModel.IsDataLoaded) return;
-            App.ViewModel.LoadData();
-            DataContext = App.ViewModel;
-            LoadResto();
+            LoadData(this, null);
+            if (App.ViewModel.IsDataLoaded)
+            {   
+                LoadResto();
+            }
         }
 
         private void LoadResto()
@@ -101,7 +127,7 @@ namespace Hydra.Pages
             infoLLS.SelectedItem = null;
         }
 
-        private void MainPanoramaSelectionChangedShowApplicationBar(object sender, SelectionChangedEventArgs e)
+        private void MainPivotSelectionChangedShowApplicationBar(object sender, SelectionChangedEventArgs e)
         {
             var pivotItem = e.AddedItems[0] as PivotItem;
             if (pivotItem == null) return;
@@ -110,10 +136,17 @@ namespace Hydra.Pages
             {
                 LoadResto();
                 ApplicationBar = (ApplicationBar)Resources["RestoAppBar"];
+                EnableButtons();
             }else
             {
                 ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
             }
+        }
+
+        private void EnableButtons()
+        {
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[0]).IsEnabled = _restoItem > 0;
+            ((ApplicationBarIconButton)ApplicationBar.Buttons[2]).IsEnabled = _restoItem + 1 <= App.ViewModel.RestoItems.Count - 1;
         }
 
         private void BackAppBar(object sender, EventArgs e)
@@ -121,13 +154,10 @@ namespace Hydra.Pages
             if (_restoItem > 0)
             {
                 _restoItem--;
+                
                 LoadResto();
             }
-            else
-            {
-                //TODO:
-                //disable button when there is no entry to go to
-            }
+            EnableButtons();
         }
 
         private void NextAppBar(object sender, EventArgs e)
@@ -135,13 +165,11 @@ namespace Hydra.Pages
             if (_restoItem < App.ViewModel.RestoItems.Count - 1)
             {
                 _restoItem++;
+                
                 LoadResto();
             }
-            else
-            {
-                //TODO:
-                //disable button when there is no entry to go to
-            }
+            EnableButtons();
+            
         }
 
         private void SettingsAppBar(object sender, EventArgs e)
@@ -151,7 +179,8 @@ namespace Hydra.Pages
 
         private void LegendAppBar(object sender, EventArgs e)
         {
-            String legende = App.ViewModel.MetaRestoItem.Legenda.Aggregate<Legenda, string>(null, (current, leg) => current + (leg.Key + ": " + leg.Value + " \n "));
+            var legende = App.ViewModel.MetaRestoItem.Legenda.Aggregate<Legenda, string>(null, (current, leg) => current + (leg.Key + ": " + leg.Value + " \n "));
+            legende += "Indien je een bepaalde datum niet ziet verschijnen, dan zijn de resto's gesloten op die datum";
             MessageBox.Show(legende);
         }
 
@@ -159,40 +188,6 @@ namespace Hydra.Pages
         {
             NavigationService.Navigate(new Uri("/Pages/RestoLocations.xaml", UriKind.Relative));
         }
-
-        //private void Reload(object sender, EventArgs e)
-        //{
-        //    var panoramaItem = mainPanorama.SelectedItem as PanoramaItem;
-        //    if (panoramaItem != null)
-        //    {
-        //        var name = panoramaItem.Name;
-        //        if (name != null)
-        //        {
-        //            if (name.Equals("schamper"))
-        //            {
-        //                App.ViewModel.LoadSchamper();
-        //            }
-        //            else if(name.Equals("resto"))
-        //            {
-        //                App.ViewModel.LoadResto();
-        //            }else if (name.Equals("news"))
-        //            {
-        //                App.ViewModel.LoadNews();
-        //            }else if(name.Equals("activities"))
-        //            {
-        //                App.ViewModel.LoadInfo();
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private void GridClick(object sender, System.Windows.RoutedEventArgs e)
-        //{
-        //    var item = Convert.ToInt32(((TextBlock) sender).Name.Substring(1));
-        //    mainPanorama.DefaultItem = mainPanorama.Items[item];
-
-        //}
-
 
     }
 }

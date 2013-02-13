@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System;
@@ -10,7 +11,6 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Hydra.Data;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
@@ -25,7 +25,10 @@ namespace Hydra.Data
         private const string MetaApi = "http://zeus.ugent.be/hydra/api/1.0/resto/meta.json";
         private const string ConnectionString = "isostore:/settings.sdf";
         private bool _news, _activity, _schamper, _info, _resto, _meta, _asso;
-        private bool _isFilteringChecked;
+        private bool _isFilteringChecked, _fromCache;
+        private int _offset, _week;
+        private DateTime _cacheTime;
+        private readonly IsolatedStorageFile _isoStore = IsolatedStorageFile.GetUserStoreForApplication();
 
         /// <summary>
         /// A collection for ItemViewModel objects.
@@ -36,18 +39,21 @@ namespace Hydra.Data
         public ObservableCollection<InfoItemsViewModel> InfoItems { get; private set; }
         public ObservableCollection<RestoItemsViewModel> RestoItems { get; private set; }
         public List<Association> Associtions { get; private set; }
-        public List<Association> PreferredAssociations { get; set; }
+        public ObservableCollection<Association> PreferredAssociations { get; set; }
         public MetaResto MetaRestoItem { get; private set; }
+
 
         public MainViewModel()
         {
+            InfoItems = new ObservableCollection<InfoItemsViewModel>();
+            Associtions = new List<Association>();
+            PreferredAssociations = new ObservableCollection<Association>();
             NewsItems = new ObservableCollection<NewsItemViewModel>();
             ActivityItems = new ObservableCollection<ActivityItemsViewModel>();
             SchamperItems = new ObservableCollection<SchamperItemsViewModel>();
-            InfoItems = new ObservableCollection<InfoItemsViewModel>();
             RestoItems = new ObservableCollection<RestoItemsViewModel>();
-            Associtions = new List<Association>();
-            PreferredAssociations = new List<Association>();
+            _offset = 0;
+            _fromCache = false;
         }
 
 
@@ -59,22 +65,37 @@ namespace Hydra.Data
         public bool IsDataLoaded
         {
             get { return _news && _activity && _schamper && _info && _resto && _meta && _asso; }
-            private set { throw new NotImplementedException(); }
+        }
+
+        public bool IsEssentialsLoaded
+        {
+            get { return _info && _asso; }
+            
         }
 
 
         /// <summary>
         /// Creates and adds the data to the viewmodels
         /// </summary>
-        public void LoadData()
+        public void LoadData(bool reload)
         {
+            if(!IsEssentialsLoaded)
+            {
+                
+                LoadInfo();
+                LoadAssociations();
+                LoadSettings();
+            }
+            if (!reload) return;
+            RestoItems.Clear();
+            NewsItems.Clear();
+            ActivityItems.Clear();
+            SchamperItems.Clear();
+            _fromCache = DateTime.Now.AddMinutes(-60) < _cacheTime;
             LoadNews();
-            LoadResto();
+            LoadResto(_offset);
             LoadActivities();
             LoadSchamper();
-            LoadInfo();
-            LoadAssociations();
-            LoadSettings();
         }
 
         private void LoadSettings()
@@ -104,6 +125,7 @@ namespace Hydra.Data
                     }
                     var sett = query.First();
                     _isFilteringChecked = bool.Parse(sett.Filtering);
+                    _cacheTime = DateTime.Parse(sett.CacheDate, new CultureInfo("nl-BE"));
                     if (sett.Associations.Equals("")) return;
                     foreach (var asso in new List<string>(sett.Associations.Split(';')))
                     {
@@ -120,27 +142,7 @@ namespace Hydra.Data
             }
         }
 
-        public bool PreferredContains(string In)
-        {
-            var i = 0;
-            while (i < PreferredAssociations.Count && PreferredAssociations[i].In != In)
-            {
-                i++;
-            }
-            return i < PreferredAssociations.Count;
 
-        }
-
-        //public NewsItemViewModel PreferredContains(string In)
-        //{
-        //    var i = 0;
-        //    while (i < PreferredAssociations.Count && PreferredAssociations[i].In != In)
-        //    {
-        //        i++;
-        //    }
-        //    return i < PreferredAssociations.Count;
-
-        //}
 
         public void SaveSettings()
         {
@@ -163,7 +165,7 @@ namespace Hydra.Data
                 }
                 if (!query.Any())
                 {
-                    var sett = new SettingsTable { Associations = formatted, Filtering = Convert.ToString(_isFilteringChecked), Id = 0 };
+                    var sett = new SettingsTable { Associations = formatted, Filtering = Convert.ToString(_isFilteringChecked), Id = 0, CacheDate = _cacheTime.ToString(new CultureInfo("nl-BE")) };
                     context.SettingsTable.InsertOnSubmit(sett);
 
                 }
@@ -174,67 +176,111 @@ namespace Hydra.Data
                     {
                         settingUpdate.Filtering = Convert.ToString(_isFilteringChecked);
                         settingUpdate.Associations = formatted;
-
+                        settingUpdate.CacheDate = _cacheTime.ToString(new CultureInfo("nl-BE"));
                     }
                 }
                 context.SubmitChanges();
             }
         }
+
         public void LoadSchamper()
         {
-            var fetch = new WebClient();
-            _schamper = false;
-            fetch.DownloadStringCompleted += ProcessSchamper;
-            fetch.DownloadStringAsync(new Uri(SchamperApi));
+            if (!_fromCache || !_isoStore.FileExists("schamper.xml"))
+            {
+                var fetch = new WebClient();
+                _schamper = false;
+                fetch.DownloadStringCompleted += ProcessSchamper;
+                fetch.DownloadStringAsync(new Uri(SchamperApi));
+            }
+            else
+            {
+                ProcessSchamper(null, null);
+            }
         }
 
         public void LoadNews()
         {
-            var fetch = new WebClient();
-            _news = false;
-            fetch.DownloadStringCompleted += ProcessNews;
-            fetch.DownloadStringAsync(new Uri(NewsApi));
+            if (!_fromCache || !_isoStore.FileExists("news.json"))
+            {
+                var fetch = new WebClient();
+                _news = false;
+                fetch.DownloadStringCompleted += ProcessNews;
+                fetch.DownloadStringAsync(new Uri(NewsApi));
+            }
+            else
+            {
+                ProcessNews(null, null);
+            }
         }
 
         public void LoadActivities()
         {
-            var fetch = new WebClient();
-            _activity = false;
-            fetch.DownloadStringCompleted += ProcessActivities;
-            fetch.DownloadStringAsync(new Uri(ActivityApi));
+            if (!_fromCache || !_isoStore.FileExists("activities.json"))
+            {
+                var fetch = new WebClient();
+                _activity = false;
+                fetch.DownloadStringCompleted += ProcessActivities;
+                fetch.DownloadStringAsync(new Uri(ActivityApi));
+            }
+            else
+            {
+                ProcessActivities(null, null);
+            }
+
+
         }
-        public void LoadResto()
+        public void LoadResto(int offset)
         {
-            var week = new CultureInfo("nl-BE").Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay,
+            _week = new CultureInfo("nl-BE").Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay,
                                                                         DayOfWeek.Monday);
-            var fetch = new WebClient();
-            _resto = false;
-            fetch.DownloadStringCompleted += ProcessResto;
-            fetch.DownloadStringAsync(new Uri(RestoApi + week + ".json"));
-            var meta = new WebClient();
-            meta.DownloadStringCompleted += ProcessMetaResto;
-            meta.DownloadStringAsync(new Uri(MetaApi));
+
+            if (!_fromCache || (!_isoStore.FileExists((_week+_offset)+".json")||!_isoStore.FileExists("meta.json")))
+            {
+                var fetch = new WebClient();
+                _resto = false;
+                fetch.DownloadStringCompleted += ProcessResto;
+                fetch.DownloadStringAsync(new Uri(RestoApi + (_week + _offset) + ".json"));
+                var meta = new WebClient();
+                meta.DownloadStringCompleted += ProcessMetaResto;
+                meta.DownloadStringAsync(new Uri(MetaApi));
+            }
+            else
+            {
+                ProcessResto(null, null);
+                ProcessMetaResto(null,null);
+            }
+
         }
 
         void ProcessMetaResto(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error != null || e.Cancelled) return;
-            var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+            MemoryStream ms = null;
+            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if (e == null && _fromCache)
+                ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("meta", ".json")));
+            else
+                ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("meta", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(MetaResto));
             var list = (MetaResto)serializer.ReadObject(ms);
             MetaRestoItem = list;
 
             _meta = true;
+           
         }
 
         public void ProcessResto(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error != null || e.Cancelled) return;
-            var ob = (JObject)JsonConvert.DeserializeObject(e.Result);
+            String ms = null;
+            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if (e == null && _fromCache)
+                ms = LoadFromStorage(Convert.ToString((_week + _offset)), ".json");
+            else
+                ms = SaveToStorage(Convert.ToString((_week + _offset)), ".json", e.Result);
+            var ob = (JObject)JsonConvert.DeserializeObject(ms);
 
             foreach (var day in ob)
             {
-                // if (DateTime.Parse(day.Key) > DateTime.Now) continue;
+                if (DateTime.Parse(day.Key).Date < DateTime.Now.Date) continue;
                 bool open;
                 try
                 {
@@ -256,17 +302,27 @@ namespace Hydra.Data
 
                 var soup = day.Value.ElementAt(2).Values().Select(soupp => (string)soupp).ToList();
                 var veg = day.Value.ElementAt(3).Values().Select(veggie => (string)veggie).ToList();
-                RestoItems.Add(new RestoItemsViewModel { Day = new Day { Dishes = dishes, Date = day.Key, Open = open, Soup = soup, Vegetables = veg } });
+                if (RestoItems.Count < 7)
+                    RestoItems.Add(new RestoItemsViewModel { Day = new Day { Dishes = dishes, Date = day.Key, Open = open, Soup = soup, Vegetables = veg } });
+                else if (RestoItems.Count >= 7)
+                    break;
             }
+            if (RestoItems.Count < 7)
+                LoadResto(_offset++);
             _resto = true;
+           
 
         }
 
 
         public void ProcessNews(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error != null || e.Cancelled) return;
-            var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+            MemoryStream ms = null;
+            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if (e == null && _fromCache)
+                ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("news", ".json")));
+            else
+                ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("news", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
             var list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
 
@@ -275,12 +331,19 @@ namespace Hydra.Data
                 NewsItems.Add(newsItemView);
             }
             _news = true;
+           
         }
+
+
 
         public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error != null || e.Cancelled) return;
-            var ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+            MemoryStream ms = null;
+            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if (e == null && _fromCache)
+                ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("activities", ".json")));
+            else
+                ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("activities", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<ActivityItemsViewModel>));
             var list = (ObservableCollection<ActivityItemsViewModel>)serializer.ReadObject(ms);
 
@@ -289,6 +352,7 @@ namespace Hydra.Data
                 ActivityItems.Add(activityItemView);
             }
             _activity = true;
+           
         }
 
         public void LoadAssociations()
@@ -323,8 +387,8 @@ namespace Hydra.Data
                         //</dict>
                         foreach (var node in dict.Elements())
                         {
-                            string display = null, intern = null;
-                            string parent = null;
+                            string display = null, intern;
+                            string parent;
                             Association asso = null;
                             var el = (XElement)node.NextNode;
                             if (node.Value.Equals("displayName")) display = el.Value;
@@ -354,6 +418,7 @@ namespace Hydra.Data
                 }
             }
             _asso = true;
+           
         }
 
 
@@ -403,12 +468,22 @@ namespace Hydra.Data
                 }
             }
             _info = true;
+           
         }
 
         public void ProcessSchamper(object sender, DownloadStringCompletedEventArgs e)
         {
-            if (e.Error != null || e.Cancelled) return;
-            XElement resultElements = XElement.Parse(e.Result);
+            XElement resultElements = null;
+            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if (e == null && _fromCache)
+            {
+                string s = LoadFromStorage("schamper", ".xml");
+                if (!s.Equals(""))
+                    resultElements = XElement.Parse(s);
+                else return;
+            }
+            else
+                resultElements = XElement.Parse(SaveToStorage("schamper", ".xml", e.Result));
 
             var xElement = resultElements.Element(XName.Get("channel"));
             if (xElement != null)
@@ -459,10 +534,39 @@ namespace Hydra.Data
                     }
                 }
             _schamper = true;
+           
+        }
+
+        private string SaveToStorage(string fileName, string extension, string downLoadedString)
+        {
+            if (_isoStore.FileExists(fileName + extension)) _isoStore.DeleteFile(fileName + extension);
+            else
+            {
+                //create new file
+                using (var writeFile = new StreamWriter(new IsolatedStorageFileStream(fileName + extension, FileMode.Create, FileAccess.Write, _isoStore)))
+                {
+                    _cacheTime = DateTime.Now;
+                    writeFile.Write(downLoadedString);
+                    writeFile.Flush();
+                    writeFile.Close();
+                    SaveSettings();
+                }
+            }
+            return downLoadedString;
+        }
+
+        private string LoadFromStorage(string fileName, string extension)
+        {
+            if (!_isoStore.FileExists(fileName + extension)) return "";
+            var fileStream = _isoStore.OpenFile(fileName + extension, FileMode.Open, FileAccess.Read);
+            using (var reader = new StreamReader(fileStream))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
+        public void NotifyPropertyChanged(String propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (null != handler)
@@ -471,6 +575,14 @@ namespace Hydra.Data
             }
         }
 
+        public bool PreferredContains(string In){
+   	        var i = 0;
+   	        while (i < PreferredAssociations.Count && PreferredAssociations[i].In != In)
+   	        {
+   	            i++;
+   	        }
+   	        return i < PreferredAssociations.Count;
+        }
 
     }
 }

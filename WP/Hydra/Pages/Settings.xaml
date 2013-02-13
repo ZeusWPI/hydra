@@ -17,7 +17,7 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="AssociationItemTemplate">
             <Grid VerticalAlignment="Top">
-                <CheckBox Content="{Binding Dn}" IsChecked="{Binding In,Converter={StaticResource stringToBoolean},ConverterParameter=checked}" />
+                <CheckBox Content="{Binding Dn}" IsChecked="{Binding Path=.,Converter={StaticResource objectToBoolean},ConverterParameter=checked}" />
             </Grid>
         </DataTemplate>
 

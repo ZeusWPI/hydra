@@ -82,6 +82,10 @@ namespace Hydra
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            if (!App.ViewModel.IsDataLoaded)
+            {
+                App.ViewModel.LoadData(true);
+            }
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -91,7 +95,7 @@ namespace Hydra
             // Ensure that application state is restored appropriately
             if (!App.ViewModel.IsDataLoaded)
             {
-                App.ViewModel.LoadData();
+                App.ViewModel.LoadData(true);
             }
         }
 

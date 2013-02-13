@@ -32,5 +32,8 @@ namespace Hydra.Data
         [Column(CanBeNull = false)]
         public string Associations { get; set; }
 
+        [Column(CanBeNull = false)]
+        public string CacheDate { get; set; }
+
     }
 }

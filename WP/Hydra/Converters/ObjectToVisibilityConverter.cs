@@ -17,12 +17,9 @@ namespace Hydra.Converters
             else
             {
                 var item = (NewsItemViewModel) value;
-                if (!App.ViewModel.PreferredContains(item.Assocition.In) && App.ViewModel.IsChecked &&
-                    !item.IsHighLighted && App.ViewModel.PreferredAssociations.Count > 0)
-                {
-                    return Visibility.Collapsed;
-                }
-
+                if((App.ViewModel.IsChecked && App.ViewModel.PreferredAssociations.Count>0) && (!App.ViewModel.PreferredContains(item.Assocition.In)&&!item.IsHighLighted))
+                     return Visibility.Collapsed;
+                
                 return Visibility.Visible;
             }
         }
