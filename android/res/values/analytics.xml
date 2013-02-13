@@ -20,7 +20,8 @@
     <string name="be.ugent.zeus.hydra.BuildingMap">Resto Map</string>
     <string name="be.ugent.zeus.hydra.SchamperDaily">Schamper</string>
     <string name="be.ugent.zeus.hydra.Urgent">Urgent</string>
-    <string name="be.ugent.zeus.hydra.Settings">Voorkeuren</string>
+    <string name="be.ugent.zeus.hydra.settings.Settings">Voorkeuren</string>
+    <string name="be.ugent.zeus.hydra.settings.AssociationsFilter">Voorkeuren > Verenigingen</string>
     <!--  TODO: Add one for Urgent -->
   
     <!--Enable automatic exception tracking-->
