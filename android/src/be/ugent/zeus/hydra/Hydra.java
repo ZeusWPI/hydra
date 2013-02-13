@@ -2,8 +2,10 @@ package be.ugent.zeus.hydra;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.UpdaterService;
 import com.actionbarsherlock.app.ActionBar;
@@ -16,8 +18,7 @@ import com.zubhium.ZubhiumSDK;
 import java.util.Locale;
 
 /**
- *
- * @author Thomas Meire
+ * @author Zeus WPI
  */
 public class Hydra extends AbstractSherlockActivity {
 
@@ -29,6 +30,19 @@ public class Hydra extends AbstractSherlockActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
+        // First run? If so: set the default preferences
+        boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
+        if (firstrun) {
+            Toast.makeText(this, "First run", Toast.LENGTH_LONG).show();
+            // Save the state
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .edit()
+                .putBoolean("firstrun", false)
+                .commit();
+            // Set the default preference
+            PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+        }
 
         // Center the image using a custom layout
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -43,7 +57,7 @@ public class Hydra extends AbstractSherlockActivity {
                 sdk.registerUpdateReceiver(Hydra.this);
             }
         }
-        
+
         // Google Analytics
 //         if (BETA || DEBUG) {
 //            Log.d("GAnalytics:", "Tracking disabled");
