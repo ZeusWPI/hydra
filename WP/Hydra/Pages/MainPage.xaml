@@ -25,13 +25,58 @@
         <shell:ApplicationBar x:Key="DefaultAppBar" IsVisible="True">
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/settings.png" Text="Instellingen" Click="SettingsAppBar"/>
         </shell:ApplicationBar>
+
+        <DataTemplate x:Key="ActivityGroupHeaderTemplate">
+            <Border Background="Transparent" Padding="5" Visibility="{Binding Path=.,Converter={StaticResource objectHeaderActivityToVisbility},ConverterParameter=activityHeader}">
+                <Border Background="{StaticResource PhoneAccentBrush}" BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="2" Margin="0,0,18,0" HorizontalAlignment="Left">
+                    <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" FontSize="48" Padding="6" 
+            FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Border>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NewsGroupHeaderTemplate">
+            <Border Background="Transparent" Padding="5" Visibility="{Binding Path=.,Converter={StaticResource objectHeaderNewsToVisbility},ConverterParameter=activityHeader}">
+                <Border Background="{StaticResource PhoneAccentBrush}" BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="2" Margin="0,0,18,0" HorizontalAlignment="Left">
+                    <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" FontSize="48" Padding="6" 
+            FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Border>
+            </Border>
+        </DataTemplate>
+
+        <phone:JumpListItemBackgroundConverter x:Key="BackgroundConverter"/>
+        <phone:JumpListItemForegroundConverter x:Key="ForegroundConverter"/>
+
+        <Style x:Key="JumpListStyle" TargetType="phone:LongListSelector">
+            <Setter Property="LayoutMode" Value="List" />
+            <Setter Property="Margin" Value="12,12,0,0"/>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border Background= 
+                                "{Binding Converter={StaticResource BackgroundConverter}}"  
+                                Width="470"  
+                                Height="70"  
+                                Margin="6">
+                            <TextBlock Text="{Binding Key}" 
+                                       Foreground= 
+                                       "{Binding Converter={StaticResource ForegroundConverter}}"                                        
+                                       FontFamily="{StaticResource PhoneFontFamilySemiBold}" 
+                                       FontSize="28"   
+                                       Padding="2" 
+                                       VerticalAlignment="Bottom"/>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </phone:PhoneApplicationPage.Resources>
 
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="True" Text="Data inladen..." />
     </shell:SystemTray.ProgressIndicator>
-    
-    
+
+
     <phone:PhoneApplicationPage.FontFamily>
         <StaticResource ResourceKey="PhoneFontFamilyNormal"/>
     </phone:PhoneApplicationPage.FontFamily>
@@ -67,15 +112,19 @@
 
         <phone:Pivot x:Name="mainPivot" Title="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"  SelectionChanged="MainPivotSelectionChangedShowApplicationBar">
 
-            <phone:PivotItem x:Name="news" Header="Nieuws">
-
-                <phone:LongListSelector Margin="0,-38,-22,2" x:Name="newsLLS"  ItemsSource="{Binding NewsItems}" SelectionChanged="NewsItemTapped">
+            <phone:PivotItem x:Name="news" Header="Nieuws" >
+                <phone:LongListSelector x:Name="newsLLS" Margin="0,-38,-22,2"
+                                        ItemsSource="{Binding GroupedNews}"                       
+                                        GroupHeaderTemplate="{StaticResource NewsGroupHeaderTemplate}" 
+                                        JumpListStyle="{StaticResource JumpListStyle}"  
+                                        IsGroupingEnabled="True" 
+                                        LayoutMode="List" SelectionChanged="NewsItemTapped">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility},ConverterParameter=news}" >
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility}}">
                                 <StackPanel Width="311" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
-                                    <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0"/>
+                                    <TextBlock Text="{Binding Assocition.Dn}" TextWrapping="Wrap" Margin="10,-2,10,0"  />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -86,13 +135,18 @@
 
 
             <phone:PivotItem x:Name="activities" Header="Activiteiten">
-                <phone:LongListSelector Margin="0,-38,-22,2" x:Name="activityLLS" ItemsSource="{Binding ActivityItems}" SelectionChanged="ActivityItemTapped">
+                <phone:LongListSelector x:Name="activityLLS" Margin="0,-38,-22,2"
+                                        ItemsSource="{Binding GroupedActivities}"                       
+                                        GroupHeaderTemplate="{StaticResource ActivityGroupHeaderTemplate}" 
+                                        JumpListStyle="{StaticResource JumpListStyle}"  
+                                        IsGroupingEnabled="True" 
+                                        LayoutMode="List" SelectionChanged="ActivityItemTapped">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility},ConverterParameter=activity}">
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility}}">
                                 <StackPanel Width="311" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
-                                    <TextBlock Text="{Binding Assocition.In}" TextWrapping="Wrap" Margin="10,-2,10,0"  />
+                                    <TextBlock Text="{Binding Assocition.Dn}" TextWrapping="Wrap" Margin="10,-2,10,0"  />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>

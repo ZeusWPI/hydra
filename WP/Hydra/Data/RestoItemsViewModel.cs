@@ -49,7 +49,7 @@ namespace Hydra.Data
 
     public class Day
     {
-        private readonly string[] _months = new string[] { "januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "november", "oktober", "december" };
+        public static string[] Months = new[] { "januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "november", "oktober", "december" };
         private List<Dish> _dishes;
         public List<Dish> Dishes
         {
@@ -89,7 +89,7 @@ namespace Hydra.Data
                         return "Overmorgen";
                     else
                     {
-                        return date.DayOfWeek + " " + date.Day + " " + _months[date.Month - 1];
+                        return date.DayOfWeek + " " + date.Day + " " + Months[date.Month - 1];
                     }
                 }
             }

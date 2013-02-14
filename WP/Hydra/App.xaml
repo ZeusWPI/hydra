@@ -40,7 +40,10 @@
         <convert:BooleanToStringConverter x:Key="booleanToString" />
         <convert:ObjectToBooleanConverter x:Key="objectToBoolean" />
         <convert:ObjectToVisibilityConverter x:Key="objectToVisbility" />
+        <convert:ObjectHeaderActivityToVisibilityConverter x:Key="objectHeaderActivityToVisbility" />
+        <convert:ObjectHeaderNewsToVisibilityConverter x:Key="objectHeaderNewsToVisbility" />
         <convert:ObjectToStyleConverter x:Key="objectToStyle" />
+        
         
         <local:LocalizedStrings xmlns:local="clr-namespace:Hydra" x:Key="LocalizedStrings"/>
     </Application.Resources>

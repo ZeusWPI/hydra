@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
+  <Languages xmlns="">
+    <Language code="nl-BE" />
+  </Languages>
   <App xmlns="" ProductID="{d009f42e-ec32-4a4b-8928-26da8196272d}" Title="Hydra" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Hydra author" Description="Sample description" Publisher="Hydra" PublisherID="{0111dc25-7d54-4898-8ba9-63d99b528d01}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
