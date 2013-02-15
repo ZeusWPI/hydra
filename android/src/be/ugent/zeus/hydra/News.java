@@ -41,31 +41,34 @@ public class News extends AbstractSherlockListActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean showAll = preferences.getBoolean("prefFilter", false);
 
+
+        AssociationsCache assCache = AssociationsCache.getInstance(this);
+        HashSet<String> lists = assCache.get("associations");
+
+        if (lists == null) {
+            lists = new HashSet<String>();
+        }
+
         if (!showAll) {
-            AssociationsCache assCache = AssociationsCache.getInstance(this);
-            HashSet<String> lists = assCache.get("associations");
+            Iterator i = items.iterator();
+            while (i.hasNext()) {
+                NewsItem newsItem = (NewsItem) i.next();
 
-            if (lists != null && !lists.isEmpty()) {
-                Iterator i = items.iterator();
-                while (i.hasNext()) {
-                    NewsItem newsItem = (NewsItem) i.next();
-
-                    if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.display_name) && !lists.contains(newsItem.association.full_name)) {
-                        i.remove();
-                    }
+                if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.display_name) && !lists.contains(newsItem.association.full_name)) {
+                    i.remove();
                 }
-            } else { // Nothing to do here: close the activity & show a toast
-                Toast.makeText(this.getApplicationContext(), "Selecteer ten minste 1 vereniging in de instellingen", Toast.LENGTH_SHORT).show();
-
-                finish();
             }
-            
-            // No items
-            if(items.isEmpty()) {
+        }
+
+        // No items
+        if (items.isEmpty()) {
+            if (!showAll && lists.isEmpty()) {
+                Toast.makeText(this.getApplicationContext(), "Selecteer ten minste 1 vereniging in de instellingen.", Toast.LENGTH_SHORT).show();
+            } else {
                 Toast.makeText(this.getApplicationContext(), "Geen nieuws beschikbaar.", Toast.LENGTH_SHORT).show();
-
-                finish();
             }
+
+            finish();
         }
 
         setListAdapter(new NewsList(this, items));

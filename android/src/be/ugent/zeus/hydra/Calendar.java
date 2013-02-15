@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Activity;
 import be.ugent.zeus.hydra.data.Association;
+import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
@@ -52,31 +53,33 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean showAll = preferences.getBoolean("prefFilter", false);
 
+        AssociationsCache assCache = AssociationsCache.getInstance(this);
+        HashSet<String> lists = assCache.get("associations");
+
+        if (lists == null) {
+            lists = new HashSet<String>();
+        }
+
         if (!showAll) {
-            AssociationsCache assCache = AssociationsCache.getInstance(this);
-            HashSet<String> lists = assCache.get("associations");
+            Iterator i = items.iterator();
+            while (i.hasNext()) {
+                Activity newsItem = (Activity) i.next();
 
-            if (lists != null && !lists.isEmpty()) {
-                Iterator i = items.iterator();
-                while (i.hasNext()) {
-                    Activity activity = (Activity) i.next();
-
-                    if (activity.highlighted == 0 && !lists.contains(activity.association.display_name) && !lists.contains(activity.association.full_name)) {
-                        i.remove();
-                    }
+                if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.display_name) && !lists.contains(newsItem.association.full_name)) {
+                    i.remove();
                 }
-            } else { // Nothing to do here: close the activity & show a toast
+            }
+        }
+
+        // No items
+        if (items.isEmpty()) {
+            if (!showAll && lists.isEmpty()) {
                 Toast.makeText(this.getApplicationContext(), "Selecteer ten minste 1 vereniging in de instellingen.", Toast.LENGTH_SHORT).show();
-
-                finish();
+            } else {
+                Toast.makeText(this.getApplicationContext(), "Geen nieuws beschikbaar.", Toast.LENGTH_SHORT).show();
             }
-            
-            // No items
-            if(items.isEmpty()) {
-                Toast.makeText(this.getApplicationContext(), "Geen activiteiten", Toast.LENGTH_SHORT).show();
 
-                finish();
-            }
+            finish();
         }
         
 
