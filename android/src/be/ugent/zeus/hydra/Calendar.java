@@ -65,7 +65,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
             while (i.hasNext()) {
                 Activity newsItem = (Activity) i.next();
 
-                if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.display_name) && !lists.contains(newsItem.association.full_name)) {
+                if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.internal_name)) {
                     i.remove();
                 }
             }
@@ -76,7 +76,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
             if (!showAll && lists.isEmpty()) {
                 Toast.makeText(this.getApplicationContext(), "Selecteer ten minste 1 vereniging in de instellingen.", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this.getApplicationContext(), "Geen nieuws beschikbaar.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), "Geen activiteiten beschikbaar.", Toast.LENGTH_SHORT).show();
             }
 
             finish();

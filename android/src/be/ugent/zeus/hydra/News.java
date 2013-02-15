@@ -54,7 +54,7 @@ public class News extends AbstractSherlockListActivity {
             while (i.hasNext()) {
                 NewsItem newsItem = (NewsItem) i.next();
 
-                if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.display_name) && !lists.contains(newsItem.association.full_name)) {
+                if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.internal_name)) {
                     i.remove();
                 }
             }

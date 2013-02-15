@@ -12,11 +12,13 @@ package be.ugent.zeus.hydra.settings;
 public class PreferenceAssociation {
 
     private String name;
+    private String internalName;
     private String parentAssociation;
     private boolean selected;
 
-    public PreferenceAssociation(String name, String parentAssociation, boolean selected) {
+    public PreferenceAssociation(String name, String internalName, String parentAssociation, boolean selected) {
         this.name = name;
+        this.internalName = internalName;
         this.parentAssociation = parentAssociation;
         this.selected = selected;
     }
@@ -29,6 +31,14 @@ public class PreferenceAssociation {
         this.name = name;
     }
 
+    public String getInternalName() {
+        return internalName;
+    }
+
+    public void setInternalName(String internalName) {
+        this.internalName = internalName;
+    }
+    
     public String getParentAssociation() {
         return parentAssociation;
     }

@@ -68,9 +68,9 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
                     }
                     
                     if(cb.isChecked()) {
-                        checked.add(cb.getText().toString());
+                        checked.add(association.getInternalName());
                     } else {
-                        checked.remove(cb.getText().toString());
+                        checked.remove(association.getInternalName());
                     }
                     
                     cache.put("associations", checked);
@@ -85,6 +85,7 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
 
         holder.checkBox.setText(preferenceAssociation.getName());
         holder.checkBox.setChecked(preferenceAssociation.isSelected());
+        holder.internalName = preferenceAssociation.getInternalName();
         holder.checkBox.setTag(preferenceAssociation);
 
         return convertView;
@@ -118,7 +119,7 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
     }
 
     class ViewHolder {
-
         CheckBox checkBox;
+        String internalName;
     }
 }

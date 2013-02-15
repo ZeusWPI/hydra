@@ -61,12 +61,13 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
                     ((NSString) association.objectForKey("displayName")).toString());
             }
         }
-        
+
         HashSet<String> checkedAssociations = AssociationsCache.getInstance(this).get("associations");
-        
+
         ArrayList<PreferenceAssociation> associationList = new ArrayList<PreferenceAssociation>();
         for (int i = 0; i < assocations.count(); i++) {
             NSDictionary item = (NSDictionary) assocations.objectAtIndex(i);
+
 
 
             String name;
@@ -75,15 +76,17 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
             } else {
                 name = ((NSString) item.objectForKey("displayName")).toString();
             }
+            String internalName = ((NSString) item.objectForKey("internalName")).toString();
 
             boolean checked = false;
-            if(checkedAssociations != null) {
-                checked = checkedAssociations.contains(name);
+            if (checkedAssociations != null) {
+                checked = checkedAssociations.contains(internalName);
             }
-            
+
             PreferenceAssociation association =
                 new PreferenceAssociation(
                 name,
+                internalName,
                 centraal.get(((NSString) item.objectForKey("parentAssociation")).toString()),
                 checked);
 
