@@ -33,7 +33,8 @@
         <activity android:name=".Hydra" 
                   android:logo="@drawable/hydra"
                   android:theme="@style/Theme.Hydra.Light.CenteredBig"
-                  android:configChanges="screenSize|orientation">
+                  android:configChanges="screenSize|orientation"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
