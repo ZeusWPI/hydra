@@ -32,6 +32,7 @@
     <string name="pref_filter_activites">Toon alle verenigingen</string>
     <string name="pref_filter_activities_summary">Selecteer verenigingen om activiteiten en nieuwsberichten te filteren. Berichten die in de kijker staan worden steeds getoond.</string>
     <string name="pref_filter_activities_list">Selectie</string>
+    <string name="no_selection">Geen items gevonden. Selecteer verenigingen in de instellingen of toon alle verenigingen</string>
 
     <!-- other stuff -->
     <string name="loading">Laden…</string>

@@ -1,16 +1,22 @@
 package be.ugent.zeus.hydra;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Activity;
+import be.ugent.zeus.hydra.data.Association;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
+import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -42,6 +48,37 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         for (ArrayList<Activity> subset : cache.getAll()) {
             items.addAll(subset);
         }
+        
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean showAll = preferences.getBoolean("prefFilter", false);
+
+        if (!showAll) {
+            AssociationsCache assCache = AssociationsCache.getInstance(this);
+            HashSet<String> lists = assCache.get("associations");
+
+            if (lists != null && !lists.isEmpty()) {
+                Iterator i = items.iterator();
+                while (i.hasNext()) {
+                    Association assoc = ((Activity) i.next()).association;
+
+                    if (!lists.contains(assoc.display_name) && !lists.contains(assoc.full_name)) {
+                        i.remove();
+                    }
+                }
+            } else { // Nothing to do here: close the activity & show a toast
+                Toast.makeText(this.getApplicationContext(), "Selecteer ten minste 1 vereniging in de instellingen.", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+            
+            // No items
+            if(items.isEmpty()) {
+                Toast.makeText(this.getApplicationContext(), "Geen activiteiten", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+        }
+        
 
         stickyList.setAdapter(new ActivityListAdapter(this, items));
         stickyList.setSelection(firstVisible);

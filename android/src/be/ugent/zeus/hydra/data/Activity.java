@@ -10,6 +10,8 @@ import java.util.Date;
 public class Activity implements Serializable {
 
     public String title;
+    public Association association;
+    public int highlighted;
     public Date date;
     public String start;
     public String end;
@@ -18,6 +20,4 @@ public class Activity implements Serializable {
     public String url;
     public String facebook_id;
     public String[] categories;
-    public int highlighted;
-    public Association association;
 }

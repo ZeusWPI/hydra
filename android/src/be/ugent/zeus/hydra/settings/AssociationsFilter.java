@@ -84,7 +84,7 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
             PreferenceAssociation association =
                 new PreferenceAssociation(
                 name,
-                ((NSString) item.objectForKey("parentAssociation")).toString(),
+                centraal.get(((NSString) item.objectForKey("parentAssociation")).toString()),
                 checked);
 
             associationList.add(association);
