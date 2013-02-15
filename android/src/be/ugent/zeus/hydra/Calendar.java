@@ -59,9 +59,9 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
             if (lists != null && !lists.isEmpty()) {
                 Iterator i = items.iterator();
                 while (i.hasNext()) {
-                    Association assoc = ((Activity) i.next()).association;
+                    Activity activity = (Activity) i.next();
 
-                    if (!lists.contains(assoc.display_name) && !lists.contains(assoc.full_name)) {
+                    if (activity.highlighted == 0 && !lists.contains(activity.association.display_name) && !lists.contains(activity.association.full_name)) {
                         i.remove();
                     }
                 }

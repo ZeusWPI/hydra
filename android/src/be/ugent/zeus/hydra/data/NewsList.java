@@ -1,6 +1,7 @@
 package be.ugent.zeus.hydra.data;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -23,7 +24,6 @@ public class NewsList extends ArrayAdapter<NewsItem> {
     /**
      * The length of the article previews, in number of characters.
      */
-
     public NewsList(Context context, List<NewsItem> objects) {
         super(context, R.layout.news_list_item, objects);
         sort(new NewsItemComparator());
@@ -59,6 +59,16 @@ public class NewsList extends ArrayAdapter<NewsItem> {
 
         TextView shorttxt = (TextView) row.findViewById(R.id.news_item_short);
         shorttxt.setText(Html.fromHtml(item.content));
+        if (item.highlighted == 1) {
+
+            int higlightedid = getContext().getResources().getIdentifier("drawable/icon_star", null, "be.ugent.zeus.hydra");
+
+            title.setCompoundDrawablesWithIntrinsicBounds(higlightedid, 0, 0, 0);
+            title.setCompoundDrawablePadding(10);
+        } else {
+            title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            title.setCompoundDrawablePadding(0);
+        }
 
         return row;
     }

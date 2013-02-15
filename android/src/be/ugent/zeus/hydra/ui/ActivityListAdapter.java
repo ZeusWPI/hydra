@@ -10,24 +10,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-import be.ugent.zeus.hydra.Hydra;
 import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.Activity;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 public class ActivityListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     private Activity[] activities;
     private LayoutInflater inflater;
+    private Context context;
 
     public ActivityListAdapter(Context context, List<Activity> items) {
+        this.context = context;
         inflater = LayoutInflater.from(context);
         this.activities = new Activity[items.size()];
         activities = items.toArray(activities);
@@ -64,9 +64,22 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.title.setText(activities[position].title);
-        holder.assocation.setText(activities[position].association.display_name);
-        holder.time.setText(activities[position].start.substring(11, 16));
+        Activity activity = activities[position];
+        
+        holder.title.setText(activity.title);
+        holder.assocation.setText(activity.association.display_name);
+        holder.time.setText(activity.start.substring(11, 16));
+
+        if (activity.highlighted == 1) {
+
+            int higlightedid = context.getResources().getIdentifier("drawable/icon_star", null, "be.ugent.zeus.hydra");
+
+            holder.title.setCompoundDrawablesWithIntrinsicBounds(higlightedid, 0, 0, 0);
+            holder.title.setCompoundDrawablePadding(10);
+        } else {
+            holder.title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            holder.title.setCompoundDrawablePadding(0);
+        }
 
         return convertView;
     }

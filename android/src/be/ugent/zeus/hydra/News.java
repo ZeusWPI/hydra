@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+import be.ugent.zeus.hydra.data.Activity;
 import be.ugent.zeus.hydra.data.Association;
 import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.NewsList;
@@ -47,9 +48,9 @@ public class News extends AbstractSherlockListActivity {
             if (lists != null && !lists.isEmpty()) {
                 Iterator i = items.iterator();
                 while (i.hasNext()) {
-                    Association assoc = ((NewsItem) i.next()).association;
+                    NewsItem newsItem = (NewsItem) i.next();
 
-                    if (!lists.contains(assoc.display_name) && !lists.contains(assoc.full_name)) {
+                    if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.display_name) && !lists.contains(newsItem.association.full_name)) {
                         i.remove();
                     }
                 }
