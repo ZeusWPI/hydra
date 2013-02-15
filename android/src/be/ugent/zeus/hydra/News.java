@@ -63,9 +63,9 @@ public class News extends AbstractSherlockListActivity {
         // No items
         if (items.isEmpty()) {
             if (!showAll && lists.isEmpty()) {
-                Toast.makeText(this.getApplicationContext(), "Selecteer ten minste 1 vereniging in de instellingen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), R.string.no_associations_selected, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this.getApplicationContext(), "Geen nieuws beschikbaar.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), R.string.no_news_available, Toast.LENGTH_SHORT).show();
             }
 
             finish();

@@ -244,13 +244,22 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
 
         @Override
         protected void onReceiveResult(int code, Bundle data) {
-            if (code == RestoService.STATUS_FINISHED) {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        addRestos(true);
-                    }
-                });
+            switch (code) {
+                case RestoService.STATUS_FINISHED:
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            addRestos(true);
+                        }
+                    });
+                    break;
+
+                case HTTPIntentService.STATUS_ERROR:
+                    Toast.makeText(BuildingMap.this, R.string.resto_update_failed, Toast.LENGTH_SHORT).show();
+                    // TODO: go back to dashboard if nothing to display
+                    break;
+
             }
+
         }
     }
 }

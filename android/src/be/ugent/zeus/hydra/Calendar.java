@@ -9,8 +9,6 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Activity;
-import be.ugent.zeus.hydra.data.Association;
-import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
@@ -74,9 +72,9 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         // No items
         if (items.isEmpty()) {
             if (!showAll && lists.isEmpty()) {
-                Toast.makeText(this.getApplicationContext(), "Selecteer ten minste 1 vereniging in de instellingen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), R.string.no_associations_selected, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this.getApplicationContext(), "Geen activiteiten beschikbaar.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), R.string.no_activities_available, Toast.LENGTH_SHORT).show();
             }
 
             finish();
