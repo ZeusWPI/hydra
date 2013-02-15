@@ -6,14 +6,11 @@ import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.ResultReceiver;
-import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -24,20 +21,17 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import be.ugent.zeus.hydra.data.caches.MenuCache;
-import be.ugent.zeus.hydra.data.caches.RestoCache;
 import be.ugent.zeus.hydra.data.services.MenuService;
 import be.ugent.zeus.hydra.ui.SwipeyTabs;
 import be.ugent.zeus.hydra.ui.SwipeyTabsAdapter;
 import be.ugent.zeus.hydra.ui.menu.MenuView;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -45,8 +39,6 @@ import java.text.SimpleDateFormat;
  */
 public class RestoMenu extends AbstractSherlockActivity {
 
-    private static final String VERSION = "be.ugent.zeus.hydra.version";
-    private SharedPreferences prefs;
     private SwipeyTabs tabs;
     private ViewPager pager;
     private MenuPagerAdapter adapter;
@@ -58,18 +50,6 @@ public class RestoMenu extends AbstractSherlockActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        int old = prefs.getInt(VERSION, 0);
-        int current = getVersionCode();
-        if (old < current) {
-            Log.i("[RestoMenu]", "New version code " + current + " (Old code was: " + old + ")");
-            clearCaches();
-            Editor editor = prefs.edit();
-            editor.putInt(VERSION, current);
-            editor.commit();
-        }
 
         setTitle(R.string.title_menu);
         setContentView(R.layout.menu);
@@ -86,12 +66,6 @@ public class RestoMenu extends AbstractSherlockActivity {
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    private void clearCaches() {
-        Log.i("RestoMenu", "Should clear caches now...");
-        MenuCache.getInstance(this).clear();
-        RestoCache.getInstance(this).clear();
     }
 
     private List<Calendar> getViewableDates() {
