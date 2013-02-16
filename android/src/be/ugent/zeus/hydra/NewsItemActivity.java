@@ -36,7 +36,7 @@ public class NewsItemActivity extends AbstractSherlockActivity {
         TextView title = (TextView) findViewById(R.id.news_item_title);
         title.setText(item.title);
 
-        String postedBy = getResources().getString(R.string.posted_by);
+        String postedBy = getResources().getString(R.string.posted_by_newline);
         TextView association = (TextView) findViewById(R.id.news_item_info);
         try {
             String poster = item.association.display_name;
@@ -44,8 +44,12 @@ public class NewsItemActivity extends AbstractSherlockActivity {
                 poster += " (" + item.association.full_name + ")";
             }
 
-            Date date = new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).parse(item.date);
-            association.setText(String.format(postedBy, Html.fromHtml(poster), date));
+            Date date = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ", Hydra.LOCALE).parse(item.date);
+
+            String datum =
+                new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).format(date);
+
+            association.setText(String.format(postedBy, datum, Html.fromHtml(poster)));
 
         } catch (ParseException ex) {
             Log.w("Parse error", "");
