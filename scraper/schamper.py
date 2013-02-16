@@ -4,10 +4,11 @@ Created on 11 dec. 2012
 @author: feliciaan
 '''
 from __future__ import with_statement
-import urllib, libxml2, os, re
+import urllib, libxml2, os, re, urlparse
 
 SOURCE = 'http://www.schamper.ugent.be/dagelijks'
 API_PATH = './schamper/daily.xml'
+BASE_URL = 'http://schamper.ugent.be'
 
 def process_schamper(source_url, destination_path):
     doc = read_rss_from_url(source_url)
@@ -61,6 +62,16 @@ def get_article_authors(page):
 def get_article_body(page):
     result = ''
 
+    # Make all links and images absolute
+    for link in page.xpathEval('.//*[@href]'):
+        url = urlparse.urlparse(link.prop('href'))
+        if url.hostname == None:
+            link.setProp('href', BASE_URL + link.prop('href'))
+    for image in page.xpathEval('.//*[@src]'):
+        url = urlparse.urlparse(image.prop('src'))
+        if url.hostname == None:
+            image.setProp('src', BASE_URL + image.prop('src'))
+
     bodyNodes = page.xpathEval("//div[@id='artikel']/*/div[@class='content']/*")
     for node in bodyNodes:
         # Normal text (or header etc)
@@ -83,15 +94,12 @@ def get_article_body(page):
             # Multiple images are possible
             images = node.xpathEval(".//div[@id='image-and-caption']")
             for imageWrapper in images:
-                # Make relative URL absolute
-                image = imageWrapper.xpathEval('.//img')[0]
-                image.setProp('src', 'http://www.schamper.ugent.be' + image.prop('src'))
-
                 captionText = ''
                 caption = imageWrapper.xpathEval(".//div[@class='caption-text']")
                 if len(caption) > 0:
                     captionText = caption[0].children.serialize('utf-8')
 
+                image = imageWrapper.xpathEval('.//img')[0]
                 result += '<div class="image"><p>' + image.serialize('UTF-8') + captionText + '</p></div>'
 
     return result
