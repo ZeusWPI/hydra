@@ -112,7 +112,7 @@
     fields[kAssociationRow] = self.activity.association.displayedFullName;
 
     if (self.activity.end) {
-        if ([[self.activity.start dateByAddingDays:1] compare:self.activity.end] != NSOrderedAscending) {
+        if ([[self.activity.start dateByAddingDays:1] isEarlierThanDate:self.activity.end]) {
             fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
                                 [dateStartFormatter stringFromDate:self.activity.start],
                                 [dateEndFormatter stringFromDate:self.activity.end]];
@@ -492,24 +492,14 @@
     }
 
     FacebookEvent *event = self.activity.facebookEvent;
-    if (event.valid && row == kRsvpActionRow) {
-        if (!event.userRsvp || [event.userRsvp isEqualToString:@"not_replied"]) {
+    if (row == kRsvpActionRow) {
+        if (!event.userRsvp || event.userRsvp == FacebookEventRsvpNone) {
             cell.textLabel.text = @"Bevestig aanwezigheid";
         }
         else {
             cell.textLabel.text = @"Aanwezigheid wijzigen\n ";
-
-            NSString *rsvpDescription = @"misschien";
-            if ([event.userRsvp isEqualToString:@"attending"]) {
-                rsvpDescription = @"aanwezig";
-            }
-            else if ([event.userRsvp isEqualToString:@"declined"]) {
-                rsvpDescription = @"niet aanwezig";
-            }
-
             NSString *detailLabelText = [NSString stringWithFormat:@"Momenteel sta je op '%@'",
-                                         rsvpDescription];
-
+                                         FacebookEventRsvpAsLocalizedString(event.userRsvp)];
             CGRect detailFrame = CGRectMake(0, 24, cell.contentView.bounds.size.width, 16);
             UILabel *detailLabel = [[UILabel alloc] initWithFrame:detailFrame];
             detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -523,7 +513,7 @@
             [cell.contentView addSubview:detailLabel];
         }
     }
-    else {
+    else if (row == kCalendarActionRow) {
         cell.textLabel.text = @"Toevoegen aan agenda";
     }
 
@@ -652,15 +642,9 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    NSString *answer = nil;
-    switch(buttonIndex) {
-        case 0: answer = @"attending"; break;
-        case 1: answer = @"unsure"; break;
-        case 2: answer = @"declined"; break;
-    }
-
-    if (answer) {
+    if (buttonIndex <= 3) {
         // TODO: show some kind of spinner to show activity
+        FacebookEventRsvp answer = buttonIndex - 1;
         self.activity.facebookEvent.userRsvp = answer;
     }
 }
