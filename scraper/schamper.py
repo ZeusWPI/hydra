@@ -8,7 +8,7 @@ import urllib, libxml2, os, re, urlparse
 
 SOURCE = 'http://www.schamper.ugent.be/dagelijks'
 API_PATH = './schamper/daily.xml'
-BASE_URL = 'http://schamper.ugent.be'
+BASE_URL = 'http://www.schamper.ugent.be'
 
 def process_schamper(source_url, destination_path):
     doc = read_rss_from_url(source_url)
