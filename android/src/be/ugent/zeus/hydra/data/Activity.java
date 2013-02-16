@@ -12,9 +12,10 @@ public class Activity implements Serializable {
     public String title;
     public Association association;
     public int highlighted;
-    public Date date;
     public String start;
+    public Date startDate;
     public String end;
+    public Date endDate;
     public String location;
     public String description;
     public String url;

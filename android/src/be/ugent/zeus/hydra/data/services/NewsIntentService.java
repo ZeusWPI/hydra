@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
+import be.ugent.zeus.hydra.Hydra;
+import be.ugent.zeus.hydra.data.Activity;
 import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.NewsCache;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONArray;
@@ -37,6 +40,12 @@ public class NewsIntentService extends HTTPIntentService {
 
                 JSONArray data = new JSONArray(fetch(HYDRA_BASE_URL + NEWS_URL));
                 ArrayList<NewsItem> newsList = new ArrayList<NewsItem>(Arrays.asList(parseJsonArray(data, NewsItem.class)));
+
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ", Hydra.LOCALE);
+                for (NewsItem newsItem : newsList) {
+                    newsItem.dateDate = dateFormat.parse(newsItem.date);
+                }
 
                 cache.put(FEED_NAME, newsList);
             } else {

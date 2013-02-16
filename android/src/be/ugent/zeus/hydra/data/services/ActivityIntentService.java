@@ -42,12 +42,11 @@ public class ActivityIntentService extends HTTPIntentService {
             JSONArray data = new JSONArray(fetch(HYDRA_BASE_URL + "all_activities.json"));
             ArrayList<Activity> activities = new ArrayList<Activity>(Arrays.asList(parseJsonArray(data, Activity.class)));
 
-            // group them in lists by date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ", Hydra.LOCALE);
+
             for (Activity activity : activities) {
-                /* This is ugly, but it's still neater than converting everything to a Date and
-                 * back again to store it */
-                activity.date = new SimpleDateFormat("yyyy-MM-dd", Hydra.LOCALE)
-                    .parse(activity.start.substring(0, 10));
+                activity.startDate = dateFormat.parse(activity.start);
+                activity.endDate = dateFormat.parse(activity.end);
             }
 
             ActivityCache cache = ActivityCache.getInstance(this);

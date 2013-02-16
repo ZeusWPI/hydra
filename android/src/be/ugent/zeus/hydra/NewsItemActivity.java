@@ -38,23 +38,16 @@ public class NewsItemActivity extends AbstractSherlockActivity {
 
         String postedBy = getResources().getString(R.string.posted_by_newline);
         TextView association = (TextView) findViewById(R.id.news_item_info);
-        try {
-            String poster = item.association.display_name;
-            if (item.association.full_name != null) {
-                poster += " (" + item.association.full_name + ")";
-            }
 
-            Date date = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ", Hydra.LOCALE).parse(item.date);
-
-            String datum =
-                new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).format(date);
-
-            association.setText(String.format(postedBy, datum, Html.fromHtml(poster)));
-
-        } catch (ParseException ex) {
-            Log.w("Parse error", "");
-            ex.printStackTrace();
+        String poster = item.association.display_name;
+        if (item.association.full_name != null) {
+            poster += " (" + item.association.full_name + ")";
         }
+
+        String datum =
+            new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).format(item.dateDate);
+
+        association.setText(String.format(postedBy, datum, Html.fromHtml(poster)));
 
         TextView content = (TextView) findViewById(R.id.news_item_content);
         content.setText(Html.fromHtml(item.content.replace("\n", "<br>")));

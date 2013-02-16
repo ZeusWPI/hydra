@@ -13,6 +13,7 @@ public class UpdaterService extends HTTPIntentService {
 
     private static final String LAST_UPDATE = "last-global-update";
     public static final int CACHE_REFRESH = 3600000;
+//    public static final int CACHE_REFRESH = 0;
 
     public UpdaterService() {
         super("UpdaterService");
