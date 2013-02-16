@@ -112,7 +112,8 @@
     fields[kAssociationRow] = self.activity.association.displayedFullName;
 
     if (self.activity.end) {
-        if ([[self.activity.start dateByAddingDays:1] isEarlierThanDate:self.activity.end]) {
+        // Does the event span more than 24 hours?
+        if ([[self.activity.start dateByAddingDays:1] isLaterThanDate:self.activity.end]) {
             fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
                                 [dateStartFormatter stringFromDate:self.activity.start],
                                 [dateEndFormatter stringFromDate:self.activity.end]];
@@ -213,7 +214,7 @@
                 width -= 70;
             }
             break;
-        
+
         case kInfoSection: {
             NSUInteger row = [self virtualRowAtIndexPath:indexPath];
             if (row == kFriendsRow) {
@@ -292,10 +293,10 @@
     if (indexPath.section == kInfoSection) {
         NSUInteger row = indexPath.row;
 
-        FacebookEvent *event = self.activity.facebookEvent;
-        if (row >= kGuestsRow && !event.valid) row += 2;
+        FacebookEvent *fbEvent = self.activity.facebookEvent;
+        if (row >= kGuestsRow && !fbEvent.valid) row += 2;
         if (row >= kFriendsRow) {
-            if (event.valid && event.friendsAttending.count == 0) {
+            if (fbEvent.valid && fbEvent.friendsAttending.count == 0) {
                 row++;
             }
         }
@@ -304,6 +305,13 @@
 
         ZAssert(row <= kUrlRow, @"Invalid virtual row number");
 
+        return row;
+    }
+    else if (indexPath.section == kActionSection)
+    {
+        NSUInteger row = indexPath.row;
+        FacebookEvent *fbEvent = self.activity.facebookEvent;
+        if (row >= kRsvpActionRow && !fbEvent.valid) row += 1;
         return row;
     }
     else {
@@ -545,29 +553,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUInteger row = [self virtualRowAtIndexPath:indexPath];
     switch (indexPath.section) {
-        case kInfoSection : {
-            NSUInteger row = [self virtualRowAtIndexPath:indexPath];
+        case kInfoSection:
             if (row == kUrlRow) {
                 NSURL *url = [NSURL URLWithString:self.activity.url];
                 [[UIApplication sharedApplication] openURL:url];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
-           
-        } break;
-        case kActionSection: {
-            FacebookEvent *event = self.activity.facebookEvent;
-            if (event.valid && indexPath.row == kRsvpActionRow) {
+            break;
+
+        case kActionSection:
+            if (row == kRsvpActionRow) {
                 UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Bevestig aanwezigheid" delegate:self
                                               cancelButtonTitle:@"Annuleren" destructiveButtonTitle:nil
                                               otherButtonTitles:@"Aanwezig", @"Misschien", @"Niet aanwezig", nil];
                 [actionSheet showInView:self.view];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
-            else {
+            else if (row == kCalendarActionRow) {
                 [self addEventToCalendar];
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
-        } break;
+            break;
     }
 }
 
@@ -586,15 +594,14 @@
             MKMapItem *destination =  [[MKMapItem alloc] initWithPlacemark:placeMark];
             destination.name = self.activity.location;
 
+            // Use native maps on iOS6 or open Google Maps on iOS5
             if ([destination respondsToSelector:@selector(openInMapsWithLaunchOptions:)]) {
-                //using iOS6 native maps app
                 [destination openInMapsWithLaunchOptions:nil];
             }
             else {
-                //using iOS 5 which has the Google Maps application
                 NSString *url = [NSString stringWithFormat: @"http://maps.apple.com/maps?ll=%f,%f",
                                  self.activity.latitude, self.activity.longitude];
-                [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             }
         }
     }
@@ -606,7 +613,6 @@
     if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
         [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
             if (!granted) return;
-
             [self performSelectorOnMainThread:@selector(addEventWithCalendarStore:)
                                    withObject:store waitUntilDone:NO];
         }];
@@ -644,7 +650,7 @@
 {
     if (buttonIndex <= 3) {
         // TODO: show some kind of spinner to show activity
-        FacebookEventRsvp answer = buttonIndex - 1;
+        FacebookEventRsvp answer = buttonIndex + 1;
         self.activity.facebookEvent.userRsvp = answer;
     }
 }
