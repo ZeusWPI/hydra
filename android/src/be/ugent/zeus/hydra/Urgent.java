@@ -64,6 +64,8 @@ public class Urgent extends AbstractSherlockActivity {
         };
 
         cache = SongCache.getInstance(Urgent.this);
+        
+        Log.v(TAG, "opgestart");
     }
 
     @Override
@@ -75,6 +77,7 @@ public class Urgent extends AbstractSherlockActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        cache.clear();
         handler.post(refresh);
     }
 
@@ -98,12 +101,18 @@ public class Urgent extends AbstractSherlockActivity {
                     Urgent.this.runOnUiThread(new Runnable() {
                         public void run() {
                             Song curSong = cache.get(SongCache.CURRENT);
-                            // TODO: keep track of previously played song
-                            // Song prevSong = cache.get(SongCache.PREVIOUS);
+                            Song prevSong = cache.get(SongCache.PREVIOUS);
 
+                            // TODO: integrate this into the layout
+                            if (prevSong != null) {
+                                Log.v(TAG, "Previous: " + prevSong.title_and_artist + " (" + prevSong.program + ")");
+                            } else {
+                                Log.v(TAG, "Previous: " + R.string.no_song_info_found);
+                            }
                             if (curSong != null) {
-                                Log.v(TAG, curSong.title_and_artist + " (" + curSong.program + ")");
-                                // TODO: integrate this into the layout
+                                Log.v(TAG, "Current: " + curSong.title_and_artist + " (" + curSong.program + ")");
+                            } else {
+                                Log.v(TAG, "Current: " + R.string.no_song_info_found);
                             }
                         }
                     });

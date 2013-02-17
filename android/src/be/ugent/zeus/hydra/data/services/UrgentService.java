@@ -34,11 +34,9 @@ public class UrgentService extends HTTPIntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
-
         if (receiver != null) {
             receiver.send(STATUS_STARTED, Bundle.EMPTY);
         }
-
         try {
             update();
             if (receiver != null) {
@@ -53,9 +51,21 @@ public class UrgentService extends HTTPIntentService {
     }
 
     private void update() throws Exception {
+        long lastModified = cache.lastModified(SongCache.CURRENT);
+        String title_and_artist = fetch(SONG_URL, lastModified);
+        if (title_and_artist == null) {
+            return;
+        }
+        Song current = cache.get(SongCache.CURRENT);
+        if (current != null) {
+            Song prev = new Song();
+            prev.title_and_artist = current.title_and_artist;
+            prev.program = current.program;
+            cache.put(SongCache.PREVIOUS, prev);
+        }
         Song song = new Song();
+        song.title_and_artist = title_and_artist;
         song.program = fetch(PROGRAM_URL);
-        song.title_and_artist = fetch(SONG_URL);
         cache.put(SongCache.CURRENT, song);
     }
 }
