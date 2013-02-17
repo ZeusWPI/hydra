@@ -7,10 +7,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.widget.SearchView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Resto;
 import be.ugent.zeus.hydra.data.caches.RestoCache;
@@ -19,6 +16,7 @@ import be.ugent.zeus.hydra.data.services.RestoService;
 import be.ugent.zeus.hydra.ui.map.DirectionMarker;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -160,9 +158,10 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
         getSupportMenuInflater().inflate(R.menu.building_search, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
+        
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
+        
         return true;
     }
 
@@ -170,7 +169,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
-                //onSearchRequested();
+                onSearchRequested();
                 return true;
         }
         return super.onOptionsItemSelected(item);
