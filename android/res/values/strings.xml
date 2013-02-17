@@ -51,6 +51,7 @@
 
     <string name="schamper_update_failed">Schamper Daily kon niet geladen worden.</string>
     <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
+    <string name="nowplaying_update_failed">Info over de huidige track kon niet worden opgezocht.</string>
     <string name="schamper_readmore">Meer lezen? Bezoek Schamper online...</string>
     <string name="show_map">Toon restos op kaart</string>
     <string name="refresh">Vernieuwen</string>
