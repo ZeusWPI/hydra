@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import be.ugent.zeus.hydra.Hydra;
 import com.facebook.Session;
 import com.facebook.SessionState;
 
@@ -45,6 +47,10 @@ public class FacebookSession {
         return fbSession;
     }
 
+    public void tryOpenSession(Activity activity) {
+        Session.openActiveSession(activity, false, statusCallback);
+    }
+    
     public void login(Activity activity, boolean allowLoginUI) {
         if (!session.isOpened() && !session.isClosed()) {
             session.openForRead(new Session.OpenRequest(activity).setCallback(statusCallback));
@@ -67,6 +73,7 @@ public class FacebookSession {
 
         @Override
         public void call(Session session, SessionState state, Exception exception) {
+
             Log.i(TAG, state.toString());
 
             switch (state) {

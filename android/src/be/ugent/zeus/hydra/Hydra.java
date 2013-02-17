@@ -31,8 +31,7 @@ public class Hydra extends AbstractSherlockActivity {
         super.onCreate(icicle);
         
         // Log in to Feesboek
-        FacebookSession.getInstance(icicle, getApplicationContext(), this).login(this, false);
-        Toast.makeText(this, String.valueOf(FacebookSession.getInstance(icicle, getApplication(), this).isOpen()), Toast.LENGTH_SHORT).show();
+        FacebookSession.getInstance(icicle, getApplicationContext(), this).tryOpenSession(this);
         
         // Set the default preference - won't be changed if the user altered it.
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
