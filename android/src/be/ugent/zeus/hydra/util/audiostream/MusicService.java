@@ -176,7 +176,7 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
             mAudioFocus = AudioFocus.Focused; // no focus feature, so we always "have" audio focus
         }
         // TODO: Change to urgent logo
-        mDummyAlbumArt = BitmapFactory.decodeResource(getResources(), R.drawable.button_urgent_background);
+        mDummyAlbumArt = BitmapFactory.decodeResource(getResources(), R.drawable.urgent_lockart);
 
         mMediaButtonReceiverComponent = new ComponentName(this, MusicIntentReceiver.class);
     }
