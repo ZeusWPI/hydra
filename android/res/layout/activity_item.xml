@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="5dp">
+
+    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp">
+        
+        <LinearLayout 
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">     
+    
+            <ImageView android:id="@+id/activity_item_image"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1">
+            </ImageView>
+            
+            <TextView android:id="@+id/activity_item_title"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:layout_marginBottom="3dp"
+                      android:gravity="center"
+                      android:textColor="@color/ugent_blue_dark"
+                      android:textStyle="bold"
+                      android:textSize="20dp"
+                      android:layout_weight="2">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout 
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/activity_item_association_title"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textColor="@color/ugent_blue_dark"
+                      android:textStyle="bold"
+                      android:text="@string/activity_item_association_title">
+            </TextView>
+
+            <TextView android:id="@+id/activity_item_association"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="3">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout 
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/activity_item_date_title"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textColor="@color/ugent_blue_dark"
+                      android:textStyle="bold"
+                      android:text="@string/activity_item_date_title">
+            </TextView>
+
+            <TextView android:id="@+id/activity_item_date"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="3">
+            </TextView>
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/activity_item_location_title"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textColor="@color/ugent_blue_dark"
+                      android:textStyle="bold"
+                      android:text="@string/activity_item_location_title">
+            </TextView>
+
+            <TextView android:id="@+id/activity_item_location"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="3">
+            </TextView>
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/activity_item_guests_title"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textColor="@color/ugent_blue_dark"
+                      android:textStyle="bold"
+                      android:text="@string/activity_item_guests_title">
+            </TextView>
+
+            <TextView android:id="@+id/activity_item_guests"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="3">
+            </TextView>
+        </LinearLayout>
+        
+        <TextView android:id="@+id/activity_item_content_title"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/ugent_blue_dark"
+                  android:textStyle="bold"
+                  android:text="@string/activity_item_content_title">
+        </TextView>
+            
+        <TextView android:id="@+id/activity_item_content"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        </TextView>
+
+    </LinearLayout>
+</ScrollView>

@@ -17,6 +17,7 @@
     <string name="title_preferences">Voorkeuren</string>
     <string name="title_settings_associations_filter">Filter verenigingen</string>
     
+    <string name="details">Details</string>
     <string name="search_title">Zoek</string>
     <string name="resto_search_label"></string>
     <string name="resto_search_hint">Zoek Resto...</string>
@@ -26,6 +27,11 @@
     <string name="no_activities_available">Geen activiteiten beschikbaar.</string>
 
     <!-- Club activity strings -->
+    <string name="activity_item_association_title">Vereniging</string>
+    <string name="activity_item_date_title">Datum</string>
+    <string name="activity_item_location_title">Locatie</string>
+    <string name="activity_item_guests_title">Gasten</string>
+    <string name="activity_item_content_title">Beschrijving</string>
     <string name="activity_item_title">%1$s %2$s</string>
     <string name="activity_item_time_location">%1$s tot %2$s - %3$s</string>
 
@@ -63,4 +69,10 @@
     <string name="menu_unavailable">Sorry, het menu is momenteel niet beschikbaar. Gelieve later opnieuw te proberen.</string>
     <string name="no_restos_found">Sorry, de lijst met resto\'s kon niet worden opgehaald van de webservice. Gelieve later opnieuw te proberen.</string>
     <string name="btn_info">Info</string>
+    
+    
+    <!-- API keys -->
+    
+    <string name="fb_app_id">146947948791011</string>
+    <string name="maps_api_key">AIzaSyBITAqykoWxmWtIhMHc-SLei2dL2Jpaq8Y</string>
 </resources>
