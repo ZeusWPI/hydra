@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.UpdaterService;
+import be.ugent.zeus.hydra.util.facebook.FacebookSession;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.facebook.Session;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.zubhium.ZubhiumSDK;
@@ -30,7 +32,11 @@ public class Hydra extends AbstractSherlockActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
+        
+        // Log in to Feesboek
+        FacebookSession.getInstance(icicle, getApplicationContext(), this).login(this, false);
+        Toast.makeText(this, String.valueOf(FacebookSession.getInstance(icicle, getApplication(), this).isOpen()), Toast.LENGTH_SHORT).show();
+        
         // Set the default preference - won't be changed if the user altered it.
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
