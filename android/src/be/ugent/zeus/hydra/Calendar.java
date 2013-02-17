@@ -1,5 +1,6 @@
 package be.ugent.zeus.hydra;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,6 +10,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Activity;
+import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
@@ -26,6 +28,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
     private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
     private int firstVisible;
+    private List<Activity> items;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
         ActivityCache cache = ActivityCache.getInstance(this);
 
-        List<Activity> items = new ArrayList<Activity>();
+        items = new ArrayList<Activity>();
         for (ArrayList<Activity> subset : cache.getAll()) {
             items.addAll(subset);
         }
@@ -103,6 +106,11 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "Item " + position + " clicked!", Toast.LENGTH_SHORT).show();
+        
+        // Launch a new activity
+        Intent intent = new Intent(this, ActivityItemActivity.class);
+        intent.putExtra("class", this.getClass().getCanonicalName());
+        intent.putExtra("item", items.get(position));
+        startActivity(intent);
     }
 }

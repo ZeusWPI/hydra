@@ -19,7 +19,6 @@
 	<url>https://github.com/emilsjolander/StickyListHeaders</url>
 
 	<modules>
-		<module>library</module>
 		<module>sample</module>
 	</modules>
 
