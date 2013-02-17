@@ -260,7 +260,11 @@ namespace Hydra.Data
         void ProcessMetaResto(object sender, DownloadStringCompletedEventArgs e)
         {
             MemoryStream ms = null;
-            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
+            {
+                _meta = true;
+                return;
+            }
             if (e == null && _fromCache)
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("meta", ".json")));
             else
@@ -277,7 +281,11 @@ namespace Hydra.Data
         public void ProcessResto(object sender, DownloadStringCompletedEventArgs e)
         {
             String ms = null;
-            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
+            {
+                _resto = true; 
+                return;
+            }
             if (e == null && _fromCache)
                 ms = LoadFromStorage(Convert.ToString((_week + _offset)), ".json");
             else
@@ -325,7 +333,11 @@ namespace Hydra.Data
         public void ProcessNews(object sender, DownloadStringCompletedEventArgs e)
         {
             MemoryStream ms = null;
-            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if ((e == null && !_fromCache) || (e!=null&&(e.Error != null || e.Cancelled)))
+            {
+                _news = true;
+                return;
+            }
             if (e == null && _fromCache)
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("news", ".json")));
             else
@@ -361,7 +373,11 @@ namespace Hydra.Data
         public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
         {
             MemoryStream ms = null;
-            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
+            {
+                _activity = true;
+                return;
+            }
             if (e == null && _fromCache)
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("activities", ".json")));
             else
@@ -511,10 +527,14 @@ namespace Hydra.Data
         public void ProcessSchamper(object sender, DownloadStringCompletedEventArgs e)
         {
             XElement resultElements = null;
-            if ((e == null && !_fromCache) && (e.Error != null || e.Cancelled)) return;
+            if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
+            {
+                _schamper = true;
+                return;
+            }
             if (e == null && _fromCache)
             {
-                string s = LoadFromStorage("schamper", ".xml");
+                var s = LoadFromStorage("schamper", ".xml");
                 if (!s.Equals(""))
                     resultElements = XElement.Parse(s);
                 else return;
@@ -577,8 +597,7 @@ namespace Hydra.Data
         private string SaveToStorage(string fileName, string extension, string downLoadedString)
         {
             if (_isoStore.FileExists(fileName + extension)) _isoStore.DeleteFile(fileName + extension);
-            else
-            {
+            
                 //create new file
                 using (var writeFile = new StreamWriter(new IsolatedStorageFileStream(fileName + extension, FileMode.Create, FileAccess.Write, _isoStore)))
                 {
@@ -588,7 +607,7 @@ namespace Hydra.Data
                     writeFile.Close();
                     SaveSettings();
                 }
-            }
+            
             return downLoadedString;
         }
 

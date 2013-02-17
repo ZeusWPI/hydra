@@ -23,13 +23,22 @@
         </shell:ApplicationBar>
 
         <shell:ApplicationBar x:Key="DefaultAppBar" IsVisible="True">
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/settings.png" Text="Instellingen" Click="SettingsAppBar"/>
+            <shell:ApplicationBarIconButton x:Name="settingsAppBar" IconUri="/Assets/AppBar/settings.png" Text="Instellingen" Click="SettingsAppBar"/>
         </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="UrgentAppBar" IsVisible="True">
+            <shell:ApplicationBarIconButton x:Name="settingsUrgentAppBar" IconUri="/Assets/AppBar/settings.png" Text="Instellingen" Click="SettingsAppBar"/>
+            <shell:ApplicationBarIconButton x:Name="PlayUrgentAppBar" IconUri="/Assets/AppBar/transport.play.png" Text="Afspelen" Click="PlayButtonAppBar"/>
+            <shell:ApplicationBarIconButton x:Name="PauseUrgentAppBar" IconUri="/Assets/AppBar/transport.pause.png" Text="Pauzeren" Click="PauseButtonAppBar"/>
+            <shell:ApplicationBarIconButton x:Name="StopUrgentAppBar" IconUri="/Assets/AppBar/stop.png" Text="Stoppen" Click="StopButtonAppBar"/>
+        </shell:ApplicationBar>
+
+
 
         <DataTemplate x:Key="ActivityGroupHeaderTemplate">
             <Border Background="Transparent" Padding="5" Visibility="{Binding Path=.,Converter={StaticResource objectHeaderActivityToVisbility},ConverterParameter=activityHeader}">
                 <Border Background="{StaticResource PhoneAccentBrush}" BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="2" Margin="0,0,18,0" HorizontalAlignment="Left">
-                    <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" FontSize="48" Padding="6" 
+                    <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" Padding="6" 
             FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Border>
             </Border>
@@ -38,7 +47,7 @@
         <DataTemplate x:Key="NewsGroupHeaderTemplate">
             <Border Background="Transparent" Padding="5" Visibility="{Binding Path=.,Converter={StaticResource objectHeaderNewsToVisbility},ConverterParameter=activityHeader}">
                 <Border Background="{StaticResource PhoneAccentBrush}" BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="2" Margin="0,0,18,0" HorizontalAlignment="Left">
-                    <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" FontSize="48" Padding="6" 
+                    <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" Padding="6" 
             FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Border>
             </Border>
@@ -122,7 +131,7 @@
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility}}">
-                                <StackPanel Width="311" Margin="8,-7,0,0">
+                                <StackPanel Width="350" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
                                     <TextBlock Text="{Binding Assocition.Dn}" TextWrapping="Wrap" Margin="10,-2,10,0"  />
                                 </StackPanel>
@@ -143,8 +152,10 @@
                                         LayoutMode="List" SelectionChanged="ActivityItemTapped">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
+                            
                             <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility}}">
-                                <StackPanel Width="311" Margin="8,-7,0,0">
+                                <TextBlock x:Name="startHour"  Width="99" Height="99"  Grid.Row="1"  FontSize="{StaticResource PhoneFontSizeLarge}" Text="{Binding GetStartHour}"/>
+                                <StackPanel Width="350" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
                                     <TextBlock Text="{Binding Assocition.Dn}" TextWrapping="Wrap" Margin="10,-2,10,0"  />
                                 </StackPanel>
@@ -162,7 +173,6 @@
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <!--Replace rectangle with image-->
                                 <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
                                 <StackPanel Width="311" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
@@ -175,14 +185,13 @@
 
             </phone:PivotItem>
 
-            <!--Panorama item two-->
             <phone:PivotItem x:Name="info" Header="Info">
-                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
+                
                 <phone:LongListSelector x:Name="infoLLS" Margin="0,-38,-22,2" ItemsSource="{Binding InfoItems}" SelectionChanged="InfoItemTapped">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <!--Replace rectangle with image-->
+                               
                                 <Image x:Name="Image"  Width="104" Height="105"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
                                 <StackPanel Width="311" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,30,10,0" Style="{StaticResource PhoneTextLargeStyle}" />
@@ -236,15 +245,23 @@
             </phone:PivotItem>
 
 
-            <phone:PivotItem x:Name="urgent" Header="URGentFM"/>
+            <phone:PivotItem x:Name="urgent" Header="URGentFM">
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="689" VerticalAlignment="Top" Width="473" Margin="-17,-9,0,-77" Source="/Assets/urgent-bg@2x.jpg"/>
+                    <Image HorizontalAlignment="Left" Height="264" Margin="82,123,0,0" VerticalAlignment="Top" Width="264" Source="/Assets/btn-urgent-bg-highlighted@2x.png"/>
+                    <Image HorizontalAlignment="Left" x:Name="Play" Height="120" Margin="155,190,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Image HorizontalAlignment="Left" Height="108" Margin="10,10,0,0" VerticalAlignment="Top" Width="436" Source="/Assets/urgent-logo@2x.png"/>
+                    <Grid Background="SkyBlue" Margin="22,385,0,0"  Width="424" Height="81" x:Name="PlayingGrid" Visibility="Collapsed">
+                        <TextBlock HorizontalAlignment="Left" Margin="22,385,0,0" TextWrapping="Wrap"  x:Name="NowPlayingTrack" VerticalAlignment="Top" Width="424" Height="81" Foreground="White" />
+                    </Grid>
+
+                </Grid>
+                
+            </phone:PivotItem>
 
         </phone:Pivot>
-        <!--Uncomment to see an alignment grid to help ensure your controls are
-            aligned on common boundaries.  The image has a top margin of -32px to
-            account for the System Tray. Set this to 0 (or remove the margin altogether)
-            if the System Tray is hidden.
+        <TextBlock HorizontalAlignment="Left" Margin="24,252,0,0" TextWrapping="Wrap" Name="NowPlayingProgram" VerticalAlignment="Top" Width="293" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="LightSlateGray"/>
 
-            Before shipping remove this XAML and the image itself.-->
         <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
 
     </Grid>

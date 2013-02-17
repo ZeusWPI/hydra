@@ -143,7 +143,7 @@ namespace Hydra.Data
                 {
                     return "Onbekend";
                 }
-                DateTime itemDateTime = DateTime.Parse(_date);
+                var itemDateTime = DateTime.Parse(_date);
                 return itemDateTime.ToString("g", new CultureInfo("nl-BE"));
             }
             set
@@ -153,6 +153,19 @@ namespace Hydra.Data
                     _date = value;
                     NotifyPropertyChanged("startDate");
                 }
+            }
+        }
+
+        public string GetStartHour
+        {
+            get
+            {
+                if (_date == null)
+                {
+                    return "Onbekend";
+                }
+                var itemDateTime = DateTime.Parse(_date);
+                return itemDateTime.ToString("HH:mm", new CultureInfo("nl-BE"));
             }
         }
 
