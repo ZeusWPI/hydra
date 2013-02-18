@@ -10,6 +10,19 @@
 
 @implementation CustomTableViewCell
 
+- (void)setCustomView:(UIView *)customView
+{
+    if (customView != _customView) {
+        if (_customView != nil) {
+            [_customView removeFromSuperview];
+        }
+        if (customView != nil) {
+            [self.contentView addSubview:customView];
+        }
+        _customView = customView;
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
