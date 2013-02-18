@@ -40,16 +40,16 @@ public class News extends AbstractSherlockListActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean showAll = preferences.getBoolean("prefFilter", false);
-
-
-        AssociationsCache assCache = AssociationsCache.getInstance(this);
-        HashSet<String> lists = assCache.get("associations");
-
-        if (lists == null) {
-            lists = new HashSet<String>();
-        }
-
+        HashSet<String> lists = new HashSet<String>();
+        
         if (!showAll) {
+            AssociationsCache assCache = AssociationsCache.getInstance(this);
+            lists = assCache.get("associations");
+            
+            if(lists == null) {
+                lists = new HashSet<String>();
+            }
+            
             Iterator i = items.iterator();
             while (i.hasNext()) {
                 NewsItem newsItem = (NewsItem) i.next();

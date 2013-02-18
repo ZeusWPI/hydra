@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.view.View;
+import android.view.ViewManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.Activity;
+import be.ugent.zeus.hydra.util.facebook.FacebookEvent;
 import com.google.analytics.tracking.android.EasyTracker;
 import java.text.SimpleDateFormat;
 
@@ -36,11 +40,23 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         TextView date = (TextView) findViewById(R.id.activity_item_date);
         TextView association = (TextView) findViewById(R.id.activity_item_association);
         TextView location = (TextView) findViewById(R.id.activity_item_location);
+        LinearLayout guestsContainer = (LinearLayout) findViewById(R.id.activity_item_guests_container);
         TextView guests = (TextView) findViewById(R.id.activity_item_guests);
         TextView content = (TextView) findViewById(R.id.activity_item_content);
         title.setText(item.title);
 
 
+        String gasten = "";
+        FacebookEvent fbEvent = null;
+        if(item.facebook_id == null) {
+            ((ViewManager) image.getParent()).removeView(image);
+            ((ViewManager) guestsContainer.getParent()).removeView(guestsContainer);
+        } else {
+            fbEvent = new FacebookEvent(getApplicationContext(), this, item.facebook_id);
+            fbEvent.sharedInit();
+            fbEvent.update();
+        }
+        
         String poster = item.association.display_name;
         if (item.association.full_name != null) {
             poster += " (" + item.association.full_name + ")";
@@ -55,7 +71,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         date.setText(datum);
         association.setText(poster);
         location.setText(item.location);
-        guests.setText("hier fancy facebook stuff");
+        guests.setText(gasten);
 
         if (item.description != null) {
             content.setText(Html.fromHtml(item.description.replace("\n", "<br>")));

@@ -1,18 +1,25 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using Hydra.Data;
+using Microsoft.Phone.BackgroundAudio;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
 namespace Hydra.Pages
 {
-    public partial class MainPage:PhoneApplicationPage
+    public partial class MainPage : PhoneApplicationPage
     {
         private int _restoItem;
+        private DispatcherTimer _playerPoller;
+        private const string UrgentProgramApi = "http://urgent.fm/nowplaying/program.php";
+        private const string UrgentTrackApi = "http://urgent.fm/nowplaying/livetrack.txt";
+        private const string HighResolutionStreamng="http://195.10.10.226/urgent/high.mp3?GKID=bf069408786e11e2a0e500163e914f68&fspref=aHR0cDovL3d3dy51cmdlbnQuZm0vbHVpc3Rlcm9ubGluZQ%3D%3D";
         // Constructor
         public MainPage()
         {
@@ -24,15 +31,15 @@ namespace Hydra.Pages
             InitializeComponent();
             _restoItem = 0;
             ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
-            var dt = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 0,60*60*1000)};
+            var dt = new DispatcherTimer { Interval = new TimeSpan(0,1,0,0) };
             dt.Tick += LoadData;
             dt.Start();
             mainPivot.IsLocked = true;
             var pi = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 100) };
             pi.Tick += CheckData;
             pi.Start();
-           
-	      
+
+
         }
 
         private void CheckData(object sender, EventArgs e)
@@ -41,7 +48,7 @@ namespace Hydra.Pages
             pi.IsVisible = !App.ViewModel.IsDataLoaded;
             mainPivot.IsLocked = !App.ViewModel.IsDataLoaded;
             if (!App.ViewModel.IsDataLoaded) return;
-            var dt = (DispatcherTimer) sender;
+            var dt = (DispatcherTimer)sender;
             dt.Stop();
         }
 
@@ -60,7 +67,7 @@ namespace Hydra.Pages
         {
             LoadData(this, null);
             if (App.ViewModel.IsDataLoaded)
-            {   
+            {
                 LoadResto();
             }
         }
@@ -143,7 +150,12 @@ namespace Hydra.Pages
                 LoadResto();
                 ApplicationBar = (ApplicationBar)Resources["RestoAppBar"];
                 EnableButtons();
-            }else
+            }
+            else if(header != null && header.Equals("urgent"))
+            {
+                ApplicationBar = (ApplicationBar)Resources["UrgentAppBar"];
+            }
+            else
             {
                 ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
             }
@@ -160,7 +172,7 @@ namespace Hydra.Pages
             if (_restoItem > 0)
             {
                 _restoItem--;
-                
+
                 LoadResto();
             }
             EnableButtons();
@@ -171,11 +183,11 @@ namespace Hydra.Pages
             if (_restoItem < App.ViewModel.RestoItems.Count - 1)
             {
                 _restoItem++;
-                
+
                 LoadResto();
             }
             EnableButtons();
-            
+
         }
 
         private void SettingsAppBar(object sender, EventArgs e)
@@ -193,6 +205,104 @@ namespace Hydra.Pages
         private void LocationAppBar(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/RestoLocations.xaml", UriKind.Relative));
+        }
+
+        private void PlayButtonAppBar(object sender, EventArgs e)
+        {
+            if (BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) ||
+                BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted)) return;
+            
+            var audioTrack =
+                new AudioTrack(
+                    new Uri(HighResolutionStreamng),
+                    "Geen plaat(info)",
+                    "Urgent.fm",
+                    null,
+                    null,
+                    null,
+                    EnabledPlayerControls.Pause);
+            BackgroundAudioPlayer.Instance.Track = audioTrack;
+            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-play@2x.png",UriKind.RelativeOrAbsolute));
+            StartPolling(true);
+            PollForTrackChange(null,null);
+        }
+
+        private void StartPolling(bool start)
+        {
+            if (start)
+            {
+                if (_playerPoller == null)
+                {
+                    _playerPoller = new DispatcherTimer() {Interval = new TimeSpan(0, 0, 0, 30)};
+                    _playerPoller.Tick += PollForTrackChange;
+                }
+                _playerPoller.Start();
+                
+            }
+            else
+            {
+                if(_playerPoller!=null)
+                {
+                    _playerPoller.Stop();
+                }
+            }
+        }
+
+        private  void PollForTrackChange(object sender, EventArgs e)
+        {
+            var fetch = new WebClient();
+            fetch.DownloadStringCompleted += ProcessTrack;
+            fetch.DownloadStringAsync(new Uri(UrgentTrackApi)); 
+            var fetchTwo = new WebClient();
+            fetchTwo.DownloadStringCompleted += ProcessProgram;
+            fetchTwo.DownloadStringAsync(new Uri(UrgentProgramApi));
+        }
+
+        private void ProcessProgram(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e != null && (e.Error != null || e.Cancelled)) return;
+            if(e==null) return;
+            NowPlayingProgram.Text = "U luistert naar "+e.Result;
+            var trackInstance = BackgroundAudioPlayer.Instance.Track;
+            trackInstance.BeginEdit();
+            trackInstance.Album = e.Result;
+            trackInstance.EndEdit();
+        }
+
+        private void ProcessTrack(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e != null && (e.Error != null || e.Cancelled)) return;
+            if (e == null) return;
+            var track = e.Result;
+            if (track.Equals("Geen plaat(info)")) return;
+            var trackInstance = BackgroundAudioPlayer.Instance.Track;
+            trackInstance.BeginEdit();
+            trackInstance.Artist = track.Substring(0, track.IndexOf("-", System.StringComparison.Ordinal));
+            trackInstance.Title = track.Substring(track.IndexOf("-", System.StringComparison.Ordinal));
+            trackInstance.EndEdit();
+            NowPlayingTrack.Text = @"Speelt nu 
+                                                        "+track;
+            PlayingGrid.Visibility=Visibility.Visible;
+        }
+
+        private void StopButtonAppBar(object sender, EventArgs e)
+        {
+            if (!(BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing)||BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted)||BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Paused))) return;
+            StartPolling(false);
+            PlayingGrid.Visibility=Visibility.Collapsed;
+            BackgroundAudioPlayer.Instance.Stop();
+            Play.Source = null;
+            PlayingGrid.Visibility = Visibility.Collapsed;
+            NowPlayingProgram.Text = null;
+
+        }
+
+        private void PauseButtonAppBar(object sennder, EventArgs e)
+        {
+            if (!(BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) || BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted))) return;
+            StartPolling(false);
+            BackgroundAudioPlayer.Instance.Pause();
+            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-pause@2x.png",UriKind.RelativeOrAbsolute));
         }
 
     }

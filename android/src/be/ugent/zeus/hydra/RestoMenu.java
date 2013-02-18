@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.ResultReceiver;
@@ -21,7 +18,13 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import be.ugent.zeus.hydra.data.RestoLegend;
+import be.ugent.zeus.hydra.data.caches.LegendCache;
+import be.ugent.zeus.hydra.data.services.HTTPIntentService;
+import be.ugent.zeus.hydra.data.services.LegendService;
 import be.ugent.zeus.hydra.data.services.MenuService;
+import be.ugent.zeus.hydra.data.services.RestoService;
 import be.ugent.zeus.hydra.ui.SwipeyTabs;
 import be.ugent.zeus.hydra.ui.SwipeyTabsAdapter;
 import be.ugent.zeus.hydra.ui.menu.MenuView;
@@ -42,6 +45,7 @@ public class RestoMenu extends AbstractSherlockActivity {
     private SwipeyTabs tabs;
     private ViewPager pager;
     private MenuPagerAdapter adapter;
+    private RestoMenu.LegendResultReceiver receiver = new RestoMenu.LegendResultReceiver();
     private ProgressDialog progressDialog;
 
     /**
@@ -193,7 +197,7 @@ public class RestoMenu extends AbstractSherlockActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.show_about:
-                showAboutDialog();
+                showAboutDialog(false);
                 return true;
             case R.id.show_map:
                 Intent intent = new Intent(this, BuildingMap.class);
@@ -208,35 +212,36 @@ public class RestoMenu extends AbstractSherlockActivity {
     /**
      * About dialog based on code from Mobile Vikings for Android by Ben Van Daele
      */
-    public void showAboutDialog() {
-        Builder builder = new Builder(this);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.setTitle(getString(R.string.about));
-        builder.setMessage(getAboutMessage());
-        builder.setPositiveButton(getString(android.R.string.ok), null);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+    public void showAboutDialog(boolean synced) {
+        final List<RestoLegend> legend = LegendCache.getInstance(this).getAll();
+        if (legend.size() > 0) {
+            Builder builder = new Builder(this);
+            builder.setIcon(android.R.drawable.ic_dialog_info);
+            builder.setTitle(getString(R.string.about));
 
-    public CharSequence getAboutMessage() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getString(R.string.legend_swiping));
-        stringBuilder.append("\n\n");
-        stringBuilder.append(getString(R.string.legend)).append(":\n\n");
-        stringBuilder.append(getString(R.string.legend_fries)).append("\n");
-        stringBuilder.append(getString(R.string.legend_bold)).append("\n");
-        stringBuilder.append(getString(R.string.legend_hash));
-        return stringBuilder;
-    }
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(getString(R.string.legend_swiping));
+            stringBuilder.append("\n\n");
 
-    private int getVersionCode() {
-        try {
-            ComponentName componentName = new ComponentName(this, RestoMenu.class);
-            PackageInfo info = getPackageManager().getPackageInfo(componentName.getPackageName(), 0);
-            return info.versionCode;
-        } catch (NameNotFoundException e) {
-            // Won't happen, versionCode is present in the manifest!
-            return 0;
+            stringBuilder.append(getString(R.string.legend)).append(":\n\n");
+
+            for (RestoLegend l : legend) {
+                stringBuilder.append(String.format("%s: %s\n\n", l.key, l.value));
+            }
+
+            builder.setMessage(stringBuilder);
+            builder.setPositiveButton(getString(android.R.string.ok), null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        } else {
+            if (!synced) {
+                Intent intent = new Intent(this, LegendService.class);
+                intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
+                startService(intent);
+            } else {
+                Toast.makeText(this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -343,4 +348,25 @@ public class RestoMenu extends AbstractSherlockActivity {
             }
         }
     }
+    private class LegendResultReceiver extends ResultReceiver {
+
+        public LegendResultReceiver() {
+            super(null);
+        }
+
+        @Override
+        protected void onReceiveResult(int code, Bundle data) {
+            switch (code) {
+                case RestoService.STATUS_FINISHED:
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            showAboutDialog(true);
+                        }
+                    });
+                    break;
+            }
+
+        }
+    }
+    
 }

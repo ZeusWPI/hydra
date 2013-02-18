@@ -64,9 +64,6 @@
     <string name="refresh">Vernieuwen</string>
     <string name="about">Over</string>
     <string name="legend">Legende</string>
-    <string name="legend_bold">Vet : Aanbevolen menu, -0,50€ korting reeds verrekend in de prijs</string>
-    <string name="legend_fries">Frieten of kroketten: +0,20€  bij menu</string>
-    <string name="legend_hash">## : menu niet verkrijgbaar in resto\'s Diergeneeskunde en FPPW, ter vervanging is spaghetti bolognese te verkrijgen</string>
     <string name="legend_swiping">Je kan het menu voor de volgende dagen bekijken door naar links te swipen.</string>
     <string name="menu_unavailable">Sorry, het menu is momenteel niet beschikbaar. Gelieve later opnieuw te proberen.</string>
     <string name="no_restos_found">Sorry, de lijst met resto\'s kon niet worden opgehaald van de webservice. Gelieve later opnieuw te proberen.</string>

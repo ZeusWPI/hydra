@@ -22,6 +22,7 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
@@ -31,7 +32,6 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.RemoteControlClient;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
@@ -172,7 +172,7 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
         // create the Audio Focus Helper, if the Audio Focus feature is available (SDK 8 or above)
         if (android.os.Build.VERSION.SDK_INT >= 8) {
             mAudioFocusHelper = new AudioFocusHelper(getApplicationContext(), this);
-        } else {    
+        } else {
             mAudioFocus = AudioFocus.Focused; // no focus feature, so we always "have" audio focus
         }
         // TODO: Change to urgent logo
@@ -456,13 +456,23 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0,
             new Intent(getApplicationContext(), Urgent.class),
             PendingIntent.FLAG_UPDATE_CURRENT);
-        mNotification = new Notification();
-        mNotification.tickerText = text;
-        // TODO: Change this to the Urgent logo
-        mNotification.icon = R.drawable.button_urgent_background;
+
+        Resources res = getResources();
+        int height = (int) res.getDimension(android.R.dimen.notification_large_icon_height);
+        int width = (int) res.getDimension(android.R.dimen.notification_large_icon_width);
+        Bitmap largeIcon = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getApplication().getResources(),
+            R.drawable.urgent_notification), width, height, true);
+        
+        mNotification = new Notification.Builder(getApplicationContext())
+            .setSmallIcon(R.drawable.urgent_icon)
+            .setLargeIcon(largeIcon)
+            .setTicker(text)
+            .setContentTitle("Urgent.fm livestream")
+            .setContentText(text)
+            .setContentIntent(pi)
+            .build();
+
         mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-        mNotification.setLatestEventInfo(getApplicationContext(), "Urgent.fm livestream",
-            text, pi);
         startForeground(NOTIFICATION_ID, mNotification);
     }
 
