@@ -50,18 +50,14 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         for (ArrayList<Activity> subset : cache.getAll()) {
             items.addAll(subset);
         }
-        
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean showAll = preferences.getBoolean("prefFilter", false);
-
-        AssociationsCache assCache = AssociationsCache.getInstance(this);
-        HashSet<String> lists = assCache.get("associations");
-
-        if (lists == null) {
-            lists = new HashSet<String>();
-        }
-
+        HashSet<String> lists = new HashSet<String>();
+        
         if (!showAll) {
+            AssociationsCache assCache = AssociationsCache.getInstance(this);
+            lists = assCache.get("associations");
             Iterator i = items.iterator();
             while (i.hasNext()) {
                 Activity newsItem = (Activity) i.next();
@@ -82,7 +78,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
             finish();
         }
-        
+
 
         stickyList.setAdapter(new ActivityListAdapter(this, items));
         stickyList.setSelection(firstVisible);
@@ -106,7 +102,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        
+
         // Launch a new activity
         Intent intent = new Intent(this, ActivityItemActivity.class);
         intent.putExtra("class", this.getClass().getCanonicalName());
