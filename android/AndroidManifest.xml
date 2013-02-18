@@ -64,7 +64,8 @@
         <activity android:name=".InfoWebActivity"
                   android:configChanges="screenSize|orientation" />
         <activity android:name=".Urgent"
-                  android:configChanges="screenSize|orientation" />
+                  android:configChanges="screenSize|orientation" 
+                  android:screenOrientation="portrait" />
         
         <activity android:name=".BuildingMap"
                   android:label="@string/resto_search_label"
