@@ -44,6 +44,7 @@
     searchBar.placeholder = @"Zoek een vereniging";
     self.tableView.tableHeaderView = searchBar;
 
+    // TODO: replace cancel button in search-mode by 'OK'
     self.searchController = [[UISearchDisplayController alloc]
                              initWithSearchBar:searchBar contentsController:self];
     self.searchController.delegate = self;
