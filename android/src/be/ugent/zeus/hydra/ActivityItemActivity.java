@@ -49,6 +49,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         String gasten = "";
         FacebookEvent fbEvent = null;
         if(item.facebook_id == null) {
+            ((ViewManager) image.getParent()).removeView(image);
             ((ViewManager) guestsContainer.getParent()).removeView(guestsContainer);
         } else {
             fbEvent = new FacebookEvent(getApplicationContext(), this, item.facebook_id);
