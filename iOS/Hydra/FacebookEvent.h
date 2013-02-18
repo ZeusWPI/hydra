@@ -10,6 +10,16 @@
 
 extern NSString *const FacebookEventDidUpdateNotification;
 
+typedef NS_ENUM(NSUInteger, FacebookEventRsvp) {
+    FacebookEventRsvpNone = 0,
+    FacebookEventRsvpAttending,
+    FacebookEventRsvpUnsure,
+    FacebookEventRsvpDeclined,
+};
+
+NSString *FacebookEventRsvpAsLocalizedString(FacebookEventRsvp rsvp);
+FacebookEventRsvp FacebookEventRsvpFromString(NSString *rsvp);
+
 @interface FacebookEvent : NSObject <NSCoding>
 
 @property (nonatomic, assign) BOOL valid;
@@ -19,8 +29,7 @@ extern NSString *const FacebookEventDidUpdateNotification;
 
 @property (nonatomic, assign) NSUInteger attendees;
 @property (nonatomic, strong) NSArray *friendsAttending;
-// TODO: use enum
-@property (nonatomic, strong) NSString *userRsvp; /* attending, unsure, declined, or not_replied */
+@property (nonatomic, assign) FacebookEventRsvp userRsvp;
 
 - (id)initWithEventId:(NSString *)eventId;
 - (void)update;

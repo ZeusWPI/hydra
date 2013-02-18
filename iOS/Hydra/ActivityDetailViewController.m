@@ -12,6 +12,7 @@
 #import "NSDateFormatter+AppLocale.h"
 #import "FacebookEvent.h"
 #import "NSDate+Utilities.h"
+#import "CustomTableViewCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <EventKit/EventKit.h>
@@ -20,25 +21,18 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define kHeaderSection 0
+
 #define kInfoSection 1
+    #define kAssociationRow 0
+    #define kDateRow 1
+    #define kLocationRow 2
+    #define kGuestsRow 3
+    #define kDescriptionRow 4
+    #define kUrlRow 5
+
 #define kActionSection 2
-
-#define kAssociationRow 0
-#define kDateRow 1
-#define kLocationRow 2
-#define kGuestsRow 3
-#define kFriendsRow 4
-#define kDescriptionRow 5
-#define kUrlRow 6
-
-#define kRsvpActionRow 0
-#define kCalendarActionRow 1
-
-#define kImageViewTag 501
-#define kBorderOverlayTag 502
-#define kImageContainerTag 503
-#define kTextViewTag 504
-#define kDetailLabelTag 505
+    #define kRsvpActionRow 0
+    #define kCalendarActionRow 1
 
 @interface ActivityDetailViewController () <EKEventEditViewDelegate, UIActionSheetDelegate>
 
@@ -46,7 +40,10 @@
 @property (nonatomic, strong) NSArray *fields;
 @property (nonatomic, strong) id<ActivityListDelegate> listDelegate;
 
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIView *friendsView;
 @property (nonatomic, strong) UITextView *descriptionView;
+@property (nonatomic, strong) UILabel *rsvpLabel;
 
 @end
 
@@ -61,7 +58,7 @@
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(facebookEventUpdated:)
                        name:FacebookEventDidUpdateNotification object:nil];
-        [self reloadFields];
+        [self reloadData];
     }
     return self;
 }
@@ -101,8 +98,12 @@
     GAI_Track([@"Activity > " stringByAppendingString:self.activity.title]);
 }
 
-- (void)reloadFields
+- (void)reloadData
 {
+    NSMutableArray *fields = [[NSMutableArray alloc] init];
+    fields[kAssociationRow] = self.activity.association.displayedFullName;
+
+    // Formatted date
     static NSDateFormatter *dateStartFormatter = nil;
     static NSDateFormatter *dateEndFormatter = nil;
     if (!dateStartFormatter || !dateEndFormatter) {
@@ -112,11 +113,9 @@
         dateEndFormatter.dateFormat = @"H:mm";
     }
 
-    NSMutableArray *fields = [[NSMutableArray alloc] init];
-    fields[kAssociationRow] = self.activity.association.displayedFullName;
-
     if (self.activity.end) {
-        if ([[self.activity.start dateByAddingDays:1] compare:self.activity.end] != NSOrderedAscending) {
+        // Does the event span more than 24 hours?
+        if ([[self.activity.start dateByAddingDays:1] isLaterThanDate:self.activity.end]) {
             fields[kDateRow] = [NSString stringWithFormat:@"%@ - %@",
                                 [dateStartFormatter stringFromDate:self.activity.start],
                                 [dateEndFormatter stringFromDate:self.activity.end]];
@@ -147,14 +146,17 @@
         fields[kGuestsRow] = @"";
     }
 
-    fields[kFriendsRow] = @"";
-    fields[kDescriptionRow] = self.activity.descriptionText ? self.activity.descriptionText : @"";
-    fields[kUrlRow] = self.activity.url ? self.activity.url : @"";
+    fields[kDescriptionRow] =  @"";
+    fields[kUrlRow] = @"http://";
 
     self.fields = fields;
+    self.descriptionView = nil;
+    self.friendsView = nil;
 
     // Trigger event reload
     [self.activity.facebookEvent update];
+
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -169,23 +171,23 @@
     switch(section) {
         case kHeaderSection:
             return 1;
+
         case kInfoSection: {
             NSUInteger rows = 3;
             if (self.activity.descriptionText.length > 0) rows++;
             if (self.activity.url.length > 0) rows++;
 
-            // Facebook-rows?
-            FacebookEvent *event = self.activity.facebookEvent;
-            if (event.valid) rows++;
-            if (event.friendsAttending.count > 0) rows++;
+            // Facebook info?
+            FacebookEvent *fbEvent = self.activity.facebookEvent;
+            if (fbEvent.valid) rows++;
 
             return rows;
-        } break;
+        }
 
         case kActionSection: {
-            FacebookEvent *event = self.activity.facebookEvent;
-            return event.valid ? 2 : 1;
-        } break;
+            FacebookEvent *fbEvent = self.activity.facebookEvent;
+            return fbEvent.valid ? 2 : 1;
+        }
 
         default:
             return 0;
@@ -197,12 +199,12 @@
     // Set some defaults
     UIFont *font = [UIFont boldSystemFontOfSize:13];
     CGFloat width = tableView.frame.size.width - 125;
-
-    CGFloat minHeight = 40;
-    CGFloat spacing = 18;
+    CGFloat minHeight = 36, spacing = 20;
 
     // Determine text, possibility to override settings
     NSString *text = nil;
+
+    NSUInteger row = [self virtualRowAtIndexPath:indexPath];
     switch (indexPath.section) {
         case kHeaderSection:
             text = self.activity.title;
@@ -216,40 +218,40 @@
                 width -= 70;
             }
             break;
-        
-        case kInfoSection: {
-            NSUInteger row = [self virtualRowAtIndexPath:indexPath];
-            if (row == kFriendsRow) {
-                minHeight = 36; // Quick ugly shortcut
-            }
 
-            // TODO: Bug? This check should not be required, but sometimes
+        case kInfoSection:
+            // TODO: bug? This check should not be required, but sometimes
             // this method is called with an indexPath it cannot handle...
             if (row < self.fields.count) {
                 text = self.fields[row];
             }
 
-            // Long url's should just be cut off
-            if (row == kUrlRow) {
-                text = @"http://";
+            if (row == kGuestsRow) {
+                FacebookEvent *fbEvent = self.activity.facebookEvent;
+                if (fbEvent.friendsAttending.count > 0) {
+                    spacing += 40;
+                }
             }
-            // Different calculation for UITextView
             else if (row == kDescriptionRow) {
-                if (self.descriptionView) {
-                    return self.descriptionView.contentSize.height;
+                // Different calculation for UITextView
+                if (!self.descriptionView) {
+                    self.descriptionView = [self createDescriptionView];
+                    width = tableView.frame.size.width - 20;
+                    self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                 }
-                else {
-                    return 44;
-                }
+                return self.descriptionView.contentSize.height + 4;
             }
-        } break;
+            break;
 
-        case kActionSection: {
-            FacebookEvent *event = self.activity.facebookEvent;
-            if (indexPath.row == kRsvpActionRow && event.valid && event.userRsvp) {
-                return 48;
+        case kActionSection:
+            minHeight = 40;
+            if (row == kRsvpActionRow) {
+                FacebookEvent *fbEvent = self.activity.facebookEvent;
+                if (fbEvent.userRsvp != FacebookEventRsvpNone) {
+                    return 48;
+                }
             }
-        } break;
+            break;
     }
 
     if (text) {
@@ -258,7 +260,7 @@
         return MAX(minHeight, size.height + spacing);
     }
     else {
-        return 44;
+        return minHeight;
     }
 }
 
@@ -267,159 +269,167 @@
     return (section == 2) ? 0 : 1;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    return [[UIView alloc] init];
-}
-
-// TODO: split this method per section
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == kHeaderSection) {
-        static NSString *CellIdentifier = @"ActivityDetailTitleCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:CellIdentifier];
-            cell.backgroundColor = [UIColor clearColor];
-            cell.backgroundView = [[UIView alloc] init];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSUInteger row = [self virtualRowAtIndexPath:indexPath];
+    switch (indexPath.section) {
+        case kHeaderSection:
+            return [self tableView:tableView headerCellForRowAtIndex:row];
 
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
-            cell.textLabel.textAlignment = UITextAlignmentCenter;
-            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            cell.textLabel.numberOfLines = 0;
-            cell.textLabel.shadowColor = [UIColor whiteColor];
-            cell.textLabel.shadowOffset = CGSizeMake(0, 1);
-        }
+        case kInfoSection:
+            return [self tableView:tableView infoCellForRowAtIndex:row];
 
-        cell.indentationLevel = 0;
-        cell.textLabel.text = self.activity.title;
-        [[cell.contentView viewWithTag:kImageViewTag] removeFromSuperview];
+        case kActionSection:
+            return [self tableView:tableView actionCellForRowAtIndex:row];
 
-        // TODO: make this image tappable to view the full size
-        NSURL *url = self.activity.facebookEvent.smallImageUrl;
-        if (url) {
-            CGRect imageRect = CGRectMake(-1, 0, 70, 70);
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageRect];
-            imageView.backgroundColor = [UIColor whiteColor];
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            imageView.layer.masksToBounds = YES;
-            imageView.layer.cornerRadius = 5;
-            imageView.layer.borderWidth = 1.2;
-            imageView.layer.borderColor = [UIColor colorWithWhite:0.65 alpha:1].CGColor;
-            imageView.tag = kImageViewTag;
-            [imageView setImageWithURL:url];
-            [cell.contentView addSubview:imageView];
-
-            // Inset text
-            cell.indentationLevel = 7; // 70pt
-        }
-
-        return cell;
+        default:
+            return nil;
     }
-    else if (indexPath.section == kInfoSection) {
-        static NSString *CellIdentifier = @"ActivityDetailCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
+}
+
+- (NSUInteger)virtualRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger row = indexPath.row;
+    if (indexPath.section == kInfoSection) {
+        FacebookEvent *fbEvent = self.activity.facebookEvent;
+        if (row >= kGuestsRow && !fbEvent.valid) row ++;
+
+        if (row >= kDescriptionRow && self.activity.descriptionText.length == 0) row++;
+        if (row >= kUrlRow && self.activity.url.length == 0) row++;
+
+        ZAssert(row <= kUrlRow, @"Invalid virtual row number");
+    }
+    else if (indexPath.section == kActionSection)
+    {
+        FacebookEvent *fbEvent = self.activity.facebookEvent;
+        if (row >= kRsvpActionRow && !fbEvent.valid) row += 1;
+    }
+
+    return row;
+}
+
+#pragma mark - Creating cells and views
+
+- (UITableViewCell *)tableView:(UITableView *)tableView headerCellForRowAtIndex:(NSUInteger)row
+{
+    static NSString *CellIdentifier = @"ActivityDetailHeaderCell";
+    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:CellIdentifier];
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
-            cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:13];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundView = [[UIView alloc] init];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.shadowColor = [UIColor whiteColor];
+        cell.textLabel.shadowOffset = CGSizeMake(0, 1);
+    }
+    else {
+        cell.customView = nil;
+        cell.indentationLevel = 0;
+    }
+
+    cell.textLabel.text = self.activity.title;
+
+    // Show image
+    NSURL *imageUrl = self.activity.facebookEvent.smallImageUrl;
+    if (imageUrl) {
+        if (!self.imageView) {
+            CGRect imageRect = CGRectMake(-1, -1, 72, 72);
+            self.imageView = [[UIImageView alloc] initWithFrame:imageRect];
+            self.imageView.backgroundColor = [UIColor whiteColor];
+            self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+            self.imageView.layer.masksToBounds = YES;
+            self.imageView.layer.cornerRadius = 5;
+            self.imageView.layer.borderWidth = 1.2;
+            self.imageView.layer.borderColor = [UIColor colorWithWhite:0.65 alpha:1].CGColor;
         }
 
-        NSUInteger row = [self virtualRowAtIndexPath:indexPath];
-        switch (row) {
-            case kAssociationRow:
-                cell.textLabel.text = @"Vereniging";
-                break;
-            case kDateRow:
-                cell.textLabel.text = @"Datum";
-                break;
-            case kLocationRow:
-                cell.textLabel.text = @"Locatie";
-                break;
-            case kGuestsRow:
-                cell.textLabel.text = @"Gasten";
-                break;
-            case kUrlRow:
-                cell.textLabel.text = @"Meer info";
-                break;
-            default:
-                cell.textLabel.text = @"";
-                break;
-        }
-        cell.detailTextLabel.text = self.fields[row];
+        [self.imageView setImageWithURL:imageUrl];
+        cell.customView = self.imageView;
+        cell.indentationLevel = 7; // inset text 70pt
+    }
 
-        // Defaults
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView infoCellForRowAtIndex:(NSUInteger)row
+{
+    static NSString *CellIdentifier = @"ActivityDetailInfoCell";
+    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
+                                          reuseIdentifier:CellIdentifier];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
+        cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:13];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    else {
+        // Restore defaults
+        cell.alignToTop = NO;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = nil;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.customView = nil;
         cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.detailTextLabel.numberOfLines = 0;
-        [[cell viewWithTag:kBorderOverlayTag] removeFromSuperview];
-        [[cell viewWithTag:kImageContainerTag] removeFromSuperview];
-        [[cell viewWithTag:kTextViewTag] removeFromSuperview];
+    }
 
-        // Customize per row
-        // TODO: make the location go to a seperate view with just a map
-        if (row == kLocationRow) {
+    cell.textLabel.text = @"";
+    cell.detailTextLabel.text = self.fields[row];
+
+    // Customize per row
+    switch (row) {
+        case kAssociationRow:
+            cell.textLabel.text = @"Vereniging";
+            break;
+
+        case kDateRow:
+            cell.textLabel.text = @"Datum";
+            break;
+
+        case kLocationRow:
+            // TODO: make the location go to a seperate view with just a map
+            cell.textLabel.text = @"Locatie";
             if (self.activity.latitude != 0 && self.activity.longitude != 0) {
                 cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             }
-        }
-        else if (row == kGuestsRow) {
+            break;
+
+        case kGuestsRow: {
+            cell.textLabel.text = @"Gasten";
+            cell.alignToTop = YES;
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
             FacebookEvent *event = self.activity.facebookEvent;
-            if (event.valid) {
-                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-            }
-
             if (event.friendsAttending.count > 0) {
-                // Overlay border to next cell
-                CGRect overlayFrame = CGRectInset(cell.bounds, 10, 0);
-                overlayFrame.origin.y = overlayFrame.size.height - 1;
-                overlayFrame.size.height = 2;
-
-                UIView *overlay = [[UIView alloc] initWithFrame:overlayFrame];
-                overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth
-                                         | UIViewAutoresizingFlexibleTopMargin;
-                overlay.tag = kBorderOverlayTag;
-                [cell addSubview:overlay];
-
-                // Add profile pictures to this cell too, so we don't have
-                // issues with cells overlapping each other
-                UIView *friendsContainer = [self createFriendsView:event.friendsAttending];
-                CGRect containerFrame = friendsContainer.frame;
-                containerFrame.origin = CGPointMake(95, cell.frame.size.height - 6);
-                friendsContainer.frame = containerFrame;
-                friendsContainer.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-                friendsContainer.tag = kImageContainerTag;
-                [cell addSubview:friendsContainer];
+                if (!self.friendsView) {
+                    self.friendsView = [self createFriendsView:event.friendsAttending];
+                    self.friendsView.frame = CGRectOffset(self.friendsView.frame, 83,
+                                                          cell.frame.size.height - 42);
+                    self.friendsView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+                }
+                cell.customView = self.friendsView;
             }
-        }
-        else if (row == kDescriptionRow) {
+        } break;
+
+        case kDescriptionRow:
             if (!self.descriptionView) {
-                UITextView *descriptionView = [[UITextView alloc] init];
-                descriptionView.autoresizingMask = UIViewAutoresizingFlexibleWidth
-                                                 | UIViewAutoresizingFlexibleHeight;
-                descriptionView.backgroundColor = [UIColor clearColor];
-                descriptionView.bounces = NO;
-                descriptionView.dataDetectorTypes = UIDataDetectorTypeLink
-                                                  | UIDataDetectorTypePhoneNumber;
-                descriptionView.editable = NO;
-                descriptionView.font = [UIFont systemFontOfSize:13];
-                descriptionView.tag = kTextViewTag;
-                descriptionView.scrollEnabled = NO;
-                self.descriptionView = descriptionView;
-
-                [tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.1];
+                self.descriptionView = [self createDescriptionView];
             }
-            self.descriptionView.text = self.fields[row];
             self.descriptionView.frame = cell.contentView.bounds;
-            [cell.contentView addSubview:self.descriptionView];
-            cell.detailTextLabel.text = nil;
-        }
-        else if (row == kUrlRow) {
+            cell.customView = self.descriptionView;
+            break;
+
+        case kUrlRow:
+            cell.textLabel.text = @"Meer info";
+            cell.detailTextLabel.text = self.activity.url;
+            cell.detailTextLabel.numberOfLines = 1;
+            cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+
             UIImage *linkImage = [UIImage imageNamed:@"external-link"];
             UIImage *highlightedLinkImage = [UIImage imageNamed:@"external-link-active"];
             UIImageView *linkAccessory = [[UIImageView alloc] initWithImage:linkImage
@@ -427,104 +437,85 @@
             linkAccessory.contentMode = UIViewContentModeScaleAspectFit;
             cell.accessoryView = linkAccessory;
             cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-            cell.detailTextLabel.numberOfLines = 1;
-            cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        }
-
-        return cell;
+            break;
     }
-    else if (indexPath.section == kActionSection) {
-        static NSString *CellIdentifier = @"ActivityDetailButtonCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView actionCellForRowAtIndex:(NSUInteger)row
+{
+    static NSString *CellIdentifier = @"ActivityDetailButtonCell";
+    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:CellIdentifier];
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-            cell.textLabel.textColor = [UIColor H_detailLabelTextColor];
-            cell.textLabel.textAlignment = UITextAlignmentCenter;
-            cell.textLabel.numberOfLines = 0;
-            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        }
-        else {
-            [[cell viewWithTag:kDetailLabelTag] removeFromSuperview];
-        }
-
-        FacebookEvent *event = self.activity.facebookEvent;
-        if (event.valid && indexPath.row == kRsvpActionRow) {
-            if (!event.userRsvp || [event.userRsvp isEqualToString:@"not_replied"]) {
-                cell.textLabel.text = @"Bevestig aanwezigheid";
-            }
-            else {
-                cell.textLabel.text = @"Aanwezigheid wijzigen\n ";
-
-                NSString *rsvpDescription = @"misschien";
-                if ([event.userRsvp isEqualToString:@"attending"]) {
-                    rsvpDescription = @"aanwezig";
-                }
-                else if ([event.userRsvp isEqualToString:@"declined"]) {
-                    rsvpDescription = @"niet aanwezig";
-                }
-
-                NSString *detailLabelText = [NSString stringWithFormat:@"Momenteel sta je op '%@'",
-                                             rsvpDescription];
-
-                CGRect detailFrame = CGRectMake(0, 24, cell.contentView.bounds.size.width, 16);
-                UILabel *detailLabel = [[UILabel alloc] initWithFrame:detailFrame];
-                detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                detailLabel.backgroundColor = [UIColor clearColor];
-                detailLabel.font = [UIFont systemFontOfSize:13];
-                detailLabel.text = detailLabelText;
-                detailLabel.textAlignment = UITextAlignmentCenter;
-                detailLabel.textColor = [UIColor colorWithWhite:0.4 alpha:1];
-                detailLabel.tag = kDetailLabelTag;
-                [cell.contentView addSubview:detailLabel];
-            }
-        }
-        else {
-            cell.textLabel.text = @"Toevoegen aan agenda";
-        }
-
-        return cell;
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+        cell.textLabel.textColor = [UIColor H_detailLabelTextColor];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     }
-    return nil;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Fix background-color
-    UIView *overlay = [cell viewWithTag:kBorderOverlayTag];
-    if (overlay) {
-        overlay.backgroundColor = cell.backgroundColor;
+    else {
+        cell.customView = nil;
     }
-}
-
-- (NSUInteger)virtualRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = indexPath.row;
 
     FacebookEvent *event = self.activity.facebookEvent;
-    if (row >= kGuestsRow && !event.valid) row += 2;
-    if (row >= kFriendsRow) {
-        if (event.valid && event.friendsAttending.count == 0) {
-            row++;
+    if (row == kRsvpActionRow) {
+        if (!event.userRsvp || event.userRsvp == FacebookEventRsvpNone) {
+            cell.textLabel.text = @"Bevestig aanwezigheid";
+        }
+        else {
+            cell.textLabel.text = @"Aanwezigheid wijzigen\n ";
+
+            if (!self.rsvpLabel) {
+                CGRect detailFrame = CGRectMake(0, 24, cell.contentView.bounds.size.width, 16);
+                self.rsvpLabel = [[UILabel alloc] initWithFrame:detailFrame];
+                self.rsvpLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+                self.rsvpLabel.backgroundColor = [UIColor clearColor];
+                self.rsvpLabel.font = [UIFont systemFontOfSize:13];
+                self.rsvpLabel.textAlignment = UITextAlignmentCenter;
+                self.rsvpLabel.textColor = [UIColor colorWithWhite:0.4 alpha:1];
+                self.rsvpLabel.highlightedTextColor = [UIColor colorWithWhite:0.8 alpha:1];
+            }
+            self.rsvpLabel.text = [NSString stringWithFormat:@"Momenteel sta je op '%@'",
+                                   FacebookEventRsvpAsLocalizedString(event.userRsvp)];
+            cell.customView = self.rsvpLabel;
         }
     }
-    if (row >= kDescriptionRow && self.activity.descriptionText.length == 0) row++;
-    if (row >= kUrlRow && self.activity.url.length == 0) row++;
+    else if (row == kCalendarActionRow) {
+        cell.textLabel.text = @"Toevoegen aan agenda";
+    }
 
-    return row;
+    return cell;
+}
+
+- (UITextView *)createDescriptionView
+{
+    UITextView *view = [[UITextView alloc] init];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth
+                          | UIViewAutoresizingFlexibleHeight;
+    view.backgroundColor = [UIColor clearColor];
+    view.bounces = NO;
+    view.dataDetectorTypes = UIDataDetectorTypeLink
+                           | UIDataDetectorTypePhoneNumber;
+    view.editable = NO;
+    view.font = [UIFont systemFontOfSize:13];
+    view.scrollEnabled = NO;
+    view.text = self.activity.descriptionText;
+    return view;
 }
 
 - (UIView *)createFriendsView:(NSArray *)friends
 {
-    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 160, 30)];
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 170, 30)];
 
     CGRect pictureFrame = CGRectMake(0, 0, 30, 30);
-    UIImage *placeholder = [UIImage imageNamed:@"FacebookSDKResources.bundle/FBProfilePictureView/images/fb_blank_profile_square.png"];
-
+    UIImage *placeholder = [UIImage imageNamed:@"FacebookSDKResources.bundle/"
+                                                "FBProfilePictureView/images/"
+                                                "fb_blank_profile_square.png"];
     for (NSUInteger i = 0; i < friends.count && i < 5; i++) {
         UIImageView *image = [[UIImageView alloc] initWithFrame:pictureFrame];
-        image.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         image.layer.masksToBounds = YES;
         image.layer.cornerRadius = 5;
         [image setImageWithURL:[friends[i] photoUrl] placeholderImage:placeholder];
@@ -540,29 +531,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUInteger row = [self virtualRowAtIndexPath:indexPath];
     switch (indexPath.section) {
-        case kInfoSection : {
-            NSUInteger row = [self virtualRowAtIndexPath:indexPath];
+        case kInfoSection:
             if (row == kUrlRow) {
                 NSURL *url = [NSURL URLWithString:self.activity.url];
                 [[UIApplication sharedApplication] openURL:url];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
-           
-        } break;
-        case kActionSection: {
-            FacebookEvent *event = self.activity.facebookEvent;
-            if (event.valid && indexPath.row == kRsvpActionRow) {
+            break;
+
+        case kActionSection:
+            if (row == kRsvpActionRow) {
                 UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Bevestig aanwezigheid" delegate:self
                                               cancelButtonTitle:@"Annuleren" destructiveButtonTitle:nil
                                               otherButtonTitles:@"Aanwezig", @"Misschien", @"Niet aanwezig", nil];
                 [actionSheet showInView:self.view];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
-            else {
+            else if (row == kCalendarActionRow) {
                 [self addEventToCalendar];
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
-        } break;
+            break;
     }
 }
 
@@ -581,15 +572,14 @@
             MKMapItem *destination =  [[MKMapItem alloc] initWithPlacemark:placeMark];
             destination.name = self.activity.location;
 
+            // Use native maps on iOS6 or open Google Maps on iOS5
             if ([destination respondsToSelector:@selector(openInMapsWithLaunchOptions:)]) {
-                //using iOS6 native maps app
                 [destination openInMapsWithLaunchOptions:nil];
             }
             else {
-                //using iOS 5 which has the Google Maps application
                 NSString *url = [NSString stringWithFormat: @"http://maps.apple.com/maps?ll=%f,%f",
                                  self.activity.latitude, self.activity.longitude];
-                [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             }
         }
     }
@@ -601,7 +591,6 @@
     if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
         [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
             if (!granted) return;
-
             [self performSelectorOnMainThread:@selector(addEventWithCalendarStore:)
                                    withObject:store waitUntilDone:NO];
         }];
@@ -637,15 +626,9 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    NSString *answer = nil;
-    switch(buttonIndex) {
-        case 0: answer = @"attending"; break;
-        case 1: answer = @"unsure"; break;
-        case 2: answer = @"declined"; break;
-    }
-
-    if (answer) {
-        // TODO: show some kind of spinner to show activity
+    if (buttonIndex <= 3) {
+        // TODO: show some kind of spinner to indicate activity
+        FacebookEventRsvp answer = buttonIndex + 1;
         self.activity.facebookEvent.userRsvp = answer;
     }
 }
@@ -669,11 +652,9 @@
         self.activity = [self.listDelegate activityAfter:self.activity];
     }
 
-    self.descriptionView = nil;
-    [self reloadFields];
-    [self viewDidAppear:NO]; // Trigger analytics
+    [self reloadData];
     [self enableSegments:control];
-    [self.tableView reloadData];
+    [self viewDidAppear:NO]; // Trigger analytics
     [self.listDelegate didSelectActivity:self.activity];
 }
 
@@ -681,8 +662,7 @@
 
 - (void)facebookEventUpdated:(NSNotification *)notification
 {
-    [self reloadFields];
-    [self.tableView reloadData];
+    [self reloadData];
 }
 
 @end
