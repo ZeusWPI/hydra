@@ -45,6 +45,11 @@ public class News extends AbstractSherlockListActivity {
         if (!showAll) {
             AssociationsCache assCache = AssociationsCache.getInstance(this);
             lists = assCache.get("associations");
+            
+            if(lists == null) {
+                lists = new HashSet<String>();
+            }
+            
             Iterator i = items.iterator();
             while (i.hasNext()) {
                 NewsItem newsItem = (NewsItem) i.next();
