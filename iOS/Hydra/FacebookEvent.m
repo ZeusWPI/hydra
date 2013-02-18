@@ -303,7 +303,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 {
     FBSession *session = [notification object];
     if (![session isOpen]) {
-        _userRsvp = nil;
+        _userRsvp = FacebookEventRsvpNone;
         _friendsAttending = nil;
     }
     // Force update on next access

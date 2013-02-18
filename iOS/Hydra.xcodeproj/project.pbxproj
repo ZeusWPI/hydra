@@ -124,6 +124,7 @@
 		F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CBF15CF1CC500FE033B /* external-link-active.png */; };
 		F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CC015CF1CC500FE033B /* external-link-active@2x.png */; };
 		F5A81CC415CF1CC500FE033B /* external-link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CC115CF1CC500FE033B /* external-link@2x.png */; };
+		F5ACC3B116D2694000626EAE /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5ACC3B016D2694000626EAE /* CustomTableViewCell.m */; };
 		F5B6509C16C129B700989ADB /* btn-urgent-bg-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = F5B6509816C129B700989ADB /* btn-urgent-bg-highlighted.png */; };
 		F5B6509D16C129B700989ADB /* btn-urgent-bg-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5B6509916C129B700989ADB /* btn-urgent-bg-highlighted@2x.png */; };
 		F5B6509E16C129B700989ADB /* btn-urgent-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F5B6509A16C129B700989ADB /* btn-urgent-bg.png */; };
@@ -365,6 +366,8 @@
 		F5A81CBF15CF1CC500FE033B /* external-link-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "external-link-active.png"; sourceTree = "<group>"; };
 		F5A81CC015CF1CC500FE033B /* external-link-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "external-link-active@2x.png"; sourceTree = "<group>"; };
 		F5A81CC115CF1CC500FE033B /* external-link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "external-link@2x.png"; sourceTree = "<group>"; };
+		F5ACC3AF16D2693F00626EAE /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		F5ACC3B016D2694000626EAE /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		F5B6509816C129B700989ADB /* btn-urgent-bg-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-urgent-bg-highlighted.png"; sourceTree = "<group>"; };
 		F5B6509916C129B700989ADB /* btn-urgent-bg-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-urgent-bg-highlighted@2x.png"; sourceTree = "<group>"; };
 		F5B6509A16C129B700989ADB /* btn-urgent-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-urgent-bg.png"; sourceTree = "<group>"; };
@@ -506,6 +509,8 @@
 			children = (
 				3BAFFE7C15BB04B600921E7D /* BadgedButton.h */,
 				3BAFFE7D15BB04B600921E7D /* BadgedButton.m */,
+				F5ACC3AF16D2693F00626EAE /* CustomTableViewCell.h */,
+				F5ACC3B016D2694000626EAE /* CustomTableViewCell.m */,
 				F56F9D0D16B32F710020856B /* InfoPageControl.h */,
 				F56F9D0E16B32F710020856B /* InfoPageControl.m */,
 			);
@@ -1225,6 +1230,7 @@
 				F5DF2FB916C41DDE003B05EC /* MarqueeLabel.m in Sources */,
 				F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */,
 				F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */,
+				F5ACC3B116D2694000626EAE /* CustomTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

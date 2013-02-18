@@ -12,6 +12,7 @@
 #import "NSDateFormatter+AppLocale.h"
 #import "FacebookEvent.h"
 #import "NSDate+Utilities.h"
+#import "CustomTableViewCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <EventKit/EventKit.h>
@@ -195,7 +196,7 @@
     // Set some defaults
     UIFont *font = [UIFont boldSystemFontOfSize:13];
     CGFloat width = tableView.frame.size.width - 125;
-    CGFloat minHeight = 38, spacing = 20;
+    CGFloat minHeight = 36, spacing = 20;
 
     // Determine text, possibility to override settings
     NSString *text = nil;
@@ -215,9 +216,11 @@
             }
             break;
 
-        case kInfoSection: {
+        case kInfoSection:
             // TODO: Bug? This check should not be required, but sometimes
             // this method is called with an indexPath it cannot handle...
+            ZAssert(row < self.fields.count, @"heightForRow should not be called "
+                    "for unknown cells (%d,%d)", indexPath.row, row);
             if (row < self.fields.count) {
                 text = self.fields[row];
             }
@@ -225,7 +228,7 @@
             if (row == kGuestsRow) {
                 FacebookEvent *fbEvent = self.activity.facebookEvent;
                 if (fbEvent.friendsAttending.count > 0) {
-                    spacing += 50;
+                    spacing += 40;
                 }
             }
             else if (row == kDescriptionRow) {
@@ -234,32 +237,28 @@
                     return self.descriptionView.contentSize.height + 5;
                 }
             }
-        } break;
+            break;
 
-        case kActionSection: {
-            FacebookEvent *fbEvent = self.activity.facebookEvent;
-            if (row == kRsvpActionRow && fbEvent.valid && fbEvent.userRsvp) {
-                return 48;
+        case kActionSection:
+            minHeight = 40;
+            if (row == kRsvpActionRow) {
+                FacebookEvent *fbEvent = self.activity.facebookEvent;
+                if (fbEvent.userRsvp != FacebookEventRsvpNone) {
+                    return 48;
+                }
             }
-        } break;
+            break;
     }
 
-    NSLog(@"%@: %@ => %f", indexPath, text, [self labelHeightForText:text width:width font:font]);
-    return MAX(minHeight, [self labelHeightForText:text width:width font:font] + spacing);
-}
-
-- (CGFloat)labelHeightForText:(NSString *)text width:(CGFloat)width font:(UIFont *)font
-{
     if (text) {
         CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
                            lineBreakMode:NSLineBreakByWordWrapping];
-        return size.height;
+        return MAX(minHeight, size.height + spacing);
     }
     else {
-        return 16;
+        return minHeight;
     }
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return (section == 2) ? 0 : 1;
@@ -347,6 +346,7 @@
     if (url) {
         UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:kSupplementaryCellViewTag];
         if (!imageView) {
+            // TODO: make this image tappable to view the full size
             CGRect imageRect = CGRectMake(-1, -1, 72, 72);
             imageView = [[UIImageView alloc] initWithFrame:imageRect];
             imageView.backgroundColor = [UIColor whiteColor];
@@ -357,7 +357,6 @@
             imageView.layer.borderColor = [UIColor colorWithWhite:0.65 alpha:1].CGColor;
             imageView.tag = kSupplementaryCellViewTag;
             [cell.contentView addSubview:imageView];
-            // TODO: make this image tappable to view the full size
         }
         else {
             imageView.hidden = NO;
@@ -373,18 +372,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView infoCellForRowAtIndex:(NSUInteger)row
 {
     static NSString *CellIdentifier = @"ActivityDetailInfoCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
-                                      reuseIdentifier:CellIdentifier];
+        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2
+                                          reuseIdentifier:CellIdentifier];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
         cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:13];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     else {
-        // Defaults
+        // Restore defaults
+        cell.alignToTop = NO;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = nil;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.detailTextLabel.numberOfLines = 0;
         [[cell viewWithTag:kSupplementaryCellViewTag] removeFromSuperview];
@@ -413,12 +413,13 @@
 
         case kGuestsRow: {
             cell.textLabel.text = @"Gasten";
+            cell.alignToTop = YES;
             cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
             FacebookEvent *event = self.activity.facebookEvent;
             if (event.friendsAttending.count > 0) {
                 UIView *friends = [self createFriendsView:event.friendsAttending];
-                friends.frame = CGRectOffset(friends.frame, 83, cell.frame.size.height - 35);
+                friends.frame = CGRectOffset(friends.frame, 83, cell.frame.size.height - 42);
                 friends.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
                 friends.tag = kSupplementaryCellViewTag;
                 [cell.contentView addSubview:friends];
@@ -440,8 +441,8 @@
                 descriptionView.scrollEnabled = NO;
                 self.descriptionView = descriptionView;
 
-                // TODO: remove this hack
-                [tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.1];
+                // Reload row so the new size is applied
+                [tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0];
             }
             self.descriptionView.text = self.activity.descriptionText;
             self.descriptionView.frame = cell.contentView.bounds;
@@ -451,6 +452,8 @@
         case kUrlRow:
             cell.textLabel.text = @"Meer info";
             cell.detailTextLabel.text = self.activity.url;
+            cell.detailTextLabel.numberOfLines = 1;
+            cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 
             UIImage *linkImage = [UIImage imageNamed:@"external-link"];
             UIImage *highlightedLinkImage = [UIImage imageNamed:@"external-link-active"];
@@ -459,8 +462,6 @@
             linkAccessory.contentMode = UIViewContentModeScaleAspectFit;
             cell.accessoryView = linkAccessory;
             cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-            cell.detailTextLabel.numberOfLines = 1;
-            cell.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
             break;
     }
 
@@ -671,7 +672,6 @@
 - (void)facebookEventUpdated:(NSNotification *)notification
 {
     [self reloadData];
-    [self.tableView reloadData];
 }
 
 @end
