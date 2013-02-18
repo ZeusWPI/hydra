@@ -73,7 +73,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         NSString *accessToken = [coder decodeObjectForKey:@"fbAccessToken"];
         if ([accessToken isEqualToString:[FBSession activeSession].accessToken]) {
             _friendsAttending = [coder decodeObjectForKey:@"friendsAttending"];
-            _userRsvp = [coder decodeObjectForKey:@"userRsvp"];
+            _userRsvp = [coder decodeIntegerForKey:@"userRsvp"];
         }
 
         [self sharedInit];
@@ -93,7 +93,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
     // Store user-specific details with the access-token used
     [coder encodeObject:[FBSession activeSession].accessToken forKey:@"fbAccessToken"];
     [coder encodeObject:_friendsAttending forKey:@"friendsAttending"];
-    [coder encodeObject:_userRsvp forKey:@"userRsvp"];
+    [coder encodeInteger:_userRsvp forKey:@"userRsvp"];
 }
 
 #pragma mark - Fetching info
@@ -180,10 +180,10 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
         if ([result[@"data"] count] > 0) {
             NSDictionary *data = result[@"data"][0];
-            _userRsvp = data[@"rsvp_status"];
+            _userRsvp = FacebookEventRsvpFromString(data[@"rsvp_status"]);
         }
         else {
-            _userRsvp = nil;
+            _userRsvp = FacebookEventRsvpNone;
         }
 
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -229,9 +229,9 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 
 #pragma mark - Submitting info
 
-- (void)setUserRsvp:(NSString *)userRsvp
+- (void)setUserRsvp:(FacebookEventRsvp)userRsvp
 {
-    if ([userRsvp isEqualToString:_userRsvp]) {
+    if (userRsvp == self.userRsvp) {
         return;
     }
 
@@ -258,13 +258,8 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         }];
     }
     else {
-        // Real consistency in these API's
-        if ([userRsvp isEqualToString:@"unsure"]) {
-            userRsvp = @"maybe";
-        }
-        NSString *path = [NSString stringWithFormat:@"%@/%@", self.eventId, userRsvp];
-        FBRequest *req = [FBRequest requestForPostWithGraphPath:path graphObject:nil];
-        NSLog(@"POSTing presence to %@", path);
+        FBRequest *req = [self graphRequestForRsvp:userRsvp];
+        NSLog(@"POSTing presence to %@", req.graphPath);
         [req startWithCompletionHandler:^(FBRequestConnection *c, id result, NSError *error) {
             if (error) {
                 AppDelegate *delegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
@@ -280,13 +275,35 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
     }
 }
 
+- (FBRequest *)graphRequestForRsvp:(FacebookEventRsvp)rsvp
+{
+    NSString *state;
+    switch (rsvp) {
+        case FacebookEventRsvpAttending:
+            state = @"attending";
+            break;
+        case FacebookEventRsvpUnsure:
+            state = @"maybe";
+            break;
+        case FacebookEventRsvpDeclined:
+            state = @"declined";
+            break;
+        case FacebookEventRsvpNone:
+            state = nil;
+            break;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"%@/%@", self.eventId, state];
+    return [FBRequest requestForPostWithGraphPath:path graphObject:nil];
+}
+
 #pragma mark - Facebook session state
 
 - (void)facebookSessionStateChanged:(NSNotification *)notification
 {
     FBSession *session = [notification object];
     if (![session isOpen]) {
-        _userRsvp = nil;
+        _userRsvp = FacebookEventRsvpNone;
         _friendsAttending = nil;
     }
     // Force update on next access
@@ -324,3 +341,33 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 }
 
 @end
+
+NSString *FacebookEventRsvpAsLocalizedString(FacebookEventRsvp rsvp)
+{
+    switch (rsvp) {
+        case FacebookEventRsvpNone:
+            return nil;
+        case FacebookEventRsvpAttending:
+            return @"aanwezig";
+        case FacebookEventRsvpUnsure:
+            return @"misschien";
+        case FacebookEventRsvpDeclined:
+            return @"niet aanwezig";
+    }
+}
+
+FacebookEventRsvp FacebookEventRsvpFromString(NSString *rsvp)
+{
+    if ([rsvp isEqualToString:@"attending"]) {
+        return FacebookEventRsvpAttending;
+    }
+    else if ([rsvp isEqualToString:@"unsure"]) {
+        return FacebookEventRsvpUnsure;
+    }
+    else if ([rsvp isEqualToString:@"declined"]) {
+        return FacebookEventRsvpDeclined;
+    }
+    else {
+        return FacebookEventRsvpNone;
+    }
+}
