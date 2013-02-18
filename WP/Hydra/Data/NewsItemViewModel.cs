@@ -48,7 +48,8 @@ namespace Hydra.Data
         [DataMember(Name = "highlighted")]
         public bool IsHighLighted
         {
-            get; set;
+            get;
+            set;
         }
 
         [DataMember(Name = "title")]
@@ -107,7 +108,7 @@ namespace Hydra.Data
         {
             get
             {
-                DateTime itemDateTime = DateTime.Parse(_date);
+                var itemDateTime = DateTime.Parse(_date);
                 return itemDateTime.ToString("g", new CultureInfo("nl-BE"));
             }
             set
@@ -138,13 +139,14 @@ namespace Hydra.Data
         public string In { get; set; }
 
         private string _fn;
-        
+
         [DataMember(Name = "full_name")]
-        public string Fn { 
+        public string Fn
+        {
             get { return _fn ?? "Onbekend"; }
             set
             {
-                    _fn = value;
+                _fn = value;
             }
         }
         [DataMember(Name = "display_name")]
