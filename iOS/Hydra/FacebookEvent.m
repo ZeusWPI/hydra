@@ -244,11 +244,14 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
     }
     // Check for permissions
     else if (![fb.permissions containsObject:@"rsvp_event"]) {
+        self.userRsvpUpdating = YES;
+
         NSLog(@"Requesting publishPermission 'rsvp_event'");
         [fb reauthorizeWithPublishPermissions:@[ @"rsvp_event" ]
                               defaultAudience:FBSessionDefaultAudienceFriends
                             completionHandler:^(FBSession *session, NSError *error) {
             if (error) {
+                self.userRsvpUpdating = NO;
                 AppDelegate *delegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
                 [delegate handleError:error];
             }
@@ -258,9 +261,12 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         }];
     }
     else {
+        self.userRsvpUpdating = YES;
+
         FBRequest *req = [self graphRequestForRsvp:userRsvp];
         NSLog(@"POSTing presence to %@", req.graphPath);
         [req startWithCompletionHandler:^(FBRequestConnection *c, id result, NSError *error) {
+            self.userRsvpUpdating = NO;
             if (error) {
                 AppDelegate *delegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
                 [delegate handleError:error];

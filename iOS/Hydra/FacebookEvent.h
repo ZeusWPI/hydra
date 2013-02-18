@@ -30,6 +30,7 @@ FacebookEventRsvp FacebookEventRsvpFromString(NSString *rsvp);
 @property (nonatomic, assign) NSUInteger attendees;
 @property (nonatomic, strong) NSArray *friendsAttending;
 @property (nonatomic, assign) FacebookEventRsvp userRsvp;
+@property (nonatomic, assign) BOOL userRsvpUpdating;
 
 - (id)initWithEventId:(NSString *)eventId;
 - (void)update;

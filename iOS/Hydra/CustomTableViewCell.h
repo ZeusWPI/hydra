@@ -11,6 +11,8 @@
 @interface CustomTableViewCell : UITableViewCell
 
 @property (nonatomic, assign) BOOL alignToTop;
+@property (nonatomic, assign) BOOL forceCenter;
+
 @property (nonatomic, unsafe_unretained) UIView *customView;
 
 @end

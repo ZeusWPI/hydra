@@ -23,6 +23,15 @@
     }
 }
 
+- (void)setForceCenter:(BOOL)forceCenter
+{
+    if (forceCenter) {
+        self.textLabel.textAlignment = NSTextAlignmentCenter;
+        self.detailTextLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    _forceCenter = forceCenter;
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -35,6 +44,21 @@
 
         CGRect detailLabelFrame = self.detailTextLabel.frame;
         detailLabelFrame.origin.y = 10;
+        self.detailTextLabel.frame = detailLabelFrame;
+    }
+
+    // Force centering label in UITableViewCellStyleSubtitle
+    if (self.forceCenter) {
+        CGFloat contentWidth = self.contentView.frame.size.width;
+
+        CGRect textLabelFrame = self.textLabel.frame;
+        textLabelFrame.origin.x = 0;
+        textLabelFrame.size.width = contentWidth;
+        self.textLabel.frame = textLabelFrame;
+
+        CGRect detailLabelFrame = self.detailTextLabel.frame;
+        detailLabelFrame.origin.x = 0;
+        detailLabelFrame.size.width = contentWidth;
         self.detailTextLabel.frame = detailLabelFrame;
     }
 }

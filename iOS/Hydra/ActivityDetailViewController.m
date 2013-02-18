@@ -43,7 +43,6 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIView *friendsView;
 @property (nonatomic, strong) UITextView *descriptionView;
-@property (nonatomic, strong) UILabel *rsvpLabel;
 
 @end
 
@@ -448,43 +447,46 @@
     static NSString *CellIdentifier = @"ActivityDetailButtonCell";
     CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                           reuseIdentifier:CellIdentifier];
+        cell.forceCenter = YES;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.textLabel.textColor = [UIColor H_detailLabelTextColor];
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
-        cell.textLabel.numberOfLines = 0;
-        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
+        cell.detailTextLabel.backgroundColor = [UIColor clearColor];
     }
     else {
         cell.customView = nil;
     }
 
-    FacebookEvent *event = self.activity.facebookEvent;
+    FacebookEvent *fbEvent = self.activity.facebookEvent;
     if (row == kRsvpActionRow) {
-        if (!event.userRsvp || event.userRsvp == FacebookEventRsvpNone) {
+        if (!fbEvent.userRsvp || fbEvent.userRsvp == FacebookEventRsvpNone) {
             cell.textLabel.text = @"Bevestig aanwezigheid";
         }
         else {
-            cell.textLabel.text = @"Aanwezigheid wijzigen\n ";
+            cell.textLabel.text = @"Aanwezigheid wijzigen";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"Momenteel sta je op '%@'",
+                                         FacebookEventRsvpAsLocalizedString(fbEvent.userRsvp)];
 
-            if (!self.rsvpLabel) {
-                CGRect detailFrame = CGRectMake(0, 24, cell.contentView.bounds.size.width, 16);
-                self.rsvpLabel = [[UILabel alloc] initWithFrame:detailFrame];
-                self.rsvpLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                self.rsvpLabel.backgroundColor = [UIColor clearColor];
-                self.rsvpLabel.font = [UIFont systemFontOfSize:13];
-                self.rsvpLabel.textAlignment = UITextAlignmentCenter;
-                self.rsvpLabel.textColor = [UIColor colorWithWhite:0.4 alpha:1];
-                self.rsvpLabel.highlightedTextColor = [UIColor colorWithWhite:0.8 alpha:1];
+            if (fbEvent.userRsvpUpdating) {
+                UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                                    initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                CGRect spinnerFrame = spinner.frame;
+                spinnerFrame.origin.x = 10;
+                spinnerFrame.origin.y = roundf(0.5 * (cell.contentView.bounds.size.height - spinnerFrame.size.height));
+                spinner.frame = spinnerFrame;
+                spinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+                                         | UIViewAutoresizingFlexibleBottomMargin;
+                [spinner startAnimating];
+                cell.customView = spinner;
             }
-            self.rsvpLabel.text = [NSString stringWithFormat:@"Momenteel sta je op '%@'",
-                                   FacebookEventRsvpAsLocalizedString(event.userRsvp)];
-            cell.customView = self.rsvpLabel;
         }
     }
     else if (row == kCalendarActionRow) {
         cell.textLabel.text = @"Toevoegen aan agenda";
+        cell.detailTextLabel.text = nil;
     }
 
     return cell;
@@ -547,7 +549,6 @@
                                               cancelButtonTitle:@"Annuleren" destructiveButtonTitle:nil
                                               otherButtonTitles:@"Aanwezig", @"Misschien", @"Niet aanwezig", nil];
                 [actionSheet showInView:self.view];
-                [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
             else if (row == kCalendarActionRow) {
                 [self addEventToCalendar];
@@ -626,11 +627,18 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex <= 3) {
-        // TODO: show some kind of spinner to indicate activity
+    if (buttonIndex < 3) {
         FacebookEventRsvp answer = buttonIndex + 1;
         self.activity.facebookEvent.userRsvp = answer;
     }
+
+    // Update view (show waiting indicator)
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    [self.tableView beginUpdates];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
 }
 
 #pragma mark - Segmented control
