@@ -151,6 +151,7 @@
 		F5C46190166E442000874D79 /* navigation-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5C4618C166E442000874D79 /* navigation-down@2x.png */; };
 		F5C46191166E442000874D79 /* navigation-up.png in Resources */ = {isa = PBXBuildFile; fileRef = F5C4618D166E442000874D79 /* navigation-up.png */; };
 		F5C46192166E442000874D79 /* navigation-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5C4618E166E442000874D79 /* navigation-up@2x.png */; };
+		F5C6093816D2DFCB0043BD44 /* PreferencesService.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C6093716D2DFCB0043BD44 /* PreferencesService.m */; };
 		F5CE522216C2BDA70033A52B /* Errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5CE522016C2BDA70033A52B /* Errors.strings */; };
 		F5CFAA3D15BD9B87008E75B0 /* info-fietsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */; };
 		F5D2B6B515EFE2DE003EA54C /* button-news@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D2B6B415EFE2DE003EA54C /* button-news@2x.png */; };
@@ -393,6 +394,8 @@
 		F5C4618C166E442000874D79 /* navigation-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-down@2x.png"; sourceTree = "<group>"; };
 		F5C4618D166E442000874D79 /* navigation-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-up.png"; sourceTree = "<group>"; };
 		F5C4618E166E442000874D79 /* navigation-up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation-up@2x.png"; sourceTree = "<group>"; };
+		F5C6093616D2DFCB0043BD44 /* PreferencesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesService.h; sourceTree = "<group>"; };
+		F5C6093716D2DFCB0043BD44 /* PreferencesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesService.m; sourceTree = "<group>"; };
 		F5CE522116C2BDA70033A52B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Hydra/nl.lproj/Errors.strings; sourceTree = "<group>"; };
 		F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-fietsen.html"; sourceTree = "<group>"; };
 		F5D2B6B415EFE2DE003EA54C /* button-news@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-news@2x.png"; sourceTree = "<group>"; };
@@ -535,6 +538,8 @@
 				F5D36BC015B5BDA500B6E017 /* SchamperStore.m */,
 				3B93FBA81630969900C962DC /* UrgentPlayer.h */,
 				3B93FBA91630969900C962DC /* UrgentPlayer.m */,
+				F5C6093616D2DFCB0043BD44 /* PreferencesService.h */,
+				F5C6093716D2DFCB0043BD44 /* PreferencesService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1215,6 +1220,7 @@
 				F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */,
 				F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */,
 				F5ACC3B116D2694000626EAE /* CustomTableViewCell.m in Sources */,
+				F5C6093816D2DFCB0043BD44 /* PreferencesService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

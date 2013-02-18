@@ -9,8 +9,7 @@
 #import "AssociationPreferenceController.h"
 #import "Association.h"
 #import "AssociationStore.h"
-
-#define kAssociationsPref @"preferredAssociations"
+#import "PreferencesService.h"
 
 @interface AssociationPreferenceController () <UISearchDisplayDelegate>
 
@@ -28,10 +27,6 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
         [self loadAssocations];
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:kAssociationsPref] == nil){
-            [[NSUserDefaults standardUserDefaults] setObject:[NSArray array]
-                                                      forKey:kAssociationsPref];
-        }
     }
     return self;
 }
@@ -185,7 +180,7 @@
     }
     cell.textLabel.text = association.fullName;
 
-    NSArray *preferred = [[NSUserDefaults standardUserDefaults] objectForKey:kAssociationsPref];
+    NSArray *preferred = [PreferencesService sharedService].preferredAssociations;
     if ([preferred containsObject:association.internalName]){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
@@ -208,14 +203,15 @@
         name = [self.filteredAssociations[convent][indexPath.row] internalName];
     }
 
-    NSMutableArray *preferred = [[[NSUserDefaults standardUserDefaults] objectForKey:kAssociationsPref] mutableCopy];
+    PreferencesService *prefs = [PreferencesService sharedService];
+    NSMutableArray *preferred = [prefs.preferredAssociations mutableCopy];
     if ([preferred containsObject:name]) {
         [preferred removeObject:name];
     }
     else {
         [preferred addObject:name];
     }
-    [[NSUserDefaults standardUserDefaults] setObject:preferred forKey:kAssociationsPref];
+    prefs.preferredAssociations = preferred;
 
     [tableView reloadRowsAtIndexPaths:@[indexPath]
                      withRowAnimation:UITableViewRowAnimationAutomatic];
