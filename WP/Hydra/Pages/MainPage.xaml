@@ -245,22 +245,22 @@
             </phone:PivotItem>
 
 
-            <phone:PivotItem x:Name="urgent" Header="URGentFM">
+            <phone:PivotItem x:Name="urgent" Header="URGENT.fm" Margin="12,10,12,0">
                 <Grid>
                     <Image HorizontalAlignment="Left" Height="689" VerticalAlignment="Top" Width="473" Margin="-17,-9,0,-77" Source="/Assets/urgent-bg@2x.jpg"/>
                     <Image HorizontalAlignment="Left" Height="264" Margin="82,123,0,0" VerticalAlignment="Top" Width="264" Source="/Assets/btn-urgent-bg-highlighted@2x.png"/>
                     <Image HorizontalAlignment="Left" x:Name="Play" Height="120" Margin="155,190,0,0" VerticalAlignment="Top" Width="120"/>
-                    <Image HorizontalAlignment="Left" Height="108" Margin="10,10,0,0" VerticalAlignment="Top" Width="436" Source="/Assets/urgent-logo@2x.png"/>
+                    <!--<Image HorizontalAlignment="Left" Height="108" Margin="10,10,0,0" VerticalAlignment="Top" Width="436" Source="/Assets/urgent-logo@2x.png"/>-->
                     <Grid Background="SkyBlue" Margin="22,385,0,0"  Width="424" Height="81" x:Name="PlayingGrid" Visibility="Collapsed">
                         <TextBlock HorizontalAlignment="Left" Margin="22,385,0,0" TextWrapping="Wrap"  x:Name="NowPlayingTrack" VerticalAlignment="Top" Width="424" Height="81" Foreground="White" />
                     </Grid>
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Name="NowPlayingProgram" VerticalAlignment="Top" Width="436" Height="72" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="White"/>
                 </Grid>
                 
             </phone:PivotItem>
 
         </phone:Pivot>
-        <TextBlock HorizontalAlignment="Left" Margin="24,252,0,0" TextWrapping="Wrap" Name="NowPlayingProgram" VerticalAlignment="Top" Width="293" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="LightSlateGray"/>
+        
 
         <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
 

@@ -13,13 +13,14 @@ using Microsoft.Phone.Shell;
 
 namespace Hydra.Pages
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage
     {
         private int _restoItem;
-        private DispatcherTimer _playerPoller;
+        private DispatcherTimer _trackPoller,_programPoller;
         private const string UrgentProgramApi = "http://urgent.fm/nowplaying/program.php";
         private const string UrgentTrackApi = "http://urgent.fm/nowplaying/livetrack.txt";
-        private const string HighResolutionStreamng="http://195.10.10.226/urgent/high.mp3?GKID=bf069408786e11e2a0e500163e914f68&fspref=aHR0cDovL3d3dy51cmdlbnQuZm0vbHVpc3Rlcm9ubGluZQ%3D%3D";
+        private const string HighResolutionStreamng = "http://195.10.10.226/urgent/high.mp3?GKID=bf069408786e11e2a0e500163e914f68&fspref=aHR0cDovL3d3dy51cmdlbnQuZm0vbHVpc3Rlcm9ubGluZQ%3D%3D";
+        private string _trackName, _programName;
         // Constructor
         public MainPage()
         {
@@ -31,7 +32,7 @@ namespace Hydra.Pages
             InitializeComponent();
             _restoItem = 0;
             ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
-            var dt = new DispatcherTimer { Interval = new TimeSpan(0,1,0,0) };
+            var dt = new DispatcherTimer { Interval = new TimeSpan(0, 1, 0, 0) };
             dt.Tick += LoadData;
             dt.Start();
             mainPivot.IsLocked = true;
@@ -151,7 +152,7 @@ namespace Hydra.Pages
                 ApplicationBar = (ApplicationBar)Resources["RestoAppBar"];
                 EnableButtons();
             }
-            else if(header != null && header.Equals("urgent"))
+            else if (header != null && header.Equals("urgent"))
             {
                 ApplicationBar = (ApplicationBar)Resources["UrgentAppBar"];
             }
@@ -211,7 +212,7 @@ namespace Hydra.Pages
         {
             if (BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) ||
                 BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted)) return;
-            
+
             var audioTrack =
                 new AudioTrack(
                     new Uri(HighResolutionStreamng),
@@ -222,50 +223,69 @@ namespace Hydra.Pages
                     null,
                     EnabledPlayerControls.Pause);
             BackgroundAudioPlayer.Instance.Track = audioTrack;
-            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-play@2x.png",UriKind.RelativeOrAbsolute));
+            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-play@2x.png", UriKind.RelativeOrAbsolute));
             StartPolling(true);
-            PollForTrackChange(null,null);
+            PollForProgramChange(null,null);
+            PollForTrackChange(null, null);
         }
 
         private void StartPolling(bool start)
         {
             if (start)
             {
-                if (_playerPoller == null)
+
+                if(_programPoller==null)
                 {
-                    _playerPoller = new DispatcherTimer() {Interval = new TimeSpan(0, 0, 0, 30)};
-                    _playerPoller.Tick += PollForTrackChange;
+                    _programPoller = new DispatcherTimer {Interval = new TimeSpan(0, 0, 30, 0)};
+                    _programPoller.Tick += PollForProgramChange;
                 }
-                _playerPoller.Start();
-                
+                _programPoller.Start();
+                if (_trackPoller == null)
+                {
+                    _trackPoller = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 30) };
+                    _trackPoller.Tick += PollForTrackChange;
+                }
+                _trackPoller.Start();
+
             }
             else
             {
-                if(_playerPoller!=null)
+                if (_trackPoller != null)
                 {
-                    _playerPoller.Stop();
+                    _trackPoller.Stop();
+                }
+                if(_programPoller!=null)
+                {
+                    _programPoller.Stop();
                 }
             }
         }
 
-        private  void PollForTrackChange(object sender, EventArgs e)
+        private void PollForTrackChange(object sender, EventArgs e)
         {
             var fetch = new WebClient();
             fetch.DownloadStringCompleted += ProcessTrack;
-            fetch.DownloadStringAsync(new Uri(UrgentTrackApi)); 
-            var fetchTwo = new WebClient();
-            fetchTwo.DownloadStringCompleted += ProcessProgram;
-            fetchTwo.DownloadStringAsync(new Uri(UrgentProgramApi));
+            fetch.DownloadStringAsync(new Uri(UrgentTrackApi));
+        }
+
+        private void PollForProgramChange(object sender, EventArgs e)
+        {
+            var fetch = new WebClient();
+            fetch.DownloadStringCompleted += ProcessProgram;
+            fetch.DownloadStringAsync(new Uri(UrgentProgramApi));
         }
 
         private void ProcessProgram(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e != null && (e.Error != null || e.Cancelled)) return;
-            if(e==null) return;
-            NowPlayingProgram.Text = "U luistert naar "+e.Result;
+            if (e == null) return;
+            if (_programName == null) _programName = e.Result;
+            else if(_programName.Equals(e.Result) && NowPlayingProgram.Text!="") return;
+            else _programName = e.Result;
+            NowPlayingProgram.Text = "U luistert naar " + _programName;
             var trackInstance = BackgroundAudioPlayer.Instance.Track;
             trackInstance.BeginEdit();
-            trackInstance.Album = e.Result;
+            trackInstance.Album = _programName;
             trackInstance.EndEdit();
         }
 
@@ -273,23 +293,40 @@ namespace Hydra.Pages
         {
             if (e != null && (e.Error != null || e.Cancelled)) return;
             if (e == null) return;
-            var track = e.Result;
-            if (track.Equals("Geen plaat(info)")) return;
+            if (_trackName == null) _trackName = e.Result;
+            else if (_trackName.Equals(e.Result) && PlayingGrid.Visibility.Equals(Visibility.Visible)) return;
+            else _trackName = e.Result;
+            if (_trackName.Equals("Geen plaat(info)"))
+            {
+                if (_programName != null) _trackName = _programName;
+
+            }
             var trackInstance = BackgroundAudioPlayer.Instance.Track;
             trackInstance.BeginEdit();
-            trackInstance.Artist = track.Substring(0, track.IndexOf("-", System.StringComparison.Ordinal));
-            trackInstance.Title = track.Substring(track.IndexOf("-", System.StringComparison.Ordinal));
+            if (_trackName.Contains("-"))
+            {
+                trackInstance.Artist = _trackName.Substring(0, _trackName.IndexOf("-", System.StringComparison.Ordinal));
+                trackInstance.Title = _trackName.Substring(_trackName.IndexOf("-", System.StringComparison.Ordinal));
+            }
+            else
+            {
+                trackInstance.Title = _trackName;
+            }
             trackInstance.EndEdit();
-            NowPlayingTrack.Text = @"Speelt nu 
-                                                        "+track;
-            PlayingGrid.Visibility=Visibility.Visible;
+            if (!_trackName.Equals("Geen plaat(info)") && !_trackName.Equals(_programName))
+            {
+                NowPlayingTrack.Text = @"Speelt nu 
+                                                        " + _trackName;
+                PlayingGrid.Visibility = Visibility.Visible;
+            }
+
         }
 
         private void StopButtonAppBar(object sender, EventArgs e)
         {
-            if (!(BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing)||BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted)||BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Paused))) return;
+            if (!(BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) || BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted) || BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Paused))) return;
             StartPolling(false);
-            PlayingGrid.Visibility=Visibility.Collapsed;
+            PlayingGrid.Visibility = Visibility.Collapsed;
             BackgroundAudioPlayer.Instance.Stop();
             Play.Source = null;
             PlayingGrid.Visibility = Visibility.Collapsed;
@@ -302,7 +339,7 @@ namespace Hydra.Pages
             if (!(BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) || BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted))) return;
             StartPolling(false);
             BackgroundAudioPlayer.Instance.Pause();
-            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-pause@2x.png",UriKind.RelativeOrAbsolute));
+            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-pause@2x.png", UriKind.RelativeOrAbsolute));
         }
 
     }
