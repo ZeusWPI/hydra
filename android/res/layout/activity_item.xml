@@ -107,6 +107,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
+           
             <TextView android:id="@+id/activity_item_guests_title"
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
@@ -115,12 +116,27 @@
                       android:textStyle="bold"
                       android:text="@string/activity_item_guests_title">
             </TextView>
-
-            <TextView android:id="@+id/activity_item_guests"
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:layout_weight="3">
-            </TextView>
+            
+            <LinearLayout 
+                android:id="@+id/activity_item_guests_container"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+                
+                <TextView android:id="@+id/activity_item_guests"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content">
+                </TextView>
+                
+                
+                <TextView android:id="@+id/activity_item_friends"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content">
+                </TextView>
+                
+            </LinearLayout>
+            
         </LinearLayout>
         
         <TextView android:id="@+id/activity_item_content_title"

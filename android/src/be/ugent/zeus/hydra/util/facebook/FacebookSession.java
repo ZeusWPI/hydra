@@ -5,7 +5,6 @@
  */
 package be.ugent.zeus.hydra.util.facebook;
 
-import android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -25,24 +24,32 @@ public class FacebookSession {
     private Context context;
     private Session.StatusCallback statusCallback = new SessionStatusCallback();
 
-    protected FacebookSession(Activity activity, Context context) {
+    protected FacebookSession(Bundle savedInstanceState, Activity activity, Context context) {
         this.activity = activity;
         this.context = context;
-        
+
         Session session = Session.getActiveSession();
         if (session == null) {
-            session = new Session.Builder(context)
-                .setApplicationId(APP_ID)
-                .build();
-            session.addCallback(statusCallback);
+            if (savedInstanceState != null) {
+                session = Session.restoreSession(context, null, statusCallback, savedInstanceState);
+            }
+            if (session == null) {
+                session = new Session.Builder(context)
+                    .setApplicationId(APP_ID)
+                    .build();
+            }
             Session.setActiveSession(session);
+            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+                session.openForRead(new Session.OpenRequest(activity).setCallback(statusCallback));
+            }
         }
+
     }
 
-    public static FacebookSession getInstance(Activity activity, Context context) {
+    public static FacebookSession getInstance(Bundle savedInstanceState, Activity activity, Context context) {
 
         if (fbSession == null) {
-            fbSession = new FacebookSession(activity, context);
+            fbSession = new FacebookSession(savedInstanceState, activity, context);
         }
 
         return fbSession;
@@ -57,13 +64,13 @@ public class FacebookSession {
         Session.setActiveSession(session);
     }
 
-    public void login(Activity activity, boolean allowLoginUI) {
+    public void login(Activity activity) {
         Session session = Session.getActiveSession();
-
+        
         if (!session.isOpened() && !session.isClosed()) {
             session.openForRead(new Session.OpenRequest(activity).setCallback(statusCallback));
         } else {
-            Session.openActiveSession(activity, allowLoginUI, statusCallback);
+            Session.openActiveSession(activity, true, statusCallback);
         }
     }
 
@@ -82,10 +89,10 @@ public class FacebookSession {
     }
 
     public Request requestWithQuery(String query) {
-        
+
         Bundle bundle = new Bundle();
         bundle.putString("q", query);
-        
+
         return requestWithGraphPath("/fql", bundle, "GET");
     }
 
@@ -101,12 +108,12 @@ public class FacebookSession {
         }
 
         // Still no session? Use the default key
-        if(session == null) {
-            bundle.putString("acces_token", ACCESS_TOKEN);
+        if (session == null) {
+            bundle.putString("access_token", ACCESS_TOKEN);
         }
 
         return new Request(session, path, bundle, HttpMethod.valueOf(method));
-        
+
     }
 
     private class SessionStatusCallback implements Session.StatusCallback {

@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.Activity;
-import be.ugent.zeus.hydra.util.facebook.FacebookEvent;
+import be.ugent.zeus.hydra.util.facebook.event.Friends;
+import be.ugent.zeus.hydra.util.facebook.event.Info;
 import com.google.analytics.tracking.android.EasyTracker;
 import java.text.SimpleDateFormat;
 
@@ -42,19 +43,16 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         TextView location = (TextView) findViewById(R.id.activity_item_location);
         LinearLayout guestsContainer = (LinearLayout) findViewById(R.id.activity_item_guests_container);
         TextView guests = (TextView) findViewById(R.id.activity_item_guests);
+        TextView friends = (TextView) findViewById(R.id.activity_item_friends);
         TextView content = (TextView) findViewById(R.id.activity_item_content);
         title.setText(item.title);
 
-
-        String gasten = "";
-        FacebookEvent fbEvent = null;
         if(item.facebook_id == null) {
             ((ViewManager) image.getParent()).removeView(image);
             ((ViewManager) guestsContainer.getParent()).removeView(guestsContainer);
         } else {
-            fbEvent = new FacebookEvent(getApplicationContext(), this, item.facebook_id);
-            fbEvent.sharedInit();
-            fbEvent.update();
+            new Info(icicle, getApplicationContext(), this, item.facebook_id, guests, image).execute();
+//            new Friends(icicle, getApplicationContext(), this, item.facebook_id, friends).execute();
         }
         
         String poster = item.association.display_name;
@@ -65,13 +63,10 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         String datum =
             new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).format(item.startDate);
 
-        
-        image.setImageResource(R.drawable.urgent);
         title.setText(item.title);
         date.setText(datum);
         association.setText(poster);
         location.setText(item.location);
-        guests.setText(gasten);
 
         if (item.description != null) {
             content.setText(Html.fromHtml(item.description.replace("\n", "<br>")));
