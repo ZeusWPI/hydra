@@ -59,8 +59,16 @@ public class Urgent extends AbstractSherlockActivity {
             public void onClick(View arg0) {
                 if (MusicService.mState != MusicService.State.Playing) {
                     btnPlay.setImageResource(R.drawable.button_urgent_pause);
+
+                    handler.post(refresh);
+
                 } else {
                     btnPlay.setImageResource(R.drawable.button_urgent_play);
+
+                    handler.removeCallbacks(refresh);
+                    show.setText("");
+                    current.setVisibility(2);
+                    previous.setVisibility(2);
                 }
                 startService(new Intent(MusicService.ACTION_TOGGLE_PLAYBACK));
             }
