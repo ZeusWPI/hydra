@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import be.ugent.zeus.hydra.Hydra;
 import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.Activity;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
@@ -95,7 +96,7 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
             holder = (HeaderViewHolder) convertView.getTag();
         }
 
-        String headerChar = new SimpleDateFormat("dd MMMM").format(activities[position].startDate);
+        String headerChar = new SimpleDateFormat("dd MMMM", Hydra.LOCALE).format(activities[position].startDate);
         holder.header_text.setText(headerChar);
         return convertView;
     }
