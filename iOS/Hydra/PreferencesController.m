@@ -10,13 +10,11 @@
 #import "AssociationPreferenceController.h"
 #import "FacebookSession.h"
 #import "WebViewController.h"
+#import "PreferencesService.h"
 
 #define kFacebookSection 0
 #define kFilterSection 1
 #define kInfoSection 2
-
-#define kFilterPref @"useAssociationFilter"
-#define kAssociationsPref @"preferredAssociations"
 
 #define kSwitchTag 500
 
@@ -97,7 +95,7 @@
         [[cell viewWithTag:kSwitchTag] removeFromSuperview];
     }
 
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    PreferencesService *prefs = [PreferencesService sharedService];
     switch (indexPath.section) {
         case kFilterSection:
             switch (indexPath.row) {
@@ -108,7 +106,7 @@
                     CGRect toggleRect = CGRectMake(225, 9, 0, 0);
                     UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
                     toggle.tag = kSwitchTag;
-                    toggle.on = ![settings boolForKey:kFilterPref];
+                    toggle.on = !prefs.filterAssociations;
                     [toggle addTarget:self action:@selector(filterSwitch:didToggle:)
                                  forControlEvents:UIControlEventValueChanged];
                     [cell addSubview:toggle];
@@ -116,11 +114,11 @@
 
                 case 1: {
                     cell.textLabel.text = @"Selectie";
-                    NSArray *associations = [settings objectForKey:kAssociationsPref];
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@", associations.count,
-                                                 associations.count == 1 ? @"vereniging" : @"verenigingen"];
+                    NSUInteger count = prefs.preferredAssociations.count;
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@", count,
+                                                 count == 1 ? @"vereniging" : @"verenigingen"];
 
-                    if ([settings boolForKey:kFilterPref]) {
+                    if (prefs.filterAssociations) {
                         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                     }
@@ -240,8 +238,8 @@
 
 - (void)filterSwitch:(UISwitch *)toggle didToggle:(NSNotification *)notification
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    [settings setBool:!toggle.on forKey:kFilterPref];
+    PreferencesService *prefs = [PreferencesService sharedService];
+    prefs.filterAssociations = !toggle.on;
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:kFilterSection];
     [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -252,8 +250,8 @@
     switch (indexPath.section) {
         case kFilterSection:
             if (indexPath.row == 1) {
-                NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-                if ([settings boolForKey:kFilterPref]) {
+                PreferencesService *prefs = [PreferencesService sharedService];
+                if (prefs.filterAssociations) {
                     UIViewController *c = [[AssociationPreferenceController alloc] init];
                     [self.navigationController pushViewController:c animated:YES];
                 }

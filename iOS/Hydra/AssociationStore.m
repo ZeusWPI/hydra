@@ -255,9 +255,11 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)facebookEventUpdated:(NSNotification *)notification
 {
-    // TODO: schedule it for within 30 seconds so multiple updates
-    // can be combined
-    [self updateStoreCache];
+    // Call method in 10 seconds so multiple changes are written at once
+    [[self class] cancelPreviousPerformRequestsWithTarget:self
+                                                 selector:@selector(updateStoreCache)
+                                                   object:nil];
+    [self performSelector:@selector(updateStoreCache) withObject:nil afterDelay:10];
 }
 
 @end

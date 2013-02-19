@@ -53,12 +53,17 @@ namespace Hydra.Data
             ActivityItems = new ObservableCollection<ActivityItemsViewModel>();
             SchamperItems = new ObservableCollection<SchamperItemsViewModel>();
             RestoItems = new ObservableCollection<RestoItemsViewModel>();
-            HasConnection = (NetworkInterface.NetworkInterfaceType != NetworkInterfaceType.None);
             _offset = 0;
             _fromCache = false;
         }
 
-        public bool HasConnection { get; set; }
+        public bool HasConnection
+        {
+            get
+            {
+                 return NetworkInterface.NetworkInterfaceType != NetworkInterfaceType.None;
+            }
+        }
 
         public bool IsChecked
         {
@@ -98,7 +103,7 @@ namespace Hydra.Data
             if (!_fromCache && !HasConnection)
                 _fromCache = true;
             LoadNews();
-            LoadResto(_offset);
+            LoadResto();
             LoadActivities();
             LoadSchamper();
         }
@@ -234,7 +239,7 @@ namespace Hydra.Data
 
 
         }
-        public void LoadResto(int offset)
+        public void LoadResto()
         {
             _week = new CultureInfo("nl-BE").Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay,
                                                                         DayOfWeek.Monday);
@@ -245,9 +250,12 @@ namespace Hydra.Data
                 _resto = false;
                 fetch.DownloadStringCompleted += ProcessResto;
                 fetch.DownloadStringAsync(new Uri(RestoApi + (_week + _offset) + ".json"));
-                var meta = new WebClient();
-                meta.DownloadStringCompleted += ProcessMetaResto;
-                meta.DownloadStringAsync(new Uri(MetaApi));
+                if (_offset == 0)
+                {
+                    var meta = new WebClient();
+                    meta.DownloadStringCompleted += ProcessMetaResto;
+                    meta.DownloadStringAsync(new Uri(MetaApi));
+                }
             }
             else
             {
@@ -259,7 +267,7 @@ namespace Hydra.Data
 
         void ProcessMetaResto(object sender, DownloadStringCompletedEventArgs e)
         {
-            MemoryStream ms = null;
+            MemoryStream ms;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
                 _meta = true;
@@ -280,7 +288,7 @@ namespace Hydra.Data
 
         public void ProcessResto(object sender, DownloadStringCompletedEventArgs e)
         {
-            String ms = null;
+            String ms;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
                 _resto = true; 
@@ -295,7 +303,7 @@ namespace Hydra.Data
 
             foreach (var day in ob)
             {
-                if (DateTime.Parse(day.Key).Date < DateTime.Now.Date) continue;
+                if (DateTime.Parse(day.Key,new CultureInfo("nl-BE")).Date < DateTime.Now.Date) continue;
                 bool open;
                 try
                 {
@@ -323,7 +331,10 @@ namespace Hydra.Data
                     break;
             }
             if (RestoItems.Count < 7)
-                LoadResto(_offset++);
+            {
+                _offset++;
+                LoadResto();
+            }
             _resto = true;
            
 
@@ -332,7 +343,7 @@ namespace Hydra.Data
 
         public void ProcessNews(object sender, DownloadStringCompletedEventArgs e)
         {
-            MemoryStream ms = null;
+            MemoryStream ms ;
             if ((e == null && !_fromCache) || (e!=null&&(e.Error != null || e.Cancelled)))
             {
                 _news = true;
@@ -372,7 +383,7 @@ namespace Hydra.Data
 
         public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
         {
-            MemoryStream ms = null;
+            MemoryStream ms;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
                 _activity = true;
@@ -414,60 +425,54 @@ namespace Hydra.Data
             var document = XElement.Load("Resources/Associations.plist");
 
 
-            foreach (var element in document.Elements())
+            foreach (var dict in from element in document.Elements() where element.Name == "array" from dict in element.Elements(XName.Get("dict")) select dict)
             {
-                if (element.Name == "array")
+                //                   <dict>
+                //    <key>displayName</key>
+                //    <string>Vlaamse Biomedische Kring</string>
+                //    <key>internalName</key>
+                //    <string>VBK</string>
+                //    <key>parentAssociation</key>
+                //    <string>FKCENTRAAL</string>
+                //</dict>
+                //<dict>
+                //    <key>displayName</key>
+                //    <string>ChiSAG</string>
+                //    <key>fullName</key>
+                //    <string>Chinese Student Association Ghent</string>
+                //    <key>internalName</key>
+                //    <string>CHISAG</string>
+                //    <key>parentAssociation</key>
+                //    <string>IKCENTRAAL</string>
+                //</dict>
+                foreach (var node in dict.Elements())
                 {
-                    foreach (var dict in element.Elements(XName.Get("dict")))
+                    string display = null, intern;
+                    string parent;
+                    Association asso = null;
+                    var el = (XElement)node.NextNode;
+                    if (node.Value.Equals("displayName")) display = el.Value;
+                    el = (XElement)node.NextNode.NextNode;
+                    if (el.Value.Equals("internalName"))
                     {
-                        //                   <dict>
-                        //    <key>displayName</key>
-                        //    <string>Vlaamse Biomedische Kring</string>
-                        //    <key>internalName</key>
-                        //    <string>VBK</string>
-                        //    <key>parentAssociation</key>
-                        //    <string>FKCENTRAAL</string>
-                        //</dict>
-                        //<dict>
-                        //    <key>displayName</key>
-                        //    <string>ChiSAG</string>
-                        //    <key>fullName</key>
-                        //    <string>Chinese Student Association Ghent</string>
-                        //    <key>internalName</key>
-                        //    <string>CHISAG</string>
-                        //    <key>parentAssociation</key>
-                        //    <string>IKCENTRAAL</string>
-                        //</dict>
-                        foreach (var node in dict.Elements())
-                        {
-                            string display = null, intern;
-                            string parent;
-                            Association asso = null;
-                            var el = (XElement)node.NextNode;
-                            if (node.Value.Equals("displayName")) display = el.Value;
-                            el = (XElement)node.NextNode.NextNode;
-                            if (el.Value.Equals("internalName"))
-                            {
-                                intern = ((XElement)el.NextNode).Value;
-                                el = (XElement)el.NextNode.NextNode;
-                                parent = ((XElement)el.NextNode).Value;
-                                asso = new Association { In = intern, Fn = display, Dn = display, Parent = parent };
-                            }
-                            else if (el.Value.Equals("fullName"))
-                            {
-                                var full = ((XElement)el.NextNode).Value;
-                                el = (XElement)el.NextNode.NextNode;
-                                intern = ((XElement)el.NextNode).Value;
-                                el = (XElement)el.NextNode.NextNode;
-                                parent = ((XElement)el.NextNode).Value;
-                                asso = new Association { In = intern, Fn = full, Dn = display, Parent = parent };
-                            }
-                            if (asso != null)
-                                Associtions.Add(asso);
-                            break;
-
-                        }
+                        intern = ((XElement)el.NextNode).Value;
+                        el = (XElement)el.NextNode.NextNode;
+                        parent = ((XElement)el.NextNode).Value;
+                        asso = new Association { In = intern, Fn = display, Dn = display, Parent = parent };
                     }
+                    else if (el.Value.Equals("fullName"))
+                    {
+                        var full = ((XElement)el.NextNode).Value;
+                        el = (XElement)el.NextNode.NextNode;
+                        intern = ((XElement)el.NextNode).Value;
+                        el = (XElement)el.NextNode.NextNode;
+                        parent = ((XElement)el.NextNode).Value;
+                        asso = new Association { In = intern, Fn = full, Dn = display, Parent = parent };
+                    }
+                    if (asso != null)
+                        Associtions.Add(asso);
+                    break;
+
                 }
             }
             _asso = true;
@@ -481,44 +486,37 @@ namespace Hydra.Data
             var document = XElement.Load("Resources/info-content.plist");
 
 
-            foreach (var element in document.Elements())
+            foreach (var dict in from element in document.Elements() where element.Name == "array" from dict in element.Elements(XName.Get("dict")) select dict)
             {
-                if (element.Name == "array")
+                string title = null, imagePath = null, link = null;
+                var subcontent = new List<InfoItemsViewModel>();
+                foreach (var node in dict.Elements())
                 {
-                    foreach (var dict in element.Elements(XName.Get("dict")))
+
+                    var el = (XElement)node.NextNode;
+                    if (el != null && node.Value == "title")
                     {
-                        string title = null, imagePath = null, link = null;
-                        var subcontent = new List<InfoItemsViewModel>();
-                        foreach (var node in dict.Elements())
-                        {
 
-                            var el = (XElement)node.NextNode;
-                            if (el != null && node.Value == "title")
-                            {
-
-                                title = el.Value;
-                            }
-                            else if (el != null && node.Value == "image")
-                            {
-
-                                imagePath = el.Value + "@2x";
-                            }
-                            else if (el != null && (node.Value == "html" || node.Value == "url"))
-                            {
-
-                                link = el.Value;
-                            }
-                            else if (node.Value == "subcontent")
-                            {
-                                if (el != null)
-                                    subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel { Title = ((XElement)xElement.NextNode).Value, Link = ((XElement)xElement.NextNode.NextNode.NextNode).Value });
-                            }
-
-                        }
-                        InfoItems.Add(new InfoItemsViewModel { Children = subcontent, ImagePath = imagePath, Link = link, Title = title });
-
+                        title = el.Value;
                     }
+                    else if (el != null && node.Value == "image")
+                    {
+
+                        imagePath = el.Value + "@2x";
+                    }
+                    else if (el != null && (node.Value == "html" || node.Value == "url"))
+                    {
+
+                        link = el.Value;
+                    }
+                    else if (node.Value == "subcontent")
+                    {
+                        if (el != null)
+                            subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel { Title = ((XElement)xElement.NextNode).Value, Link = ((XElement)xElement.NextNode.NextNode.NextNode).Value });
+                    }
+
                 }
+                InfoItems.Add(new InfoItemsViewModel { Children = subcontent, ImagePath = imagePath, Link = link, Title = title });
             }
             _info = true;
            
@@ -526,7 +524,7 @@ namespace Hydra.Data
 
         public void ProcessSchamper(object sender, DownloadStringCompletedEventArgs e)
         {
-            XElement resultElements = null;
+            XElement resultElements;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
                 _schamper = true;
@@ -546,49 +544,45 @@ namespace Hydra.Data
             if (xElement != null)
                 foreach (var schamperItem in xElement.Elements())
                 {
-                    if (schamperItem.Name == "item")
+                    if (schamperItem.Name != "item") continue;
+                    var dc = XNamespace.Get("http://purl.org/dc/elements/1.1/");
+                    string date = null, author = null, title = null, image = null, content = null;
+                    var element = schamperItem.Element(dc + "creator");
+                    if (element != null)
                     {
-                        var dc = XNamespace.Get("http://purl.org/dc/elements/1.1/");
-                        string date = null, author = null, title = null, image = null, content = null;
-                        var element = schamperItem.Element(dc + "creator");
-                        if (element != null)
-                        {
-                            author = element.Value;
-                        }
-                        element = schamperItem.Element("pubDate");
-                        if (element != null)
-                        {
-                            date = element.Value;
-                        }
-                        element = schamperItem.Element(XName.Get("title"));
-                        if (element != null)
-                        {
-                            title = element.Value;
-                        }
-                        element = schamperItem.Element(XName.Get("description"));
-                        if (element != null)
-                        {
-                            content = element.Value;
-                            string[] inputs = { content };
-                            const string pattern = @"(https?:)?//?[^''""<>]+?\.(jpg|jpeg|gif|png)";
-
-                            var rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-
-                            foreach (string input in inputs)
-                            {
-                                MatchCollection matches = rgx.Matches(input);
-                                if (matches.Count > 0)
-                                {
-                                    foreach (Match match in matches)
-                                        image = match.Value;
-                                }
-                            }
-
-
-                        }
-                        if (SchamperItems != null)
-                            SchamperItems.Add(new SchamperItemsViewModel { Author = author, Content = content, ImagePath = image, Title = title, Date = date });
+                        author = element.Value;
                     }
+                    element = schamperItem.Element("pubDate");
+                    if (element != null)
+                    {
+                        date = element.Value;
+                    }
+                    element = schamperItem.Element(XName.Get("title"));
+                    if (element != null)
+                    {
+                        title = element.Value;
+                    }
+                    element = schamperItem.Element(XName.Get("description"));
+                    if (element != null)
+                    {
+                        content = element.Value;
+                        string[] inputs = { content };
+                        const string pattern = @"(https?:)?//?[^''""<>]+?\.(jpg|jpeg|gif|png)";
+
+                        var rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+
+                        foreach (string input in inputs)
+                        {
+                            MatchCollection matches = rgx.Matches(input);
+                            if (matches.Count <= 0) continue;
+                            foreach (Match match in matches)
+                                image = match.Value;
+                        }
+
+
+                    }
+                    if (SchamperItems != null)
+                        SchamperItems.Add(new SchamperItemsViewModel { Author = author, Content = content, ImagePath = image, Title = title, Date = date });
                 }
             _schamper = true;
            

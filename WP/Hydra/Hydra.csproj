@@ -211,7 +211,7 @@
     <Content Include="Assets\info-sports%402x.png" />
     <Content Include="Assets\info-urgent%402x.png" />
     <Content Include="Assets\urgent-bg%402x.jpg" />
-    <Content Include="Assets\urgent-logo%402x.png" />
+    <Content Include="Assets\urgent-nowplaying%402x.jpg" />
     <Content Include="Resources\webview.css" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />

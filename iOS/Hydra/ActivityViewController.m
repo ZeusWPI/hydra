@@ -13,6 +13,7 @@
 #import "NSDate+Utilities.h"
 #import "ActivityDetailViewController.h"
 #import "NSDateFormatter+AppLocale.h"
+#import "PreferencesService.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
 #define kCellTitleLabel 101
@@ -105,10 +106,9 @@
     NSArray *activities = [AssociationStore sharedStore].activities;
 
     // Filter activities
-    // TODO: move stuff to preferences class
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"useAssociationFilter"]) {
-        NSArray *associations = [defaults objectForKey:@"preferredAssociations"];
+    PreferencesService *prefs = [PreferencesService sharedService];
+    if (prefs.filterAssociations) {
+        NSArray *associations = prefs.preferredAssociations;
         NSPredicate *pred = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
             return [associations containsObject:[obj association].internalName] ||
                    [obj highlighted];

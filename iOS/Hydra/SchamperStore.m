@@ -107,10 +107,6 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     if (self.active) return;
     DLog(@"Starting Schamper update");
 
-    // TODO: implement check to see if update is necessary
-    // but allow for 'forced' updates (e.g. pull on tableview)
-    // if not forced: check for internet connection?
-
     // The RKObjectManager must be retained, otherwise reachability notifications
     // will not be received properly and all kinds of weird stuff happen
     if (!self.objectManager) {

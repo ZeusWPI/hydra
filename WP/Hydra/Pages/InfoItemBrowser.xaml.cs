@@ -24,14 +24,15 @@ namespace Hydra.Pages
             try
             {
                 idx = Convert.ToInt32(NavigationContext.QueryString["child"]);
-            }catch(Exception)
+            }
+            catch (Exception)
             {
                 idx = -1;
             }
-            if (item != null && idx<0)
+            if (item != null && idx < 0)
             {
                 itemtitle = item.Title;
-                uri=(new Uri(@item.Link,UriKind.Relative));
+                uri = (new Uri(@item.Link, UriKind.Relative));
 
             }
             else if (item != null)
@@ -47,11 +48,12 @@ namespace Hydra.Pages
             title.Text = itemtitle;
             if (uri != null && !uri.ToString().StartsWith("http"))
                 browser.Navigate(uri);
+            
         }
 
         public static void BrowseToUrl(string url)
         {
-            var task = new WebBrowserTask {Uri = new Uri(url,UriKind.Absolute)};
+            var task = new WebBrowserTask { Uri = new Uri(url, UriKind.Absolute) };
             task.Show();
         }
     }
