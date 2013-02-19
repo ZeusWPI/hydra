@@ -69,6 +69,10 @@
     <string name="no_restos_found">Sorry, de lijst met resto\'s kon niet worden opgehaald van de webservice. Gelieve later opnieuw te proberen.</string>
     <string name="btn_info">Info</string>
     
+    <!-- Urgent -->
+    <string name="urgent_show_prefix">U LUISTERT NAAR %1$s</string>
+    <string name="urgent_vorige_title">vorige:</string>
+    <string name="urgent_huidige_title">speelt nu:</string>
     
     <!-- API keys -->
     

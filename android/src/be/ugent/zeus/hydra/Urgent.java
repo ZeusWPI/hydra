@@ -1,19 +1,22 @@
 /**
  *
- * @author Tom Naessens Tom.Naessens@UGent.be 3de Bachelor Informatica
- * Universiteit Gent
+ * @author Tom Naessens Tom.Naessens@UGent.be 3de Bachelor Informatica Universiteit Gent
  * @author Stijn Seghers <stijn.seghers at ugent.be>
  */
 package be.ugent.zeus.hydra;
 
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Song;
 import be.ugent.zeus.hydra.data.caches.SongCache;
@@ -28,6 +31,9 @@ public class Urgent extends AbstractSherlockActivity {
     private final Handler handler = new Handler();
     private Runnable refresh;
     private SongCache cache;
+    private TextView show;
+    private TextView previous;
+    private TextView current;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -42,6 +48,11 @@ public class Urgent extends AbstractSherlockActivity {
         } else {
             btnPlay.setImageResource(R.drawable.button_urgent_play);
         }
+
+
+        show = (TextView) findViewById(R.id.urgent_current_show);
+        previous = (TextView) findViewById(R.id.urgent_vorige);
+        current = (TextView) findViewById(R.id.urgent_huidige);
 
         btnPlay.setOnClickListener(new OnClickListener() {
             @Override
@@ -64,7 +75,7 @@ public class Urgent extends AbstractSherlockActivity {
         };
 
         cache = SongCache.getInstance(Urgent.this);
-        
+
         Log.v(TAG, "opgestart");
     }
 
@@ -103,17 +114,38 @@ public class Urgent extends AbstractSherlockActivity {
                             Song curSong = cache.get(SongCache.CURRENT);
                             Song prevSong = cache.get(SongCache.PREVIOUS);
 
+                            LinearLayout prevContainer = (LinearLayout) findViewById(R.id.urgent_vorige_container);
+                            LinearLayout currentContainer = (LinearLayout) findViewById(R.id.urgent_huidige_container);
+
                             // TODO: integrate this into the layout
                             if (prevSong != null) {
+                                previous.setText(prevSong.title_and_artist.toUpperCase());
+                                prevContainer.setVisibility(0);
+
                                 Log.v(TAG, "Previous: " + prevSong.title_and_artist + " (" + prevSong.program + ")");
                             } else {
+                                prevContainer.setVisibility(2);
+
                                 Log.v(TAG, "Previous: " + R.string.no_song_info_found);
                             }
                             if (curSong != null) {
+                                current.setText(curSong.title_and_artist.toUpperCase());
+                                currentContainer.setVisibility(0);
+
                                 Log.v(TAG, "Current: " + curSong.title_and_artist + " (" + curSong.program + ")");
                             } else {
+                                currentContainer.setVisibility(2);
+
                                 Log.v(TAG, "Current: " + R.string.no_song_info_found);
                             }
+
+                            if (curSong != null && !show.getText().equals(String.format(getResources().getString(R.string.urgent_show_prefix),
+                                curSong.program.toUpperCase()))) {
+                                show.setText(
+                                    String.format(getResources().getString(R.string.urgent_show_prefix),
+                                    curSong.program.toUpperCase()));
+                            }
+
                         }
                     });
                     break;
