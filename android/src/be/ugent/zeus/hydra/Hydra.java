@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-import be.ugent.zeus.hydra.data.services.HTTPIntentService;
-import be.ugent.zeus.hydra.data.services.UpdaterService;
 import be.ugent.zeus.hydra.util.facebook.FacebookSession;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -70,10 +67,6 @@ public class Hydra extends AbstractSherlockActivity {
         link(R.id.home_btn_menu, RestoMenu.class);
         link(R.id.home_btn_urgent, Urgent.class);
         link(R.id.home_btn_schamper, SchamperDaily.class);
-
-        Intent intent = new Intent(this, UpdaterService.class);
-        intent.putExtra(HTTPIntentService.FORCE_UPDATE, true);
-        startService(intent);
     }
 
     private void link(int id, final Class activity) {

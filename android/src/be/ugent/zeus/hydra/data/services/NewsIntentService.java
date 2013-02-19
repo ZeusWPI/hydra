@@ -33,14 +33,12 @@ public class NewsIntentService extends HTTPIntentService {
     protected void onHandleIntent(Intent intent) {
         final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
 
-        boolean force = intent.getBooleanExtra(FORCE_UPDATE, true);
-
         try {
-            if (!cache.exists(FEED_NAME) || force) {
 
-                JSONArray data = new JSONArray(fetch(HYDRA_BASE_URL + NEWS_URL));
-                ArrayList<NewsItem> newsList = new ArrayList<NewsItem>(Arrays.asList(parseJsonArray(data, NewsItem.class)));
+            String fetchedData = fetch(HYDRA_BASE_URL + NEWS_URL, cache.lastModified(FEED_NAME));
 
+            if (fetchedData != null) {
+                ArrayList<NewsItem> newsList = new ArrayList<NewsItem>(Arrays.asList(parseJsonArray(new JSONArray(fetchedData), NewsItem.class)));
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ", Hydra.LOCALE);
                 for (NewsItem newsItem : newsList) {
@@ -48,13 +46,17 @@ public class NewsIntentService extends HTTPIntentService {
                 }
 
                 cache.put(FEED_NAME, newsList);
-            } else {
-                cache.get(FEED_NAME);
             }
+
         } catch (Exception e) {
             Log.e("[NewsIntentService]", "Exception:");
             e.printStackTrace();
+
+            if (receiver != null) {
+                receiver.send(STATUS_ERROR, Bundle.EMPTY);
+            }
         }
+
         if (receiver != null) {
             receiver.send(STATUS_FINISHED, Bundle.EMPTY);
         }

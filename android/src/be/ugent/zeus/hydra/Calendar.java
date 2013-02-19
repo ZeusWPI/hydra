@@ -1,8 +1,10 @@
 package be.ugent.zeus.hydra;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AbsListView;
@@ -10,9 +12,10 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Activity;
-import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
+import be.ugent.zeus.hydra.data.services.ActivityIntentService;
+import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import java.util.ArrayList;
@@ -29,6 +32,8 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
     private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
     private int firstVisible;
     private List<Activity> items;
+    private ActivityCache cache;
+    private AssociationsCache assCache;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,57 +41,69 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         setContentView(R.layout.activity_list);
         setTitle(R.string.title_calendar);
 
-        StickyListHeadersListView stickyList = (StickyListHeadersListView) findViewById(R.id.list);
-        stickyList.setOnScrollListener(this);
-        stickyList.setOnItemClickListener(this);
-
         if (savedInstanceState != null) {
             firstVisible = savedInstanceState.getInt(KEY_LIST_POSITION);
         }
 
-        ActivityCache cache = ActivityCache.getInstance(this);
+        cache = ActivityCache.getInstance(this);
+        assCache = AssociationsCache.getInstance(this);
 
-        items = new ArrayList<Activity>();
-        for (ArrayList<Activity> subset : cache.getAll()) {
-            items.addAll(subset);
-        }
+        refresh(false);
+    }
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean showAll = preferences.getBoolean("prefFilter", false);
-        HashSet<String> lists = new HashSet<String>();
+    private void refresh(boolean synced) {
+        if (!synced) {
 
-        if (!showAll) {
-            AssociationsCache assCache = AssociationsCache.getInstance(this);
-            lists = assCache.get("associations");
+            Intent intent = new Intent(this, ActivityIntentService.class);
+            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new Calendar.CalendarResultReceiver());
+            startService(intent);
 
-            if (lists == null) {
-                lists = new HashSet<String>();
+        } else {
+
+            items = new ArrayList<Activity>();
+            for (ArrayList<Activity> subset : cache.getAll()) {
+                items.addAll(subset);
             }
 
-            Iterator i = items.iterator();
-            while (i.hasNext()) {
-                Activity newsItem = (Activity) i.next();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            boolean showAll = preferences.getBoolean("prefFilter", false);
+            HashSet<String> lists = new HashSet<String>();
 
-                if (newsItem.highlighted == 0 && !lists.contains(newsItem.association.internal_name)) {
-                    i.remove();
+            if (!showAll) {
+                lists = assCache.get("associations");
+
+                if (lists == null) {
+                    lists = new HashSet<String>();
+                }
+
+                Iterator i = items.iterator();
+                while (i.hasNext()) {
+                    Activity activityItem = (Activity) i.next();
+
+                    if (activityItem.highlighted == 0 && !lists.contains(activityItem.association.internal_name)) {
+                        i.remove();
+                    }
                 }
             }
-        }
 
-        // No items
-        if (items.isEmpty()) {
-            if (!showAll && lists.isEmpty()) {
-                Toast.makeText(this.getApplicationContext(), R.string.no_associations_selected, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this.getApplicationContext(), R.string.no_activities_available, Toast.LENGTH_SHORT).show();
+            // No items
+            if (items.isEmpty()) {
+                if (!showAll && lists.isEmpty()) {
+                    Toast.makeText(this.getApplicationContext(), R.string.no_associations_selected, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this.getApplicationContext(), R.string.no_activities_available, Toast.LENGTH_SHORT).show();
+                }
+
+                finish();
             }
 
-            finish();
+            StickyListHeadersListView stickyList = (StickyListHeadersListView) findViewById(R.id.list);
+            stickyList.setOnScrollListener(this);
+            stickyList.setOnItemClickListener(this);
+
+            stickyList.setAdapter(new ActivityListAdapter(this, items));
+            stickyList.setSelection(firstVisible);
         }
-
-
-        stickyList.setAdapter(new ActivityListAdapter(this, items));
-        stickyList.setSelection(firstVisible);
     }
 
     @Override
@@ -113,5 +130,49 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         intent.putExtra("class", this.getClass().getCanonicalName());
         intent.putExtra("item", items.get(position));
         startActivity(intent);
+    }
+
+    private class CalendarResultReceiver extends ResultReceiver {
+
+        private ProgressDialog progressDialog;
+
+        public CalendarResultReceiver() {
+            super(null);
+
+            Calendar.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    progressDialog = ProgressDialog.show(Calendar.this,
+                        getResources().getString(R.string.title_calendar),
+                        getResources().getString(R.string.loading));
+                }
+            });
+        }
+
+        @Override
+        public void onReceiveResult(int code, Bundle icicle) {
+            Calendar.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    progressDialog.dismiss();
+                }
+            });
+
+            switch (code) {
+                case HTTPIntentService.STATUS_FINISHED:
+                    Calendar.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            refresh(true);
+                        }
+                    });
+                    break;
+                case HTTPIntentService.STATUS_ERROR:
+                    Toast.makeText(Calendar.this, R.string.activities_updated_failed, Toast.LENGTH_SHORT).show();
+                    Calendar.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            refresh(true);
+                        }
+                    });
+                    break;
+            }
+        }
     }
 }
