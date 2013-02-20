@@ -192,7 +192,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
         } else {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(BuildingMap.this, "No Resto found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
                 }
             });
         }
