@@ -95,7 +95,9 @@ public class Urgent extends AbstractSherlockActivity {
     protected void onResume() {
         super.onResume();
         cache.clear();
-        handler.post(refresh);
+        if (MusicService.mState == MusicService.State.Playing) {
+            handler.post(refresh);
+        }
     }
 
     private void refresh() {
