@@ -13,33 +13,46 @@
               android:gravity="center"/>
     
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+        
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7">
 
-        <TextView android:id="@+id/activity_item_title"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@color/ugent_blue_dark"
-                  android:textStyle="bold"
-                  android:textSize="20dp"
-                  android:singleLine="true"
-                  android:paddingTop="3dp"
-                  android:includeFontPadding="false"
-                  android:scrollHorizontally="true"
-                  android:ellipsize="marquee" />
+            <TextView android:id="@+id/activity_item_title"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@color/ugent_blue_dark"
+                      android:textStyle="bold"
+                      android:textSize="20dp"
+                      android:singleLine="true"
+                      android:paddingTop="3dp"
+                      android:includeFontPadding="false"
+                      android:scrollHorizontally="true"
+                      android:ellipsize="marquee" />
     
-        <TextView android:id="@+id/activity_item_association"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="15dp"
-                  android:paddingTop="-5dp"
-                  android:singleLine="true"
-                  android:includeFontPadding="false"
-                  android:scrollHorizontally="true"
-                  android:ellipsize="marquee" />
+            <TextView android:id="@+id/activity_item_association"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="15dp"
+                      android:paddingTop="-5dp"
+                      android:singleLine="true"
+                      android:includeFontPadding="false"
+                      android:scrollHorizontally="true"
+                      android:ellipsize="marquee" />
+        </LinearLayout>
+    
+        <ImageView android:id="@+id/activity_hilighted_image"
+                   android:layout_gravity="center"
+                   android:layout_height="wrap_content"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:src="@drawable/icon_star" />
+    
     </LinearLayout>
-    
-    
 </LinearLayout>
 

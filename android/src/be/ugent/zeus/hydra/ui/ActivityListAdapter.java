@@ -9,7 +9,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.Hydra;
 import be.ugent.zeus.hydra.R;
@@ -59,26 +61,22 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
             holder.title = (TextView) convertView.findViewById(R.id.activity_item_title);
             holder.assocation = (TextView) convertView.findViewById(R.id.activity_item_association);
             holder.time = (TextView) convertView.findViewById(R.id.activity_item_time_location);
+            holder.hilighted = (ImageView) convertView.findViewById(R.id.activity_hilighted_image);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         Activity activity = activities[position];
-        
+
         holder.title.setText(activity.title);
         holder.assocation.setText(activity.association.display_name);
         holder.time.setText(activity.start.substring(11, 16));
 
-        if (activity.highlighted == 1) {
-
-            int higlightedid = context.getResources().getIdentifier("drawable/icon_star", null, "be.ugent.zeus.hydra");
-
-            holder.title.setCompoundDrawablesWithIntrinsicBounds(higlightedid, 0, 0, 0);
-            holder.title.setCompoundDrawablePadding(10);
+        if (activity.highlighted == 0) {
+            holder.hilighted.setVisibility(ImageView.GONE);
         } else {
-            holder.title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-            holder.title.setCompoundDrawablePadding(0);
+            holder.hilighted.setVisibility(ImageView.VISIBLE);
         }
 
         return convertView;
@@ -117,6 +115,7 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
         TextView title;
         TextView assocation;
         TextView time;
+        ImageView hilighted;
     }
 
     private class ActivityComparator implements Comparator<Activity> {
