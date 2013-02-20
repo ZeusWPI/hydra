@@ -25,7 +25,7 @@
     <string name="no_associations_selected">Selecteer ten minste 1 vereniging in de instellingen.</string>
     <string name="no_news_available">Geen nieuws beschikbaar.</string>
     <string name="news_update_failed">Ophalen nieuw nieuws mislukt.</string>
-    <string name="activities_updated_failed">Ophalen nieuwe activitetien mislukt.</string>
+    <string name="activities_updated_failed">Ophalen nieuwe activiteiten mislukt.</string>
     <string name="no_activities_available">Geen activiteiten beschikbaar.</string>
 
     <!-- Club activity strings -->
