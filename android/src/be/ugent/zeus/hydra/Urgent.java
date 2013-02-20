@@ -6,14 +6,12 @@
 package be.ugent.zeus.hydra;
 
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -67,8 +65,8 @@ public class Urgent extends AbstractSherlockActivity {
 
                     handler.removeCallbacks(refresh);
                     show.setText("");
-                    current.setVisibility(2);
-                    previous.setVisibility(2);
+                    current.setVisibility(TextView.GONE);
+                    previous.setVisibility(TextView.GONE);
                 }
                 startService(new Intent(MusicService.ACTION_TOGGLE_PLAYBACK));
             }
@@ -126,23 +124,23 @@ public class Urgent extends AbstractSherlockActivity {
                             LinearLayout currentContainer = (LinearLayout) findViewById(R.id.urgent_huidige_container);
 
                             // TODO: integrate this into the layout
-                            if (prevSong != null) {
+                            if (prevSong != null && !prevSong.title_and_artist.equals("Geen plaat(info)")) {
                                 previous.setText(prevSong.title_and_artist.toUpperCase());
-                                prevContainer.setVisibility(0);
+                                prevContainer.setVisibility(TextView.VISIBLE);
 
                                 Log.v(TAG, "Previous: " + prevSong.title_and_artist + " (" + prevSong.program + ")");
                             } else {
-                                prevContainer.setVisibility(2);
+                                prevContainer.setVisibility(TextView.GONE);
 
                                 Log.v(TAG, "Previous: " + R.string.no_song_info_found);
                             }
-                            if (curSong != null) {
+                            if (curSong != null && !curSong.title_and_artist.equals("Geen plaat(info)")) {
                                 current.setText(curSong.title_and_artist.toUpperCase());
-                                currentContainer.setVisibility(0);
+                                currentContainer.setVisibility(TextView.VISIBLE);
 
                                 Log.v(TAG, "Current: " + curSong.title_and_artist + " (" + curSong.program + ")");
                             } else {
-                                currentContainer.setVisibility(2);
+                                currentContainer.setVisibility(TextView.GONE);
 
                                 Log.v(TAG, "Current: " + R.string.no_song_info_found);
                             }
