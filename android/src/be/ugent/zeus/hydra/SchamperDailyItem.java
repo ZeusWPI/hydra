@@ -1,11 +1,13 @@
 package be.ugent.zeus.hydra;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebView;
-import android.widget.TextView;
 import be.ugent.zeus.hydra.data.rss.Item;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.analytics.tracking.android.EasyTracker;
 import java.text.SimpleDateFormat;
 
@@ -22,11 +24,11 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
         super.onCreate(icicle);
         setContentView(R.layout.schamper_item);
 
-        
+
         Item item = (Item) getIntent().getSerializableExtra("item");
 
         setTitle(item.title);
-        
+
         String date = String.format(
             new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).format(item.pubDate));
 
@@ -40,10 +42,32 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
             + "	<div class='content'>" + item.description + "</div>"
             + "</body>";
 
-   
+
         EasyTracker.getTracker().sendView("Schamper > " + item.title);
-        
+
         WebView content = (WebView) findViewById(R.id.schamper_item);
         content.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        getSupportMenuInflater().inflate(R.menu.share, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.share);
+        
+        ShareActionProvider mShareActionProvider = (ShareActionProvider) menuItem.getActionProvider();
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Een titel");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Een tekst");
+
+        mShareActionProvider.setShareIntent(shareIntent);
+
+        return super.onCreateOptionsMenu(menu);
     }
 }
