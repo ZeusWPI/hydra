@@ -71,7 +71,6 @@
     
     
     <!-- API keys -->
-    
-    <string name="fb_app_id">146947948791011</string>
+    <string name="applicationId">146947948791011</string>
     <string name="maps_api_key">AIzaSyBITAqykoWxmWtIhMHc-SLei2dL2Jpaq8Y</string>
 </resources>

@@ -35,14 +35,10 @@ import org.json.JSONObject;
 public class Friends extends AsyncTask<Void, Void, String> {
 
     String eventId;
-    Bundle icicle;
-    Context context;
     Activity activity;
     TextView friends;
 
-    public Friends(Bundle icicle, Context context, Activity activity, String eventId, TextView friends) {
-        this.icicle = icicle;
-        this.context = context;
+    public Friends(Activity activity, String eventId, TextView friends) {
         this.activity = activity;
         this.eventId = eventId;
         this.friends = friends;
@@ -63,9 +59,9 @@ public class Friends extends AsyncTask<Void, Void, String> {
             + "(SELECT uid FROM event_member WHERE eid = '%s' "
             + "AND rsvp_status = 'attending'))", eventId);
 
-        FacebookSession.getInstance(icicle, activity, context).login(activity);
+        
 
-        Request requestWithQuery = FacebookSession.getInstance(icicle, activity, context).requestWithQuery(query);
+        Request requestWithQuery = FacebookSession.requestWithQuery(query);
 
         Response response = requestWithQuery.executeAndWait();
 
