@@ -61,7 +61,8 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
 
         MenuItem menuItem = menu.findItem(R.id.share);
 
-        ShareActionProvider mShareActionProvider = (ShareActionProvider) menuItem.getActionProvider();
+        ShareActionProvider mShareActionProvider = new ShareActionProvider(getSupportActionBar().getThemedContext());
+        menuItem.setActionProvider(mShareActionProvider);
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);

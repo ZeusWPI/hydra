@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resources>
-    <style name="Theme.Hydra.Light" parent="@style/Theme.Sherlock.Light">
+    <style name="Theme.Hydra.Light" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="actionBarStyle">@style/Hydra.ActionBar</item>
         <item name="android:actionBarStyle">@style/Hydra.ActionBar</item>
     </style>
-    <style name="Theme.Hydra.Light.CenteredBig" parent="@style/Theme.Sherlock.Light">
+    <style name="Theme.Hydra.Light.CenteredBig" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="actionBarStyle">@style/Hydra.ActionBar.CenteredBig</item>
         <item name="android:actionBarStyle">@style/Hydra.ActionBar.CenteredBig</item>
     </style>
