@@ -40,6 +40,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        
+        <activity android:name=".About"
+                  android:configChanges="screenSize|orientation" />
+        <activity android:name=".ExternalComponents"
+                  android:configChanges="screenSize|orientation" />
         <activity android:name=".settings.Settings"
                   android:configChanges="screenSize|orientation" />
         

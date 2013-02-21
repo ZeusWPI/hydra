@@ -7,12 +7,12 @@
     
     <item android:id="@+id/show_map"
           android:icon="@android:drawable/ic_dialog_map"
-          android:title="@string/show_map"
+          android:title="@string/resto_show_map"
           android:showAsAction="ifRoom" />
     
     <item android:id="@+id/show_about"
           android:icon="@android:drawable/ic_menu_info_details"
-          android:title="@string/about"
+          android:title="@string/resto_about"
           android:showAsAction="ifRoom" />
     
     
