@@ -64,7 +64,8 @@
         <activity android:name=".InfoWebActivity"
                   android:configChanges="screenSize|orientation" />
         <activity android:name=".Urgent"
-                  android:configChanges="screenSize|orientation" />
+                  android:configChanges="screenSize|orientation" 
+                  android:screenOrientation="portrait" />
         
         <activity android:name=".BuildingMap"
                   android:label="@string/resto_search_label"
@@ -110,6 +111,11 @@
         <service android:name=".data.services.SchamperDailyService">
             <intent-filter>
                 <action android:name="be.ugent.zeus.hydra.data.services.SchamperDailyService" />
+            </intent-filter>
+        </service>
+        <service android:name=".data.services.UrgentService">
+            <intent-filter>
+                <action android:name="be.ugent.zeus.hydra.data.services.UrgentService" />
             </intent-filter>
         </service>
         <service android:exported="false" android:name=".util.audiostream.MusicService">
