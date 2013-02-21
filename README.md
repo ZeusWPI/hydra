@@ -73,3 +73,4 @@ In order of first contribution:
 * Feliciaan De Palmenaer
 * Arya Ghodsi
 * Bart Middag
+* Stijn Seghers
