@@ -47,14 +47,14 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         TextView content = (TextView) findViewById(R.id.activity_item_content);
         title.setText(item.title);
 
-        if(item.facebook_id == null) {
+        if (item.facebook_id == null) {
             ((ViewManager) image.getParent()).removeView(image);
             ((ViewManager) guestsContainer.getParent()).removeView(guestsContainer);
         } else {
             new Info(icicle, getApplicationContext(), this, item.facebook_id, guests, image).execute();
 //            new Friends(icicle, getApplicationContext(), this, item.facebook_id, friends).execute();
         }
-        
+
         String poster = item.association.display_name;
         if (item.association.full_name != null) {
             poster += " (" + item.association.full_name + ")";

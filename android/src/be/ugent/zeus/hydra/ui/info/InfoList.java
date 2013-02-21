@@ -53,7 +53,7 @@ public class InfoList implements ListAdapter {
         text.setTextSize(20);
         text.setText(((NSString) dict.objectForKey("title")).toString());
         text.setGravity(Gravity.CENTER_VERTICAL);
-        text.setPadding(5, 0, 5, 0);
+        text.setPadding(5, 0, 15, 0);
 
         double density = context.getResources().getDisplayMetrics().density;
         text.setHeight((int) (48.0 * density + 0.5));
@@ -72,6 +72,7 @@ public class InfoList implements ListAdapter {
 
         text.setCompoundDrawablesWithIntrinsicBounds(iconid, 0, extid, 0);
         text.setCompoundDrawablePadding(10);
+        
 
         return text;
     }

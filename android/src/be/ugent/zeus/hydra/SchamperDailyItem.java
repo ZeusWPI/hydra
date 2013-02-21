@@ -19,6 +19,9 @@ import java.text.SimpleDateFormat;
  */
 public class SchamperDailyItem extends AbstractSherlockActivity {
 
+    private String title;
+    private String url;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -28,6 +31,9 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
         Item item = (Item) getIntent().getSerializableExtra("item");
 
         setTitle(item.title);
+
+        this.title = item.title;
+        this.url = item.link;
 
         String date = String.format(
             new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).format(item.pubDate));
@@ -51,20 +57,19 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-
         getSupportMenuInflater().inflate(R.menu.share, menu);
 
         MenuItem menuItem = menu.findItem(R.id.share);
-        
-        ShareActionProvider mShareActionProvider = (ShareActionProvider) menuItem.getActionProvider();
+
+        ShareActionProvider mShareActionProvider = new ShareActionProvider(getSupportActionBar().getThemedContext());
+        menuItem.setActionProvider(mShareActionProvider);
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         shareIntent.setType("text/plain");
 
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Een titel");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Een tekst");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, title + " " + url);
 
         mShareActionProvider.setShareIntent(shareIntent);
 

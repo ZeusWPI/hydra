@@ -5,90 +5,72 @@
  */
 package be.ugent.zeus.hydra.util.facebook;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Session;
-import com.facebook.SessionState;
 
 public class FacebookSession {
 
-    private static final String APP_ID = "146947948791011";
-    private static final String ACCESS_TOKEN = "146947948791011|QqOR99OREkC_vAvOkfJm2tp-02k";
-    private static FacebookSession fbSession;
+    public static final String ACCESS_TOKEN = "146947948791011|QqOR99OREkC_vAvOkfJm2tp-02k";
+//    private static FacebookSession fbSession;
     public static final String TAG = "FACEBOOK";
-    private Activity activity;
-    private Context context;
-    private Session.StatusCallback statusCallback = new SessionStatusCallback();
+//    private Activity activity;
+    private static Session.StatusCallback statusCallback = new Callback();
+//
+//    protected FacebookSession() {
+//    }
+//    
+//    public static void initialize(Context context) {
+//
+//        Session session = Session.getActiveSession();
+//        if (session == null) {
+//            session = new Session(context);
+//        }
+//        Session.setActiveSession(session);
+//    }
+//
+//    public static FacebookSession getInstance() {
+//
+//        if (fbSession == null) {
+//            fbSession = new FacebookSession();
+//        }
+//
+//        return fbSession;
+//    }
+//
+//    public Session getSession() {
+//        return Session.getActiveSession();
+//    }
 
-    protected FacebookSession(Bundle savedInstanceState, Activity activity, Context context) {
-        this.activity = activity;
-        this.context = context;
-
-        Session session = Session.getActiveSession();
-        if (session == null) {
-            if (savedInstanceState != null) {
-                session = Session.restoreSession(context, null, statusCallback, savedInstanceState);
-            }
-            if (session == null) {
-                session = new Session.Builder(context)
-                    .setApplicationId(APP_ID)
-                    .build();
-            }
-            Session.setActiveSession(session);
-            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
-                session.openForRead(new Session.OpenRequest(activity).setCallback(statusCallback));
-            }
-        }
-
-    }
-
-    public static FacebookSession getInstance(Bundle savedInstanceState, Activity activity, Context context) {
-
-        if (fbSession == null) {
-            fbSession = new FacebookSession(savedInstanceState, activity, context);
-        }
-
-        return fbSession;
-    }
-
-    public Session getSession() {
-        return Session.getActiveSession();
-    }
-
-    public void tryOpenSession(Activity activity) {
-        Session session = Session.openActiveSession(activity, false, statusCallback);
-        Session.setActiveSession(session);
-    }
-
-    public void login(Activity activity) {
-        Session session = Session.getActiveSession();
-        
-        if (!session.isOpened() && !session.isClosed()) {
-            session.openForRead(new Session.OpenRequest(activity).setCallback(statusCallback));
-        } else {
-            Session.openActiveSession(activity, true, statusCallback);
-        }
-    }
-
-    public void logout() {
-        Session session = Session.getActiveSession();
-
-        if (!session.isClosed()) {
-            session.closeAndClearTokenInformation();
-        }
-    }
-
-    public boolean isOpen() {
-
-        Session session = Session.getActiveSession();
-        return session.isOpened();
-    }
-
-    public Request requestWithQuery(String query) {
+//    public void tryOpenSession(Activity activity) {
+//        Session session = Session.openActiveSession(activity, false, statusCallback);
+//        Session.setActiveSession(session);
+//    }
+//
+//    public void login(Activity activity) {
+//        Session session = Session.getActiveSession();
+//
+//        if (!session.isOpened() && !session.isClosed()) {
+//            Session.openActiveSession(activity, true, statusCallback);
+//        }
+//    }
+//
+//    public void logout() {
+//        Session session = Session.getActiveSession();
+//
+//        if (!session.isClosed()) {
+//            session.closeAndClearTokenInformation();
+//        }
+//    }
+//
+//    public boolean isOpen() {
+//
+//        Session session = Session.getActiveSession();
+//        return session.isOpened();
+//    }
+//
+    public static Request requestWithQuery(String query) {
 
         Bundle bundle = new Bundle();
         bundle.putString("q", query);
@@ -96,16 +78,16 @@ public class FacebookSession {
         return requestWithGraphPath("/fql", bundle, "GET");
     }
 
-    private Request requestWithGraphPath(String path, Bundle bundle, String method) {
+    private static Request requestWithGraphPath(String path, Bundle bundle, String method) {
 
         // Get the session
         Session session = Session.getActiveSession();
-
-        // No session? Try to open one without user interaction
-        if (session == null) {
-            session = Session.openActiveSession(activity, false, statusCallback);
-            Session.setActiveSession(session);
-        }
+//
+//        // No session? Try to open one without user interaction
+//        if (session == null) {
+//            session = Session.openActiveSession(activity, false, statusCallback);
+//            Session.setActiveSession(session);
+//        }
 
         // Still no session? Use the default key
         if (session == null) {
@@ -115,22 +97,22 @@ public class FacebookSession {
         return new Request(session, path, bundle, HttpMethod.valueOf(method));
 
     }
-
-    private class SessionStatusCallback implements Session.StatusCallback {
-
-        @Override
-        public void call(Session session, SessionState state, Exception exception) {
-
-            Log.i(TAG, state.toString());
-
-            switch (state) {
-                case CLOSED:
-                case CLOSED_LOGIN_FAILED:
-                    session.closeAndClearTokenInformation();
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+//
+//    public static class SessionStatusCallback implements Session.StatusCallback {
+//
+//        @Override
+//        public void call(Session session, SessionState state, Exception exception) {
+//
+//            Log.i(TAG, state.toString());
+//
+//            switch (state) {
+//                case CLOSED:
+//                case CLOSED_LOGIN_FAILED:
+//                    session.closeAndClearTokenInformation();
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    }
 }

@@ -25,7 +25,7 @@
     <string name="no_associations_selected">Selecteer ten minste 1 vereniging in de instellingen.</string>
     <string name="no_news_available">Geen nieuws beschikbaar.</string>
     <string name="news_update_failed">Ophalen nieuw nieuws mislukt.</string>
-    <string name="activities_updated_failed">Ophalen nieuwe activitetien mislukt.</string>
+    <string name="activities_updated_failed">Ophalen nieuwe activiteiten mislukt.</string>
     <string name="no_activities_available">Geen activiteiten beschikbaar.</string>
 
     <!-- Club activity strings -->
@@ -74,13 +74,19 @@
     <string name="posted_by_newline">%1$s\ndoor %2$s</string>
 
     <string name="schamper_update_failed">Schamper Daily kon niet geladen worden.</string>
+    <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
+    <string name="nowplaying_update_failed">Info over de huidige track kon niet worden opgezocht.</string>
+    <string name="no_song_info_found">Geen plaat(info)</string>
     <string name="schamper_readmore">Meer lezen? Bezoek Schamper online...</string>
     <string name="refresh">Vernieuwen</string>
     <string name="btn_info">Info</string>
     
+    <!-- Urgent -->
+    <string name="urgent_show_prefix">U LUISTERT NAAR %1$s</string>
+    <string name="urgent_vorige_title">vorige:</string>
+    <string name="urgent_huidige_title">speelt nu:</string>
     
     <!-- API keys -->
-    
-    <string name="fb_app_id">146947948791011</string>
+    <string name="applicationId">146947948791011</string>
     <string name="maps_api_key">AIzaSyBITAqykoWxmWtIhMHc-SLei2dL2Jpaq8Y</string>
 </resources>

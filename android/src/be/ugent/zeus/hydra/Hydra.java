@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import be.ugent.zeus.hydra.util.facebook.FacebookSession;
+import be.ugent.zeus.hydra.util.facebook.Callback;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.facebook.Session;
+import com.facebook.SessionState;
 import com.zubhium.ZubhiumSDK;
 import java.util.Locale;
 
@@ -26,10 +28,27 @@ public class Hydra extends AbstractSherlockActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
         
+        Session session = Session.getActiveSession();
+        if (session == null) {
+            if (icicle != null) {
+                session = Session.restoreSession(this, null, new Callback(), icicle);
+            }
+            if (session == null) {
+                session = new Session(this);
+            }
+            Session.setActiveSession(session);
+            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+                session.openForRead(new Session.OpenRequest(this).setCallback(new Callback()));
+            }
+        }
+        
+        Session.openActiveSession(this, false, new Callback());
+
         // Log in to Feesboek
-        FacebookSession.getInstance(icicle, this, getApplicationContext()).tryOpenSession(this);
-        
+        //FacebookSession.getInstance().tryOpenSession(this);
+
         // Set the default preference - won't be changed if the user altered it.
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
