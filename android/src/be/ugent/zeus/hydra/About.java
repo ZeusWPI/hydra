@@ -26,6 +26,7 @@ public class About extends AbstractSherlockActivity {
 
     public void openZeusWebPage(View view) {
         Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         i.setData(Uri.parse(ZEUS_URL));
         startActivity(i);
     }

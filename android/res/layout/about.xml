@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
-            android:gravity="center_horizontal" />
+            android:gravity="center" />
     
     <Button android:text="@string/title_external_components"
             android:onClick="showExternalComponents"
@@ -30,5 +30,5 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="5dp"
-            android:gravity="center_horizontal" />
+            android:gravity="center" />
 </LinearLayout>
