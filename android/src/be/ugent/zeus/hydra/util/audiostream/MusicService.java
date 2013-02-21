@@ -457,15 +457,8 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
             new Intent(getApplicationContext(), Urgent.class),
             PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Resources res = getResources();
-        int height = (int) res.getDimension(android.R.dimen.notification_large_icon_height);
-        int width = (int) res.getDimension(android.R.dimen.notification_large_icon_width);
-        Bitmap largeIcon = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getApplication().getResources(),
-            R.drawable.urgent_notification), width, height, true);
-        
         mNotification = new Notification.Builder(getApplicationContext())
             .setSmallIcon(R.drawable.urgent_icon)
-            .setLargeIcon(largeIcon)
             .setTicker(text)
             .setContentTitle("Urgent.fm livestream")
             .setContentText(text)

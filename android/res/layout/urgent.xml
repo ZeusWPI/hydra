@@ -1,23 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/urgent_background">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@drawable/urgent_background"
+              android:orientation="vertical"
+              android:weightSum="9">
+    
     
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:background="@drawable/button_urgent_background">
+        android:gravity="center">
+        
+        <ImageView
+            android:id="@+id/urgent_logo_view"
+            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_alignParentBottom="true"
+            
+            android:src="@drawable/urgent_logo" />
+
+        <TextView
+            android:id="@+id/urgent_current_show"
+            
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            
+            android:layout_marginBottom="-4dp"
+            android:background="@null"
+                        
+            android:textColor="#878787" 
+            android:textSize="16sp"
+            
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            
+            android:singleLine="true"
+            android:scrollHorizontally="true" />
+        
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:gravity="center">
+        
+        <ImageView
+            android:id="@+id/urgent_background_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_urgent_background" />
+        
         <ImageButton
             android:id="@+id/btnPlay"
             android:src="@drawable/button_urgent_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" 
+            android:layout_alignLeft="@+id/urgent_background_view"
+            android:layout_alignTop="@+id/urgent_background_view"
+            android:layout_alignRight="@+id/urgent_background_view"
+            android:layout_alignBottom="@+id/urgent_background_view"
             android:background="@null" />
     </RelativeLayout>
     
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+        
+        <LinearLayout
+            android:id="@+id/urgent_vorige_container"
+
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_marginTop="14dp"
+            
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            
+            android:visibility="gone"
+            android:orientation="vertical">
+            
+            <TextView        
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                
+                android:includeFontPadding="false"
+
+                android:text="@string/urgent_vorige_title"
+                android:textSize="10sp"
+                android:textColor="#02C0FA" />
+            
+            <TextView
+                android:id="@+id/urgent_vorige"
+                
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                
+                android:textColor="#878787"
+                android:textAlignment="center"
+                android:paddingLeft="10dp"
+                 
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+            
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+            
+                android:singleLine="true"
+                android:scrollHorizontally="true"/>
+        </LinearLayout>
+        
+        
+        <LinearLayout
+            android:id="@+id/urgent_huidige_container"
+
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_marginTop="14dp"
+            
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            
+            android:orientation="vertical"
+        
+            android:visibility="gone"
+            android:background="#02C0FA">
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                
+                android:includeFontPadding="false"
+                
+                android:text="@string/urgent_huidige_title" 
+                android:textSize="10sp"/>
+            
+            <TextView
+                android:id="@+id/urgent_huidige"
+                
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                            
+                android:textColor="#FFFFFF" 
+                android:textAlignment="center"
+                android:paddingLeft="10dp"
+                
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+            
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+            
+                android:singleLine="true"
+                android:scrollHorizontally="true"/>
+        
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+</LinearLayout>
