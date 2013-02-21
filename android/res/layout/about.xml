@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingBottom="10dp"
+              android:paddingRight="5dp"
+              android:paddingLeft="5dp">
+
+    <TextView android:text="@string/about_text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:layout_marginBottom="3dp"
+              android:gravity="center_horizontal">
+    </TextView>
+    
+    <Button android:text="@string/about_zeus_button"
+            android:onClick="openZeusWebPage"
+            android:drawableRight="@drawable/external_link"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="center" />
+    
+    <Button android:text="@string/title_external_components"
+            android:onClick="showExternalComponents"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center" />
+</LinearLayout>

@@ -16,11 +16,11 @@
     <string name="title_schamper">Schamper Daily</string>
     <string name="title_preferences">Voorkeuren</string>
     <string name="title_settings_associations_filter">Filter verenigingen</string>
+    <string name="title_about">Over</string>
+    <string name="title_external_components">Externe componenten</string>
     
     <string name="details">Details</string>
     <string name="search_title">Zoek</string>
-    <string name="resto_search_label"></string>
-    <string name="resto_search_hint">Zoek Resto...</string>
 
     <string name="no_associations_selected">Selecteer ten minste 1 vereniging in de instellingen.</string>
     <string name="no_news_available">Geen nieuws beschikbaar.</string>
@@ -45,6 +45,26 @@
     <string name="pref_filter_activities_summary">Selecteer verenigingen om activiteiten en nieuwsberichten te filteren. Berichten die in de kijker staan worden steeds getoond.</string>
     <string name="pref_filter_activities_list">Selectie</string>
     <string name="no_selection">Geen items gevonden. Selecteer verenigingen in de instellingen of toon alle verenigingen</string>
+    
+    <!-- About strings -->
+    <string name="about_text">Hydra werd ontwikkeld door Zeus WPI, de studentenwerkgroep informatica van Universiteit Gent, in opdracht van de Dienst StudentenActiviteiten.</string>
+    <string name="about_zeus_button">Meer informatie</string>
+    <!-- External Components strings -->
+    <string name="external_components_intro">Deze app maakt gebruik van de volgende bibliotheken van derden.</string>
+    
+    <!-- Resto strings -->
+    <string name="soup">Soep</string>
+    <string name="meat">Vlees &amp; Veggie</string>
+    <string name="vegetables">Groenten</string>
+    <string name="resto_show_map">Toon restos op kaart</string>
+    <string name="resto_about">Over</string>
+    <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
+    <string name="menu_unavailable">Sorry, het menu is momenteel niet beschikbaar. Gelieve later opnieuw te proberen.</string>
+    <string name="no_restos_found">Sorry, de lijst met resto\'s kon niet worden opgehaald van de webservice. Gelieve later opnieuw te proberen.</string>
+    <string name="legend">Legende</string>
+    <string name="legend_swiping">Je kan het menu voor de volgende dagen bekijken door naar links te swipen.</string>
+    <string name="resto_search_label"></string>
+    <string name="resto_search_hint">Zoek Resto...</string>
 
     <!-- other stuff -->
     <string name="loading">Laden…</string>
@@ -53,22 +73,12 @@
     <string name="posted_by">%1$s door %2$s</string>
     <string name="posted_by_newline">%1$s\ndoor %2$s</string>
 
-    <string name="soup">Soep</string>
-    <string name="meat">Vlees &amp; Veggie</string>
-    <string name="vegetables">Groenten</string>
-
     <string name="schamper_update_failed">Schamper Daily kon niet geladen worden.</string>
     <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
     <string name="nowplaying_update_failed">Info over de huidige track kon niet worden opgezocht.</string>
     <string name="no_song_info_found">Geen plaat(info)</string>
     <string name="schamper_readmore">Meer lezen? Bezoek Schamper online...</string>
-    <string name="show_map">Toon restos op kaart</string>
     <string name="refresh">Vernieuwen</string>
-    <string name="about">Over</string>
-    <string name="legend">Legende</string>
-    <string name="legend_swiping">Je kan het menu voor de volgende dagen bekijken door naar links te swipen.</string>
-    <string name="menu_unavailable">Sorry, het menu is momenteel niet beschikbaar. Gelieve later opnieuw te proberen.</string>
-    <string name="no_restos_found">Sorry, de lijst met resto\'s kon niet worden opgehaald van de webservice. Gelieve later opnieuw te proberen.</string>
     <string name="btn_info">Info</string>
     
     <!-- Urgent -->
