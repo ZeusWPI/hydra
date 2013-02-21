@@ -31,6 +31,8 @@ public class About extends AbstractSherlockActivity {
     }
 
     public void showExternalComponents(View view) {
-        startActivity(new Intent(this, ExternalComponents.class));
+        Intent intent = new Intent(this, ExternalComponents.class);
+        intent.putExtra("class", this.getClass().getCanonicalName());
+        startActivity(intent);
     }
 }
