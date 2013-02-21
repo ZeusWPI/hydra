@@ -6,6 +6,7 @@ package be.ugent.zeus.hydra;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  * @author Stijn Seghers <stijn.seghers at ugent.be>
  */
 public class ExternalComponents extends AbstractSherlockActivity {
-    
+
     private static final String TAG = "EXT_COMP";
     private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
 
@@ -29,32 +30,34 @@ public class ExternalComponents extends AbstractSherlockActivity {
 
         setTitle(R.string.title_external_components);
         setContentView(R.layout.external_components);
-        
+
         WebView view = (WebView) findViewById(R.id.external_components_list);
-        InputStream stream = getResources().openRawResource(R.raw.credits);
-        view.loadData(streamToString(stream, "utf-8"), "text/html", "utf-8");
+        view.getSettings().setLoadWithOverviewMode(true);
+        view.getSettings().setUseWideViewPort(true);
+        view.loadData(getContent(), "text/html", "utf8");
     }
-    
-    private String streamToString(InputStream stream, String encoding) {
-        InputStreamReader in = null;
+
+    private String getContent() {
+        StringBuilder out = new StringBuilder();
+
+        BufferedReader reader = null;
         try {
-            StringWriter sw = new StringWriter();
-            in = new InputStreamReader(stream, encoding);
-            char[] buffer = new char[DEFAULT_BUFFER_SIZE];
-            int n = 0;
-            while (-1 != (n = in.read(buffer))) {
-                sw.write(buffer, 0, n);
+            reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.credits)));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                out.append(line).append("\n");
             }
-            return sw.toString();
-        } catch (IOException ex) {
-            Log.e(TAG, "Exception during raw file read: " + ex.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            try {
-                in.close();
-            } catch (IOException ex) {
-                Log.e(TAG, "Exception during close: " + ex.getMessage());
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
-        return null;
+        return out.toString();
     }
 }
