@@ -32,6 +32,8 @@ public class Urgent extends AbstractSherlockActivity {
     private TextView show;
     private TextView previous;
     private TextView current;
+    LinearLayout prevContainer;
+    LinearLayout currentContainer;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -52,6 +54,9 @@ public class Urgent extends AbstractSherlockActivity {
         previous = (TextView) findViewById(R.id.urgent_vorige);
         current = (TextView) findViewById(R.id.urgent_huidige);
 
+        prevContainer = (LinearLayout) findViewById(R.id.urgent_vorige_container);
+        currentContainer = (LinearLayout) findViewById(R.id.urgent_huidige_container);
+
         btnPlay.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -64,9 +69,6 @@ public class Urgent extends AbstractSherlockActivity {
                     btnPlay.setImageResource(R.drawable.button_urgent_play);
 
                     handler.removeCallbacks(refresh);
-                    show.setText("");
-                    current.setVisibility(TextView.GONE);
-                    previous.setVisibility(TextView.GONE);
                 }
                 startService(new Intent(MusicService.ACTION_TOGGLE_PLAYBACK));
             }
@@ -121,9 +123,6 @@ public class Urgent extends AbstractSherlockActivity {
                         public void run() {
                             Song curSong = cache.get(SongCache.CURRENT);
                             Song prevSong = cache.get(SongCache.PREVIOUS);
-
-                            LinearLayout prevContainer = (LinearLayout) findViewById(R.id.urgent_vorige_container);
-                            LinearLayout currentContainer = (LinearLayout) findViewById(R.id.urgent_huidige_container);
 
                             // TODO: integrate this into the layout
                             if (prevSong != null && !prevSong.title_and_artist.equals("Geen plaat(info)")) {
