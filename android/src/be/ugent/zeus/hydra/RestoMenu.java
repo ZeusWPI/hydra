@@ -217,7 +217,7 @@ public class RestoMenu extends AbstractSherlockActivity {
         if (legend.size() > 0) {
             Builder builder = new Builder(this);
             builder.setIcon(android.R.drawable.ic_dialog_info);
-            builder.setTitle(getString(R.string.about));
+            builder.setTitle(getString(R.string.resto_about));
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(getString(R.string.legend_swiping));
