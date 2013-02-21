@@ -32,9 +32,7 @@ public class ExternalComponents extends AbstractSherlockActivity {
         setContentView(R.layout.external_components);
 
         WebView view = (WebView) findViewById(R.id.external_components_list);
-        view.getSettings().setLoadWithOverviewMode(true);
-        view.getSettings().setUseWideViewPort(true);
-        view.loadData(getContent(), "text/html", "utf8");
+        view.loadDataWithBaseURL(null, getContent(), "text/html", "utf8", null);
     }
 
     private String getContent() {
