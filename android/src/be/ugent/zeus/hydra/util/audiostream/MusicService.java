@@ -68,6 +68,7 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
     // The volume we set the media player to when we lose audio focus, but are allowed to reduce
     // the volume instead of stopping playback.
     public static final float DUCK_VOLUME = 0.1f;
+    public static final boolean DEBUG = false;
     // our media player
     MediaPlayer mPlayer = null;
     // our AudioFocusHelper object, if it's available (it's available on SDK level >= 8)
@@ -485,7 +486,10 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
     }
 
     public void onGainedAudioFocus() {
-        Toast.makeText(getApplicationContext(), "gained audio focus.", Toast.LENGTH_SHORT).show();
+
+        if (MusicService.DEBUG) {
+            Toast.makeText(getApplicationContext(), "gained audio focus.", Toast.LENGTH_SHORT).show();
+        }
         mAudioFocus = AudioFocus.Focused;
 
         // restart media player with new focus settings
