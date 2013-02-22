@@ -16,10 +16,8 @@ import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.data.services.ActivityIntentService;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
-import be.ugent.zeus.hydra.data.services.NewsIntentService;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -65,9 +63,15 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
         } else {
 
-            items = new ArrayList<Activity>();
-            for (ArrayList<Activity> subset : cache.getAll()) {
-                items.addAll(subset);
+            items = cache.get(ActivityIntentService.FEED_NAME);
+            Iterator<Activity> iterator = items.iterator();
+            
+            while(iterator.hasNext()) {
+                Activity activity = iterator.next();
+                
+                if(activity.endDate.getTime() < System.currentTimeMillis()) {
+                    iterator.remove();
+                }
             }
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
