@@ -26,6 +26,8 @@ public class ActivityIntentService extends HTTPIntentService {
 
     public static final String FEED_NAME = "activities-feed-name";
     public static final String ACTIVITY_URL = "all_activities.json";
+    public static final int REFRESH_TIME = 1000 * 60 * 60;
+    
     private ActivityCache cache;
 
     public ActivityIntentService() {

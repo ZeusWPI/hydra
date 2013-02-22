@@ -17,6 +17,8 @@ public class NewsIntentService extends HTTPIntentService {
 
     public static final String FEED_NAME = "news-feed-name";
     public static final String NEWS_URL = "all_news.json";
+    public static final int REFRESH_TIME = 1000 * 60 * 60;
+        
     private NewsCache cache;
 
     public NewsIntentService() {

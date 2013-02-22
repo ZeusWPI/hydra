@@ -16,6 +16,7 @@ import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.data.services.ActivityIntentService;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
+import be.ugent.zeus.hydra.data.services.NewsIntentService;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import java.util.ArrayList;
@@ -48,7 +49,11 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         cache = ActivityCache.getInstance(this);
         assCache = AssociationsCache.getInstance(this);
 
-        refresh(false);
+        long lastModified = cache.lastModified(ActivityIntentService.FEED_NAME);
+        boolean exists = cache.exists(ActivityIntentService.FEED_NAME);
+
+        // Als hij bestaat en de cache is recent (< 1 uur): refresh niet
+        refresh(exists && System.currentTimeMillis() - lastModified < ActivityIntentService.REFRESH_TIME);
     }
 
     private void refresh(boolean synced) {

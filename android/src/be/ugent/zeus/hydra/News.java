@@ -13,6 +13,7 @@ import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.NewsList;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.data.caches.NewsCache;
+import be.ugent.zeus.hydra.data.services.ActivityIntentService;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.NewsIntentService;
 import java.util.ArrayList;
@@ -38,7 +39,12 @@ public class News extends AbstractSherlockListActivity {
         cache = NewsCache.getInstance(this);
         assCache = AssociationsCache.getInstance(this);
 
-        refresh(false);
+        long lastModified = cache.lastModified(NewsIntentService.FEED_NAME);
+        boolean exists = cache.exists(NewsIntentService.FEED_NAME);
+        
+        // Als hij bestaat en de cache is recent (< 1 uur): refresh niet
+        refresh(exists && System.currentTimeMillis() - lastModified < NewsIntentService.REFRESH_TIME);
+        
     }
 
     @Override
