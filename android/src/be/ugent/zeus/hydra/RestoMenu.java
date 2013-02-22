@@ -226,7 +226,7 @@ public class RestoMenu extends AbstractSherlockActivity {
      * About dialog based on code from Mobile Vikings for Android by Ben Van Daele
      */
     public void showAboutDialog() {
-        if (!legend.isEmpty()) {
+        if (legend != null && !legend.isEmpty()) {
             Builder builder = new Builder(this);
             builder.setIcon(android.R.drawable.ic_dialog_info);
             builder.setTitle(getString(R.string.resto_about));

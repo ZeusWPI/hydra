@@ -15,6 +15,7 @@ import be.ugent.zeus.hydra.util.RSSParser;
 public class SchamperDailyService extends HTTPIntentService {
 
     private static final String SCHAMPER_RSS_URL = "http://zeus.ugent.be/hydra/api/1.0/schamper/daily.xml";
+    public static final int REFRESH_TIME = 1000 * 60 * 60;
     private ChannelCache cache;
 
     public SchamperDailyService() {
@@ -35,29 +36,24 @@ public class SchamperDailyService extends HTTPIntentService {
             receiver.send(STATUS_STARTED, Bundle.EMPTY);
         }
 
-        boolean force = intent.getBooleanExtra(FORCE_UPDATE, true);
-
         RSSParser parser = new RSSParser();
         try {
-            if (!cache.exists(ChannelCache.SCHAMPER)) {
-                cache.put(ChannelCache.SCHAMPER, parser.parse(fetch(SCHAMPER_RSS_URL)));
-            } else if (force) {
-                // Exists, but we want to force an update (if it's changed)
-                String content = fetch(SCHAMPER_RSS_URL, cache.lastModified(ChannelCache.SCHAMPER));
-                if (content != null) {
-                    cache.put(ChannelCache.SCHAMPER, parser.parse(content));
-                }
-            } else {
-                // Exists, and don't force update, so ignore
+
+            String fetchedData = fetch(SCHAMPER_RSS_URL, cache.lastModified(ChannelCache.SCHAMPER));
+
+            if (fetchedData != null) {
+                cache.put(ChannelCache.SCHAMPER, parser.parse(fetchedData));
             }
+
         } catch (Exception e) {
+            if (receiver != null) {
+                receiver.send(STATUS_ERROR, Bundle.EMPTY);
+            }
             Log.e("[SchamperDaily]", "An exception occured while downloading & parsing the schamper feed! (" + e.getMessage() + ")");
         }
 
-        // send the result to the receiver
         if (receiver != null) {
-            final Bundle bundle = new Bundle();
-            receiver.send(STATUS_FINISHED, bundle);
+            receiver.send(STATUS_FINISHED, Bundle.EMPTY);
         }
     }
 }

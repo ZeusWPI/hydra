@@ -47,15 +47,35 @@ public class SchamperDaily extends AbstractSherlockListActivity {
         getListView().addFooterView(footer);
 
         cache = ChannelCache.getInstance(SchamperDaily.this);
-        refresh(false);
+
+        if (!cache.exists(ChannelCache.SCHAMPER)
+            || cache.lastModified(ChannelCache.SCHAMPER) - System.currentTimeMillis() > SchamperDailyService.REFRESH_TIME) {
+            refresh(false);
+        } else {
+            refresh(true);
+        }
     }
 
-    private void refresh(boolean force) {
-        Intent intent = new Intent(this, SchamperDailyService.class);
-        intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
-        intent.putExtra(HTTPIntentService.FORCE_UPDATE, force);
+    private void refresh(boolean synced) {
+        if (!synced) {
 
-        startService(intent);
+            Intent intent = new Intent(this, SchamperDailyService.class);
+            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
+
+            startService(intent);
+
+        } else {
+
+            Channel channel = cache.get(ChannelCache.SCHAMPER);
+
+            if (channel != null) {
+                setTitle(channel.title);
+                setListAdapter(new ChannelAdapter(SchamperDaily.this, channel));
+            } else {
+                Toast.makeText(SchamperDaily.this, R.string.no_schamper_articles, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
     }
 
     @Override
@@ -100,18 +120,18 @@ public class SchamperDaily extends AbstractSherlockListActivity {
                 case HTTPIntentService.STATUS_FINISHED:
                     SchamperDaily.this.runOnUiThread(new Runnable() {
                         public void run() {
-                            Channel channel = cache.get(ChannelCache.SCHAMPER);
-
-                            if (channel != null) {
-                                setTitle(channel.title);
-                                setListAdapter(new ChannelAdapter(SchamperDaily.this, channel));
-                            }
+                            refresh(true);
                         }
                     });
                     break;
                 case HTTPIntentService.STATUS_ERROR:
                     Toast.makeText(SchamperDaily.this, R.string.schamper_update_failed, Toast.LENGTH_SHORT).show();
-                    // TODO: go back to dashboard if nothing to display
+
+                    SchamperDaily.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            refresh(true);
+                        }
+                    });
                     break;
             }
         }
