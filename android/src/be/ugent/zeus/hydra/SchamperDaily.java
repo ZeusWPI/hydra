@@ -26,7 +26,6 @@ import com.actionbarsherlock.view.MenuItem;
  */
 public class SchamperDaily extends AbstractSherlockListActivity {
 
-    private static final long REFRESH_TIMEOUT = 24 * 60 * 60 * 1000;
     private ChannelCache cache;
 
     @Override
@@ -57,24 +56,6 @@ public class SchamperDaily extends AbstractSherlockListActivity {
         intent.putExtra(HTTPIntentService.FORCE_UPDATE, force);
 
         startService(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.schamper_daily, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.refresh:
-                refresh(true);
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
