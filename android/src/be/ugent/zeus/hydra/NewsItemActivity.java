@@ -50,7 +50,7 @@ public class NewsItemActivity extends AbstractSherlockActivity {
         association.setText(String.format(postedBy, datum, Html.fromHtml(poster)));
 
         TextView content = (TextView) findViewById(R.id.news_item_content);
-        content.setText(Html.fromHtml(item.content.replace("\n", "<br>")));
+        content.setText(Html.fromHtml(item.content.replace("\n\n", "").replace("\n", "<br>")));
         content.setMovementMethod(LinkMovementMethod.getInstance());
         Linkify.addLinks(content, Linkify.ALL);
     }
