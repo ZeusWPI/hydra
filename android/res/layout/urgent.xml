@@ -48,6 +48,7 @@
         
     </RelativeLayout>
     
+        
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -55,22 +56,14 @@
         android:orientation="horizontal"
         android:gravity="center">
         
-        <ImageView
-            android:id="@+id/urgent_background_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/button_urgent_background" />
-        
         <ImageButton
             android:id="@+id/btnPlay"
-            android:src="@drawable/button_urgent_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/urgent_background_view"
-            android:layout_alignTop="@+id/urgent_background_view"
-            android:layout_alignRight="@+id/urgent_background_view"
-            android:layout_alignBottom="@+id/urgent_background_view"
-            android:background="@null" />
+            android:src="@drawable/button_urgent_play"
+        
+            android:background="@drawable/button_urgent_background_selectable" />
+        
     </RelativeLayout>
     
     <LinearLayout

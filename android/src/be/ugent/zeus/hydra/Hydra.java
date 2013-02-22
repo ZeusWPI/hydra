@@ -30,21 +30,21 @@ public class Hydra extends AbstractSherlockActivity {
         super.onCreate(icicle);
 
         
-        Session session = Session.getActiveSession();
-        if (session == null) {
-            if (icicle != null) {
-                session = Session.restoreSession(this, null, new Callback(), icicle);
-            }
-            if (session == null) {
-                session = new Session(this);
-            }
-            Session.setActiveSession(session);
-            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
-                session.openForRead(new Session.OpenRequest(this).setCallback(new Callback()));
-            }
-        }
-        
-        Session.openActiveSession(this, false, new Callback());
+//        Session session = Session.getActiveSession();
+//        if (session == null) {
+//            if (icicle != null) {
+//                session = Session.restoreSession(this, null, new Callback(), icicle);
+//            }
+//            if (session == null) {
+//                session = new Session(this);
+//            }
+//            Session.setActiveSession(session);
+//            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+//                session.openForRead(new Session.OpenRequest(this).setCallback(new Callback()));
+//            }
+//        }
+//        
+//        Session.openActiveSession(this, false, new Callback());
 
         // Log in to Feesboek
         //FacebookSession.getInstance().tryOpenSession(this);

@@ -51,7 +51,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             ((ViewManager) image.getParent()).removeView(image);
             ((ViewManager) guestsContainer.getParent()).removeView(guestsContainer);
         } else {
-            new Info(icicle, getApplicationContext(), this, item.facebook_id, guests, image).execute();
+//            new Info(icicle, getApplicationContext(), this, item.facebook_id, guests, image).execute();
 //            new Friends(icicle, getApplicationContext(), this, item.facebook_id, friends).execute();
         }
 
