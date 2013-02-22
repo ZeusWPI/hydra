@@ -17,6 +17,8 @@ import org.json.JSONObject;
  */
 public class RestoService extends HTTPIntentService {
 
+    public static final String FEED_NAME = "restos";
+    public static final int REFRESH_TIME = 1000 * 60 * 60 * 24 * 7;
     private static final String RESTO_URL = "http://zeus.ugent.be/hydra/api/1.0/resto/meta.json";
     private RestoCache cache;
 
@@ -38,9 +40,7 @@ public class RestoService extends HTTPIntentService {
             JSONObject raw_data = new JSONObject(fetch(RESTO_URL));
             JSONArray data = new JSONArray(raw_data.getString("locations"));
             Resto[] restos = parseJsonArray(data, Resto.class);
-            for (Resto r : restos) {
-                cache.put(r.name, r);
-            }
+            cache.put(FEED_NAME, restos);
         } catch (Exception e) {
             Log.e("[RestoService]", "An exception occured while parsing the json response! " + e.getMessage());
         }
@@ -54,10 +54,10 @@ public class RestoService extends HTTPIntentService {
         }
 
         // get the menu from the local cache
-        List<Resto> restos = cache.getAll();
+        Resto[] restos = cache.get(FEED_NAME);
 
         // if not in the cache, sync it from the rest service
-        if (restos == null || restos.isEmpty()) {
+        if (restos == null || restos.length == 0) {
             sync();
         }
 

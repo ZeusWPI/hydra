@@ -40,6 +40,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
     private GoogleMap map;
     private RestoResultReceiver receiver = new RestoResultReceiver();
     private HashMap<String, Marker> markerMap;
+    private RestoCache restoCache;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,16 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
         map.animateCamera(zoom);
         map.setInfoWindowAdapter(new DirectionMarker(getLayoutInflater()));
 
-        addRestos(false);
+
+        restoCache = RestoCache.getInstance(this);
+
+        if (!restoCache.exists(RestoService.FEED_NAME)
+            || System.currentTimeMillis() - restoCache.lastModified(RestoService.FEED_NAME) > RestoService.REFRESH_TIME) {
+            addRestos(false);
+        } else {
+            addRestos(true);
+        }
+
 
     }
 
@@ -132,23 +142,26 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
     }
 
     private void addRestos(boolean synced) {
-        final List<Resto> restos = RestoCache.getInstance(BuildingMap.this).getAll();
-        if (restos.size() > 0) {
-            for (Resto resto : restos) {
-                MarkerOptions markerOptions = new MarkerOptions()
-                    .position(new LatLng(resto.latitude, resto.longitude))
-                    .title(resto.name);
+        if (!synced) {
+            Intent intent = new Intent(this, RestoService.class);
+            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
+            startService(intent);
 
-                Marker marker = map.addMarker(markerOptions);
-                markerMap.put(resto.name, marker);
-            }
         } else {
-            if (!synced) {
-                Intent intent = new Intent(this, RestoService.class);
-                intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, receiver);
-                startService(intent);
+
+            Resto[] restos = RestoCache.getInstance(BuildingMap.this).get(RestoService.FEED_NAME);
+            if (restos != null && restos.length > 0) {
+                for (Resto resto : restos) {
+                    MarkerOptions markerOptions = new MarkerOptions()
+                        .position(new LatLng(resto.latitude, resto.longitude))
+                        .title(resto.name);
+
+                    Marker marker = map.addMarker(markerOptions);
+                    markerMap.put(resto.name, marker);
+                }
             } else {
                 Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }
@@ -159,9 +172,9 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
-        
+
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        
+
         return true;
     }
 
@@ -254,7 +267,11 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
 
                 case HTTPIntentService.STATUS_ERROR:
                     Toast.makeText(BuildingMap.this, R.string.resto_update_failed, Toast.LENGTH_SHORT).show();
-                    // TODO: go back to dashboard if nothing to display
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            addRestos(true);
+                        }
+                    });
                     break;
 
             }

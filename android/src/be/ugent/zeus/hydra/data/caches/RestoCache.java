@@ -8,7 +8,7 @@ import java.io.File;
  *
  * @author Thomas Meire
  */
-public class RestoCache extends Cache<Resto> {
+public class RestoCache extends Cache<Resto[]> {
 
     // fixme: do we need a map of caches here?
     private static RestoCache cache;
