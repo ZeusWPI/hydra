@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
+import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.Resto;
 import be.ugent.zeus.hydra.data.RestoLegend;
 import be.ugent.zeus.hydra.data.caches.LegendCache;
 import be.ugent.zeus.hydra.data.caches.RestoCache;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +21,9 @@ import org.json.JSONObject;
  */
 public class LegendService extends HTTPIntentService {
 
+    
+    public static final String FEED_NAME = "resto-legend-cache";
+    public static final int REFRESH_TIME = 1000 * 60 * 60 * 24;
     private static final String RESTO_URL = "http://zeus.ugent.be/hydra/api/1.0/resto/meta.json";
     private LegendCache legendCache;
     
@@ -37,11 +43,9 @@ public class LegendService extends HTTPIntentService {
         try {
             JSONObject raw_data = new JSONObject(fetch(RESTO_URL));
             
-            JSONArray legend = new JSONArray(raw_data.getString("legend"));
-            RestoLegend[] restoLegend = parseJsonArray(legend, RestoLegend.class);
-            for (RestoLegend l : restoLegend) {
-                legendCache.put(l.key, l);
-            }
+            ArrayList<RestoLegend> legendList = new ArrayList<RestoLegend>(Arrays.asList(parseJsonArray(new JSONArray(raw_data.getString("legend")), RestoLegend.class)));
+
+            legendCache.put(FEED_NAME, legendList);
             
         } catch (Exception e) {
             Log.e("[RestoService]", "An exception occured while parsing the json response! " + e.getMessage());
@@ -56,7 +60,7 @@ public class LegendService extends HTTPIntentService {
         }
 
         // get the menu from the local cache
-        List<RestoLegend> restos = legendCache.getAll();
+        List<RestoLegend> restos = legendCache.get(FEED_NAME);
 
         // if not in the cache, sync it from the rest service
         if (restos == null || restos.isEmpty()) {

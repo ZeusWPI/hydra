@@ -123,6 +123,11 @@
                 <action android:name="be.ugent.zeus.hydra.data.services.UrgentService" />
             </intent-filter>
         </service>
+        <service android:name=".data.services.LegendService">
+            <intent-filter>
+                <action android:name="be.ugent.zeus.hydra.data.services.LegendService" />
+            </intent-filter>
+        </service>
         <service android:exported="false" android:name=".util.audiostream.MusicService">
             <intent-filter>
                 <action android:name="be.ugent.zeus.hydra.util.audiostream.action.TOGGLE_PLAYBACK" />
