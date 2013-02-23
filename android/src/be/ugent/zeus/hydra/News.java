@@ -41,10 +41,10 @@ public class News extends AbstractSherlockListActivity {
 
         long lastModified = cache.lastModified(NewsIntentService.FEED_NAME);
         boolean exists = cache.exists(NewsIntentService.FEED_NAME);
-        
+
         // Als hij bestaat en de cache is recent (< 1 uur): refresh niet
         refresh(exists && System.currentTimeMillis() - lastModified < NewsIntentService.REFRESH_TIME);
-        
+
     }
 
     @Override
@@ -105,9 +105,11 @@ public class News extends AbstractSherlockListActivity {
                 }
 
                 finish();
-            }
 
-            setListAdapter(new NewsList(this, items));
+            } else {
+
+                setListAdapter(new NewsList(this, items));
+            }
         }
 
     }
