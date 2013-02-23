@@ -65,7 +65,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             
-            android:background="@color/ugent_lightgrey"
+            android:background="@color/ugent_grey_light"
         />
 
         <LinearLayout 
@@ -100,12 +100,16 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             
-            android:background="@color/ugent_lightgrey"
+            android:background="@color/ugent_grey_light"
         />
         
         <LinearLayout 
             android:id="@+id/activity_item_location_container"
+            
             android:orientation="horizontal"
+            
+            android:gravity="center_vertical"
+            
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -118,7 +122,7 @@
                       android:gravity="right"
                       
                       android:text="@string/activity_item_location_title"
-                      android:textColor="#A3A3A3">
+                      android:textColor="@color/ugent_grey_dark">
             </TextView>
 
                 
@@ -153,7 +157,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             
-            android:background="@color/ugent_lightgrey"
+            android:background="@color/ugent_grey_light"
         />
         
 <!--        <LinearLayout 
@@ -173,7 +177,7 @@
                       android:gravity="right"
                       
                       android:text="@string/activity_item_guests_title"
-                      android:textColor="#A3A3A3">
+                      android:textColor="@color/ugent_grey_dark">
             </TextView>
             
             <LinearLayout 
@@ -209,7 +213,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             
-            android:background="@color/ugent_lightgrey"
+            android:background="@color/ugent_grey_light"
         />-->
         
         <LinearLayout 
@@ -229,7 +233,7 @@
                       android:gravity="right"
                       
                       android:text="@string/activity_item_content_title"
-                      android:textColor="#A3A3A3"
+                      android:textColor="@color/ugent_grey_dark"
         
                       android:paddingLeft="10dp">
             </TextView>
