@@ -17,24 +17,40 @@ def get_menu_page(url, week):
 	f = urllib.urlopen(url % week)
 	return f.read()
 
-def parse_single_meat_and_price(meat):
+def parse_single_meat_and_price(ctx, meat):
 	# there are some inconsistencies in the item descriptions
-	m = re.search('([0-9.,]+)[ -]+(.*)', meat.content.strip())
+	m = re.search('([0-9.,]+)[ -]+(.*)', meat.strip())
 	if not m:
-		print('Unable to parse item "%s"' % meat.content.strip())
+		print('Unable to parse item "%s"' % meat.strip())
 		return None
 	else:
+		# fnd node containing this info
+		query = '\'' + m.group(2).encode('utf8') + '\''
+		parents = ctx.xpathEval('.//*[contains(.,' + query + ')]')
+		# sometimes the description is split up over multiple nodes, so we try
+		# to find the item by matching the price (e.g. http://i.imgur.com/kkhqiqm.png)
+		if len(parents) == 0:
+			query = '\'€ ' + m.group(1).encode('utf8') + '\''
+			parents = ctx.xpathEval('.//*[contains(.,' + query + ')]')
+
+		# check its parents to see if this item is recommend
+		recommended = False
+		for parent in parents:
+			if parent.name == 'b' or parent.name == 'u':
+				recommended = True
+			elif parent.prop('style') and 'lowercase' in parent.prop('style'):
+				recommended = True
+
 		return {
-			'recommended': len(meat.xpathEval('.//u')) > 0,
-			'price': '€ ' + m.group(1),
+			'recommended': recommended,
+			'price': u'€ ' + m.group(1),
 			'name': m.group(2)
 		}
 
 def get_meat_and_price(meat):
-	meals = meat.xpathEval(".//p")
-	if len(meals) == 0:
-		meals = [meat]
-	return filter(None, [parse_single_meat_and_price(meal) for meal in meals])
+	# the text can be in multiple paragraphs, or with multiple <br />
+	meals = re.findall(u'€[^€]+', unicode(meat.content, encoding='utf8'))
+	return filter(None, [parse_single_meat_and_price(meat, meal) for meal in meals])
 
 def parse_menu_from_html(page):
 	print('Parsing weekmenu webpage to an object tree')
