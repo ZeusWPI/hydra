@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import be.ugent.zeus.hydra.util.facebook.Callback;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.facebook.Session;
-import com.facebook.SessionState;
+import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.zubhium.ZubhiumSDK;
 import java.util.Locale;
 
@@ -57,20 +55,20 @@ public class Hydra extends AbstractSherlockActivity {
         getSupportActionBar().setCustomView(R.layout.abs_main);
 
         // Zubhium
-        if (!DEBUG) {
+//        if (!DEBUG) {
             Log.d("Zubhium:", "Enable bugtracking");
             sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
             if (sdk != null) {
                 // We are registering update receiver
                 sdk.registerUpdateReceiver(Hydra.this);
             }
-        }
+//        }
 
         // Google Analytics
 //         if (BETA || DEBUG) {
-//            Log.d("GAnalytics:", "Tracking disabled");
-//            GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
-//            googleAnalytics.setAppOptOut(true);
+            Log.d("GAnalytics:", "Tracking disabled");
+            GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
+            googleAnalytics.setAppOptOut(true);
 //        }
 
         // Home screen: disable the button

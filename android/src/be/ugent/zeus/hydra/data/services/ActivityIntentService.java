@@ -46,7 +46,7 @@ public class ActivityIntentService extends HTTPIntentService {
             if (fetchedData != null) {
                 ArrayList<Activity> activities = new ArrayList<Activity>(Arrays.asList(parseJsonArray(new JSONArray(fetchedData), Activity.class)));
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ", Hydra.LOCALE);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE);
 
                 for (Activity activity : activities) {
                     activity.startDate = dateFormat.parse(activity.start);

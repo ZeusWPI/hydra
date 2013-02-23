@@ -42,7 +42,7 @@ public class NewsIntentService extends HTTPIntentService {
             if (fetchedData != null) {
                 ArrayList<NewsItem> newsList = new ArrayList<NewsItem>(Arrays.asList(parseJsonArray(new JSONArray(fetchedData), NewsItem.class)));
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ", Hydra.LOCALE);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE);
                 for (NewsItem newsItem : newsList) {
                     newsItem.dateDate = dateFormat.parse(newsItem.date);
                 }

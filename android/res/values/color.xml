@@ -5,4 +5,5 @@
     <color name="ugent_blue_light">#DEE3EF</color>
     <color name="ugent_yellow_dark">#FFB300</color>
     <color name="ugent_white">#EAEAEA</color>
+    <color name="ugent_lightgrey">#AAC0C0C0</color>
 </resources>

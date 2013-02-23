@@ -17,6 +17,8 @@ public class Activity implements Serializable {
     public String end;
     public Date endDate;
     public String location;
+    public double latitude;
+    public double longitude;
     public String description;
     public String url;
     public String facebook_id;

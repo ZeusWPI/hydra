@@ -45,7 +45,7 @@ public class NewsItemActivity extends AbstractSherlockActivity {
         }
 
         String datum =
-            new SimpleDateFormat("dd MMMM yyyy 'om' hh:mm", Hydra.LOCALE).format(item.dateDate);
+            new SimpleDateFormat("dd MMMM yyyy 'om' HH:mm", Hydra.LOCALE).format(item.dateDate);
 
         association.setText(String.format(postedBy, datum, Html.fromHtml(poster)));
 
