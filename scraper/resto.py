@@ -38,7 +38,7 @@ def parse_single_meat_and_price(ctx, meat):
 		for parent in parents:
 			if parent.name == 'b' or parent.name == 'u':
 				recommended = True
-			elif parent.prop('style') and 'lowercase' in parent.prop('style'):
+			elif parent.prop('style') and 'underline' in parent.prop('style'):
 				recommended = True
 
 		return {
