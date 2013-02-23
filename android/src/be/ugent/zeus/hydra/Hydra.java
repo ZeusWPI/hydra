@@ -1,6 +1,11 @@
 package be.ugent.zeus.hydra;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -22,12 +27,35 @@ public class Hydra extends AbstractSherlockActivity {
     public static final Locale LOCALE = new Locale("nl", "BE");
     private static final boolean DEBUG = true;
     private static final boolean BETA = true;
+    public static boolean SHOWED_NETWORK = false;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        
+        setContentView(R.layout.hydra);
+        setTitle("");
+
+        if (!SHOWED_NETWORK) {
+            // Check if internet is available
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            if (activeNetworkInfo == null || !activeNetworkInfo.isConnectedOrConnecting()) {
+                new AlertDialog.Builder(this)
+                    .setTitle(R.string.no_network_title)
+                    .setMessage(R.string.no_network)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                })
+                    .show();
+            }
+            SHOWED_NETWORK = true;
+        }
+
+
+
 //        Session session = Session.getActiveSession();
 //        if (session == null) {
 //            if (icicle != null) {
@@ -56,27 +84,24 @@ public class Hydra extends AbstractSherlockActivity {
 
         // Zubhium
 //        if (!DEBUG) {
-            Log.d("Zubhium:", "Enable bugtracking");
-            sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
-            if (sdk != null) {
-                // We are registering update receiver
-                sdk.registerUpdateReceiver(Hydra.this);
-            }
+        Log.d("Zubhium:", "Enable bugtracking");
+        sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
+        if (sdk != null) {
+            // We are registering update receiver
+            sdk.registerUpdateReceiver(Hydra.this);
+        }
 //        }
 
         // Google Analytics
 //         if (BETA || DEBUG) {
-            Log.d("GAnalytics:", "Tracking disabled");
-            GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
-            googleAnalytics.setAppOptOut(true);
+        Log.d("GAnalytics:", "Tracking disabled");
+        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
+        googleAnalytics.setAppOptOut(true);
 //        }
 
         // Home screen: disable the button
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
-
-        setContentView(R.layout.hydra);
-        setTitle("");
 
         link(R.id.home_btn_news, News.class);
         link(R.id.home_btn_calendar, Calendar.class);
