@@ -23,8 +23,8 @@
   
   #app-store {
       display: block;
-	  background-image:  url("../img/app-store.png");
-	  background-image:  none,url("../img/app-store.svg"), url("../img/app-store.png");
+	  background-image:  url("../img/app-store.svg");
+	  /*background-image:  none,url("../img/app-store.svg"), url("../img/app-store.png");*/
       width: 172px;
       height: 50px;
       margin-top: 10px;
