@@ -4,9 +4,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            
-            android:paddingTop="5dp">
+            android:layout_height="fill_parent">
 
     <LinearLayout 
         android:orientation="vertical"
@@ -16,6 +14,8 @@
         
         <LinearLayout 
             android:orientation="horizontal"
+            
+            android:paddingTop="10dp"
             
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">     
@@ -35,7 +35,9 @@
                            android:scaleType="centerCrop"
             
                            android:layout_width="50dp"
-                           android:layout_height="50dp">
+                           android:layout_height="50dp"
+                           
+                           android:background="@drawable/border">
                 </ImageView>
             </RelativeLayout>
             
@@ -143,7 +145,7 @@
                       android:paddingLeft="10dp">
             </TextView>
             
-            <View
+            <View android:id="@+id/activity_item_location_sideborder"
             
                 android:layout_width="1dp"
                 android:layout_height="fill_parent"
@@ -333,8 +335,8 @@
                       android:layout_weight="3"
             
                       android:paddingRight="10dp"
-            
-                      android:paddingLeft="10dp">
+                      android:paddingLeft="10dp"
+                      android:paddingBottom="10dp">
             </TextView>
         </LinearLayout>
     </LinearLayout>

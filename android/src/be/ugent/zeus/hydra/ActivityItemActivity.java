@@ -95,6 +95,10 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
          * Image
          */
         ImageView image = (ImageView) findViewById(R.id.activity_item_image);
+        if (item.facebook_id == null) {
+            image.setVisibility(View.INVISIBLE);
+        }
+
 
         /**
          * Title
@@ -134,7 +138,8 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
          * Location
          */
         TextView location = (TextView) findViewById(R.id.activity_item_location);
-
+        View locationContainerSideBorder = (View) findViewById(R.id.activity_item_location_sideborder);
+        
         if (item.location == null || "".equals(item.location)) {
 
             LinearLayout locationContainer = (LinearLayout) findViewById(R.id.activity_item_location_container);
@@ -142,6 +147,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
 
             ((ViewManager) locationContainer.getParent()).removeView(locationContainer);
             ((ViewManager) locationContainerBottomBorder.getParent()).removeView(locationContainerBottomBorder);
+            ((ViewManager) locationContainerSideBorder.getParent()).removeView(locationContainerSideBorder);
 
         } else {
 
@@ -156,7 +162,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
                 });
 
             } else {
-
+                locationContainerSideBorder.setVisibility(View.INVISIBLE);
                 directions.setVisibility(View.INVISIBLE);
             }
         }
