@@ -12,12 +12,14 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Activity;
+import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.data.services.ActivityIntentService;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -64,12 +66,16 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         } else {
 
             items = cache.get(ActivityIntentService.FEED_NAME);
+            if (items == null) {
+                items = new ArrayList<Activity>();
+            }
+
             Iterator<Activity> iterator = items.iterator();
-            
-            while(iterator.hasNext()) {
+
+            while (iterator.hasNext()) {
                 Activity activity = iterator.next();
-                
-                if(activity.endDate.getTime() < System.currentTimeMillis()) {
+
+                if (activity.endDate.getTime() < System.currentTimeMillis()) {
                     iterator.remove();
                 }
             }
@@ -98,20 +104,22 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
             // No items
             if (items.isEmpty()) {
                 if (!showAll && lists.isEmpty()) {
-                    Toast.makeText(this.getApplicationContext(), R.string.no_associations_selected, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.no_associations_selected, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this.getApplicationContext(), R.string.no_activities_available, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.no_activities_available, Toast.LENGTH_SHORT).show();
                 }
 
                 finish();
+
+            } else {
+
+                StickyListHeadersListView stickyList = (StickyListHeadersListView) findViewById(R.id.list);
+                stickyList.setOnScrollListener(this);
+                stickyList.setOnItemClickListener(this);
+
+                stickyList.setAdapter(new ActivityListAdapter(this, items));
+                stickyList.setSelection(firstVisible);
             }
-
-            StickyListHeadersListView stickyList = (StickyListHeadersListView) findViewById(R.id.list);
-            stickyList.setOnScrollListener(this);
-            stickyList.setOnItemClickListener(this);
-
-            stickyList.setAdapter(new ActivityListAdapter(this, items));
-            stickyList.setSelection(firstVisible);
         }
     }
 
