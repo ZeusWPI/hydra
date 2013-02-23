@@ -3,17 +3,8 @@
     padding-bottom: 40px;
   }
   
-  .container-narrow {
-    margin: 0 auto;
-    max-width: 700px;
-  }
-  
-  .container-narrow > hr {
-    margin: 30px 0;
-  }
-
   .jumbotron {
-    margin: 60px 0;
+    margin: 0px 0;
     text-align: center;
   }
   .jumbotron h1 {
@@ -27,7 +18,7 @@
 	  /*background-image:  none,url("../img/app-store.svg"), url("../img/app-store.png");*/
       width: 172px;
       height: 50px;
-      margin-top: 10px;
+      /*margin-top: 10px;*/
       background-size: 100%;
 	  background-repeat: no-repeat;
   }
@@ -35,10 +26,12 @@
   #play-store {
       display: block;
       background: url("../img/play-store.png");
-      width: 172px;
-      height: 60px;
-      margin-top: 10px;
+      width: 150px;
+      height: 50px;
+	  margin-left: 20px;
+      /*margin-top: 10px;*/
       background-size: 100%;
+	  background-repeat: no-repeat;
   }
   
   #wp-store {
