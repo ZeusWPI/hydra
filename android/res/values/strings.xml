@@ -57,9 +57,6 @@
     <string name="vegetables">Groenten</string>
     <string name="resto_show_map">Toon restos op kaart</string>
     <string name="resto_about">Over</string>
-    <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
-    <string name="menu_unavailable">Sorry, het menu is momenteel niet beschikbaar. Gelieve later opnieuw te proberen.</string>
-    <string name="no_restos_found">Sorry, de lijst met resto\'s kon niet worden opgehaald van de webservice. Gelieve later opnieuw te proberen.</string>
     <string name="legend">Legende</string>
     <string name="legend_swiping">Je kan het menu voor de volgende dagen bekijken door naar links te swipen.</string>
     <string name="resto_search_label"></string>
@@ -72,14 +69,23 @@
     <string name="posted_by">%1$s door %2$s</string>
     <string name="posted_by_newline">%1$s\ndoor %2$s</string>
     
-    <string name="no_schamper_articles">Geen Schamper artikels gevonden.</string>
-    <string name="schamper_update_failed">Schamper Daily kon niet geladen worden.</string>
-    <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
-    <string name="nowplaying_update_failed">Info over de huidige track kon niet worden opgezocht.</string>
     <string name="no_song_info_found">Geen plaat(info)</string>
     <string name="schamper_readmore">Meer lezen? Bezoek Schamper online...</string>
     <string name="refresh">Vernieuwen</string>
     <string name="btn_info">Info</string>
+    
+    <!-- Errors -->
+    <string name="no_network_title">Netwerk niet beschikbaar.</string>
+    <string name="no_network">Sommige onderdelen vereisen een netwerkverbinding en zullen mogelijks niet correct werken.</string>
+    <string name="no_schamper_articles">Geen Schamper artikels gevonden.</string>
+    <string name="menu_unavailable">Het menu is momenteel niet beschikbaar. Gelieve later opnieuw te proberen.</string>
+    <string name="no_restos_found">De lijst met resto\'s kon niet worden opgehaald van de webservice. Gelieve later opnieuw te proberen.</string>
+
+    <string name="schamper_update_failed">Schamper Daily kon niet geladen worden.</string>
+    <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
+    <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
+    <string name="nowplaying_update_failed">Info over de huidige track kon niet worden opgezocht.</string>
+    
     
     <!-- Urgent -->
     <string name="urgent_show_prefix">U LUISTERT NAAR %1$s</string>
