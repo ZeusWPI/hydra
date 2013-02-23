@@ -33,9 +33,9 @@
     <string name="activity_item_date_title">Wanneer</string>
     <string name="activity_item_location_title">Waar</string>
     <string name="activity_item_guests_title">Gasten</string>
-    <string name="activity_item_content_title">Details</string>
+    <string name="activity_item_content_title">Info</string>
     <string name="activity_item_title">%1$s %2$s</string>
-    <string name="activity_item_time_location">%1$s van %2$s tot %3$s</string>
+    <string name="activity_item_time_location">%1$s van %2$s - %3$s</string>
 
     <!-- Preferences strings -->
     <string name="inappsupport">Feedback</string>
