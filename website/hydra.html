@@ -9,12 +9,15 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
     <link href="css/custom.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
 	
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 	<link rel="stylesheet" href="css/jquery.smartbanner.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.smartbanner.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
 	<script type="text/javascript" src="js/custom.js"></script>
 	<!-- [if lte IE 8]>
 	<style>
@@ -80,7 +83,8 @@
 	        	</div>
 			</div>
 		</div>
-		<div class="offset1 span4 carousel slide hidden-phone" id="iphone">
+		<div class="offset1 span4">
+		<!--<div class="carousel slide hidden-phone" id="iphone">
 			<ol class="carousel-indicators">
 			    <li data-target="#iphone" data-slide-to="0" class="active"></li>
 			    <li data-target="#iphone" data-slide-to="1"></li>
@@ -106,6 +110,17 @@
 					<img src="img/ios-5.png">
 				</div>
 			</div>	
+		</div> -->
+		<div class="flex-container hidden-phone" id="iphone-container">
+			<div class="flexslider" id="iphone">
+				<ul class="slides">
+					<li><img src="img/iphone-1.png"></li>
+					<li><img src="img/iphone-2.png"></li>
+					<li><img src="img/iphone-3.png"></li>
+					<li><img src="img/iphone-4.png"></li>
+					<li><img src="img/iphone-5.png"></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

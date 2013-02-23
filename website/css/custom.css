@@ -12,6 +12,10 @@
     line-height: 1;
   }
   
+  .footer{
+	  margin-top: 20px;
+  }
+  
   #app-store {
       display: block;
 	  background-image:  url("../img/app-store.svg");
@@ -47,12 +51,15 @@
       background-size: 100%;
   }
   
-  .slides_container {
-      width:570px;
-      height:270px;
+  
+  #iphone-background {
+      display: block;
+      background: url("../img/ios-background.png");
+      background-size: 100%;
+	  /*padding:20px 5px 20px 5px;*/
   }
-  .slides_container div {
-      width:570px;
-      height:270px;
-      display:block;
-  }
+  
+  .flex-container {
+	  background: url(img/iphone.png) no-repeat center 0;
+	  background-size: 200%;
+}
