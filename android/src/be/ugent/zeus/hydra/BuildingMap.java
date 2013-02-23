@@ -168,14 +168,14 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.building_search, menu);
+//        getSupportMenuInflater().inflate(R.menu.building_search, menu);
+//
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
+//
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
