@@ -37,6 +37,13 @@
     <string name="activity_item_title">%1$s %2$s</string>
     <string name="activity_item_time_location">%1$s van %2$s - %3$s</string>
 
+    <!-- Facebook in Calendar -->
+
+    <string name="now">Koppel nu</string>
+    <string name="not_now">Later</string>
+    <string name="koppel_text">Koppel Hydra aan Facebook en krijg meer informatie bij de activeiten.\n Je kan dit later altijd aanpassen in de voorkeuren.</string>
+    <string name="koppel_title">Koppel Facebook</string>
+
     <!-- Preferences strings -->
     <string name="inappsupport">Feedback</string>
     <string name="pref_filter">Filter</string>
@@ -47,7 +54,8 @@
     <string name="pref_facebook_title">Koppel aan Facebook</string>
     <string name="get_started">Log in op Facebook</string>
     <string name="pref_facebook_summary">Koppel Hydra aan je Facebook-account en krijg te zien hoeveel en welke vrienden er naar activiteiten gaan!</string>
-    <string name="pref_filter_activites">Toon alle verenigingen</string><string name="no_selection">Geen items gevonden. Selecteer verenigingen in de instellingen of toon alle verenigingen</string>
+    <string name="pref_filter_activites">Toon alle verenigingen</string>
+    <string name="no_selection">Geen items gevonden. Selecteer verenigingen in de instellingen of toon alle verenigingen</string>
     
     <!-- About strings -->
     <string name="about_text">Hydra werd ontwikkeld door Zeus WPI, de studentenwerkgroep informatica van Universiteit Gent, in opdracht van de Dienst StudentenActiviteiten.</string>
