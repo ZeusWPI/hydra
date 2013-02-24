@@ -41,6 +41,7 @@ public class AsyncComingSetter extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPreExecute() {
+        button.setText("Laden...");
     }
 
     @Override

@@ -80,6 +80,7 @@ public class AsyncComingGetter extends AsyncTask<Void, Void, JSONObject> {
                 button.setText(AttendingStatus.valueOf("NOT_REPLIED").toButtonString(context));
             }
         } catch (Exception e) {
+            e.printStackTrace();
             button.setText("Fout bij ophalen");
         }
     }

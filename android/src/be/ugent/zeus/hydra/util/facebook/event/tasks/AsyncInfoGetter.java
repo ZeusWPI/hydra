@@ -7,6 +7,8 @@ package be.ugent.zeus.hydra.util.facebook.event.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.util.facebook.RequestBuilder;
@@ -45,12 +47,15 @@ public class AsyncInfoGetter extends AsyncTask<Void, Void, JSONObject> {
         String query = String.format("SELECT attending_count, pic, pic_big FROM event WHERE eid = '%s'", eventId);
         Request requestWithQuery = RequestBuilder.requestWithQuery(query);
         Response response = requestWithQuery.executeAndWait();
-        
+
         if (response.getError() != null) {
             Log.e(RequestBuilder.TAG, response.getError().getErrorCode() + ": " + response.getError().getErrorMessage());
             return null;
         }
         GraphObject object = response.getGraphObject();
+        
+        Log.e("FACEBOOK", response.toString());
+        
         JSONObject obj = null;
         try {
             obj = ((JSONArray) object.getProperty("data")).getJSONObject(0);
@@ -69,11 +74,14 @@ public class AsyncInfoGetter extends AsyncTask<Void, Void, JSONObject> {
             try {
                 count = String.valueOf(result.getInt("attending_count"));
                 picUrl = result.getString("pic");
+                image.setVisibility(View.VISIBLE);
                 new AsyncPicGetter(image, picUrl).execute();
             } catch (JSONException ex) {
             }
 
             gasten.setText(count + " aanwezigen");
+        } else {
+            gasten.setText("Fout bij ophalen");
         }
     }
 }

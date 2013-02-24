@@ -68,7 +68,9 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
 
         switch (state) {
             case OPENED_TOKEN_UPDATED:
-                new AsyncComingSetter(this, item.facebook_id, button, AttendingStatus.values()[selected]).execute();
+                if (selected != -1) {
+                    new AsyncComingSetter(this, item.facebook_id, button, AttendingStatus.values()[selected]).execute();
+                }
                 if (fetched) {
                     return;
                 }
@@ -105,9 +107,9 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         setTitle(R.string.details);
         setContentView(R.layout.activity_item);
 
-        
+        selected = -1;
         fetched = false;
-        
+
         /**
          * Get the activity
          */
@@ -152,9 +154,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
          * Image
          */
         ImageView image = (ImageView) findViewById(R.id.activity_item_image);
-        if (item.facebook_id == null) {
-            image.setVisibility(View.INVISIBLE);
-        }
+        image.setVisibility(View.INVISIBLE);
 
 
         /**

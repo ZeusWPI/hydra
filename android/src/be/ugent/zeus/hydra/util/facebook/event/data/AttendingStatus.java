@@ -13,7 +13,8 @@ public enum AttendingStatus {
     ATTENDING("attending","button_attending"),
     MAYBE("maybe","button_maybe"),
     DECLINED("declined","button_declined"),
-    NOT_REPLIED("undecided","button_undecided");
+    NOT_REPLIED("undecided","button_undecided"),
+    UNSURE("maybe","button_maybe");
     
     private String title;
     private String buttonTitle;
