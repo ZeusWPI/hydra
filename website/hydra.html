@@ -8,24 +8,16 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
-    <link href="css/custom.css" rel="stylesheet" media="screen">
 	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
-	
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 	<link rel="stylesheet" href="css/jquery.smartbanner.css" type="text/css" media="screen">
-	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen">
+    <link href="css/custom.css" rel="stylesheet" media="screen">
+
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.js"></script>
 	<script src="js/jquery.smartbanner.js"></script>
 	<script src="js/jquery.flexslider.js"></script>
 	<script type="text/javascript" src="js/custom.js"></script>
-	<!-- [if lte IE 8]>
-	<style>
-    #app-store {
-  	  	background-image:  url("../img/app-store.png");
-    }
-	</style>
-	<![endif]-->
   </head>
   <body>
 	<div class="container">
@@ -33,15 +25,15 @@
 			<ul class="nav nav-pills pull-right hidden-phone">
 				<li><a href="https://itunes.apple.com/be/app/hydra/id602640924" id="app-store"></a></li>
 				<li><a href="http://play.google.com/store/apps/details?id=be.ugent.zeus.hydra" id="play-store"></a></li>
-			<!-- <li><a href="" id="wp-store"></a></li> -->
+				<!-- ><li><a href="" id="wp-store"></a></li> -->
 			</ul>
 			<div class="button">
 				<img class="img-rounded" src="img/hydra.png" height="50" width="150"/>
-	        </div>			
+	        </div>	
 		</div>
 		<div id="content">
-		<hr/>
 		<div class="row">
+			<hr/>
 			<div class="span7">
 				<div class="row-fluid">
 					<div class="span12">
@@ -83,35 +75,9 @@
 	        	</div>
 			</div>
 		</div>
-		<div class="offset1 span4">
-		<!--<div class="carousel slide hidden-phone" id="iphone">
-			<ol class="carousel-indicators">
-			    <li data-target="#iphone" data-slide-to="0" class="active"></li>
-			    <li data-target="#iphone" data-slide-to="1"></li>
-			    <li data-target="#iphone" data-slide-to="2"></li>
-			    <li data-target="#iphone" data-slide-to="3"></li>
-			    <li data-target="#iphone" data-slide-to="4"></li>
-			  </ol>
-			
-			<div class="carousel-inner">
-				<div class="active item">
-					<img src="img/ios-1.png">
-				</div>
-				<div class="item">
-					<img src="img/ios-2.png">
-				</div>
-				<div class="item">
-					<img src="img/ios-3.png">
-				</div>
-				<div class="item">
-					<img src="img/ios-4.png">
-				</div>
-				<div class="item">
-					<img src="img/ios-5.png">
-				</div>
-			</div>	
-		</div> -->
-		<div class="flex-container hidden-phone" id="iphone-container">
+		<div class="span4 hidden-phone">
+		<div class="background" id="iphone-background">
+		<div class="flex-container " id="iphone-container">
 			<div class="flexslider" id="iphone">
 				<ul class="slides">
 					<li><img src="img/iphone-1.png"></li>
@@ -121,6 +87,7 @@
 					<li><img src="img/iphone-5.png"></li>
 				</ul>
 			</div>
+		</div>
 		</div>
 	</div>
 </div>

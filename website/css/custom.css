@@ -1,6 +1,11 @@
+
   body {
     padding-top: 20px;
     padding-bottom: 40px;
+  }
+  
+  hr {
+	  z-index: 100;
   }
   
   .jumbotron {
@@ -18,20 +23,22 @@
   
   #app-store {
       display: block;
-	  background-image:  url("../img/app-store.svg");
-	  /*background-image:  none,url("../img/app-store.svg"), url("../img/app-store.png");*/
-      width: 172px;
-      height: 50px;
+	  background-image:  url("../img/app-store.png");
+      width: 146px;
+      height: 60px;
       /*margin-top: 10px;*/
       background-size: 100%;
 	  background-repeat: no-repeat;
+  }
+  #app-store:hover{
+	  background-color: #fff;
   }
   
   #play-store {
       display: block;
       background: url("../img/play-store.png");
-      width: 150px;
-      height: 50px;
+      width: 140px;
+      height: 55px;
 	  margin-left: 20px;
       /*margin-top: 10px;*/
       background-size: 100%;
@@ -45,21 +52,43 @@
   	  -moz-border-radius:8px;
   	  -khtml-border-radius:8px;
   	  -webkit-border-radius:8px;
-      width: 172px;
-      height: 60px;
-      margin-top: 10px;
+      width: 148px;
+      height: 55px;
+	  margin-left: 20px;
       background-size: 100%;
+	  background-repeat: no-repeat;
   }
   
   
   #iphone-background {
-      display: block;
-      background: url("../img/ios-background.png");
-      background-size: 100%;
-	  /*padding:20px 5px 20px 5px;*/
+	  width: 264px;
+	  position: absolute;
+	  height: 510px;	  
+      background: url("../img/iphone.png") no-repeat center 0;
+      background-size: 80%;
+	  padding:109px 65px 95px 67px;
   }
   
   .flex-container {
-	  background: url(img/iphone.png) no-repeat center 0;
-	  background-size: 200%;
-}
+	  position: relative;
+   }
+   
+   .flexslider {
+	   border: 0px;
+   }
+   
+   .flex-control-nav {
+	   bottom: -20px;
+   }
+   .flex-control-paging li a {
+	   background: #ccc;
+   }
+   
+   .flex-control-paging li a:hover {
+	   background: #888;
+   }
+   
+   .flex-control-paging li a.flex-active{
+	   background: #444;
+	}
+	
