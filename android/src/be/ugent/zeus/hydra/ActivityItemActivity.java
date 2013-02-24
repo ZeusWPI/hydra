@@ -62,23 +62,31 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         guestIcons[2] = (ImageView) findViewById(R.id.activity_item_friends3);
         guestIcons[3] = (ImageView) findViewById(R.id.activity_item_friends4);
         guestIcons[4] = (ImageView) findViewById(R.id.activity_item_friends5);
-        
+
         Button button = (Button) findViewById(R.id.activity_item_button);
-                
+
         switch (state) {
+            case OPENED_TOKEN_UPDATED:
+                new AsyncComingSetter(this, item.facebook_id, button, AttendingStatus.values()[selected]).execute();
+                return;
+                
             case OPENED:
 
+                new AsyncInfoGetter(item.facebook_id, guests, image).execute();
                 new AsyncComingGetter(this, item.facebook_id, button).execute();
                 new AsyncFriendsGetter(item.facebook_id, guests, guestIcons).execute();
                 return;
 
+            case CLOSED:
             case CREATED:
                 new AsyncInfoGetter(item.facebook_id, guests, image).execute();
-                
+
                 for (ImageView imageView : guestIcons) {
                     imageView.setVisibility(View.GONE);
                 }
                 button.setVisibility(View.GONE);
+                return;
+
         }
     }
 
@@ -125,7 +133,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
                 }
 
                 onSessionStateChange(session, session.getState(), null);
-                
+
             } else if (session != null
                 && (session.isOpened() || session.isClosed())) {
                 onSessionStateChange(session, session.getState(), null);

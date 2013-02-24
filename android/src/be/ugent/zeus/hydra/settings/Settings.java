@@ -1,6 +1,5 @@
 package be.ugent.zeus.hydra.settings;
 
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import be.ugent.zeus.hydra.AbstractSherlockPreferenceActivity;
@@ -8,7 +7,7 @@ import be.ugent.zeus.hydra.R;
 
 /**
  *
- * @author blackskad
+ * @author Silox
  */
 public class Settings extends AbstractSherlockPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -21,5 +20,4 @@ public class Settings extends AbstractSherlockPreferenceActivity implements Shar
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
     }
-
 }
