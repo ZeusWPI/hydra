@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.Activity;
-import be.ugent.zeus.hydra.util.facebook.FacebookSession;
+import be.ugent.zeus.hydra.util.facebook.RequestBuilder;
 import be.ugent.zeus.hydra.util.facebook.event.data.AttendingStatus;
 import be.ugent.zeus.hydra.util.facebook.event.tasks.AsyncComingGetter;
 import be.ugent.zeus.hydra.util.facebook.event.tasks.AsyncComingSetter;
@@ -40,6 +40,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
 
     private int selected;
     private UiLifecycleHelper uiHelper;
+    private Activity item;
 
     public class SessionStatusCallback implements Session.StatusCallback {
 
@@ -51,6 +52,34 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         Log.i("FACEBOOK", "Onsessionstatechange: " + state.toString());
+
+        TextView guests = (TextView) findViewById(R.id.activity_item_guests);
+        ImageView image = (ImageView) findViewById(R.id.activity_item_image);
+
+        ImageView[] guestIcons = new ImageView[5];
+        guestIcons[0] = (ImageView) findViewById(R.id.activity_item_friends1);
+        guestIcons[1] = (ImageView) findViewById(R.id.activity_item_friends2);
+        guestIcons[2] = (ImageView) findViewById(R.id.activity_item_friends3);
+        guestIcons[3] = (ImageView) findViewById(R.id.activity_item_friends4);
+        guestIcons[4] = (ImageView) findViewById(R.id.activity_item_friends5);
+        
+        Button button = (Button) findViewById(R.id.activity_item_button);
+                
+        switch (state) {
+            case OPENED:
+
+                new AsyncComingGetter(this, item.facebook_id, button).execute();
+                new AsyncFriendsGetter(item.facebook_id, guests, guestIcons).execute();
+                return;
+
+            case CREATED:
+                new AsyncInfoGetter(item.facebook_id, guests, image).execute();
+                
+                for (ImageView imageView : guestIcons) {
+                    imageView.setVisibility(View.GONE);
+                }
+                button.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -63,42 +92,44 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         setTitle(R.string.details);
         setContentView(R.layout.activity_item);
 
-
         /**
          * Get the activity
          */
-        final Activity item = (Activity) getIntent().getSerializableExtra("item");
+        item = (Activity) getIntent().getSerializableExtra("item");
 
         EasyTracker.getTracker().sendView("Activity > " + item.title);
 
         /**
          * Facebook
          */
-        SessionStatusCallback statusCallback = new ActivityItemActivity.SessionStatusCallback();
+        if (item.facebook_id != null && !"".equals(item.facebook_id)) {
+            SessionStatusCallback statusCallback = new ActivityItemActivity.SessionStatusCallback();
 
-        uiHelper = new UiLifecycleHelper(this, statusCallback);
-        uiHelper.onCreate(icicle);
+            uiHelper = new UiLifecycleHelper(this, statusCallback);
+            uiHelper.onCreate(icicle);
 
-        Session session = Session.getActiveSession();
+            Session session = Session.getActiveSession();
 
-        if (session == null || !session.isOpened()) {
+            if (session == null || !session.isOpened()) {
 
-            if (icicle != null) {
-                session = Session.restoreSession(this, null, statusCallback, icicle);
+                if (icicle != null) {
+                    session = Session.restoreSession(this, null, statusCallback, icicle);
+                }
+                if (session == null) {
+                    session = new Session(this);
+                }
+                if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+                    session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
+                } else if (session.getState().equals(SessionState.CREATED)) {
+                    Session.openActiveSession(this, false, statusCallback);
+                }
+
+                onSessionStateChange(session, session.getState(), null);
+                
+            } else if (session != null
+                && (session.isOpened() || session.isClosed())) {
+                onSessionStateChange(session, session.getState(), null);
             }
-            if (session == null) {
-                session = new Session(this);
-            }
-            Log.i(FacebookSession.TAG, "Current state: " + session.getState().toString());
-            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
-                session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
-            } else if (session.getState().equals(SessionState.CREATED)) {
-                Session.openActiveSession(this, true, statusCallback);
-            }
-
-        } else if (session != null
-            && (session.isOpened() || session.isClosed())) {
-            onSessionStateChange(session, session.getState(), null);
         }
 
         /**
@@ -203,15 +234,6 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             ((ViewManager) guestsContainer.getParent()).removeView(guestsContainer);
             ((ViewManager) guestsBottomBorder.getParent()).removeView(guestsBottomBorder);
         } else {
-            ImageView[] guestIcons = new ImageView[5];
-            guestIcons[0] = (ImageView) findViewById(R.id.activity_item_friends1);
-            guestIcons[1] = (ImageView) findViewById(R.id.activity_item_friends2);
-            guestIcons[2] = (ImageView) findViewById(R.id.activity_item_friends3);
-            guestIcons[3] = (ImageView) findViewById(R.id.activity_item_friends4);
-            guestIcons[4] = (ImageView) findViewById(R.id.activity_item_friends5);
-
-            TextView guests = (TextView) findViewById(R.id.activity_item_guests);
-
             external.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://www.facebook.com/events/%s/", item.facebook_id)));
@@ -219,10 +241,6 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
                     startActivity(intent);
                 }
             });
-
-            new AsyncInfoGetter(item.facebook_id, guests, image).execute();
-            new AsyncComingGetter(this, item.facebook_id, button).execute();
-            new AsyncFriendsGetter(item.facebook_id, guests, guestIcons).execute();
         }
 
         /**
@@ -290,30 +308,45 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
     @Override
     public void onResume() {
         super.onResume();
-        uiHelper.onResume();
+
+        if (item.facebook_id != null && !"".equals(item.facebook_id)) {
+            uiHelper.onResume();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        uiHelper.onActivityResult(requestCode, resultCode, data);
+
+        if (item.facebook_id != null && !"".equals(item.facebook_id)) {
+            uiHelper.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        uiHelper.onPause();
+
+        if (item.facebook_id != null && !"".equals(item.facebook_id)) {
+            uiHelper.onPause();
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        uiHelper.onDestroy();
+
+        if (item.facebook_id != null && !"".equals(item.facebook_id)) {
+            uiHelper.onDestroy();
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        uiHelper.onSaveInstanceState(outState);
+
+        if (item.facebook_id != null && !"".equals(item.facebook_id)) {
+            uiHelper.onSaveInstanceState(outState);
+        }
     }
 }

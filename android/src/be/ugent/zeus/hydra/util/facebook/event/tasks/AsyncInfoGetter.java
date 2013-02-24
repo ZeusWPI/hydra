@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import be.ugent.zeus.hydra.util.facebook.FacebookSession;
+import be.ugent.zeus.hydra.util.facebook.RequestBuilder;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.model.GraphObject;
@@ -40,14 +40,14 @@ public class AsyncInfoGetter extends AsyncTask<Void, Void, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(Void... params) {
-        Log.i(FacebookSession.TAG, "Fetching event with id " + eventId);
+        Log.i(RequestBuilder.TAG, "Fetching event with id " + eventId);
 
         String query = String.format("SELECT attending_count, pic, pic_big FROM event WHERE eid = '%s'", eventId);
-        Request requestWithQuery = FacebookSession.requestWithQuery(query);
+        Request requestWithQuery = RequestBuilder.requestWithQuery(query);
         Response response = requestWithQuery.executeAndWait();
-
+        
         if (response.getError() != null) {
-            Log.e(FacebookSession.TAG, response.getError().getErrorCode() + ": " + response.getError().getErrorMessage());
+            Log.e(RequestBuilder.TAG, response.getError().getErrorCode() + ": " + response.getError().getErrorMessage());
             return null;
         }
         GraphObject object = response.getGraphObject();

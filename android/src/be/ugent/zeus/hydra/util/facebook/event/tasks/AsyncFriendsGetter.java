@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
-import be.ugent.zeus.hydra.util.facebook.FacebookSession;
+import be.ugent.zeus.hydra.util.facebook.RequestBuilder;
 import be.ugent.zeus.hydra.util.facebook.event.data.Friend;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -44,7 +44,7 @@ public class AsyncFriendsGetter extends AsyncTask<Void, Void, JSONArray> {
 
     @Override
     protected JSONArray doInBackground(Void... params) {
-        Log.i(FacebookSession.TAG, "Fetching event with id " + eventId);
+        Log.i(RequestBuilder.TAG, "Fetching event with id " + eventId);
 
         String query = String.format(
             "SELECT name, pic_square FROM user WHERE uid IN"
@@ -52,12 +52,12 @@ public class AsyncFriendsGetter extends AsyncTask<Void, Void, JSONArray> {
             + "(SELECT uid FROM event_member WHERE eid = '%s' "
             + "AND rsvp_status = 'attending'))", eventId);
 
-        Request requestWithQuery = FacebookSession.requestWithQuery(query);
+        Request requestWithQuery = RequestBuilder.requestWithQuery(query);
 
         Response response = requestWithQuery.executeAndWait();
 
         if (response.getError() != null) {
-            Log.e(FacebookSession.TAG, response.getError().getErrorCode() + ": " + response.getError().getErrorMessage());
+            Log.e(RequestBuilder.TAG, response.getError().getErrorCode() + ": " + response.getError().getErrorMessage());
             return null;
         }
 

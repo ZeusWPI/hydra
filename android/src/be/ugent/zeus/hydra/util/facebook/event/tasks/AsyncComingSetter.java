@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import be.ugent.zeus.hydra.util.facebook.FacebookSession;
+import be.ugent.zeus.hydra.util.facebook.RequestBuilder;
 import be.ugent.zeus.hydra.util.facebook.event.data.AttendingStatus;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
@@ -45,7 +45,7 @@ public class AsyncComingSetter extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        Log.i(FacebookSession.TAG, "Fetching event with id " + eventId);
+        Log.i(RequestBuilder.TAG, "Fetching event with id " + eventId);
 
         String query = String.format("%s/%s", eventId, status.toString().toLowerCase());
 
@@ -55,11 +55,11 @@ public class AsyncComingSetter extends AsyncTask<Void, Void, Void> {
         Response response = request.executeAndWait();
 
         if (response.getError() != null) {
-            Log.e(FacebookSession.TAG, response.getError().getErrorCode() + ": " + response.getError().getErrorMessage());
+            Log.e(RequestBuilder.TAG, response.getError().getErrorCode() + ": " + response.getError().getErrorMessage());
             return null;
         }
         
-        Log.i(FacebookSession.TAG, "Response: " + response.toString());
+        Log.i(RequestBuilder.TAG, "Response: " + response.toString());
         
         return null;
     }
