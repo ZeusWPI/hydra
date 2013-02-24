@@ -39,10 +39,10 @@
 
     <!-- Facebook in Calendar -->
 
-    <string name="now">Koppel nu</string>
-    <string name="not_now">Later</string>
-    <string name="koppel_text">Koppel Hydra aan Facebook en krijg meer informatie bij de activeiten.\n Je kan dit later altijd aanpassen in de voorkeuren.</string>
-    <string name="koppel_title">Koppel Facebook</string>
+    <string name="now">Koppel</string>
+    <string name="not_now">Niet nu</string>
+    <string name="koppel_text">Koppel Hydra aan Facebook en krijg meer informatie bij de activiteiten.\nJe kan dit later altijd aanpassen in de voorkeuren.</string>
+    <string name="koppel_title">Hydra koppelen</string>
 
     <!-- Preferences strings -->
     <string name="inappsupport">Feedback</string>
@@ -53,7 +53,7 @@
     <string name="pref_facebook">Facebook</string>
     <string name="pref_facebook_title">Koppel aan Facebook</string>
     <string name="get_started">Log in op Facebook</string>
-    <string name="pref_facebook_summary">Koppel Hydra aan je Facebook-account en krijg te zien hoeveel en welke vrienden er naar activiteiten gaan!</string>
+    <string name="pref_facebook_summary">Koppel Hydra aan je Facebookaccount en krijg te zien wie er op welke activiteit aanwezig is. Je kan ook meteen je eigen status hieraan aanpassen.</string>
     <string name="pref_filter_activites">Toon alle verenigingen</string>
     <string name="no_selection">Geen items gevonden. Selecteer verenigingen in de instellingen of toon alle verenigingen</string>
     

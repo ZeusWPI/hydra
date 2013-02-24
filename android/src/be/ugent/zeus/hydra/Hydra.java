@@ -62,20 +62,20 @@ public class Hydra extends AbstractSherlockActivity {
         getSupportActionBar().setCustomView(R.layout.abs_main);
 
         // Zubhium
-        if (!DEBUG) {
+//        if (!DEBUG) {
             Log.d("Zubhium:", "Enable bugtracking");
             sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
             if (sdk != null) {
                 // We are registering update receiver
                 sdk.registerUpdateReceiver(Hydra.this);
             }
-        }
+//        }
 
         // Google Analytics
 //         if (BETA || DEBUG) {
-        Log.d("GAnalytics:", "Tracking disabled");
-        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
-        googleAnalytics.setAppOptOut(true);
+//        Log.d("GAnalytics:", "Tracking disabled");
+//        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
+//        googleAnalytics.setAppOptOut(true);
 //        }
 
         // Home screen: disable the button
