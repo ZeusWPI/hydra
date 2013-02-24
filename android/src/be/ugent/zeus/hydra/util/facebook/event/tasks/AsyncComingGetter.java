@@ -69,14 +69,18 @@ public class AsyncComingGetter extends AsyncTask<Void, Void, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject result) {
 
-        if (result != null && result.length() > 0) {
-            try {
-                button.setText(AttendingStatus.valueOf(result.getString("rsvp_status").toUpperCase()).toButtonString(context));
-            } catch (JSONException ex) {
-                Logger.getLogger(AsyncComingGetter.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            if (result != null && result.length() > 0) {
+                try {
+                    button.setText(AttendingStatus.valueOf(result.getString("rsvp_status").toUpperCase()).toButtonString(context));
+                } catch (JSONException ex) {
+                    Logger.getLogger(AsyncComingGetter.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                button.setText(AttendingStatus.valueOf("NOT_REPLIED").toButtonString(context));
             }
-        } else {
-            button.setText(AttendingStatus.valueOf("UNDECIDED").toButtonString(context));
+        } catch (Exception e) {
+            button.setText("Fout bij ophalen");
         }
     }
 }

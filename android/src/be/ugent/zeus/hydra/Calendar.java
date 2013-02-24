@@ -1,12 +1,10 @@
 package be.ugent.zeus.hydra;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.preference.PreferenceManager;
@@ -20,7 +18,7 @@ import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.data.services.ActivityIntentService;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
-import be.ugent.zeus.hydra.settings.FacebookAuthHelper;
+import be.ugent.zeus.hydra.settings.Settings;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import com.facebook.Session;
@@ -64,7 +62,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
                 .setMessage(getResources().getString(R.string.koppel_text))
                 .setPositiveButton(getResources().getString(R.string.now), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(Calendar.this, FacebookAuthHelper.class);
+                    Intent intent = new Intent(Calendar.this, Settings.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                     startActivity(intent);
                 }

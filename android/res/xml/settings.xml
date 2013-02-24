@@ -20,13 +20,10 @@
     
     <PreferenceCategory android:title="@string/pref_facebook" >
         
-        <Preference android:title="@string/pref_facebook_title"    
-                    android:summary="@string/pref_facebook_summary">
+        <be.ugent.zeus.hydra.settings.FacebookWidget android:title="@string/pref_facebook_title"    
+                                                     android:summary="@string/pref_facebook_summary" />
             
-            <intent android:action=".settings.FacebookAuthHelper" />
-            
-        </Preference>
-        
     </PreferenceCategory>
+ 
  
 </PreferenceScreen>

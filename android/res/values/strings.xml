@@ -57,6 +57,13 @@
     <string name="pref_filter_activites">Toon alle verenigingen</string>
     <string name="no_selection">Geen items gevonden. Selecteer verenigingen in de instellingen of toon alle verenigingen</string>
     
+    <string name="com_facebook_loginview_log_out_button">Log Uit</string>
+    <string name="com_facebook_loginview_log_in_button">Log In</string>
+    <string name="com_facebook_loginview_logged_in_as">Ingelogd als: %1$s</string>
+    <string name="com_facebook_loginview_logged_in_using_facebook">Ingelogd via Facebook</string>
+    <string name="com_facebook_loginview_log_out_action">Log uit</string>
+    <string name="com_facebook_loginview_cancel_action">Blijf ingelogd</string>
+    
     <!-- About strings -->
     <string name="about_text">Hydra werd ontwikkeld door Zeus WPI, de studentenwerkgroep informatica van Universiteit Gent, in opdracht van de Dienst StudentenActiviteiten.</string>
     <string name="about_zeus_button">Meer informatie</string>
