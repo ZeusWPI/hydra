@@ -1,6 +1,8 @@
 package be.ugent.zeus.hydra;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,13 +14,14 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.data.Activity;
-import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.data.services.ActivityIntentService;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
+import be.ugent.zeus.hydra.settings.Settings;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
+import com.facebook.Session;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -44,6 +47,33 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
         if (savedInstanceState != null) {
             firstVisible = savedInstanceState.getInt(KEY_LIST_POSITION);
+        }
+
+        boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("advertise_facebook", true);
+        if (firstrun) {
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .edit()
+                .putBoolean("advertise_facebook", false)
+                .commit();
+
+            new AlertDialog.Builder(this)
+                .setCancelable(true)
+                .setTitle(getResources().getString(R.string.koppel_title))
+                .setMessage(getResources().getString(R.string.koppel_text))
+                .setPositiveButton(getResources().getString(R.string.now), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Calendar.this, Settings.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                    startActivity(intent);
+                }
+            })
+                .setNegativeButton(getResources().getString(R.string.not_now), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            })
+                .create()
+                .show();
         }
 
         cache = ActivityCache.getInstance(this);

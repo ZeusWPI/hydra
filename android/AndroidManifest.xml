@@ -56,6 +56,14 @@
             </intent-filter>
         </activity>
         
+        <activity android:name=".settings.FacebookAuthHelper"
+                  android:configChanges="screenSize|orientation" >
+            <intent-filter>
+                <action android:name=".settings.FacebookAuthHelper" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
         <activity android:name=".News"
                   android:configChanges="screenSize|orientation" />
         <activity android:name=".NewsItemActivity"

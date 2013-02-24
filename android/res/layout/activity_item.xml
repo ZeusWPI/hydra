@@ -4,9 +4,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            
-            android:paddingTop="5dp">
+            android:layout_height="fill_parent">
 
     <LinearLayout 
         android:orientation="vertical"
@@ -17,18 +15,31 @@
         <LinearLayout 
             android:orientation="horizontal"
             
+            android:paddingTop="10dp"
+            
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">     
     
-            <ImageView android:id="@+id/activity_item_image"
             
-                       android:adjustViewBounds="true"
+            <RelativeLayout
+                android:orientation="vertical"
+                
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
             
-                       android:layout_width="0dp"
-                       android:layout_height="wrap_content"
-                       android:layout_weight="1"
-                       android:layout_gravity="top">
-            </ImageView>
+                android:gravity="top|right">
+                
+                <ImageView android:id="@+id/activity_item_image"
+            
+                           android:scaleType="centerCrop"
+            
+                           android:layout_width="50dp"
+                           android:layout_height="50dp"
+                           
+                           android:background="@drawable/border">
+                </ImageView>
+            </RelativeLayout>
             
             <LinearLayout 
                 android:orientation="vertical"
@@ -54,6 +65,12 @@
                           android:layout_width="fill_parent"
                           android:layout_height="wrap_content">
                 </TextView>
+                
+                <Button android:id="@+id/activity_item_button"
+                 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                </Button>
             </LinearLayout>
             
         </LinearLayout>
@@ -133,17 +150,23 @@
                       android:layout_weight="5"
                       android:paddingLeft="10dp">
             </TextView>
-
+            
+            <View android:id="@+id/activity_item_location_sideborder"
+            
+                  android:layout_width="1dp"
+                  android:layout_height="fill_parent"
+            
+                  android:background="@color/ugent_grey_light"/>
+            
             <ImageView android:id="@+id/activity_item_directions"
                 
                        android:src="@drawable/icon_directions"
-                       android:adjustViewBounds="true"
+                       
+                       android:layout_gravity="center"
                         
                        android:layout_width="0dp"
-                       android:layout_height="wrap_content"
-                       android:layout_weight="1"
-                       
-                       android:paddingRight="15dp">
+                       android:layout_height="25dp"
+                       android:layout_weight="1">
             </ImageView>
 
         </LinearLayout>
@@ -160,7 +183,7 @@
             android:background="@color/ugent_grey_light"
         />
         
-<!--        <LinearLayout 
+        <LinearLayout 
             android:id="@+id/activity_item_guests_container"
             
             android:orientation="horizontal"
@@ -172,7 +195,7 @@
             
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
-                      android:layout_weight="1"
+                      android:layout_weight="2"
                       
                       android:gravity="right"
                       
@@ -187,26 +210,99 @@
                 
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="5"
                 
                 android:paddingLeft="10dp">
                 
                 <TextView android:id="@+id/activity_item_guests"
                           android:layout_width="fill_parent"
-                          android:layout_height="wrap_content">
+                          android:layout_height="wrap_content"
+                          android:paddingBottom="5dp">
                 </TextView>
                 
                 
-                <TextView android:id="@+id/activity_item_friends"
-                          android:layout_width="fill_parent"
-                          android:layout_height="wrap_content">
-                </TextView>
+                <LinearLayout 
+                    android:id="@+id/activity_item_guest_icons_container"
+            
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView android:id="@+id/activity_item_friends1"
                 
+                               android:adjustViewBounds="true"
+                        
+                               android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               
+                               android:paddingRight="2dp">
+                    </ImageView>
+                    <ImageView android:id="@+id/activity_item_friends2"
+                
+                               android:adjustViewBounds="true"
+                        
+                               android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               
+                               android:paddingRight="2dp">
+                    </ImageView>
+                    <ImageView android:id="@+id/activity_item_friends3"
+                
+                               android:adjustViewBounds="true"
+                        
+                               android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               
+                       
+                               android:paddingRight="2dp">
+                    </ImageView>
+                    <ImageView android:id="@+id/activity_item_friends4"
+                
+                               android:adjustViewBounds="true"
+                        
+                               android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               
+                       
+                               android:paddingRight="2dp">
+                    </ImageView>
+                    <ImageView android:id="@+id/activity_item_friends5"
+                
+                               android:adjustViewBounds="true"
+                        
+                               android:layout_width="35dp"
+                               android:layout_height="35dp"
+                               
+                               android:scaleType="fitCenter"
+                               
+                               android:paddingRight="2dp">
+                    </ImageView>
+                </LinearLayout>
             </LinearLayout>
+            
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+            
+                android:background="@color/ugent_grey_light"/>
+            
+            <ImageView android:id="@+id/activity_item_facebook_external"
+                
+                       android:src="@drawable/external_link_dark"
+                        
+                       android:layout_gravity="center"
+                        
+                       android:adjustViewBounds="true"
+                               
+                       android:layout_width="0dp"
+                       android:layout_height="15dp"
+                       android:layout_weight="1">
+            </ImageView>
             
         </LinearLayout>
 
         <View
+            android:id="@+id/activity_item_guests_bottomborder"
+            
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             
@@ -214,7 +310,7 @@
             android:layout_marginBottom="10dp"
             
             android:background="@color/ugent_grey_light"
-        />-->
+        />
         
         <LinearLayout 
             android:id="@+id/activity_item_content_container"
@@ -244,7 +340,9 @@
                       android:layout_height="wrap_content"
                       android:layout_weight="3"
             
-                      android:paddingLeft="10dp">
+                      android:paddingRight="10dp"
+                      android:paddingLeft="10dp"
+                      android:paddingBottom="10dp">
             </TextView>
         </LinearLayout>
     </LinearLayout>

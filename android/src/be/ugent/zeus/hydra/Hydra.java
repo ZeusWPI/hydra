@@ -54,27 +54,6 @@ public class Hydra extends AbstractSherlockActivity {
             SHOWED_NETWORK = true;
         }
 
-
-
-//        Session session = Session.getActiveSession();
-//        if (session == null) {
-//            if (icicle != null) {
-//                session = Session.restoreSession(this, null, new Callback(), icicle);
-//            }
-//            if (session == null) {
-//                session = new Session(this);
-//            }
-//            Session.setActiveSession(session);
-//            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
-//                session.openForRead(new Session.OpenRequest(this).setCallback(new Callback()));
-//            }
-//        }
-//        
-//        Session.openActiveSession(this, false, new Callback());
-
-        // Log in to Feesboek
-        //FacebookSession.getInstance().tryOpenSession(this);
-
         // Set the default preference - won't be changed if the user altered it.
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
@@ -83,14 +62,14 @@ public class Hydra extends AbstractSherlockActivity {
         getSupportActionBar().setCustomView(R.layout.abs_main);
 
         // Zubhium
-//        if (!DEBUG) {
-        Log.d("Zubhium:", "Enable bugtracking");
-        sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
-        if (sdk != null) {
-            // We are registering update receiver
-            sdk.registerUpdateReceiver(Hydra.this);
+        if (!DEBUG) {
+            Log.d("Zubhium:", "Enable bugtracking");
+            sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
+            if (sdk != null) {
+                // We are registering update receiver
+                sdk.registerUpdateReceiver(Hydra.this);
+            }
         }
-//        }
 
         // Google Analytics
 //         if (BETA || DEBUG) {
