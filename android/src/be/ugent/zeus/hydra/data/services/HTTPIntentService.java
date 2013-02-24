@@ -70,7 +70,7 @@ public abstract class HTTPIntentService extends IntentService {
         }
     }
 
-    protected <T> T parseJsonObject(JSONObject object, Class<T> klass) throws Exception {
+    public static <T> T parseJsonObject(JSONObject object, Class<T> klass) throws Exception {
         T instance = klass.newInstance();
 
         for (Field f : klass.getDeclaredFields()) {
@@ -90,7 +90,7 @@ public abstract class HTTPIntentService extends IntentService {
         return instance;
     }
 
-    protected <T> T[] parseJsonArray(JSONArray array, Class<T> klass) throws Exception {
+    public static <T> T[] parseJsonArray(JSONArray array, Class<T> klass) throws Exception {
         T[] instance = (T[]) Array.newInstance(klass, array.length());
 
         for (int i = 0; i < array.length(); i++) {

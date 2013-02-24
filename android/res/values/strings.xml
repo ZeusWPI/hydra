@@ -33,9 +33,16 @@
     <string name="activity_item_date_title">Wanneer</string>
     <string name="activity_item_location_title">Waar</string>
     <string name="activity_item_guests_title">Gasten</string>
-    <string name="activity_item_content_title">Details</string>
+    <string name="activity_item_content_title">Info</string>
     <string name="activity_item_title">%1$s %2$s</string>
-    <string name="activity_item_time_location">%1$s van %2$s tot %3$s</string>
+    <string name="activity_item_time_location">%1$s van %2$s - %3$s</string>
+
+    <!-- Facebook in Calendar -->
+
+    <string name="now">Koppel nu</string>
+    <string name="not_now">Later</string>
+    <string name="koppel_text">Koppel Hydra aan Facebook en krijg meer informatie bij de activeiten.\n Je kan dit later altijd aanpassen in de voorkeuren.</string>
+    <string name="koppel_title">Koppel Facebook</string>
 
     <!-- Preferences strings -->
     <string name="inappsupport">Feedback</string>
@@ -43,7 +50,19 @@
     <string name="pref_filter_activites">Toon alle verenigingen</string>
     <string name="pref_filter_activities_summary">Selecteer verenigingen om activiteiten en nieuwsberichten te filteren. Berichten die in de kijker staan worden steeds getoond.</string>
     <string name="pref_filter_activities_list">Selectie</string>
+    <string name="pref_facebook">Facebook</string>
+    <string name="pref_facebook_title">Koppel aan Facebook</string>
+    <string name="get_started">Log in op Facebook</string>
+    <string name="pref_facebook_summary">Koppel Hydra aan je Facebook-account en krijg te zien hoeveel en welke vrienden er naar activiteiten gaan!</string>
+    <string name="pref_filter_activites">Toon alle verenigingen</string>
     <string name="no_selection">Geen items gevonden. Selecteer verenigingen in de instellingen of toon alle verenigingen</string>
+    
+    <string name="com_facebook_loginview_log_out_button">Log Uit</string>
+    <string name="com_facebook_loginview_log_in_button">Log In</string>
+    <string name="com_facebook_loginview_logged_in_as">Ingelogd als: %1$s</string>
+    <string name="com_facebook_loginview_logged_in_using_facebook">Ingelogd via Facebook</string>
+    <string name="com_facebook_loginview_log_out_action">Log uit</string>
+    <string name="com_facebook_loginview_cancel_action">Blijf ingelogd</string>
     
     <!-- About strings -->
     <string name="about_text">Hydra werd ontwikkeld door Zeus WPI, de studentenwerkgroep informatica van Universiteit Gent, in opdracht van de Dienst StudentenActiviteiten.</string>
@@ -91,6 +110,16 @@
     <string name="urgent_show_prefix">U LUISTERT NAAR %1$s</string>
     <string name="urgent_vorige_title">vorige:</string>
     <string name="urgent_huidige_title">speelt nu:</string>
+    
+    
+    <string name="attending">Deelnemen</string>
+    <string name="maybe">Misschien</string>
+    <string name="declined">Afwezig</string>
+    <string name="undecided">Onbeslist</string>
+    <string name="button_attending">Aanwezig</string>
+    <string name="button_maybe">Misschien</string>
+    <string name="button_declined">Gaat niet</string>
+    <string name="button_undecided">Onbeslist</string>
     
     <!-- API keys -->
     <string name="applicationId">146947948791011</string>

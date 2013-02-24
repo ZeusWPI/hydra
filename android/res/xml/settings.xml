@@ -17,6 +17,13 @@
         </Preference>
 
     </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/pref_facebook" >
+        
+        <be.ugent.zeus.hydra.settings.FacebookWidget android:title="@string/pref_facebook_title"    
+                                                     android:summary="@string/pref_facebook_summary" />
+            
+    </PreferenceCategory>
  
  
 </PreferenceScreen>
