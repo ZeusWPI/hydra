@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
             
-                android:gravity="right|center_vertical">
+                android:gravity="top|right">
                 
                 <ImageView android:id="@+id/activity_item_image"
             
@@ -65,6 +65,12 @@
                           android:layout_width="fill_parent"
                           android:layout_height="wrap_content">
                 </TextView>
+                
+                <Button android:id="@+id/activity_item_button"
+                 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                </Button>
             </LinearLayout>
             
         </LinearLayout>
@@ -147,10 +153,10 @@
             
             <View android:id="@+id/activity_item_location_sideborder"
             
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
+                  android:layout_width="1dp"
+                  android:layout_height="fill_parent"
             
-                android:background="@color/ugent_grey_light"/>
+                  android:background="@color/ugent_grey_light"/>
             
             <ImageView android:id="@+id/activity_item_directions"
                 

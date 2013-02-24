@@ -92,6 +92,16 @@
     <string name="urgent_vorige_title">vorige:</string>
     <string name="urgent_huidige_title">speelt nu:</string>
     
+    
+    <string name="attending">Deelnemen</string>
+    <string name="maybe">Misschien</string>
+    <string name="declined">Afwezig</string>
+    <string name="undecided">Onbeslist</string>
+    <string name="button_attending">Aanwezig</string>
+    <string name="button_maybe">Misschien</string>
+    <string name="button_declined">Gaat niet</string>
+    <string name="button_undecided">Onbeslist</string>
+    
     <!-- API keys -->
     <string name="applicationId">146947948791011</string>
     <string name="maps_api_key">AIzaSyBITAqykoWxmWtIhMHc-SLei2dL2Jpaq8Y</string>

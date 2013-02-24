@@ -5,6 +5,8 @@
  */
 package be.ugent.zeus.hydra;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,21 +16,29 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.Activity;
 import be.ugent.zeus.hydra.util.facebook.FacebookSession;
+import be.ugent.zeus.hydra.util.facebook.event.data.AttendingStatus;
+import be.ugent.zeus.hydra.util.facebook.event.tasks.AsyncComingGetter;
+import be.ugent.zeus.hydra.util.facebook.event.tasks.AsyncComingSetter;
 import be.ugent.zeus.hydra.util.facebook.event.tasks.AsyncFriendsGetter;
 import be.ugent.zeus.hydra.util.facebook.event.tasks.AsyncInfoGetter;
 import com.facebook.Session;
+import com.facebook.SessionDefaultAudience;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.google.analytics.tracking.android.EasyTracker;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.List;
 
 public class ActivityItemActivity extends AbstractSherlockActivity {
 
+    private int selected;
     private UiLifecycleHelper uiHelper;
 
     public class SessionStatusCallback implements Session.StatusCallback {
@@ -107,6 +117,20 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         title.setText(item.title);
 
         /**
+         * Button
+         */
+        final Button button = (Button) findViewById(R.id.activity_item_button);
+        if (item.facebook_id == null) {
+            button.setVisibility(View.GONE);
+        } else {
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    changeAttendingStatus(button, item.facebook_id);
+                }
+            });
+        }
+
+        /**
          * Date
          */
         TextView date = (TextView) findViewById(R.id.activity_item_date);
@@ -139,7 +163,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
          */
         TextView location = (TextView) findViewById(R.id.activity_item_location);
         View locationContainerSideBorder = (View) findViewById(R.id.activity_item_location_sideborder);
-        
+
         if (item.location == null || "".equals(item.location)) {
 
             LinearLayout locationContainer = (LinearLayout) findViewById(R.id.activity_item_location_container);
@@ -197,6 +221,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             });
 
             new AsyncInfoGetter(item.facebook_id, guests, image).execute();
+            new AsyncComingGetter(this, item.facebook_id, button).execute();
             new AsyncFriendsGetter(item.facebook_id, guests, guestIcons).execute();
         }
 
@@ -219,6 +244,47 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("http://maps.google.com/maps?q=%s,%s", latitude, longitude)));
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         startActivity(intent);
+    }
+
+    public void changeAttendingStatus(final Button button, final String id) {
+        final CharSequence[] choiceList = {getResources().getString(R.string.attending),
+            getResources().getString(R.string.maybe),
+            getResources().getString(R.string.declined)
+        };
+
+        new AlertDialog.Builder(this)
+            .setTitle("Status")
+            .setCancelable(true)
+            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                updateStatus(button, id);
+            }
+        })
+            .setNegativeButton("Cancel", null)
+            .setSingleChoiceItems(choiceList, selected, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                selected = which;
+            }
+        })
+            .create().show();
+    }
+
+    public void updateStatus(Button button, String id) {
+        Session session = Session.getActiveSession();
+        List<String> permissions = session.getPermissions();
+
+        if (!permissions.contains("rsvp_event")) {
+
+            List<String> newPermissions = Arrays.asList("rsvp_event");
+
+            session.requestNewPublishPermissions(
+                new Session.NewPermissionsRequest(this, newPermissions)
+                .setDefaultAudience(SessionDefaultAudience.FRIENDS)
+                .setCallback(new ActivityItemActivity.SessionStatusCallback()));
+        } else {
+            new AsyncComingSetter(this, id, button, AttendingStatus.values()[selected]).execute();
+        }
+
     }
 
     @Override
