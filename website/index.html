@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <title>Hydra, mobiele app voor studenten aan de UGent</title>
+    <meta name="apple-itunes-app" content="app-id=602640924">
+    <meta name="google-play-app" content="app-id=be.ugent.zeus.hydra">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/jquery.smartbanner.css">
+    <link rel="stylesheet" href="css/flexslider.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.smartbanner.js"></script>
+    <script src="js/jquery.flexslider.min.js"></script>
+    <script>
+    $(function(){
+        $.smartbanner();
+        $(".carousel").flexslider({
+            animation: 'slide',
+            slideshowSpeed: 5000,
+            animationSpeed: 600,
+            directionNav: false
+        });
+    });
+    </script>
+</head>
+<body>
+<div id="container" class="container-fluid">
+    <div class="row-fluid">
+        <div class="span5 offset1">
+            <div class="content-block">
+                <h1 class="hide-text">Hydra</h1>
+                <p class="lead">
+                    Gebruik Hydra om op de hoogte te blijven van het laatste nieuws en de activiteiten van jouw favoriete studentenverenigingen. Luister naar Urgent.fm, lees Schamper of beslis of het menu van de resto's vandaag bij je in de smaak valt.
+                </p><p class="lead">
+                    Waar je ook bent, vanaf nu heb je met Hydra steeds de UGent in je broekzak.
+                </p>
+            </div>
+            <p id="store-links" class="clearfix">
+                <a href="https://itunes.apple.com/be/app/hydra/id602640924" id="store-ios" class="hide-text">
+                    Available on the App Store
+                </a>
+                <a href="http://play.google.com/store/apps/details?id=be.ugent.zeus.hydra" id="store-android" class="hide-text">
+                    Get it on Google play
+                </a>
+            </p>
+            <div class="content-block">
+                <div class="row-fluid clearfix">
+                    <div class="span6">
+                        <h4>Activiteiten</h4>
+                        <p>Niets te doen vanavond? Op onze kalender vind je vast wel iets naar je goesting. Ook weet je dankzij Facebook direct op welke activiteiten je vrienden aanwezig zullen zijn.</p>
+                        <h4>Nieuws</h4>
+                        <p>Weet wat er gebeurt in en om de UGent en jouw studentenvereniging.</p>
+                        <h4>Info</h4>
+                        <p>Niet zeker op welke dagen de universiteit gesloten is of waar je je fiets kan herstellen? Hier vind je het antwoord op al je vragen.</p>
+                    </div>
+                    <div class="span6">
+                        <h4>Resto menu</h4>
+                        <p>Verdwaald in Gent en plots wat hongerig? Dankzij de kaart weet je altijd waar de dichtstbijzijnde resto is en wat er op het menu staat.</p>
+                        <h4>Schamper Daily</h4>
+                        <p>Blijf op de hoogte van het laatste nieuws met het officiële en onafhankelijke studentenblad van de Universiteit Gent.</p>
+                        <h4>Urgent.fm</h4>
+                        <p>Live-streaming radio van Urgent.fm: je favoriete radio altijd bij de hand.</p>
+                    </div>
+                </div>
+                <h4>Opensource</h4>
+                <p>Hydra werd ontwikkeld door Zeus WPI, de werkgroep informatica van de UGent. Wij geloven in open-source em maken deze app dan ook publiek op <a href="https://github.com/ZeusWPI/Hydra">GitHub</a>. Bijdrages zijn meer dan welkom!</p>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="carousel-wrapper">
+                <div class="carousel">
+                    <ul class="slides">
+                        <li><img src="img/iphone-1.png"></li>
+                        <li><img src="img/iphone-2.png"></li>
+                        <li><img src="img/iphone-3.png"></li>
+                        <li><img src="img/iphone-4.png"></li>
+                        <li><img src="img/iphone-5.png"></li>
+                    </ul>
+                </div>
+                <div class="carousel-frame"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-push"></div>
+</div>
+<script>
+    var _gaq = [['_setAccount', 'UA-15602498-1'], ['_trackPageview']];
+    (function(d, t) {
+        var g = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        g.src = '//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g, s);
+    }(document, 'script'));
+</script>
+<div id="footer" class="content-block">
+   <p>&copy; <a href="http://zeus.ugent.be">Zeus WPI</a> en <a href="http://student.ugent.be">Dienst StudentenActiviteiten</a> 2013</p>
+   <p class="text-right">Foto &copy; <a href="https://www.facebook.com/Baselphoto">Basel Photography</a></p>
+</div>
+</body>
+</html>

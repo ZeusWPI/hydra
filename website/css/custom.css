@@ -1,94 +1,181 @@
+/* Custom colors */
+body { color: #ffffff; }
+a { color: #eebd3c; }
+a:hover { color: #fed563; }
 
-  body {
-    padding-top: 20px;
-    padding-bottom: 40px;
-  }
-  
-  hr {
-	  z-index: 100;
-  }
-  
-  .jumbotron {
-    margin: 0px 0;
-    text-align: center;
-  }
-  .jumbotron h1 {
-    font-size: 64px;
-    line-height: 1;
-  }
-  
-  .footer{
-	  margin-top: 20px;
-  }
-  
-  #app-store {
-      display: block;
-	  background-image:  url("../img/app-store.png");
-      width: 146px;
-      height: 60px;
-      /*margin-top: 10px;*/
-      background-size: 100%;
-	  background-repeat: no-repeat;
-  }
-  #app-store:hover{
-	  background-color: #fff;
-  }
-  
-  #play-store {
-      display: block;
-      background: url("../img/play-store.png");
-      width: 140px;
-      height: 55px;
-	  margin-left: 20px;
-      /*margin-top: 10px;*/
-      background-size: 100%;
-	  background-repeat: no-repeat;
-  }
-  
-  #wp-store {
-      display: block;
-      background: url("../img/wp-store.png");
-  	  border-radius:8px;
-  	  -moz-border-radius:8px;
-  	  -khtml-border-radius:8px;
-  	  -webkit-border-radius:8px;
-      width: 148px;
-      height: 55px;
-	  margin-left: 20px;
-      background-size: 100%;
-	  background-repeat: no-repeat;
-  }
-  
-  
-  #iphone-background {
-	  width: 264px;
-	  position: absolute;
-	  height: 510px;	  
-      background: url("../img/iphone.png") no-repeat center 0;
-      background-size: 80%;
-	  padding:109px 65px 95px 67px;
-  }
-  
-  .flex-container {
-	  position: relative;
-   }
-   
-   .flexslider {
-	   border: 0px;
-   }
-   
-   .flex-control-nav {
-	   bottom: -20px;
-   }
-   .flex-control-paging li a {
-	   background: #ccc;
-   }
-   
-   .flex-control-paging li a:hover {
-	   background: #888;
-   }
-   
-   .flex-control-paging li a.flex-active{
-	   background: #444;
-	}
-	
+/* Font sizes on mobile devices */
+@media (max-width: 767px) {
+    body {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .lead {
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+
+/* Background image */
+@media (max-width: 320px) {
+    body {
+        background: url(../img/therminal-xsmall.jpg) no-repeat center center fixed;
+    }
+}
+@media (max-width: 767px) {
+    body {
+        background: url(../img/therminal-small.jpg) no-repeat center center fixed;
+    }
+}
+@media (min-width: 768px) {
+    body {
+        background: url(../img/therminal.jpg) no-repeat center center fixed;
+    }
+}
+body {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* Sticky footer */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -40px;
+}
+#footer-push {
+    height: 60px;
+}
+
+/* Content */
+@media (min-width: 768px) {
+    #container > .row-fluid {
+        margin-top: 20px;
+    }
+}
+
+.content-block {
+    background-color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 40px 10px 20px;
+}
+.content-block:first {
+    margin-top: 20px;
+}
+
+h1 {
+    width: 214px; height: 80px;
+    background: url(../img/hydra-logo.png) no-repeat;
+    background-size: 214px 80px;
+    margin: 10px 0;
+}
+@media (max-width: 767px) {
+    h1 {
+        width: 107px; height: 40px;
+        background-size: 107px 40px;
+    }
+}
+
+#store-links {
+    margin: 25px 15px;
+}
+#store-links a {
+    display: block;
+    float: left;
+    height: 60px;
+}
+a#store-ios {
+    background: url(../img/store-ios.png) no-repeat left top;
+    width: 179px;
+    margin-right: 15px; margin-bottom: 10px;
+}
+a#store-android {
+    background: url(../img/store-android.png) no-repeat left top;
+    width: 172px;
+}
+
+@media (max-width: 767px) {
+    #store-links a {
+        height: 45px;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size: contain;
+    }
+    a#store-ios { width: 134px; }
+    a#store-android { width: 129px; }
+}
+
+#footer {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 40px;
+    overflow: hidden;
+}
+#footer p {
+    float: left;
+}
+#footer p.text-right {
+    float: right;
+}
+
+/* Carousel */
+.carousel-wrapper {
+    width: 358px;
+    margin: 20px auto;
+}
+
+.carousel {
+    position: absolute;
+}
+
+.carousel-frame {
+    height: 700px;
+    width: 100%;
+    background: url(../img/iphone-frame.png) no-repeat;
+    z-index: 100;
+}
+
+.carousel .slides img {
+    display: block;
+    width: 302px;
+}
+
+.flex-viewport, .flex-control-nav {
+    width: 302px;
+    position: relative;
+    top: 126px; left: 31px;
+}
+.flex-control-nav {
+    top: 260px;
+}
+
+@media (max-width: 767px) {
+    .carousel-wrapper, .carousel-frame {
+        width: 268px;
+        height: 525px;
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size: contain;
+    }
+
+    .carousel .slides img, .flex-viewport {
+        width: 227px;
+    }
+
+    .flex-viewport {
+        top: 94px; left: 23px;
+    }
+
+    .flex-control-nav {
+        display: none;
+    }
+}
