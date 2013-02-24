@@ -50,7 +50,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         }
 
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("advertise_facebook", true);
-        if (firstrun && Session.getActiveSession() == null) {
+        if (firstrun) {
             getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .edit()
                 .putBoolean("advertise_facebook", false)

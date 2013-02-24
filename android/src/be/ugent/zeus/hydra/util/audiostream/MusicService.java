@@ -36,6 +36,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 import be.ugent.zeus.hydra.R;
@@ -458,7 +459,7 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
             new Intent(getApplicationContext(), Urgent.class),
             PendingIntent.FLAG_UPDATE_CURRENT);
 
-        mNotification = new Notification.Builder(getApplicationContext())
+        mNotification = new NotificationCompat.Builder(getApplicationContext())
             .setSmallIcon(R.drawable.urgent_icon)
             .setTicker(text)
             .setContentTitle("Urgent.fm livestream")

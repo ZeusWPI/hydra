@@ -41,6 +41,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
     private int selected;
     private UiLifecycleHelper uiHelper;
     private Activity item;
+    private boolean fetched;
 
     public class SessionStatusCallback implements Session.StatusCallback {
 
@@ -68,13 +69,17 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         switch (state) {
             case OPENED_TOKEN_UPDATED:
                 new AsyncComingSetter(this, item.facebook_id, button, AttendingStatus.values()[selected]).execute();
-                return;
-                
-            case OPENED:
+                if (fetched) {
+                    return;
+                }
 
-                new AsyncInfoGetter(item.facebook_id, guests, image).execute();
-                new AsyncComingGetter(this, item.facebook_id, button).execute();
-                new AsyncFriendsGetter(item.facebook_id, guests, guestIcons).execute();
+            case OPENED:
+                if (!fetched) {
+                    fetched = true;
+                    new AsyncInfoGetter(item.facebook_id, guests, image).execute();
+                    new AsyncComingGetter(this, item.facebook_id, button).execute();
+                    new AsyncFriendsGetter(item.facebook_id, guests, guestIcons).execute();
+                }
                 return;
 
             case CLOSED:
@@ -100,6 +105,9 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         setTitle(R.string.details);
         setContentView(R.layout.activity_item);
 
+        
+        fetched = false;
+        
         /**
          * Get the activity
          */
