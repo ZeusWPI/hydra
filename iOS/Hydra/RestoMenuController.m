@@ -113,6 +113,9 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    // TODO: catch applicationDidEnterForeground and
+    // check if the day is still the same or update
+
     [super viewDidAppear:animated];
     GAI_Track(@"Resto Menu");
 }
@@ -253,7 +256,7 @@
         upperDate = self.days[upperNumber];
     }
 
-    // GOAL: apply lower and upper date to menuSheetA and menuSheetB
+    // Goal: apply lower and upper date to menuSheetA and menuSheetB
     // with the least amount of changes possible
     if (self.menuSheetA.day != lowerDate && self.menuSheetA.day != upperDate) {
         NSUInteger newIndex = self.menuSheetB.day == upperDate ? lowerNumber : upperNumber;

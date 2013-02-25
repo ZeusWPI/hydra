@@ -6,6 +6,7 @@
     <meta name="apple-itunes-app" content="app-id=602640924">
     <meta name="google-play-app" content="app-id=be.ugent.zeus.hydra">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Dienst StudentenActivititeiten" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
@@ -19,7 +20,11 @@
     <script src="js/jquery.flexslider.min.js"></script>
     <script>
     $(function(){
-        $.smartbanner();
+        $.smartbanner({
+            title: 'Hydra',
+            icon: 'img/app-icon.png',
+            iconGloss: false
+        });
         $(".carousel").flexslider({
             animation: 'slide',
             slideshowSpeed: 5000,
@@ -36,7 +41,7 @@
             <div class="content-block">
                 <h1 class="hide-text">Hydra</h1>
                 <p class="lead">
-                    Gebruik Hydra om op de hoogte te blijven van het laatste nieuws en de activiteiten van jouw favoriete studentenverenigingen. Luister naar Urgent.fm, lees Schamper of beslis of het menu van de resto's vandaag bij je in de smaak valt.
+                    Met Hydra ben je steeds op de hoogte van het laatste nieuws en de activiteiten van jouw favoriete studentenverenigingen. Luister naar Urgent.fm, lees Schamper of beslis of het menu van de resto's vandaag bij je in de smaak valt.
                 </p><p class="lead">
                     Waar je ook bent, vanaf nu heb je met Hydra steeds de UGent in je broekzak.
                 </p>
