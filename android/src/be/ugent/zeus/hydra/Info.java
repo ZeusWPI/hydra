@@ -35,6 +35,8 @@ public class Info extends AbstractSherlockListActivity {
         super.onCreate(icicle);
         setTitle(R.string.title_info);
 
+        EasyTracker.getInstance().setContext(this);
+        
         NSArrayWrapper wrapper = (NSArrayWrapper) getIntent().getParcelableExtra("content");
         NSArray content;
         if (wrapper != null) {

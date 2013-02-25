@@ -115,6 +115,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
          */
         item = (Activity) getIntent().getSerializableExtra("item");
 
+        EasyTracker.getInstance().setContext(this);
         EasyTracker.getTracker().sendView("Activity > " + item.title);
 
         /**

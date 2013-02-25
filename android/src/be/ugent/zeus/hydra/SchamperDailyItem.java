@@ -48,7 +48,7 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
             + "	<div class='content'>" + item.description + "</div>"
             + "</body>";
 
-
+        EasyTracker.getInstance().setContext(this);
         EasyTracker.getTracker().sendView("Schamper > " + item.title);
 
         WebView content = (WebView) findViewById(R.id.schamper_item);
