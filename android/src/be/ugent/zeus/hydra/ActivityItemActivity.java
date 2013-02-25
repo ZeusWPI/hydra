@@ -246,7 +246,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         View guestsBottomBorder = (View) findViewById(R.id.activity_item_guests_bottomborder);
         ImageView external = (ImageView) findViewById(R.id.activity_item_facebook_external);
 
-        if (item.facebook_id == null) {
+        if (item.facebook_id == null || "".equals(item.facebook_id)) {
             ((ViewManager) guestsContainer.getParent()).removeView(guestsContainer);
             ((ViewManager) guestsBottomBorder.getParent()).removeView(guestsBottomBorder);
         } else {
@@ -262,15 +262,36 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         /**
          * Content
          */
-        LinearLayout contentContainer = (LinearLayout) findViewById(R.id.activity_item_content_container);
+        View contentBottomBorder = (View) findViewById(R.id.activity_item_content_bottomborder);
         TextView content = (TextView) findViewById(R.id.activity_item_content);
 
-        if (item.description != null) {
+        if (item.description == null || "".equals(item.description)) {
+            ((ViewManager) content.getParent()).removeView(content);
+            ((ViewManager) contentBottomBorder.getParent()).removeView(contentBottomBorder);
+        } else {
             content.setText(Html.fromHtml(item.description.replace("\n", "<br>")));
             content.setMovementMethod(LinkMovementMethod.getInstance());
             Linkify.addLinks(content, Linkify.ALL);
+        }
+
+
+        /**
+         * More content
+         */
+        LinearLayout moreContentContainer = (LinearLayout) findViewById(R.id.activity_item_more_content_container);
+        TextView moreContent = (TextView) findViewById(R.id.activity_item_more_content);
+
+        if (item.url == null || "".equals(item.url)) {
+            ((ViewManager) moreContentContainer.getParent()).removeView(moreContentContainer);
         } else {
-            ((ViewManager) contentContainer.getParent()).removeView(contentContainer);
+            moreContent.setText(item.url);
+            moreContentContainer.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.url));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

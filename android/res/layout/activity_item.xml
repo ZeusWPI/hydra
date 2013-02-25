@@ -311,16 +311,39 @@
             
             android:background="@color/ugent_grey_light"
         />
+          
+        <TextView android:id="@+id/activity_item_content"
+            
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+            
+                  android:paddingRight="10dp"
+                  android:paddingLeft="10dp">
+        </TextView>
+        
+        <View
+            android:id="@+id/activity_item_content_bottomborder"
+            
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            
+            android:background="@color/ugent_grey_light"
+        />
         
         <LinearLayout 
-            android:id="@+id/activity_item_content_container"
+            android:id="@+id/activity_item_more_content_container"
                 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+        
+            android:paddingBottom="10dp">
             
-            <TextView android:id="@+id/activity_item_content_title"
+            <TextView android:id="@+id/activity_item_more_content_title"
         
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
@@ -328,22 +351,29 @@
                   
                       android:gravity="right"
                       
-                      android:text="@string/activity_item_content_title"
-                      android:textColor="@color/ugent_grey_dark"
-        
-                      android:paddingLeft="10dp">
+                      android:text="@string/activity_item_more_content_title"
+                      android:textColor="@color/ugent_grey_dark">
             </TextView>
             
-            <TextView android:id="@+id/activity_item_content"
+            <TextView android:id="@+id/activity_item_more_content"
             
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
                       android:layout_weight="3"
-            
-                      android:paddingRight="10dp"
+                      
                       android:paddingLeft="10dp"
-                      android:paddingBottom="10dp">
+                      android:paddingRight="10dp"
+                      
+                      android:textColorHighlight="#000000"
+                      android:focusable="true"
+                      android:focusableInTouchMode="true"
+                      
+                      android:singleLine="true"
+                      android:ellipsize="end">
             </TextView>
+            
         </LinearLayout>
+        
     </LinearLayout>
 </ScrollView>
+

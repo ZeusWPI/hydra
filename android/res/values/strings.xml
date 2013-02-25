@@ -34,6 +34,7 @@
     <string name="activity_item_location_title">Waar</string>
     <string name="activity_item_guests_title">Gasten</string>
     <string name="activity_item_content_title">Info</string>
+    <string name="activity_item_more_content_title">Meer info</string>
     <string name="activity_item_title">%1$s %2$s</string>
     <string name="activity_item_time_location">%1$s van %2$s - %3$s</string>
 
@@ -41,8 +42,8 @@
 
     <string name="now">Koppel</string>
     <string name="not_now">Niet nu</string>
-    <string name="koppel_text">Koppel Hydra aan Facebook en krijg meer informatie bij de activiteiten.\nJe kan dit later altijd aanpassen in de voorkeuren.</string>
-    <string name="koppel_title">Hydra koppelen</string>
+    <string name="koppel_text">Koppel Hydra aan Facebook en krijg meer informatie bij de activiteiten. Je kan dit later altijd aanpassen in de voorkeuren.</string>
+    <string name="koppel_title">Facebook koppelen</string>
 
     <!-- Preferences strings -->
     <string name="inappsupport">Feedback</string>
