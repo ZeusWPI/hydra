@@ -189,7 +189,6 @@ public class Urgent extends AbstractSherlockActivity {
                             Song curSong = cache.get(SongCache.CURRENT);
                             Song prevSong = cache.get(SongCache.PREVIOUS);
 
-                            // TODO: integrate this into the layout
                             if (prevSong != null && !prevSong.title_and_artist.equals("Geen plaat(info)")) {
                                 previous.setText(prevSong.title_and_artist.toUpperCase());
                                 prevContainer.setVisibility(TextView.VISIBLE);
