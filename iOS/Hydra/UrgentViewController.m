@@ -92,36 +92,36 @@
     }
 }
 
+- (void)openUrl:(NSString *)url fallbackUrl:(NSString *)fallbackUrl
+{
+    UIApplication *app = [UIApplication sharedApplication];
+    NSURL *resultUrl = [NSURL URLWithString:url];
+    if (![app canOpenURL:resultUrl]) {
+        resultUrl = [NSURL URLWithString:fallbackUrl];
+    }
+    [app openURL:resultUrl];
+}
+
 - (IBAction)homeButtonTapped:(id)sender
 {
-    NSURL *url = [NSURL URLWithString:@"http://urgent.fm"];
-    [[UIApplication sharedApplication] openURL:url];
+    [self openUrl:@"http://urgent.fm" fallbackUrl:nil];
 }
 
 - (IBAction)facebookButtonTapped:(id)sender
 {
-    UIApplication *app = [UIApplication sharedApplication];
-    NSURL *url = [NSURL URLWithString:@"fb://profile/28367168655"];
-    if (![app canOpenURL:url]) {
-        url = [NSURL URLWithString:@"https://www.facebook.com/pages/Urgentfm/28367168655"];
-    }
-    [app openURL:url];
+    [self openUrl:@"fb://profile/28367168655"
+      fallbackUrl:@"https://www.facebook.com/pages/Urgentfm/28367168655"];
 }
 
 - (IBAction)twitterButtonTapped:(id)sender
 {
-    UIApplication *app = [UIApplication sharedApplication];
-    NSURL *url = [NSURL URLWithString:@"twitter://user?screen_name=UrgentFM"];
-    if (![app canOpenURL:url]) {
-        url = [NSURL URLWithString:@"https://mobile.twitter.com/urgentfm"];
-    }
-    [app openURL:url];
+    [self openUrl:@"twitter://user?screen_name=UrgentFM"
+      fallbackUrl:@"https://mobile.twitter.com/urgentfm"];
 }
 
 - (IBAction)soundcloudButtonTapped:(id)sender
 {
-    NSURL *url = [NSURL URLWithString:@"http://m.soundcloud.com/urgent-fm-official"];
-    [[UIApplication sharedApplication] openURL:url];
+    [self openUrl:@"http://m.soundcloud.com/urgent-fm-official" fallbackUrl:nil];
 }
 
 - (IBAction)mailButtonTapped:(id)sender
