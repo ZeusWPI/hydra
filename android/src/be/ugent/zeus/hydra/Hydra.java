@@ -8,14 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.analytics.tracking.android.GoogleAnalytics;
-import com.zubhium.ZubhiumSDK;
 import java.util.Locale;
 
 /**
@@ -23,7 +17,7 @@ import java.util.Locale;
  */
 public class Hydra extends AbstractSherlockActivity {
 
-    ZubhiumSDK sdk;
+//    ZubhiumSDK sdk;
     public static final Locale LOCALE = new Locale("nl", "BE");
     private static final boolean DEBUG = true;
     private static final boolean BETA = true;
@@ -63,12 +57,12 @@ public class Hydra extends AbstractSherlockActivity {
 
         // Zubhium
 //        if (!DEBUG) {
-            Log.d("Zubhium:", "Enable bugtracking");
-            sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
-            if (sdk != null) {
-                // We are registering update receiver
-                sdk.registerUpdateReceiver(Hydra.this);
-            }
+//            Log.d("Zubhium:", "Enable bugtracking");
+//            sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
+//            if (sdk != null) {
+//                // We are registering update receiver
+//                sdk.registerUpdateReceiver(Hydra.this);
+//            }
 //        }
 
         // Google Analytics
@@ -100,39 +94,39 @@ public class Hydra extends AbstractSherlockActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.hydra, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getSupportMenuInflater();
+//        inflater.inflate(R.menu.hydra, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.feedbackButton:
+//                setupFeedback();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.feedbackButton:
-                setupFeedback();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    protected void onDestroy() {
+//        if (sdk != null) {
+//            sdk.unRegisterUpdateReceiver();     // Don't forget to unregister receiver
+//        }
+//        super.onDestroy();
+//    }
 
-    @Override
-    protected void onDestroy() {
-        if (sdk != null) {
-            sdk.unRegisterUpdateReceiver();     // Don't forget to unregister receiver
-        }
-        super.onDestroy();
-    }
-
-    protected void setupFeedback() {
-        /**
-         * Now lets listen to users, by enabling in app help desk. *
-         */
-        if (sdk != null) {
-            sdk.openFeedbackDialog(Hydra.this);
-        }
-    }
+//    protected void setupFeedback() {
+//        /**
+//         * Now lets listen to users, by enabling in app help desk. *
+//         */
+//        if (sdk != null) {
+//            sdk.openFeedbackDialog(Hydra.this);
+//        }
+//    }
 }

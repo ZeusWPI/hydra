@@ -14,7 +14,7 @@ import android.view.View;
  */
 public class About extends AbstractSherlockActivity {
 
-    private static final String ZEUS_URL = "http://zeus.ugent.be";
+    private static final String ZEUS_URL = "http://zeus.ugent.be/hydra";
 
     @Override
     public void onCreate(Bundle icicle) {
