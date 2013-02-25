@@ -11,7 +11,7 @@
           android:showAsAction="ifRoom" />
     
     <item android:id="@+id/show_about"
-          android:icon="@android:drawable/ic_menu_info_details"
+          android:icon="@android:drawable/ic_dialog_info"
           android:title="@string/resto_about"
           android:showAsAction="ifRoom" />
     
