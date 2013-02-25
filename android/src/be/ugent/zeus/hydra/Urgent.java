@@ -6,6 +6,7 @@
 package be.ugent.zeus.hydra;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +87,69 @@ public class Urgent extends AbstractSherlockActivity {
         cache = SongCache.getInstance(Urgent.this);
 
         Log.v(TAG, "opgestart");
+
+
+        ImageView home = (ImageView) findViewById(R.id.urgent_share_home);
+        ImageView facebook = (ImageView) findViewById(R.id.urgent_share_facebook);
+        ImageView twitter = (ImageView) findViewById(R.id.urgent_share_twitter);
+        ImageView soundcloud = (ImageView) findViewById(R.id.urgent_share_soundcloud);
+        ImageView mail = (ImageView) findViewById(R.id.urgent_share_mail);
+
+        final String homeUrl = "http://urgent.fm";
+        final String facebookUrl = "https://www.facebook.com/pages/Urgentfm/28367168655";
+        final String twitterUrl = "https://mobile.twitter.com/urgentfm";
+        final String soundcloudUrl = "http://m.soundcloud.com/urgent-fm-official";
+
+        home.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                openUrl(homeUrl);
+            }
+        });
+
+        facebook.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                openUrl(facebookUrl);
+            }
+        });
+
+        twitter.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                openUrl(twitterUrl);
+            }
+        });
+
+        soundcloud.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                openUrl(soundcloudUrl);
+            }
+        });
+
+        mail.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                sendMail();
+            }
+        });
+
+    }
+
+    public void openUrl(String url) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+    public void sendMail() {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact@urgent.fm"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Bericht via Hydra");
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(Urgent.this, "Geen emailclient geinstalleerd.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
