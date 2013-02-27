@@ -1,0 +1,8 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:updatePeriodMillis="3600000"
+    android:previewImage="@drawable/restomenu_widget_preview"
+    android:initialLayout="@layout/widget_restomenu"
+    android:resizeMode="horizontal|vertical">
+</appwidget-provider>
