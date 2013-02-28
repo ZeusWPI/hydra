@@ -43,7 +43,9 @@
         <convert:ObjectHeaderActivityToVisibilityConverter x:Key="objectHeaderActivityToVisbility" />
         <convert:ObjectHeaderNewsToVisibilityConverter x:Key="objectHeaderNewsToVisbility" />
         <convert:ObjectToStyleConverter x:Key="objectToStyle" />
-        
+        <convert:ActivityToBooleanConverter x:Key="ActivityToBoolean" />
+        <convert:StringToVisibilityConverter x:Key="StringToVisibilty" />
+        <convert:StringToImageConverter x:Key="StringToImage"/>
         
         <local:LocalizedStrings xmlns:local="clr-namespace:Hydra" x:Key="LocalizedStrings"/>
     </Application.Resources>

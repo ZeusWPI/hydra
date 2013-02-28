@@ -94,16 +94,20 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ActivityToBooleanConverter.cs" />
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="Converters\ObjectHeaderActivityToVisibilityConverter.cs" />
     <Compile Include="Converters\ObjectHeaderNewsToVisibilityConverter.cs" />
     <Compile Include="Converters\ObjectToStyleConverter.cs" />
     <Compile Include="Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringToImageConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Data\AssociationList.cs" />
     <Compile Include="Converters\BooleanToStyleConverter.cs" />
     <Compile Include="Data\KeyedList.cs" />
     <Compile Include="Data\Settings.cs" />
+    <Compile Include="Data\UserPreference.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Pages\ActivityItem.xaml.cs">
       <DependentUpon>ActivityItem.xaml</DependentUpon>
@@ -264,6 +268,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>packages\Facebook.6.2.1-beta\lib\wp8\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>packages\WPtoolkit.4.2012.10.30\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>

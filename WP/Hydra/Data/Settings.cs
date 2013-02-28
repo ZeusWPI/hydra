@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Linq;
+﻿using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
 namespace Hydra.Data
@@ -35,5 +34,13 @@ namespace Hydra.Data
         [Column(CanBeNull = false)]
         public string CacheDate { get; set; }
 
+        [Column(CanBeNull = true)]
+        public string AccessKey { get; set; }
+
+        [Column(CanBeNull = true)]
+        public string FbUserId { get; set; }
+
+        [Column(CanBeNull = true)]
+        public string Name { get; set; }
     }
 }

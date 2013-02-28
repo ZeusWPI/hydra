@@ -19,19 +19,11 @@ namespace Hydra.Converters
 
             var items = (KeyedList<string, ActivityItemsViewModel>)value;
 
-            if (items.Any(item => (App.ViewModel.IsChecked && App.ViewModel.PreferredAssociations.Count > 0) && (App.ViewModel.PreferredContains(item.Assocition.In) || item.IsHighLighted)))
+            if (items.Any(item => (App.ViewModel.UserPreference.IsFiltering && App.ViewModel.UserPreference.PreferredAssociations.Count > 0) && (App.ViewModel.PreferredContains(item.Assocition.In) || item.IsHighLighted)))
             {
                 return Visibility.Visible;
             }
-            else if (!App.ViewModel.IsChecked)
-            {
-                return Visibility.Visible;
-
-
-            }
-
-
-            return Visibility.Collapsed;
+            return !App.ViewModel.UserPreference.IsFiltering ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

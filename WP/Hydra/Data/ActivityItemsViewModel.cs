@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Hydra.Data
 {
@@ -8,6 +12,11 @@ namespace Hydra.Data
     public class ActivityItemsViewModel : NewsItemViewModel
     {
         private const float Epsilon = 0.1f;
+
+        public ActivityItemsViewModel()
+        {
+            FriendsPics=new List<string>();
+        }
 
 
         // example given 
@@ -44,7 +53,15 @@ namespace Hydra.Data
             }
         }
 
-        
+        public Visibility IsVisible
+        {
+            get
+            {
+                if(FacebookId==null || FacebookId.Equals(""))
+                    return Visibility.Collapsed;
+                return Visibility.Visible;
+            }
+        }
 
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
@@ -64,6 +81,42 @@ namespace Hydra.Data
             }
         }
 
+        public int Attendings { get; set; }
+
+        public string ImageUri { get; set; }
+
+        public BitmapImage Image{get
+        {
+            return ImageUri!=null ? new BitmapImage(new Uri(ImageUri,UriKind.Absolute)) : null;
+        }
+        }
+
+        public int FriendsAttending { get; set; }
+
+        public string RsvpStatus { get; set; }
+
+        public BitmapImage FriendsImage(int i)
+        {
+                if(FriendsPics!= null && FriendsPics.Count>0 && FriendsPics[i]!=null)
+                    return new BitmapImage(new Uri(FriendsPics[i]));
+                return null;
+        }
+
+        public List<String> FriendsPics { get; set; }
+
+         public String AttendingsText
+        {
+            get
+            {
+                if (FriendsAttending <= 0)
+                    return Attendings + " gasten";
+                return Attendings + " gasten, " + FriendsAttending + " vrienden";
+            }
+        }
+
+        [DataMember(Name = "facebook_id")]
+        public string FacebookId { get; set; }
+
         private Uri _url;
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
@@ -78,11 +131,9 @@ namespace Hydra.Data
             }
             set
             {
-                if (value != _url)
-                {
-                    _url = value;
-                    NotifyPropertyChanged("url");
-                }
+                if (value == _url) return;
+                _url = value;
+                NotifyPropertyChanged("url");
             }
         }
 
@@ -107,6 +158,8 @@ namespace Hydra.Data
                 }
             }
         }
+
+       
 
         [DataMember(Name = "longitude")]
         private double _longitude;

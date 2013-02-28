@@ -10,18 +10,17 @@ namespace Hydra.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (!App.ViewModel.UserPreference.IsFiltering)
+                return Visibility.Visible;
             if (!(value is NewsItemViewModel))
             {
                 return Visibility.Collapsed;
             }
-            else
-            {
-                var item = (NewsItemViewModel) value;
-                if((App.ViewModel.IsChecked && App.ViewModel.PreferredAssociations.Count>0) && (!App.ViewModel.PreferredContains(item.Assocition.In)&&!item.IsHighLighted))
-                     return Visibility.Collapsed;
+            var item = (NewsItemViewModel) value;
+            if ((App.ViewModel.UserPreference.IsFiltering && App.ViewModel.UserPreference.PreferredAssociations.Count > 0) && (!App.ViewModel.PreferredContains(item.Assocition.In) && !item.IsHighLighted))
+                return Visibility.Collapsed;
                 
-                return Visibility.Visible;
-            }
+            return Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

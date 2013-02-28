@@ -2,20 +2,18 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using Hydra.Data;
 
 namespace Hydra.Converters
 {
-    public sealed class ObjectToBooleanConverter : IValueConverter
+    public class StringToVisibilityConverter:IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is Association))
+            if(string.Equals(parameter,"browser"))
             {
-                return false;
+                return App.ViewModel.UserPreference.AccessKey == null ? Visibility.Visible : Visibility.Collapsed;
             }
-            var item = (Association) value;
-            return App.ViewModel.UserPreference.PreferredAssociations.Contains(item);
+            return App.ViewModel.UserPreference.AccessKey == null ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

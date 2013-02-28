@@ -39,30 +39,47 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,10">
+            <Image x:Name="EventImage" Source="{Binding Image}" HorizontalAlignment="Left" Height="110" Margin="10,23,0,-11" VerticalAlignment="Top" Width="110"/>
+            <TextBlock x:Name="title" Margin="125,11,10,21" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding FullTitle}"/>
+            <TextBlock x:Name="associatie" Margin="125,106,260,-11" TextWrapping="Wrap" Text="{Binding Assocition.In}" />
+        </Grid>
 
-        <!--TitlePanel contains the name of the application and page title-->
+        <Grid Margin="14,10,10,530" Grid.Row="1">
+            <TextBlock x:Name="LokcationTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Locatie:" VerticalAlignment="Top"/>
+            <TextBlock x:Name="location" Margin="82,10,208,10" TextWrapping="Wrap" Tap="LocationHandler" Text="{Binding Location}"/>
+            <TextBlock x:Name="startDate" Margin="277,10,10,59" Text="{Binding StartDate}" />
+            <TextBlock x:Name="endDate" Margin="277,46,10,25" Text="{Binding EndDate}" />
+        </Grid>
 
-        <!--ContentPanel - place additional content here-->
-        <Border Grid.Row="0" Margin="12,17,0,28">
-            <Grid>
-                <TextBlock x:Name="title" Margin="0,-7,9,-32"  TextWrapping="Wrap" Style="{StaticResource PhoneTextTitle2Style}" Text="{Binding FullTitle}"/>
-                <TextBlock x:Name="associatie" Margin="0,73,374,-64" TextWrapping="Wrap" Text="{Binding Assocition.In}" />
-                <TextBlock x:Name="location" Margin="99,73,184,-63" TextWrapping="Wrap" Tap="LocationHandler" Text="{Binding Location}"/>
-                <TextBlock x:Name="startDate" Margin="284,73,9,-64" Text="{Binding StartDate}" />
-                <TextBlock x:Name="endDate" Margin="284,100,9,-91" Text="{Binding EndDate}" />
-            </Grid>
-        </Border>
-
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="14,10,10,-10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="31*"/>
-                <ColumnDefinition Width="26*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="descr" Text="{Binding Content}" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Height="592" Width="436" Grid.ColumnSpan="2"/>
+            <Grid Margin="10,103,0,292">
+                <ScrollViewer Height="231" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5,5,10,5">
+                    <TextBlock x:Name="descr" Text="{Binding Content}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </ScrollViewer>
+            </Grid>
+            <Grid Margin="0,503,10,58">
+                <Button x:Name="attending" Content="Aanwezig" Click="ButtonsOnClick" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="72" Width="150" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=attending}" RenderTransformOrigin="0.267,0.528"/>
+                <Button x:Name="maybe" Content="Misschien"  Click="ButtonsOnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="150" RenderTransformOrigin="0.529,0.208" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=unsure}" Margin="148,0,0,0"/>
+                <Button x:Name="declined" Content="Afwezig"  Click="ButtonsOnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=declined}" Margin="298,0,0,0"/>
+            </Grid>
+            <Grid x:Name="Facebook"  HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Height="154" Width="436" Visibility="{Binding IsVisible}">
+                <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding AttendingsText}" VerticalAlignment="Top" Width="416" Height="34"/>
+                <Image x:Name="Friend1Image" HorizontalAlignment="Left" Height="50" Margin="10,44,0,0" VerticalAlignment="Top" Width="50" Source="{Binding Path=.,Converter={StaticResource StringToImage},ConverterParameter=0}"/>
+                <Image x:Name="Friend2Image" HorizontalAlignment="Left" Height="50" Margin="65,44,0,0" VerticalAlignment="Top" Width="50" Source="{Binding Path=.,Converter={StaticResource StringToImage},ConverterParameter=1}"/>
+                <Image x:Name="Friend3Image" HorizontalAlignment="Left" Height="50" Margin="120,44,0,0" VerticalAlignment="Top" Width="50" Source="{Binding Path=.,Converter={StaticResource StringToImage},ConverterParameter=2}"/>
+                <Image x:Name="Friend4Image" HorizontalAlignment="Left" Height="50" Margin="175,44,0,0" VerticalAlignment="Top" Width="50" Source="{Binding Path=.,Converter={StaticResource StringToImage},ConverterParameter=3}"/>
+                <Image x:Name="Friend5Image" HorizontalAlignment="Left" Height="50" Margin="230,44,0,0" VerticalAlignment="Top" Width="50" Source="{Binding Path=.,Converter={StaticResource StringToImage},ConverterParameter=4}"/>
+
+            </Grid>
 
         </Grid>
-        
+
+
     </Grid>
 
 </phone:PhoneApplicationPage>

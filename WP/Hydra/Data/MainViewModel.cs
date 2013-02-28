@@ -10,7 +10,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 using System.Xml.Linq;
+using Facebook;
 using Microsoft.Phone.Net.NetworkInformation;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -26,9 +30,13 @@ namespace Hydra.Data
         private const string MetaApi = "http://zeus.ugent.be/hydra/api/1.0/resto/meta.json";
         private const string ConnectionString = "isostore:/settings.sdf";
         private bool _news, _activity, _schamper, _info, _resto, _meta, _asso;
-        private bool _isFilteringChecked, _fromCache;
+        private bool _fromCache;
         private int _offset, _week;
         private DateTime _cacheTime;
+        private const string AppId = "146947948791011";
+        private const string GenericAccessToken = "146947948791011|QqOR99OREkC_vAvOkfJm2tp-02k";
+        private const string ExtendedPermissions = "user_about_me,rsvp_event";
+        private readonly FacebookClient _fb = new FacebookClient();
         private readonly IsolatedStorageFile _isoStore = IsolatedStorageFile.GetUserStoreForApplication();
 
         /// <summary>
@@ -40,7 +48,6 @@ namespace Hydra.Data
         public ObservableCollection<InfoItemsViewModel> InfoItems { get; private set; }
         public ObservableCollection<RestoItemsViewModel> RestoItems { get; private set; }
         public List<Association> Associtions { get; private set; }
-        public ObservableCollection<Association> PreferredAssociations { get; set; }
         public MetaResto MetaRestoItem { get; private set; }
 
 
@@ -48,28 +55,54 @@ namespace Hydra.Data
         {
             InfoItems = new ObservableCollection<InfoItemsViewModel>();
             Associtions = new List<Association>();
-            PreferredAssociations = new ObservableCollection<Association>();
             NewsItems = new ObservableCollection<NewsItemViewModel>();
             ActivityItems = new ObservableCollection<ActivityItemsViewModel>();
             SchamperItems = new ObservableCollection<SchamperItemsViewModel>();
             RestoItems = new ObservableCollection<RestoItemsViewModel>();
             _offset = 0;
             _fromCache = false;
+            UserPreference = new UserPreference();
         }
+
+        public Uri FacebookLoginUrl(string uri)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters["client_id"] = AppId;
+            parameters["redirect_uri"] = uri;
+            parameters["response_type"] = "token";
+            parameters["display"] = "touch";
+
+            // add the 'scope' only if we have extendedPermissions.
+            if (!string.IsNullOrEmpty(ExtendedPermissions))
+            {
+                // A comma-delimited list of permissions
+                parameters["scope"] = ExtendedPermissions;
+            }
+
+            return _fb.GetLoginUrl(parameters);
+        }
+
+        public Uri FacebookLogOutUrl(string uri)
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters["client_id"] = AppId;
+            parameters["redirect_uri"] = uri;
+            parameters["display"] = "touch";
+
+            return _fb.GetLogoutUrl(parameters);
+        }
+
+        public UserPreference UserPreference { get; set; }
 
         public bool HasConnection
         {
             get
             {
-                 return NetworkInterface.NetworkInterfaceType != NetworkInterfaceType.None;
+                return NetworkInterface.NetworkInterfaceType != NetworkInterfaceType.None;
             }
         }
 
-        public bool IsChecked
-        {
-            get { return _isFilteringChecked; }
-            set { _isFilteringChecked = value; }
-        }
+
         public bool IsDataLoaded
         {
             get { return _news && _activity && _schamper && _info && _resto && _meta && _asso; }
@@ -78,21 +111,29 @@ namespace Hydra.Data
         public bool IsEssentialsLoaded
         {
             get { return _info && _asso; }
-            
+
         }
 
 
         /// <summary>
         /// Creates and adds the data to the viewmodels
         /// </summary>
-        public void LoadData(bool reload)
+        public async void LoadData(bool reload)
         {
-            if(!IsEssentialsLoaded)
+            if (!IsEssentialsLoaded)
             {
-                
+
                 LoadInfo();
                 LoadAssociations();
                 LoadSettings();
+                try
+                {
+                    await LoadFaceBookSettings();
+                }
+                catch (Exception)
+                {
+                    //NIET INGELOGD
+                }
             }
             if (!reload) return;
             RestoItems.Clear();
@@ -106,6 +147,31 @@ namespace Hydra.Data
             LoadResto();
             LoadActivities();
             LoadSchamper();
+        }
+
+        private async Task<bool> LoadFaceBookSettings()
+        {
+            var res = false;
+            if (UserPreference.AccessKey == null || !HasConnection) return false;
+            var fb = new FacebookClient(UserPreference.AccessKey);
+            fb.GetCompleted += (o, e) =>
+                                   {
+                                       if (e.Error != null)
+                                       {
+                                           UserPreference.AccessKey = null;
+                                           UserPreference.Name = null;
+                                           UserPreference.FbUserId = null;
+                                           res = false;
+                                           return;
+                                       }
+
+                                       var result = (IDictionary<string, object>)e.GetResultData();
+                                       UserPreference.FbUserId = (string)result["id"];
+                                       UserPreference.Name = (string)result["name"];
+                                       res = true;
+                                   };
+            await fb.GetTaskAsync("me");
+            return res;
         }
 
         private void LoadSettings()
@@ -127,15 +193,18 @@ namespace Hydra.Data
                 }
                 else
                 {
-                    IQueryable<SettingsTable> query = context.SettingsTable.Where(setting => setting.Id == 0);
+                    var query = context.SettingsTable.Where(setting => setting.Id == 0);
                     if (!query.Any())
                     {
                         SaveSettings();
                         return;
                     }
                     var sett = query.First();
-                    _isFilteringChecked = bool.Parse(sett.Filtering);
+                    UserPreference.IsFiltering = bool.Parse(sett.Filtering);
                     _cacheTime = DateTime.Parse(sett.CacheDate, new CultureInfo("nl-BE"));
+                    UserPreference.AccessKey = sett.AccessKey;
+                    UserPreference.FbUserId = sett.FbUserId;
+                    UserPreference.Name = sett.Name;
                     if (sett.Associations.Equals("")) return;
                     foreach (var asso in new List<string>(sett.Associations.Split(';')))
                     {
@@ -145,7 +214,7 @@ namespace Hydra.Data
                             i++;
                         }
                         if (i < Associtions.Count)
-                            PreferredAssociations.Add(Associtions[i]);
+                            UserPreference.PreferredAssociations.Add(Associtions[i]);
                     }
 
                 }
@@ -164,9 +233,9 @@ namespace Hydra.Data
                     // create database if it does not exist
                     context.CreateDatabase();
                 }
-                IQueryable<SettingsTable> query = context.SettingsTable.Where(setting => setting.Id == 0);
+                var query = context.SettingsTable.Where(setting => setting.Id == 0);
                 string s = null;
-                s = PreferredAssociations.Aggregate(s, (current, preferredAssociation) => current + (preferredAssociation.In + ';'));
+                s = UserPreference.PreferredAssociations.Aggregate(s, (current, preferredAssociation) => current + (preferredAssociation.In + ';'));
                 var formatted = s != null ? s.Substring(0, s.Length - 1) : "";
                 SettingsTable settingUpdate = null;
                 if (query.Any())
@@ -175,7 +244,7 @@ namespace Hydra.Data
                 }
                 if (!query.Any())
                 {
-                    var sett = new SettingsTable { Associations = formatted, Filtering = Convert.ToString(_isFilteringChecked), Id = 0, CacheDate = _cacheTime.ToString(new CultureInfo("nl-BE")) };
+                    var sett = new SettingsTable { Associations = formatted, Filtering = Convert.ToString(UserPreference.IsFiltering), Id = 0, CacheDate = _cacheTime.ToString(new CultureInfo("nl-BE")), AccessKey = UserPreference.AccessKey, FbUserId = UserPreference.FbUserId, Name = UserPreference.Name };
                     context.SettingsTable.InsertOnSubmit(sett);
 
                 }
@@ -184,9 +253,12 @@ namespace Hydra.Data
 
                     if (settingUpdate != null)
                     {
-                        settingUpdate.Filtering = Convert.ToString(_isFilteringChecked);
+                        settingUpdate.Filtering = Convert.ToString(UserPreference.IsFiltering);
                         settingUpdate.Associations = formatted;
                         settingUpdate.CacheDate = _cacheTime.ToString(new CultureInfo("nl-BE"));
+                        settingUpdate.AccessKey = UserPreference.AccessKey;
+                        settingUpdate.FbUserId = UserPreference.FbUserId;
+                        settingUpdate.Name = UserPreference.Name;
                     }
                 }
                 context.SubmitChanges();
@@ -239,12 +311,15 @@ namespace Hydra.Data
 
 
         }
+
+
+
         public void LoadResto()
         {
             _week = new CultureInfo("nl-BE").Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstDay,
                                                                         DayOfWeek.Monday);
 
-            if (!_fromCache || (!_isoStore.FileExists((_week+_offset)+".json")||!_isoStore.FileExists("meta.json")))
+            if (!_fromCache || (!_isoStore.FileExists((_week + _offset) + ".json") || !_isoStore.FileExists("meta.json")))
             {
                 var fetch = new WebClient();
                 _resto = false;
@@ -260,14 +335,14 @@ namespace Hydra.Data
             else
             {
                 ProcessResto(null, null);
-                ProcessMetaResto(null,null);
+                ProcessMetaResto(null, null);
             }
 
         }
 
         void ProcessMetaResto(object sender, DownloadStringCompletedEventArgs e)
         {
-            MemoryStream ms;
+            MemoryStream ms = null;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
                 _meta = true;
@@ -275,35 +350,36 @@ namespace Hydra.Data
             }
             if (e == null && _fromCache)
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("meta", ".json")));
-            else
-                ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("meta", ".json", e.Result)));
+            else if (e != null) ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("meta", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(MetaResto));
-            var list = (MetaResto)serializer.ReadObject(ms);
-            if (list == null) return;
-            MetaRestoItem = list;
+            if (ms != null)
+            {
+                var list = (MetaResto)serializer.ReadObject(ms);
+                if (list == null) return;
+                MetaRestoItem = list;
+            }
 
             _meta = true;
-           
+
         }
 
         public void ProcessResto(object sender, DownloadStringCompletedEventArgs e)
         {
-            String ms;
+            String ms = null;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
-                _resto = true; 
+                _resto = true;
                 return;
             }
             if (e == null && _fromCache)
                 ms = LoadFromStorage(Convert.ToString((_week + _offset)), ".json");
-            else
-                ms = SaveToStorage(Convert.ToString((_week + _offset)), ".json", e.Result);
+            else if (e != null) ms = SaveToStorage(Convert.ToString((_week + _offset)), ".json", e.Result);
             if (ms == null) return;
             var ob = (JObject)JsonConvert.DeserializeObject(ms);
 
             foreach (var day in ob)
             {
-                if (DateTime.Parse(day.Key,new CultureInfo("nl-BE")).Date < DateTime.Now.Date) continue;
+                if (DateTime.Parse(day.Key, new CultureInfo("nl-BE")).Date < DateTime.Now.Date) continue;
                 bool open;
                 try
                 {
@@ -336,33 +412,35 @@ namespace Hydra.Data
                 LoadResto();
             }
             _resto = true;
-           
+
 
         }
 
 
         public void ProcessNews(object sender, DownloadStringCompletedEventArgs e)
         {
-            MemoryStream ms ;
-            if ((e == null && !_fromCache) || (e!=null&&(e.Error != null || e.Cancelled)))
+            MemoryStream ms = null;
+            if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
                 _news = true;
                 return;
             }
             if (e == null && _fromCache)
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("news", ".json")));
-            else
-                ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("news", ".json", e.Result)));
+            else if (e != null) ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("news", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<NewsItemViewModel>));
-            var list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
-            if (list == null) return;
-            foreach (var newsItemView in list)
+            if (ms != null)
             {
-                NewsItems.Add(newsItemView);
+                var list = (ObservableCollection<NewsItemViewModel>)serializer.ReadObject(ms);
+                if (list == null) return;
+                foreach (var newsItemView in list)
+                {
+                    NewsItems.Add(newsItemView);
+                }
             }
             _news = true;
             NotifyPropertyChanged("GroupedNews");
-           
+
         }
 
         public List<KeyedList<string, NewsItemViewModel>> GroupedNews
@@ -383,7 +461,7 @@ namespace Hydra.Data
 
         public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
         {
-            MemoryStream ms;
+            MemoryStream ms = null;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
                 _activity = true;
@@ -391,18 +469,159 @@ namespace Hydra.Data
             }
             if (e == null && _fromCache)
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(LoadFromStorage("activities", ".json")));
-            else
+            else if (e != null)
                 ms = new MemoryStream(Encoding.UTF8.GetBytes(SaveToStorage("activities", ".json", e.Result)));
             var serializer = new DataContractJsonSerializer(typeof(ObservableCollection<ActivityItemsViewModel>));
-            var list = (ObservableCollection<ActivityItemsViewModel>)serializer.ReadObject(ms);
-            if (list == null) return;
-            foreach (var activityItemView in list)
+            if (ms != null)
             {
-                ActivityItems.Add(activityItemView);
+                var list = (ObservableCollection<ActivityItemsViewModel>)serializer.ReadObject(ms);
+                if (list == null) return;
+                foreach (var activityItemView in list.Where(activityItemView => DateTime.Parse(activityItemView.StartDate, new CultureInfo("nl-BE")) >= DateTime.Now))
+                {
+                    ActivityItems.Add(activityItemView);
+                    if (activityItemView.FacebookId == null || activityItemView.FacebookId.Equals("") ||!HasConnection) continue;
+                    var fb = new FacebookClient
+                                 {
+                                     AppId = AppId,
+                                     AccessToken = UserPreference.AccessKey ??
+                                                   GenericAccessToken
+                                 };
+
+                    fb.GetCompleted += async (o, res) =>
+                                           {
+                                               if (res.Error != null)
+                                               {
+                                                   return;
+                                               }
+
+                                               var result = (IDictionary<string, object>)res.GetResultData();
+                                               var data = (IList<object>)result["data"];
+                                               var eventData = ((IDictionary<string, object>)data.ElementAt(0));
+                                               var i = 0;
+                                               var sublist = from activity in ActivityItems
+                                                             where
+                                                                 activity.FacebookId != null && (activity.FacebookId != null ||
+                                                                                                 activity.FacebookId.Equals(""))
+                                                             select activity;
+                                               while (i < sublist.Count() && !Equals(sublist.ElementAt(i).FacebookId, Convert.ToString(eventData["eid"])))
+                                               {
+                                                   i++;
+                                               }
+                                               if (i >= sublist.Count()) return;
+                                               if (UserPreference.AccessKey == null) return;
+                                               sublist.ElementAt(i).RsvpStatus = await GetRsvp(sublist.ElementAt(i));
+                                               sublist.ElementAt(i).FriendsPics = await FriendImages(sublist.ElementAt(i));
+                                               sublist.ElementAt(i).Attendings = Convert.ToInt32(eventData["attending_count"]);
+                                               sublist.ElementAt(i).ImageUri = (string)eventData["pic"];
+                                           };
+
+                    // query to get all the friends
+                    var query = string.Format("SELECT eid,attending_count, pic FROM event WHERE eid = {0}", activityItemView.FacebookId);
+
+
+                    // Note: For windows phone 7, make sure to add [assembly: InternalsVisibleTo("Facebook")] if you are using anonymous objects as parameter.
+                    fb.GetTaskAsync("fql", new { q = query });
+                }
             }
             _activity = true;
             NotifyPropertyChanged("GroupedActivities");
-           
+
+        }
+
+        public async Task<List<string>> FriendImages(ActivityItemsViewModel act)
+        {
+            if (UserPreference.AccessKey == null || act.FacebookId == null || act.FacebookId.Equals("") || !HasConnection)
+                return null;
+            var friends = new List<string>();
+            var fb = new FacebookClient
+            {
+                AppId = AppId,
+                AccessToken = UserPreference.AccessKey
+            };
+            fb.GetCompleted += (o, e) =>
+            {
+                if (e.Error != null)
+                {
+                    return;
+                }
+                var result = (IDictionary<string, object>)e.GetResultData();
+                var data = (IList<object>)result["data"];
+                if (data.Count <= 0)
+                {
+                    return;
+                }
+                act.FriendsAttending = data.Count;
+                for (var i = 0; i < 5; i++)
+                {
+                    var eventData = ((IDictionary<string, object>)data.ElementAt(i));
+                    friends.Add((string)eventData["pic_square"]);    
+                }
+                
+
+            };
+            var query = String.Format("SELECT pic_square FROM user WHERE uid IN"
+            + "(SELECT uid2 FROM friend WHERE uid1 = me() AND uid2 IN"
+            + "(SELECT uid FROM event_member WHERE eid = {0} "
+            + "AND rsvp_status = 'attending'))", act.FacebookId);
+            await fb.GetTaskAsync("fql", new { q = query });
+            return friends;
+        }
+
+        public async Task<string> GetRsvp(ActivityItemsViewModel act)
+        {
+            if (UserPreference.AccessKey == null || act.FacebookId == null || act.FacebookId.Equals("") || !HasConnection)
+                return null;
+            string status=null;
+            var fb = new FacebookClient
+                                 {
+                                     AppId = AppId,
+                                     AccessToken = UserPreference.AccessKey
+                                 };
+            fb.GetCompleted += (o, e) =>
+                                   {
+                                       if (e.Error != null)
+                                       {
+                                           return;
+                                       }
+                                       var result = (IDictionary<string, object>)e.GetResultData();
+                                       var data = (IList<object>)result["data"];
+                                       if (data.Count <= 0)
+                                       {
+                                           status = "not_replied";
+                                           return;
+                                       }
+                                       var eventData = ((IDictionary<string, object>)data.ElementAt(0));
+                                       status = (string) eventData["rsvp_status"];
+
+                                   };
+            var query = String.Format("SELECT rsvp_status FROM event_member  WHERE eid = {0} AND uid = me()",act.FacebookId);
+            await fb.GetTaskAsync("fql", new {q = query});
+            return status;
+        }
+
+       
+
+       
+
+        public void SetRsvp(string name,ActivityItemsViewModel act)
+        {
+            if(UserPreference.AccessKey==null || act.FacebookId==null || act.FacebookId.Equals("") || !HasConnection)
+                return;
+            var fb = new FacebookClient() {AccessToken = UserPreference.AccessKey, AppId = AppId};
+            fb.GetCompleted += (o, e) =>
+                                   {
+                                       if (e.Error != null)
+                                       {
+                                           Deployment.Current.Dispatcher.BeginInvoke(
+                                               () => MessageBox.Show(
+                                                   "Er gebeurde een fout tijdens het versturen van data naar Facebook"));
+                                       }
+                                       act.RsvpStatus = GetRsvp(act).ToString();
+
+
+                                   };
+            var query = string.Format("https://graph.facebook.com/{0}/{1}", act.FacebookId, name);
+            fb.PostTaskAsync(query,null);
         }
 
         public List<KeyedList<string, ActivityItemsViewModel>> GroupedActivities
@@ -411,12 +630,24 @@ namespace Hydra.Data
             {
                 var groupedActivities =
                     from activity in ActivityItems
-                    orderby DateTime.Parse(activity.StartDate,new CultureInfo("nl-BE"))
+                    orderby DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE"))
                     group activity by DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into activitiesByDay
                     select new KeyedList<string, ActivityItemsViewModel>(activitiesByDay);
 
                 return new List<KeyedList<string, ActivityItemsViewModel>>(groupedActivities);
             }
+        }
+
+        public async void UnlinkFaceBook()
+        {
+            if(!HasConnection)
+                return; 
+            var fb = new FacebookClient(UserPreference.AccessKey) { AppId = AppId };
+            await fb.DeleteTaskAsync(string.Format("https://graph.facebook.com/{0}/permissions", UserPreference.FbUserId));
+            UserPreference.AccessKey = null;
+            UserPreference.FbUserId = null;
+            UserPreference.Name = null;
+            NotifyPropertyChanged("AccessKey");
         }
 
         public void LoadAssociations()
@@ -476,7 +707,7 @@ namespace Hydra.Data
                 }
             }
             _asso = true;
-           
+
         }
 
 
@@ -519,12 +750,12 @@ namespace Hydra.Data
                 InfoItems.Add(new InfoItemsViewModel { Children = subcontent, ImagePath = imagePath, Link = link, Title = title });
             }
             _info = true;
-           
+
         }
 
         public void ProcessSchamper(object sender, DownloadStringCompletedEventArgs e)
         {
-            XElement resultElements;
+            XElement resultElements = null;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
             {
                 _schamper = true;
@@ -537,71 +768,70 @@ namespace Hydra.Data
                     resultElements = XElement.Parse(s);
                 else return;
             }
-            else
-                resultElements = XElement.Parse(SaveToStorage("schamper", ".xml", e.Result));
+            else if (e != null) resultElements = XElement.Parse(SaveToStorage("schamper", ".xml", e.Result));
 
-            var xElement = resultElements.Element(XName.Get("channel"));
-            if (xElement != null)
-                foreach (var schamperItem in xElement.Elements())
-                {
-                    if (schamperItem.Name != "item") continue;
-                    var dc = XNamespace.Get("http://purl.org/dc/elements/1.1/");
-                    string date = null, author = null, title = null, image = null, content = null;
-                    var element = schamperItem.Element(dc + "creator");
-                    if (element != null)
+            if (resultElements != null)
+            {
+                var xElement = resultElements.Element(XName.Get("channel"));
+                if (xElement != null)
+                    foreach (var schamperItem in xElement.Elements())
                     {
-                        author = element.Value;
-                    }
-                    element = schamperItem.Element("pubDate");
-                    if (element != null)
-                    {
-                        date = element.Value;
-                    }
-                    element = schamperItem.Element(XName.Get("title"));
-                    if (element != null)
-                    {
-                        title = element.Value;
-                    }
-                    element = schamperItem.Element(XName.Get("description"));
-                    if (element != null)
-                    {
-                        content = element.Value;
-                        string[] inputs = { content };
-                        const string pattern = @"(https?:)?//?[^''""<>]+?\.(jpg|jpeg|gif|png)";
-
-                        var rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-
-                        foreach (string input in inputs)
+                        if (schamperItem.Name != "item") continue;
+                        var dc = XNamespace.Get("http://purl.org/dc/elements/1.1/");
+                        string date = null, author = null, title = null, image = null, content = null;
+                        var element = schamperItem.Element(dc + "creator");
+                        if (element != null)
                         {
-                            MatchCollection matches = rgx.Matches(input);
-                            if (matches.Count <= 0) continue;
-                            foreach (Match match in matches)
-                                image = match.Value;
+                            author = element.Value;
                         }
+                        element = schamperItem.Element("pubDate");
+                        if (element != null)
+                        {
+                            date = element.Value;
+                        }
+                        element = schamperItem.Element(XName.Get("title"));
+                        if (element != null)
+                        {
+                            title = element.Value;
+                        }
+                        element = schamperItem.Element(XName.Get("description"));
+                        if (element != null)
+                        {
+                            content = element.Value;
+                            string[] inputs = { content };
+                            const string pattern = @"(https?:)?//?[^''""<>]+?\.(jpg|jpeg|gif|png)";
+
+                            var rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+
+                            foreach (var match in from input in inputs select rgx.Matches(input) into matches where matches.Count > 0 from Match match in matches select match)
+                            {
+                                image = match.Value;
+                            }
 
 
+                        }
+                        if (SchamperItems != null)
+                            SchamperItems.Add(new SchamperItemsViewModel { Author = author, Content = content, ImagePath = image, Title = title, Date = date });
                     }
-                    if (SchamperItems != null)
-                        SchamperItems.Add(new SchamperItemsViewModel { Author = author, Content = content, ImagePath = image, Title = title, Date = date });
-                }
+            }
             _schamper = true;
-           
+
         }
 
         private string SaveToStorage(string fileName, string extension, string downLoadedString)
         {
             if (_isoStore.FileExists(fileName + extension)) _isoStore.DeleteFile(fileName + extension);
-            
-                //create new file
-                using (var writeFile = new StreamWriter(new IsolatedStorageFileStream(fileName + extension, FileMode.Create, FileAccess.Write, _isoStore)))
-                {
-                    _cacheTime = DateTime.Now;
-                    writeFile.Write(downLoadedString);
-                    writeFile.Flush();
-                    writeFile.Close();
-                    SaveSettings();
-                }
-            
+
+            //create new file
+            using (var writeFile = new StreamWriter(new IsolatedStorageFileStream(fileName + extension, FileMode.Create, FileAccess.Write, _isoStore)))
+            {
+                _cacheTime = DateTime.Now;
+                writeFile.Write(downLoadedString);
+                writeFile.Flush();
+                writeFile.Close();
+                SaveSettings();
+            }
+
             return downLoadedString;
         }
 
@@ -618,21 +848,28 @@ namespace Hydra.Data
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(String propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (null != handler)
-            {
+            var handler = PropertyChanged;
+            if (null == handler) return;
+            if (Deployment.Current.Dispatcher.CheckAccess())
                 handler(this, new PropertyChangedEventArgs(propertyName));
+            else
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() => PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
             }
         }
 
-        public bool PreferredContains(string In){
-   	        var i = 0;
-   	        while (i < PreferredAssociations.Count && PreferredAssociations[i].In != In)
-   	        {
-   	            i++;
-   	        }
-   	        return i < PreferredAssociations.Count;
+        public bool PreferredContains(string In)
+        {
+            var i = 0;
+            while (i < UserPreference.PreferredAssociations.Count && UserPreference.PreferredAssociations[i].In != In)
+            {
+                i++;
+            }
+            return i < UserPreference.PreferredAssociations.Count;
         }
 
+
+
+      
     }
 }

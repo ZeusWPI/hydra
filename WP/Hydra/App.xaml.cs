@@ -30,7 +30,7 @@ namespace Hydra
             }
         }
 
-        
+
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -145,8 +145,8 @@ namespace Hydra
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-           // RootFrame = new PhoneApplicationFrame();
-            RootFrame = new TransitionFrame(); 
+            // RootFrame = new PhoneApplicationFrame();
+            RootFrame = new TransitionFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Handle navigation failures
@@ -154,7 +154,7 @@ namespace Hydra
 
             // Handle reset requests for clearing the backstack
             RootFrame.Navigated += CheckForResetNavigation;
-            
+
             //RootFrame.Background = Resources["MainBackground"] as ImageBrush;
 
             // Ensure we don't initialize again

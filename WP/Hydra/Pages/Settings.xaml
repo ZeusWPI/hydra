@@ -71,20 +71,14 @@
     </toolkit:TransitionService.NavigationOutTransition>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="Instellingen" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
 
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:ToggleSwitch x:Name="toggleSwitch" Checked="ToggleSwitch_OnChecked" Unchecked="ToggleSwitchUnChecked" Header="Beperk inhoud" IsChecked="{Binding IsChecked}" Content="{Binding IsChecked, Converter={StaticResource booleanToString}}" Margin="12,10,12,531" />
-            <phone:LongListSelector
+        <phone:Pivot x:Name="mainPivot" Title="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" SelectionChanged="MainPivot_OnSelectionChanged">
+
+       <phone:PivotItem x:Name="settingsGeneral" Header="Instellingen" Margin="12,10,12,0">
+                <Grid>
+                    <toolkit:ToggleSwitch x:Name="toggleSwitch" Checked="ToggleSwitch_OnChecked" Unchecked="ToggleSwitchUnChecked" Header="Beperk inhoud" IsChecked="{Binding IsFiltering}" Content="{Binding IsFiltering, Converter={StaticResource booleanToString}}" Margin="12,10,12,531" />
+                <phone:LongListSelector
                 x:Name="associations" HorizontalAlignment="Left" Height="516" Margin="12,140,0,0" VerticalAlignment="Top" Width="432"
                 JumpListStyle="{StaticResource AssociationJumpListStyle}"
                 Background="Transparent"
@@ -93,8 +87,31 @@
                 LayoutMode="List"
                 IsGroupingEnabled="true"
                 HideEmptyGroups ="true" SelectionChanged="AssociationAdded" />
+                </Grid>
+            </phone:PivotItem>
 
-        </Grid>
+
+            <phone:PivotItem x:Name="settingsFacebook" Header="Facebook" Margin="12,10,12,0" >
+                <Grid Margin="0,0,10,10">
+                    <Grid x:Name="gridFBLoggedIn" Margin="0,0,10,10">
+                        <Grid.Visibility>
+                            <Binding Path="AccessKey" Converter="{StaticResource StringToVisibilty}" />
+                        </Grid.Visibility>
+                        <TextBlock Text="Ingelogd als" Margin="10,10,223,576" FontSize="36"/>
+                        <TextBlock x:Name="name" Text="{Binding Name}" Margin="120,101,10,485" />
+                        <Image x:Name="facebookImage" HorizontalAlignment="Left" Width="100" Margin="15,75,0,0" VerticalAlignment="Top" Source="{Binding UserImage}"/>
+                        <Button x:Name="UnlinkButton" Content="Verbreek Facebook verbinding" HorizontalAlignment="Left" Margin="10,239,0,0" VerticalAlignment="Top" Click="UnlinkButtonClick"/>
+                    </Grid>
+                    <phone:WebBrowser x:Name="FaceBookLoginPage" HorizontalAlignment="Left" Height="653" VerticalAlignment="Top" Width="456" Visibility="{Binding Path=AccessKey,Converter={StaticResource StringToVisibilty},ConverterParameter=browser}" Navigated="FaceBookLoginPageNavigated"/>
+                    
+
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+
+
+
+       
     </Grid>
 
 </phone:PhoneApplicationPage>
