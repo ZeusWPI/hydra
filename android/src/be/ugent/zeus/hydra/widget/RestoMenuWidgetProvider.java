@@ -16,12 +16,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.RestoMenu;
 import be.ugent.zeus.hydra.data.Menu;
 import be.ugent.zeus.hydra.data.services.MenuService;
-import be.ugent.zeus.hydra.data.services.RestoService;
 import be.ugent.zeus.hydra.ui.menu.MenuView;
 
 public class RestoMenuWidgetProvider extends AppWidgetProvider {
@@ -29,6 +29,10 @@ public class RestoMenuWidgetProvider extends AppWidgetProvider {
 	private Context context;
 	private AppWidgetManager appWidgetManager;
 	private int[] appWidgetIds;
+	
+	// These two are mutually exclusive, if they both are enabled it's FCFS.
+	private static final boolean OPENAPPONCLICK=true;
+	private static final boolean REFRESHONCLICK=false;
 	
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		this.context=context;
@@ -45,9 +49,17 @@ public class RestoMenuWidgetProvider extends AppWidgetProvider {
         context.startService(menuIntent);
         
         // Add action to widget to start the RestoMenu activity
-        Intent intent = new Intent(context, RestoMenu.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.widget_image, pendingIntent);
+        if(OPENAPPONCLICK) {
+	        Intent intent = new Intent(context, RestoMenu.class);
+	        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+	        views.setOnClickPendingIntent(R.id.widget_image, pendingIntent);
+        }
+        
+        // Add action to widget to refresh onClick
+        if(REFRESHONCLICK) {
+	        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, menuIntent, 0);
+	        views.setOnClickPendingIntent(R.id.widget_image, pendingIntent);
+        }
     }
 	
 	private class RestoMenuWidgetResultReceiver extends ResultReceiver {
@@ -68,10 +80,19 @@ public class RestoMenuWidgetProvider extends AppWidgetProvider {
 		            int appWidgetId = appWidgetIds[i];
 		            
 		            // Since the widget only contains static content, it can be made with this
-		            // simple trick without having to remake the complete View
+		            // simple trick without having to remake the complete View.
+		            // Re-using the same bitmap for each bitmap might trigger some bitmap cache
+		            // exceptions.
+		            
+		            // First set the theme to avoid the ugly default textcolor
+		            context.setTheme(R.style.Theme_Hydra_Light);//Sherlock___TextAppearance_Small
+		            
+		            // Make a MenuView for the received Menu and resize it
 		            View view=new MenuView(context, menu);
-		            view.measure(350, 600);
-		            view.layout(0, 0, 350, 600);
+		            view.measure(350, 450);
+		            view.layout(0, 0, 350, 450);
+		            
+		            // Get a bitmap from the View and add it to the ImageView of our Widget
 		            view.setDrawingCacheEnabled(true);
 		            Bitmap bitmap=view.getDrawingCache();
 		            views.setImageViewBitmap(R.id.widget_image, bitmap);
