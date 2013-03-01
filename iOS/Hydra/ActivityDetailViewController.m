@@ -197,7 +197,7 @@
 {
     // Set some defaults
     UIFont *font = [UIFont boldSystemFontOfSize:13];
-    CGFloat width = tableView.frame.size.width - 125;
+    CGFloat width = tableView.frame.size.width - 110;
     CGFloat minHeight = 36, spacing = 20;
 
     // Determine text, possibility to override settings
@@ -365,6 +365,8 @@
                                           reuseIdentifier:CellIdentifier];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
         cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:13];
+        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.detailTextLabel.numberOfLines = 0;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     else {

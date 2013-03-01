@@ -42,7 +42,7 @@
 
 - (FacebookEvent *)facebookEvent
 {
-    if(!_facebookEvent && self.facebookId) {
+    if(!_facebookEvent && [self.facebookId length] > 0) {
         _facebookEvent = [[FacebookEvent alloc] initWithEventId:self.facebookId];
     }
     return _facebookEvent;
