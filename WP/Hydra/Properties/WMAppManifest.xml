@@ -4,7 +4,7 @@
   <Languages xmlns="">
     <Language code="nl-BE" />
   </Languages>
-  <App xmlns="" ProductID="{d009f42e-ec32-4a4b-8928-26da8196272d}" Title="Hydra" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Hydra author" Description="Sample description" Publisher="Hydra" PublisherID="{0111dc25-7d54-4898-8ba9-63d99b528d01}">
+  <App xmlns="" ProductID="{d009f42e-ec32-4a4b-8928-26da8196272d}" Title="Hydra" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Hydra author" Description="Met Hydra ben je steeds op de hoogte van het laatste nieuws en de activiteiten van jouw favoriete studentenverenigingen. Luister naar Urgent.fm, lees Schamper of beslis of het menu van de resto's vandaag bij je in de smaak valt. &#xD;&#xA;&#xD;&#xA; Waar je ook bent, vana" Publisher="Hydra" PublisherID="{0111dc25-7d54-4898-8ba9-63d99b528d01}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -18,22 +18,25 @@
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="HydraToken" TaskName="_default">
-        <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+        <TemplateIconic>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\IconicTileSmall.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\IconicTileMediumLarge.png</BackgroundImageURI>
-          <Title>
-          </Title>
-          <BackContent>
-          </BackContent>
-          <BackBackgroundImageURI IsRelative="true" IsResource="false">
-          </BackBackgroundImageURI>
-          <BackTitle>
-          </BackTitle>
+          <IconImageURI IsRelative="true" IsResource="false">Assets\Tiles\IconicTileMedium.png</IconImageURI>
+          <Title>Hydra UGent</Title>
+          <Message>
+          </Message>
+          <BackgroundColor>
+          </BackgroundColor>
+          <HasLarge>True</HasLarge>
+          <LargeContent1>
+          </LargeContent1>
+          <LargeContent2>
+          </LargeContent2>
+          <LargeContent3>
+          </LargeContent3>
           <DeviceLockImageURI IsRelative="true" IsResource="false">
           </DeviceLockImageURI>
-          <HasLarge>false</HasLarge>
-        </TemplateFlip>
+        </TemplateIconic>
       </PrimaryToken>
     </Tokens>
     <ScreenResolutions>

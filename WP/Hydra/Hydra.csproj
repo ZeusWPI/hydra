@@ -194,9 +194,6 @@
     <Content Include="Assets\AppBar\next.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\AppBar\stop.png" />
-    <Content Include="Assets\AppBar\transport.pause.png" />
-    <Content Include="Assets\AppBar\transport.play.png" />
     <Content Include="Assets\btn-urgent-bg-highlighted%402x.png" />
     <Content Include="Assets\btn-urgent-pause%402x.png" />
     <Content Include="Assets\btn-urgent-play%402x.png" />
@@ -214,6 +211,7 @@
     <Content Include="Assets\info-minerva%402x.png" />
     <Content Include="Assets\info-more%402x.png" />
     <Content Include="Assets\info-sports%402x.png" />
+    <Content Include="Assets\Tiles\IconicTileMedium.png" />
     <Content Include="Assets\urgent-bg%402x.jpg" />
     <Content Include="Assets\urgent-nowplaying%402x.jpg" />
     <Content Include="Resources\webview.css" />
@@ -238,18 +236,6 @@
     </Content>
     <Content Include="Assets\external-link%402x.png" />
     <Content Include="Assets\schamper-bg.png" />
-    <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Tiles\FlipCycleTileMedium.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Tiles\FlipCycleTileSmall.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Tiles\IconicTileMediumLarge.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -17,7 +17,7 @@ namespace Hydra.Pages
     public partial class MainPage
     {
         private int _restoItem;
-        private DispatcherTimer _trackPoller,_programPoller;
+        private DispatcherTimer _trackPoller, _programPoller;
         private const string UrgentProgramApi = "http://urgent.fm/nowplaying/program.php";
         private const string UrgentTrackApi = "http://urgent.fm/nowplaying/livetrack.txt";
         private const string HighResolutionStreaming = "http://195.10.10.226/urgent/high.mp3?GKID=bf069408786e11e2a0e500163e914f68&fspref=aHR0cDovL3d3dy51cmdlbnQuZm0vbHVpc3Rlcm9ubGluZQ%3D%3D";
@@ -53,6 +53,12 @@ namespace Hydra.Pages
             var dt = (DispatcherTimer)sender;
             if(dt==null) return;
             dt.Stop();
+            //var tileData = new StandardTileData {
+            //Title = "Hydra UGent",
+            //Count = App.ViewModel.ActivityItems.Count+App.ViewModel.NewsItems.Count+App.ViewModel.SchamperItems.Count,
+            //BackTitle = "Er zijn " + App.ViewModel.ActivityItems.Count + App.ViewModel.NewsItems.Count + App.ViewModel.SchamperItems.Count + " items aanwezig, waaronder " + App.ViewModel.ActivityItems.Count + " activiteiten, " + App.ViewModel.NewsItems.Count + " nieuws items en " + App.ViewModel.SchamperItems.Count + " schamper artikellen."
+            //};
+            //ShellTile.ActiveTiles.First().Update(tileData);
         }
 
         private void LoadData(object sender, EventArgs e)
@@ -75,10 +81,10 @@ namespace Hydra.Pages
             }
             if (!BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) ||
                 !BackgroundAudioPlayer.Instance.Track.Source.ToString().Contains("http://195.10.10.226/urgent/high.mp3")) return;
-            PollForProgramChange(null,null);
-            PollForTrackChange(null,null);
+            PollForProgramChange(null, null);
+            PollForTrackChange(null, null);
             Play.Visibility = Visibility.Collapsed;
-            Pause.Visibility = Visibility.Visible; 
+            Pause.Visibility = Visibility.Visible;
 
         }
 
@@ -214,13 +220,13 @@ namespace Hydra.Pages
 
         private void PlayButton(object sender, EventArgs e)
         {
-            if(!App.ViewModel.HasConnection)
+            if (!App.ViewModel.HasConnection)
             {
                 return;
             }
 
             var audioTrack = new AudioTrack(
-                    new Uri(HighResolutionStreaming,UriKind.Absolute),
+                    new Uri(HighResolutionStreaming, UriKind.Absolute),
                     "Geen plaat(info)",
                     "Urgent.fm",
                     null,
@@ -228,10 +234,10 @@ namespace Hydra.Pages
                     null,
                     EnabledPlayerControls.Pause);
             BackgroundAudioPlayer.Instance.Track = audioTrack;
-            Play.Visibility=Visibility.Collapsed;
-            Pause.Visibility = Visibility.Visible; 
+            Play.Visibility = Visibility.Collapsed;
+            Pause.Visibility = Visibility.Visible;
             StartPolling(true);
-            PollForProgramChange(null,null);
+            PollForProgramChange(null, null);
             PollForTrackChange(null, null);
         }
 
@@ -240,9 +246,9 @@ namespace Hydra.Pages
             if (start)
             {
 
-                if(_programPoller==null)
+                if (_programPoller == null)
                 {
-                    _programPoller = new DispatcherTimer {Interval = new TimeSpan(0, 0, 30, 0)};
+                    _programPoller = new DispatcherTimer { Interval = new TimeSpan(0, 0, 30, 0) };
                     _programPoller.Tick += PollForProgramChange;
                 }
                 _programPoller.Start();
@@ -260,7 +266,7 @@ namespace Hydra.Pages
                 {
                     _trackPoller.Stop();
                 }
-                if(_programPoller!=null)
+                if (_programPoller != null)
                 {
                     _programPoller.Stop();
                 }
@@ -286,7 +292,7 @@ namespace Hydra.Pages
             if (e != null && (e.Error != null || e.Cancelled)) return;
             if (e == null) return;
             if (_programName == null) _programName = e.Result;
-            else if(_programName.Equals(e.Result) && NowPlayingProgram.Text!="") return;
+            else if (_programName.Equals(e.Result) && NowPlayingProgram.Text != "") return;
             else _programName = e.Result;
             NowPlayingProgram.Text = "U luistert naar " + _programName;
             var trackInstance = BackgroundAudioPlayer.Instance.Track;
@@ -300,7 +306,7 @@ namespace Hydra.Pages
             if (e != null && (e.Error != null || e.Cancelled)) return;
             if (e == null) return;
             if (_trackName == null) _trackName = e.Result;
-            else if (_trackName.Equals(e.Result) && NowPlayingTrack.Text!="") return;
+            else if (_trackName.Equals(e.Result) && NowPlayingTrack.Text != "") return;
             else _trackName = e.Result;
             if (_trackName.Equals("Geen plaat(info)"))
             {
@@ -312,7 +318,7 @@ namespace Hydra.Pages
             if (_trackName.Contains("-"))
             {
                 trackInstance.Artist = _trackName.Substring(0, _trackName.IndexOf("-", StringComparison.Ordinal));
-                trackInstance.Title = _trackName.Substring(_trackName.IndexOf("-", StringComparison.Ordinal)+1);
+                trackInstance.Title = _trackName.Substring(_trackName.IndexOf("-", StringComparison.Ordinal) + 1);
             }
             else
             {
@@ -330,7 +336,7 @@ namespace Hydra.Pages
             StartPolling(false);
             BackgroundAudioPlayer.Instance.Stop();
             Play.Visibility = Visibility.Visible;
-            Pause.Visibility = Visibility.Collapsed; 
+            Pause.Visibility = Visibility.Collapsed;
             NowPlayingTrack.Text = null;
             NowPlayingProgram.Text = null;
 
