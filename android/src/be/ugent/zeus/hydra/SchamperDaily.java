@@ -49,7 +49,7 @@ public class SchamperDaily extends AbstractSherlockListActivity {
         cache = ChannelCache.getInstance(SchamperDaily.this);
 
         if (!cache.exists(ChannelCache.SCHAMPER)
-            || cache.lastModified(ChannelCache.SCHAMPER) - System.currentTimeMillis() > SchamperDailyService.REFRESH_TIME) {
+            || System.currentTimeMillis() - cache.lastModified(ChannelCache.SCHAMPER) > SchamperDailyService.REFRESH_TIME) {
             refresh(false);
         } else {
             refresh(true);
