@@ -64,7 +64,7 @@ def parse_menu_from_html(page):
 	friday = datetime.strptime("%s %s %s" % tuple(week[-3:]), "%d %B %Y").date()
 
 	menuElement = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
-	rows = menuElement[0].xpathEval('.//tr')
+	rows = menuElement[0].xpathEval('.//tr')[1:]
 
 	menu = {}
 	dayOfWeek = 4
