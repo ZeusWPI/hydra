@@ -26,12 +26,12 @@
             <shell:ApplicationBarIconButton x:Name="settingsAppBar" IconUri="/Assets/AppBar/settings.png" Text="Instellingen" Click="SettingsAppBar"/>
         </shell:ApplicationBar>
 
-        <shell:ApplicationBar x:Key="UrgentAppBar" IsVisible="True">
+        <!--<shell:ApplicationBar x:Key="UrgentAppBar" IsVisible="True">
             <shell:ApplicationBarIconButton x:Name="settingsUrgentAppBar" IconUri="/Assets/AppBar/settings.png" Text="Instellingen" Click="SettingsAppBar"/>
             <shell:ApplicationBarIconButton x:Name="PlayUrgentAppBar" IconUri="/Assets/AppBar/transport.play.png" Text="Afspelen" Click="PlayButtonAppBar"/>
             <shell:ApplicationBarIconButton x:Name="PauseUrgentAppBar" IconUri="/Assets/AppBar/transport.pause.png" Text="Pauzeren" Click="PauseButtonAppBar"/>
             <shell:ApplicationBarIconButton x:Name="StopUrgentAppBar" IconUri="/Assets/AppBar/stop.png" Text="Stoppen" Click="StopButtonAppBar"/>
-        </shell:ApplicationBar>
+        </shell:ApplicationBar>-->
 
 
 
@@ -164,46 +164,10 @@
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
             </phone:PivotItem>
-
-            <!--Panorama item two-->
-            <phone:PivotItem x:Name="schamper" Header="Schamper">
-                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector x:Name="schamperLLS" Margin="0,-38,-22,2" ItemsSource="{Binding SchamperItems}" SelectionChanged="SchamperItemTapped">
-
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                                <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
-                                <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
-                                    <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="10,-2,10,0" />
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-
-            </phone:PivotItem>
-
-            <phone:PivotItem x:Name="info" Header="Info">
-                
-                <phone:LongListSelector x:Name="infoLLS" Margin="0,-38,-22,2" ItemsSource="{Binding InfoItems}" SelectionChanged="InfoItemTapped">
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
-                               
-                                <Image x:Name="Image"  Width="104" Height="105"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
-                                <StackPanel Width="311" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,30,10,0" Style="{StaticResource PhoneTextLargeStyle}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </phone:PivotItem>
-
+            
+            
             <phone:PivotItem x:Name="resto" Header="Resto Menu" Height="611">
-                <Grid HorizontalAlignment="Left" Height="483" VerticalAlignment="Top" Width="420">
+                <Grid HorizontalAlignment="Left" Height="483" VerticalAlignment="Top" Width="420" x:Name="gridResto" Visibility="{Binding IsOpen,Converter={StaticResource booleanToVisibility}}">
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Date}" VerticalAlignment="Top" Margin="10,10,0,0" Height="30" Width="360"/>
 
                     <Image HorizontalAlignment="Left" Height="60" Margin="10,50,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/icon-meal@2x.png"/>
@@ -238,21 +202,63 @@
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Vegetables[0]}" VerticalAlignment="Top" Margin="10,385,0,0" Height="26" Width="288"/>
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Vegetables[1]}" VerticalAlignment="Top" Margin="10,410,0,0" Height="26" Width="288"/>
 
-
+                    
+                    <TextBlock x:Name="Closed" Visibility="{Binding IsOpen,Converter={StaticResource booleanToVisibility},ConverterParameter=closed}" HorizontalAlignment="Left" Margin="12,1,0,0" TextWrapping="Wrap" Text="Gesloten" VerticalAlignment="Top" Width="358"/>
 
 
                 </Grid>
             </phone:PivotItem>
+            <phone:PivotItem x:Name="info" Header="Info">
 
+                <phone:LongListSelector x:Name="infoLLS" Margin="0,-38,-22,2" ItemsSource="{Binding InfoItems}" SelectionChanged="InfoItemTapped">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+
+                                <Image x:Name="Image"  Width="104" Height="105"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
+                                <StackPanel Width="311" Margin="8,-7,0,0">
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,30,10,0" Style="{StaticResource PhoneTextLargeStyle}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+            </phone:PivotItem>
+            <!--Panorama item two-->
+            <phone:PivotItem x:Name="schamper" Header="Schamper">
+                <phone:LongListSelector x:Name="schamperLLS" Margin="0,-38,-22,2" ItemsSource="{Binding SchamperItems}" SelectionChanged="SchamperItemTapped">
+
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                                <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
+                                <StackPanel Width="311" Margin="8,-7,0,0">
+                                    <TextBlock  Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" />
+                                    <TextBlock  Text="{Binding Author}" TextWrapping="Wrap" Margin="10,2,10,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+
+            </phone:PivotItem>
 
             <phone:PivotItem x:Name="urgent" Header="URGENT.fm" Margin="12,10,12,0">
                 <Grid>
-                    <!--<Image HorizontalAlignment="Left" Height="689" VerticalAlignment="Top" Width="473" Margin="-17,-9,0,-77" Source="/Assets/urgent-bg@2x.jpg"/>-->
-                    <Image HorizontalAlignment="Left" Height="264" Margin="82,123,0,0" VerticalAlignment="Top" Width="264" Source="/Assets/btn-urgent-bg-highlighted@2x.png"/>
-                    <Image HorizontalAlignment="Left" x:Name="Play" Height="120" Margin="155,190,0,0" VerticalAlignment="Top" Width="120"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="22,385,0,0" TextWrapping="Wrap"  x:Name="NowPlayingTrack" VerticalAlignment="Top" Width="424" Height="81" Foreground="White" />
                     
-                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Name="NowPlayingProgram" VerticalAlignment="Top" Width="436" Height="108" FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="White"/>
+                    <Image HorizontalAlignment="Left" Height="264" Margin="82,123,0,0" VerticalAlignment="Top" Width="264" Source="/Assets/btn-urgent-bg-highlighted@2x.png"/>
+                    <Button  x:Name="Play" Height="120" Margin="155,190,181,0" VerticalAlignment="Top" Width="120" BorderThickness="0" Click="PlayButton" ClickMode="Press">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Assets/btn-urgent-play@2x.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button  x:Name="Pause" Height="120" Margin="155,190,181,0" VerticalAlignment="Top" Visibility="Collapsed"  Width="120" BorderThickness="0" Click="StopButton" ClickMode="Press">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Assets/btn-urgent-pause@2x.png"/>
+                        </Button.Background>
+                    </Button>
+                    <TextBlock HorizontalAlignment="Left" Margin="22,385,0,0" TextWrapping="Wrap"  x:Name="NowPlayingTrack" VerticalAlignment="Top" Width="424" Height="81" />
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Name="NowPlayingProgram" VerticalAlignment="Top" Width="436" Height="108" FontSize="{StaticResource PhoneFontSizeLarge}"/>
                 </Grid>
                 
             </phone:PivotItem>

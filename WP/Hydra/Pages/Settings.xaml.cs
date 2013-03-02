@@ -78,8 +78,7 @@ namespace Hydra.Pages
             }
             else
             {
-                Dispatcher.BeginInvoke(() => MessageBox.Show("Er is een fout opgetreden tijdens de authenticatie"));
-                FaceBookLoginPage.Navigate(new Uri(string.Format("https://www.facebook.com/logout.php?next={0}&access_token={1}", "https://www.facebook.com/connect/login_failure.html", App.ViewModel.UserPreference.AccessKey)));
+                
                 MainPivot_OnSelectionChanged(null, null);
 
             }

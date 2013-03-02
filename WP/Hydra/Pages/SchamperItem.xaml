@@ -49,14 +49,14 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Grid Margin="10,10,10,639">
                 
-                <Image HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="133" Source="/Assets/schamper-bg.png"/>
-                <Image HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="133" Margin="118,0,0,0" Source="/Assets/schamper-bg.png"/>
-                <Image HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="133" Margin="318,0,0,0" Source="/Assets/schamper-bg.png"/>
-                <Image HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="133" Margin="234,0,0,0" Source="/Assets/schamper-bg.png"/>
-                <TextBlock Name="title" Text="page name" TextWrapping="Wrap"  Margin="10,10,10,37" />
-                <TextBlock Name="author" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="10,59,0,0" Width="416" Height="55"/>
+                <Image HorizontalAlignment="Left" Height="164" VerticalAlignment="Top" Width="178" Source="/Assets/schamper-bg.png" Margin="-27,-13,0,0"/>
+                <Image HorizontalAlignment="Left" Height="164" VerticalAlignment="Top" Width="178" Margin="118,-13,0,0" Source="/Assets/schamper-bg.png"/>
+                <Image HorizontalAlignment="Left" Height="164" VerticalAlignment="Top" Width="180" Margin="301,-13,-45,0" Source="/Assets/schamper-bg.png"/>
+                <Image HorizontalAlignment="Left" Height="164" VerticalAlignment="Top" Width="178" Margin="238,-13,0,0" Source="/Assets/schamper-bg.png"/>
+                <TextBlock Name="title" Text="page name" TextWrapping="Wrap"  Margin="0,10,20,71" />
+                <TextBlock Name="author" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="0,85,0,0" Width="426" Height="56"/>
             </Grid>
-            <phone:WebBrowser Name="browser" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,134,0,0" Height="624" Width="436"/>
+            <phone:WebBrowser Name="browser" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,161,0,0" Height="597" Width="436"/>
 
         </Grid>
     </Grid>

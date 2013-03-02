@@ -47,7 +47,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <phone:WebBrowser x:Name="browser" HorizontalAlignment="Left" VerticalAlignment="Top" Height="624" Width="446"/>
+            <phone:WebBrowser x:Name="browser" IsScriptEnabled="True" HorizontalAlignment="Left" VerticalAlignment="Top" Height="624" Width="446"/>
 
         </Grid>
     </Grid>

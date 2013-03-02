@@ -102,7 +102,7 @@
                         <Image x:Name="facebookImage" HorizontalAlignment="Left" Width="100" Margin="15,75,0,0" VerticalAlignment="Top" Source="{Binding UserImage}"/>
                         <Button x:Name="UnlinkButton" Content="Verbreek Facebook verbinding" HorizontalAlignment="Left" Margin="10,239,0,0" VerticalAlignment="Top" Click="UnlinkButtonClick"/>
                     </Grid>
-                    <phone:WebBrowser x:Name="FaceBookLoginPage" HorizontalAlignment="Left" Height="653" VerticalAlignment="Top" Width="456" Visibility="{Binding Path=AccessKey,Converter={StaticResource StringToVisibilty},ConverterParameter=browser}" Navigated="FaceBookLoginPageNavigated"/>
+                    <phone:WebBrowser x:Name="FaceBookLoginPage" IsScriptEnabled="True" HorizontalAlignment="Left" Height="653" VerticalAlignment="Top" Width="456" Visibility="{Binding Path=AccessKey,Converter={StaticResource StringToVisibilty},ConverterParameter=browser}" Navigated="FaceBookLoginPageNavigated"/>
                     
 
                 </Grid>

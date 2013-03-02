@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Converters\ActivityToBooleanConverter.cs" />
     <Compile Include="Converters\BooleanToStringConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ObjectHeaderActivityToVisibilityConverter.cs" />
     <Compile Include="Converters\ObjectHeaderNewsToVisibilityConverter.cs" />
     <Compile Include="Converters\ObjectToStyleConverter.cs" />

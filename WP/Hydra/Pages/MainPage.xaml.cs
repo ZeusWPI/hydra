@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
@@ -75,8 +76,9 @@ namespace Hydra.Pages
                 !BackgroundAudioPlayer.Instance.Track.Source.ToString().Contains("http://195.10.10.226/urgent/high.mp3")) return;
             PollForProgramChange(null,null);
             PollForTrackChange(null,null);
-            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-play@2x.png", UriKind.RelativeOrAbsolute));
-           
+            Play.Visibility = Visibility.Collapsed;
+            Pause.Visibility = Visibility.Visible; 
+
         }
 
         private void LoadResto()
@@ -158,12 +160,6 @@ namespace Hydra.Pages
                 ApplicationBar = (ApplicationBar)Resources["RestoAppBar"];
                 EnableButtons();
             }
-            else if (header != null && header.Equals("urgent"))
-            {
-                ApplicationBar = (ApplicationBar)Resources["UrgentAppBar"];
-                if (BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing))    ((ApplicationBarIconButton) ApplicationBar.Buttons[1]).IsEnabled = false;
-                else if (BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Paused)) ((ApplicationBarIconButton)ApplicationBar.Buttons[2]).IsEnabled = false;
-            }
             else
             {
                 ApplicationBar = (ApplicationBar)Resources["DefaultAppBar"];
@@ -207,7 +203,6 @@ namespace Hydra.Pages
         private void LegendAppBar(object sender, EventArgs e)
         {
             var legende = App.ViewModel.MetaRestoItem.Legenda.Aggregate<Legenda, string>(null, (current, leg) => current + (leg.Key + ": " + leg.Value + " \n "));
-            legende += "Indien je een bepaalde datum niet ziet verschijnen, dan zijn de resto's gesloten op die datum";
             MessageBox.Show(legende);
         }
 
@@ -216,14 +211,12 @@ namespace Hydra.Pages
             NavigationService.Navigate(new Uri("/Pages/RestoLocations.xaml", UriKind.Relative));
         }
 
-        private void PlayButtonAppBar(object sender, EventArgs e)
+        private void PlayButton(object sender, EventArgs e)
         {
             if(!App.ViewModel.HasConnection)
             {
                 return;
             }
-            //if (BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) ||
-            //    BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted)) return;
 
             var audioTrack = new AudioTrack(
                     new Uri(HighResolutionStreaming,UriKind.Absolute),
@@ -234,10 +227,9 @@ namespace Hydra.Pages
                     null,
                     EnabledPlayerControls.Pause);
             BackgroundAudioPlayer.Instance.Track = audioTrack;
-            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-play@2x.png", UriKind.RelativeOrAbsolute));
+            Play.Visibility=Visibility.Collapsed;
+            Pause.Visibility = Visibility.Visible; 
             StartPolling(true);
-            ((ApplicationBarIconButton) ApplicationBar.Buttons[1]).IsEnabled = false;
-            ((ApplicationBarIconButton)ApplicationBar.Buttons[2]).IsEnabled = true;
             PollForProgramChange(null,null);
             PollForTrackChange(null, null);
         }
@@ -331,27 +323,16 @@ namespace Hydra.Pages
             " + _trackName;
         }
 
-        private void StopButtonAppBar(object sender, EventArgs e)
+        private void StopButton(object sender, EventArgs e)
         {
             if (!(BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) || BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted) || BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Paused))) return;
             StartPolling(false);
             BackgroundAudioPlayer.Instance.Stop();
-            Play.Source = null;
-            ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IsEnabled = true;
-            ((ApplicationBarIconButton)ApplicationBar.Buttons[2]).IsEnabled = true;
+            Play.Visibility = Visibility.Visible;
+            Pause.Visibility = Visibility.Collapsed; 
             NowPlayingTrack.Text = null;
             NowPlayingProgram.Text = null;
 
-        }
-
-        private void PauseButtonAppBar(object sennder, EventArgs e)
-        {
-            if (!(BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.Playing) || BackgroundAudioPlayer.Instance.PlayerState.Equals(PlayState.BufferingStarted))) return;
-            StartPolling(false);
-            BackgroundAudioPlayer.Instance.Pause();
-            Play.Source = new BitmapImage(new Uri("/Assets/btn-urgent-pause@2x.png", UriKind.RelativeOrAbsolute));
-            ((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IsEnabled = true;
-            ((ApplicationBarIconButton)ApplicationBar.Buttons[2]).IsEnabled = false;
         }
 
     }

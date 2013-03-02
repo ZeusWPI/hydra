@@ -21,15 +21,17 @@ namespace Hydra.Pages
         // Load data for the ViewModel NewsItems
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
-            _item = App.ViewModel.ActivityItems.ElementAt(Convert.ToInt32(NavigationContext.QueryString["activityItem"]));
-            if (_item != null)
+            try
             {
-                DataContext = _item;
+                _item = App.ViewModel.ActivityItems.ElementAt(Convert.ToInt32(NavigationContext.QueryString["activityItem"]));
+                if (_item != null)
+                {
+                    DataContext = _item;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //TODO:let's go back, shall we
+                NavigationService.Navigate(new Uri("/Pages/MainPage.xaml", UriKind.Relative));
             }
 
         }
@@ -43,18 +45,20 @@ namespace Hydra.Pages
         private void ButtonsOnClick(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            if (button != null) App.ViewModel.SetRsvp(button.Name,(ActivityItemsViewModel) DataContext);
-            if(button != null && button.Name.Equals("attending"))
+            if (button != null) App.ViewModel.SetRsvp(button.Name, (ActivityItemsViewModel)DataContext);
+            if (button != null && button.Name.Equals("attending"))
             {
                 attending.IsEnabled = false;
                 declined.IsEnabled = true;
                 maybe.IsEnabled = true;
-            }else if(button != null && button.Name.Equals("maybe"))
+            }
+            else if (button != null && button.Name.Equals("maybe"))
             {
                 attending.IsEnabled = true;
                 declined.IsEnabled = true;
                 maybe.IsEnabled = false;
-            }else if(button != null && button.Name.Equals("declined"))
+            }
+            else if (button != null && button.Name.Equals("declined"))
             {
                 attending.IsEnabled = true;
                 declined.IsEnabled = false;

@@ -170,7 +170,17 @@ namespace Hydra.Data
                                        UserPreference.Name = (string)result["name"];
                                        res = true;
                                    };
-            await fb.GetTaskAsync("me");
+            try
+            {
+                await fb.GetTaskAsync("me");
+            }
+            catch(Exception)
+            {
+                UserPreference.AccessKey = null;
+                UserPreference.Name = null;
+                UserPreference.FbUserId = null;
+                res = false;
+            }
             return res;
         }
 
@@ -388,6 +398,7 @@ namespace Hydra.Data
                 catch (Exception)
                 {
                     //closed
+                    RestoItems.Add(new RestoItemsViewModel { Day = new Day { IsOpen = false } });
                     continue;
                 }
                 var dishes = (from daydish in day.Value.ElementAt(0)
@@ -401,8 +412,10 @@ namespace Hydra.Data
 
                 var soup = day.Value.ElementAt(2).Values().Select(soupp => (string)soupp).ToList();
                 var veg = day.Value.ElementAt(3).Values().Select(veggie => (string)veggie).ToList();
+                if(dishes.Count<4)
+                    dishes.Add(new Dish {IsRecommended = false,Name = "",Price = ""});
                 if (RestoItems.Count < 7)
-                    RestoItems.Add(new RestoItemsViewModel { Day = new Day { Dishes = dishes, Date = day.Key, Open = open, Soup = soup, Vegetables = veg } });
+                    RestoItems.Add(new RestoItemsViewModel { Day = new Day { Dishes = dishes, Date = day.Key, Open = open, Soup = soup, Vegetables = veg ,IsOpen = true}});
                 else if (RestoItems.Count >= 7)
                     break;
             }
@@ -447,11 +460,22 @@ namespace Hydra.Data
         {
             get
             {
-                var groupedNews =
+                IEnumerable<KeyedList<string, NewsItemViewModel>> groupedNews;
+                //if(!UserPreference.IsFiltering){
+                    groupedNews =
                     from news in NewsItems
                     orderby DateTime.Parse(news.Date, new CultureInfo("nl-BE"))
                     group news by DateTime.Parse(news.Date, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into newsByDay
                     select new KeyedList<string, NewsItemViewModel>(newsByDay);
+                //}
+                //else
+                //{
+                //    groupedNews =
+                //    from news in NewsItems where UserPreference.PreferredAssociations.Contains(news.Assocition)==true
+                //    orderby DateTime.Parse(news.Date, new CultureInfo("nl-BE"))
+                //    group news by DateTime.Parse(news.Date, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into newsByDay
+                //    select new KeyedList<string, NewsItemViewModel>(newsByDay);
+                //}
 
                 return new List<KeyedList<string, NewsItemViewModel>>(groupedNews);
             }
@@ -607,7 +631,7 @@ namespace Hydra.Data
         {
             if(UserPreference.AccessKey==null || act.FacebookId==null || act.FacebookId.Equals("") || !HasConnection)
                 return;
-            var fb = new FacebookClient() {AccessToken = UserPreference.AccessKey, AppId = AppId};
+            var fb = new FacebookClient {AccessToken = UserPreference.AccessKey, AppId = AppId};
             fb.GetCompleted += (o, e) =>
                                    {
                                        if (e.Error != null)

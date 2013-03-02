@@ -18,26 +18,28 @@ namespace Hydra.Pages
         // Load data for the ViewModel NewsItems
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var item = App.ViewModel.NewsItems.ElementAt(Convert.ToInt32(NavigationContext.QueryString["newsItem"]));
-            if (item == null)
+
+            try
             {
-                //TODO:let's go back, shall we
-            }
-            else
-            {
+                var item = App.ViewModel.NewsItems.ElementAt(Convert.ToInt32(NavigationContext.QueryString["newsItem"]));
                 DataContext = item;
                 var fullhtml = WrapHtml(item.Content, browser.ActualWidth);
                 browser.NavigateToString(fullhtml);
             }
+            catch (Exception ex)
+            {
+                NavigationService.Navigate(new Uri("/Pages/MainPage.xaml", UriKind.Relative));
+            }
+
         }
 
         private void HandleLinks(object sender, NotifyEventArgs e)
         {
-             
-           browser.Dispatcher.BeginInvoke(
-                () => InfoItemBrowser.BrowseToUrl(e.Value)
-                );
-        
+
+            browser.Dispatcher.BeginInvoke(
+                 () => InfoItemBrowser.BrowseToUrl(e.Value)
+                 );
+
         }
 
 

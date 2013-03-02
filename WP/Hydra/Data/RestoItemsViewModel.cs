@@ -68,6 +68,7 @@ namespace Hydra.Data
             set { if (value != _dishes) _dishes = value; }
         }
 
+        public bool IsOpen { get; set; }
 
         private string _date;
         public string Date

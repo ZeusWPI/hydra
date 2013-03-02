@@ -7,7 +7,6 @@ namespace Hydra.Pages
 {
     public partial class SchamperItem : PhoneApplicationPage
     {
-        private const string Header ="<html><head><link rel='stylesheet' type='text/css' href='../Resources/schamper.css'></head>";
         public SchamperItem()
         {
             InitializeComponent();
@@ -16,16 +15,19 @@ namespace Hydra.Pages
         // Load data for the ViewModel NewsItems
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
-            var item=App.ViewModel.SchamperItems.ElementAt(Convert.ToInt32(NavigationContext.QueryString["article"]));
-            if (item != null)
+
+            try
             {
+                var item = App.ViewModel.SchamperItems.ElementAt(Convert.ToInt32(NavigationContext.QueryString["article"]));
+                if (item == null) return;
                 author.Text = item.Author;
                 title.Text = item.FullTitle;
-                browser.NavigateToString(Header+item.Content+"</html>");
-            }else
+                var fullHtml = NewsItem.WrapHtml(item.Content, browser.ActualWidth);
+                browser.NavigateToString(fullHtml);
+            }
+            catch (Exception ex)
             {
-                //TODO:let's go back, shall we
+                NavigationService.Navigate(new Uri("/Pages/MainPage.xaml", UriKind.Relative));
             }
         }
     }

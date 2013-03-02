@@ -46,6 +46,7 @@
         <convert:ActivityToBooleanConverter x:Key="ActivityToBoolean" />
         <convert:StringToVisibilityConverter x:Key="StringToVisibilty" />
         <convert:StringToImageConverter x:Key="StringToImage"/>
+        <convert:BooleanToVisibilityConverter x:Key="booleanToVisibility" />
         
         <local:LocalizedStrings xmlns:local="clr-namespace:Hydra" x:Key="LocalizedStrings"/>
     </Application.Resources>
