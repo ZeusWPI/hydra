@@ -47,6 +47,8 @@
                        name:RestoStoreDidReceiveMenuNotification object:nil];
         [center addObserver:self selector:@selector(reloadInfo)
                        name:RestoStoreDidUpdateInfoNotification object:nil];
+        [center addObserver:self selector:@selector(applicationDidBecomeActive:)
+                       name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
@@ -113,11 +115,21 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    // TODO: catch applicationDidEnterForeground and
-    // check if the day is still the same or update
-
     [super viewDidAppear:animated];
     GAI_Track(@"Resto Menu");
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    // Update days
+    NSDate *firstDay = self.days[0];
+    [self calculateDays];
+
+    // Check if day changed
+    if (![firstDay isEqualToDateIgnoringTime:self.days[0]]) {
+        [self reloadMenu];
+        [self scrollViewDidScroll:self.scrollView];
+    }
 }
 
 - (void)viewDidLayoutSubviews
@@ -237,8 +249,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat pageWidth = self.scrollView.frame.size.width;
-    float fractionalPage = self.scrollView.contentOffset.x / pageWidth;
+    CGFloat pageWidth = scrollView.frame.size.width;
+    float fractionalPage = scrollView.contentOffset.x / pageWidth;
 
     if (self.pageControlUsed == 0) {
         self.pageControl.currentPage = round(fractionalPage);
