@@ -9,8 +9,9 @@ API_PATH = './resto/menu/'
 
 def download_menu(year, week):
 	page = get_menu_page(SOURCE, week)
-	menu = parse_menu_from_html(page)
-	dump_menu_to_file(API_PATH, year, week, menu)
+	menu = parse_menu_from_html(page, year, week)
+	if menu:
+		dump_menu_to_file(API_PATH, year, week, menu)
 
 def get_menu_page(url, week):
 	print('Fetching week %02d menu webpage' %  week)
@@ -52,16 +53,23 @@ def get_meat_and_price(meat):
 	meals = re.findall(u'€[^€]+', unicode(meat.content, encoding='utf8'))
 	return filter(None, [parse_single_meat_and_price(meat, meal) for meal in meals])
 
-def parse_menu_from_html(page):
+def parse_menu_from_html(page, year, week):
 	print('Parsing weekmenu webpage to an object tree')
 	# replace those pesky non-breakable spaces
 	page = page.replace('&nbsp;', ' ')
 
 	doc = libxml2.htmlReadDoc(page, None, 'utf-8', libxml2.XML_PARSE_RECOVER | libxml2.XML_PARSE_NOERROR)
 
-	week = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
-	locale.setlocale(locale.LC_ALL, ('nl_BE.UTF-8'))
-	friday = datetime.strptime("%s %s %s" % tuple(week[-3:]), "%d %B %Y").date()
+	dateComponents = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
+	locale.setlocale(locale.LC_ALL, 'nl_BE.UTF-8')
+	friday = datetime.strptime("%s %s %s" % tuple(dateComponents[-3:]), "%d %B %Y").date()
+
+	# verify that this is the week we are searching for
+	isocalendar = friday.isocalendar()
+	if isocalendar[0] != year or isocalendar[1] != week:
+		print('Incorrect information retrieved: expected %s-%s, got %s-%s' %
+			(year, week, isocalendar[0], isocalendar[1]))
+		return None
 
 	menuElement = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
 	rows = menuElement[0].xpathEval('.//tr')[1:]
@@ -73,28 +81,29 @@ def parse_menu_from_html(page):
 		if len(cells) <= 3:
 			continue
 
-		if cells[2].content.lower().strip() == 'gesloten':
-			menu[day]['open'] = False
-
-		elif cells[0].content.strip() != '':
-			# first row of a day
+		# first row of a day
+		if cells[0].content.strip() != '':
 			day = str(friday - timedelta(dayOfWeek))
 			dayOfWeek -= 1
 			menu[day] = {}
-			if cells[1].content.strip() != '':
+
+			# check if resto is closed
+			if cells[2].content.lower().strip() == 'gesloten':
+				menu[day]['open'] = False
+			else:
 				menu[day]['open'] = True
-				menu[day]['soup'] = {'name' : cells[1].content.strip()}
+				menu[day]['soup'] = { 'name': cells[1].content.strip() }
 				menu[day]['meat'] = get_meat_and_price(cells[2])
 				menu[day]['vegetables'] = [cells[3].content.strip()]
 
+		# second row of a day
 		elif cells[1].content.strip() != '' and menu[day]['open']:
-			# second row of a day
 			menu[day]['soup']['price'] = cells[1].content.strip()
 			menu[day]['meat'].extend(get_meat_and_price(cells[2]))
 			menu[day]['vegetables'].append(cells[3].content.strip())
 
+		# the third and fourth row of a day (sometimes it's empty)
 		elif cells[2].content.strip() != '' and menu[day]['open']:
-			# the third and forth row of a day (sometimes it's empty)
 			menu[day]['meat'].extend(get_meat_and_price(cells[2]))
 
 	return menu
@@ -105,7 +114,7 @@ def dump_menu_to_file(path, year, week, menu):
 	if not os.path.isdir(path):
 		os.makedirs(path)
 	with open('%s/%s.json' % (path, week), 'w') as f:
-		json.dump(menu, f, sort_keys=True, indent=4)
+		json.dump(menu, f, sort_keys=True)
 
 if __name__ == "__main__":
 	# Fetch the menu for the next three weeks
