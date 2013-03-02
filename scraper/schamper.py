@@ -80,22 +80,24 @@ def get_article_body(page):
 
         # Introductory paragraph
         elif node.name == 'div' and node.prop('class').find('inleiding') >= 0:
-            introNode = node.xpathEval('./div/div')[0]
-            # Sometimes there's a wrapping <p>, sometimes there isn't
-            paragraph = introNode.xpathEval('./p')
-            if len(paragraph) == 0:
-                paragraph = [page.newDocRawNode(None, 'p', introNode.children.serialize('UTF-8'))]
+            paragraph = wrap_paragraph(node.xpathEval(".//*[@class='field-item']")[0], page)
+            paragraph.setProp('class', 'introduction')
+            result += paragraph.serialize('UTF-8')
 
-            paragraph[0].setProp('class', 'introduction')
-            result += paragraph[0].serialize('UTF-8')
+        # External links
+        elif node.name == 'div' and node.prop('class').find('website') >= 0:
+            label = node.xpathEval(".//*[@class='field-label']")[0]
+            result += '<p><strong>' + label.content + '</strong></p>'
+            paragraph = wrap_paragraph(node.xpathEval(".//*[@class='field-item']")[0], page)
+            result += paragraph.serialize('UTF-8')
 
         # Image
         elif node.name == 'div' and node.prop('class').find('img-regulier') >= 0:
             # Multiple images are possible
-            images = node.xpathEval(".//div[@id='image-and-caption']")
+            images = node.xpathEval(".//*[@id='image-and-caption']")
             for imageWrapper in images:
                 captionText = ''
-                caption = imageWrapper.xpathEval(".//div[@class='caption-text']")
+                caption = imageWrapper.xpathEval(".//*[@class='caption-text']")
                 if len(caption) > 0:
                     captionText = caption[0].children.serialize('utf-8')
 
@@ -103,6 +105,13 @@ def get_article_body(page):
                 result += '<div class="image"><p>' + image.serialize('UTF-8') + captionText + '</p></div>'
 
     return result
+
+def wrap_paragraph(node, page):
+    # Sometimes there's a wrapping <p>, sometimes there isn't
+    paragraph = node.xpathEval('./p')
+    if len(paragraph) == 0:
+        paragraph = [page.newDocRawNode(None, 'p', node.children.serialize('UTF-8'))]
+    return paragraph[0]
 
 if __name__ == '__main__':
     process_schamper(SOURCE, API_PATH)
