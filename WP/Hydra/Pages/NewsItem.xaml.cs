@@ -26,7 +26,7 @@ namespace Hydra.Pages
                 var fullhtml = WrapHtml(item.Content, browser.ActualWidth);
                 browser.NavigateToString(fullhtml);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 NavigationService.Navigate(new Uri("/Pages/MainPage.xaml", UriKind.Relative));
             }

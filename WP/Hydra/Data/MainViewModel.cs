@@ -184,10 +184,7 @@ namespace Hydra.Data
             }
             catch(Exception)
             {
-                UserPreference.AccessKey = null;
-                UserPreference.Name = null;
-                UserPreference.FbUserId = null;
-                res = false;
+                
             }
             return res;
         }
@@ -419,8 +416,16 @@ namespace Hydra.Data
                                          }).ToList();
 
                 var soup = day.Value.ElementAt(2).Values().Select(soupp => (string)soupp).ToList();
+                while(soup.Count<4){
+                    soup.Add("");
+                    soup.Add("");
+                }
                 var veg = day.Value.ElementAt(3).Values().Select(veggie => (string)veggie).ToList();
-                if(dishes.Count<4)
+                while(veg.Count<3)
+                {
+                    veg.Add("");
+                }
+                while(dishes.Count<4)
                     dishes.Add(new Dish {IsRecommended = false,Name = "",Price = ""});
                 if (RestoItems.Count < 7)
                     RestoItems.Add(new RestoItemsViewModel { Day = new Day { Dishes = dishes, Date = day.Key, Open = open, Soup = soup, Vegetables = veg ,IsOpen = true}});
@@ -640,7 +645,7 @@ namespace Hydra.Data
                     else if (node.Value == "subcontent")
                     {
                         if (el != null)
-                            subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel { Title = ((XElement)xElement.NextNode).Value, Link = ((XElement)xElement.NextNode.NextNode.NextNode).Value });
+                            subcontent.AddRange(from subcon in el.Elements("dict") select subcon.Element("key") into xElement where xElement != null select new InfoItemsViewModel { Title = "⏩ " + ((XElement)xElement.NextNode).Value, Link = ((XElement)xElement.NextNode.NextNode.NextNode).Value });
                     }
 
                 }

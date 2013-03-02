@@ -84,14 +84,11 @@ namespace Hydra.Data
                     var date = DateTime.Parse(_date, new CultureInfo("nl-BE")).Date;
                     if (date.Equals(DateTime.Now.Date))
                         return "Vandaag";
-                    else if (date.Equals(DateTime.Now.AddDays(1).Date))
+                    if (date.Equals(DateTime.Now.AddDays(1).Date))
                         return "Morgen";
-                    else if (date.Equals(DateTime.Now.AddDays(2).Date))
+                    if (date.Equals(DateTime.Now.AddDays(2).Date))
                         return "Overmorgen";
-                    else
-                    {
-                        return date.DayOfWeek + " " + date.Day + " " + Months[date.Month - 1];
-                    }
+                    return date.DayOfWeek + " " + date.Day + " " + Months[date.Month - 1];
                 }
             }
             set
