@@ -249,6 +249,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
 
         if (item.facebook_id == null || "".equals(item.facebook_id)) {
             ((ViewManager) guestsContainer.getParent()).removeView(guestsContainer);
+            ((ViewManager) button.getParent()).removeView(button);
             ((ViewManager) guestsBottomBorder.getParent()).removeView(guestsBottomBorder);
         } else {
             external.setOnClickListener(new View.OnClickListener() {
