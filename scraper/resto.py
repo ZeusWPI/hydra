@@ -70,6 +70,8 @@ def parse_menu_from_html(page):
 	dayOfWeek = 4
 	for row in rows:
 		cells = row.xpathEval('.//td')
+		if len(cells) <= 3:
+			continue
 
 		if cells[2].content.lower().strip() == 'gesloten':
 			menu[day]['open'] = False
