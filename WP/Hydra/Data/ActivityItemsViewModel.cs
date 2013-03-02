@@ -57,7 +57,7 @@ namespace Hydra.Data
         {
             get
             {
-                if(FacebookId==null || FacebookId.Equals(""))
+                if (FacebookId == null || FacebookId.Equals("") || App.ViewModel.UserPreference.AccessKey==null)
                     return Visibility.Collapsed;
                 return Visibility.Visible;
             }

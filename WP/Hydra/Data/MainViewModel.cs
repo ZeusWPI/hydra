@@ -50,6 +50,12 @@ namespace Hydra.Data
         public List<Association> Associtions { get; private set; }
         public MetaResto MetaRestoItem { get; private set; }
 
+        public string Appid
+        {
+            get { return AppId; }
+        }
+
+        public string GenericId { get { return GenericAccessToken; } }
 
         public MainViewModel()
         {
@@ -147,6 +153,7 @@ namespace Hydra.Data
             LoadResto();
             LoadActivities();
             LoadSchamper();
+            
         }
 
         private async Task<bool> LoadFaceBookSettings()
@@ -161,6 +168,7 @@ namespace Hydra.Data
                                            UserPreference.AccessKey = null;
                                            UserPreference.Name = null;
                                            UserPreference.FbUserId = null;
+                                           SaveSettings();
                                            res = false;
                                            return;
                                        }
@@ -305,7 +313,7 @@ namespace Hydra.Data
             }
         }
 
-        public void LoadActivities()
+        public  void LoadActivities()
         {
             if (!_fromCache || !_isoStore.FileExists("activities.json"))
             {
@@ -483,7 +491,7 @@ namespace Hydra.Data
 
 
 
-        public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
+        public async void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
         {
             MemoryStream ms = null;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
@@ -503,48 +511,6 @@ namespace Hydra.Data
                 foreach (var activityItemView in list.Where(activityItemView => DateTime.Parse(activityItemView.StartDate, new CultureInfo("nl-BE")) >= DateTime.Now))
                 {
                     ActivityItems.Add(activityItemView);
-                    if (activityItemView.FacebookId == null || activityItemView.FacebookId.Equals("") ||!HasConnection) continue;
-                    var fb = new FacebookClient
-                                 {
-                                     AppId = AppId,
-                                     AccessToken = UserPreference.AccessKey ??
-                                                   GenericAccessToken
-                                 };
-
-                    fb.GetCompleted += async (o, res) =>
-                                           {
-                                               if (res.Error != null)
-                                               {
-                                                   return;
-                                               }
-
-                                               var result = (IDictionary<string, object>)res.GetResultData();
-                                               var data = (IList<object>)result["data"];
-                                               var eventData = ((IDictionary<string, object>)data.ElementAt(0));
-                                               var i = 0;
-                                               var sublist = from activity in ActivityItems
-                                                             where
-                                                                 activity.FacebookId != null && (activity.FacebookId != null ||
-                                                                                                 activity.FacebookId.Equals(""))
-                                                             select activity;
-                                               while (i < sublist.Count() && !Equals(sublist.ElementAt(i).FacebookId, Convert.ToString(eventData["eid"])))
-                                               {
-                                                   i++;
-                                               }
-                                               if (i >= sublist.Count()) return;
-                                               if (UserPreference.AccessKey == null) return;
-                                               sublist.ElementAt(i).RsvpStatus = await GetRsvp(sublist.ElementAt(i));
-                                               sublist.ElementAt(i).FriendsPics = await FriendImages(sublist.ElementAt(i));
-                                               sublist.ElementAt(i).Attendings = Convert.ToInt32(eventData["attending_count"]);
-                                               sublist.ElementAt(i).ImageUri = (string)eventData["pic"];
-                                           };
-
-                    // query to get all the friends
-                    var query = string.Format("SELECT eid,attending_count, pic FROM event WHERE eid = {0}", activityItemView.FacebookId);
-
-
-                    // Note: For windows phone 7, make sure to add [assembly: InternalsVisibleTo("Facebook")] if you are using anonymous objects as parameter.
-                    fb.GetTaskAsync("fql", new { q = query });
                 }
             }
             _activity = true;
@@ -552,101 +518,7 @@ namespace Hydra.Data
 
         }
 
-        public async Task<List<string>> FriendImages(ActivityItemsViewModel act)
-        {
-            if (UserPreference.AccessKey == null || act.FacebookId == null || act.FacebookId.Equals("") || !HasConnection)
-                return null;
-            var friends = new List<string>();
-            var fb = new FacebookClient
-            {
-                AppId = AppId,
-                AccessToken = UserPreference.AccessKey
-            };
-            fb.GetCompleted += (o, e) =>
-            {
-                if (e.Error != null)
-                {
-                    return;
-                }
-                var result = (IDictionary<string, object>)e.GetResultData();
-                var data = (IList<object>)result["data"];
-                if (data.Count <= 0)
-                {
-                    return;
-                }
-                act.FriendsAttending = data.Count;
-                for (var i = 0; i < 5; i++)
-                {
-                    var eventData = ((IDictionary<string, object>)data.ElementAt(i));
-                    friends.Add((string)eventData["pic_square"]);    
-                }
-                
-
-            };
-            var query = String.Format("SELECT pic_square FROM user WHERE uid IN"
-            + "(SELECT uid2 FROM friend WHERE uid1 = me() AND uid2 IN"
-            + "(SELECT uid FROM event_member WHERE eid = {0} "
-            + "AND rsvp_status = 'attending'))", act.FacebookId);
-            await fb.GetTaskAsync("fql", new { q = query });
-            return friends;
-        }
-
-        public async Task<string> GetRsvp(ActivityItemsViewModel act)
-        {
-            if (UserPreference.AccessKey == null || act.FacebookId == null || act.FacebookId.Equals("") || !HasConnection)
-                return null;
-            string status=null;
-            var fb = new FacebookClient
-                                 {
-                                     AppId = AppId,
-                                     AccessToken = UserPreference.AccessKey
-                                 };
-            fb.GetCompleted += (o, e) =>
-                                   {
-                                       if (e.Error != null)
-                                       {
-                                           return;
-                                       }
-                                       var result = (IDictionary<string, object>)e.GetResultData();
-                                       var data = (IList<object>)result["data"];
-                                       if (data.Count <= 0)
-                                       {
-                                           status = "not_replied";
-                                           return;
-                                       }
-                                       var eventData = ((IDictionary<string, object>)data.ElementAt(0));
-                                       status = (string) eventData["rsvp_status"];
-
-                                   };
-            var query = String.Format("SELECT rsvp_status FROM event_member  WHERE eid = {0} AND uid = me()",act.FacebookId);
-            await fb.GetTaskAsync("fql", new {q = query});
-            return status;
-        }
-
-       
-
-       
-
-        public void SetRsvp(string name,ActivityItemsViewModel act)
-        {
-            if(UserPreference.AccessKey==null || act.FacebookId==null || act.FacebookId.Equals("") || !HasConnection)
-                return;
-            var fb = new FacebookClient {AccessToken = UserPreference.AccessKey, AppId = AppId};
-            fb.GetCompleted += (o, e) =>
-                                   {
-                                       if (e.Error != null)
-                                       {
-                                           Deployment.Current.Dispatcher.BeginInvoke(
-                                               () => MessageBox.Show(
-                                                   "Er gebeurde een fout tijdens het versturen van data naar Facebook"));
-                                       }
-                                       act.RsvpStatus = GetRsvp(act).ToString();
-
-
-                                   };
-            var query = string.Format("https://graph.facebook.com/{0}/{1}", act.FacebookId, name);
-            fb.PostTaskAsync(query,null);
-        }
+      
 
         public List<KeyedList<string, ActivityItemsViewModel>> GroupedActivities
         {
@@ -664,13 +536,14 @@ namespace Hydra.Data
 
         public async void UnlinkFaceBook()
         {
-            if(!HasConnection)
+            if(!HasConnection || UserPreference.AccessKey==null)
                 return; 
             var fb = new FacebookClient(UserPreference.AccessKey) { AppId = AppId };
             await fb.DeleteTaskAsync(string.Format("https://graph.facebook.com/{0}/permissions", UserPreference.FbUserId));
             UserPreference.AccessKey = null;
             UserPreference.FbUserId = null;
             UserPreference.Name = null;
+            SaveSettings();
             NotifyPropertyChanged("AccessKey");
         }
 

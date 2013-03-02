@@ -102,6 +102,7 @@ namespace Hydra.Pages
                                         var result = (IDictionary<string, object>) res.GetResultData();
                                         App.ViewModel.UserPreference.FbUserId = (string) result["id"];
                                         App.ViewModel.UserPreference.Name = (string) result["name"];
+                                        App.ViewModel.LoadData(true);
                                         App.ViewModel.SaveSettings();
                                         Dispatcher.BeginInvoke(() =>
                                                                    {
@@ -130,13 +131,11 @@ namespace Hydra.Pages
 
         private void UnlinkButtonClick(object sender, RoutedEventArgs e)
         {
+            if(App.ViewModel.UserPreference.AccessKey == null)
+                return;
+            var logoutUrl = new Uri("https://www.facebook.com/logout.php?next="+App.ViewModel.FacebookLoginUrl("https://www.facebook.com/connect/login_success.html")+"&access_token=" + App.ViewModel.UserPreference.AccessKey);
+            FaceBookLoginPage.Navigate(logoutUrl);
             App.ViewModel.UnlinkFaceBook();
-            var cookies = new CookieContainer().GetCookies(new Uri("https://login.facebook.com/login.php"));
-           foreach (Cookie cookie in cookies)
-           {
-               cookie.Discard = true;
-               cookie.Expired = true;
-           }
             gridFBLoggedIn.Visibility = Visibility.Collapsed;
             FaceBookLoginPage.Visibility = Visibility.Visible;
             MainPivot_OnSelectionChanged(null,null);

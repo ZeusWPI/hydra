@@ -42,10 +42,10 @@
         <Grid Margin="0,0,0,10">
             <Image x:Name="EventImage" Source="{Binding Image}" HorizontalAlignment="Left" Height="110" Margin="360,11,0,0" VerticalAlignment="Top" Width="110"/>
             <TextBlock x:Name="title" Margin="15,10,125,22" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding FullTitle}"/>
-            <TextBlock x:Name="associatie" Margin="15,85,370,10" TextWrapping="Wrap" Text="{Binding Assocition.In}" />
+            <TextBlock x:Name="associatie" Margin="15,95,370,10" TextWrapping="Wrap" Text="{Binding Assocition.In}" />
         </Grid>
 
-        <Grid Margin="14,10,10,530" Grid.Row="1">
+        <Grid Margin="14,10,10,519" Grid.Row="1">
             <TextBlock x:Name="LokcationTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Locatie:" VerticalAlignment="Top"/>
             <TextBlock x:Name="location" Margin="82,10,208,10" TextWrapping="Wrap" Tap="LocationHandler" Text="{Binding Location}"/>
             <TextBlock x:Name="startDate" Margin="277,10,10,59" Text="{Binding StartDate}" />
@@ -62,10 +62,15 @@
                     <TextBlock x:Name="descr" Text="{Binding Content}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </ScrollViewer>
             </Grid>
-            <Grid Margin="0,503,10,58" Visibility="{Binding IsVisible}" >
-                <Button x:Name="attending" Content="Aanwezig" Click="ButtonsOnClick" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="72" Width="150" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=attending}" RenderTransformOrigin="0.267,0.528"/>
-                <Button x:Name="maybe" Content="Misschien"  Click="ButtonsOnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="150" RenderTransformOrigin="0.529,0.208" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=unsure}" Margin="148,0,0,0"/>
-                <Button x:Name="declined" Content="Afwezig"  Click="ButtonsOnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=declined}" Margin="298,0,0,0"/>
+            <Grid Margin="0,503,10,10" Visibility="{Binding IsVisible}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="279*"/>
+                    <ColumnDefinition Width="31*"/>
+                    <ColumnDefinition Width="136*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="attending" Content="Aanwezig" Click="ButtonsOnClick" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="72" Width="150" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=attending}" RenderTransformOrigin="0.267,0.528" Margin="0,0,0,-7"/>
+                <Button x:Name="maybe" Content="Misschien"  Click="ButtonsOnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Height="72" Width="150" RenderTransformOrigin="0.529,0.208" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=unsure}" Margin="148,0,0,-7" Grid.ColumnSpan="2"/>
+                <Button x:Name="declined" Content="Afwezig"  Click="ButtonsOnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="138" IsEnabled="{Binding Path=.,Converter={StaticResource ActivityToBoolean},ConverterParameter=declined}" Margin="19,0,0,0" Grid.Column="1" Grid.ColumnSpan="2"/>
             </Grid>
             <Grid x:Name="Facebook"  HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Height="154" Width="436" Visibility="{Binding IsVisible}">
                 <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding AttendingsText}" VerticalAlignment="Top" Width="416" Height="34"/>

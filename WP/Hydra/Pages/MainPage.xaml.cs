@@ -51,6 +51,7 @@ namespace Hydra.Pages
             mainPivot.IsLocked = !App.ViewModel.IsDataLoaded;
             if (!App.ViewModel.IsDataLoaded) return;
             var dt = (DispatcherTimer)sender;
+            if(dt==null) return;
             dt.Stop();
         }
 

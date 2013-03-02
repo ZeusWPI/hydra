@@ -17,7 +17,7 @@ namespace Hydra.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
 
-            InfoItemsViewModel item = App.ViewModel.InfoItems.ElementAt(Convert.ToInt32(NavigationContext.QueryString["item"]));
+            var item = App.ViewModel.InfoItems.ElementAt(Convert.ToInt32(NavigationContext.QueryString["item"]));
             string itemtitle = null;
             Uri uri = null;
             int idx;
