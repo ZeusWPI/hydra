@@ -8,8 +8,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
+import com.google.analytics.tracking.android.GoogleAnalytics;
 import java.util.Locale;
 
 /**
@@ -20,7 +22,7 @@ public class Hydra extends AbstractSherlockActivity {
 //    ZubhiumSDK sdk;
     public static final Locale LOCALE = new Locale("nl", "BE");
     private static final boolean DEBUG = true;
-    private static final boolean BETA = true;
+    private static final boolean BETA = false;
     public static boolean SHOWED_NETWORK = false;
 
     @Override
@@ -66,11 +68,11 @@ public class Hydra extends AbstractSherlockActivity {
 //        }
 
         // Google Analytics
-//         if (BETA || DEBUG) {
-//        Log.d("GAnalytics:", "Tracking disabled");
-//        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
-//        googleAnalytics.setAppOptOut(true);
-//        }
+        if (BETA || DEBUG) {
+            Log.d("GAnalytics:", "Tracking disabled");
+            GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
+            googleAnalytics.setAppOptOut(true);
+        }
 
         // Home screen: disable the button
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -93,7 +95,6 @@ public class Hydra extends AbstractSherlockActivity {
             }
         });
     }
-
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater inflater = getSupportMenuInflater();
@@ -112,7 +113,6 @@ public class Hydra extends AbstractSherlockActivity {
 //                return super.onOptionsItemSelected(item);
 //        }
 //    }
-
 //    @Override
 //    protected void onDestroy() {
 //        if (sdk != null) {
@@ -120,7 +120,6 @@ public class Hydra extends AbstractSherlockActivity {
 //        }
 //        super.onDestroy();
 //    }
-
 //    protected void setupFeedback() {
 //        /**
 //         * Now lets listen to users, by enabling in app help desk. *
