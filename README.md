@@ -78,3 +78,4 @@ In order of first contribution:
 * Arya Ghodsi
 * Bart Middag
 * Stijn Seghers
+* Ruben Taelman
