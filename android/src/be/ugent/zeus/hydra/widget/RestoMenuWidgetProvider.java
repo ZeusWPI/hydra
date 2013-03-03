@@ -87,14 +87,20 @@ public class RestoMenuWidgetProvider extends AppWidgetProvider {
                     context.setTheme(R.style.Theme_Hydra_Light);//Sherlock___TextAppearance_Small
 
                     // Make a MenuView for the received Menu and resize it
-                    View view = new MenuView(context, menu);
-                    view.measure(350, 450);
-                    view.layout(0, 0, 350, 450);
-
-                    // Get a bitmap from the View and add it to the ImageView of our Widget
-                    view.setDrawingCacheEnabled(true);
-                    Bitmap bitmap = view.getDrawingCache();
-                    views.setImageViewBitmap(R.id.widget_image, bitmap);
+                    // If no menu is available we'll show the closed image
+                    if(menu == null || !menu.open) {
+                    	views.setImageViewResource(R.id.widget_image, R.drawable.closed);
+                    }
+                    else {
+	                    View view = new MenuView(context, menu);
+	                    view.measure(350, 450);
+	                    view.layout(0, 0, 350, 450);
+	
+	                    // Get a bitmap from the View and add it to the ImageView of our Widget
+	                    view.setDrawingCacheEnabled(true);
+	                    Bitmap bitmap = view.getDrawingCache();
+	                    views.setImageViewBitmap(R.id.widget_image, bitmap);
+                    }
 
                     // Tell the AppWidgetManager to perform an update on the current app widget
                     appWidgetManager.updateAppWidget(appWidgetId, views);
