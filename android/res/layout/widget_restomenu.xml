@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    		  xmlns:zeus="http://schemas.android.com/apk/res/be.ugent.zeus.hydra"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:paddingBottom="10dp"
+              android:paddingRight="5dp"
+              android:paddingLeft="5dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/resto_widget">
+
+    <ImageView
+        android:id="@+id/widget_image"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+         />
+
+</RelativeLayout>
