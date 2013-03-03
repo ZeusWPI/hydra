@@ -153,6 +153,14 @@
             </intent-filter>
         </receiver>
         
+        <receiver android:name="be.ugent.zeus.hydra.widget.RestoMenuWidgetProvider" >
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+		    </intent-filter>
+		    <meta-data android:name="android.appwidget.provider"
+		               android:resource="@xml/widget_restomenu" />
+		</receiver>
+        
         <meta-data 
             android:name="com.facebook.sdk.ApplicationId" 
             android:value="@string/applicationId"/>
@@ -163,4 +171,5 @@
         
         <uses-library android:name="com.google.android.maps" />
     </application>
+    
 </manifest>
