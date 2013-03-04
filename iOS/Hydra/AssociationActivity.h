@@ -27,5 +27,6 @@
 @property (nonatomic, strong, readonly) FacebookEvent *facebookEvent;
 
 + (RKObjectMapping *)objectMapping;
+- (BOOL)hasCoordinates;
 
 @end

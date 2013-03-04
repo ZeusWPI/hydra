@@ -48,6 +48,11 @@
     return _facebookEvent;
 }
 
+- (BOOL)hasCoordinates
+{
+    return self.latitude != 0 && self.longitude != 0;
+}
+
 #pragma mark - NSCoding
 
 - (id)initWithCoder:(NSCoder *)coder
