@@ -71,7 +71,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         self.attendees = [coder decodeIntegerForKey:@"attendees"];
 
         NSString *accessToken = [coder decodeObjectForKey:@"fbAccessToken"];
-        if ([accessToken isEqualToString:[FBSession activeSession].accessToken]) {
+        if ([accessToken isEqualToString:[FBSession activeSession].accessTokenData.accessToken]) {
             _friendsAttending = [coder decodeObjectForKey:@"friendsAttending"];
             _userRsvp = [coder decodeIntegerForKey:@"userRsvp"];
         }
@@ -91,7 +91,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
     [coder encodeInteger:self.attendees forKey:@"attendees"];
 
     // Store user-specific details with the access-token used
-    [coder encodeObject:[FBSession activeSession].accessToken forKey:@"fbAccessToken"];
+    [coder encodeObject:[FBSession activeSession].accessTokenData.accessToken forKey:@"fbAccessToken"];
     [coder encodeObject:_friendsAttending forKey:@"friendsAttending"];
     [coder encodeInteger:_userRsvp forKey:@"userRsvp"];
 }
@@ -247,9 +247,9 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
         self.userRsvpUpdating = YES;
 
         NSLog(@"Requesting publishPermission 'rsvp_event'");
-        [fb reauthorizeWithPublishPermissions:@[ @"rsvp_event" ]
-                              defaultAudience:FBSessionDefaultAudienceFriends
-                            completionHandler:^(FBSession *session, NSError *error) {
+        [fb requestNewPublishPermissions:@[ @"rsvp_event" ]
+                         defaultAudience:FBSessionDefaultAudienceFriends
+                       completionHandler:^(FBSession *session, NSError *error) {
             if (error) {
                 self.userRsvpUpdating = NO;
                 AppDelegate *delegate = (AppDelegate *)([UIApplication sharedApplication].delegate);

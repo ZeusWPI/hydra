@@ -1,0 +1,8 @@
+1.0.1 (in development):
+* Improved layout system of activities
+* Fixed some bugs in activity details
+* Add loading indicator to Facebook-actions
+* Moved all settings to PreferencesService
+* More efficient cache updates
+* Update resto-view when day changes
+* Update external libraries

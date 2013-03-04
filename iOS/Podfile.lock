@@ -1,6 +1,6 @@
 
 PODS:
-- Facebook-iOS-SDK (3.1.1)
+- Facebook-iOS-SDK (3.2.0)
 - FileMD5Hash (0.0.1)
 - GoogleAnalytics-iOS-SDK (2.0beta4)
 - ISO8601DateFormatter (0.6)
@@ -51,7 +51,7 @@ PODS:
   - Reachability
   - SSKeychain
 - TUSafariActivity (0.0.1)
-- TestFlightSDK (1.2.3.beta1)
+- TestFlightSDK (1.2.4.beta)
 - cocoa-oauth (0.0.1):
   - NSData+Base64 (~> 1.0)
 
@@ -80,9 +80,9 @@ EXTERNAL SOURCES:
     :podspec: External/TUSafariActivity.podspec
 
 SPEC CHECKSUMS:
-  Facebook-iOS-SDK: 5fc068ebfd8c8c9b0fad476bc36dbbf1fffeebc8
+  Facebook-iOS-SDK: a9893c9ad7cf2ce35cb6297e2859eaee654bd6b0
   FileMD5Hash: c3b015e6fb293eea0a0c276747f61f20408c2644
-  GoogleAnalytics-iOS-SDK: faed6c1fafabd3363fe7fe39779381274ac771b9
+  GoogleAnalytics-iOS-SDK: 11332eedcffb0c88b2dd9bff0ac1444e3a85e890
   ISO8601DateFormatter: dc05a2481edf49668d85d3ff8c466c32eb544780
   JSONKit: 3d4708953ea7ae399a49777372d8b060a43ddd27
   LibComponentLogging-Core: 344f6045453ca28fa8f2909eb9624ec9d15ef256
@@ -98,13 +98,13 @@ SPEC CHECKSUMS:
   RestKit/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
   SDWebImage: c3306b8c68f3569f5c676d585ad77393255887dd
   SDWebImage/Main: c3306b8c68f3569f5c676d585ad77393255887dd
-  SOCKit: 179515c1a621dd5652a60e9be02ea4adcd25bc9b
+  SOCKit: ed67aeeca4a697b63a933229e53f4670d5b9300f
   SSKeychain: ffa1a79eb716d9ed1ca184fb0cf218087ca28486
   SVProgressHUD: 98935fbafaf0031df4a9cafca3c66eaf3da06967
   ShareKit/Facebook: c999dfae0ced83b0f64796724b43711ede9257c3
   ShareKit/Twitter: c999dfae0ced83b0f64796724b43711ede9257c3
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
-  TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
+  TestFlightSDK: aeec97fd81096753d53b942f030a443520a087f4
   cocoa-oauth: 8f4c8b77c77ac660de37f8125557c4ec09b0118a
 
-COCOAPODS: 0.16.2
+COCOAPODS: 0.16.3
