@@ -421,12 +421,15 @@ namespace Hydra.Data
                     soup.Add("");
                 }
                 var veg = day.Value.ElementAt(3).Values().Select(veggie => (string)veggie).ToList();
-                while(veg.Count<3)
+                while(veg.Count<4)
                 {
+                    veg.Add("");
                     veg.Add("");
                 }
                 while(dishes.Count<4)
                     dishes.Add(new Dish {IsRecommended = false,Name = "",Price = ""});
+                
+                
                 if (RestoItems.Count < 7)
                     RestoItems.Add(new RestoItemsViewModel { Day = new Day { Dishes = dishes, Date = day.Key, Open = open, Soup = soup, Vegetables = veg ,IsOpen = true}});
                 else if (RestoItems.Count >= 7)
@@ -461,6 +464,7 @@ namespace Hydra.Data
                 if (list == null) return;
                 foreach (var newsItemView in list)
                 {
+                   
                     NewsItems.Add(newsItemView);
                 }
             }
@@ -474,21 +478,22 @@ namespace Hydra.Data
             get
             {
                 IEnumerable<KeyedList<string, NewsItemViewModel>> groupedNews;
-                //if(!UserPreference.IsFiltering){
+                if(!UserPreference.IsFiltering){
                     groupedNews =
                     from news in NewsItems
-                    orderby DateTime.Parse(news.Date, new CultureInfo("nl-BE"))
+                    orderby DateTime.Parse(news.Date, new CultureInfo("nl-BE")) descending 
                     group news by DateTime.Parse(news.Date, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into newsByDay
                     select new KeyedList<string, NewsItemViewModel>(newsByDay);
-                //}
-                //else
-                //{
-                //    groupedNews =
-                //    from news in NewsItems where UserPreference.PreferredAssociations.Contains(news.Assocition)==true
-                //    orderby DateTime.Parse(news.Date, new CultureInfo("nl-BE"))
-                //    group news by DateTime.Parse(news.Date, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into newsByDay
-                //    select new KeyedList<string, NewsItemViewModel>(newsByDay);
-                //}
+                }
+                else
+                {
+                    var s = from ass in UserPreference.PreferredAssociations select ass.Dn; 
+                    groupedNews =
+                    from news in NewsItems where s.Contains(news.Assocition.Dn) || news.IsHighLighted
+                    orderby DateTime.Parse(news.Date, new CultureInfo("nl-BE")) descending 
+                    group news by DateTime.Parse(news.Date, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into newsByDay
+                    select new KeyedList<string, NewsItemViewModel>(newsByDay);
+                }
 
                 return new List<KeyedList<string, NewsItemViewModel>>(groupedNews);
             }
@@ -496,7 +501,7 @@ namespace Hydra.Data
 
 
 
-        public async void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
+        public void ProcessActivities(object sender, DownloadStringCompletedEventArgs e)
         {
             MemoryStream ms = null;
             if ((e == null && !_fromCache) || (e != null && (e.Error != null || e.Cancelled)))
@@ -529,13 +534,31 @@ namespace Hydra.Data
         {
             get
             {
-                var groupedActivities =
-                    from activity in ActivityItems
-                    orderby DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE"))
-                    group activity by DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE")).ToString("ddd dd MMMM") into activitiesByDay
-                    select new KeyedList<string, ActivityItemsViewModel>(activitiesByDay);
+                IEnumerable<KeyedList<string, ActivityItemsViewModel>> groupedActivities;
+                if (!UserPreference.IsFiltering)
+                {
+                    groupedActivities =
+                        from activity in ActivityItems
+                        orderby DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE"))
+                        group activity by
+                            DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE")).ToString("ddd dd MMMM")
+                        into activitiesByDay
+                        select new KeyedList<string, ActivityItemsViewModel>(activitiesByDay);
+                }
+                else
+                {
+                    var s = from ass in UserPreference.PreferredAssociations select ass.Dn;
+                    groupedActivities =
+                        from activity in ActivityItems where s.Contains(activity.Assocition.Dn) || activity.IsHighLighted
+                        orderby DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE"))
+                        group activity by
+                            DateTime.Parse(activity.StartDate, new CultureInfo("nl-BE")).ToString("ddd dd MMMM")
+                            into activitiesByDay
+                            select new KeyedList<string, ActivityItemsViewModel>(activitiesByDay);
+                }
 
                 return new List<KeyedList<string, ActivityItemsViewModel>>(groupedActivities);
+
             }
         }
 

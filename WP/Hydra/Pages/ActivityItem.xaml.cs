@@ -30,7 +30,13 @@ namespace Hydra.Pages
                 {
                     throw new Exception("Er is geen activiteit mee gegeven als argument.");
                 }
-                if (_item.FacebookId == null || _item.FacebookId.Equals("") || !App.ViewModel.HasConnection) return;
+                if (_item.FacebookId == null || _item.FacebookId.Equals("") || !App.ViewModel.HasConnection)
+                {
+                    DataContext = _item;
+                    return;
+                }
+                _item.RsvpStatus = await GetRsvp(_item);
+                _item.FriendsPics = await FriendImages(_item);
                 var fb = new FacebookClient
                 {
                     AppId = App.ViewModel.Appid,
@@ -48,10 +54,7 @@ namespace Hydra.Pages
                     var result = (IDictionary<string, object>)res.GetResultData();
                     var data = (IList<object>)result["data"];
                     var eventData = ((IDictionary<string, object>)data.ElementAt(0));
-
-
-                    _item.RsvpStatus = await GetRsvp(_item);
-                    _item.FriendsPics = await FriendImages(_item);
+                    
                     _item.Attendings = Convert.ToInt32(eventData["attending_count"]);
                     _item.ImageUri = (string)eventData["pic"];
 

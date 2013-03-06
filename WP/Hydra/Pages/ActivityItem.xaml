@@ -42,7 +42,7 @@
         <Grid Margin="0,0,0,10">
             <Image x:Name="EventImage" Source="{Binding Image}" HorizontalAlignment="Left" Height="110" Margin="360,11,0,0" VerticalAlignment="Top" Width="110"/>
             <TextBlock x:Name="title" Margin="15,10,125,22" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding FullTitle}"/>
-            <TextBlock x:Name="associatie" Margin="15,95,370,10" TextWrapping="Wrap" Text="{Binding Assocition.In}" />
+            <TextBlock x:Name="associatie" Margin="15,105,125,0" TextWrapping="Wrap" Text="{Binding Assocition.DnFn}" />
         </Grid>
 
         <Grid Margin="14,10,10,519" Grid.Row="1">

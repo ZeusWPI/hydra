@@ -13,7 +13,7 @@ namespace Hydra.Converters
             {
                 flag = (bool)value;
             }
-                return flag ? "Aan" : "Uit";
+            return flag ? "Uit" : "Aan" ;
             
         }
 

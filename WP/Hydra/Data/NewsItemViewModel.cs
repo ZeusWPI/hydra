@@ -153,5 +153,15 @@ namespace Hydra.Data
         public string Dn { get; set; }
 
         public string Parent { get; set; }
+
+        public string DnFn
+        {
+            get
+            {
+                if (Fn != null && !Fn.Equals("Onbekend"))
+                    return Dn + "(" + Fn + ")";
+                return Dn;
+            }
+        }
     }
 }

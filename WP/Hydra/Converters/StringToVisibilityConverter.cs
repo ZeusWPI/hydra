@@ -9,7 +9,7 @@ namespace Hydra.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(string.Equals(parameter,"browser"))
+            if(string.Equals(parameter,"link"))
             {
                 return App.ViewModel.UserPreference.AccessKey == null ? Visibility.Visible : Visibility.Collapsed;
             }
