@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RemoteViews;
 import be.ugent.zeus.hydra.R;
@@ -31,6 +32,9 @@ public class RestoMenuWidgetProvider extends AppWidgetProvider {
     // These two are mutually exclusive, if they both are enabled it's FCFS.
     private static final boolean OPENAPPONCLICK = true;
     private static final boolean REFRESHONCLICK = false;
+    
+    private int width=350;
+    private int height=450;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -40,6 +44,11 @@ public class RestoMenuWidgetProvider extends AppWidgetProvider {
 
         // Get the layout for the App Widget
         views = new RemoteViews(context.getPackageName(), R.layout.widget_restomenu);
+        
+        // Calculate a fitting size for the user's screensize
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        width = (int) (metrics.widthPixels * 0.65);
+        height = (int) (metrics.heightPixels * 0.65);
 
         // Send intent to retrieve Menu data for today
         Intent menuIntent = new Intent(context, MenuService.class);
@@ -88,17 +97,19 @@ public class RestoMenuWidgetProvider extends AppWidgetProvider {
 
                     // Make a MenuView for the received Menu and resize it
                     // If no menu is available we'll show the closed image
-                    if (menu == null || !menu.open) {
-                        views.setImageViewResource(R.id.widget_image, R.drawable.closed);
-                    } else {
-                        View view = new MenuView(context, menu);
-                        view.measure(350, 450);
-                        view.layout(0, 0, 350, 450);
 
-                        // Get a bitmap from the View and add it to the ImageView of our Widget
-                        view.setDrawingCacheEnabled(true);
-                        Bitmap bitmap = view.getDrawingCache();
-                        views.setImageViewBitmap(R.id.widget_image, bitmap);
+                    if(menu == null || !menu.open) {
+                    	views.setImageViewResource(R.id.widget_image, R.drawable.closed);
+                    }
+                    else {
+	                    View view = new MenuView(context, menu);
+	                    view.measure(width, height);
+	                    view.layout(0, 0, width, height);
+	
+	                    // Get a bitmap from the View and add it to the ImageView of our Widget
+	                    view.setDrawingCacheEnabled(true);
+	                    Bitmap bitmap = view.getDrawingCache();
+	                    views.setImageViewBitmap(R.id.widget_image, bitmap);
                     }
 
                     // Tell the AppWidgetManager to perform an update on the current app widget
