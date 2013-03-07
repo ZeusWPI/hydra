@@ -22,7 +22,6 @@
         <Style x:Key="PanoramaItemHeaderTextStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
             <Setter Property="FontSize" Value="{StaticResource PanoramaItemHeaderFontSize}"/>
-            <Setter Property="CharacterSpacing" Value="-35"/>
         </Style>
 
 

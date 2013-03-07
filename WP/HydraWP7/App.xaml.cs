@@ -112,7 +112,10 @@ namespace HydraWP7
             {
                 // An unhandled exception has occurred; break into the debugger
                 System.Diagnostics.Debugger.Break();
+
+                Deployment.Current.Dispatcher.BeginInvoke(() => MessageBox.Show(e.ToString()));
             }
+            Deployment.Current.Dispatcher.BeginInvoke(() => MessageBox.Show(e.ToString()));
         }
 
         #region Phone application initialization

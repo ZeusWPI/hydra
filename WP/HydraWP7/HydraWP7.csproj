@@ -123,8 +123,10 @@
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <Content Include="Resources\Associations.plist" />
-    <Content Include="Resources\info-content.plist" />
+    <Resource Include="Resources\Associations.plist" />
+    <Resource Include="Resources\info-content.plist">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AppBar\back.png" />

@@ -137,12 +137,13 @@ namespace HydraWP7.Data
             }
         }
 
-        [DataMember(Name = "latitude")]
+        
         private double _latitude;
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns> the content of the news item</returns>
+        [DataMember(Name = "latitude")]
         public double Latitude
         {
             get
@@ -161,12 +162,13 @@ namespace HydraWP7.Data
 
        
 
-        [DataMember(Name = "longitude")]
+        
         private double _longitude;
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns> the longitude of the location</returns>
+        [DataMember(Name = "longitude")]
         public double Longitude
         {
             get
@@ -222,12 +224,13 @@ namespace HydraWP7.Data
             }
         }
 
-        [DataMember(Name = "end")]
+        
         private string _endDate;
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns> the end time of the item</returns>
+        [DataMember(Name = "end")]
         public string EndDate
         {
             get

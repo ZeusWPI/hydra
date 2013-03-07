@@ -591,7 +591,8 @@ namespace HydraWP7.Data
         public void LoadAssociations()
         {
 
-            var document = XElement.Load("Resources/Associations.plist");
+            var stream = Application.GetResourceStream(new Uri("/HydraWP7;component/Resources/Associations.plist", UriKind.Relative));
+            var document = XElement.Load(stream.Stream);
 
 
             foreach (var dict in from element in document.Elements() where element.Name == "array" from dict in element.Elements(XName.Get("dict")) select dict)
@@ -651,8 +652,9 @@ namespace HydraWP7.Data
 
         public void LoadInfo()
         {
-
-            var document = XElement.Load("Resources/info-content.plist");
+            ///WindowsPhoneApplication1;component/
+            var stream = Application.GetResourceStream(new Uri("/HydraWP7;component/Resources/info-content.plist", UriKind.Relative));
+            var document = XElement.Load(stream.Stream);
 
 
             foreach (var dict in from element in document.Elements() where element.Name == "array" from dict in element.Elements(XName.Get("dict")) select dict)

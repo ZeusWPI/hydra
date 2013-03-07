@@ -53,7 +53,7 @@ namespace HydraWP7.Data
         }
 
         [DataMember(Name = "title")]
-        public string FullTitle { get; protected set; }
+        public string FullTitle { get; set; }
 
 
         private Association _association;
@@ -77,12 +77,13 @@ namespace HydraWP7.Data
                 }
             }
         }
-        [DataMember(Name = "content")]
+       
         protected string _content;
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns> the content of the news item</returns>
+        [DataMember(Name = "content")]
         public virtual string Content
         {
             get
@@ -98,12 +99,14 @@ namespace HydraWP7.Data
                 }
             }
         }
-        [DataMember(Name = "date")]
+       
         protected string _date;
         /// <summary>
         /// this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns> the date of the news item</returns>
+
+         [DataMember(Name = "date")]
         public string Date
         {
             get
