@@ -228,7 +228,7 @@
             switch (row) {
                 case kLocationRow:
                     if ([self.activity hasCoordinates]) {
-                        width -= 25;
+                        width -= 30;
                     }
                     break;
 
@@ -374,9 +374,6 @@
                                           reuseIdentifier:CellIdentifier];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
         cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:13];
-        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.detailTextLabel.numberOfLines = 0;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     else {
         // Restore defaults
@@ -384,9 +381,12 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = nil;
         cell.customView = nil;
-        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.detailTextLabel.numberOfLines = 0;
     }
+
+    // Set some defaults
+    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.detailTextLabel.numberOfLines = 0;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     cell.textLabel.text = @"";
     cell.detailTextLabel.text = self.fields[row];
