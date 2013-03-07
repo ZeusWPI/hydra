@@ -49,15 +49,15 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector Name="list" Margin="0,0,-22,0"  SelectionChanged="ItemSelected">
-                <toolkit:LongListSelector.ItemTemplate>
+            <ListBox Name="list" Margin="0,0,-22,0"  SelectionChanged="ItemSelected">
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,-6,10,12">
                             <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" FontSize="{StaticResource PhoneFontSizeLarge}"/>
                         </StackPanel>
                     </DataTemplate>
-                </toolkit:LongListSelector.ItemTemplate>
-            </toolkit:LongListSelector>
+                    </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 

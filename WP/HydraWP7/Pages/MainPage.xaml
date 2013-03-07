@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="MainApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="MainApp"
     x:Class="HydraWP7.Pages.MainPage" 
     mc:Ignorable="d"
     SupportedOrientations="Portrait"  Orientation="Portrait"
@@ -28,7 +28,7 @@
         </shell:ApplicationBar>
 
         <DataTemplate x:Key="ActivityGroupHeaderTemplate">
-            <Border Background="Transparent" Padding="5" Visibility="{Binding Path=.,Converter={StaticResource objectHeaderActivityToVisbility},ConverterParameter=activityHeader}">
+            <Border Background="Transparent" Padding="5" Visibility="{Binding ., ConverterParameter=activityHeader, Converter={StaticResource objectHeaderActivityToVisbility}}">
                 <Border Background="{StaticResource PhoneAccentBrush}" BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="2" Margin="0,0,18,0" HorizontalAlignment="Left">
                     <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" Padding="6" 
             FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -36,18 +36,18 @@
             </Border>
         </DataTemplate>
 
-        
-        
+
+
         <DataTemplate x:Key="groupItemTemplate" >
             <Border Background="{StaticResource PhoneAccentBrush}" Margin="6" Width="400">
                 <TextBlock Text="{Binding Key}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="48" Padding="6" 
                Foreground="{StaticResource PhoneForegroundBrush}" VerticalAlignment="Center"/>
             </Border>
-            
+
         </DataTemplate>
 
         <DataTemplate x:Key="NewsGroupHeaderTemplate">
-            <Border Background="Transparent" Padding="5" Visibility="{Binding Path=.,Converter={StaticResource objectHeaderNewsToVisbility},ConverterParameter=activityHeader}">
+            <Border Background="Transparent" Padding="5" Visibility="{Binding ., ConverterParameter=activityHeader, Converter={StaticResource objectHeaderNewsToVisbility}}">
                 <Border Background="{StaticResource PhoneAccentBrush}" BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="2" Margin="0,0,18,0" HorizontalAlignment="Left">
                     <TextBlock Text="{Binding Key}" Foreground="{StaticResource PhoneForegroundBrush}" Padding="6" 
             FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -55,7 +55,7 @@
             </Border>
         </DataTemplate>
 
-        
+
     </phone:PhoneApplicationPage.Resources>
 
     <shell:SystemTray.ProgressIndicator>
@@ -94,15 +94,15 @@
         </toolkit:NavigationOutTransition>
     </toolkit:TransitionService.NavigationOutTransition>
     <Grid x:Name="LayoutRoot" >
-      
+
         <controls:Pivot x:Name="mainPivot" Title="Hydra"  SelectionChanged="MainPivotSelectionChangedShowApplicationBar">
 
             <controls:PivotItem x:Name="news" Header="Nieuws" >
                 <toolkit:LongListSelector x:Name="newsLLS" Margin="0,-38,-22,2"
-                                        ItemsSource="{Binding GroupedNews}"                       
-                                        GroupHeaderTemplate="{StaticResource NewsGroupHeaderTemplate}" 
-                                        GroupItemTemplate="{StaticResource groupItemTemplate}"
-                                         SelectionChanged="NewsItemTapped">
+    				ItemsSource="{Binding GroupedNews}"                       
+    				GroupHeaderTemplate="{StaticResource NewsGroupHeaderTemplate}" 
+    				GroupItemTemplate="{StaticResource groupItemTemplate}"
+    				SelectionChanged="NewsItemTapped">
                     <toolkit:LongListSelector.GroupItemsPanel>
                         <ItemsPanelTemplate>
                             <toolkit:WrapPanel Orientation="Horizontal"/>
@@ -110,9 +110,9 @@
                     </toolkit:LongListSelector.GroupItemsPanel>
                     <toolkit:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility}}">
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding ., Converter={StaticResource objectToVisbility}}">
                                 <StackPanel Width="350" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding ., ConverterParameter=highlight, Converter={StaticResource objectToStyle}, Mode=OneWay}" />
                                     <TextBlock Text="{Binding Assocition.Dn}" TextWrapping="Wrap" Margin="10,-2,10,0"  />
                                 </StackPanel>
                             </StackPanel>
@@ -125,10 +125,10 @@
 
             <controls:PivotItem x:Name="activities" Header="Activiteiten">
                 <toolkit:LongListSelector x:Name="activityLLS" Margin="0,-38,-22,2"
-                                        ItemsSource="{Binding GroupedActivities}"                       
-                                        GroupHeaderTemplate="{StaticResource ActivityGroupHeaderTemplate}" 
-                                        GroupItemTemplate="{StaticResource groupItemTemplate}"
-                                        SelectionChanged="ActivityItemTapped">
+    				ItemsSource="{Binding GroupedActivities}"                       
+    				GroupHeaderTemplate="{StaticResource ActivityGroupHeaderTemplate}" 
+    				GroupItemTemplate="{StaticResource groupItemTemplate}"
+    				SelectionChanged="ActivityItemTapped">
                     <toolkit:LongListSelector.GroupItemsPanel>
                         <ItemsPanelTemplate>
                             <toolkit:WrapPanel Orientation="Horizontal"/>
@@ -137,10 +137,10 @@
                     <toolkit:LongListSelector.ItemTemplate>
                         <DataTemplate>
 
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding Path=.,Converter={StaticResource objectToVisbility}}">
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="{Binding ., Converter={StaticResource objectToVisbility}}">
                                 <TextBlock x:Name="startHour"  Width="99" Height="99"  Grid.Row="1"  FontSize="{StaticResource PhoneFontSizeLarge}" Text="{Binding GetStartHour}"/>
                                 <StackPanel Width="350" Margin="8,-7,0,0">
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding Path=., Converter={StaticResource objectToStyle}, ConverterParameter=highlight, Mode=OneWay}" />
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,0" Style="{Binding ., ConverterParameter=highlight, Converter={StaticResource objectToStyle}, Mode=OneWay}" />
                                     <TextBlock Text="{Binding Assocition.Dn}" TextWrapping="Wrap" Margin="10,-2,10,0"  />
                                 </StackPanel>
                             </StackPanel>
@@ -151,24 +151,24 @@
 
 
             <controls:PivotItem x:Name="resto" Header="Resto Menu" Margin="10,-29,14,-2">
-                    <Grid HorizontalAlignment="Left" Height="648" Margin="10,10,0,-22" VerticalAlignment="Top" Width="436">
-                        <Grid HorizontalAlignment="Left" Height="71" Margin="10,10,0,0" VerticalAlignment="Top" Width="416">
-                            <TextBlock  x:Name="OpenDate" Visibility="{Binding IsOpen,Converter={StaticResource booleanToVisibility}}" Text="{Binding Date}" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="0,1,10,10"/>
-                            <TextBlock  x:Name="ClosedDate" Visibility="{Binding IsOpen,Converter={StaticResource booleanToVisibility},ConverterParameter=closed}" TextWrapping="Wrap" Text="Gesloten" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="10,1,10,10"/>
-                        </Grid>
-                    <Grid HorizontalAlignment="Left" Height="213" Margin="10,45,0,0" VerticalAlignment="Top" Width="416" Visibility="{Binding IsOpen,Converter={StaticResource booleanToVisibility}}">
-                            <Image x:Name="ImageMeat" HorizontalAlignment="Left" Height="60" Margin="15,15,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/icon-meal@2x.png" RenderTransformOrigin="0.433,0.883"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="75,24,0,0" TextWrapping="Wrap" Text="Vlees en Veggie" VerticalAlignment="Top" Style="{StaticResource PhoneTextLargeStyle}"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" Text="{Binding Dishes[0].Name}"  Style="{Binding Dishes[0].IsRecommended, Converter={StaticResource booleanToStyle},ConverterParameter=resto, Mode=OneWay}" VerticalAlignment="Top" Width="319"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,107,0,0" TextWrapping="Wrap" Text="{Binding Dishes[1].Name}"  Style="{Binding Dishes[1].IsRecommended, Converter={StaticResource booleanToStyle},ConverterParameter=resto, Mode=OneWay}" VerticalAlignment="Top" Width="319"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,139,0,0" TextWrapping="Wrap" Text="{Binding Dishes[2].Name}"  Style="{Binding Dishes[2].IsRecommended, Converter={StaticResource booleanToStyle},ConverterParameter=resto, Mode=OneWay}" VerticalAlignment="Top" Width="319"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,171,0,0" TextWrapping="Wrap" Text="{Binding Dishes[3].Name}"  Style="{Binding Dishes[3].IsRecommended, Converter={StaticResource booleanToStyle},ConverterParameter=resto, Mode=OneWay}" VerticalAlignment="Top" Width="319"/>
+                <Grid HorizontalAlignment="Left" Height="648" Margin="10,10,0,-22" VerticalAlignment="Top" Width="436">
+                    <Grid HorizontalAlignment="Left" Height="71" Margin="10,10,0,0" VerticalAlignment="Top" Width="416">
+                        <TextBlock  x:Name="OpenDate" Visibility="{Binding IsOpen, Converter={StaticResource booleanToVisibility}}" Text="{Binding Date}" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="0,1,10,10"/>
+                        <TextBlock  x:Name="ClosedDate" Visibility="{Binding IsOpen, ConverterParameter=closed, Converter={StaticResource booleanToVisibility}}" TextWrapping="Wrap" Text="Gesloten" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="10,1,10,10"/>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="213" Margin="10,45,0,0" VerticalAlignment="Top" Width="416" Visibility="{Binding IsOpen, Converter={StaticResource booleanToVisibility}}">
+                        <Image x:Name="ImageMeat" HorizontalAlignment="Left" Height="60" Margin="15,15,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/icon-meal@2x.png" RenderTransformOrigin="0.433,0.883"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="75,24,0,0" TextWrapping="Wrap" Text="Vlees en Veggie" VerticalAlignment="Top" Style="{StaticResource PhoneTextLargeStyle}"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" Text="{Binding Dishes[0].Name}"  Style="{Binding Dishes[0].IsRecommended, ConverterParameter=resto, Converter={StaticResource booleanToStyle}, Mode=OneWay}" VerticalAlignment="Top" Width="319"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,107,0,0" TextWrapping="Wrap" Text="{Binding Dishes[1].Name}"  Style="{Binding Dishes[1].IsRecommended, ConverterParameter=resto, Converter={StaticResource booleanToStyle}, Mode=OneWay}" VerticalAlignment="Top" Width="319"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,139,0,0" TextWrapping="Wrap" Text="{Binding Dishes[2].Name}"  Style="{Binding Dishes[2].IsRecommended, ConverterParameter=resto, Converter={StaticResource booleanToStyle}, Mode=OneWay}" VerticalAlignment="Top" Width="319"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,171,0,0" TextWrapping="Wrap" Text="{Binding Dishes[3].Name}"  Style="{Binding Dishes[3].IsRecommended, ConverterParameter=resto, Converter={StaticResource booleanToStyle}, Mode=OneWay}" VerticalAlignment="Top" Width="319"/>
                         <TextBlock HorizontalAlignment="Left" Margin="334,75,0,0" TextWrapping="Wrap" Text="{Binding Dishes[0].Price}" VerticalAlignment="Top" Height="27" Width="72"/>
                         <TextBlock HorizontalAlignment="Left" Margin="334,107,0,0" TextWrapping="Wrap" Text="{Binding Dishes[1].Price}" VerticalAlignment="Top" Height="27" Width="72"/>
                         <TextBlock HorizontalAlignment="Left" Margin="334,139,0,0" TextWrapping="Wrap" Text="{Binding Dishes[2].Price}" VerticalAlignment="Top" Height="27" Width="72"/>
                         <TextBlock HorizontalAlignment="Left" Margin="334,171,0,0" TextWrapping="Wrap" Text="{Binding Dishes[3].Price}" VerticalAlignment="Top" Height="27" Width="72"/>
-                        </Grid>
-                    <Grid HorizontalAlignment="Left" Height="118" Margin="10,263,0,0" VerticalAlignment="Top" Width="416" Visibility="{Binding IsOpen,Converter={StaticResource booleanToVisibility}}">
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="118" Margin="10,263,0,0" VerticalAlignment="Top" Width="416" Visibility="{Binding IsOpen, Converter={StaticResource booleanToVisibility}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="4*"/>
                             <ColumnDefinition Width="9*"/>
@@ -180,14 +180,14 @@
                         <TextBlock HorizontalAlignment="Left" Margin="206,75,0,0" TextWrapping="Wrap" Text="{Binding Soup[1]}" VerticalAlignment="Top" Height="27" Width="72" Grid.Column="1"/>
                         <!--<TextBlock HorizontalAlignment="Left" Margin="334,107,0,0" TextWrapping="Wrap" Text="{Binding Soup[3]}" VerticalAlignment="Top" Height="27" Width="72"/>-->
                     </Grid>
-                    <Grid HorizontalAlignment="Left" Height="239" Margin="10,386,0,0" VerticalAlignment="Top" Width="416" Visibility="{Binding IsOpen,Converter={StaticResource booleanToVisibility}}">
-                            <Image x:Name="ImageVeg" HorizontalAlignment="Left" Height="60" Margin="10,10,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/icon-vegetables@2x.png"/>
+                    <Grid HorizontalAlignment="Left" Height="239" Margin="10,386,0,0" VerticalAlignment="Top" Width="416" Visibility="{Binding IsOpen, Converter={StaticResource booleanToVisibility}}">
+                        <Image x:Name="ImageVeg" HorizontalAlignment="Left" Height="60" Margin="10,10,0,0" VerticalAlignment="Top" Width="60" Source="/Assets/icon-vegetables@2x.png"/>
                         <TextBlock HorizontalAlignment="Left" Margin="75,24,0,0" TextWrapping="Wrap" Text="Groenten" VerticalAlignment="Top" Style="{StaticResource PhoneTextLargeStyle}"/>
                         <TextBlock HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" Text="{Binding Vegetables[0]}"  VerticalAlignment="Top" Width="319"/>
                         <TextBlock HorizontalAlignment="Left" Margin="10,107,0,0" TextWrapping="Wrap" Text="{Binding Vegetables[1]}"  VerticalAlignment="Top" Width="319"/>
                         <TextBlock HorizontalAlignment="Left" Margin="10,139,0,0" TextWrapping="Wrap" Text="{Binding Vegetables[2]}"  VerticalAlignment="Top" Width="319"/>
                     </Grid>
-                    </Grid>
+                </Grid>
             </controls:PivotItem>
 
 
@@ -195,26 +195,27 @@
 
             <controls:PivotItem x:Name="info" Header="Info">
 
-                <toolkit:LongListSelector x:Name="infoLLS" Margin="0,-38,-22,2" ItemsSource="{Binding InfoItems}" SelectionChanged="InfoItemTapped">
-                    <toolkit:LongListSelector.ItemTemplate>
+                <ListBox x:Name="infoLLS" Margin="0,-38,-22,2" ItemsSource="{Binding InfoItems}" SelectionChanged="InfoItemTapped">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                            <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432" Visibility="Visible">
                                 <Image x:Name="Image"  Width="90" Height="90"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
                                 <StackPanel Width="311" Margin="8,-7,0,0">
                                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="10,30,10,0" Style="{StaticResource PhoneTextLargeStyle}" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
-                        </toolkit:LongListSelector.ItemTemplate>
-                    </toolkit:LongListSelector>
-                
-            </controls:PivotItem>
-            
-            
-            <controls:PivotItem x:Name="schamper" Header="Schamper">
-                <toolkit:LongListSelector x:Name="schamperLLS" Margin="0,-38,-22,2" ItemsSource="{Binding SchamperItems}" SelectionChanged="SchamperItemTapped">
+                        </ListBox.ItemTemplate>
+                </ListBox>
 
-                    <toolkit:LongListSelector.ItemTemplate>
+
+            </controls:PivotItem>
+
+
+            <controls:PivotItem x:Name="schamper" Header="Schamper">
+                <ListBox x:Name="schamperLLS" Margin="0,-38,-22,2" ItemsSource="{Binding SchamperItems}" SelectionChanged="SchamperItemTapped">
+
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
                                 <Image x:Name="Image"  Width="99" Height="99"  Grid.Row="1" Stretch="UniformToFill" Source="{Binding Image}"/>
@@ -224,8 +225,8 @@
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
-                        </toolkit:LongListSelector.ItemTemplate>
-                </toolkit:LongListSelector>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
             </controls:PivotItem>
 
@@ -244,7 +245,7 @@
                         </Button.Background>
                     </Button>
                     <TextBlock HorizontalAlignment="Left" Margin="22,385,0,0" TextWrapping="Wrap"  x:Name="NowPlayingTrack" VerticalAlignment="Top" Width="424" Height="81" />
-                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Name="NowPlayingProgram" VerticalAlignment="Top" Width="436" Height="108" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" x:Name="NowPlayingProgram" VerticalAlignment="Top" Width="436" Height="108" FontSize="{StaticResource PhoneFontSizeLarge}"/>
                 </Grid>
 
             </controls:PivotItem>
@@ -252,7 +253,7 @@
         </controls:Pivot>
 
 
-        
+
 
     </Grid>
-    </phone:PhoneApplicationPage>
+</phone:PhoneApplicationPage>
