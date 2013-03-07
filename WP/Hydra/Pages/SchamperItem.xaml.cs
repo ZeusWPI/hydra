@@ -1,11 +1,10 @@
 using System;
 using System.Linq;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
 
 namespace Hydra.Pages
 {
-    public partial class SchamperItem : PhoneApplicationPage
+    public partial class SchamperItem
     {
         public SchamperItem()
         {
@@ -25,7 +24,7 @@ namespace Hydra.Pages
                 var fullHtml = NewsItem.WrapHtml(item.Content, browser.ActualWidth);
                 browser.NavigateToString(fullHtml);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 NavigationService.Navigate(new Uri("/Pages/MainPage.xaml", UriKind.Relative));
             }

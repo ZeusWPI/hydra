@@ -225,20 +225,29 @@
                 text = self.fields[row];
             }
 
-            if (row == kGuestsRow) {
-                FacebookEvent *fbEvent = self.activity.facebookEvent;
-                if (fbEvent.friendsAttending.count > 0) {
-                    spacing += 40;
-                }
-            }
-            else if (row == kDescriptionRow) {
-                // Different calculation for UITextView
-                if (!self.descriptionView) {
-                    self.descriptionView = [self createDescriptionView];
-                    width = tableView.frame.size.width - 20;
-                    self.descriptionView.frame = CGRectMake(0, 0, width, 0);
-                }
-                return self.descriptionView.contentSize.height + 4;
+            switch (row) {
+                case kLocationRow:
+                    if ([self.activity hasCoordinates]) {
+                        width -= 30;
+                    }
+                    break;
+
+                case kGuestsRow: {
+                    FacebookEvent *fbEvent = self.activity.facebookEvent;
+                    if (fbEvent.friendsAttending.count > 0) {
+                        spacing += 40;
+                    }
+                } break;
+
+                case kDescriptionRow:
+                    // Different calculation for UITextView
+                    if (!self.descriptionView) {
+                        self.descriptionView = [self createDescriptionView];
+                        width = tableView.frame.size.width - 20;
+                        self.descriptionView.frame = CGRectMake(0, 0, width, 0);
+                    }
+                    return self.descriptionView.contentSize.height + 4;
+                    break;
             }
             break;
 
@@ -365,9 +374,6 @@
                                           reuseIdentifier:CellIdentifier];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
         cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:13];
-        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.detailTextLabel.numberOfLines = 0;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     else {
         // Restore defaults
@@ -375,9 +381,12 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = nil;
         cell.customView = nil;
-        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.detailTextLabel.numberOfLines = 0;
     }
+
+    // Set some defaults
+    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.detailTextLabel.numberOfLines = 0;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     cell.textLabel.text = @"";
     cell.detailTextLabel.text = self.fields[row];
@@ -395,7 +404,7 @@
         case kLocationRow:
             // TODO: make the location go to a seperate view with just a map
             cell.textLabel.text = @"Locatie";
-            if (self.activity.latitude != 0 && self.activity.longitude != 0) {
+            if ([self.activity hasCoordinates]) {
                 cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             }
             break;

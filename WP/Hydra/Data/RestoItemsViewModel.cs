@@ -49,7 +49,8 @@ namespace Hydra.Data
 
     public class Day
     {
-        public static string[] Months = new[] { "januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "november", "oktober", "december" };
+        private static readonly string[] Months = new[] { "januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "november", "oktober", "december" };
+        private static string[] Days = new[] { "maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag","zondag"};
         private List<Dish> _dishes;
         public List<Dish> Dishes
         {
@@ -88,7 +89,7 @@ namespace Hydra.Data
                         return "Morgen";
                     if (date.Equals(DateTime.Now.AddDays(2).Date))
                         return "Overmorgen";
-                    return date.DayOfWeek + " " + date.Day + " " + Months[date.Month - 1];
+                    return Days[(int) date.DayOfWeek-1] + " " + date.Day + " " + Months[date.Month - 1];
                 }
             }
             set
@@ -111,7 +112,7 @@ namespace Hydra.Data
                     return _soup;
                 else
                 {
-                    var li = new List<string> { "Laden...", "Laden..." };
+                    var li = new List<string> { "Laden...", "Laden...", "Laden...", "Laden..." };
                     return li;
                 }
             }
@@ -131,7 +132,7 @@ namespace Hydra.Data
                     return _vegetables;
                 else
                 {
-                    var li = new List<string> { "Laden...", "Laden..." };
+                    var li = new List<string> { "Laden...", "Laden..." ,"Laden..."};
                     return li;
                 }
             }

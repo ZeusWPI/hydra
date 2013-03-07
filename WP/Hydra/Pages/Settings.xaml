@@ -73,11 +73,11 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
 
-        <phone:Pivot x:Name="mainPivot" Title="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" SelectionChanged="MainPivot_OnSelectionChanged">
+        <phone:Pivot x:Name="mainPivot" Title="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" >
 
        <phone:PivotItem x:Name="settingsGeneral" Header="Instellingen" Margin="12,10,12,0">
                 <Grid>
-                    <toolkit:ToggleSwitch x:Name="toggleSwitch" Checked="ToggleSwitch_OnChecked" Unchecked="ToggleSwitchUnChecked" Header="Beperk inhoud" IsChecked="{Binding IsFiltering}" Content="{Binding IsFiltering, Converter={StaticResource booleanToString}}" Margin="12,10,12,531" />
+                    <toolkit:ToggleSwitch x:Name="toggleSwitch" Checked="ToggleSwitch_OnChecked" Unchecked="ToggleSwitchUnChecked" Header="Toon alle verenigingen" IsChecked="{Binding IsFiltering}" Content="{Binding IsFiltering, Converter={StaticResource booleanToString}}" Margin="12,10,12,531" />
                 <phone:LongListSelector
                 x:Name="associations" HorizontalAlignment="Left" Height="516" Margin="12,140,0,0" VerticalAlignment="Top" Width="432"
                 JumpListStyle="{StaticResource AssociationJumpListStyle}"
@@ -86,7 +86,7 @@
                 ItemTemplate="{StaticResource AssociationItemTemplate}"
                 LayoutMode="List"
                 IsGroupingEnabled="true"
-                HideEmptyGroups ="true" SelectionChanged="AssociationAdded" />
+                HideEmptyGroups ="true" SelectionChanged="AssociationAdded"  IsEnabled="{Binding ElementName=toggleSwitch, Converter={StaticResource objectToBoolean},ConverterParameter=toggleSettings}"/>
                 </Grid>
             </phone:PivotItem>
 
@@ -102,8 +102,8 @@
                         <Image x:Name="facebookImage" HorizontalAlignment="Left" Width="100" Margin="15,75,0,0" VerticalAlignment="Top" Source="{Binding UserImage}"/>
                         <Button x:Name="UnlinkButton" Content="Verbreek Facebook verbinding" HorizontalAlignment="Left" Margin="10,239,0,0" VerticalAlignment="Top" Click="UnlinkButtonClick"/>
                     </Grid>
-                    <phone:WebBrowser x:Name="FaceBookLoginPage" IsScriptEnabled="True" HorizontalAlignment="Left" Height="653" VerticalAlignment="Top" Width="456" Visibility="{Binding Path=AccessKey,Converter={StaticResource StringToVisibilty},ConverterParameter=browser}" Navigated="FaceBookLoginPageNavigated"/>
-                    
+                    <phone:WebBrowser x:Name="FaceBookLoginPage" IsScriptEnabled="True" HorizontalAlignment="Left" Height="653" VerticalAlignment="Top" Width="456" Visibility="Collapsed" Navigated="FaceBookLoginPageNavigated"/>
+                    <Button x:Name="LinkButton" Visibility="{Binding Path=AccessKey,Converter={StaticResource StringToVisibilty},ConverterParameter=link }"  Content="Aanmelden via Facebook" HorizontalAlignment="Left" Margin="10,239,0,0" VerticalAlignment="Top" Click="LinkButtonClick"/>
 
                 </Grid>
             </phone:PivotItem>

@@ -1,12 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Facebook;
 using Hydra.Data;
+using Microsoft.Phone.Controls;
 
 namespace Hydra.Pages
 {
@@ -26,19 +26,23 @@ namespace Hydra.Pages
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             App.ViewModel.SaveSettings();
+            App.ViewModel.LoadData(true);
             base.OnNavigatingFrom(e);
         }
 
         private void ToggleSwitch_OnChecked(object sender, RoutedEventArgs e)
         {
-            toggleSwitch.Content = "Aan";
+            toggleSwitch.Content = "Uit";
+            
             App.ViewModel.UserPreference.IsFiltering = true;
+            associations.IsEnabled = true;
         }
 
         private void ToggleSwitchUnChecked(object sender, RoutedEventArgs e)
         {
-            toggleSwitch.Content = "Uit";
+            toggleSwitch.Content = "Aan";
             App.ViewModel.UserPreference.IsFiltering = false;
+            associations.IsEnabled = false;
         }
 
 
@@ -55,12 +59,13 @@ namespace Hydra.Pages
 
 
 
-        private void FaceBookLoginPageNavigated(object sender, NavigationEventArgs e)
+        private async void FaceBookLoginPageNavigated(object sender, NavigationEventArgs e)
         {
             if (FaceBookLoginPage.Visibility == Visibility.Collapsed)
                 return;
             FacebookOAuthResult oauthResult;
             var fb = new FacebookClient();
+
             if (!fb.TryParseOAuthCallbackUrl(e.Uri, out oauthResult))
             {
                 return;
@@ -68,25 +73,27 @@ namespace Hydra.Pages
 
             if (oauthResult.IsSuccess)
             {
-                if (ProcessFbOathResult(oauthResult) == 1)
-                {
-                    Dispatcher.BeginInvoke(() => MessageBox.Show("Er is een fout opgetreden tijdens de authenticatie"));
-                }
+                await ProcessFbOathResult(oauthResult);
                 gridFBLoggedIn.Visibility = Visibility.Visible;
                 FaceBookLoginPage.Visibility = Visibility.Collapsed;
                 Dispatcher.BeginInvoke(() => DataContext = App.ViewModel.UserPreference);
+                FaceBookLoginPage.Visibility = Visibility.Collapsed;
+                gridFBLoggedIn.Visibility = Visibility.Visible;
+                LinkButton.Visibility = Visibility.Collapsed;
             }
             else
             {
                 
-                MainPivot_OnSelectionChanged(null, null);
+                FaceBookLoginPage.Visibility=Visibility.Collapsed;
+                gridFBLoggedIn.Visibility=Visibility.Collapsed;
+                LinkButton.Visibility=Visibility.Visible;
 
             }
         }
 
-        public int ProcessFbOathResult(FacebookOAuthResult oauthResult)
+        public async Task<bool> ProcessFbOathResult(FacebookOAuthResult oauthResult)
         {
-            var resultCode = 0;
+            var resultProcess = false;
             var accessToken = oauthResult.AccessToken;
             App.ViewModel.UserPreference.AccessKey = accessToken;
             var fbS = new FacebookClient(accessToken);
@@ -95,7 +102,15 @@ namespace Hydra.Pages
                                     {
                                         if (res.Error != null)
                                         {
-                                            resultCode = 1;
+                                            Dispatcher.BeginInvoke(() =>
+                                                                       {
+                                                                           gridFBLoggedIn.Visibility =
+                                                                               Visibility.Collapsed;
+                                                                           FaceBookLoginPage.Visibility =
+                                                                               Visibility.Collapsed;
+                                                                           LinkButton.Visibility = Visibility.Visible;
+                                                                       });
+                                            
                                             return;
                                         }
 
@@ -110,35 +125,38 @@ namespace Hydra.Pages
                                                                            App.ViewModel.UserPreference.UserImage;
                                                                        name.Text = App.ViewModel.UserPreference.Name;
                                                                    });
+                                        resultProcess = true;
                                     };
 
-            fbS.GetTaskAsync("me");
-            return resultCode;
+            await fbS.GetTaskAsync("me");
+            return resultProcess;
         }
 
 
 
 
 
-        private void MainPivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+         private void LinkButtonClick(object sender, RoutedEventArgs e)
         {
-            if (FaceBookLoginPage.Visibility == Visibility.Collapsed || mainPivot.SelectedItem != mainPivot.Items[1])
+            if (FaceBookLoginPage.Visibility == Visibility.Visible || mainPivot.SelectedItem != mainPivot.Items[1])
                 return;
 
-            FaceBookLoginPage.Navigate(
-                App.ViewModel.FacebookLoginUrl("https://www.facebook.com/connect/login_success.html"));
+            FaceBookLoginPage.Navigate(App.ViewModel.FacebookLoginUrl("https://www.facebook.com/connect/login_success.html"));
+            gridFBLoggedIn.Visibility = Visibility.Collapsed;
+            FaceBookLoginPage.Visibility = Visibility.Visible;
+            LinkButton.Visibility = Visibility.Collapsed;
         }
 
         private void UnlinkButtonClick(object sender, RoutedEventArgs e)
         {
             if(App.ViewModel.UserPreference.AccessKey == null)
                 return;
-            var logoutUrl = new Uri("https://www.facebook.com/logout.php?next="+App.ViewModel.FacebookLoginUrl("https://www.facebook.com/connect/login_success.html")+"&access_token=" + App.ViewModel.UserPreference.AccessKey);
-            FaceBookLoginPage.Navigate(logoutUrl);
-            App.ViewModel.UnlinkFaceBook();
+            FaceBookLoginPage.ClearCookiesAsync();
+            //App.ViewModel.UnlinkFaceBook();
             gridFBLoggedIn.Visibility = Visibility.Collapsed;
-            FaceBookLoginPage.Visibility = Visibility.Visible;
-            MainPivot_OnSelectionChanged(null,null);
+            FaceBookLoginPage.Visibility = Visibility.Collapsed;
+            LinkButton.Visibility=Visibility.Visible;
         }
 
 

@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C299AF8D-7523-4100-A62D-24A69AA6A451}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HydraWP7</RootNamespace>
+    <AssemblyName>HydraWP7</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>HydraWP7.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>HydraWP7.App</SilverlightAppEntry>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>packages\Facebook.6.2.1-beta\lib\wp71\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>packages\WPtoolkit.4.2012.10.30\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.4.5.11\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="system.data.linq" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Servicemodel.Web" />
+    <Reference Include="System.Threading.Tasks.WP71">
+      <HintPath>packages\System.Threading.Tasks.3.0.2-beta2\lib\sl4-wp71\System.Threading.Tasks.WP71.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml" />
+    <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ActivityToBooleanConverter.cs" />
+    <Compile Include="Converters\BooleanToStringConverter.cs" />
+    <Compile Include="Converters\BooleanToStyleConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectHeaderActivityToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectHeaderNewsToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectToBooleanConverter.cs" />
+    <Compile Include="Converters\ObjectToStyleConverter.cs" />
+    <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringToImageConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Data\ActivityItemsViewModel.cs" />
+    <Compile Include="Data\InfoItemsViewModel.cs" />
+    <Compile Include="Data\KeyedList.cs" />
+    <Compile Include="Data\MainViewModel.cs" />
+    <Compile Include="Data\MetaResto.cs" />
+    <Compile Include="Data\NewsItemViewModel.cs" />
+    <Compile Include="Data\RestoItemsViewModel.cs" />
+    <Compile Include="Data\SchamperItemsViewModel.cs" />
+    <Compile Include="Data\Settings.cs" />
+    <Compile Include="Data\UserPreference.cs" />
+    <Compile Include="Pages\ActivityItem.xaml.cs" />
+    <Compile Include="Pages\InfoItemBrowser.xaml.cs" />
+    <Compile Include="Pages\InfoItemSubcontent.xaml.cs" />
+    <Compile Include="Pages\MainPage.xaml.cs" />
+    <Compile Include="Pages\NewsItem.xaml.cs" />
+    <Compile Include="Pages\RestoLocations.xaml.cs" />
+    <Compile Include="Pages\SchamperItem.xaml.cs" />
+    <Compile Include="Pages\Settings.xaml.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\AppResources.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\WMAppManifest.xml" />
+    <Resource Include="Resources\Associations.plist" />
+    <Resource Include="Resources\info-content.plist">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\AppBar\back.png" />
+    <Content Include="Assets\AppBar\next.png" />
+    <Content Include="Assets\AppBar\settings.png" />
+    <Content Include="Assets\ApplicationIcon.png" />
+    <Content Include="Assets\btn-urgent-bg-highlighted%402x.png" />
+    <Content Include="Assets\btn-urgent-pause%402x.png" />
+    <Content Include="Assets\btn-urgent-play%402x.png" />
+    <Content Include="Assets\external-link%402x.png" />
+    <Content Include="Assets\hydraBackGround.png" />
+    <Content Include="Assets\hydraBackGroundDark.png" />
+    <Content Include="Assets\icon-meal%402x.png" />
+    <Content Include="Assets\icon-soup%402x.png" />
+    <Content Include="Assets\icon-vegetables%402x.png" />
+    <Content Include="Assets\info-academiccalendar%402x.png" />
+    <Content Include="Assets\info-bicycle%402x.png" />
+    <Content Include="Assets\info-doctors%402x.png" />
+    <Content Include="Assets\info-library%402x.png" />
+    <Content Include="Assets\info-minerva%402x.png" />
+    <Content Include="Assets\info-more%402x.png" />
+    <Content Include="Assets\info-sports%402x.png" />
+    <Content Include="Assets\schamper-bg.png" />
+    <Content Include="Assets\Tiles\IconicTileMedium.png" />
+    <Content Include="Assets\Tiles\IconicTileSmall.png" />
+    <Content Include="Assets\urgent-bg%402x.jpg" />
+    <Content Include="Assets\urgent-nowplaying%402x.jpg" />
+    <Content Include="README_FIRST.txt" />
+    <Content Include="Resources\info-fietsen.html" />
+    <Content Include="Resources\info-kalender.html" />
+    <Content Include="Resources\info-sport-aanbod.html" />
+    <Content Include="Resources\info-sport-openingsuren.html" />
+    <Content Include="Resources\info-studentenartsen.html" />
+    <Content Include="Resources\webview.css" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Urgent.fm\Urgent.fm.csproj">
+      <Project>{DE3E51E5-CE4E-4BB4-A737-96D02D4D951F}</Project>
+      <Name>Urgent.fm</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Pages\ActivityItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\InfoItemBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\InfoItemSubcontent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\NewsItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RestoLocations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\SchamperItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+</Project>

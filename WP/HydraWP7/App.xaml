@@ -1,0 +1,62 @@
+﻿<Application 
+    x:Class="HydraWP7.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:Converters="clr-namespace:HydraWP7.Converters">
+
+ 
+
+    <Application.ApplicationLifetimeObjects>
+        <!--Required object that handles lifetime events for the application-->
+        <shell:PhoneApplicationService 
+            Launching="Application_Launching" Closing="Application_Closing" 
+            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+    </Application.ApplicationLifetimeObjects>
+
+    <Application.Resources>
+
+        <sys:Double x:Key="PanoramaItemHeaderFontSize">66</sys:Double>
+
+        <Style x:Key="PanoramaItemHeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
+            <Setter Property="FontSize" Value="{StaticResource PanoramaItemHeaderFontSize}"/>
+        </Style>
+
+
+        <Style x:Name="Recommended" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style x:Name="Normal" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+
+        <Style x:Name="HighLighted" TargetType="TextBlock">
+            <Setter Property="Style" Value="{StaticResource PhoneTextTitle2Style}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeLarge}" />
+            <!--<Setter Property="Foreground" Value="Chocolate" />-->
+        </Style>
+        <Style x:Name="NormalNotHighLighted" TargetType="TextBlock">
+            <Setter Property="Style" Value="{StaticResource PhoneTextTitle2Style}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeLarge}" />
+        </Style>
+
+
+        <Converters:BooleanToStyleConverter x:Key="booleanToStyle" />
+        <Converters:BooleanToStringConverter x:Key="booleanToString" />
+        <Converters:ObjectToBooleanConverter x:Key="objectToBoolean" />
+        <Converters:ObjectToVisibilityConverter x:Key="objectToVisbility" />
+        <Converters:ObjectHeaderActivityToVisibilityConverter x:Key="objectHeaderActivityToVisbility" />
+        <Converters:ObjectHeaderNewsToVisibilityConverter x:Key="objectHeaderNewsToVisbility" />
+        <Converters:ObjectToStyleConverter x:Key="objectToStyle" />
+        <Converters:ActivityToBooleanConverter x:Key="ActivityToBoolean" />
+        <Converters:StringToVisibilityConverter x:Key="StringToVisibilty" />
+        <Converters:StringToImageConverter x:Key="StringToImage"/>
+        <Converters:BooleanToVisibilityConverter x:Key="booleanToVisibility" />
+
+    </Application.Resources>
+
+
+
+</Application>

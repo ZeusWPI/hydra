@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using Hydra.Data;
 
@@ -17,7 +13,7 @@ namespace Hydra.Converters
             {
                 var idx=System.Convert.ToInt32(parameter);
                 return ((ActivityItemsViewModel) value).FriendsImage(idx);
-            }catch(Exception e)
+            }catch(Exception)
             {
                 //Not a valid index
                 return null;

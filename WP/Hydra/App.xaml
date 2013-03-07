@@ -28,7 +28,7 @@
         <Style x:Name="HighLighted" TargetType="TextBlock">
             <Setter Property="Style" Value="{StaticResource PhoneTextTitle2Style}" />
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeLarge}" />
-            <Setter Property="Foreground" Value="Chocolate" />
+            <!--<Setter Property="Foreground" Value="Chocolate" />-->
         </Style>
         <Style x:Name="NormalNotHighLighted" TargetType="TextBlock">
             <Setter Property="Style" Value="{StaticResource PhoneTextTitle2Style}" />

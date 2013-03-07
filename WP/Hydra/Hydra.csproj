@@ -230,7 +230,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -244,7 +243,6 @@
     <Content Include="Resources\info-sport-aanbod.html" />
     <Content Include="Resources\info-sport-openingsuren.html" />
     <Content Include="Resources\info-studentenartsen.html" />
-    <Content Include="Resources\schamper.css" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
