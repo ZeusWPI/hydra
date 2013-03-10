@@ -12,6 +12,7 @@
 
     <ImageView
         android:id="@+id/widget_image"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
