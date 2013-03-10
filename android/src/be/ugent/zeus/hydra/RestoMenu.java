@@ -362,10 +362,9 @@ public class RestoMenu extends AbstractSherlockActivity {
 
         @Override
         protected void onReceiveResult(int code, Bundle data) {
-            switch (code) {
-                case RestoService.STATUS_FINISHED:
-                    legend = legendCache.get(LegendService.FEED_NAME);
-                    break;
+
+            if (code == HTTPIntentService.STATUS_FINISHED) {
+                legend = legendCache.get(LegendService.FEED_NAME);
             }
 
         }

@@ -131,30 +131,19 @@ public class News extends AbstractSherlockListActivity {
         }
 
         @Override
-        public void onReceiveResult(int code, Bundle icicle) {
+        public void onReceiveResult(final int code, Bundle icicle) {
+
             News.this.runOnUiThread(new Runnable() {
                 public void run() {
                     progressDialog.dismiss();
+
+                    if (code == HTTPIntentService.STATUS_ERROR) {
+                        Toast.makeText(News.this, R.string.news_update_failed, Toast.LENGTH_SHORT).show();
+                    }
+
+                    refresh(true);
                 }
             });
-
-            switch (code) {
-                case HTTPIntentService.STATUS_FINISHED:
-                    News.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            refresh(true);
-                        }
-                    });
-                    break;
-                case HTTPIntentService.STATUS_ERROR:
-                    Toast.makeText(News.this, R.string.news_update_failed, Toast.LENGTH_SHORT).show();
-                    News.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            refresh(true);
-                        }
-                    });
-                    break;
-            }
         }
     }
 }

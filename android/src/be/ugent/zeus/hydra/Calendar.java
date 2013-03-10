@@ -196,30 +196,21 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         }
 
         @Override
-        public void onReceiveResult(int code, Bundle icicle) {
+        public void onReceiveResult(final int code, Bundle icicle) {
+
             Calendar.this.runOnUiThread(new Runnable() {
                 public void run() {
                     progressDialog.dismiss();
+
+                    if (code == HTTPIntentService.STATUS_ERROR) {
+                        Toast.makeText(Calendar.this, R.string.activities_updated_failed, Toast.LENGTH_SHORT).show();
+                    }
+
+                    refresh(true);
+
                 }
             });
 
-            switch (code) {
-                case HTTPIntentService.STATUS_FINISHED:
-                    Calendar.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            refresh(true);
-                        }
-                    });
-                    break;
-                case HTTPIntentService.STATUS_ERROR:
-                    Toast.makeText(Calendar.this, R.string.activities_updated_failed, Toast.LENGTH_SHORT).show();
-                    Calendar.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            refresh(true);
-                        }
-                    });
-                    break;
-            }
         }
     }
 }

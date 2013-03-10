@@ -32,9 +32,6 @@ public class SchamperDailyService extends HTTPIntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         final ResultReceiver receiver = intent.getParcelableExtra(RESULT_RECEIVER_EXTRA);
-        if (receiver != null) {
-            receiver.send(STATUS_STARTED, Bundle.EMPTY);
-        }
 
         RSSParser parser = new RSSParser();
         try {
@@ -45,6 +42,10 @@ public class SchamperDailyService extends HTTPIntentService {
                 cache.put(ChannelCache.SCHAMPER, parser.parse(fetchedData));
             }
 
+            if (receiver != null) {
+                receiver.send(STATUS_FINISHED, Bundle.EMPTY);
+            }
+            
         } catch (Exception e) {
             if (receiver != null) {
                 receiver.send(STATUS_ERROR, Bundle.EMPTY);
@@ -52,8 +53,5 @@ public class SchamperDailyService extends HTTPIntentService {
             Log.e("[SchamperDaily]", "An exception occured while downloading & parsing the schamper feed! (" + e.getMessage() + ")");
         }
 
-        if (receiver != null) {
-            receiver.send(STATUS_FINISHED, Bundle.EMPTY);
-        }
     }
 }

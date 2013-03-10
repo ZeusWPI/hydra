@@ -68,11 +68,14 @@ public class SchamperDaily extends AbstractSherlockListActivity {
 
             Channel channel = cache.get(ChannelCache.SCHAMPER);
 
-            if (channel != null) {
+            if (channel != null && !channel.items.isEmpty()) {
                 setTitle(channel.title);
-                setListAdapter(new ChannelAdapter(SchamperDaily.this, channel));
+                setListAdapter(new ChannelAdapter(this, channel));
+
             } else {
-                Toast.makeText(SchamperDaily.this, R.string.no_schamper_articles, Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(this, R.string.no_schamper_articles, Toast.LENGTH_SHORT).show();
+
                 finish();
             }
         }
@@ -109,31 +112,21 @@ public class SchamperDaily extends AbstractSherlockListActivity {
         }
 
         @Override
-        public void onReceiveResult(int code, Bundle icicle) {
+        public void onReceiveResult(final int code, Bundle icicle) {
+
             SchamperDaily.this.runOnUiThread(new Runnable() {
                 public void run() {
+
                     progressDialog.dismiss();
+
+                    if (code == HTTPIntentService.STATUS_ERROR) {
+                        Toast.makeText(SchamperDaily.this, R.string.schamper_update_failed, Toast.LENGTH_SHORT).show();
+                    }
+
+                    refresh(true);
                 }
             });
 
-            switch (code) {
-                case HTTPIntentService.STATUS_FINISHED:
-                    SchamperDaily.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            refresh(true);
-                        }
-                    });
-                    break;
-                case HTTPIntentService.STATUS_ERROR:
-                    Toast.makeText(SchamperDaily.this, R.string.schamper_update_failed, Toast.LENGTH_SHORT).show();
-
-                    SchamperDaily.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            refresh(true);
-                        }
-                    });
-                    break;
-            }
         }
     }
 }

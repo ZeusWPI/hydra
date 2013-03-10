@@ -27,7 +27,6 @@ public class ActivityIntentService extends HTTPIntentService {
     public static final String FEED_NAME = "activities-feed-name";
     public static final String ACTIVITY_URL = "all_activities.json";
     public static final int REFRESH_TIME = 1000 * 60 * 60;
-    
     private ActivityCache cache;
 
     public ActivityIntentService() {
@@ -57,15 +56,15 @@ public class ActivityIntentService extends HTTPIntentService {
 
             }
 
+            if (receiver != null) {
+                receiver.send(STATUS_FINISHED, Bundle.EMPTY);
+            }
+
         } catch (Exception e) {
             if (receiver != null) {
                 receiver.send(STATUS_ERROR, Bundle.EMPTY);
             }
             e.printStackTrace();
-        }
-
-        if (receiver != null) {
-            receiver.send(STATUS_FINISHED, Bundle.EMPTY);
         }
     }
 }

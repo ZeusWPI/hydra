@@ -1,7 +1,6 @@
 package be.ugent.zeus.hydra;
 
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
@@ -16,7 +15,6 @@ import be.ugent.zeus.hydra.data.services.RestoService;
 import be.ugent.zeus.hydra.ui.map.DirectionMarker;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.widget.SearchView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -29,7 +27,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  *
@@ -255,27 +252,21 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
         }
 
         @Override
-        protected void onReceiveResult(int code, Bundle data) {
-            switch (code) {
-                case RestoService.STATUS_FINISHED:
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            addRestos(true);
-                        }
-                    });
-                    break;
+        protected void onReceiveResult(final int code, Bundle data) {
 
-                case HTTPIntentService.STATUS_ERROR:
-                    Toast.makeText(BuildingMap.this, R.string.resto_update_failed, Toast.LENGTH_SHORT).show();
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            addRestos(true);
-                        }
-                    });
-                    break;
+            if (code != HTTPIntentService.STATUS_STARTED) {
+                BuildingMap.this.runOnUiThread(new Runnable() {
+                    public void run() {
 
+
+                        if (code == HTTPIntentService.STATUS_ERROR) {
+                            Toast.makeText(BuildingMap.this, R.string.resto_update_failed, Toast.LENGTH_SHORT).show();
+                        }
+
+                        addRestos(true);
+                    }
+                });
             }
-
         }
     }
 }
