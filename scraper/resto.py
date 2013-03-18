@@ -44,8 +44,8 @@ def parse_single_meat_and_price(ctx, meat):
 
 		return {
 			'recommended': recommended,
-			'price': u'€ ' + m.group(1),
-			'name': m.group(2)
+			'price': u'€ ' + m.group(1).strip(),
+			'name': m.group(2).strip()
 		}
 
 def get_meat_and_price(meat):
