@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="110" android:versionName="1.0"
+          android:versionCode="111" android:versionName="1.0"
           package="be.ugent.zeus.hydra">
     <!-- versionCode format: 
    	x     -> major changes new features 
@@ -151,14 +151,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
-        </receiver>
-        
-        <receiver android:name="be.ugent.zeus.hydra.widget.RestoMenuWidgetProvider" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/widget_restomenu" />
         </receiver>
         
         <meta-data 
