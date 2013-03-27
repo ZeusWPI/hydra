@@ -85,16 +85,17 @@ def parse_menu_from_html(page, year, week):
 		if cells[0].content.strip() != '':
 			day = str(friday - timedelta(dayOfWeek))
 			dayOfWeek -= 1
-			menu[day] = {}
+			menu[day] = {'open': True}
 
-			# check if resto is closed
-			if cells[2].content.lower().strip() == 'gesloten':
-				menu[day]['open'] = False
-			else:
-				menu[day]['open'] = True
-				menu[day]['soup'] = { 'name': cells[1].content.strip() }
-				menu[day]['meat'] = get_meat_and_price(cells[2])
-				menu[day]['vegetables'] = [cells[3].content.strip()]
+		# check if resto is closed
+		if cells[2].content.lower().strip() == 'gesloten':
+			menu[day] = {'open': False}
+
+		# first row of a day
+		if cells[0].content.strip() != '' and menu[day]['open']:
+			menu[day]['soup'] = { 'name': cells[1].content.strip() }
+			menu[day]['meat'] = get_meat_and_price(cells[2])
+			menu[day]['vegetables'] = [cells[3].content.strip()]
 
 		# second row of a day
 		elif cells[1].content.strip() != '' and menu[day]['open']:
