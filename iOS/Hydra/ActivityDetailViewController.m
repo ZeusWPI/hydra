@@ -13,6 +13,8 @@
 #import "FacebookEvent.h"
 #import "NSDate+Utilities.h"
 #import "CustomTableViewCell.h"
+#import "FacebookSession.h"
+#import "PreferencesService.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <EventKit/EventKit.h>
@@ -95,6 +97,15 @@
 {
     [super viewDidAppear:animated];
     GAI_Track([@"Activity > " stringByAppendingString:self.activity.title]);
+    FacebookEvent *fbEvent = self.activity.facebookEvent;
+    if (fbEvent.valid){
+        FacebookSession *session = [FacebookSession sharedSession];
+        PreferencesService *prefs = [PreferencesService sharedService];
+        if (!session.open && !prefs.showFacebookLogin){
+            [prefs setShowFacebookLogin:YES];
+            [session openWithAllowLoginUI:YES];
+        }
+    }
 }
 
 - (void)reloadData
