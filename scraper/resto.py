@@ -4,9 +4,9 @@ from __future__ import with_statement
 import json, urllib, libxml2, os, os.path, datetime, locale, re
 from datetime import datetime, timedelta
 
-SOURCE = 'http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm'
+SOURCE = 'http://zeus.ugent.be/~feliciaan/resto.html'
 API_PATH = './resto/menu/'
-
+TRANSLATE = {'fish':'meat','vegi':'meat', 'meat':'meat', 'snack': 'meat','soup': 'soup'}
 def download_menu(year, week):
 	page = get_menu_page(SOURCE, week)
 	menu = parse_menu_from_html(page, year, week)
@@ -15,43 +15,29 @@ def download_menu(year, week):
 
 def get_menu_page(url, week):
 	print('Fetching week %02d menu webpage' %  week)
-	f = urllib.urlopen(url % week)
+	f = urllib.urlopen(url)
 	return f.read()
 
-def parse_single_meat_and_price(ctx, meat):
-	# there are some inconsistencies in the item descriptions
-	m = re.search('([0-9.,]+)[ -]+(.*)', meat.strip())
-	if not m:
-		print('Unable to parse item "%s"' % meat.strip())
-		return None
-	else:
-		# fnd node containing this info
-		query = '\'' + m.group(2).encode('utf8') + '\''
-		parents = ctx.xpathEval('.//*[contains(.,' + query + ')]')
-		# sometimes the description is split up over multiple nodes, so we try
-		# to find the item by matching the price (e.g. http://i.imgur.com/kkhqiqm.png)
-		if len(parents) == 0:
-			query = '\'€ ' + m.group(1).encode('utf8') + '\''
-			parents = ctx.xpathEval('.//*[contains(.,' + query + ')]')
-
-		# check its parents to see if this item is recommend
-		recommended = False
-		for parent in parents:
-			if parent.name == 'b' or parent.name == 'u':
-				recommended = True
-			elif parent.prop('style') and 'underline' in parent.prop('style'):
-				recommended = True
-
-		return {
-			'recommended': recommended,
-			'price': u'€ ' + m.group(1).strip(),
-			'name': m.group(2).strip()
-		}
-
 def get_meat_and_price(meat):
-	# the text can be in multiple paragraphs, or with multiple <br />
-	meals = re.findall(u'€[^€]+', unicode(meat.content, encoding='utf8'))
-	return filter(None, [parse_single_meat_and_price(meat, meal) for meal in meals])
+	meals = re.findall(u'€[^€]+-', unicode(meat.content, encoding='utf8'))
+	price = meals[0][2:-2]
+	recommendedLen = len(re.findall(u'recommend', unicode(meat.content, encoding='utf8')))
+	recommended = False
+	if recommendedLen == 1:
+		recommended = True
+	name = meat.content.split(':')[1].strip()
+	return {
+		'recommended': recommended,
+		'price': u'€ ' + price,
+		'name': name
+	}
+
+def get_vegetables(vegies):
+	vegies = vegies.content[len('Vegetables'):]
+	veg = vegies.split('OR')
+	veg[1].split('(')[0]
+	vegetables = [veg[0][2:].strip(),veg[1].split('(')[0]]
+	return vegetables
 
 def parse_menu_from_html(page, year, week):
 	print('Parsing weekmenu webpage to an object tree')
@@ -62,14 +48,15 @@ def parse_menu_from_html(page, year, week):
 
 	dateComponents = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
 	locale.setlocale(locale.LC_ALL, 'nl_BE.UTF-8')
-	friday = datetime.strptime("%s %s %s" % tuple(dateComponents[-3:]), "%d %B %Y").date()
+	#friday = datetime.strptime("%s %s %s" % tuple(dateComponents[-3:]), "%d %B %Y").date()
+	friday = datetime.strptime("03 april 2013", "%d %B %Y").date()
 
 	# verify that this is the week we are searching for
 	isocalendar = friday.isocalendar()
-	if isocalendar[0] != year or isocalendar[1] != week:
-		print('Incorrect information retrieved: expected %s-%s, got %s-%s' %
-			(year, week, isocalendar[0], isocalendar[1]))
-		return None
+	#if isocalendar[0] != year or isocalendar[1] != week:
+	#	print('Incorrect information retrieved: expected %s-%s, got %s-%s' %
+	#		(year, week, isocalendar[0], isocalendar[1]))
+	#	return None
 
 	menuElement = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
 	rows = menuElement[0].xpathEval('.//tr')[1:]
@@ -77,35 +64,25 @@ def parse_menu_from_html(page, year, week):
 	menu = {}
 	dayOfWeek = 4
 	for row in rows:
-		cells = row.xpathEval('.//td')
-		if len(cells) <= 3:
-			continue
-
-		# first row of a day
-		if cells[0].content.strip() != '':
-			day = str(friday - timedelta(dayOfWeek))
-			dayOfWeek -= 1
-			menu[day] = {'open': True}
-
-		# check if resto is closed
-		if cells[2].content.lower().strip() == 'gesloten':
-			menu[day] = {'open': False}
-
-		# first row of a day
-		if cells[0].content.strip() != '' and menu[day]['open']:
-			menu[day]['soup'] = { 'name': cells[1].content.strip() }
-			menu[day]['meat'] = get_meat_and_price(cells[2])
-			menu[day]['vegetables'] = [cells[3].content.strip()]
-
-		# second row of a day
-		elif cells[1].content.strip() != '' and menu[day]['open']:
-			menu[day]['soup']['price'] = cells[1].content.strip()
-			menu[day]['meat'].extend(get_meat_and_price(cells[2]))
-			menu[day]['vegetables'].append(cells[3].content.strip())
-
-		# the third and fourth row of a day (sometimes it's empty)
-		elif cells[2].content.strip() != '' and menu[day]['open']:
-			menu[day]['meat'].extend(get_meat_and_price(cells[2]))
+		day = str(friday - timedelta(dayOfWeek))
+		dayOfWeek-=1
+		cellz = row.xpathEval('.//td')
+		cells = cellz[1].xpathEval('.//li')
+		menu[day] = {'open': True}
+		for cell in cells:
+			keyword = re.findall('- .*:', unicode(cell.content, encoding='utf8'))
+			if len(keyword) != 0:
+				keyword = keyword[0][2:-1].lower()
+				meat = get_meat_and_price(cell)
+				if menu[day].get(TRANSLATE[keyword]) != None:
+					menu[day][TRANSLATE[keyword]].append(meat)
+				else:
+					menu[day][TRANSLATE[keyword]] = [meat]
+			else:
+				vegies = len(re.findall('Vegetables', unicode(cell.content, encoding='utf8')))
+				if vegies == 1:
+					menu[day]['vegetables'] = get_vegetables(cell)
+		# TODO: open
 
 	return menu
 
