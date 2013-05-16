@@ -74,6 +74,10 @@ def get_article_body(page):
 
     bodyNodes = page.xpathEval("//div[@id='artikel']/*/div[@class='content']/*")
     for node in bodyNodes:
+        # Simple fix for div's missing a class
+        if node.name == 'div' and node.prop('class') == None:
+            node.setProp('class', '')
+
         # Normal text (or header etc)
         if node.name != 'form' and node.name != 'div':
             result += node.serialize('UTF-8')
