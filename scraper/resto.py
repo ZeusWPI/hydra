@@ -10,6 +10,8 @@ TRANSLATE = {'fish':'meat','vegi':'meat', 'meat':'meat', 'snack': 'meat','soup':
     'soep':'soup','vlees':'meat','vis':'meat','vegetarisch':'meat'}
 VEGETABLES = 'Groenten'
 OR = 'OF'
+RECOMMEND = u'aanbevolen'
+YEAR = '2013'
 def download_menu(year, week):
 	page = get_menu_page(SOURCE, week)
 	menu = parse_menu_from_html(page, year, week)
@@ -22,9 +24,9 @@ def get_menu_page(url, week):
 	return f.read()
 
 def get_meat_and_price(meat):
-	meals = re.findall(u'€[^€]+-', unicode(meat.content, encoding='utf8'))
+	meals = re.findall(u'€[0-9,. ]+-', unicode(meat.content, encoding='utf8'))
 	price = meals[0][2:-2]
-	recommendedLen = len(re.findall(u'recommend', unicode(meat.content, encoding='utf8')))
+	recommendedLen = len(re.findall(RECOMMEND, unicode(meat.content, encoding='utf8')))
 	recommended = False
 	if recommendedLen == 1:
 		recommended = True
@@ -51,16 +53,15 @@ def parse_menu_from_html(page, year, week):
 
 	dateComponents = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
 	locale.setlocale(locale.LC_ALL, 'nl_BE.UTF-8')
-	#friday = datetime.strptime("%s %s %s" % tuple(dateComponents[-3:]), "%d %B %Y").date()
-	friday = datetime.strptime("03 april 2013", "%d %B %Y").date()
+	friday = datetime.strptime("%s %s %s" % tuple(dateComponents[-3:]), "%d %B %Y").date()
 
 	# verify that this is the week we are searching for
 	isocalendar = friday.isocalendar()
-	#if isocalendar[0] != year or isocalendar[1] != week:
-	#	print('Incorrect information retrieved: expected %s-%s, got %s-%s' %
-	#		(year, week, isocalendar[0], isocalendar[1]))
-	#	return None
 
+	if isocalendar[0] != year or isocalendar[1] != week:
+		print('Incorrect information retrieved: expected %s-%s, got %s-%s' %
+			(year, week, isocalendar[0], isocalendar[1]))
+		return None
 	menuElement = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
 	rows = menuElement[0].xpathEval('.//tr')[1:]
 
