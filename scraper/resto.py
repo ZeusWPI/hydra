@@ -8,6 +8,8 @@ SOURCE = 'http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/wee
 API_PATH = './resto/menu/'
 TRANSLATE = {'fish':'meat','vegi':'meat', 'meat':'meat', 'snack': 'meat','soup': 'soup',
     'soep':'soup','vlees':'meat','vis':'meat','vegetarisch':'meat'}
+VEGETABLES = 'Groenten'
+OR = 'OF'
 def download_menu(year, week):
 	page = get_menu_page(SOURCE, week)
 	menu = parse_menu_from_html(page, year, week)
@@ -34,8 +36,8 @@ def get_meat_and_price(meat):
 	}
 
 def get_vegetables(vegies):
-	vegies = vegies.content[len('Vegetables'):]
-	veg = vegies.split('OF')
+	vegies = vegies.content[len(VEGETABLES):]
+	veg = vegies.split(OR)
 	veg[1].split('(')[0]
 	vegetables = [veg[0][2:].strip(),veg[1].split('(')[0]]
 	return vegetables
@@ -80,7 +82,7 @@ def parse_menu_from_html(page, year, week):
 				else:
 					menu[day][TRANSLATE[keyword]] = [meat]
 			else:
-				vegies = len(re.findall('Groenten', unicode(cell.content, encoding='utf8')))
+				vegies = len(re.findall(VEGETABLES, unicode(cell.content, encoding='utf8')))
 				if vegies == 1:
 					menu[day]['vegetables'] = get_vegetables(cell)
 		# TODO: open
