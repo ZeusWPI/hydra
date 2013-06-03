@@ -4,9 +4,10 @@ from __future__ import with_statement
 import json, urllib, libxml2, os, os.path, datetime, locale, re
 from datetime import datetime, timedelta
 
-SOURCE = 'http://zeus.ugent.be/~feliciaan/resto.html'
+SOURCE = 'http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm'
 API_PATH = './resto/menu/'
-TRANSLATE = {'fish':'meat','vegi':'meat', 'meat':'meat', 'snack': 'meat','soup': 'soup'}
+TRANSLATE = {'fish':'meat','vegi':'meat', 'meat':'meat', 'snack': 'meat','soup': 'soup',
+    'soep':'soup','vlees':'meat','vis':'meat','vegetarisch':'meat'}
 def download_menu(year, week):
 	page = get_menu_page(SOURCE, week)
 	menu = parse_menu_from_html(page, year, week)
@@ -15,7 +16,7 @@ def download_menu(year, week):
 
 def get_menu_page(url, week):
 	print('Fetching week %02d menu webpage' %  week)
-	f = urllib.urlopen(url)
+	f = urllib.urlopen(url % week)
 	return f.read()
 
 def get_meat_and_price(meat):
@@ -34,7 +35,7 @@ def get_meat_and_price(meat):
 
 def get_vegetables(vegies):
 	vegies = vegies.content[len('Vegetables'):]
-	veg = vegies.split('OR')
+	veg = vegies.split('OF')
 	veg[1].split('(')[0]
 	vegetables = [veg[0][2:].strip(),veg[1].split('(')[0]]
 	return vegetables
@@ -79,7 +80,7 @@ def parse_menu_from_html(page, year, week):
 				else:
 					menu[day][TRANSLATE[keyword]] = [meat]
 			else:
-				vegies = len(re.findall('Vegetables', unicode(cell.content, encoding='utf8')))
+				vegies = len(re.findall('Groenten', unicode(cell.content, encoding='utf8')))
 				if vegies == 1:
 					menu[day]['vegetables'] = get_vegetables(cell)
 		# TODO: open
