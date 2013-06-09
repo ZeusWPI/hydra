@@ -31,6 +31,7 @@ def get_meat_and_price(meat):
 	if recommendedLen == 1:
 		recommended = True
 	name = meat.content.split(':')[1].strip()
+	name = name.split('(')[0].strip()
 	return {
 		'recommended': recommended,
 		'price': u'€ ' + price,
@@ -53,8 +54,11 @@ def parse_menu_from_html(page, year, week):
 
 	dateComponents = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
 	locale.setlocale(locale.LC_ALL, 'nl_BE.UTF-8')
+	if dateComponents[-1] != YEAR:
+		dateComponents.append(YEAR)
+	
 	friday = datetime.strptime("%s %s %s" % tuple(dateComponents[-3:]), "%d %B %Y").date()
-
+	
 	# verify that this is the week we are searching for
 	isocalendar = friday.isocalendar()
 
