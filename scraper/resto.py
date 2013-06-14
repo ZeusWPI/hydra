@@ -6,80 +6,115 @@ from datetime import datetime, timedelta
 
 SOURCE = 'http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm'
 #API_PATH = './resto/%d.%d/menu/%04d'
-API_PATH = './resto/menu'
+API_PATH = './resto/menu/'
 TRANSLATE = {'fish':'fish','vegi':'vegi', 'meat':'meat', 'snack': 'snack','soup': 'soup',
     'soep':'soup','vlees':'meat','vis':'fish','vegetarisch':'vegi'}
 VEGETABLES = 'Groenten'
 OR = 'OF'
-VEGETARIAN = 'vegetarisch' 
 RECOMMEND = u'aanbevolen'
 RESTOS = {'Boudewijn':'Resto Boudewijn', 'Brug':'Resto De Brug', 'Kantienberg':'Resto Kantienberg'}
 NOTINRESTOS = u'niet in'
 ONLYINRESTOS = u'enkel in'
 
+class Week(object):
+	"""docstring for Week"""
+	def __init__(self, year, week):
+		super(Week, self).__init__()
+		self.year = year
+		self.week = week
+		self.days = []
+
+	def addDay(self, day):
+		self.days.append(day)
+		
+
+class Day(object):
+	"""docstring for Day"""
+	def __init__(self, date):
+		super(Day, self).__init__()
+		self.date = date
+		self.open = False
+		self.meals = []
+		self.vegetables = []
+		self.soup = None
+
+	def addMeal(self, meal):
+		self.meals.append(meal)
+
+class Meal(object):
+	"""docstring for Meal"""
+	def __init__(self, content, keyword):
+		super(Meal, self).__init__()
+		self.name = ''
+		self.recommended = False
+		self.price = 0
+		self.notIn = []
+		self.onlyIn = []
+		self.type = TRANSLATE[keyword]
+		self.process_meal(content)
+
+	def process_meal(self,content):
+		meals = re.findall(u'€[0-9,. ]+-', unicode(content, encoding='utf8'))
+		self.price = meals[0][2:-2]
+		recommendedLen = len(re.findall(RECOMMEND, unicode(content, encoding='utf8')))
+		self.recommended = False
+		if recommendedLen == 1:
+			self.recommended = True
+		self.parse_restos_options(self.notIn, content, NOTINRESTOS)
+		self.parse_restos_options(self.onlyIn, content, ONLYINRESTOS)
+
+		self.name = content.split(':')[1].split('(')[0].strip()
+
+	def parse_restos_options(self, arr, content, option):
+		present = len(re.findall(option, unicode(content, encoding='utf8')))
+		if present <= 0:
+			arr = []
+			return
+		arr = []
+		words = content.split('(')[1].strip()
+		words = words[:-1].split(' ')
+		for w in words:
+			w = w.strip()
+			r = RESTOS.get(w)
+			if r != None:
+				arr.append(r)
+
+	def get_name_for_api_v10(self):
+		name = self.name
+		if len(self.notIn) >= 1:
+			name+='#'
+		if len(self.onlyIn) >= 1:
+			name+='*'
+		if self.type == 'vegi':
+			name = 'Veg. ' + name
+
+		return name
+
+class Soup(object):
+	"""docstring for Soup"""
+	def __init__(self, content):
+		super(Soup, self).__init__()
+		meals = re.findall(u'€[0-9,. ]+-', unicode(content, encoding='utf8'))
+		self.price = meals[0][2:-2]
+		self.name = content.split(':')[1].split('(')[0].strip()
+		
+		
 def download_menu(year, week):
 	page = get_menu_page(SOURCE, week)
-	parse_menu_for_version(page, year, week, 10)
-	#parse_menu_for_version(page, year, week, 20) # 2.0 beta version
+	menu = parse_menu_from_html(page, year, week)
+	parse_menu_for_version(menu, year, week, 10)
+	#parse_menu_for_version(menu, year, week, 20) # 2.0 beta version
 
-def parse_menu_for_version(page, year, week, version):
-	menu = parse_menu_from_html(page, year, week, version)
+def parse_menu_for_version(menu, year, week, version):
 	if menu:
+		if version == 10:
+			menu = create_api_1_0_dict(menu)
 		dump_menu_to_file(API_PATH, year, week, menu, version)	
 
 def get_menu_page(url, week):
 	print('Fetching week %02d menu webpage' %  week)
 	f = urllib.urlopen(url % week)
 	return f.read()
-
-def get_restos_from_option(content, option):
-	present = len(re.findall(option, unicode(content, encoding='utf8')))
-	if present <= 0:
-		return []
-	restos = []
-	content = content.split('(')[1].strip()
-	content = content[:-1].split(' ')
-	for w in content:
-		w = w.strip()
-		r = RESTOS.get(w)
-		if r != None:
-			restos.append(r)
-	return restos
-
-def get_meat_and_price(meat, version, keyword):
-	meals = re.findall(u'€[0-9,. ]+-', unicode(meat.content, encoding='utf8'))
-	price = meals[0][2:-2]
-	recommendedLen = len(re.findall(RECOMMEND, unicode(meat.content, encoding='utf8')))
-	recommended = False
-	if recommendedLen == 1:
-		recommended = True
-	notInRestos = get_restos_from_option(meat.content, NOTINRESTOS)
-	onlyInRestos = get_restos_from_option(meat.content, ONLYINRESTOS)
-
-	name = meat.content.split(':')[1].strip()
-	name = name.split('(')[0].strip()
-	if version <= 10:
-		if len(notInRestos) >= 1:
-			name+='#'
-		if len(onlyInRestos) >= 1:
-			name+='*'
-		if TRANSLATE[keyword] == 'vegi':
-			name = 'Veg. ' + name
-
-	meal = {
-		'recommended': recommended,
-		'price': u'€ ' + price,
-		'name': name
-	}
-
-	if TRANSLATE[keyword] == 'soup':
-		meal.pop('recommended')
-	else:
-		if version > 10:
-			meal['notInRestos'] = notInRestos
-			meal['onlyInRestos'] = onlyInRestos
-			meal['type'] = keyword
-	return meal
 
 def get_vegetables(vegies):
 	vegies = vegies.content[len(VEGETABLES):]
@@ -88,7 +123,7 @@ def get_vegetables(vegies):
 	vegetables = [veg[0][2:].strip().capitalize(),veg[1].split('(')[0].strip().capitalize()]
 	return vegetables
 
-def parse_menu_from_html(page, year, week, version):
+def parse_menu_from_html(page, year, week):
 	print('Parsing weekmenu webpage to an object tree')
 	# replace those pesky non-breakable spaces
 	page = page.replace('&nbsp;', ' ')
@@ -112,37 +147,52 @@ def parse_menu_from_html(page, year, week, version):
 	menuElement = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
 	rows = menuElement[0].xpathEval('.//tr')[1:]
 
-	meal = 'meal'
-	if version < 11:
-		meal = 'meat'
-	menu = {}
+	menu = Week(year, week)
 	dayOfWeek = 4
 	for row in rows:
-		day = str(friday - timedelta(dayOfWeek))
+		dayDate = str(friday - timedelta(dayOfWeek))
+		day = Day(dayDate)
 		dayOfWeek-=1
 		cellz = row.xpathEval('.//td')
 		cells = cellz[1].xpathEval('.//li')
-		menu[day] = {'open': True}
+		day.open = True
 		for cell in cells:
 			keyword = re.findall('- .*:', unicode(cell.content, encoding='utf8'))
 			if len(keyword) != 0:
 				keyword = keyword[0][2:-1].lower()
 				if TRANSLATE[keyword] == 'soup':
-					soup = get_meat_and_price(cell, version, keyword)
-					menu[day]['soup'] = soup
+					soup = Soup(cell.content)
+					day.soup = soup
 				else:
-					meat = get_meat_and_price(cell, version, keyword)
-					if menu[day].get(meal) != None:
-						menu[day][meal].append(meat)
-					else:
-						menu[day][meal] = [meat]
+					meal = Meal(cell.content, keyword)
+					day.addMeal(meal)
 			else:
 				vegies = len(re.findall(VEGETABLES, unicode(cell.content, encoding='utf8')))
 				if vegies == 1:
-					menu[day]['vegetables'] = get_vegetables(cell)
+					day.vegetables = get_vegetables(cell)
 		# TODO: open
-
+		menu.addDay(day)
 	return menu
+
+def create_api_1_0_dict(week):
+	menu = {}
+	for day in week.days:
+		menu[day.date] = {'open':day.open}
+		if day.open:
+			menu[day.date]['meat'] = []
+			for meal in day.meals:
+				meat = {
+					'recommended': meal.recommended,
+					'price': u'€ ' + meal.price,
+					'name': meal.get_name_for_api_v10()
+				}
+				menu[day.date]['meat'].append(meat)
+			if len(day.vegetables) > 0:
+				menu[day.date]['vegetables'] = day.vegetables
+			if day.soup != None:
+				menu[day.date]['soup'] = {'name':day.soup.name, 'price': u'€ ' + day.soup.price}
+	return menu
+
 
 def dump_menu_to_file(path, year, week, menu, version):
 	print('Writing object tree to file in JSON format')
