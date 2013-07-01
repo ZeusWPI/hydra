@@ -33,13 +33,15 @@ class Day(object):
 	def __init__(self, date):
 		super(Day, self).__init__()
 		self.date = date
-		self.open = False
 		self.meals = []
 		self.vegetables = []
 		self.soup = None
 
 	def addMeal(self, meal):
 		self.meals.append(meal)
+
+	def open(self):
+		return not (len(self.meals) <= 0)
 
 class Meal(object):
 	"""docstring for Meal"""
@@ -155,7 +157,6 @@ def parse_menu_from_html(page, year, week):
 		dayOfWeek-=1
 		cellz = row.xpathEval('.//td')
 		cells = cellz[1].xpathEval('.//li')
-		day.open = True
 		for cell in cells:
 			keyword = re.findall('- .*:', unicode(cell.content, encoding='utf8'))
 			if len(keyword) != 0:
@@ -170,15 +171,14 @@ def parse_menu_from_html(page, year, week):
 				vegies = len(re.findall(VEGETABLES, unicode(cell.content, encoding='utf8')))
 				if vegies == 1:
 					day.vegetables = get_vegetables(cell)
-		# TODO: open
 		menu.addDay(day)
 	return menu
 
 def create_api_1_0_dict(week):
 	menu = {}
 	for day in week.days:
-		menu[day.date] = {'open':day.open}
-		if day.open:
+		menu[day.date] = {'open':day.open()}
+		if day.open():
 			menu[day.date]['meat'] = []
 			for meal in day.meals:
 				meat = {
