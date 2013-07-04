@@ -1,8 +1,3 @@
-'''
-Created on 11 dec. 2012
-
-@author: feliciaan
-'''
 from __future__ import with_statement
 import urllib, libxml2, os, re, urlparse
 
