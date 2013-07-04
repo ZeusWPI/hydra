@@ -48,7 +48,6 @@ class Week(object):
 class Menu(object):
     def __init__(self, date):
         self.date = date
-        self.open = False
         self.items = []
         self.vegetables = []
 
@@ -75,8 +74,9 @@ class Menu(object):
                 else:
                     print('Unknown line format: ' + text)
 
+    def open(self):
         # Consider the resto to be open when there's some items
-        self.open = len(self.items) > 0
+        return len(self.items) > 0
 
     def parse_vegetables(self, line):
         for vegetable in re.split(' (?:of|or) ', line, 0, re.I):
@@ -161,8 +161,8 @@ def parse_week_menu(page, year, week, lang):
 def create_api_10_representation(week):
     root = {}
     for day in week.days:
-        root[str(day.date)] = menu = { 'open': day.open }
-        if not day.open:
+        root[str(day.date)] = menu = { 'open': day.open() }
+        if not day.open():
             continue
 
         menu['meat'] = []
