@@ -79,7 +79,8 @@ class Menu(object):
         return len(self.items) > 0
 
     def parse_vegetables(self, line):
-        for vegetable in re.split(' (?:of|or) ', line, 0, re.I):
+        r = re.compile(' (?:of|or) ', re.I)
+        for vegetable in r.split(line, 0):
             # drop remark
             vegetable = re.sub('\(.*\)$', '', vegetable).strip()
             self.vegetables.append(vegetable.capitalize())
