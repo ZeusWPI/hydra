@@ -13,22 +13,23 @@ import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.NewsList;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
 import be.ugent.zeus.hydra.data.caches.NewsCache;
-import be.ugent.zeus.hydra.data.services.ActivityIntentService;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.NewsIntentService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 /**
  *
  * @author blackskad
  */
-public class News extends AbstractSherlockListActivity {
+public class News extends AbstractSherlockListActivity implements PullToRefreshAttacher.OnRefreshListener {
 
     private NewsCache cache;
     AssociationsCache assCache;
+    private PullToRefreshAttacher attacher;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -43,7 +44,11 @@ public class News extends AbstractSherlockListActivity {
         boolean exists = cache.exists(NewsIntentService.FEED_NAME);
 
         // Als hij bestaat en de cache is recent (< 1 uur): refresh niet
-        refresh(exists && System.currentTimeMillis() - lastModified < NewsIntentService.REFRESH_TIME);
+        refresh(exists && System.currentTimeMillis() - lastModified < NewsIntentService.REFRESH_TIME, false);
+
+        // Pull-to-refresh
+        attacher = PullToRefreshAttacher.get(this);
+        attacher.addRefreshableView(getListView(), this);
 
     }
 
@@ -61,11 +66,11 @@ public class News extends AbstractSherlockListActivity {
         startActivity(intent);
     }
 
-    private void refresh(boolean synced) {
+    private void refresh(boolean synced, boolean withPullToRefresh) {
         if (!synced) {
 
             Intent intent = new Intent(this, NewsIntentService.class);
-            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new News.NewsResultReceiver());
+            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new News.NewsResultReceiver(withPullToRefresh));
             startService(intent);
 
         } else {
@@ -96,6 +101,10 @@ public class News extends AbstractSherlockListActivity {
                 }
             }
 
+            if (withPullToRefresh) {
+                attacher.setRefreshComplete();
+            }
+
             // No items
             if (items.isEmpty()) {
                 if (!showAll && lists.isEmpty()) {
@@ -114,20 +123,29 @@ public class News extends AbstractSherlockListActivity {
 
     }
 
+    @Override
+    public void onRefreshStarted(View view) {
+        refresh(false, true);
+    }
+
     private class NewsResultReceiver extends ResultReceiver {
 
         private ProgressDialog progressDialog;
+        private boolean withPullToRefresh;
 
-        public NewsResultReceiver() {
+        public NewsResultReceiver(final boolean withPullToRefresh) {
             super(null);
+            this.withPullToRefresh = withPullToRefresh;
 
-            News.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    progressDialog = ProgressDialog.show(News.this,
-                        getResources().getString(R.string.title_news),
-                        getResources().getString(R.string.loading));
-                }
-            });
+            if (!withPullToRefresh) {
+                News.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        progressDialog = ProgressDialog.show(News.this,
+                                getResources().getString(R.string.title_news),
+                                getResources().getString(R.string.loading));
+                    }
+                });
+            }
         }
 
         @Override
@@ -135,13 +153,15 @@ public class News extends AbstractSherlockListActivity {
 
             News.this.runOnUiThread(new Runnable() {
                 public void run() {
-                    progressDialog.dismiss();
+                    if (!withPullToRefresh) {
+                        progressDialog.dismiss();
+                    }
 
                     if (code == HTTPIntentService.STATUS_ERROR) {
                         Toast.makeText(News.this, R.string.news_update_failed, Toast.LENGTH_SHORT).show();
                     }
 
-                    refresh(true);
+                    refresh(true, withPullToRefresh);
                 }
             });
         }

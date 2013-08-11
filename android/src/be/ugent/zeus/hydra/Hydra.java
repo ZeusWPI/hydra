@@ -8,8 +8,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
+import com.google.analytics.tracking.android.GoogleAnalytics;
 import java.util.Locale;
 
 /**
@@ -66,11 +68,11 @@ public class Hydra extends AbstractSherlockActivity {
 //        }
 
         // Google Analytics
-//        if (BETA || DEBUG) {
-//            Log.d("GAnalytics:", "Tracking disabled");
-//            GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
-//            googleAnalytics.setAppOptOut(true);
-//        }
+        if (BETA || DEBUG) {
+            Log.d("GAnalytics:", "Tracking disabled");
+            GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
+            googleAnalytics.setAppOptOut(true);
+        }
 
         // Home screen: disable the button
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);

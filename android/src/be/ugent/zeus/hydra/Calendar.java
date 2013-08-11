@@ -21,23 +21,26 @@ import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.settings.Settings;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
-import com.facebook.Session;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 
 /**
  * @author blackskad
  */
 public class Calendar extends AbstractSherlockActivity implements OnScrollListener,
-    AdapterView.OnItemClickListener {
+        AdapterView.OnItemClickListener,
+        PullToRefreshAttacher.OnRefreshListener {
 
     private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
     private int firstVisible;
     private List<Activity> items;
     private ActivityCache cache;
     private AssociationsCache assCache;
+    private PullToRefreshAttacher attacher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,28 +55,28 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("advertise_facebook", true);
         if (firstrun) {
             getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-                .edit()
-                .putBoolean("advertise_facebook", false)
-                .commit();
+                    .edit()
+                    .putBoolean("advertise_facebook", false)
+                    .commit();
 
             new AlertDialog.Builder(this)
-                .setCancelable(true)
-                .setTitle(getResources().getString(R.string.koppel_title))
-                .setMessage(getResources().getString(R.string.koppel_text))
-                .setPositiveButton(getResources().getString(R.string.now), new DialogInterface.OnClickListener() {
+                    .setCancelable(true)
+                    .setTitle(getResources().getString(R.string.koppel_title))
+                    .setMessage(getResources().getString(R.string.koppel_text))
+                    .setPositiveButton(getResources().getString(R.string.now), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(Calendar.this, Settings.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                     startActivity(intent);
                 }
             })
-                .setNegativeButton(getResources().getString(R.string.not_now), new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getResources().getString(R.string.not_now), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             })
-                .create()
-                .show();
+                    .create()
+                    .show();
         }
 
         cache = ActivityCache.getInstance(this);
@@ -83,14 +86,18 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         boolean exists = cache.exists(ActivityIntentService.FEED_NAME);
 
         // Als hij bestaat en de cache is recent (< 1 uur): refresh niet
-        refresh(exists && System.currentTimeMillis() - lastModified < ActivityIntentService.REFRESH_TIME);
+        refresh(exists && System.currentTimeMillis() - lastModified < ActivityIntentService.REFRESH_TIME, false);
+
+        attacher = PullToRefreshAttacher.get(this);
+        PullToRefreshLayout ptrLayout = (PullToRefreshLayout) findViewById(R.id.activity_list_container);
+        ptrLayout.setPullToRefreshAttacher(attacher, (PullToRefreshAttacher.OnRefreshListener) this);
     }
 
-    private void refresh(boolean synced) {
+    private void refresh(boolean synced, boolean withPullToRefresh) {
         if (!synced) {
 
             Intent intent = new Intent(this, ActivityIntentService.class);
-            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new Calendar.CalendarResultReceiver());
+            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new Calendar.CalendarResultReceiver(withPullToRefresh));
             startService(intent);
 
         } else {
@@ -131,6 +138,10 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
                 }
             }
 
+            if (withPullToRefresh) {
+                attacher.setRefreshComplete();
+            }
+
             // No items
             if (items.isEmpty()) {
                 if (!showAll && lists.isEmpty()) {
@@ -161,7 +172,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
-        int visibleItemCount, int totalItemCount) {
+            int visibleItemCount, int totalItemCount) {
         this.firstVisible = firstVisibleItem;
     }
 
@@ -179,20 +190,28 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         startActivity(intent);
     }
 
+    public void onRefreshStarted(View view) {
+        refresh(false, true);
+    }
+
     private class CalendarResultReceiver extends ResultReceiver {
 
         private ProgressDialog progressDialog;
+        private boolean withPullToRefresh;
 
-        public CalendarResultReceiver() {
+        public CalendarResultReceiver(boolean withPullToRefresh) {
             super(null);
+            this.withPullToRefresh = withPullToRefresh;
 
-            Calendar.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    progressDialog = ProgressDialog.show(Calendar.this,
-                        getResources().getString(R.string.title_calendar),
-                        getResources().getString(R.string.loading));
-                }
-            });
+            if (!withPullToRefresh) {
+                Calendar.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        progressDialog = ProgressDialog.show(Calendar.this,
+                                getResources().getString(R.string.title_calendar),
+                                getResources().getString(R.string.loading));
+                    }
+                });
+            }
         }
 
         @Override
@@ -200,13 +219,15 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
             Calendar.this.runOnUiThread(new Runnable() {
                 public void run() {
-                    progressDialog.dismiss();
+                    if (!withPullToRefresh) {
+                        progressDialog.dismiss();
+                    }
 
                     if (code == HTTPIntentService.STATUS_ERROR) {
                         Toast.makeText(Calendar.this, R.string.activities_updated_failed, Toast.LENGTH_SHORT).show();
                     }
 
-                    refresh(true);
+                    refresh(true, withPullToRefresh);
 
                 }
             });

@@ -79,3 +79,4 @@ In order of first contribution:
 * Bart Middag
 * Stijn Seghers
 * Ruben Taelman
+* Wouter Pinnoo

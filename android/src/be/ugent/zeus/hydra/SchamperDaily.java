@@ -15,18 +15,17 @@ import be.ugent.zeus.hydra.data.rss.Item;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.SchamperDailyService;
 import be.ugent.zeus.hydra.ui.schamper.ChannelAdapter;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 /**
  * TODO: add spinner while loading the feed similar to menu's
  *
  * @author Thomas Meire
  */
-public class SchamperDaily extends AbstractSherlockListActivity {
+public class SchamperDaily extends AbstractSherlockListActivity implements PullToRefreshAttacher.OnRefreshListener {
 
     private ChannelCache cache;
+    private PullToRefreshAttacher attacher;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -49,24 +48,32 @@ public class SchamperDaily extends AbstractSherlockListActivity {
         cache = ChannelCache.getInstance(SchamperDaily.this);
 
         if (!cache.exists(ChannelCache.SCHAMPER)
-            || System.currentTimeMillis() - cache.lastModified(ChannelCache.SCHAMPER) > SchamperDailyService.REFRESH_TIME) {
-            refresh(false);
+                || System.currentTimeMillis() - cache.lastModified(ChannelCache.SCHAMPER) > SchamperDailyService.REFRESH_TIME) {
+            refresh(false, false);
         } else {
-            refresh(true);
+            refresh(true, false);
         }
+
+        // Pull-to-refresh
+        attacher = PullToRefreshAttacher.get(this);
+        attacher.addRefreshableView(getListView(), this);
     }
 
-    private void refresh(boolean synced) {
+    private void refresh(boolean synced, boolean withPullToRefresh) {
         if (!synced) {
 
             Intent intent = new Intent(this, SchamperDailyService.class);
-            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver());
+            intent.putExtra(HTTPIntentService.RESULT_RECEIVER_EXTRA, new SchamperResultReceiver(withPullToRefresh));
 
             startService(intent);
 
         } else {
 
             Channel channel = cache.get(ChannelCache.SCHAMPER);
+
+            if (withPullToRefresh) {
+                attacher.setRefreshComplete();
+            }
 
             if (channel != null && !channel.items.isEmpty()) {
                 setTitle(channel.title);
@@ -95,20 +102,28 @@ public class SchamperDaily extends AbstractSherlockListActivity {
         startActivity(intent);
     }
 
+    public void onRefreshStarted(View view) {
+        refresh(false, true);
+    }
+
     private class SchamperResultReceiver extends ResultReceiver {
 
         private ProgressDialog progressDialog;
+        private boolean withPullToRefresh;
 
-        public SchamperResultReceiver() {
+        public SchamperResultReceiver(boolean withPullToRefresh) {
             super(null);
+            this.withPullToRefresh = withPullToRefresh;
 
-            SchamperDaily.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    progressDialog = ProgressDialog.show(SchamperDaily.this,
-                        getResources().getString(R.string.title_schamper),
-                        getResources().getString(R.string.loading));
-                }
-            });
+            if (!withPullToRefresh) {
+                SchamperDaily.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        progressDialog = ProgressDialog.show(SchamperDaily.this,
+                                getResources().getString(R.string.title_schamper),
+                                getResources().getString(R.string.loading));
+                    }
+                });
+            }
         }
 
         @Override
@@ -116,14 +131,15 @@ public class SchamperDaily extends AbstractSherlockListActivity {
 
             SchamperDaily.this.runOnUiThread(new Runnable() {
                 public void run() {
-
-                    progressDialog.dismiss();
+                    if (!withPullToRefresh) {
+                        progressDialog.dismiss();
+                    }
 
                     if (code == HTTPIntentService.STATUS_ERROR) {
                         Toast.makeText(SchamperDaily.this, R.string.schamper_update_failed, Toast.LENGTH_SHORT).show();
                     }
 
-                    refresh(true);
+                    refresh(true, withPullToRefresh);
                 }
             });
 
