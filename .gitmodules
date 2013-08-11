@@ -1,0 +1,9 @@
+[submodule "android/libs/ActionBarSherlock"]
+	path = android/libs/ActionBarSherlock
+	url = git@github.com:JakeWharton/ActionBarSherlock.git
+[submodule "android/libs/ActionBar-PullToRefresh"]
+	path = android/libs/ActionBar-PullToRefresh
+	url = git@github.com:chrisbanes/ActionBar-PullToRefresh.git
+[submodule "android/libs/StickyListHeaders"]
+	path = android/libs/StickyListHeaders
+	url = git@github.com:emilsjolander/StickyListHeaders.git
