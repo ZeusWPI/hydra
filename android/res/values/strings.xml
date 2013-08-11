@@ -55,7 +55,6 @@
     <string name="pref_facebook_title">Koppel aan Facebook</string>
     <string name="get_started">Log in op Facebook</string>
     <string name="pref_facebook_summary">Koppel Hydra aan je Facebookaccount en krijg te zien wie er op welke activiteit aanwezig is. Je kan ook meteen je eigen status hieraan aanpassen.</string>
-    <string name="pref_filter_activites">Toon alle verenigingen</string>
     <string name="no_selection">Geen items gevonden. Selecteer verenigingen in de instellingen of toon alle verenigingen</string>
     
     <string name="com_facebook_loginview_log_out_button">Log Uit</string>
@@ -102,7 +101,6 @@
     <string name="no_restos_found">De lijst met resto\'s kon niet worden opgehaald van de webservice. Gelieve later opnieuw te proberen.</string>
 
     <string name="schamper_update_failed">Schamper Daily kon niet geladen worden.</string>
-    <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
     <string name="resto_update_failed">De resto\'s konden niet geladen worden.</string>
     <string name="nowplaying_update_failed">Info over de huidige track kon niet worden opgezocht.</string>
     
