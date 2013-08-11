@@ -942,13 +942,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BuildingMap.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="BuildingMap.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/BuildingMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="3" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.6214689" vertical-offset="341" max-vertical-offset="4658">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="15" column="27" selection-start="550" selection-end="550" vertical-scroll-proportion="0.0" vertical-offset="137" max-vertical-offset="4658">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="R.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/libs/google-play-services_lib/gen/com/google/android/gms/R.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="1" selection-start="178" selection-end="178" vertical-scroll-proportion="0.27792916" vertical-offset="0" max-vertical-offset="367">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1074,7 +1081,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="File.Encoding" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/google-play-services_lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/google-play-services_lib/libs/google-play-services.jar!/" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -1397,12 +1404,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.AndroidStudioPreview/system/compile-server/hydra_b995121e/targets/java-production/GooglePlayServices/android/generated_sources/build_config/com/google/android/gms/BuildConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="13" selection-start="97" selection-end="97" vertical-scroll-proportion="0.13896458" vertical-offset="0" max-vertical-offset="367">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/BuildingMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="3" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.6214689" vertical-offset="341" max-vertical-offset="4658">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="15" column="27" selection-start="550" selection-end="550" vertical-scroll-proportion="0.0" vertical-offset="137" max-vertical-offset="4658">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/google-play-services_lib/gen/com/google/android/gms/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="1" selection-start="178" selection-end="178" vertical-scroll-proportion="0.27792916" vertical-offset="0" max-vertical-offset="367">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1459,11 +1478,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Hydra</last-edited>
+          <last-edited>GooglePlayServices</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

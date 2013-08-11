@@ -23,6 +23,7 @@
     <orderEntry type="module" module-name="Facebook" />
     <orderEntry type="module" module-name="ActionBarSherlock" />
     <orderEntry type="module" module-name="StickyListHeaders" />
+    <orderEntry type="module" module-name="GooglePlayServices" />
     <orderEntry type="library" name="google-play-services" level="project" />
   </component>
 </module>

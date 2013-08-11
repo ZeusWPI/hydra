@@ -10,7 +10,6 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../../Android/hydra/android/libs/google-play-services_lib">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../../Android/hydra/android/libs/google-play-services_lib/gen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Android/hydra/android/libs/google-play-services_lib/src" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/gen">
