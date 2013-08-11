@@ -2,29 +2,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffff0000" >
+    android:background="@drawable/header_selector" >
 
     <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="left"
+        android:layout_gravity="start|left"
         android:padding="5dp"
         android:textColor="#ff33b5e5"
         android:textSize="15sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/text2"
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="right"
-        android:padding="5dp"
-        android:textColor="#ff33b5e5"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:layout_gravity="end|right"
+        android:indeterminate="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white" />
 
 </FrameLayout>

@@ -1,0 +1,1429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="54ebd386-0ecd-47c2-9e05-9ba5b0ed2cd2" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/.classpath" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/.project" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/ant.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/build.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/build.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/libs/android-support-v4.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/proguard-project.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/project.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/color/abs__primary_text_disable_only_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/color/abs__primary_text_disable_only_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/color/abs__primary_text_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/color/abs__primary_text_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_solid_inverse_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_share_pack_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_share_pack_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_solid_shadow_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_stacked_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_stacked_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_stacked_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_stacked_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__cab_background_bottom_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__cab_background_bottom_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__cab_background_top_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__cab_background_top_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__dialog_full_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__dialog_full_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_ab_back_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_ab_back_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_cab_done_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_cab_done_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_clear_disabled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_clear_normal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_clear_search_api_disabled_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_clear_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_go.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_go_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_menu_moreoverflow_normal_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_menu_moreoverflow_normal_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_menu_share_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_menu_share_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_voice_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_voice_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_activated_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_divider_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_divider_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_longpressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_selector_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_selector_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__menu_dropdown_panel_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__menu_dropdown_panel_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_bg_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_bg_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_primary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_primary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_secondary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_secondary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_48_inner_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_48_outer_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__tab_selected_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__tab_selected_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__tab_selected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__tab_unselected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_right_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_right_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_right_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_right_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_solid_inverse_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_share_pack_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_share_pack_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_solid_shadow_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_stacked_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_stacked_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_stacked_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_stacked_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__cab_background_bottom_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__cab_background_bottom_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__cab_background_top_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__cab_background_top_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__dialog_full_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__dialog_full_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_ab_back_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_ab_back_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_cab_done_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_cab_done_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_clear_disabled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_clear_normal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_clear_search_api_disabled_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_clear_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_go.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_go_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_menu_moreoverflow_normal_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_menu_moreoverflow_normal_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_menu_share_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_menu_share_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_voice_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_voice_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_activated_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_divider_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_divider_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_longpressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_selector_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_selector_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__menu_dropdown_panel_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__menu_dropdown_panel_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_bg_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_bg_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_primary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_primary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_secondary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_secondary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_48_inner_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_48_outer_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__tab_selected_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__tab_selected_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__tab_selected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__tab_unselected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_right_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_right_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_right_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_right_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-v11/abs__progress_medium_holo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_solid_inverse_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_share_pack_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_share_pack_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_solid_shadow_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_stacked_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_stacked_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_stacked_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_stacked_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__cab_background_bottom_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__cab_background_bottom_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__cab_background_top_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__cab_background_top_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__dialog_full_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__dialog_full_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_ab_back_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_ab_back_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_cab_done_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_cab_done_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_clear_disabled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_clear_search_api_disabled_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_clear_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_go.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_go_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_menu_moreoverflow_normal_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_menu_moreoverflow_normal_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_menu_share_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_menu_share_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_voice_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_voice_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_activated_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_divider_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_divider_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_longpressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_selector_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_selector_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__menu_dropdown_panel_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__menu_dropdown_panel_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_bg_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_bg_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_primary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_primary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_secondary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_secondary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_48_inner_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_48_outer_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__tab_selected_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__tab_selected_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__tab_selected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__tab_unselected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_right_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_right_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_right_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_right_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__activated_background_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__activated_background_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__btn_cab_done_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__btn_cab_done_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__ic_clear.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__ic_clear_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__ic_menu_moreoverflow_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__ic_menu_moreoverflow_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__item_background_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__item_background_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__list_selector_background_transition_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__list_selector_background_transition_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__list_selector_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__list_selector_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__progress_horizontal_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__progress_horizontal_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__progress_medium_holo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__search_dropdown_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__search_dropdown_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__spinner_ab_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__spinner_ab_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__tab_indicator_ab_holo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__textfield_searchview_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__textfield_searchview_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__textfield_searchview_right_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/drawable/abs__textfield_searchview_right_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout-large/abs__action_mode_close_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout-v14/sherlock_spinner_dropdown_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout-v14/sherlock_spinner_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout-xlarge/abs__screen_action_bar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout-xlarge/abs__screen_action_bar_overlay.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__action_bar_home.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__action_bar_tab.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__action_bar_tab_bar_view.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__action_bar_title_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__action_menu_item_layout.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__action_menu_layout.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__action_mode_bar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__action_mode_close_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__activity_chooser_view.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__activity_chooser_view_list_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__dialog_title_holo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__list_menu_item_checkbox.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__list_menu_item_icon.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__list_menu_item_layout.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__list_menu_item_radio.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__popup_menu_item_layout.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__screen_action_bar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__screen_action_bar_overlay.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__screen_simple.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__screen_simple_overlay_action_mode.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__search_dropdown_item_icons_2line.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__search_view.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/abs__simple_dropdown_hint.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/sherlock_spinner_dropdown_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/layout/sherlock_spinner_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-land/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-large-hdpi-1024x600/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-large-land-hdpi-1024x600/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-large-land-mdpi-1024x600/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-large-mdpi-1024x600/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-large/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-sw600dp/abs__bools.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-sw600dp/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-v11/abs__themes.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-v14/abs__styles.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-v14/abs__themes.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-w360dp/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-w480dp/abs__bools.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-w480dp/abs__config.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-w500dp/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-w600dp/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values-xlarge/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__attrs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__bools.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__colors.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__config.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__ids.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__strings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__styles.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/res/values/abs__themes.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/android/support/v4/app/Watson.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/ActionBarSherlock.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/ActionBar.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockDialogFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockExpandableListActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockFragmentActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockListActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockListFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockPreferenceActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/ActionBarSherlockCompat.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/ActionBarSherlockNative.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/ResourcesCompat.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/app/ActionBarImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/app/ActionBarWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/Animator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/AnimatorListenerAdapter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/AnimatorSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/FloatEvaluator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/FloatKeyframeSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/IntEvaluator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/IntKeyframeSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/Keyframe.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/KeyframeSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/ObjectAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/PropertyValuesHolder.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/TypeEvaluator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/ValueAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/view/NineViewGroup.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/view/animation/AnimatorProxy.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/widget/NineFrameLayout.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/widget/NineHorizontalScrollView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/widget/NineLinearLayout.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/ActionProviderWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/StandaloneActionMode.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/View_HasStateListenerSupport.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/View_OnAttachStateChangeListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenuItem.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenuItemView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenuPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenuView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/BaseMenuPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ListMenuItemView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuBuilder.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuItemImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuItemWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuPopupHelper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/SubMenuBuilder.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/SubMenuWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/AbsActionBarView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/ActionBarContainer.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/ActionBarContextView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/ActionBarView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/CapitalizingButton.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/CapitalizingTextView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/CollapsibleActionViewWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/FakeDialogPhoneWindow.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsAbsSpinner.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsAdapterView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsColorDrawable.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsLinearLayout.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsListPopupWindow.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsProgressBar.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsSpinner.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/ScrollingTabContainerView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/ActionMode.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/ActionProvider.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/CollapsibleActionView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/Menu.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/MenuInflater.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/MenuItem.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/SubMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/Window.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/ActivityChooserModel.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/ActivityChooserView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/SearchView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/ShareActionProvider.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/SuggestionsAdapter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/ab-sherlock-4.2/test/com/actionbarsherlock/internal/ManifestParsingTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/.classpath" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/.project" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/ant.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/build.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/build.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/libs/android-support-v4.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/proguard-project.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/project.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/color/abs__primary_text_disable_only_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/color/abs__primary_text_disable_only_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/color/abs__primary_text_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/color/abs__primary_text_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_solid_inverse_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_bottom_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_share_pack_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_share_pack_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_solid_shadow_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_stacked_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_stacked_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_stacked_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_stacked_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ab_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__btn_cab_done_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__cab_background_bottom_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__cab_background_bottom_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__cab_background_top_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__cab_background_top_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__dialog_full_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__dialog_full_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_ab_back_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_ab_back_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_cab_done_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_cab_done_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_clear_disabled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_clear_normal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_clear_search_api_disabled_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_clear_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_go.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_go_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_menu_moreoverflow_normal_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_menu_moreoverflow_normal_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_menu_share_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_menu_share_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_voice_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__ic_voice_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_activated_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_divider_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_divider_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_longpressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_selector_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__list_selector_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__menu_dropdown_panel_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__menu_dropdown_panel_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_bg_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_bg_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_primary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_primary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_secondary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__progress_secondary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_48_inner_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_48_outer_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__spinner_ab_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__tab_selected_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__tab_selected_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__tab_selected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__tab_unselected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_right_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_right_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_right_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_right_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-hdpi/abs__textfield_search_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_solid_inverse_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_bottom_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_share_pack_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_share_pack_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_solid_shadow_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_stacked_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_stacked_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_stacked_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_stacked_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ab_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__btn_cab_done_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__cab_background_bottom_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__cab_background_bottom_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__cab_background_top_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__cab_background_top_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__dialog_full_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__dialog_full_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_ab_back_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_ab_back_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_cab_done_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_cab_done_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_clear_disabled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_clear_normal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_clear_search_api_disabled_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_clear_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_go.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_go_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_menu_moreoverflow_normal_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_menu_moreoverflow_normal_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_menu_share_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_menu_share_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_voice_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__ic_voice_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_activated_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_divider_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_divider_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_longpressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_selector_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__list_selector_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__menu_dropdown_panel_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__menu_dropdown_panel_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_bg_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_bg_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_primary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_primary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_secondary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__progress_secondary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_48_inner_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_48_outer_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__spinner_ab_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__tab_selected_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__tab_selected_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__tab_selected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__tab_unselected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_right_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_right_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_right_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_right_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-mdpi/abs__textfield_search_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-v11/abs__progress_medium_holo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_solid_inverse_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_bottom_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_share_pack_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_share_pack_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_solid_shadow_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_stacked_solid_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_stacked_solid_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_stacked_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_stacked_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_transparent_dark_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ab_transparent_light_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__btn_cab_done_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__cab_background_bottom_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__cab_background_bottom_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__cab_background_top_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__cab_background_top_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__dialog_full_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__dialog_full_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_ab_back_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_ab_back_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_cab_done_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_cab_done_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_clear_disabled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_clear_search_api_disabled_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_clear_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_go.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_go_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_menu_moreoverflow_normal_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_menu_moreoverflow_normal_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_menu_share_holo_dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_menu_share_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_voice_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__ic_voice_search_api_holo_light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_activated_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_divider_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_divider_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_longpressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_selector_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__list_selector_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__menu_dropdown_panel_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__menu_dropdown_panel_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_bg_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_bg_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_primary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_primary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_secondary_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__progress_secondary_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_48_inner_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_48_outer_holo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_disabled_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_disabled_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_focused_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_focused_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_pressed_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__spinner_ab_pressed_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__tab_selected_focused_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__tab_selected_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__tab_selected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__tab_unselected_pressed_holo.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_right_default_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_right_default_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_right_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_right_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_selected_holo_dark.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable-xhdpi/abs__textfield_search_selected_holo_light.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__activated_background_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__activated_background_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__btn_cab_done_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__btn_cab_done_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__ic_clear.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__ic_clear_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__ic_menu_moreoverflow_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__ic_menu_moreoverflow_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__item_background_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__item_background_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__list_selector_background_transition_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__list_selector_background_transition_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__list_selector_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__list_selector_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__progress_horizontal_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__progress_horizontal_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__progress_medium_holo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__search_dropdown_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__search_dropdown_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__spinner_ab_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__spinner_ab_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__tab_indicator_ab_holo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__textfield_searchview_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__textfield_searchview_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__textfield_searchview_right_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/drawable/abs__textfield_searchview_right_holo_light.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout-large/abs__action_mode_close_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout-v14/sherlock_spinner_dropdown_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout-v14/sherlock_spinner_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout-xlarge/abs__screen_action_bar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout-xlarge/abs__screen_action_bar_overlay.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__action_bar_home.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__action_bar_tab.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__action_bar_tab_bar_view.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__action_bar_title_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__action_menu_item_layout.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__action_menu_layout.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__action_mode_bar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__action_mode_close_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__activity_chooser_view.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__activity_chooser_view_list_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__dialog_title_holo.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__list_menu_item_checkbox.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__list_menu_item_icon.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__list_menu_item_layout.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__list_menu_item_radio.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__popup_menu_item_layout.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__screen_action_bar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__screen_action_bar_overlay.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__screen_simple.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__screen_simple_overlay_action_mode.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__search_dropdown_item_icons_2line.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__search_view.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/abs__simple_dropdown_hint.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/sherlock_spinner_dropdown_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/layout/sherlock_spinner_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-land/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-large-hdpi-1024x600/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-large-land-hdpi-1024x600/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-large-land-mdpi-1024x600/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-large-mdpi-1024x600/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-large/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-sw600dp/abs__bools.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-sw600dp/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-v11/abs__themes.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-v14/abs__styles.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-v14/abs__themes.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-w360dp/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-w480dp/abs__bools.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-w480dp/abs__config.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-w500dp/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-w600dp/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values-xlarge/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__attrs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__bools.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__colors.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__config.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__ids.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__strings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__styles.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/res/values/abs__themes.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/android/support/v4/app/Watson.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/ActionBarSherlock.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/ActionBar.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockDialogFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockExpandableListActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockFragmentActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockListActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockListFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/app/SherlockPreferenceActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/ActionBarSherlockCompat.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/ActionBarSherlockNative.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/ResourcesCompat.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/app/ActionBarImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/app/ActionBarWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/Animator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/AnimatorListenerAdapter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/AnimatorSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/FloatEvaluator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/FloatKeyframeSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/IntEvaluator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/IntKeyframeSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/Keyframe.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/KeyframeSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/ObjectAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/PropertyValuesHolder.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/TypeEvaluator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/animation/ValueAnimator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/view/NineViewGroup.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/view/animation/AnimatorProxy.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/widget/NineFrameLayout.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/widget/NineHorizontalScrollView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/nineoldandroids/widget/NineLinearLayout.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/ActionProviderWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/StandaloneActionMode.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/View_HasStateListenerSupport.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/View_OnAttachStateChangeListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenuItem.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenuItemView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenuPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ActionMenuView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/BaseMenuPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/ListMenuItemView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuBuilder.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuItemImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuItemWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuPopupHelper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/MenuWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/SubMenuBuilder.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/view/menu/SubMenuWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/AbsActionBarView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/ActionBarContainer.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/ActionBarContextView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/ActionBarView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/CapitalizingButton.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/CapitalizingTextView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/CollapsibleActionViewWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/FakeDialogPhoneWindow.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsAbsSpinner.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsAdapterView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsColorDrawable.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsLinearLayout.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsListPopupWindow.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsProgressBar.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsSpinner.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/IcsView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/internal/widget/ScrollingTabContainerView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/ActionMode.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/ActionProvider.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/CollapsibleActionView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/Menu.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/MenuInflater.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/MenuItem.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/SubMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/view/Window.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/ActivityChooserModel.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/ActivityChooserView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/SearchView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/ShareActionProvider.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/src/com/actionbarsherlock/widget/SuggestionsAdapter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ab-sherlock-4.2/test/com/actionbarsherlock/internal/ManifestParsingTest.java" afterPath="" />
+    </list>
+    <ignored path="android.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="USE_COMPILE_SERVER" value="false" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="android" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../Zeus WPI/hydra" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="tasksExpandState">
+      <map>
+        <entry key="" value="true" />
+      </map>
+    </option>
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="android" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="android" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="1362668517096" />
+        <entry key="$PROJECT_DIR$" value="1364913414121" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/res/values/strings.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-1" />
+    <option name="y" value="28" />
+    <option name="width" value="1368" />
+    <option name="height" value="741" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <list size="0" />
+    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="54ebd386-0ecd-47c2-9e05-9ba5b0ed2cd2" name="Default" comment="" />
+      <created>1376256289228</created>
+      <updated>1376256289228</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-1" y="28" width="1368" height="741" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32881355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67118645" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/src/be/ugent/zeus/hydra/util/facebook/event/tasks/AsyncInfoGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="16" selection-start="602" selection-end="602" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1581">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/src/be/ugent/zeus/hydra/NewsItemActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="20" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="1088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/src/be/ugent/zeus/hydra/util/facebook/event/tasks/AsyncInfoGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="16" selection-start="602" selection-end="602" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1581">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/src/be/ugent/zeus/hydra/NewsItemActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="20" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="1088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/src/be/ugent/zeus/hydra/util/facebook/event/tasks/AsyncInfoGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="16" selection-start="602" selection-end="602" vertical-scroll-proportion="0.048022598" vertical-offset="374" max-vertical-offset="1581">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="526" selection-end="526" vertical-scroll-proportion="0.33333334" vertical-offset="0" max-vertical-offset="561">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="22" selection-start="405" selection-end="405" vertical-scroll-proportion="0.24817519" vertical-offset="0" max-vertical-offset="548">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="106" column="4" selection-start="6067" selection-end="6067" vertical-scroll-proportion="0.42937854" vertical-offset="1650" max-vertical-offset="2244">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/src/be/ugent/zeus/hydra/NewsItemActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="20" selection-start="477" selection-end="477" vertical-scroll-proportion="0.046321526" vertical-offset="272" max-vertical-offset="1088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Android</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>android-support-v4</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>Android SDK</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>ab-sherlock-4.2</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>android-support-v4</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+
