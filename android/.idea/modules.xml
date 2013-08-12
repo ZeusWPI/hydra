@@ -4,10 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBar-PullToRefresh/library/ActionBar-PullToRefresh.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBar-PullToRefresh/library/ActionBar-PullToRefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBarSherlock/actionbarsherlock/ActionBarSherlock.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBarSherlock/actionbarsherlock/ActionBarSherlock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBarSherlock/actionbarsherlock/ActionBarSherlock.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBarSherlock/actionbarsherlock/ActionBarSherlock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBar-PullToRefresh/library/Actionbar-PullToRefresh.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBar-PullToRefresh/library/Actionbar-PullToRefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/facebook/Facebook.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/facebook/Facebook.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/google-play-services_lib/GooglePlayServices.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/google-play-services_lib/GooglePlayServices.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/Hydra.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/Hydra.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/StickyListHeaders/library/StickyListHeaders.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/StickyListHeaders/library/StickyListHeaders.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/StickyListHeaders/library/StickyListHeader.iml" filepath="$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/StickyListHeaders/library/StickyListHeader.iml" />
     </modules>
   </component>
 </project>

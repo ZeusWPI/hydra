@@ -2,7 +2,9 @@
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android" name="Android">
-      <configuration />
+      <configuration>
+        <option name="UPDATE_PROPERTY_FILES" value="true" />
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
@@ -19,12 +21,12 @@
     <orderEntry type="library" name="dd-plist" level="project" />
     <orderEntry type="library" name="libGoogleAnalyticsV2" level="project" />
     <orderEntry type="library" name="android-support-v4" level="application" />
-    <orderEntry type="module" module-name="ActionBar-PullToRefresh" />
     <orderEntry type="module" module-name="Facebook" />
     <orderEntry type="module" module-name="ActionBarSherlock" />
-    <orderEntry type="module" module-name="StickyListHeaders" />
     <orderEntry type="module" module-name="GooglePlayServices" />
     <orderEntry type="library" name="google-play-services" level="project" />
+    <orderEntry type="module" module-name="Actionbar-PullToRefresh" />
+    <orderEntry type="module" module-name="StickyListHeader" />
   </component>
 </module>
 

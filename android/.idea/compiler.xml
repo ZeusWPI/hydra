@@ -4,6 +4,12 @@
     <option name="DEFAULT_COMPILER" value="Javac" />
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/facebook/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/google-play-services_lib/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBarSherlock/actionbarsherlock/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/ActionBar-PullToRefresh/library/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../../Zeus WPI/hydra/android/libs/StickyListHeaders/library/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>
