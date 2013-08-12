@@ -9,6 +9,8 @@
 #import "InfoViewController.h"
 #import "WebViewController.h"
 
+#define kCachingBaseURL @"http://kelder.zeus.ugent.be/~feliciaan/hydra/1.0/info/"
+
 @interface InfoViewController ()
 
 @property (nonatomic, strong) NSArray *content;
@@ -22,9 +24,11 @@
 
 - (id)init
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"info-content" ofType:@"plist"];
-    self = [self initWithContent:[[NSArray alloc] initWithContentsOfFile:path]];
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"info-content" ofType:@"plist"];
+    NSMutableArray *tmpArray = [[NSMutableArray alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kCachingBaseURL, @"info-content.plist"]]];
 
+    //self = [self initWithContent:[[NSArray alloc] initWithContentsOfFile:path]];
+    self = [self initWithContent:tmpArray];
     self.title = @"Info";
     self.trackedViewName = self.title;
 
@@ -132,7 +136,7 @@
         WebViewController *c = [[WebViewController alloc] init];
         c.title = item[@"title"];
         c.trackedViewName = [NSString stringWithFormat:@"%@ > %@", self.trackedViewName, c.title];
-        [c loadHtml:item[@"html"]];
+        [c loadHtml:[NSString stringWithFormat:@"%@%@",kCachingBaseURL, item[@"html"]]];
 
         [self.navigationController pushViewController:c animated:YES];
     }

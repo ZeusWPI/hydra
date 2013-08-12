@@ -16,6 +16,7 @@
 #import <ShareKit/SHK.h>
 #import <ShareKit/SHKConfiguration.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "RNCachingURLProtocol.h"
 
 #if TestFlightEnabled
 #import <TestFlight.h>
@@ -59,6 +60,9 @@
         [SHKConfiguration sharedInstanceWithConfigurator:config];
         [SHK flushOfflineQueue];
     });
+
+    // Activate caching for info
+    [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
 
     // Restore Facebook-session
     [[FacebookSession sharedSession] openWithAllowLoginUI:NO];

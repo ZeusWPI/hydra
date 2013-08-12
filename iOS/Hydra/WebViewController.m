@@ -40,8 +40,12 @@
 {
     // Trigger view laod
     [self view];
-
-    NSURL *url = [[NSBundle mainBundle] URLForResource:path withExtension:nil];
+    NSURL *url;
+    if ([path rangeOfString:@"http"].location != NSNotFound){
+        url = [NSURL URLWithString:path];
+    }else {
+        url = [[NSBundle mainBundle] URLForResource:path withExtension:nil];
+    }
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
