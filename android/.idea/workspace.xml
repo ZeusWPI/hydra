@@ -942,37 +942,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BuildingMap.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/BuildingMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="42" selection-start="843" selection-end="843" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="4658">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AssociationsFilter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/settings/AssociationsFilter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="26" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1989">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResourcesCompatTest.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/libs/ActionBarSherlock/actionbarsherlock/test/com/actionbarsherlock/internal/ResourcesCompatTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="16" selection-start="57" selection-end="57" vertical-scroll-proportion="0.09264305" vertical-offset="0" max-vertical-offset="476">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DirectionMarker.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DirectionMarker.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/ui/map/DirectionMarker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="32" selection-start="665" selection-end="665" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="748">
+            <state line="30" column="0" selection-start="819" selection-end="819" vertical-scroll-proportion="0.35326087" vertical-offset="227" max-vertical-offset="595">
               <folding />
             </state>
           </provider>
@@ -1259,7 +1232,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32881355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32711864" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1270,8 +1243,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67118645" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277027" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67288136" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32711864" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1399,13 +1372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/ui/map/DirectionMarker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="32" selection-start="665" selection-end="665" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libs/google-play-services_lib/gen/com/google/android/gms/R.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="1" selection-start="178" selection-end="178" vertical-scroll-proportion="0.27792916" vertical-offset="0" max-vertical-offset="367">
@@ -1413,23 +1379,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/libs/ActionBarSherlock/actionbarsherlock/test/com/actionbarsherlock/internal/ResourcesCompatTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="16" selection-start="57" selection-end="57" vertical-scroll-proportion="0.092391305" vertical-offset="0" max-vertical-offset="476">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/BuildingMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="42" selection-start="843" selection-end="843" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="4658">
+        <state line="20" column="42" selection-start="843" selection-end="843" vertical-scroll-proportion="-0.5746479" vertical-offset="544" max-vertical-offset="4658">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/settings/AssociationsFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="26" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1989">
-          <folding />
+        <state line="35" column="21" selection-start="1256" selection-end="1256" vertical-scroll-proportion="0.46195653" vertical-offset="357" max-vertical-offset="1989">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/ActionBarSherlock/actionbarsherlock/test/com/actionbarsherlock/internal/ResourcesCompatTest.java">
+    <entry file="file://$PROJECT_DIR$/src/be/ugent/zeus/hydra/ui/map/DirectionMarker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="16" selection-start="57" selection-end="57" vertical-scroll-proportion="0.09264305" vertical-offset="0" max-vertical-offset="476">
+        <state line="30" column="0" selection-start="819" selection-end="819" vertical-scroll-proportion="0.35326087" vertical-offset="227" max-vertical-offset="595">
           <folding />
         </state>
       </provider>
