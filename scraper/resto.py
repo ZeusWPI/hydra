@@ -113,22 +113,27 @@ class MenuItem(object):
 def download_menu(year, week, lang):
     locale.setlocale(locale.LC_ALL, LOCALES[lang])
     page = get_menu_page(SOURCES[lang], week)
-    week_menu = parse_week_menu(page, year, week, lang)
-
-    if week_menu:
-        if lang == 'nl':
-            json = create_api_10_representation(week_menu)
-            dump_representation('1.0', year, week, json)
-
-        json = create_api_20_representation(week_menu)
-        dump_representation('2.0/' + lang, year, week, json)
+    if not page:
+        print('ERROR: failed to retrieve menu for week %02d' % week)
     else:
-        print('ERROR: failed to parse menu for week %02d' % week)
+        week_menu = parse_week_menu(page, year, week, lang)
+        if not week_menu:
+            print('ERROR: failed to parse menu for week %02d' % week)
+        else:
+            if lang == 'nl':
+                json = create_api_10_representation(week_menu)
+                dump_representation('1.0', year, week, json)
+
+            json = create_api_20_representation(week_menu)
+            dump_representation('2.0/' + lang, year, week, json)
 
 def get_menu_page(url, week):
     print('Fetching week %02d menu webpage' % week)
     f = urllib.urlopen(url % week)
-    return f.read()
+    if f.getcode() == 200:
+        return f.read()
+    else:
+        return None
 
 def parse_week_menu(page, year, week, lang):
     print('Parsing menu webpage')
