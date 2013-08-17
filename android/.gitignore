@@ -1,10 +1,34 @@
-build
-dist
-gen
-bin
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
 local.properties
-default.properties
-nbandroid/
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+.idea/
+.gradle
+/*/local.properties
 out/
-libs/ab-sherlock-4.2/target/
-libs/ab-sherlock-4.2/nbandroid/
+/*/out
+/*/*/build
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
