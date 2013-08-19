@@ -5,11 +5,11 @@ API version formats.
 """
 
 from __future__ import with_statement
-import json, urllib, libxml2, os, os.path, datetime, locale, re
+import json, libxml2, os, os.path, datetime, locale, re, requests
 from datetime import datetime, timedelta
 
 SOURCES = {
-    'nl': 'http://www.ugent.be/nl/voorzieningen/resto/studenten/menu/weekmenu/week%02d.htm',
+    'nl': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu/week%02d.htm',
     'en': 'http://www.ugent.be/en/facilities/food/weekly-menu/menu%02d.htm'
 }
 
@@ -129,9 +129,9 @@ def download_menu(year, week, lang):
 
 def get_menu_page(url, week):
     print('Fetching week %02d menu webpage' % week)
-    f = urllib.urlopen(url % week)
-    if f.getcode() == 200:
-        return f.read()
+    r = requests.get(url % week, allow_redirects=False)
+    if r.status_code == 200:
+        return r.text
     else:
         return None
 
@@ -140,7 +140,7 @@ def parse_week_menu(page, year, week, lang):
     # replace those pesky non-breakable spaces
     page = page.replace('&nbsp;', ' ')
 
-    doc = libxml2.htmlReadDoc(page, None, 'utf-8', libxml2.XML_PARSE_RECOVER | libxml2.XML_PARSE_NOERROR)
+    doc = libxml2.htmlReadDoc(page.encode('utf-8'), None, 'utf-8', libxml2.XML_PARSE_RECOVER | libxml2.XML_PARSE_NOERROR)
 
     dateComponents = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
     # Date description is not consistent, sometimes misses year
