@@ -21,6 +21,7 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
+		900315EC17B9474200BE09AF /* RNCachingURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 900315EB17B9474200BE09AF /* RNCachingURLProtocol.m */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
@@ -237,6 +238,8 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		900315EA17B9474200BE09AF /* RNCachingURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCachingURLProtocol.h; sourceTree = "<group>"; };
+		900315EB17B9474200BE09AF /* RNCachingURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCachingURLProtocol.m; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
@@ -864,6 +867,8 @@
 		F5CFDF851631597E008CBF98 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				900315EA17B9474200BE09AF /* RNCachingURLProtocol.h */,
+				900315EB17B9474200BE09AF /* RNCachingURLProtocol.m */,
 				3B93FBA2163094A800C962DC /* AudioStreamer.h */,
 				3B93FBA3163094A800C962DC /* AudioStreamer.m */,
 				F5DF2FB716C41DDE003B05EC /* MarqueeLabel.h */,
@@ -1225,6 +1230,7 @@
 				F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */,
 				F5ACC3B116D2694000626EAE /* CustomTableViewCell.m in Sources */,
 				F5C6093816D2DFCB0043BD44 /* PreferencesService.m in Sources */,
+				900315EC17B9474200BE09AF /* RNCachingURLProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
