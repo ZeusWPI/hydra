@@ -19,6 +19,7 @@ PODS:
   - libwebp/utils (0.3.0-rc7)
   - libwebp/webp (0.3.0-rc7)
   - NSData+Base64 (1.0.0)
+  - Reachability (3.1.1)
   - RestKit/Core (0.10.1)
   - RestKit/JSON (0.10.1):
     - RestKit/Core
@@ -75,6 +76,7 @@ PODS:
 DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.7)
   - GoogleAnalytics-iOS-SDK (~> 3.0)
+  - Reachability (~> 3.1.1)
   - RestKit/JSON (from `https://github.com/Javache/RestKit.git`)
   - RestKit/XML (from `https://github.com/Javache/RestKit.git`)
   - SDWebImage (~> 3.4)
@@ -101,6 +103,7 @@ SPEC CHECKSUMS:
   LibComponentLogging-NSLog: a4bb0f6de612eef7b5fcdbd9cc96dc868ba1f2df
   libwebp: 40517fa1fd3716eded73b4696c45fc0b66e4b414
   NSData+Base64: 36c4e5b6479259c1a68866ccd2a8dd385c9744f7
+  Reachability: 2be6bc2fd2bd31d97f5db33e75e4b29c79e95883
   RestKit: 8e3eb52ac533599abf511450d8778e7480b95c5c
   SDWebImage: f13f791e411c632489824aa7f129e230b52bf5c4
   ShareKit: d33d7a36ecc08e5c2fe4ef9c8dfcb0ada1e659a0

@@ -29,7 +29,8 @@
 #import "Reachability.h"
 
 #define WORKAROUND_MUTABLE_COPY_LEAK 1
-#define RNCachingURL @"kelder.zeus.ugent.be/~feliciaan/hydra/1.0/info/"
+#define kRNCachingURL @"kelder.zeus.ugent.be/~feliciaan/hydra/1.0/info/"
+#define kRNCacheInterval (86400.0f*14.0f) //14 dagen
 
 #if WORKAROUND_MUTABLE_COPY_LEAK
 // required to workaround http://openradar.appspot.com/11596316
@@ -63,8 +64,8 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
-  // only handle http requests we haven't marked with our header.
-  if ([[[request URL] absoluteString] rangeOfString:RNCachingURL].location != NSNotFound &&
+  // only handle http requests we haven't marked with our header and are from our url
+  if ([[[request URL] absoluteString] rangeOfString:kRNCachingURL].location != NSNotFound &&
       ([request valueForHTTPHeaderField:RNCachingURLHeader] == nil)) {
       NSLog(@"Cached: %@", [[request URL] absoluteString]);
     return YES;
@@ -80,8 +81,8 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
 - (NSString *)cachePathForRequest:(NSURLRequest *)aRequest
 {
   // This stores in the Caches directory, which can be deleted when space is low, but we only use it for offline access
-  NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSLog(cachesPath);
+  NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+   // NSLog(cachesPath);
   return [cachesPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%x", [[[aRequest URL] absoluteString] hash]]];
 }
 
@@ -196,6 +197,17 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
 - (BOOL) useCache 
 {
     BOOL reachable = (BOOL) [[Reachability reachabilityWithHostname:[[[self request] URL] host]] currentReachabilityStatus] != NotReachable;
+    // Check if there is already a cached-file, and when it was last modified
+    RNCachedData *cache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cachePathForRequest:[self request]]];
+    if (cache){
+        NSString* downloaded = [[(NSHTTPURLResponse*)[cache response] allHeaderFields] objectForKey:@"Date"];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter  setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss zzz"];
+        NSDate *download_date = [formatter dateFromString:downloaded];
+        if ( [download_date timeIntervalSinceNow] < kRNCacheInterval){
+            return true;
+        }
+    }
     return !reachable;
 }
 
