@@ -1,10 +1,10 @@
-platform :ios
+platform :ios, '5.0'
 
-pod 'GoogleAnalytics-iOS-SDK', '~> 2.0beta4'
-pod 'TestFlightSDK',           '~> 1.2'
-pod 'Facebook-iOS-SDK',        '~> 3.1'
+pod 'GoogleAnalytics-iOS-SDK', '~> 3.0'
+pod 'TestFlightSDK',           '~> 2.0'
+pod 'Facebook-iOS-SDK',        '~> 3.7'
 pod 'SVProgressHUD',           '~> 0.9'
-pod 'SDWebImage',              '~> 2.7'
+pod 'SDWebImage',              '~> 3.4'
 pod 'RestKit/JSON',            :git => 'https://github.com/Javache/RestKit.git'
 pod 'RestKit/XML',             :git => 'https://github.com/Javache/RestKit.git'
 pod 'ShareKit/Facebook',       :podspec => 'External/ShareKit.podspec'

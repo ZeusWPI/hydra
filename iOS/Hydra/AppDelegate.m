@@ -16,6 +16,7 @@
 #import <ShareKit/SHK.h>
 #import <ShareKit/SHKConfiguration.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <GAIDictionaryBuilder.h>
 
 #if TestFlightEnabled
 #import <TestFlight.h>
@@ -140,7 +141,8 @@ BOOL errorDialogShown = false;
 {
     NSLog(@"An error occured: %@", error);
     id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
-    [tracker trackException:NO withNSError:error];
+    [tracker send:[[GAIDictionaryBuilder createExceptionWithDescription:[error description]
+                                                              withFatal:NO] build]];
 
     if (errorDialogShown) return;
 

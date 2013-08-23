@@ -10,7 +10,7 @@
 
 #define kFilterAssociationsKey @"useAssociationFilter"
 #define kPreferredAssociationsKey @"preferredAssociations"
-#define kShowFacebookLogin @"showFacebookLogin"
+#define kShownFacebookPrompt @"shownFacebookPrompt"
 
 
 @interface PreferencesService ()
@@ -50,16 +50,16 @@
     [self didChangeValueForKey:@"filterAssociations"];
 }
 
-- (BOOL)showFacebookLogin
+- (BOOL)shownFacebookPrompt
 {
-    return [self.settings boolForKey:kShowFacebookLogin];
+    return [self.settings boolForKey:kShownFacebookPrompt];
 }
 
-- (void)setShowFacebookLogin:(BOOL)showFacebookLogin
+- (void)setShownFacebookPrompt:(BOOL)shownFacebookPrompt
 {
-    [self willChangeValueForKey:@"showFacebookLogin"];
-    [self.settings setBool:showFacebookLogin forKey:kShowFacebookLogin];
-    [self didChangeValueForKey:@"showFacebookLogin"];
+    [self willChangeValueForKey:@"shownFacebookPrompt"];
+    [self.settings setBool:shownFacebookPrompt forKey:kShownFacebookPrompt];
+    [self didChangeValueForKey:@"shownFacebookPrompt"];
 }
 
 - (NSArray *)preferredAssociations

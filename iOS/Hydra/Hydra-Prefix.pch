@@ -11,8 +11,8 @@
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <GAI.h>
 #import "UIColor+AppColors.h"
-#import "GAI.h"
 #endif
 
 #define PUBLIC_RELEASE 0

@@ -13,7 +13,7 @@
 + (PreferencesService *)sharedService;
 
 @property (nonatomic, assign) BOOL filterAssociations;
-@property (nonatomic, assign) BOOL showFacebookLogin;
 @property (nonatomic, strong) NSArray *preferredAssociations;
+@property (nonatomic, assign) BOOL shownFacebookPrompt;
 
 @end

@@ -966,7 +966,7 @@
 		F5BAEC7D1518868100F6A1B1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Zeus WPI";
 			};
 			buildConfigurationList = F5BAEC801518868100F6A1B1 /* Build configuration list for PBXProject "Hydra" */;
@@ -1278,7 +1278,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
-				ARCHS = armv7;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1293,8 +1292,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1305,7 +1304,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
-				ARCHS = armv7;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1316,8 +1314,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1334,10 +1331,6 @@
 				CUSTOM_IDENTIFIER_SUFFIX = "-dev";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
-					"${PODS_HEADERS_SEARCH_PATHS}",
-				);
 				INFOPLIST_FILE = "Hydra-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1352,10 +1345,6 @@
 				CUSTOM_IDENTIFIER_SUFFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
-					"${PODS_HEADERS_SEARCH_PATHS}",
-				);
 				INFOPLIST_FILE = "Hydra-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

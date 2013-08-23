@@ -97,13 +97,13 @@
 {
     [super viewDidAppear:animated];
     GAI_Track([@"Activity > " stringByAppendingString:self.activity.title]);
-    FacebookEvent *fbEvent = self.activity.facebookEvent;
-    if (fbEvent.valid){
+
+    if (self.activity.facebookEvent.valid) {
         FacebookSession *session = [FacebookSession sharedSession];
         PreferencesService *prefs = [PreferencesService sharedService];
-        if (!session.open && !prefs.showFacebookLogin){
-            [prefs setShowFacebookLogin:YES];
+        if (!session.open && !prefs.shownFacebookPrompt){
             [session openWithAllowLoginUI:YES];
+            prefs.shownFacebookPrompt = YES;
         }
     }
 }

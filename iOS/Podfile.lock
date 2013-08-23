@@ -1,110 +1,122 @@
-
 PODS:
-- Facebook-iOS-SDK (3.2.0)
-- FileMD5Hash (0.0.1)
-- GoogleAnalytics-iOS-SDK (2.0beta4)
-- ISO8601DateFormatter (0.6)
-- JSONKit (1.5pre)
-- LibComponentLogging-Core (1.3.1)
-- LibComponentLogging-NSLog (1.0.4):
-  - LibComponentLogging-Core (>= 1.1.6)
-- NSData+Base64 (1.0.0)
-- Reachability (3.1.0)
-- RestKit/JSON (0.10.1):
-  - RestKit/Network
-  - RestKit/ObjectMapping/CoreData
-  - RestKit/ObjectMapping/JSON
-  - RestKit/UI
-- RestKit/Network (0.10.1):
-  - FileMD5Hash
-  - LibComponentLogging-NSLog (>= 1.0.4)
-  - SOCKit
-  - cocoa-oauth
-- RestKit/ObjectMapping/CoreData (0.10.1):
-  - ISO8601DateFormatter (>= 0.6)
-  - RestKit/Network
-- RestKit/ObjectMapping/JSON (0.10.1):
-  - ISO8601DateFormatter (>= 0.6)
-  - JSONKit (>= 1.5pre)
-  - RestKit/Network
-- RestKit/ObjectMapping/XML (0.10.1):
-  - ISO8601DateFormatter (>= 0.6)
-  - RestKit/Network
-- RestKit/UI (0.10.1)
-- RestKit/XML (0.10.1):
-  - RestKit/Network
-  - RestKit/ObjectMapping/CoreData
-  - RestKit/ObjectMapping/XML
-  - RestKit/UI
-- SDWebImage (2.7):
-  - SDWebImage/Main (= 2.7)
-- SDWebImage/Main (2.7)
-- SOCKit (1.1)
-- SSKeychain (0.2.1)
-- SVProgressHUD (0.9)
-- ShareKit/Facebook (2.0):
-  - Facebook-iOS-SDK (~> 3.1)
-  - Reachability
-  - SSKeychain
-- ShareKit/Twitter (2.0):
-  - JSONKit
-  - Reachability
-  - SSKeychain
-- TUSafariActivity (0.0.1)
-- TestFlightSDK (1.2.4.beta)
-- cocoa-oauth (0.0.1):
-  - NSData+Base64 (~> 1.0)
+  - cocoa-oauth (0.0.1):
+    - NSData+Base64 (~> 1.0)
+  - Facebook-iOS-SDK (3.7.0)
+  - FileMD5Hash (0.0.1)
+  - GoogleAnalytics-iOS-SDK (3.0)
+  - ISO8601DateFormatter (0.6)
+  - JSONKit (1.5pre)
+  - LibComponentLogging-Core (1.3.1)
+  - LibComponentLogging-NSLog (1.0.4):
+    - LibComponentLogging-Core (>= 1.1.6)
+  - libwebp (0.3.0-rc7):
+    - libwebp/dec
+    - libwebp/dsp
+    - libwebp/utils
+    - libwebp/webp
+  - libwebp/dec (0.3.0-rc7)
+  - libwebp/dsp (0.3.0-rc7)
+  - libwebp/utils (0.3.0-rc7)
+  - libwebp/webp (0.3.0-rc7)
+  - NSData+Base64 (1.0.0)
+  - Reachability (3.1.1)
+  - RestKit/Core (0.10.1)
+  - RestKit/JSON (0.10.1):
+    - RestKit/Core
+    - RestKit/Network
+    - RestKit/ObjectMapping/Core
+    - RestKit/ObjectMapping/CoreData
+    - RestKit/ObjectMapping/JSON
+    - RestKit/UI
+  - RestKit/Network (0.10.1):
+    - cocoa-oauth
+    - FileMD5Hash
+    - LibComponentLogging-NSLog (>= 1.0.4)
+    - SOCKit
+  - RestKit/ObjectMapping/Core (0.10.1):
+    - ISO8601DateFormatter (>= 0.6)
+    - RestKit/Network
+  - RestKit/ObjectMapping/CoreData (0.10.1):
+    - ISO8601DateFormatter (>= 0.6)
+    - RestKit/Network
+  - RestKit/ObjectMapping/JSON (0.10.1):
+    - ISO8601DateFormatter (>= 0.6)
+    - JSONKit (>= 1.5pre)
+    - RestKit/Network
+  - RestKit/ObjectMapping/XML (0.10.1):
+    - ISO8601DateFormatter (>= 0.6)
+    - RestKit/Network
+  - RestKit/UI (0.10.1)
+  - RestKit/XML (0.10.1):
+    - RestKit/Core
+    - RestKit/Network
+    - RestKit/ObjectMapping/Core
+    - RestKit/ObjectMapping/CoreData
+    - RestKit/ObjectMapping/XML
+    - RestKit/UI
+  - SDWebImage (3.4):
+    - libwebp
+    - SDWebImage/MapKit
+  - SDWebImage/MapKit (3.4):
+    - libwebp
+  - ShareKit/Core (2.0):
+    - Reachability
+    - SSKeychain
+  - ShareKit/Facebook (2.0):
+    - Facebook-iOS-SDK (~> 3.1)
+    - Reachability
+    - ShareKit/Core
+    - SSKeychain
+  - ShareKit/Twitter (2.0):
+    - JSONKit
+    - Reachability
+    - ShareKit/Core
+    - SSKeychain
+  - SOCKit (1.1)
+  - SSKeychain (1.2.0)
+  - SVProgressHUD (0.9)
+  - TestFlightSDK (2.0)
+  - TUSafariActivity (0.0.1)
 
 DEPENDENCIES:
-- Facebook-iOS-SDK (~> 3.1)
-- GoogleAnalytics-iOS-SDK (~> 2.0beta4)
-- RestKit/JSON (from `https://github.com/Javache/RestKit.git')
-- RestKit/XML (from `https://github.com/Javache/RestKit.git')
-- SDWebImage (~> 2.7)
-- SVProgressHUD (~> 0.9)
-- ShareKit/Facebook (from `External/ShareKit.podspec')
-- ShareKit/Twitter (from `External/ShareKit.podspec')
-- TUSafariActivity (from `External/TUSafariActivity.podspec')
-- TestFlightSDK (~> 1.2)
+  - Facebook-iOS-SDK (~> 3.7)
+  - GoogleAnalytics-iOS-SDK (~> 3.0)
+  - RestKit/JSON (from `https://github.com/Javache/RestKit.git`)
+  - RestKit/XML (from `https://github.com/Javache/RestKit.git`)
+  - SDWebImage (~> 3.4)
+  - ShareKit/Facebook (from `External/ShareKit.podspec`)
+  - ShareKit/Twitter (from `External/ShareKit.podspec`)
+  - SVProgressHUD (~> 0.9)
+  - TestFlightSDK (~> 2.0)
+  - TUSafariActivity (from `External/TUSafariActivity.podspec`)
 
 EXTERNAL SOURCES:
-  RestKit/JSON:
+  RestKit:
     :git: https://github.com/Javache/RestKit.git
-  RestKit/XML:
-    :git: https://github.com/Javache/RestKit.git
-  ShareKit/Facebook:
-    :podspec: External/ShareKit.podspec
-  ShareKit/Twitter:
+  ShareKit:
     :podspec: External/ShareKit.podspec
   TUSafariActivity:
     :podspec: External/TUSafariActivity.podspec
 
 SPEC CHECKSUMS:
-  Facebook-iOS-SDK: a9893c9ad7cf2ce35cb6297e2859eaee654bd6b0
+  cocoa-oauth: 8f4c8b77c77ac660de37f8125557c4ec09b0118a
+  Facebook-iOS-SDK: 39b55f6c2a8901df8ebcfa23b90c66da1c475f82
   FileMD5Hash: c3b015e6fb293eea0a0c276747f61f20408c2644
-  GoogleAnalytics-iOS-SDK: 11332eedcffb0c88b2dd9bff0ac1444e3a85e890
-  ISO8601DateFormatter: dc05a2481edf49668d85d3ff8c466c32eb544780
-  JSONKit: 3d4708953ea7ae399a49777372d8b060a43ddd27
+  GoogleAnalytics-iOS-SDK: f8d5faf4862b679667be0c270531a189572275d1
+  ISO8601DateFormatter: 077ce9d8cfba171bc1ced6cba0d2ae4aefab7619
+  JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
   LibComponentLogging-Core: 344f6045453ca28fa8f2909eb9624ec9d15ef256
   LibComponentLogging-NSLog: a4bb0f6de612eef7b5fcdbd9cc96dc868ba1f2df
-  NSData+Base64: 8b910cb8a64f45daec6fb15936c36a9a911c57ca
-  Reachability: 1c8584c5f26fa776695efef95caaa50402c94cfb
-  RestKit/JSON: 43c924173fb1d99a670ce43903dcc793048d7fa3
-  RestKit/Network: 43c924173fb1d99a670ce43903dcc793048d7fa3
-  RestKit/ObjectMapping/CoreData: 43c924173fb1d99a670ce43903dcc793048d7fa3
-  RestKit/ObjectMapping/JSON: 43c924173fb1d99a670ce43903dcc793048d7fa3
-  RestKit/ObjectMapping/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
-  RestKit/UI: 43c924173fb1d99a670ce43903dcc793048d7fa3
-  RestKit/XML: 43c924173fb1d99a670ce43903dcc793048d7fa3
-  SDWebImage: c3306b8c68f3569f5c676d585ad77393255887dd
-  SDWebImage/Main: c3306b8c68f3569f5c676d585ad77393255887dd
-  SOCKit: ed67aeeca4a697b63a933229e53f4670d5b9300f
-  SSKeychain: ffa1a79eb716d9ed1ca184fb0cf218087ca28486
-  SVProgressHUD: 98935fbafaf0031df4a9cafca3c66eaf3da06967
-  ShareKit/Facebook: c999dfae0ced83b0f64796724b43711ede9257c3
-  ShareKit/Twitter: c999dfae0ced83b0f64796724b43711ede9257c3
+  libwebp: 40517fa1fd3716eded73b4696c45fc0b66e4b414
+  NSData+Base64: 36c4e5b6479259c1a68866ccd2a8dd385c9744f7
+  Reachability: 2be6bc2fd2bd31d97f5db33e75e4b29c79e95883
+  RestKit: 8e3eb52ac533599abf511450d8778e7480b95c5c
+  SDWebImage: f13f791e411c632489824aa7f129e230b52bf5c4
+  ShareKit: 4fc5db881e3703e7e91c5838c23bcd13ca0c1b54
+  SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
+  SSKeychain: 2fe90c92034129d9615a508529b601a520f297d1
+  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
+  TestFlightSDK: 940906d4b2550cf397c6f2d2fcc4ebfdcd8ae858
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
-  TestFlightSDK: aeec97fd81096753d53b942f030a443520a087f4
-  cocoa-oauth: 8f4c8b77c77ac660de37f8125557c4ec09b0118a
 
-COCOAPODS: 0.16.3
+COCOAPODS: 0.23.0
