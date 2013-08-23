@@ -41,6 +41,12 @@
 @end
 #endif
 
+@interface RNDateFormatter: NSDateFormatter
+
++ (RNDateFormatter*) sharedDateFormatter;
+
+@end
+
 @interface RNCachedData : NSObject <NSCoding>
 @property (nonatomic, readwrite, strong) NSData *data;
 @property (nonatomic, readwrite, strong) NSURLResponse *response;
@@ -200,11 +206,10 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
     // Check if there is already a cached-file, and when it was last modified
     RNCachedData *cache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cachePathForRequest:[self request]]];
     if (cache){
-        NSString* downloaded = [[(NSHTTPURLResponse*)[cache response] allHeaderFields] objectForKey:@"Date"];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter  setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss zzz"];
-        NSDate *download_date = [formatter dateFromString:downloaded];
-        if ( [download_date timeIntervalSinceNow] < kRNCacheInterval){
+        NSString* string_date = [[(NSHTTPURLResponse*)[cache response] allHeaderFields] objectForKey:@"Date"];
+
+        NSDate *date = [[RNDateFormatter sharedDateFormatter] dateFromString:string_date];
+        if ( [date timeIntervalSinceNow] < kRNCacheInterval){
             return true;
         }
     }
@@ -221,6 +226,27 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
   }
 }
 
+@end
+
+@implementation RNDateFormatter
+
++ (RNDateFormatter*) sharedDateFormatter
+{
+    static RNDateFormatter *sharedInstance;
+    if (!sharedInstance){
+        sharedInstance = [[RNDateFormatter alloc] init];
+    }
+    return sharedInstance;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss zzz"];
+    }
+    return self;
+}
 @end
 
 static NSString *const kDataKey = @"data";

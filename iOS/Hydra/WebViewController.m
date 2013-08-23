@@ -56,4 +56,8 @@
     return NO;
 }
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self.webView loadHTMLString:[error localizedDescription] baseURL:nil];
+}
 @end
