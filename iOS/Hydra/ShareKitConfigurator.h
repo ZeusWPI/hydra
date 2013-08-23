@@ -6,7 +6,8 @@
 //  Copyright (c) 2013 Zeus WPI. All rights reserved.
 //
 
-#import <ShareKit/SHK.h>
+#import <ShareKit/ShareKit.h>
+#import <ShareKit/DefaultSHKConfigurator.h>
 
 @interface ShareKitConfigurator : DefaultSHKConfigurator
 

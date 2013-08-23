@@ -19,7 +19,6 @@ PODS:
   - libwebp/utils (0.3.0-rc7)
   - libwebp/webp (0.3.0-rc7)
   - NSData+Base64 (1.0.0)
-  - Reachability (3.1.1)
   - RestKit/Core (0.10.1)
   - RestKit/JSON (0.10.1):
     - RestKit/Core
@@ -59,21 +58,16 @@ PODS:
     - SDWebImage/MapKit
   - SDWebImage/MapKit (3.4):
     - libwebp
-  - ShareKit/Core (2.0):
-    - Reachability
-    - SSKeychain
-  - ShareKit/Facebook (2.0):
-    - Facebook-iOS-SDK (~> 3.1)
-    - Reachability
+  - ShareKit/Core (2.3.1):
+    - SSKeychain (= 0.2.1)
+  - ShareKit/Facebook (2.3.1):
+    - Facebook-iOS-SDK (~> 3.5)
     - ShareKit/Core
-    - SSKeychain
-  - ShareKit/Twitter (2.0):
-    - JSONKit
-    - Reachability
+  - ShareKit/Twitter (2.3.1):
+    - JSONKit (~> 1.4)
     - ShareKit/Core
-    - SSKeychain
   - SOCKit (1.1)
-  - SSKeychain (1.2.0)
+  - SSKeychain (0.2.1)
   - SVProgressHUD (0.9)
   - TestFlightSDK (2.0)
   - TUSafariActivity (0.0.1)
@@ -84,8 +78,8 @@ DEPENDENCIES:
   - RestKit/JSON (from `https://github.com/Javache/RestKit.git`)
   - RestKit/XML (from `https://github.com/Javache/RestKit.git`)
   - SDWebImage (~> 3.4)
-  - ShareKit/Facebook (from `External/ShareKit.podspec`)
-  - ShareKit/Twitter (from `External/ShareKit.podspec`)
+  - ShareKit/Facebook (~> 2.3)
+  - ShareKit/Twitter (~> 2.3)
   - SVProgressHUD (~> 0.9)
   - TestFlightSDK (~> 2.0)
   - TUSafariActivity (from `External/TUSafariActivity.podspec`)
@@ -93,8 +87,6 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   RestKit:
     :git: https://github.com/Javache/RestKit.git
-  ShareKit:
-    :podspec: External/ShareKit.podspec
   TUSafariActivity:
     :podspec: External/TUSafariActivity.podspec
 
@@ -109,12 +101,11 @@ SPEC CHECKSUMS:
   LibComponentLogging-NSLog: a4bb0f6de612eef7b5fcdbd9cc96dc868ba1f2df
   libwebp: 40517fa1fd3716eded73b4696c45fc0b66e4b414
   NSData+Base64: 36c4e5b6479259c1a68866ccd2a8dd385c9744f7
-  Reachability: 2be6bc2fd2bd31d97f5db33e75e4b29c79e95883
   RestKit: 8e3eb52ac533599abf511450d8778e7480b95c5c
   SDWebImage: f13f791e411c632489824aa7f129e230b52bf5c4
-  ShareKit: 4fc5db881e3703e7e91c5838c23bcd13ca0c1b54
+  ShareKit: d33d7a36ecc08e5c2fe4ef9c8dfcb0ada1e659a0
   SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
-  SSKeychain: 2fe90c92034129d9615a508529b601a520f297d1
+  SSKeychain: ffa1a79eb716d9ed1ca184fb0cf218087ca28486
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   TestFlightSDK: 940906d4b2550cf397c6f2d2fcc4ebfdcd8ae858
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b

@@ -13,7 +13,7 @@
 #import "FacebookSession.h"
 
 #import <RestKit/RestKit.h>
-#import <ShareKit/SHK.h>
+#import <ShareKit/ShareKit.h>
 #import <ShareKit/SHKConfiguration.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <GAIDictionaryBuilder.h>

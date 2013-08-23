@@ -8,7 +8,7 @@
 
 #import "SchamperDetailViewController.h"
 #import "NSDateFormatter+AppLocale.h"
-#import <ShareKit/SHK.h>
+#import <ShareKit/ShareKit.h>
 #import <TUSafariActivity.h>
 
 @interface SchamperDetailViewController () <UIGestureRecognizerDelegate, UIScrollViewDelegate>
