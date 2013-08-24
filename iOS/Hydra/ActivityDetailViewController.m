@@ -98,7 +98,7 @@
     [super viewDidAppear:animated];
     GAI_Track([@"Activity > " stringByAppendingString:self.activity.title]);
 
-    if (self.activity.facebookEvent.valid) {
+    if (self.activity.facebookEvent) {
         FacebookSession *session = [FacebookSession sharedSession];
         PreferencesService *prefs = [PreferencesService sharedService];
         if (!session.open && !prefs.shownFacebookPrompt){
