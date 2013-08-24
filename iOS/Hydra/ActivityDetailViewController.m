@@ -15,6 +15,7 @@
 #import "CustomTableViewCell.h"
 #import "FacebookSession.h"
 #import "PreferencesService.h"
+#import "ActivityMapViewController.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <EventKit/EventKit.h>
@@ -595,6 +596,9 @@
             MKMapItem *destination =  [[MKMapItem alloc] initWithPlacemark:placeMark];
             destination.name = self.activity.location;
 
+            UIViewController *c = [[ActivityMapViewController alloc] initWithMapItem:destination];
+            [self.navigationController pushViewController:c animated:YES];
+            return;
             // Use native maps on iOS6 or open Google Maps on iOS5
             if ([destination respondsToSelector:@selector(openInMapsWithLaunchOptions:)]) {
                 [destination openInMapsWithLaunchOptions:nil];
