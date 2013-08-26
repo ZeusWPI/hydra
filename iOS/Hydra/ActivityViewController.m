@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSArray *oldDays;
 @property (nonatomic, strong) NSDictionary *oldData;
 @property (nonatomic, assign) NSUInteger count;
+@property (nonatomic, assign) NSUInteger previousSearchLength;
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIPickerView *datePicker;
@@ -303,6 +304,7 @@
 {
     self.data = self.oldData;
     self.days = self.oldDays;
+    self.previousSearchLength = 0;
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -317,8 +319,16 @@
     if (searchString.length == 0) {
         self.days = self.oldDays;
         self.data = self.oldData;
+        self.previousSearchLength = 0;
     }
     else {
+        if (self.previousSearchLength > searchString.length){
+            self.days = self.oldDays;
+            self.data = self.oldData;
+        }
+        
+        self.previousSearchLength = searchString.length;
+        
         NSMutableArray *filteredDays = [[NSMutableArray alloc] init];
         NSMutableDictionary *filteredData = [[NSMutableDictionary alloc] init];
         
