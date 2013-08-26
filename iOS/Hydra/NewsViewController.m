@@ -109,7 +109,6 @@
         dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
         dateFormatter.dateFormat = @"EE d MMM";
     }
-    NSLog(@"Read: %@", newsItem.read ? @"Yes":@"No");
     NSString *detailText = [NSString stringWithFormat:@"%@, %@", [dateFormatter stringFromDate:newsItem.date], association.displayName];
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
