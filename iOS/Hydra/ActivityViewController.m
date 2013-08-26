@@ -327,7 +327,7 @@
             NSMutableArray *filteredActivities = [[NSMutableArray alloc] init];
             for (AssociationActivity *activity in activities) {
                 NSRange title = [activity.title rangeOfString:searchString options:NSCaseInsensitiveSearch];
-                NSRange org = [activity.title rangeOfString:searchString options:NSCaseInsensitiveSearch];
+                NSRange org = [activity.association.fullName rangeOfString:searchString options:NSCaseInsensitiveSearch];
                 if (title.location != NSNotFound || org.location != NSNotFound) {
                     [filteredActivities addObject:activity];
                 }
