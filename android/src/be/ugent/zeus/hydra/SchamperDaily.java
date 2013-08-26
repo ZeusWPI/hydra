@@ -97,7 +97,6 @@ public class SchamperDaily extends AbstractSherlockListActivity implements PullT
 
         // Launch a new activity
         Intent intent = new Intent(this, SchamperDailyItem.class);
-        intent.putExtra("class", this.getClass().getCanonicalName());
         intent.putExtra("item", item);
         startActivity(intent);
     }

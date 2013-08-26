@@ -83,7 +83,6 @@ public class Info extends AbstractSherlockListActivity {
             NSArrayWrapper wrapper = new NSArrayWrapper((NSArray) action);
 
             Intent intent = new Intent(this, Info.class);
-            intent.putExtra("class", this.getClass().getCanonicalName());
             intent.putExtra("tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
             intent.putExtra("content", wrapper);
             startActivity(intent);
@@ -101,7 +100,6 @@ public class Info extends AbstractSherlockListActivity {
             startActivity(intent);
         } else if ((action = item.objectForKey("html")) != null) {
             Intent intent = new Intent(this, InfoWebActivity.class);
-            intent.putExtra("class", this.getClass().getCanonicalName());
 
             EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking") + " > " + item.objectForKey("title"));
             Log.i("Tracking", getIntent().getStringExtra("tracking") + " > " + item.objectForKey("title"));

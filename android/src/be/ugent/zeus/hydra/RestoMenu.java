@@ -214,7 +214,6 @@ public class RestoMenu extends AbstractSherlockActivity {
                 return true;
             case R.id.show_map:
                 Intent intent = new Intent(this, BuildingMap.class);
-                intent.putExtra("class", this.getClass().getCanonicalName());
                 startActivity(intent);
                 return true;
             default:
