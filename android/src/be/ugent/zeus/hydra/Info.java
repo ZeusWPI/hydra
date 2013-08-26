@@ -9,11 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-import be.ugent.zeus.hydra.R;
-import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.ui.info.InfoList;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.dd.plist.BinaryPropertyListParser;
 import com.dd.plist.BinaryPropertyListWriter;
 import com.dd.plist.NSArray;
@@ -22,7 +18,6 @@ import com.dd.plist.NSObject;
 import com.dd.plist.NSString;
 import com.dd.plist.XMLPropertyListParser;
 import com.google.analytics.tracking.android.EasyTracker;
-import com.google.analytics.tracking.android.GoogleAnalytics;
 
 /**
  *

@@ -1,7 +1,6 @@
 package be.ugent.zeus.hydra.data.caches;
 
 import android.util.Log;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

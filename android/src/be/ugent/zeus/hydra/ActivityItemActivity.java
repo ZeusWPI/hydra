@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.Activity;
-import be.ugent.zeus.hydra.util.facebook.RequestBuilder;
 import be.ugent.zeus.hydra.util.facebook.event.data.AttendingStatus;
 import be.ugent.zeus.hydra.util.facebook.event.tasks.AsyncComingGetter;
 import be.ugent.zeus.hydra.util.facebook.event.tasks.AsyncComingSetter;

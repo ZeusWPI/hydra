@@ -5,12 +5,10 @@
  */
 package be.ugent.zeus.hydra.util.facebook.event.tasks;
 
-import android.R;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
 import be.ugent.zeus.hydra.util.facebook.RequestBuilder;
 import be.ugent.zeus.hydra.util.facebook.event.data.AttendingStatus;
 import com.facebook.Request;

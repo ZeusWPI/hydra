@@ -3,19 +3,12 @@ package be.ugent.zeus.hydra.data.services;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.util.Log;
 import be.ugent.zeus.hydra.Hydra;
 import be.ugent.zeus.hydra.data.Activity;
-import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.caches.ActivityCache;
-import be.ugent.zeus.hydra.data.caches.NewsCache;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import org.json.JSONArray;
 
 /**

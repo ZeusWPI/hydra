@@ -9,8 +9,6 @@ package be.ugent.zeus.hydra;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 import be.ugent.zeus.hydra.settings.Settings;
 import com.actionbarsherlock.view.MenuItem;
 

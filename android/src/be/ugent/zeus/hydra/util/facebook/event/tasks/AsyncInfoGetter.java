@@ -8,7 +8,6 @@ package be.ugent.zeus.hydra.util.facebook.event.tasks;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.util.facebook.RequestBuilder;

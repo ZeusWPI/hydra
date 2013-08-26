@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import be.ugent.zeus.hydra.data.rss.Item;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.analytics.tracking.android.EasyTracker;

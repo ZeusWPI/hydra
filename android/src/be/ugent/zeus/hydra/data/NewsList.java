@@ -1,9 +1,7 @@
 package be.ugent.zeus.hydra.data;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Html;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

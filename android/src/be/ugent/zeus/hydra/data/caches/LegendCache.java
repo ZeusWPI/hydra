@@ -6,7 +6,6 @@
 package be.ugent.zeus.hydra.data.caches;
 
 import android.content.Context;
-import be.ugent.zeus.hydra.data.NewsItem;
 import be.ugent.zeus.hydra.data.RestoLegend;
 import java.io.File;
 import java.util.ArrayList;
