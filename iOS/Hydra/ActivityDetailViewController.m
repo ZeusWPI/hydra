@@ -598,16 +598,6 @@
 
             UIViewController *c = [[ActivityMapViewController alloc] initWithMapItem:destination];
             [self.navigationController pushViewController:c animated:YES];
-            return;
-            // Use native maps on iOS6 or open Google Maps on iOS5
-            if ([destination respondsToSelector:@selector(openInMapsWithLaunchOptions:)]) {
-                [destination openInMapsWithLaunchOptions:nil];
-            }
-            else {
-                NSString *url = [NSString stringWithFormat: @"http://maps.apple.com/maps?ll=%f,%f",
-                                 self.activity.latitude, self.activity.longitude];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-            }
         }
     }
 }

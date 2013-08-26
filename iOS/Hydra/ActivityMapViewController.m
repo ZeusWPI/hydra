@@ -98,12 +98,12 @@
                                                                   target:self action:@selector(menuButtonTapped:)];
     self.navigationItem.rightBarButtonItem = menuButton;
 
-    // Load map information and set initial map view
-    [self resetMapViewRect];
-
     //Add annotation
     ActivityMapPin *pin = [[ActivityMapPin alloc]initWithCoordinates:self.activityLocation.placemark.coordinate placeName:self.activityLocation.name];
     [self.mapView addAnnotation:pin];
+
+    // Load map information and set initial map view
+    [self resetMapViewRect];
     
     // Only do this after the annotations have been added
     self.mapView.showsUserLocation = YES;
@@ -191,13 +191,13 @@
 - (void)resetMapViewRect
 {
     // Center again arround the venue location
-    MKMapRect defaultRect = MKMapRectInset([self mapRectOfInterest], 0,0);
+    MKMapRect defaultRect = [self mapRectOfInterest];
 
     MKMapRect userRect;
     if ([CLLocationManager locationServicesEnabled]){
         MKMapPoint userPoint = MKMapPointForCoordinate(self.lastLocation.coordinate);
         userRect = MKMapRectMake(userPoint.x, userPoint.y, 0, 0);
-        NSLog(@"Userrect is null");
+    }else {
         CLLocationCoordinate2D ghent = CLLocationCoordinate2DMake(51.0500, 3.7333);
         MKMapPoint ghentPoint = MKMapPointForCoordinate(ghent);
         userRect = MKMapRectMake(ghentPoint.x, ghentPoint.y, 2*kRectOfInterestMargin, 2*kRectOfInterestMargin);
@@ -280,7 +280,6 @@
 
 - (void)trackUser:(BOOL)track
 {
-    NSLog(@"%@ tracking user",track?@"Start":@"Stop");
     if ([self.mapView respondsToSelector:@selector(setUserTrackingMode:)]) {
         MKUserTrackingMode newMode = track ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
         [self.mapView setUserTrackingMode:newMode animated:YES];
