@@ -21,7 +21,7 @@ public class Hydra extends AbstractSherlockActivity {
 
 //    ZubhiumSDK sdk;
     public static final Locale LOCALE = new Locale("nl", "BE");
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     private static final boolean BETA = false;
     public static boolean SHOWED_NETWORK = false;
 
