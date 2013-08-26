@@ -24,6 +24,7 @@ public class InfoWebActivity extends AbstractSherlockActivity {
         WebView view = (WebView) findViewById(R.id.webview);
         view.getSettings().setLoadWithOverviewMode(true);
         view.getSettings().setUseWideViewPort(true);
+        view.getSettings().setJavaScriptEnabled(true);
         view.loadDataWithBaseURL("file:///android_asset/", page, "text/html", "utf8", null);
     }
 
