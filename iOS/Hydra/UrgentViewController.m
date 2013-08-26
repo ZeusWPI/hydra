@@ -9,6 +9,7 @@
 #import "UrgentViewController.h"
 #import "UrgentPlayer.h"
 #import "MarqueeLabel.h"
+#import <ShareKit/ShareKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MessageUI/MessageUI.h>
 
@@ -60,6 +61,11 @@
 
     // Initialize state
     [self playerStatusChanged:nil];
+
+    // Add share button
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                         target:self action:@selector(shareButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = btn;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -137,6 +143,49 @@
           didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)shareButtonTapped:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:@"http://www.urgent.fm"];
+    NSString *message =[self createShareMessage];
+    // Available since iOS6
+    if ([UIActivityViewController class]) {
+        NSArray *items = @[ message, url ];
+
+        UIActivityViewController *c = [[UIActivityViewController alloc] initWithActivityItems:items
+                                                                        applicationActivities:@[]];
+        [self presentViewController:c animated:YES completion:NULL];
+    }
+    else {
+        // Create the item to share
+        SHKItem *item = [SHKItem URL:url title:message contentType:SHKURLContentTypeUndefined];
+
+        // Get the ShareKit action sheet
+        SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+
+        // Display the action sheet
+        [actionSheet showFromToolbar:self.navigationController.toolbar];
+    }
+}
+
+- (NSString*)createShareMessage
+{
+    NSString *string = @"Beluister urgent.fm";
+    if ([[UrgentPlayer sharedPlayer] isPlaying]){
+        NSString *show = [[UrgentPlayer sharedPlayer] currentShow];
+        NSString *song = [[UrgentPlayer sharedPlayer] currentSong];
+        if (show.length > 0){
+            if (song.length){
+                string = [NSString stringWithFormat:@"Aan het luisteren naar %@ op %@", song, show];
+            }else {
+                string = [NSString stringWithFormat:@"Aan het luisteren naar %@", show];
+            }
+        }else if (song.length > 0){
+            string = [NSString stringWithFormat:@"Aan het luisteren naar %@", song];
+        }
+    }
+    return string;
 }
 
 #pragma mark - Listeners
