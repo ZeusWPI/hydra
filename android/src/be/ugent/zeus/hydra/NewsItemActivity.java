@@ -2,16 +2,12 @@ package be.ugent.zeus.hydra;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.NewsItem;
 import com.google.analytics.tracking.android.EasyTracker;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  *
@@ -46,7 +42,7 @@ public class NewsItemActivity extends AbstractSherlockActivity {
         }
 
         String datum =
-            new SimpleDateFormat("dd MMMM yyyy 'om' HH:mm", Hydra.LOCALE).format(item.dateDate);
+            new SimpleDateFormat("EEE dd MMMM yyyy 'om' HH:mm", Hydra.LOCALE).format(item.dateDate);
 
         association.setText(String.format(postedBy, datum, Html.fromHtml(poster)));
 

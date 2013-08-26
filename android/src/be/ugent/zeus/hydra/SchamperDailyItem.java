@@ -36,7 +36,7 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
         this.url = item.link;
 
         String date = String.format(
-            new SimpleDateFormat("dd MMMM yyyy 'om' HH:mm", Hydra.LOCALE).format(item.pubDate));
+            new SimpleDateFormat("EEE dd MMMM yyyy 'om' HH:mm", Hydra.LOCALE).format(item.pubDate));
 
         String html =
             "<head>"
