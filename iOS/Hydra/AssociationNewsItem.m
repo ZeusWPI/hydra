@@ -35,6 +35,7 @@
         self.date = [coder decodeObjectForKey:@"date"];
         self.content = [coder decodeObjectForKey:@"content"];
         self.highlighted = [coder decodeBoolForKey:@"highlighted"];
+        self.read = [coder decodeBoolForKey:@"read"];
     }
     return self;
 }
@@ -46,6 +47,7 @@
     [coder encodeObject:self.date forKey:@"date"];
     [coder encodeObject:self.content forKey:@"content"];
     [coder encodeBool:self.highlighted forKey:@"highlighted"];
+    [coder encodeBool:self.read forKey:@"read"];
 }
 
 @end

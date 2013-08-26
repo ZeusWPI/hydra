@@ -234,6 +234,13 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
     // Received some NewsItems
     if ([objectLoader.resourcePath isEqualToString:kNewsResource]) {
+        for (AssociationNewsItem *newNewsItem in objects){
+            for (AssociationNewsItem *newsItem in self.newsItems){
+                if ([newNewsItem.date isEqual:newsItem.date]){
+                    newNewsItem.read = newsItem.read;
+                }
+            }
+        }
         self.newsItems = objects;
         self.newsLastUpdated = [NSDate date];
         notification = AssociationStoreDidUpdateNewsNotification;

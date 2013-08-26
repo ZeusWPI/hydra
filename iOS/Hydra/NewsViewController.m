@@ -109,19 +109,28 @@
         dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
         dateFormatter.dateFormat = @"EE d MMM";
     }
-
+    NSLog(@"Read: %@", newsItem.read ? @"Yes":@"No");
     NSString *detailText = [NSString stringWithFormat:@"%@, %@", [dateFormatter stringFromDate:newsItem.date], association.displayName];
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
 
+    // temporary, working with checkmarks
+    if (!newsItem.read){
+        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    }else {
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+    }
+
     if (newsItem.highlighted) {
         UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-star"]];
         cell.accessoryView = star;
+        // temporary unread fix because checkmarks on the same place
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", !newsItem.read ? @"Ong " : @"", cell.detailTextLabel.text];
     }
     else {
         cell.accessoryView = nil;
     }
-    
+
     return cell;
 }
 
@@ -171,6 +180,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AssociationNewsItem *item = self.newsItems[indexPath.row];
+    if (!item.read){
+        item.read = YES;
+        [self.tableView reloadData];
+    }
     NewsDetailViewController *c = [[NewsDetailViewController alloc] initWithNewsItem:item];
     [self.navigationController pushViewController:c animated:YES];
 }
