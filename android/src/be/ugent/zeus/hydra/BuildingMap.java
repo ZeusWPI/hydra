@@ -1,16 +1,13 @@
 package be.ugent.zeus.hydra;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -36,37 +33,6 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
         markerMap = new HashMap<String, Marker>();
 
         setUpMapIfNeeded();
-
-        handleIntent(getIntent());
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        setIntent(intent);
-        handleIntent(intent);
-    }
-
-    private void handleIntent(Intent intent) {
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            doSearch(query);
-        }
-    }
-
-    private void doSearch(String queryStr) {
-        if (markerMap.containsKey(queryStr)) {
-            Marker foundMarker = markerMap.get(queryStr);
-            updateMarkerDistance(foundMarker);
-            foundMarker.showInfoWindow();
-            map.moveCamera(CameraUpdateFactory.newLatLng(foundMarker.getPosition()));
-
-        } else {
-            this.runOnUiThread(new Runnable() {
-                public void run() {
-                    Toast.makeText(BuildingMap.this, R.string.no_restos_found, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
     }
 
     private void setUpMapIfNeeded() {
