@@ -58,7 +58,7 @@
         // TODO: create IBOutlet for this
         UIView *headerView = self.view.subviews[0];
         CGRect headerFrame = headerView.frame;
-        headerFrame.size.height -= 20;
+        headerFrame.size.height -= 10;
         headerView.frame = headerFrame;
     }
 #endif
