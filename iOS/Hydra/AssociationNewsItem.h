@@ -12,6 +12,7 @@
 
 @interface AssociationNewsItem : NSObject <NSCoding>
 
+@property (nonatomic, assign) NSInteger itemID;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) Association *association;
 @property (nonatomic, strong) NSDate *date;

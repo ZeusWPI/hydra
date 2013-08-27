@@ -21,6 +21,7 @@
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
     [objectMapping mapAttributes:@"title", @"date", @"content", @"highlighted", nil];
+    [objectMapping mapKeyPath:@"id" toAttribute:@"itemID"];
     [objectMapping mapRelationship:@"association" withMapping:[Association objectMapping]];
     return objectMapping;
 }
@@ -30,6 +31,7 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super init]) {
+        self.itemID = [coder decodeIntegerForKey:@"itemID"];
         self.title = [coder decodeObjectForKey:@"title"];
         self.association = [coder decodeObjectForKey:@"association"];
         self.date = [coder decodeObjectForKey:@"date"];
@@ -42,6 +44,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
+    [coder encodeInteger:self.itemID forKey:@"itemID"];
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeObject:self.association forKey:@"association"];
     [coder encodeObject:self.date forKey:@"date"];

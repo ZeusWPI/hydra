@@ -234,10 +234,21 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
     // Received some NewsItems
     if ([objectLoader.resourcePath isEqualToString:kNewsResource]) {
+        NSInteger count = 0;
+        NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"itemID" ascending:NO];
+        objects = [objects sortedArrayUsingDescriptors:@[desc]];
+        _newsItems = [_newsItems sortedArrayUsingDescriptors:@[desc]];
         for (AssociationNewsItem *newNewsItem in objects){
-            for (AssociationNewsItem *newsItem in self.newsItems){
-                if ([newNewsItem.date isEqual:newsItem.date]){
+            for (NSInteger i = count; i < _newsItems.count; i++){
+                AssociationNewsItem *newsItem = _newsItems[i];
+                if (newNewsItem.itemID == newsItem.itemID){
                     newNewsItem.read = newsItem.read;
+                    count = i;
+                    break;
+                }
+                if (newNewsItem.itemID > newsItem.itemID){
+                    count = i - 1;
+                    break;
                 }
             }
         }

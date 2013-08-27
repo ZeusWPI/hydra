@@ -114,10 +114,10 @@
     cell.detailTextLabel.text = detailText;
 
     // temporary, working with checkmarks
-    if (!newsItem.read){
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    if (newsItem.read){
+        [cell.textLabel setFont:[UIFont systemFontOfSize:[UIFont labelFontSize]]];
     }else {
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        [cell.textLabel setFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]]];
     }
 
     if (newsItem.highlighted) {
