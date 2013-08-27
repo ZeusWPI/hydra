@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MapViewController.h"
 
-@interface RestoMapController : UIViewController
+@interface RestoMapController : MapViewController
 
 @end

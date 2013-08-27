@@ -13,6 +13,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MessageUI/MessageUI.h>
 
+#define UrgentSocialEnabled 0
+
 @interface UrgentViewController () <MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, unsafe_unretained) MarqueeLabel *showLabel;
@@ -44,6 +46,12 @@
 {
     [super viewDidLoad];
 
+#ifdef __IPHONE_7_0
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+#endif
+
     // Set state for highlighted|selected
     UIImage *selectedImage = [self.playButton imageForState:UIControlStateSelected];
     [self.playButton setImage:selectedImage forState:UIControlStateSelected|UIControlStateHighlighted];
@@ -63,10 +71,12 @@
     // Initialize state
     [self playerStatusChanged:nil];
 
+#if UrgentSocialEnabled
     // Add share button
     UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                          target:self action:@selector(shareButtonTapped:)];
     self.navigationItem.rightBarButtonItem = btn;
+#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -146,6 +156,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+#if UrgentSocialEnabled
 - (void)shareButtonTapped:(id)sender
 {
     NSURL *url = [NSURL URLWithString:@"http://www.urgent.fm"];
@@ -179,7 +190,8 @@
         if (show.length > 0){
             if (song.length){
                 string = [NSString stringWithFormat:@"Aan het luisteren naar %@ op %@", song, show];
-            }else {
+            }
+            else {
                 string = [NSString stringWithFormat:@"Aan het luisteren naar %@", show];
             }
         }else if (song.length > 0){
@@ -188,6 +200,7 @@
     }
     return string;
 }
+#endif
 
 #pragma mark - Listeners
 

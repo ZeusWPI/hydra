@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 
-#import "ActivityViewController.h"
+#import "ActivitiesController.h"
 #import "AssociationStore.h"
 #import "AssociationActivity.h"
 #import "Association.h"
 #import "NSDate+Utilities.h"
-#import "ActivityDetailViewController.h"
+#import "ActivityDetailController.h"
 #import "NSDateFormatter+AppLocale.h"
 #import "PreferencesService.h"
 #import <SVProgressHUD/SVProgressHUD.h>
@@ -19,7 +19,7 @@
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
 
-@interface ActivityViewController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSDictionary *data;
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation ActivityViewController
+@implementation ActivitiesController
 
 - (id)init
 {
@@ -272,7 +272,7 @@
 {
     NSDate *date = self.days[indexPath.section];
     AssociationActivity *activity = self.data[date][indexPath.row];
-    ActivityDetailViewController *detailViewController = [[ActivityDetailViewController alloc]
+    ActivityDetailController *detailViewController = [[ActivityDetailController alloc]
                                                           initWithActivity:activity delegate:self];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
