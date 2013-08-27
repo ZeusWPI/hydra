@@ -215,6 +215,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [app handleError:error];
 
+    // TODO: fake event so loader thingies disappear?
+
     // Only clear the request after 10 seconds, to prevent failed requests
     // restarting due to related succesful requests
     if (objectLoader) {

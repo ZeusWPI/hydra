@@ -60,6 +60,11 @@
     scrollView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
     scrollView.scrollIndicatorInsets = scrollView.contentInset;
 
+    // iOS7 layout
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    }
+
     // Recognize taps
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] init];
     tapRecognizer.delegate = self;
@@ -149,6 +154,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
     scrollView.contentInset = UIEdgeInsetsMake(hide ? 0 : 44, 0, 0, 0);
     scrollView.scrollIndicatorInsets = scrollView.contentInset;
+
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [[UIApplication sharedApplication] setStatusBarHidden:hide withAnimation:UIStatusBarAnimationSlide];
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

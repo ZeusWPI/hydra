@@ -48,12 +48,32 @@
     ];
     self.codeField = nil;
 #endif
+
+#ifdef __IPHONE_7_0
+    // iOS 7 layout
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+    else {
+        // TODO: create IBOutlet for this
+        UIView *headerView = self.view.subviews[0];
+        CGRect headerFrame = headerView.frame;
+        headerFrame.size.height -= 20;
+        headerView.frame = headerFrame;
+    }
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+
+#ifdef __IPHONE_7_0
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+#endif
 
 #if EasterEggEnabled
     [self configureMoveDetectionForMove:0];
@@ -70,6 +90,7 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

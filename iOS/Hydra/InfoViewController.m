@@ -87,10 +87,6 @@
     if(icon) {
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.imageView.image = icon;
-
-        // Add more padding to the images
-        cell.indentationLevel = 1;
-        cell.indentationWidth = 15;
     }
     else {
         cell.imageView.image = nil;

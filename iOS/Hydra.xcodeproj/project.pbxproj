@@ -821,11 +821,11 @@
 				F53A5E8216700B28009EA4CC /* ApplicationWithRemoteSupport.h */,
 				F53A5E8316700B28009EA4CC /* ApplicationWithRemoteSupport.m */,
 				F57CB9DB15B84C4E00D87CB3 /* Categories */,
+				F5EBF119159E04B500EB5D26 /* Controllers */,
 				3B059BF215B99B4800B4C1DA /* Custom views */,
 				F5EBF11F159E09C700EB5D26 /* Models */,
 				3B93FBA01630942500C962DC /* Services */,
 				F59CEE9716A189290038FD24 /* Social */,
-				F5EBF119159E04B500EB5D26 /* ViewControllers */,
 			);
 			path = Hydra;
 			sourceTree = "<group>";
@@ -881,7 +881,7 @@
 			path = External;
 			sourceTree = "<group>";
 		};
-		F5EBF119159E04B500EB5D26 /* ViewControllers */ = {
+		F5EBF119159E04B500EB5D26 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				F536359C16A69C86000A50C4 /* Activities */,
@@ -900,7 +900,7 @@
 				F50EE09415B5F587000F1992 /* WebViewController.h */,
 				F50EE09515B5F587000F1992 /* WebViewController.m */,
 			);
-			name = ViewControllers;
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		F5EBF11F159E09C700EB5D26 /* Models */ = {
@@ -973,6 +973,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Zeus WPI";
+				TargetAttributes = {
+					F5BAEC851518868200F6A1B1 = {
+						DevelopmentTeam = D38FNBFRY3;
+					};
+				};
 			};
 			buildConfigurationList = F5BAEC801518868100F6A1B1 /* Build configuration list for PBXProject "Hydra" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1300,7 +1305,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1312,7 +1316,7 @@
 				APPLY_RULES_IN_COPY_FILES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1322,7 +1326,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -1333,12 +1336,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24046D4357E2426386B31283 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME} β";
 				CUSTOM_IDENTIFIER_SUFFIX = "-dev";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				INFOPLIST_FILE = "Hydra-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1347,12 +1354,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24046D4357E2426386B31283 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME}";
 				CUSTOM_IDENTIFIER_SUFFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				INFOPLIST_FILE = "Hydra-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

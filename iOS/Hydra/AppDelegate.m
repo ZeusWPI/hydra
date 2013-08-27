@@ -67,6 +67,7 @@
     // Create and setup controllers
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
+    self.navController.view.backgroundColor = [UIColor hydraBackgroundColor];
     self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

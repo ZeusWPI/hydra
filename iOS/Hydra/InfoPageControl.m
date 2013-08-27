@@ -52,14 +52,15 @@
 
 - (void)updateCustomIndicator
 {
-    if (self.subviews.count > 0) {
+    // Does not work on iOS7
+    /*if (self.subviews.count > 0) {
         UIImageView *firstItem = self.subviews[0];
         firstItem.image = nil;
         firstItem.highlightedImage = nil;
 
         UILabel *label = (UILabel *)[firstItem viewWithTag:kInfoLabelTag];
         label.highlighted = (self.currentPage == 0);
-    }
+    }*/
 }
 
 @end

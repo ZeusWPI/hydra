@@ -56,6 +56,7 @@
     showLabel.font = [UIFont fontWithName:@"GillSans" size:14];
     showLabel.textColor = [UIColor colorWithWhite:0.533 alpha:1.000];
     showLabel.marqueeType = MLContinuous;
+    showLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:showLabel];
     self.showLabel = showLabel;
 
