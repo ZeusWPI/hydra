@@ -51,7 +51,7 @@ public class NewsIntentService extends HTTPIntentService {
             if (receiver != null) {
                 receiver.send(STATUS_FINISHED, Bundle.EMPTY);
             }
-            
+
         } catch (Exception e) {
             Log.e("[NewsIntentService]", "Exception:");
             e.printStackTrace();

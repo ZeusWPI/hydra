@@ -15,7 +15,7 @@ public enum AttendingStatus {
     DECLINED("declined","button_declined"),
     NOT_REPLIED("undecided","button_undecided"),
     UNSURE("maybe","button_maybe");
-    
+
     private String title;
     private String buttonTitle;
 
@@ -30,8 +30,8 @@ public enum AttendingStatus {
 
         return res.getString(resId);
     }
-    
-    
+
+
     public String toButtonString(Context context) {
         Resources res = context.getResources();
         int resId = res.getIdentifier(buttonTitle, "string", context.getPackageName());

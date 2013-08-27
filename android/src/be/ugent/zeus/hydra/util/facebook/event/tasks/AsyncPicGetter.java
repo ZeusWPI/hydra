@@ -41,7 +41,7 @@ public class AsyncPicGetter extends AsyncTask<Void, Void, Drawable> {
 
     @Override
     protected void onPostExecute(Drawable result) {
-        
+
         image.setImageDrawable(result);
     }
 }

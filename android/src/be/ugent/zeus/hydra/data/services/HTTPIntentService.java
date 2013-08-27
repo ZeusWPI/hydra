@@ -38,7 +38,7 @@ public abstract class HTTPIntentService extends IntentService {
         HttpGet request = new HttpGet(url);
 
         HttpResponse response = httpclient.execute(request);
-        
+
         return EntityUtils.toString(response.getEntity(), "UTF-8");
     }
 

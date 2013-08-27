@@ -253,7 +253,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             ((ViewManager) guestsBottomBorder.getParent()).removeView(guestsBottomBorder);
         } else {
             final Context context = this;
-            
+
             external.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = getOpenFacebookIntent(context, item.facebook_id);
@@ -298,7 +298,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             });
         }
     }
-    
+
     public static Intent getOpenFacebookIntent(Context context, String id) {
         try {
             context.getPackageManager().getPackageInfo("com.facebook.katana", 0);

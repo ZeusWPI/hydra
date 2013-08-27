@@ -52,9 +52,9 @@ public class AsyncInfoGetter extends AsyncTask<Void, Void, JSONObject> {
             return null;
         }
         GraphObject object = response.getGraphObject();
-        
+
         Log.e("FACEBOOK", response.toString());
-        
+
         JSONObject obj = null;
         try {
             obj = ((JSONArray) object.getProperty("data")).getJSONObject(0);

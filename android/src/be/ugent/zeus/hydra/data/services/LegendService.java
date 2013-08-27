@@ -18,12 +18,12 @@ import org.json.JSONObject;
  */
 public class LegendService extends HTTPIntentService {
 
-    
+
     public static final String FEED_NAME = "resto-legend-cache";
     public static final int REFRESH_TIME = 1000 * 60 * 60 * 24;
     private static final String RESTO_URL = "http://zeus.ugent.be/hydra/api/1.0/resto/meta.json";
     private LegendCache legendCache;
-    
+
     public LegendService() {
         super("LegendService");
     }
@@ -39,11 +39,11 @@ public class LegendService extends HTTPIntentService {
 
         try {
             JSONObject raw_data = new JSONObject(fetch(RESTO_URL));
-            
+
             ArrayList<RestoLegend> legendList = new ArrayList<RestoLegend>(Arrays.asList(parseJsonArray(new JSONArray(raw_data.getString("legend")), RestoLegend.class)));
 
             legendCache.put(FEED_NAME, legendList);
-            
+
         } catch (Exception e) {
             Log.e("[RestoService]", "An exception occured while parsing the json response! " + e.getMessage());
         }

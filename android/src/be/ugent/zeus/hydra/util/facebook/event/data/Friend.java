@@ -9,9 +9,9 @@ import android.graphics.drawable.Drawable;
 import java.io.Serializable;
 
 public class Friend implements Serializable {
-    
+
     public Drawable avatar;
     public String name;
     public String pic_square;
-    
+
 }

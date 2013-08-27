@@ -31,7 +31,7 @@ public class Info extends AbstractSherlockListActivity {
         setTitle(R.string.title_info);
 
         EasyTracker.getInstance().setContext(this);
-        
+
         NSArrayWrapper wrapper = (NSArrayWrapper) getIntent().getParcelableExtra("content");
         NSArray content;
         if (wrapper != null) {
@@ -84,7 +84,7 @@ public class Info extends AbstractSherlockListActivity {
 
         } else if ((action = item.objectForKey("url")) != null || (action = item.objectForKey("url-android")) != null) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(((NSString) action).toString()));
-            // Handle external activities as described in 
+            // Handle external activities as described in
             // http://developer.android.com/training/implementing-navigation/descendant.html#external-activities
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 

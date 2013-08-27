@@ -55,9 +55,9 @@ public class AsyncComingSetter extends AsyncTask<Void, Void, Void> {
             Log.e(RequestBuilder.TAG, response.getError().getErrorCode() + ": " + response.getError().getErrorMessage());
             return null;
         }
-        
+
         Log.i(RequestBuilder.TAG, "Response: " + response.toString());
-        
+
         return null;
     }
 

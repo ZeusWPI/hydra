@@ -1,7 +1,7 @@
 /**
  *
- * @author Tom Naessens 
- * Tom.Naessens@UGent.be 
+ * @author Tom Naessens
+ * Tom.Naessens@UGent.be
  * 3de Bachelor Informatica
  * Universiteit Gent
  *
@@ -16,5 +16,5 @@ public class Association implements Serializable {
     public String internal_name;
     public String full_name;
     public String display_name;
-        
+
 }

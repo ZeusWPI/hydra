@@ -27,7 +27,7 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
     public AssociationsFilterListAdapter(Context context, ArrayList<PreferenceAssociation> assocations) {
         inflater = LayoutInflater.from(context);
         this.assocations = assocations;
-        
+
          cache = AssociationsCache.getInstance(context);
     }
 
@@ -61,18 +61,18 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
                     CheckBox cb = (CheckBox) v;
                     PreferenceAssociation association = (PreferenceAssociation) cb.getTag();
                     association.setSelected(cb.isChecked());
-                    
+
                     HashSet<String> checked = cache.get("associations");;
                     if(checked == null) {
                         checked = new HashSet<String>();
                     }
-                    
+
                     if(cb.isChecked()) {
                         checked.add(association.getInternalName());
                     } else {
                         checked.remove(association.getInternalName());
                     }
-                    
+
                     cache.put("associations", checked);
                 }
             });
