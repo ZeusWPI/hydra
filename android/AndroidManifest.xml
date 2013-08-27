@@ -131,11 +131,10 @@
                   android:screenOrientation="portrait" >             
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Hydra" />   
-
+                android:value=".Hydra" />
         </activity>
         
-        <activity android:name=".BuildingMap"
+        <activity android:name=".RestoMap"
                   android:label="@string/resto_search_label"
                   android:launchMode="singleTop"
                   android:configChanges="screenSize|orientation" >
@@ -149,8 +148,7 @@
                 android:resource="@xml/resto_search" />            
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RestoMenu" />   
-
+                android:value=".RestoMenu" />
         </activity>
         
         <activity android:name=".RestoMenu"
