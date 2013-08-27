@@ -140,11 +140,8 @@
 
 - (void)resetMapViewRect
 {
-    NSLog(@"Reset: before mapRect: %@", MKStringFromMapRect(self.mapView.visibleMapRect));
     MKMapRect defaultRect = [self mapRectOfInterest];
-    NSLog(@"Reset: defaultRect: %@", MKStringFromMapRect(defaultRect));
     [self.mapView setVisibleMapRect:defaultRect animated:NO];
-    NSLog(@"Reset: after mapRect: %@", MKStringFromMapRect(self.mapView.visibleMapRect));
 }
 
 #pragma mark - Annotations
@@ -210,8 +207,6 @@
 
 - (void)trackButtonTapped:(UIButton *)sender
 {
-    //NSLog(@"Current mapRect: %@", MKStringFromMapRect(self.mapView.visibleMapRect));
-    //return;
     BOOL currentlyTracking = (self.mapView.userTrackingMode != MKUserTrackingModeNone);
     [self trackUser:!currentlyTracking];
 }
@@ -219,11 +214,6 @@
 - (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
 {
     self.trackButton.selected = (mode != MKUserTrackingModeNone);
-}
-
-- (void)mapViewWillStartLocatingUser:(MKMapView *)mapView
-{
-    NSLog(@"mapViewWillStartLocatingUser");
 }
 
 - (void)trackUser:(BOOL)track

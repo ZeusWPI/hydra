@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSArray *filteredMapItems;
 @property (nonatomic, strong) NSMutableDictionary *distances;
 
+@property (nonatomic, assign) BOOL endingSearch;
+
 @end
 
 @implementation RestoMapController
@@ -54,9 +56,6 @@
     self.searchController.delegate = self;
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
-
-    // Performance hack: already load the tableview
-    [self.view addSubview:self.searchController.searchResultsTableView];
 
     // Offset map frame a little bit
     CGRect mapFrame = self.mapView.frame;
@@ -107,6 +106,8 @@
 
 - (void)calculateDistances
 {
+    // TODO: call this method on location updates and get the tableview to update
+
     CLLocation *user = self.mapView.userLocation.location;
     NSMutableDictionary *distances = [NSMutableDictionary dictionaryWithCapacity:self.mapItems.count];
     for (RestoLocation *resto in self.mapItems) {
@@ -162,7 +163,7 @@
 
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
 {
-    // TODO: this breaks horribly on iOS7
+    self.endingSearch = NO;
 
     // Just by accessing the property here, the searchResultsTableView will
     // be initialized with the correct frame. Crazy shit.
@@ -171,30 +172,52 @@
     // After this method the searchcontroller will start its animation, which we
     // want in on so we execute our hook in the next run loop.
     dispatch_async(dispatch_get_main_queue(), ^{
-        [controller.searchResultsTableView.layer removeAllAnimations];
-        [self.view addSubview:controller.searchResultsTableView];
-
-        // Smooth appearance
-        controller.searchResultsTableView.alpha = 0;
-        [UIView animateWithDuration:0.3 animations:^{
-            controller.searchResultsTableView.alpha = 1;
-        }];
+        [self _showSearchResults:controller.searchResultsTableView animated:YES];
+        controller.searchResultsTableView.contentOffset = CGPointZero;
     });
 
     [self calculateDistances];
     [self filterMapItems];
 }
 
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+{
+    self.endingSearch = YES;
+}
+
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
 {
-    // Prevent results from disappearing
-    [self.view addSubview:controller.searchResultsTableView];
+    if (!self.endingSearch) {
+        [self _showSearchResults:controller.searchResultsTableView animated:NO];
+    }
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self filterMapItems];
     return YES;
+}
+
+// Hacky method to show the search results tableview immediately
+- (void)_showSearchResults:(UITableView *)tableView animated:(BOOL)animated
+{
+    if (tableView.superview) {
+        // iOS7 approach: show tableview, hide overlay-view
+        tableView.hidden = NO;
+        [[tableView.superview.subviews lastObject] setHidden:YES];
+    }
+    else {
+        [tableView.layer removeAllAnimations];
+        [self.view addSubview:tableView];
+    }
+
+    if (animated) {
+        // Smooth appearance
+        tableView.alpha = 0;
+        [UIView animateWithDuration:0.3 animations:^{
+            tableView.alpha = 1;
+        }];
+    }
 }
 
 #pragma mark - SearchController tableView
