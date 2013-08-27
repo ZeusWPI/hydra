@@ -34,7 +34,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="191373211">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">319</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="138166045">
@@ -42,6 +42,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{320, 416}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1019730193"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">2</int>
@@ -57,9 +58,10 @@
 					</object>
 					<object class="IBUIButton" id="811553975">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">269</int>
+						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{90, 107}, {132, 132}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="450697020"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -98,7 +100,7 @@
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="374083847">
+						<object class="NSFont" key="IBUIFont" id="1010604758">
 							<string key="NSName">HelveticaNeue-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -106,9 +108,10 @@
 					</object>
 					<object class="IBUIImageView" id="1019730193">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">269</int>
+						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{43, 30}, {234, 54}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="811553975"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -123,6 +126,7 @@
 						<int key="NSvFlags">269</int>
 						<string key="NSFrame">{{38, 358}, {37, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="741478299"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -140,13 +144,14 @@
 							<string key="NSResourceName">btn-urgent-home.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="594581706"/>
-						<reference key="IBUIFont" ref="374083847"/>
+						<reference key="IBUIFont" ref="1010604758"/>
 					</object>
 					<object class="IBUIButton" id="741478299">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">269</int>
 						<string key="NSFrame">{{90, 358}, {37, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="386492983"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -164,13 +169,14 @@
 							<string key="NSResourceName">btn-urgent-facebook.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="594581706"/>
-						<reference key="IBUIFont" ref="374083847"/>
+						<reference key="IBUIFont" ref="1010604758"/>
 					</object>
 					<object class="IBUIButton" id="386492983">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">269</int>
 						<string key="NSFrame">{{142, 358}, {37, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="681878754"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -188,13 +194,14 @@
 							<string key="NSResourceName">btn-urgent-twitter.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="594581706"/>
-						<reference key="IBUIFont" ref="374083847"/>
+						<reference key="IBUIFont" ref="1010604758"/>
 					</object>
 					<object class="IBUIButton" id="681878754">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">269</int>
 						<string key="NSFrame">{{196, 358}, {37, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="407295875"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -212,13 +219,14 @@
 							<string key="NSResourceName">btn-urgent-soundcloud.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="594581706"/>
-						<reference key="IBUIFont" ref="374083847"/>
+						<reference key="IBUIFont" ref="1010604758"/>
 					</object>
 					<object class="IBUIButton" id="407295875">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">269</int>
 						<string key="NSFrame">{{252, 358}, {37, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -235,7 +243,7 @@
 							<string key="NSResourceName">btn-urgent-mail.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="594581706"/>
-						<reference key="IBUIFont" ref="374083847"/>
+						<reference key="IBUIFont" ref="1010604758"/>
 					</object>
 					<object class="IBUIView" id="450697020">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -246,6 +254,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{3, 2}, {55, 12}}</string>
 								<reference key="NSSuperview" ref="450697020"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="809898257"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -278,6 +287,7 @@
 								<int key="NSvFlags">264</int>
 								<string key="NSFrame">{{5, 15}, {278, 20}}</string>
 								<reference key="NSSuperview" ref="450697020"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="369494291"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -312,6 +322,7 @@
 						</array>
 						<string key="NSFrame">{{16, 250}, {288, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="33491652"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -329,6 +340,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{3, 2}, {55, 12}}</string>
 								<reference key="NSSuperview" ref="369494291"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="641577508"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -352,6 +364,7 @@
 								<int key="NSvFlags">264</int>
 								<string key="NSFrame">{{5, 15}, {278, 20}}</string>
 								<reference key="NSSuperview" ref="369494291"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="765096588"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -380,6 +393,7 @@
 						</array>
 						<string key="NSFrame">{{16, 290}, {288, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="428147771"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -390,6 +404,8 @@
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="138166045"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -670,7 +686,81 @@
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">UrgentViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="facebookButtonTapped:">id</string>
+						<string key="homeButtonTapped:">id</string>
+						<string key="mailButtonTapped:">id</string>
+						<string key="playButtonTapped:">id</string>
+						<string key="soundcloudButtonTapped:">id</string>
+						<string key="twitterButtonTapped:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="facebookButtonTapped:">
+							<string key="name">facebookButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="homeButtonTapped:">
+							<string key="name">homeButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="mailButtonTapped:">
+							<string key="name">mailButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="playButtonTapped:">
+							<string key="name">playButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="soundcloudButtonTapped:">
+							<string key="name">soundcloudButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="twitterButtonTapped:">
+							<string key="name">twitterButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="playButton">UIButton</string>
+						<string key="previousSongLabel">UILabel</string>
+						<string key="previousSongWrapper">UIView</string>
+						<string key="songLabel">UILabel</string>
+						<string key="songWrapper">UIView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="playButton">
+							<string key="name">playButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="previousSongLabel">
+							<string key="name">previousSongLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="previousSongWrapper">
+							<string key="name">previousSongWrapper</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="songLabel">
+							<string key="name">songLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="songWrapper">
+							<string key="name">songWrapper</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/UrgentViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>

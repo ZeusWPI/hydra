@@ -18,7 +18,7 @@
 
 @end
 
-@interface ActivityDetailViewController : UITableViewController
+@interface ActivityDetailController : UITableViewController
 
 - (id)initWithActivity:(AssociationActivity *)activity delegate:(id<ActivityListDelegate>)delegate;
 

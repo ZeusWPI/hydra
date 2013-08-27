@@ -8,7 +8,7 @@
 
 #import "DashboardViewController.h"
 #import "NewsViewController.h"
-#import "ActivityViewController.h"
+#import "ActivitiesController.h"
 #import "InfoViewController.h"
 #import "RestoMenuController.h"
 #import "UrgentViewController.h"
@@ -110,7 +110,7 @@
 - (IBAction)showActivities:(id)sender
 {
     DLog(@"Dashboard switching to Activities");
-    ActivityViewController *c = [[ActivityViewController alloc] init];
+    ActivitiesController *c = [[ActivitiesController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
 

@@ -21,7 +21,7 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
-		906C1D8917C8A4A600145CD3 /* ActivityMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* ActivityMapViewController.m */; };
+		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
@@ -32,8 +32,8 @@
 		90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F05262168C7726004CAFFC /* MapKit.framework */; };
 		90F05266168C7D19004CAFFC /* RestoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F05265168C7D19004CAFFC /* RestoLocation.m */; };
 		B50ED58F220549D98F92E254 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E747F0E311D74638A7FC212F /* libPods.a */; };
-		F5016BA6162756F300BBDB0A /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA5162756F300BBDB0A /* ActivityViewController.m */; };
-		F5016BA91627665800BBDB0A /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */; };
+		F5016BA6162756F300BBDB0A /* ActivitiesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA5162756F300BBDB0A /* ActivitiesController.m */; };
+		F5016BA91627665800BBDB0A /* ActivityDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailController.m */; };
 		F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CD15BDC1E600A697F8 /* info-kalender.html */; };
 		F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */; };
 		F508A88816CA748900418A15 /* pods-acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = F508A88716CA748900418A15 /* pods-acknowledgements.html */; };
@@ -42,6 +42,7 @@
 		F520A2DD166E933500EE340F /* icon-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DB166E933500EE340F /* icon-calendar.png */; };
 		F520A2E0166E999400EE340F /* icon-calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DF166E999400EE340F /* icon-calendar@2x.png */; };
 		F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F521D11516C53A1200B686B2 /* PreferencesController.m */; };
+		F52A8B7917CD366E00C3379C /* ActivityMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52A8B7817CD366E00C3379C /* ActivityMapController.m */; };
 		F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */ = {isa = PBXBuildFile; fileRef = F52B9B76168507BD000B71D6 /* NSDateFormatter+AppLocale.m */; };
 		F531DE6516B2E41B0050D88B /* button-route@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F531DE6416B2E41B0050D88B /* button-route@2x.png */; };
 		F531DE6816B2EE720050D88B /* button-route.png in Resources */ = {isa = PBXBuildFile; fileRef = F531DE6716B2EE720050D88B /* button-route.png */; };
@@ -238,8 +239,8 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
-		906C1D8717C8A4A600145CD3 /* ActivityMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityMapViewController.h; sourceTree = "<group>"; };
-		906C1D8817C8A4A600145CD3 /* ActivityMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityMapViewController.m; sourceTree = "<group>"; };
+		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		906C1D8817C8A4A600145CD3 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
@@ -256,10 +257,10 @@
 		90F05264168C7D19004CAFFC /* RestoLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLocation.h; sourceTree = "<group>"; };
 		90F05265168C7D19004CAFFC /* RestoLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLocation.m; sourceTree = "<group>"; };
 		E747F0E311D74638A7FC212F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5016BA4162756F300BBDB0A /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
-		F5016BA5162756F300BBDB0A /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
-		F5016BA71627665800BBDB0A /* ActivityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailViewController.h; sourceTree = "<group>"; };
-		F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailViewController.m; sourceTree = "<group>"; };
+		F5016BA4162756F300BBDB0A /* ActivitiesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesController.h; sourceTree = "<group>"; };
+		F5016BA5162756F300BBDB0A /* ActivitiesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesController.m; sourceTree = "<group>"; };
+		F5016BA71627665800BBDB0A /* ActivityDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailController.h; sourceTree = "<group>"; };
+		F5016BA81627665800BBDB0A /* ActivityDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailController.m; sourceTree = "<group>"; };
 		F50527CD15BDC1E600A697F8 /* info-kalender.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-kalender.html"; sourceTree = "<group>"; };
 		F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-studentenartsen.html"; sourceTree = "<group>"; };
 		F508A88716CA748900418A15 /* pods-acknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "pods-acknowledgements.html"; sourceTree = "<group>"; };
@@ -271,6 +272,8 @@
 		F520A2DF166E999400EE340F /* icon-calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-calendar@2x.png"; sourceTree = "<group>"; };
 		F521D11416C53A1200B686B2 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		F521D11516C53A1200B686B2 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
+		F52A8B7717CD366E00C3379C /* ActivityMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityMapController.h; sourceTree = "<group>"; };
+		F52A8B7817CD366E00C3379C /* ActivityMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityMapController.m; sourceTree = "<group>"; };
 		F52B9B75168507BD000B71D6 /* NSDateFormatter+AppLocale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+AppLocale.h"; sourceTree = "<group>"; };
 		F52B9B76168507BD000B71D6 /* NSDateFormatter+AppLocale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+AppLocale.m"; sourceTree = "<group>"; };
 		F531DE6416B2E41B0050D88B /* button-route@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-route@2x.png"; sourceTree = "<group>"; };
@@ -563,12 +566,12 @@
 		F536359C16A69C86000A50C4 /* Activities */ = {
 			isa = PBXGroup;
 			children = (
-				F5016BA71627665800BBDB0A /* ActivityDetailViewController.h */,
-				F5016BA81627665800BBDB0A /* ActivityDetailViewController.m */,
-				F5016BA4162756F300BBDB0A /* ActivityViewController.h */,
-				F5016BA5162756F300BBDB0A /* ActivityViewController.m */,
-				906C1D8717C8A4A600145CD3 /* ActivityMapViewController.h */,
-				906C1D8817C8A4A600145CD3 /* ActivityMapViewController.m */,
+				F5016BA4162756F300BBDB0A /* ActivitiesController.h */,
+				F5016BA5162756F300BBDB0A /* ActivitiesController.m */,
+				F5016BA71627665800BBDB0A /* ActivityDetailController.h */,
+				F5016BA81627665800BBDB0A /* ActivityDetailController.m */,
+				F52A8B7717CD366E00C3379C /* ActivityMapController.h */,
+				F52A8B7817CD366E00C3379C /* ActivityMapController.m */,
 			);
 			name = Activities;
 			sourceTree = "<group>";
@@ -704,6 +707,17 @@
 				F5E851CB16C447C4003DF993 /* urgent-nowplaying@2x.jpg */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		F55CD7FC17CD2296006C5408 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F50EE09415B5F587000F1992 /* WebViewController.h */,
+				F50EE09515B5F587000F1992 /* WebViewController.m */,
+				906C1D8717C8A4A600145CD3 /* MapViewController.h */,
+				906C1D8817C8A4A600145CD3 /* MapViewController.m */,
+			);
+			name = Shared;
 			sourceTree = "<group>";
 		};
 		F56D76701699ED4D002CF245 /* Icons */ = {
@@ -894,11 +908,10 @@
 				F521D11316C5386F00B686B2 /* Preferences */,
 				3B7AD3B615BC82EB0026BB62 /* Resto */,
 				F536359F16A69C9D000A50C4 /* Schamper */,
+				F55CD7FC17CD2296006C5408 /* Shared */,
 				F53A5E7416700242009EA4CC /* UrgentViewController.h */,
 				F53A5E7516700242009EA4CC /* UrgentViewController.m */,
 				F56F139E169731FE003D4447 /* UrgentViewController.xib */,
-				F50EE09415B5F587000F1992 /* WebViewController.h */,
-				F50EE09515B5F587000F1992 /* WebViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1212,10 +1225,11 @@
 				395C117A16272D8000B99F9B /* NewsViewController.m in Sources */,
 				395C117D1627437000B99F9B /* NewsDetailViewController.m in Sources */,
 				90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */,
-				F5016BA6162756F300BBDB0A /* ActivityViewController.m in Sources */,
-				F5016BA91627665800BBDB0A /* ActivityDetailViewController.m in Sources */,
+				F5016BA6162756F300BBDB0A /* ActivitiesController.m in Sources */,
+				F5016BA91627665800BBDB0A /* ActivityDetailController.m in Sources */,
 				3B93FBA4163094A800C962DC /* AudioStreamer.m in Sources */,
 				3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */,
+				F52A8B7917CD366E00C3379C /* ActivityMapController.m in Sources */,
 				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,
 				F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */,
 				F53A5E8416700B29009EA4CC /* ApplicationWithRemoteSupport.m in Sources */,
@@ -1235,7 +1249,7 @@
 				F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */,
 				F5ACC3B116D2694000626EAE /* CustomTableViewCell.m in Sources */,
 				F5C6093816D2DFCB0043BD44 /* PreferencesService.m in Sources */,
-				906C1D8917C8A4A600145CD3 /* ActivityMapViewController.m in Sources */,
+				906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

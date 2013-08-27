@@ -145,7 +145,8 @@
 
     if ([legend.style isEqual:@"bold"]) {
         keyLabel.font = [UIFont boldSystemFontOfSize:13];
-    } else {
+    }
+    else {
         keyLabel.font = [UIFont systemFontOfSize:13];
     }
 
