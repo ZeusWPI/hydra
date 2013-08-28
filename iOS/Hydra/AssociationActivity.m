@@ -14,9 +14,6 @@
 
 @interface AssociationActivity ()
 
-@property (nonatomic, strong) NSString *facebookId;
-@property (nonatomic, strong) FacebookEvent *facebookEvent;
-
 @end
 
 @implementation AssociationActivity
@@ -51,6 +48,14 @@
 - (BOOL)hasCoordinates
 {
     return self.latitude != 0 && self.longitude != 0;
+}
+
+- (BOOL)hasFacebookEvent
+{
+    if (_facebookEvent) {
+        return _facebookEvent.valid;
+    }
+    return NO;
 }
 
 #pragma mark - NSCoding

@@ -251,8 +251,20 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
     // Received Activities
     else if ([objectLoader.resourcePath isEqualToString:kActivitiesResource]) {
-        // TODO: check if some information can be reused, e.g. underlying
-        // FacebookEvent's.
+        NSMutableSet *set = [NSMutableSet set];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        for (AssociationActivity *activity in _activities) {
+            if ([activity hasFacebookEvent]) {
+                [set addObject:activity.facebookId];
+                dict[activity.facebookId] = activity;
+            }
+        }
+        for (AssociationActivity *activity in objects) {
+            if ([set containsObject:activity.facebookId]) {
+                AssociationActivity *oldActivity = dict[activity.facebookId];
+                activity.facebookEvent = oldActivity.facebookEvent;
+            }
+        }
         self.activities = objects;
         self.activitiesLastUpdated = [NSDate date];
         notification = AssociationStoreDidUpdateActivitiesNotification;
