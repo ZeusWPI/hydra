@@ -10,7 +10,6 @@
 #import "NSDate+Utilities.h"
 
 #import <AVFoundation/AVFoundation.h>
-#import <MediaPlayer/MediaPlayer.h>
 #import <RestKit/RestKit.h>
 
 #define kSongUpdateInterval 30
@@ -19,18 +18,21 @@
 
 #define kSongResourcePath @"http://urgent.fm/nowplaying/livetrack.txt"
 #define kShowResourcePath @"http://urgent.fm/nowplaying/program.php"
+#define kStreamResourcePath @"http://urgent.stream.flumotion.com/urgent/high.mp3.m3u"
 
 NSString *const UrgentPlayerDidUpdateSongNotification =
     @"UrgentPlayerDidUpdateSongNotification";
 NSString *const UrgentPlayerDidUpdateShowNotification =
     @"UrgentPlayerDidUpdateShowNotification";
+NSString *const UrgentPlayerDidChangeStateNotification =
+    @"UrgentPlayerDidChangeStateNotification";
 
 void audioRouteChangeListenerCallback (void                   *inUserData,
                                        AudioSessionPropertyID inPropertyID,
                                        UInt32                 inPropertyValueSize,
                                        const void             *inPropertyValue);
 
-@interface UrgentPlayer () <NSURLConnectionDelegate>
+@interface UrgentPlayer ()
 
 @property (nonatomic, strong) NSTimer *updateSongTimer;
 @property (nonatomic, strong) NSTimer *updateShowTimer;
@@ -45,39 +47,53 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        // TODO: use http://urgent.stream.flumotion.com/urgent/high.mp3.m3u
-        NSURL *url = [NSURL URLWithString:@"http://195.10.10.207/urgent/high.mp3"];
+        NSURL *url = [NSURL URLWithString:kStreamResourcePath];
         sharedInstance = [[UrgentPlayer alloc] initWithURL:url];
     });
 
     return sharedInstance;
 }
 
-- (id)initWithURL:(NSURL *)url_
+- (id)initWithURL:(NSURL *)url
 {
-    if (self = [super initWithURL:url_]) {
+    if (self = [super initWithContentURL:url]) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(playerStateChanged:)
-                       name:ASStatusChangedNotification object:self];
+                       name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
+        [center addObserver:self selector:@selector(playerFinished:)
+                       name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     }
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)handleRemoteEvent:(UIEvent *)event
 {
-    if (event.subtype == UIEventSubtypeRemoteControlTogglePlayPause) {
-        if (self.isPlaying) {
+    switch (event.subtype) {
+        case UIEventSubtypeRemoteControlPlay:
+            [self play];
+            break;
+        case UIEventSubtypeRemoteControlPause:
             [self pause];
-        }
-        else {
-            [self start];
-        }
+            break;
+        case UIEventSubtypeRemoteControlStop:
+            [self stop];
+            break;
+        case UIEventSubtypeRemoteControlTogglePlayPause:
+            [self isPlaying] ? [self pause] : [self play];
+            break;
+        default:
+            break;
     }
 }
 
-- (void)start
+- (void)play
 {
-    if (self.isPlaying) {
+    if ([self isPlaying]) {
         return;
     }
 
@@ -95,12 +111,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
                                     audioRouteChangeListenerCallback, NULL);
 
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-
-    // Reset the player state
-    @synchronized (self) {
-        errorCode = AS_NO_ERROR;
-        [super start];
-    }
+    [super play];
 }
 
 - (void)stop
@@ -110,14 +121,37 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     [super stop];
 }
 
-#pragma mark - Timer management
+- (BOOL)isPlaying
+{
+    return self.playbackState == MPMoviePlaybackStatePlaying;
+}
+
+- (BOOL)isPaused
+{
+    return self.playbackState == MPMoviePlaybackStatePaused;
+}
 
 - (void)playerStateChanged:(NSNotification *)notification
 {
-    DLog(@"%d", self.state);
+    [self playerStateChanged];
 
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:UrgentPlayerDidChangeStateNotification object:self];
+}
+
+- (void)playerFinished:(NSNotification *)notification
+{
+    // Force the player to stop completely, otherwise restarting the player
+    // does not seem to work
+    [self stop];
+}
+
+#pragma mark - Timer management
+
+- (void)playerStateChanged
+{
     // Update timers
-    if (self.isWaiting || self.isPlaying) {
+    if ([self isPlaying]) {
         // The state of updateSongTimer and updateShowTimer should always be equal
         if (![self.updateSongTimer isValid]) {
             [self scheduleTimers];
@@ -135,13 +169,8 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (void)updateNowPlaying
 {
-    // Available since iOS5
-    if (![MPNowPlayingInfoCenter class]) {
-        return;
-    }
-
     MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
-    if (self.isPlaying) {
+    if ([self isPlaying]) {
         // Cover art
         UIImage *cover = [UIImage imageNamed:@"urgent-nowplaying.jpg"];
         MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:cover];
@@ -166,7 +195,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
             MPMediaItemPropertyArtwork: artwork
         };
     }
-    else if (self.isPaused) {
+    else if ([self isPaused]) {
         center.nowPlayingInfo = @{
             MPMediaItemPropertyTitle: @"Urgent.fm"
         };
@@ -294,7 +323,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     UrgentPlayer *player = [UrgentPlayer sharedPlayer];
 
     // Ff application sound is not playing, there's nothing to do, so return.
-    if (player.isPlaying == 0 ) {
+    if (![player isPlaying]) {
         DLog(@"Audio route change while application audio is stopped.");
         return;
     }
