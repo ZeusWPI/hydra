@@ -300,12 +300,12 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
     }
 
     public static Intent getOpenFacebookIntent(Context context, String id) {
-        try {
-            context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
-            return new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("facebook://facebook.com/events/%s/", id)));
-        } catch (Exception e) {
+//        try {
+//            context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
+//            return new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("fb://event/%s/", id)));
+//        } catch (Exception e) {
             return new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://www.facebook.com/events/%s/", id)));
-        }
+//        }
     }
 
     public void onDirectionsClick(double latitude, double longitude) {
