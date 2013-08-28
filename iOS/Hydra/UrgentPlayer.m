@@ -59,21 +59,35 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     if (self = [super initWithContentURL:url]) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(playerStateChanged:)
-                               name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
-        [self prepareToPlay];
+                       name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
+        [center addObserver:self selector:@selector(playerFinished:)
+                       name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     }
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)handleRemoteEvent:(UIEvent *)event
 {
-    if (event.subtype == UIEventSubtypeRemoteControlTogglePlayPause) {
-        if ([self isPlaying]) {
-            [self pause];
-        }
-        else {
+    switch (event.subtype) {
+        case UIEventSubtypeRemoteControlPlay:
             [self play];
-        }
+            break;
+        case UIEventSubtypeRemoteControlPause:
+            [self pause];
+            break;
+        case UIEventSubtypeRemoteControlStop:
+            [self stop];
+            break;
+        case UIEventSubtypeRemoteControlTogglePlayPause:
+            [self isPlaying] ? [self pause] : [self play];
+            break;
+        default:
+            break;
     }
 }
 
@@ -97,7 +111,6 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
                                     audioRouteChangeListenerCallback, NULL);
 
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-
     [super play];
 }
 
@@ -121,16 +134,22 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 - (void)playerStateChanged:(NSNotification *)notification
 {
     [self playerStateChanged];
+
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:UrgentPlayerDidChangeStateNotification object:self];
+}
+
+- (void)playerFinished:(NSNotification *)notification
+{
+    // Force the player to stop completely, otherwise restarting the player
+    // does not seem to work
+    [self stop];
 }
 
 #pragma mark - Timer management
 
 - (void)playerStateChanged
 {
-    DLog(@"%d", self.playbackState);
-
     // Update timers
     if ([self isPlaying]) {
         // The state of updateSongTimer and updateShowTimer should always be equal
