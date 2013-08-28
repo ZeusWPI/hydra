@@ -114,9 +114,10 @@
     cell.detailTextLabel.text = detailText;
 
     if (newsItem.read){
-        [cell.textLabel setFont:[UIFont systemFontOfSize:[UIFont labelFontSize]]];
-    }else {
-        [cell.textLabel setFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]]];
+        cell.textLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    }
+    else {
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
     }
 
     if (newsItem.highlighted) {
