@@ -238,15 +238,15 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
         NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"itemID" ascending:NO];
         objects = [objects sortedArrayUsingDescriptors:@[desc]];
         _newsItems = [_newsItems sortedArrayUsingDescriptors:@[desc]];
-        for (AssociationNewsItem *newNewsItem in objects){
-            for (NSInteger i = count; i < _newsItems.count; i++){
+        for (AssociationNewsItem *newNewsItem in objects) {
+            for (NSInteger i = count; i < _newsItems.count; i++) {
                 AssociationNewsItem *newsItem = _newsItems[i];
-                if (newNewsItem.itemID == newsItem.itemID){
+                if (newNewsItem.itemID == newsItem.itemID) {
                     newNewsItem.read = newsItem.read;
                     count = i;
                     break;
                 }
-                if (newNewsItem.itemID > newsItem.itemID){
+                if (newNewsItem.itemID > newsItem.itemID) {
                     count = i - 1;
                     break;
                 }
