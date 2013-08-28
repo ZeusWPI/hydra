@@ -237,12 +237,12 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
         NSMutableSet *set = [NSMutableSet set];
         for (AssociationNewsItem *item in _newsItems) {
             if (item.read) {
-                [set addObject:[NSNumber numberWithInt:item.itemID]];
+                [set addObject:@(item.itemId)];
             }
         }
         for (AssociationNewsItem *item in objects) {
-            if ([set containsObject:[NSNumber numberWithInt:item.itemID]]) {
-                item.read = TRUE;
+            if ([set containsObject:@(item.itemId)]) {
+                item.read = YES;
             }
         }
         self.newsItems = objects;
