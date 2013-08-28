@@ -28,7 +28,7 @@
     if (self = [super init]) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(playerStatusChanged:)
-                       name:ASStatusChangedNotification object:nil];
+                       name:UrgentPlayerDidChangeStateNotification object:nil];
         [center addObserver:self selector:@selector(songUpdated:)
                        name:UrgentPlayerDidUpdateSongNotification object:nil];
         [center addObserver:self selector:@selector(showUpdated:)
@@ -64,7 +64,7 @@
     showLabel.font = [UIFont fontWithName:@"GillSans" size:14];
     showLabel.textColor = [UIColor colorWithWhite:0.533 alpha:1.000];
     showLabel.marqueeType = MLContinuous;
-    showLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    showLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:showLabel];
     self.showLabel = showLabel;
 
@@ -105,7 +105,7 @@
         [player pause];
     }
     else {
-        [player start];
+        [player play];
     }
 }
 
