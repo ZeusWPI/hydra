@@ -113,7 +113,6 @@
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
 
-    // temporary, working with checkmarks
     if (newsItem.read){
         [cell.textLabel setFont:[UIFont systemFontOfSize:[UIFont labelFontSize]]];
     }else {
@@ -123,8 +122,6 @@
     if (newsItem.highlighted) {
         UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-star"]];
         cell.accessoryView = star;
-        // temporary unread fix because checkmarks on the same place
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", !newsItem.read ? @"Ong " : @"", cell.detailTextLabel.text];
     }
     else {
         cell.accessoryView = nil;

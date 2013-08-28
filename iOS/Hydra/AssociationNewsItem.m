@@ -31,7 +31,7 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super init]) {
-        self.itemId = [coder decodeIntegerForKey:@"itemID"];
+        self.itemId = [coder decodeIntegerForKey:@"itemId"];
         self.title = [coder decodeObjectForKey:@"title"];
         self.association = [coder decodeObjectForKey:@"association"];
         self.date = [coder decodeObjectForKey:@"date"];
@@ -44,7 +44,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeInteger:self.itemId forKey:@"itemID"];
+    [coder encodeInteger:self.itemId forKey:@"itemId"];
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeObject:self.association forKey:@"association"];
     [coder encodeObject:self.date forKey:@"date"];
