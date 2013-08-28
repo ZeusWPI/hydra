@@ -1,10 +1,14 @@
 package be.ugent.zeus.hydra;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ConfigurationInfo;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -49,6 +53,17 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
                 if (result != ConnectionResult.SUCCESS) {
                     GooglePlayServicesUtil.getErrorDialog(result, this, 1);
                 }
+                final ActivityManager activityManager =
+                        (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                final ConfigurationInfo configurationInfo =
+                        activityManager.getDeviceConfigurationInfo();
+                final boolean supportsEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
+                if (!supportsEs2) {
+                    Toast.makeText(this, "Uw apparaat ondersteunt geen mapsversie.",
+                            Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
             }
         }
     }
