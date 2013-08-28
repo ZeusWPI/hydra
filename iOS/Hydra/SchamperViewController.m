@@ -107,6 +107,13 @@
 
     SchamperArticle *article = self.articles[indexPath.row];
 
+    if (article.read){
+        cell.textLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    }
+    else {
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    }
+
     SORelativeDateTransformer *dateTransformer = [[SORelativeDateTransformer alloc] init];
     NSString *transformedDate = [dateTransformer transformedValue:article.date];
 
@@ -143,6 +150,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SchamperArticle *article = self.articles[indexPath.row];
+    if (!article.read){
+        article.read = YES;
+        [tableView reloadRowsAtIndexPaths:@[indexPath]
+                         withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     SchamperDetailViewController *controller = [[SchamperDetailViewController alloc] initWithArticle:article];
     [self.navigationController pushViewController:controller animated:YES];
 }

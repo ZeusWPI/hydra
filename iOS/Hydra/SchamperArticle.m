@@ -25,6 +25,7 @@
         self.date = [decoder decodeObjectForKey:@"date"];
         self.author = [decoder decodeObjectForKey:@"author"];
         self.body = [decoder decodeObjectForKey:@"body"];
+        self.read = [decoder decodeBoolForKey:@"read"];
     }
     return self;
 }
@@ -36,6 +37,7 @@
     [coder encodeObject:self.date forKey:@"date"];
     [coder encodeObject:self.author forKey:@"author"];
     [coder encodeObject:self.body forKey:@"body"];
+    [coder encodeBool:self.read forKey:@"read"];
 }
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;

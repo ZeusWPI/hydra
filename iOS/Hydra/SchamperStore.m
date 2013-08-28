@@ -128,6 +128,17 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
+    NSMutableSet *set = [NSMutableSet set];
+    for (SchamperArticle *article in _articles) {
+        if (article.read) {
+            [set addObject:article.link];
+        }
+    }
+    for (SchamperArticle *article in objects) {
+        if ([set containsObject:article.link]) {
+            article.read = YES;
+        }
+    }
     self.articles = objects;
     self.lastUpdated = [NSDate date];
     self.active = false;
