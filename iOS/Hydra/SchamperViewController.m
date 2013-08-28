@@ -103,6 +103,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
+        cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.3 alpha:1];
     }
 
     SchamperArticle *article = self.articles[indexPath.row];
@@ -114,6 +115,11 @@
     NSString *detail = [NSString stringWithFormat:@"%@ door %@", transformedDate, article.author];
     cell.detailTextLabel.text = detail;
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 48;
 }
 
 - (void)articlesUpdated:(NSNotification *)notification
