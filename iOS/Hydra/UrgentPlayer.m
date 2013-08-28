@@ -10,9 +10,7 @@
 #import "NSDate+Utilities.h"
 
 #import <AVFoundation/AVFoundation.h>
-#import <MediaPlayer/MediaPlayer.h>
 #import <RestKit/RestKit.h>
-#import <MediaPlayer/MediaPlayer.h>
 
 #define kSongUpdateInterval 30
 #define kShowUpdateInterval (30*60)
@@ -34,9 +32,8 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
                                        UInt32                 inPropertyValueSize,
                                        const void             *inPropertyValue);
 
-@interface UrgentPlayer () <NSURLConnectionDelegate>
+@interface UrgentPlayer ()
 
-@property (nonatomic, strong) MPMoviePlayerController *player;
 @property (nonatomic, strong) NSTimer *updateSongTimer;
 @property (nonatomic, strong) NSTimer *updateShowTimer;
 
@@ -50,8 +47,6 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        // TODO: use http://urgent.stream.flumotion.com/urgent/high.mp3.m3u
-        //NSURL *url = [NSURL URLWithString:@"http://195.10.10.207/urgent/high.mp3"];
         NSURL *url = [NSURL URLWithString:kStreamResourcePath];
         sharedInstance = [[UrgentPlayer alloc] initWithURL:url];
     });
@@ -61,12 +56,11 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (id)initWithURL:(NSURL *)url
 {
-    if (self = [super init]) {
+    if (self = [super initWithContentURL:url]) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(playerStateChanged:)
                                name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
-        self.player = [[MPMoviePlayerController alloc] initWithContentURL:url];
-        [self.player prepareToPlay];
+        [self prepareToPlay];
     }
     return self;
 }
@@ -74,19 +68,18 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 - (void)handleRemoteEvent:(UIEvent *)event
 {
     if (event.subtype == UIEventSubtypeRemoteControlTogglePlayPause) {
-        if (self.isPlaying) {
+        if ([self isPlaying]) {
             [self pause];
         }
         else {
-            [self start];
+            [self play];
         }
     }
 }
 
-- (void)start
+- (void)play
 {
-    NSLog(@"Started playing...");
-    if (self.isPlaying) {
+    if ([self isPlaying]) {
         return;
     }
 
@@ -105,35 +98,25 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
-    // Reset the player state
-    @synchronized (self) {
-        //NSURL *url = [NSURL URLWithString:kStreamResourcePath];
-        [self.player play];
-    }
-}
-
-- (void)pause
-{
-    [self.player pause];
+    [super play];
 }
 
 - (void)stop
 {
     AudioSessionRemovePropertyListenerWithUserData(kAudioSessionProperty_AudioRouteChange,
                                                    audioRouteChangeListenerCallback, NULL);
-    [self.player stop];
+    [super stop];
 }
 
 - (BOOL)isPlaying
 {
-    return self.player.playbackState == MPMoviePlaybackStatePlaying;
+    return self.playbackState == MPMoviePlaybackStatePlaying;
 }
 
 - (BOOL)isPaused
 {
-    return self.player.playbackState == MPMoviePlaybackStatePaused;
+    return self.playbackState == MPMoviePlaybackStatePaused;
 }
-
 
 - (void)playerStateChanged:(NSNotification *)notification
 {
@@ -146,10 +129,10 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (void)playerStateChanged
 {
-    DLog(@"%d", self.player.playbackState);
+    DLog(@"%d", self.playbackState);
 
     // Update timers
-    if (self.isPlaying) {
+    if ([self isPlaying]) {
         // The state of updateSongTimer and updateShowTimer should always be equal
         if (![self.updateSongTimer isValid]) {
             [self scheduleTimers];
@@ -167,13 +150,8 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (void)updateNowPlaying
 {
-    // Available since iOS5
-    if (![MPNowPlayingInfoCenter class]) {
-        return;
-    }
-
     MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
-    if (self.isPlaying) {
+    if ([self isPlaying]) {
         // Cover art
         UIImage *cover = [UIImage imageNamed:@"urgent-nowplaying.jpg"];
         MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:cover];
@@ -198,7 +176,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
             MPMediaItemPropertyArtwork: artwork
         };
     }
-    else if (self.isPaused) {
+    else if ([self isPaused]) {
         center.nowPlayingInfo = @{
             MPMediaItemPropertyTitle: @"Urgent.fm"
         };
@@ -326,7 +304,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     UrgentPlayer *player = [UrgentPlayer sharedPlayer];
 
     // Ff application sound is not playing, there's nothing to do, so return.
-    if (player.isPlaying == 0 ) {
+    if (![player isPlaying]) {
         DLog(@"Audio route change while application audio is stopped.");
         return;
     }

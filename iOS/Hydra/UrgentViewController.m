@@ -105,7 +105,7 @@
         [player pause];
     }
     else {
-        [player start];
+        [player play];
     }
 }
 

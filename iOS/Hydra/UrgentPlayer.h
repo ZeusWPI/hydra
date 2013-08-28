@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 extern NSString *const UrgentPlayerDidUpdateSongNotification;
 extern NSString *const UrgentPlayerDidUpdateShowNotification;
 extern NSString *const UrgentPlayerDidChangeStateNotification;
 
-@interface UrgentPlayer : NSObject
+@interface UrgentPlayer : MPMoviePlayerController
 
 @property (nonatomic, strong) NSString *currentSong;
 @property (nonatomic, strong) NSString *previousSong;
@@ -21,9 +22,6 @@ extern NSString *const UrgentPlayerDidChangeStateNotification;
 + (UrgentPlayer *)sharedPlayer;
 
 - (void)handleRemoteEvent:(UIEvent *)event;
-- (void)start;
-- (void)pause;
-- (void)stop;
 - (BOOL)isPlaying;
 - (BOOL)isPaused;
 
