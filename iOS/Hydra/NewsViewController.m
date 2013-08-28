@@ -179,7 +179,8 @@
     AssociationNewsItem *item = self.newsItems[indexPath.row];
     if (!item.read){
         item.read = YES;
-        [self.tableView reloadData];
+        [tableView reloadRowsAtIndexPaths:@[indexPath]
+                         withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     NewsDetailViewController *c = [[NewsDetailViewController alloc] initWithNewsItem:item];
     [self.navigationController pushViewController:c animated:YES];
