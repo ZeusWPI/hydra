@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AudioStreamer.h"
 
 extern NSString *const UrgentPlayerDidUpdateSongNotification;
 extern NSString *const UrgentPlayerDidUpdateShowNotification;
+extern NSString *const UrgentPlayerDidChangeStateNotification;
 
-@interface UrgentPlayer : AudioStreamer
+@interface UrgentPlayer : NSObject
 
 @property (nonatomic, strong) NSString *currentSong;
 @property (nonatomic, strong) NSString *previousSong;
@@ -21,5 +21,10 @@ extern NSString *const UrgentPlayerDidUpdateShowNotification;
 + (UrgentPlayer *)sharedPlayer;
 
 - (void)handleRemoteEvent:(UIEvent *)event;
+- (void)start;
+- (void)pause;
+- (void)stop;
+- (BOOL)isPlaying;
+- (BOOL)isPaused;
 
 @end

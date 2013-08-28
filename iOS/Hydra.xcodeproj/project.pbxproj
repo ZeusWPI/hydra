@@ -13,7 +13,6 @@
 		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
 		3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */; };
 		3B93FB9F1630939200C962DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FB9E1630939200C962DC /* AudioToolbox.framework */; };
-		3B93FBA4163094A800C962DC /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B93FBA3163094A800C962DC /* AudioStreamer.m */; };
 		3B93FBA7163095F900C962DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FB9E1630939200C962DC /* AudioToolbox.framework */; };
 		3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B93FBA91630969900C962DC /* UrgentPlayer.m */; };
 		3B93FBAC16309E2200C962DC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FBAB16309E2100C962DC /* AVFoundation.framework */; };
@@ -227,8 +226,6 @@
 		3B7AD3B715BC830F0026BB62 /* RestoMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMenuView.h; sourceTree = "<group>"; };
 		3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenuView.m; sourceTree = "<group>"; };
 		3B93FB9E1630939200C962DC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		3B93FBA2163094A800C962DC /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
-		3B93FBA3163094A800C962DC /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		3B93FBA81630969900C962DC /* UrgentPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrgentPlayer.h; sourceTree = "<group>"; };
 		3B93FBA91630969900C962DC /* UrgentPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrgentPlayer.m; sourceTree = "<group>"; };
 		3B93FBAB16309E2100C962DC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -472,6 +469,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F50C12CC169A225800F0D010 /* MediaPlayer.framework in Frameworks */,
 				F54DC88E16A1A97C00FD212E /* libxml2.dylib in Frameworks */,
 				F54DC88C16A1A97100FD212E /* SystemConfiguration.framework in Frameworks */,
 				F54DC88616A1A7BE00FD212E /* Security.framework in Frameworks */,
@@ -485,7 +483,6 @@
 				44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */,
 				F5BAEC8D1518868200F6A1B1 /* Foundation.framework in Frameworks */,
 				90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */,
-				F50C12CC169A225800F0D010 /* MediaPlayer.framework in Frameworks */,
 				F5E851C916C4421F003DF993 /* MessageUI.framework in Frameworks */,
 				F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */,
 				F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */,
@@ -883,8 +880,6 @@
 		F5CFDF851631597E008CBF98 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				3B93FBA2163094A800C962DC /* AudioStreamer.h */,
-				3B93FBA3163094A800C962DC /* AudioStreamer.m */,
 				F5DF2FB716C41DDE003B05EC /* MarqueeLabel.h */,
 				F5DF2FB816C41DDE003B05EC /* MarqueeLabel.m */,
 				F55E89F416A4B928008595CB /* ShareKit.bundle */,
@@ -1227,7 +1222,6 @@
 				90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */,
 				F5016BA6162756F300BBDB0A /* ActivitiesController.m in Sources */,
 				F5016BA91627665800BBDB0A /* ActivityDetailController.m in Sources */,
-				3B93FBA4163094A800C962DC /* AudioStreamer.m in Sources */,
 				3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */,
 				F52A8B7917CD366E00C3379C /* ActivityMapController.m in Sources */,
 				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,

@@ -28,7 +28,7 @@
     if (self = [super init]) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(playerStatusChanged:)
-                       name:ASStatusChangedNotification object:nil];
+                       name:UrgentPlayerDidChangeStateNotification object:nil];
         [center addObserver:self selector:@selector(songUpdated:)
                        name:UrgentPlayerDidUpdateSongNotification object:nil];
         [center addObserver:self selector:@selector(showUpdated:)

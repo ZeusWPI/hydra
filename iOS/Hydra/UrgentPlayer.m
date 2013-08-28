@@ -12,6 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <RestKit/RestKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 #define kSongUpdateInterval 30
 #define kShowUpdateInterval (30*60)
@@ -19,11 +20,14 @@
 
 #define kSongResourcePath @"http://urgent.fm/nowplaying/livetrack.txt"
 #define kShowResourcePath @"http://urgent.fm/nowplaying/program.php"
+#define kStreamResourcePath @"http://urgent.stream.flumotion.com/urgent/high.mp3.m3u"
 
 NSString *const UrgentPlayerDidUpdateSongNotification =
     @"UrgentPlayerDidUpdateSongNotification";
 NSString *const UrgentPlayerDidUpdateShowNotification =
     @"UrgentPlayerDidUpdateShowNotification";
+NSString *const UrgentPlayerDidChangeStateNotification =
+    @"UrgentPlayerDidChangeStateNotification";
 
 void audioRouteChangeListenerCallback (void                   *inUserData,
                                        AudioSessionPropertyID inPropertyID,
@@ -32,6 +36,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 @interface UrgentPlayer () <NSURLConnectionDelegate>
 
+@property (nonatomic, strong) MPMoviePlayerController *player;
 @property (nonatomic, strong) NSTimer *updateSongTimer;
 @property (nonatomic, strong) NSTimer *updateShowTimer;
 
@@ -46,19 +51,22 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         // TODO: use http://urgent.stream.flumotion.com/urgent/high.mp3.m3u
-        NSURL *url = [NSURL URLWithString:@"http://195.10.10.207/urgent/high.mp3"];
+        //NSURL *url = [NSURL URLWithString:@"http://195.10.10.207/urgent/high.mp3"];
+        NSURL *url = [NSURL URLWithString:kStreamResourcePath];
         sharedInstance = [[UrgentPlayer alloc] initWithURL:url];
     });
 
     return sharedInstance;
 }
 
-- (id)initWithURL:(NSURL *)url_
+- (id)initWithURL:(NSURL *)url
 {
-    if (self = [super initWithURL:url_]) {
+    if (self = [super init]) {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(playerStateChanged:)
-                       name:ASStatusChangedNotification object:self];
+                               name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
+        self.player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+        [self.player prepareToPlay];
     }
     return self;
 }
@@ -77,6 +85,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (void)start
 {
+    NSLog(@"Started playing...");
     if (self.isPlaying) {
         return;
     }
@@ -98,26 +107,49 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
     // Reset the player state
     @synchronized (self) {
-        errorCode = AS_NO_ERROR;
-        [super start];
+        //NSURL *url = [NSURL URLWithString:kStreamResourcePath];
+        [self.player play];
     }
+}
+
+- (void)pause
+{
+    [self.player pause];
 }
 
 - (void)stop
 {
     AudioSessionRemovePropertyListenerWithUserData(kAudioSessionProperty_AudioRouteChange,
                                                    audioRouteChangeListenerCallback, NULL);
-    [super stop];
+    [self.player stop];
+}
+
+- (BOOL)isPlaying
+{
+    return self.player.playbackState == MPMoviePlaybackStatePlaying;
+}
+
+- (BOOL)isPaused
+{
+    return self.player.playbackState == MPMoviePlaybackStatePaused;
+}
+
+
+- (void)playerStateChanged:(NSNotification *)notification
+{
+    [self playerStateChanged];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:UrgentPlayerDidChangeStateNotification object:self];
 }
 
 #pragma mark - Timer management
 
-- (void)playerStateChanged:(NSNotification *)notification
+- (void)playerStateChanged
 {
-    DLog(@"%d", self.state);
+    DLog(@"%d", self.player.playbackState);
 
     // Update timers
-    if (self.isWaiting || self.isPlaying) {
+    if (self.isPlaying) {
         // The state of updateSongTimer and updateShowTimer should always be equal
         if (![self.updateSongTimer isValid]) {
             [self scheduleTimers];
