@@ -52,10 +52,7 @@
 
 - (BOOL)hasFacebookEvent
 {
-    if (_facebookEvent) {
-        return _facebookEvent.valid;
-    }
-    return NO;
+    return _facebookEvent && _facebookEvent.valid;
 }
 
 #pragma mark - NSCoding

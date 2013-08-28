@@ -129,7 +129,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
     NSMutableSet *set = [NSMutableSet set];
-    for (SchamperArticle *article in _articles) {
+    for (SchamperArticle *article in self.articles) {
         if (article.read) {
             [set addObject:article.link];
         }

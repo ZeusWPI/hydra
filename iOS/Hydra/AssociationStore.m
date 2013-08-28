@@ -235,6 +235,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     // Received some NewsItems
     if ([objectLoader.resourcePath isEqualToString:kNewsResource]) {
         NSMutableSet *set = [NSMutableSet set];
+        // using direct access because accessors reload the data
         for (AssociationNewsItem *item in _newsItems) {
             if (item.read) {
                 [set addObject:@(item.itemId)];
@@ -251,17 +252,16 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
     // Received Activities
     else if ([objectLoader.resourcePath isEqualToString:kActivitiesResource]) {
-        NSMutableSet *set = [NSMutableSet set];
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        NSMutableDictionary *availableEvents = [NSMutableDictionary dictionary];
+        // using direct access because accessors reload the data
         for (AssociationActivity *activity in _activities) {
             if ([activity hasFacebookEvent]) {
-                [set addObject:activity.facebookId];
-                dict[activity.facebookId] = activity;
+                availableEvents[activity.facebookId] = activity;
             }
         }
         for (AssociationActivity *activity in objects) {
-            if ([set containsObject:activity.facebookId]) {
-                AssociationActivity *oldActivity = dict[activity.facebookId];
+            if ([availableEvents objectForKey:activity.facebookId]) {
+                AssociationActivity *oldActivity = availableEvents[activity.facebookId];
                 activity.facebookEvent = oldActivity.facebookEvent;
             }
         }
