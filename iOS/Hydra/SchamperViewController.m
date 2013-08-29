@@ -16,6 +16,7 @@
 @interface SchamperViewController ()
 
 @property (nonatomic, strong) NSArray *articles;
+@property (nonatomic, assign) BOOL update;
 
 @end
 
@@ -81,6 +82,10 @@
 {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
+    if ([self isMovingFromParentViewController]) {
+        self.update = NO;
+        [[SchamperStore sharedStore] updateStoreCache];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -152,6 +157,10 @@
     SchamperArticle *article = self.articles[indexPath.row];
     if (!article.read){
         article.read = YES;
+        if (!self.update) {
+            self.update = YES;
+            [SchamperStore sharedStore].updateCache = YES;
+        }
         [tableView reloadRowsAtIndexPaths:@[indexPath]
                          withRowAnimation:UITableViewRowAnimationAutomatic];
     }

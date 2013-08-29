@@ -19,7 +19,7 @@
 @interface NewsViewController ()
 
 @property (nonatomic, strong) NSArray *newsItems;
-
+@property (nonatomic, assign) BOOL update;
 @end
 
 @implementation NewsViewController
@@ -78,6 +78,10 @@
 {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
+    if ([self isMovingFromParentViewController]) {
+        [[AssociationStore sharedStore] updateStoreCache];
+        self.update = NO;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -179,6 +183,10 @@
     AssociationNewsItem *item = self.newsItems[indexPath.row];
     if (!item.read){
         item.read = YES;
+        if (!self.update) {
+            self.update = YES;
+            [AssociationStore sharedStore].updateCache = YES;
+        }
         [tableView reloadRowsAtIndexPaths:@[indexPath]
                          withRowAnimation:UITableViewRowAnimationAutomatic];
     }

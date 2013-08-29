@@ -11,6 +11,8 @@
 #import "DashboardViewController.h"
 #import "ShareKitConfigurator.h"
 #import "FacebookSession.h"
+#import "SchamperStore.h"
+#import "AssociationStore.h"
 
 #import <RestKit/RestKit.h>
 #import <ShareKit/ShareKit.h>
@@ -92,6 +94,8 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[SchamperStore sharedStore] updateStoreCache];
+    [[AssociationStore sharedStore] updateStoreCache];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

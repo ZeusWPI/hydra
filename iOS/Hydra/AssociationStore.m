@@ -131,6 +131,10 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)updateStoreCache
 {
+    if (!self.updateCache){
+        return;
+    }
+    self.updateCache = NO;
     dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
         DLog(@"Updating store cache");
@@ -275,6 +279,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     [center postNotificationName:notification object:self userInfo:nil];
 
     [self.activeRequests removeObject:objectLoader.resourcePath];
+    self.updateCache = YES;
     [self updateStoreCache];
 }
 
@@ -282,6 +287,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)facebookEventUpdated:(NSNotification *)notification
 {
+    self.updateCache = YES;
     // Call method in 10 seconds so multiple changes are written at once
     [[self class] cancelPreviousPerformRequestsWithTarget:self
                                                  selector:@selector(updateStoreCache)

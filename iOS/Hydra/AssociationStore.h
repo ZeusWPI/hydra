@@ -18,11 +18,13 @@ extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 @property (nonatomic, strong, readonly) NSArray *assocations;
 @property (nonatomic, strong, readonly) NSArray *activities;
 @property (nonatomic, strong, readonly) NSArray *newsItems;
+@property (nonatomic, assign) BOOL updateCache;
 
 + (AssociationStore *)sharedStore;
 
 - (Association *)associationWithName:(NSString *)internalName;
 - (void)reloadNewsItems;
 - (void)reloadActivities;
+- (void)updateStoreCache;
 
 @end
