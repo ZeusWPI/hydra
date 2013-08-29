@@ -21,12 +21,12 @@
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        self.title = [decoder decodeObjectForKey:@"title"];
-        self.link = [decoder decodeObjectForKey:@"link"];
-        self.date = [decoder decodeObjectForKey:@"date"];
-        self.author = [decoder decodeObjectForKey:@"author"];
-        self.body = [decoder decodeObjectForKey:@"body"];
-        self.read = [decoder decodeBoolForKey:@"read"];
+        _title = [decoder decodeObjectForKey:@"title"];
+        _link = [decoder decodeObjectForKey:@"link"];
+        _date = [decoder decodeObjectForKey:@"date"];
+        _author = [decoder decodeObjectForKey:@"author"];
+        _body = [decoder decodeObjectForKey:@"body"];
+        _read = [decoder decodeBoolForKey:@"read"];
     }
     return self;
 }

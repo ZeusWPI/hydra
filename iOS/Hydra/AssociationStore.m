@@ -125,7 +125,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 {
     // Get cache directory
     NSArray *cacheDirectories =
-    NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = cacheDirectories[0];
 
     return [cacheDirectory stringByAppendingPathComponent:@"association.archive"];
@@ -249,15 +249,15 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
     // Received some NewsItems
     if ([objectLoader.resourcePath isEqualToString:kNewsResource]) {
-        NSMutableSet *set = [NSMutableSet set];
-        // using direct access because accessors reload the data
+        NSMutableSet *readItems = [NSMutableSet set];
+        // Using direct access because accessors reload the data
         for (AssociationNewsItem *item in _newsItems) {
             if (item.read) {
-                [set addObject:@(item.itemId)];
+                [readItems addObject:@(item.itemId)];
             }
         }
         for (AssociationNewsItem *item in objects) {
-            if ([set containsObject:@(item.itemId)]) {
+            if ([readItems containsObject:@(item.itemId)]) {
                 item.read = YES;
             }
         }
@@ -268,7 +268,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     // Received Activities
     else if ([objectLoader.resourcePath isEqualToString:kActivitiesResource]) {
         NSMutableDictionary *availableEvents = [NSMutableDictionary dictionary];
-        // using direct access because accessors reload the data
+        // Using direct access because accessors reload the data
         for (AssociationActivity *activity in _activities) {
             if ([activity hasFacebookEvent]) {
                 availableEvents[activity.facebookId] = activity;

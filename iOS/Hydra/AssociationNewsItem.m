@@ -32,13 +32,13 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super init]) {
-        self.itemId = [coder decodeIntegerForKey:@"itemId"];
-        self.title = [coder decodeObjectForKey:@"title"];
-        self.association = [coder decodeObjectForKey:@"association"];
-        self.date = [coder decodeObjectForKey:@"date"];
-        self.content = [coder decodeObjectForKey:@"content"];
-        self.highlighted = [coder decodeBoolForKey:@"highlighted"];
-        self.read = [coder decodeBoolForKey:@"read"];
+        _itemId = [coder decodeIntegerForKey:@"itemId"];
+        _title = [coder decodeObjectForKey:@"title"];
+        _association = [coder decodeObjectForKey:@"association"];
+        _date = [coder decodeObjectForKey:@"date"];
+        _content = [coder decodeObjectForKey:@"content"];
+        _highlighted = [coder decodeBoolForKey:@"highlighted"];
+        _read = [coder decodeBoolForKey:@"read"];
     }
     return self;
 }
