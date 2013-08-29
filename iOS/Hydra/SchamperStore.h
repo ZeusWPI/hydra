@@ -18,5 +18,7 @@ extern NSString *const SchamperStoreDidUpdateArticlesNotification;
 - (void)updateArticles;
 - (void)reloadArticles;
 
+- (void)syncStorage;
+- (void)markStorageOutdated;
 
 @end
