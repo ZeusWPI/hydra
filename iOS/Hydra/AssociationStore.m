@@ -36,6 +36,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 @property (nonatomic, strong) RKObjectManager *objectManager;
 @property (nonatomic, strong) NSMutableArray *activeRequests;
 
+@property (nonatomic, assign) BOOL storageOutdated;
+
 @end
 
 @implementation AssociationStore
@@ -129,17 +131,24 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     return [cacheDirectory stringByAppendingPathComponent:@"association.archive"];
 }
 
-- (void)updateStoreCache
+- (void)syncStorage
 {
-    if (!self.updateCache){
+    if (!self.storageOutdated) {
         return;
     }
-    self.updateCache = NO;
+
+    // Immediately mark the cache as being updated, as this is an async operation
+    self.storageOutdated = NO;
+
     dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
-        DLog(@"Updating store cache");
         [NSKeyedArchiver archiveRootObject:self toFile:self.class.storeCachePath];
     });
+}
+
+- (void)markStorageOutdated
+{
+    self.storageOutdated = YES;
 }
 
 #pragma mark - Accessors
@@ -274,25 +283,27 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
         notification = AssociationStoreDidUpdateActivitiesNotification;
     }
 
+    [self markStorageOutdated];
+    [self syncStorage];
+
     // Send notification
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:notification object:self userInfo:nil];
 
     [self.activeRequests removeObject:objectLoader.resourcePath];
-    self.updateCache = YES;
-    [self updateStoreCache];
 }
 
 #pragma mark - Notifications
 
 - (void)facebookEventUpdated:(NSNotification *)notification
 {
-    self.updateCache = YES;
+    [self markStorageOutdated];
+
     // Call method in 10 seconds so multiple changes are written at once
     [[self class] cancelPreviousPerformRequestsWithTarget:self
-                                                 selector:@selector(updateStoreCache)
+                                                 selector:@selector(syncStorage)
                                                    object:nil];
-    [self performSelector:@selector(updateStoreCache) withObject:nil afterDelay:10];
+    [self performSelector:@selector(syncStorage) withObject:nil afterDelay:10];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "SchamperArticle.h"
+#import "SchamperStore.h"
 #import <RestKit/RestKit.h>
 #import <RestKit/RKXMLParserXMLReader.h>
 
@@ -61,6 +62,16 @@
     [mapping setDateFormatters:@[dateFormatter]];
 
     [mappingProvider setObjectMapping:mapping forKeyPath:@"rss.channel.item"];
+}
+
+#pragma mark - Properties
+
+- (void)setRead:(BOOL)read
+{
+    if (read != _read) {
+        _read = read;
+        [[SchamperStore sharedStore] markStorageOutdated];
+    }
 }
 
 @end

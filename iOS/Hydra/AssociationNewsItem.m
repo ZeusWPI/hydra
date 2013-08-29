@@ -8,6 +8,7 @@
 
 #import "AssociationNewsItem.h"
 #import "Association.h"
+#import "AssociationStore.h"
 #import <RestKit/RestKit.h>
 
 @implementation AssociationNewsItem
@@ -51,6 +52,16 @@
     [coder encodeObject:self.content forKey:@"content"];
     [coder encodeBool:self.highlighted forKey:@"highlighted"];
     [coder encodeBool:self.read forKey:@"read"];
+}
+
+#pragma mark - Properties
+
+- (void)setRead:(BOOL)read
+{
+    if (read != _read) {
+        _read = read;
+        [[AssociationStore sharedStore] markStorageOutdated];
+    }
 }
 
 @end

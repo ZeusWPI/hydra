@@ -13,11 +13,12 @@ extern NSString *const SchamperStoreDidUpdateArticlesNotification;
 @interface SchamperStore : NSObject
 
 @property (nonatomic, strong, readonly) NSArray *articles;
-@property (nonatomic, assign) BOOL updateCache;
 
 + (SchamperStore *)sharedStore;
 - (void)updateArticles;
 - (void)reloadArticles;
-- (void)updateStoreCache;
+
+- (void)syncStorage;
+- (void)markStorageOutdated;
 
 @end
