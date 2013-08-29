@@ -26,7 +26,6 @@
 //
 
 #import "RNCachingURLProtocol.h"
-#import "Reachability.h"
 
 #define WORKAROUND_MUTABLE_COPY_LEAK 1
 #define kRNCachingURL @"kelder.zeus.ugent.be/~feliciaan/hydra/1.0/info/"
@@ -73,7 +72,6 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
   // only handle http requests we haven't marked with our header and are from our url
   if ([[[request URL] absoluteString] rangeOfString:kRNCachingURL].location != NSNotFound &&
       ([request valueForHTTPHeaderField:RNCachingURLHeader] == nil)) {
-      NSLog(@"Cached: %@", [[request URL] absoluteString]);
     return YES;
   }
   return NO;
@@ -86,46 +84,55 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
 
 - (NSString *)cachePathForRequest:(NSURLRequest *)aRequest
 {
-  // This stores in the Caches directory, which can be deleted when space is low, but we only use it for offline access
-  NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-   // NSLog(cachesPath);
-  return [cachesPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%x", [[[aRequest URL] absoluteString] hash]]];
+    // This stores in the Caches directory, which can be deleted when space is low, but we only use it to store the newest version
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    cachesPath = [cachesPath stringByAppendingPathComponent:@"InfoCache/"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {
+        NSError *error;
+        [[NSFileManager defaultManager] createDirectoryAtPath:cachesPath withIntermediateDirectories:YES attributes:nil error:&error];
+        if (error) {
+            NSLog(@"Error %@", [error localizedDescription]);
+        }
+    }
+    return [cachesPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%x",[[[aRequest URL] lastPathComponent] hash]]];
 }
 
 - (void)startLoading
 {
-  if (![self useCache]) {
-    NSMutableURLRequest *connectionRequest = 
+    if (![self useCache]) {
+        NSMutableURLRequest *connectionRequest =
 #if WORKAROUND_MUTABLE_COPY_LEAK
-      [[self request] mutableCopyWorkaround];
+        [[self request] mutableCopyWorkaround];
 #else
-      [[self request] mutableCopy];
+        [[self request] mutableCopy];
 #endif
-    // we need to mark this request with our header so we know not to handle it in +[NSURLProtocol canInitWithRequest:].
-    [connectionRequest setValue:@"" forHTTPHeaderField:RNCachingURLHeader];
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:connectionRequest
-                                                                delegate:self];
-    [self setConnection:connection];
-  }
-  else {
-    RNCachedData *cache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cachePathForRequest:[self request]]];
-    if (cache) {
-      NSData *data = [cache data];
-      NSURLResponse *response = [cache response];
-      NSURLRequest *redirectRequest = [cache redirectRequest];
-      if (redirectRequest) {
-        [[self client] URLProtocol:self wasRedirectedToRequest:redirectRequest redirectResponse:response];
-      } else {
-          
-        [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed]; // we handle caching ourselves.
-        [[self client] URLProtocol:self didLoadData:data];
-        [[self client] URLProtocolDidFinishLoading:self];
-      }
+        // set small timeout interval so user doesn't have to wait long for fallback, our files are small
+        [connectionRequest setTimeoutInterval:5.0];
+        // we need to mark this request with our header so we know not to handle it in +[NSURLProtocol canInitWithRequest:].
+        [connectionRequest setValue:@"" forHTTPHeaderField:RNCachingURLHeader];
+        NSURLConnection *connection = [NSURLConnection connectionWithRequest:connectionRequest
+                                                                    delegate:self];
+        [self setConnection:connection];
     }
     else {
-      [[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil]];
+        RNCachedData *cache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cachePathForRequest:[self request]]];
+        if (cache) {
+            NSData *data = [cache data];
+            NSURLResponse *response = [cache response];
+            NSURLRequest *redirectRequest = [cache redirectRequest];
+            if (redirectRequest) {
+                [[self client] URLProtocol:self wasRedirectedToRequest:redirectRequest redirectResponse:response];
+            } else {
+
+                [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed]; // we handle caching ourselves.
+                [[self client] URLProtocol:self didLoadData:data];
+                [[self client] URLProtocolDidFinishLoading:self];
+            }
+        }
+        else {
+            [[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil]];
+        }
     }
-  }
 }
 
 - (void)stopLoading
@@ -173,10 +180,41 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-  [[self client] URLProtocol:self didFailWithError:error];
-  [self setConnection:nil];
-  [self setData:nil];
-  [self setResponse:nil];
+    NSLog(@"Error: %@", [error localizedDescription]);
+    // First check if in cache, then check if in bundle
+    RNCachedData *cache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cachePathForRequest:[self request]]];
+    if (cache) {
+        NSData *data = [cache data];
+        NSURLResponse *response = [cache response];
+        NSURLRequest *redirectRequest = [cache redirectRequest];
+        if (redirectRequest) {
+            [[self client] URLProtocol:self wasRedirectedToRequest:redirectRequest redirectResponse:response];
+        }
+        else {
+
+            [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed]; // we handle caching ourselves.
+            [[self client] URLProtocol:self didLoadData:data];
+            [[self client] URLProtocolDidFinishLoading:self];
+        }
+    }// check if in mainbundle
+    else {
+        NSString *file = [[[connection currentRequest] URL] lastPathComponent];
+        NSArray *components = [file componentsSeparatedByString:@"."];
+        NSString *path = [[NSBundle mainBundle] pathForResource:components[0] ofType:components[1]];
+        if (path) {
+            NSData *data = [NSData dataWithContentsOfFile:path];
+            NSURLResponse *response = [[NSURLResponse alloc] initWithURL:[self.request URL] MIMEType:@"text/html" expectedContentLength:[data length] textEncodingName:nil];
+            [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+            [[self client] URLProtocol:self didLoadData:data];
+            [[self client] URLProtocolDidFinishLoading:self];
+        }
+        else {
+            [[self client] URLProtocol:self didFailWithError:error];
+        }
+    }
+    [self setConnection:nil];
+    [self setData:nil];
+    [self setResponse:nil];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -202,18 +240,17 @@ static NSString *RNCachingURLHeader = @"X-RNCache";
 
 - (BOOL) useCache 
 {
-    BOOL reachable = (BOOL) [[Reachability reachabilityWithHostname:[[[self request] URL] host]] currentReachabilityStatus] != NotReachable;
     // Check if there is already a cached-file, and when it was last modified
     RNCachedData *cache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cachePathForRequest:[self request]]];
     if (cache){
         NSString* string_date = [[(NSHTTPURLResponse*)[cache response] allHeaderFields] objectForKey:@"Date"];
 
         NSDate *date = [[RNDateFormatter sharedDateFormatter] dateFromString:string_date];
-        if ( [date timeIntervalSinceNow] < kRNCacheInterval){
-            return true;
+        if ( [date timeIntervalSinceNow] > -kRNCacheInterval){
+            return YES;
         }
     }
-    return !reachable;
+    return NO;
 }
 
 - (void)appendData:(NSData *)newData
