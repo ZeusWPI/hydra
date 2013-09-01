@@ -21,9 +21,9 @@
 + (RKObjectMapping *)objectMapping
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
-    [objectMapping mapAttributes:@"title", @"date", @"content", @"highlighted", nil];
-    [objectMapping mapKeyPath:@"id" toAttribute:@"itemId"];
-    [objectMapping mapRelationship:@"association" withMapping:[Association objectMapping]];
+    [objectMapping addAttributeMappingsFromArray:@[@"title", @"date", @"content", @"highlighted"]];
+    [objectMapping addAttributeMappingsFromDictionary:@{@"id": @"itemId"}];
+    [objectMapping addRelationshipMappingWithSourceKeyPath:@"association" mapping:[Association objectMapping]];
     return objectMapping;
 }
 

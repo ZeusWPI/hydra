@@ -52,10 +52,10 @@
     // Configure some parts of the application asynchronously
     dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
-        // Check for internet connectivity
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
-                                                     name:RKReachabilityWasDeterminedNotification object:nil];
-        [RKReachabilityObserver reachabilityObserverForInternet];
+        // Check for internet connectivity TODO
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
+        //                                             name:RKReachabilityWasDeterminedNotification object:nil];
+        //[RKReachabilityObserver reachabilityObserverForInternet];
 
         // Configure ShareKit
         ShareKitConfigurator *config = [[ShareKitConfigurator alloc] init];
@@ -132,8 +132,9 @@
     if(reachabilityDetermined) return;
     reachabilityDetermined = YES;
 
-    RKReachabilityObserver *reachability = notification.object;
-    if (!reachability.isNetworkReachable)
+    //RKReachabilityObserver *reachability = notification.object;
+    //if (!reachability.isNetworkReachable)
+    if (false)
     {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{
             kErrorTitleKey: @"Geen internetverbinding",

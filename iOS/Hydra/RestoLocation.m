@@ -35,14 +35,13 @@
     return [NSString stringWithFormat:@"<RestoLocation '%@'>", self.name];
 }
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (RKObjectMapping *)objectMapping
 {
     // Create mapping for locations
     RKObjectMapping *locationMapping = [RKObjectMapping mappingForClass:self];
-    [locationMapping mapAttributes:@"name", @"address", @"type", @"longitude", @"latitude", nil];
+    [locationMapping addAttributeMappingsFromArray:@[@"name", @"address", @"type", @"longitude", @"latitude"]];
 
-    // Register mapping
-    [mappingProvider setObjectMapping:locationMapping forKeyPath:@"locations"];
+    return locationMapping;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder

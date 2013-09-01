@@ -14,9 +14,9 @@
 #import "FacebookEvent.h"
 #import <RestKit/RestKit.h>
 
-#define kBaseUrl @"http://student.ugent.be/hydra/api/1.0"
-#define kActivitiesResource @"/all_activities.json"
-#define kNewsResource @"/all_news.json"
+#define kBaseUrl @"http://student.ugent.be/hydra/api/1.0/"
+#define kActivitiesResource @"all_activities.json"
+#define kNewsResource @"all_news.json"
 #define kUpdateInterval (15 * 60)
 
 NSString *const AssociationStoreDidUpdateNewsNotification =
@@ -24,7 +24,7 @@ NSString *const AssociationStoreDidUpdateNewsNotification =
 NSString *const AssociationStoreDidUpdateActivitiesNotification =
     @"AssociationStoreDidUpdateActivitiesNotification";
 
-@interface AssociationStore () <NSCoding, RKObjectLoaderDelegate, RKRequestDelegate>
+@interface AssociationStore () <NSCoding>
 
 @property (nonatomic, strong) NSDictionary *associationLookup;
 @property (nonatomic, strong) NSArray *newsItems;
@@ -74,9 +74,10 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     self.associationLookup = [Association updateAssociations:self.associationLookup];
 
     self.activeRequests = [[NSMutableArray alloc] init];
-    self.objectManager = [RKObjectManager managerWithBaseURLString:kBaseUrl];
-    self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
-    self.objectManager.client.cachePolicy = RKRequestCachePolicyEnabled;
+    VLog([[NSURL alloc] initWithString:kBaseUrl]);
+    self.objectManager = [RKObjectManager managerWithBaseURL:[[NSURL alloc] initWithString:kBaseUrl]];
+    NSLog(@"URL: %@",[[self.objectManager baseURL] absoluteString]);
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
     // Listen for facebook-updates to activities
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -188,14 +189,14 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)reloadActivities
 {
-    [self.objectManager.client.requestCache invalidateAll];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self updateResource:kActivitiesResource lastUpdated:nil
            objectMapping:[AssociationActivity objectMapping]];
 }
 
 - (void)reloadNewsItems
 {
-    [self.objectManager.client.requestCache invalidateAll];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self updateResource:kNewsResource lastUpdated:nil
            objectMapping:[AssociationNewsItem objectMapping]];
 }
@@ -214,85 +215,78 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     if (![self.activeRequests containsObject:resource]) {
         DLog(@"Updating %@", resource);
         [self.activeRequests addObject:resource];
-        [self.objectManager loadObjectsAtResourcePath:resource usingBlock:^(RKObjectLoader *loader) {
-            RKObjectMappingProvider *mappingProvider = [RKObjectMappingProvider objectMappingProvider];
-            [mappingProvider registerObjectMapping:mapping withRootKeyPath:@""];
-            loader.mappingProvider = mappingProvider;
-            loader.delegate = self;
-        }];
+        [self.objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodGET pathPattern:resource keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        [self.objectManager getObjectsAtPath:resource parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+         {
+             NSString *notification = nil;
+             NSLog(@"Retrieved resource \"%@\"", resource);
+             NSArray *objects = [mappingResult array];
+             VLog(mappingResult);
+             VLog(resource);
+             // Received some NewsItems
+             if ([resource isEqualToString:kNewsResource]) {
+                 NSMutableSet *readItems = [NSMutableSet set];
+                 // Using direct access because accessors reload the data
+                 for (AssociationNewsItem *item in _newsItems) {
+                     if (item.read) {
+                         [readItems addObject:@(item.itemId)];
+                     }
+                 }
+                 for (AssociationNewsItem *item in objects) {
+                     if ([readItems containsObject:@(item.itemId)]) {
+                         item.read = YES;
+                     }
+                 }
+                 self.newsItems = objects;
+                 self.newsLastUpdated = [NSDate date];
+                 notification = AssociationStoreDidUpdateNewsNotification;
+             }
+             // Received Activities
+             else if ([resource isEqualToString:kActivitiesResource]) {
+                 NSMutableDictionary *availableEvents = [NSMutableDictionary dictionary];
+                 // Using direct access because accessors reload the data
+                 for (AssociationActivity *activity in _activities) {
+                     if ([activity hasFacebookEvent]) {
+                         availableEvents[activity.facebookId] = activity;
+                     }
+                 }
+                 for (AssociationActivity *activity in objects) {
+                     if ([availableEvents objectForKey:activity.facebookId]) {
+                         AssociationActivity *oldActivity = availableEvents[activity.facebookId];
+                         activity.facebookEvent = oldActivity.facebookEvent;
+                     }
+                 }
+                 self.activities = objects;
+                 self.activitiesLastUpdated = [NSDate date];
+                 notification = AssociationStoreDidUpdateActivitiesNotification;
+             }
+             
+             [self markStorageOutdated];
+             [self syncStorage];
+             
+             // Send notification
+             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+             [center postNotificationName:notification object:self userInfo:nil];
+             
+             [self.activeRequests removeObject:resource];
+
+         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+             NSLog(@"It Failed: %@", error);
+             AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+             [app handleError:error];
+
+             // TODO: fake event so loader thingies disappear?
+
+             // Only clear the request after 10 seconds, to prevent failed requests
+             // restarting due to related succesful requests
+             if (operation) {
+                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC);
+                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                     [self.activeRequests removeObject:resource];
+                 });
+             }
+         }];
     }
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
-{
-    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [app handleError:error];
-
-    // TODO: fake event so loader thingies disappear?
-
-    // Only clear the request after 10 seconds, to prevent failed requests
-    // restarting due to related succesful requests
-    if (objectLoader) {
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-            [self.activeRequests removeObject:objectLoader.resourcePath];
-        });
-    }
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
-{
-    NSString *notification = nil;
-    NSLog(@"Retrieved resource \"%@\"", objectLoader.resourcePath);
-
-    VLog(objects);
-
-    // Received some NewsItems
-    if ([objectLoader.resourcePath isEqualToString:kNewsResource]) {
-        NSMutableSet *readItems = [NSMutableSet set];
-        // Using direct access because accessors reload the data
-        for (AssociationNewsItem *item in _newsItems) {
-            if (item.read) {
-                [readItems addObject:@(item.itemId)];
-            }
-        }
-        for (AssociationNewsItem *item in objects) {
-            if ([readItems containsObject:@(item.itemId)]) {
-                item.read = YES;
-            }
-        }
-        self.newsItems = objects;
-        self.newsLastUpdated = [NSDate date];
-        notification = AssociationStoreDidUpdateNewsNotification;
-    }
-    // Received Activities
-    else if ([objectLoader.resourcePath isEqualToString:kActivitiesResource]) {
-        NSMutableDictionary *availableEvents = [NSMutableDictionary dictionary];
-        // Using direct access because accessors reload the data
-        for (AssociationActivity *activity in _activities) {
-            if ([activity hasFacebookEvent]) {
-                availableEvents[activity.facebookId] = activity;
-            }
-        }
-        for (AssociationActivity *activity in objects) {
-            if ([availableEvents objectForKey:activity.facebookId]) {
-                AssociationActivity *oldActivity = availableEvents[activity.facebookId];
-                activity.facebookEvent = oldActivity.facebookEvent;
-            }
-        }
-        self.activities = objects;
-        self.activitiesLastUpdated = [NSDate date];
-        notification = AssociationStoreDidUpdateActivitiesNotification;
-    }
-
-    [self markStorageOutdated];
-    [self syncStorage];
-
-    // Send notification
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:notification object:self userInfo:nil];
-
-    [self.activeRequests removeObject:objectLoader.resourcePath];
 }
 
 #pragma mark - Notifications

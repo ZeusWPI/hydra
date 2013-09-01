@@ -14,11 +14,12 @@
 #import "AppDelegate.h"
 #import <RestKit/RestKit.h>
 
-#define kRestoUrl @"http://zeus.ugent.be/hydra/api/1.0/resto"
-#define kRestoInfoPath @"/meta.json"
-#define kRestoMenuPath @"/menu/%d/%d.json"
+#define kRestoUrl @"http://zeus.ugent.be/hydra/api/1.0/resto/"
+#define kRestoInfoPath @"meta.json"
+#define kRestoMenuPath @"menu/%d/%d.json"
 
-#define kInfoUpdateIterval (24 * 60 * 60) /* one day */
+//#define kInfoUpdateIterval (24 * 60 * 60) /* one day */
+#define kInfoUpdateIterval 20
 #define kMenuUpdateIterval (12 * 60 * 60)
 
 NSString *const RestoStoreDidReceiveMenuNotification =
@@ -26,7 +27,7 @@ NSString *const RestoStoreDidReceiveMenuNotification =
 NSString *const RestoStoreDidUpdateInfoNotification =
     @"RestoStoreDidUpdateInfoNotification";
 
-@interface RestoStore () <NSCoding, RKObjectLoaderDelegate>
+@interface RestoStore () <NSCoding>
 
 @property (nonatomic, strong) RKObjectManager *objectManager;
 @property (nonatomic, strong) NSMutableArray *activeRequests;
@@ -38,6 +39,10 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 
 @end
 
+@interface RestoInfo:NSObject
+@property (nonatomic, strong) NSArray *locations;
+@property (nonatomic, strong) NSArray *legend;
+@end
 @implementation RestoStore
 
 + (RestoStore *)sharedStore
@@ -79,8 +84,9 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     }
 
     // Initialize objectManager
-    self.objectManager = [RKObjectManager managerWithBaseURLString:kRestoUrl];
-    self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    self.objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:kRestoUrl]];
+
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 }
 
 #pragma mark - Caching
@@ -164,12 +170,26 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     if (![self.activeRequests containsObject:path]) {
         DLog(@"Fetching resto information for %d/%d", year, week);
         [self.activeRequests addObject:path];
-        [self.objectManager loadObjectsAtResourcePath:path usingBlock:^(RKObjectLoader *loader) {
-            RKObjectMappingProvider *mapping = [RKObjectMappingProvider objectMappingProvider];
-            [RestoMenu registerObjectMappingWith:mapping];
-            loader.mappingProvider = mapping;
-            loader.delegate = self;
-        }];
+        RKObjectMapping *mapping = [RestoMenu objectMapping];
+        [self.objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodGET pathPattern:path keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        [self.objectManager getObjectsAtPath:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+         {
+             NSArray *objects = [mappingResult array];
+
+             [self delayActiveRequestRemoval:path];
+             for (RestoMenu *menu in objects) {
+                 NSDate *day = [[menu day] dateAtStartOfDay];
+                 menu.lastUpdated = [NSDate date];
+                 self.menus[day] = menu;
+             }
+
+             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+             [center postNotificationName:RestoStoreDidReceiveMenuNotification object:self];
+             
+             [self updateStoreCache];
+         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+             NSLog(@"It Failed: %@", error);
+         }];
     }
 }
 
@@ -195,65 +215,42 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     if (![self.activeRequests containsObject:kRestoInfoPath]) {
         DLog(@"Updating resto meta-information");
         [self.activeRequests addObject:kRestoInfoPath];
-        [self.objectManager loadObjectsAtResourcePath:kRestoInfoPath usingBlock:^(RKObjectLoader *loader) {
-            RKObjectMappingProvider *mapping = [RKObjectMappingProvider objectMappingProvider];
-            [RestoLegendItem registerObjectMappingWith:mapping];
-            [RestoLocation registerObjectMappingWith:mapping];
-            loader.mappingProvider = mapping;
-            loader.delegate = self;
-        }];
+        RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[RestoInfo class]];
+        [mapping addRelationshipMappingWithSourceKeyPath:@"legend" mapping:[RestoLegendItem objectMapping]];
+        [mapping addRelationshipMappingWithSourceKeyPath:@"locations" mapping:[RestoLocation objectMapping]];
+        [self.objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodGET pathPattern:kRestoInfoPath keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        [self.objectManager getObjectsAtPath:kRestoInfoPath parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+         {
+
+             RestoInfo *restoInfo = [mappingResult firstObject];
+             [self delayActiveRequestRemoval:kRestoInfoPath];
+             NSLog(@"Legend: %d, Locations: %d",[restoInfo.legend count],[restoInfo.locations count]);
+             if ([restoInfo.legend count] > 0) {
+                 self.legend = restoInfo.legend;
+             }
+             if ([restoInfo.locations count] > 0) {
+                 self.locations = restoInfo.locations;
+             }
+             self.infoLastUpdated = [NSDate date];
+
+             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+             [center postNotificationName:RestoStoreDidUpdateInfoNotification object:self];
+             
+             [self updateStoreCache];
+         } failure:^(RKObjectRequestOperation *operation, NSError *error)
+        {
+            AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [app handleError:error];
+
+            NSLog(@"It Failed: %@", error);
+            //TODO [self delayActiveRequestRemoval:resource];
+        }
+];
     }
 }
 
 #pragma mark - RestKit Object loading
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
-{
-    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [app handleError:error];
-
-    [self delayActiveRequestRemoval:objectLoader.resourcePath];
-}
-
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
-{
-    // Only handle menu results in this method
-    if ([objectLoader.resourcePath isEqual:kRestoInfoPath]) return;
-
-    [self delayActiveRequestRemoval:objectLoader.resourcePath];
-    for (RestoMenu *menu in objects) {
-        NSDate *day = [[menu day] dateAtStartOfDay];
-        menu.lastUpdated = [NSDate date];
-        self.menus[day] = menu;
-    }
-
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:RestoStoreDidReceiveMenuNotification object:self];
-
-    [self updateStoreCache];
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary
-{
-    // Only handle info results in this method
-    if (![objectLoader.resourcePath isEqual:kRestoInfoPath]) return;
-
-    [self delayActiveRequestRemoval:objectLoader.resourcePath];
-
-    if ([dictionary[@"legend"] count] > 0) {
-        self.legend = dictionary[@"legend"];
-    }
-    if ([dictionary[@"locations"] count] > 0) {
-        self.locations = dictionary[@"locations"];
-    }
-    self.infoLastUpdated = [NSDate date];
-
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:RestoStoreDidUpdateInfoNotification object:self];
-
-    [self updateStoreCache];
-}
 
 - (void)delayActiveRequestRemoval:(NSString *)resourcePath
 {
@@ -266,4 +263,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     });
 }
 
+@end
+
+@implementation RestoInfo
 @end

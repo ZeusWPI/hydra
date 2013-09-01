@@ -18,28 +18,32 @@
                 self.day, count, NSStringFromBOOL(self.open)];
 }
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (RKObjectMapping *)objectMapping
 {
     // Create mapping for menu-item
     RKObjectMapping *itemMapping = [RKObjectMapping mappingForClass:[RestoMenuItem class]];
-    [itemMapping mapAttributes:@"name", @"price", @"recommended", nil];
+    [itemMapping addAttributeMappingsFromArray:@[@"name", @"price", @"recommended"]];
 
     // Create mapping for menu
     RKObjectMapping *menuMapping = [RKObjectMapping mappingForClass:self];
     [menuMapping setForceCollectionMapping:YES];
-    [menuMapping mapKeyOfNestedDictionaryToAttribute:@"day"];
-    [menuMapping mapKeyPath:@"(day).meat" toRelationship:@"meat" withMapping:itemMapping];
-    [menuMapping mapKeyPath:@"(day).soup" toRelationship:@"soup" withMapping:itemMapping];
-    [menuMapping mapKeyPath:@"(day).open" toAttribute:@"open"];
-    [menuMapping mapKeyPath:@"(day).vegetables" toAttribute:@"vegetables"];
-
+    [menuMapping addAttributeMappingFromKeyOfRepresentationToAttribute:@"day"];
+    [menuMapping addAttributeMappingsFromDictionary:
+     @{
+       @"(day).open": @"open",
+       @"(day).vegetables": @"vegetables"
+       }];
+    RKRelationshipMapping *meatRelationshipMapping =
+    [RKRelationshipMapping relationshipMappingFromKeyPath:@"(day).meat" toKeyPath:@"meat" withMapping:itemMapping];
+    RKRelationshipMapping *soupRelationshipMapping =
+    [RKRelationshipMapping relationshipMappingFromKeyPath:@"(day).soup" toKeyPath:@"soup" withMapping:itemMapping];
+    [menuMapping addPropertyMappingsFromArray:@[meatRelationshipMapping,soupRelationshipMapping]];
     // Date format: 2012-03-26
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     menuMapping.dateFormatters = @[ dateFormatter ];
 
-    // Register mapping
-    [mappingProvider setObjectMapping:menuMapping forKeyPath:@""];
+    return menuMapping;
 }
 
 - (id)initWithCoder:(NSCoder *)coder

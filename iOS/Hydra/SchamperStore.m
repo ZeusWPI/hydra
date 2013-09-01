@@ -10,13 +10,14 @@
 #import "SchamperArticle.h"
 #import "AppDelegate.h"
 #import <RestKit/RestKit.h>
+#import <RKXMLReaderSerialization.h>
 
-#define kSchamperUrl @"http://zeus.ugent.be/hydra/api/1.0/schamper/daily.xml"
-
+#define kSchamperBaseUrl @"http://zeus.ugent.be/hydra/api/1.0/schamper/"
+#define kSchamperDailyUrl @"daily.xml"
 NSString *const SchamperStoreDidUpdateArticlesNotification =
     @"SchamperStoreDidUpdateArticlesNotification";
 
-@interface SchamperStore () <NSCoding, RKObjectLoaderDelegate>
+@interface SchamperStore () <NSCoding>
 
 @property (nonatomic, strong) RKObjectManager *objectManager;
 @property (nonatomic, assign) BOOL active;
@@ -88,7 +89,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
 - (void)reloadArticles
 {
-    [self.objectManager.client.requestCache invalidateAll];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self updateArticles];
 }
 
@@ -123,44 +124,40 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     // The RKObjectManager must be retained, otherwise reachability notifications
     // will not be received properly and all kinds of weird stuff happen
     if (!self.objectManager) {
-        self.objectManager = [RKObjectManager managerWithBaseURLString:kSchamperUrl];
-        [SchamperArticle registerObjectMappingWith:self.objectManager.mappingProvider];
-        self.objectManager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+        self.objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:kSchamperBaseUrl]];
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     }
-    [self.objectManager loadObjectsAtResourcePath:@"" delegate:self];
-}
+    [self.objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:[SchamperArticle objectMapping] method:RKRequestMethodGET pathPattern:kSchamperDailyUrl keyPath:@"rss.channel.item" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    [self.objectManager getObjectsAtPath:kSchamperDailyUrl parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         NSArray *objects = [mappingResult array];
+         NSMutableSet *set = [NSMutableSet set];
+         for (SchamperArticle *article in self.articles) {
+             if (article.read) {
+                 [set addObject:article.link];
+             }
+         }
+         for (SchamperArticle *article in objects) {
+             if ([set containsObject:article.link]) {
+                 article.read = YES;
+             }
+         }
+         self.articles = objects;
+         self.lastUpdated = [NSDate date];
+         self.active = NO;
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
-{
-    self.active = false;
+         [self markStorageOutdated];
+         [self syncStorage];
 
-    // Show error
-    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [app handleError:error];
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
-{
-    NSMutableSet *set = [NSMutableSet set];
-    for (SchamperArticle *article in self.articles) {
-        if (article.read) {
-            [set addObject:article.link];
-        }
-    }
-    for (SchamperArticle *article in objects) {
-        if ([set containsObject:article.link]) {
-            article.read = YES;
-        }
-    }
-    self.articles = objects;
-    self.lastUpdated = [NSDate date];
-    self.active = NO;
-
-    [self markStorageOutdated];
-    [self syncStorage];
-
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];
+         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+         [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];
+     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+         self.active = false;
+         NSLog(@"Error: %@",error);
+         // Show error
+         AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+         [app handleError:error];
+     }];
 }
 
 @end
