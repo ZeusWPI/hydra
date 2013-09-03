@@ -7,29 +7,14 @@
   <link href="webview.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript">
     window.onload = function(){
-function addListener(myEl){
-  myEl.addEventListener('click', function() {
-    var firstChild = myEl.firstChild;
-    while (firstChild = firstChild.nextSibling) {
-      if ( firstChild.tagName === 'TD' ){
-        break;
-      }
-    }
-    var child = firstChild.firstChild;
-    while (child = child.nextSibling) {
-      if ( child.tagName === 'A' ){
-        break;
-      }
-    }
-    child.click();
-}, false);
-  }
 
 function init(){
-  var sibs = document.getElementsByTagName('tr');
-  for (var i = 0; i < sibs.length; i++){
-    var sib = sibs[i];
-    addListener(sib);
+  var allTRs = document.getElementsByTagName('tr');
+  for (var i = 0; i < allTRs.length; i++){
+    var tr = allTRs[i];
+    tr.addEventListener('click', function() {
+      tr.firstElementChild.firstElementChild.click();
+    }, false);
   }
 }
 init();
