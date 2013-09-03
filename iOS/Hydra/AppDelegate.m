@@ -53,9 +53,6 @@
     dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
         // Check for internet connectivity
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
-                                                     //name: object:nil];
-        //[RKReachabilityObserver reachabilityObserverForInternet];
         AFHTTPClient *httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://zeus.ugent.be/hydra/api/1.0"]];
         [httpClient getPath:@"" parameters:nil success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [self reachabilityStatusDetermined:httpClient.networkReachabilityStatus];
