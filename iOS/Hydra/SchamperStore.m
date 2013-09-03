@@ -127,8 +127,16 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
         self.objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:kSchamperBaseUrl]];
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     }
-    [self.objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:[SchamperArticle objectMapping] method:RKRequestMethodGET pathPattern:kSchamperDailyUrl keyPath:@"rss.channel.item" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-    [self.objectManager getObjectsAtPath:kSchamperDailyUrl parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+
+    [self.objectManager addResponseDescriptor:
+        [RKResponseDescriptor responseDescriptorWithMapping:
+         [SchamperArticle objectMapping] method:RKRequestMethodGET
+                                                pathPattern:kSchamperDailyUrl
+                                                    keyPath:@"rss.channel.item"
+                                                statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    [self.objectManager getObjectsAtPath:kSchamperDailyUrl
+                              parameters:nil
+                                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
      {
          NSArray *objects = [mappingResult array];
          NSMutableSet *set = [NSMutableSet set];
@@ -151,8 +159,9 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
          NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
          [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];
-     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
-         self.active = false;
+     }
+                                 failure:^(RKObjectRequestOperation *operation, NSError *error) {
+         self.active = NO;
          NSLog(@"Error: %@",error);
          // Show error
          AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];

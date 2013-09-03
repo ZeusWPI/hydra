@@ -24,6 +24,7 @@
     [objectMapping addAttributeMappingsFromArray:@[@"title", @"date", @"content", @"highlighted"]];
     [objectMapping addAttributeMappingsFromDictionary:@{@"id": @"itemId"}];
     [objectMapping addRelationshipMappingWithSourceKeyPath:@"association" mapping:[Association objectMapping]];
+    
     return objectMapping;
 }
 

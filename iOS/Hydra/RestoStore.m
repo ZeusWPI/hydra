@@ -171,8 +171,15 @@ NSString *const RestoStoreDidUpdateInfoNotification =
         DLog(@"Fetching resto information for %d/%d", year, week);
         [self.activeRequests addObject:path];
         RKObjectMapping *mapping = [RestoMenu objectMapping];
-        [self.objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodGET pathPattern:path keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-        [self.objectManager getObjectsAtPath:path parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+        [self.objectManager addResponseDescriptor:
+         [RKResponseDescriptor responseDescriptorWithMapping:mapping
+                                                      method:RKRequestMethodGET
+                                                 pathPattern:path
+                                                     keyPath:nil
+                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        [self.objectManager getObjectsAtPath:path
+                                  parameters:nil
+                                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
          {
              NSArray *objects = [mappingResult array];
 
@@ -187,7 +194,8 @@ NSString *const RestoStoreDidUpdateInfoNotification =
              [center postNotificationName:RestoStoreDidReceiveMenuNotification object:self];
              
              [self updateStoreCache];
-         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+         }
+                                     failure:^(RKObjectRequestOperation *operation, NSError *error) {
              NSLog(@"It Failed: %@", error);
          }];
     }
@@ -218,10 +226,16 @@ NSString *const RestoStoreDidUpdateInfoNotification =
         RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[RestoInfo class]];
         [mapping addRelationshipMappingWithSourceKeyPath:@"legend" mapping:[RestoLegendItem objectMapping]];
         [mapping addRelationshipMappingWithSourceKeyPath:@"locations" mapping:[RestoLocation objectMapping]];
-        [self.objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodGET pathPattern:kRestoInfoPath keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-        [self.objectManager getObjectsAtPath:kRestoInfoPath parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+        [self.objectManager addResponseDescriptor:
+         [RKResponseDescriptor responseDescriptorWithMapping:mapping
+                                                      method:RKRequestMethodGET
+                                                 pathPattern:kRestoInfoPath
+                                                     keyPath:nil
+                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        [self.objectManager getObjectsAtPath:kRestoInfoPath
+                                  parameters:nil
+                                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
          {
-
              RestoInfo *restoInfo = [mappingResult firstObject];
              [self delayActiveRequestRemoval:kRestoInfoPath];
              NSLog(@"Legend: %d, Locations: %d",[restoInfo.legend count],[restoInfo.locations count]);
@@ -237,21 +251,20 @@ NSString *const RestoStoreDidUpdateInfoNotification =
              [center postNotificationName:RestoStoreDidUpdateInfoNotification object:self];
              
              [self updateStoreCache];
-         } failure:^(RKObjectRequestOperation *operation, NSError *error)
+         }
+                                     failure:^(RKObjectRequestOperation *operation, NSError *error)
         {
             AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [app handleError:error];
 
             NSLog(@"It Failed: %@", error);
-            //TODO [self delayActiveRequestRemoval:resource];
+            [self delayActiveRequestRemoval:kRestoInfoPath];
         }
 ];
     }
 }
 
 #pragma mark - RestKit Object loading
-
-
 - (void)delayActiveRequestRemoval:(NSString *)resourcePath
 {
     // Only clear the request after 10 seconds, when all related requests have

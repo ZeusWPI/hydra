@@ -78,7 +78,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     self.objectManager = [RKObjectManager managerWithBaseURL:[[NSURL alloc] initWithString:kBaseUrl]];
     NSLog(@"URL: %@",[[self.objectManager baseURL] absoluteString]);
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-
+    
     // Listen for facebook-updates to activities
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(facebookEventUpdated:)
@@ -215,8 +215,15 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     if (![self.activeRequests containsObject:resource]) {
         DLog(@"Updating %@", resource);
         [self.activeRequests addObject:resource];
-        [self.objectManager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:mapping method:RKRequestMethodGET pathPattern:resource keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
-        [self.objectManager getObjectsAtPath:resource parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+        [self.objectManager addResponseDescriptor:
+            [RKResponseDescriptor responseDescriptorWithMapping:mapping
+                                                         method:RKRequestMethodGET
+                                                    pathPattern:resource
+                                                        keyPath:nil
+                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+        [self.objectManager getObjectsAtPath:resource
+                                  parameters:nil
+                                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
          {
              NSString *notification = nil;
              NSLog(@"Retrieved resource \"%@\"", resource);
@@ -270,7 +277,9 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
              
              [self.activeRequests removeObject:resource];
 
-         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+         }
+                                     failure:^(RKObjectRequestOperation *operation, NSError *error)
+        {
              NSLog(@"It Failed: %@", error);
              AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
              [app handleError:error];
