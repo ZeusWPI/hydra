@@ -52,11 +52,14 @@
     // Configure some parts of the application asynchronously
     dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
-        // Check for internet connectivity TODO
+        // Check for internet connectivity
         //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
-        //                                             name:RKReachabilityWasDeterminedNotification object:nil];
+                                                     //name: object:nil];
         //[RKReachabilityObserver reachabilityObserverForInternet];
-
+        AFHTTPClient *httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://zeus.ugent.be/hydra/api/1.0"]];
+        [httpClient getPath:@"" parameters:nil success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self reachabilityStatusDetermined:httpClient.networkReachabilityStatus];
+        }];
         // Configure ShareKit
         ShareKitConfigurator *config = [[ShareKitConfigurator alloc] init];
         [SHKConfiguration sharedInstanceWithConfigurator:config];
@@ -125,19 +128,25 @@
     [[FBSession activeSession] close];
 }
 
-- (void)reachabilityStatusDetermined:(NSNotification *)notification
+- (void)reachabilityStatusDetermined:(AFNetworkReachabilityStatus) status
 {
+    NSLog(@"Reachibilty test");
+
     // Prevent this dialog from showing up more than once
-    static BOOL reachabilityDetermined = false;
+    static BOOL reachabilityDetermined = NO;
+    if (status == AFNetworkReachabilityStatusUnknown){
+        NSLog(@"Reachibilty unknown");
+        return;
+    }
     if(reachabilityDetermined) return;
     reachabilityDetermined = YES;
 
+
     //RKReachabilityObserver *reachability = notification.object;
-    //if (!reachability.isNetworkReachable)
-    if (false)
+    if (status == AFNetworkReachabilityStatusNotReachable)
     {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{
-            kErrorTitleKey: @"Geen internetverbinding",
+            kErrorTitleKey: @"Geen internetverbinding!",
             kErrorDescriptionKey: @"Sommige onderdelen van Hydra vereisen een "
                                   @"internetverbinding en zullen mogelijks niet "
                                   @"correct werken."}];
@@ -149,7 +158,7 @@ BOOL errorDialogShown = false;
 
 - (void)handleError:(NSError *)error
 {
-    NSLog(@"An error occured: %@", error);
+    NSLog(@"An error occured: %@,%@", error,error.domain);
     id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
     [tracker send:[[GAIDictionaryBuilder createExceptionWithDescription:[error description]
                                                               withFatal:NO] build]];
@@ -168,6 +177,10 @@ BOOL errorDialogShown = false;
         title = @"Netwerkfout";
         message = @"Er trad een fout op het bij het ophalen van externe informatie. "
                    "Gelieve later opnieuw te proberen.";
+    }
+    else if ([error.domain isEqual:NSURLErrorDomain]) {
+        [self reachabilityStatusDetermined:AFNetworkReachabilityStatusNotReachable];
+        return;
     }
     else if ([error.domain isEqual:FacebookSDKDomain]) {
         title = @"Facebook";
