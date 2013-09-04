@@ -6,18 +6,13 @@
   <meta name="viewport" content="width=device-width" />
   <link href="webview.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript">
-    window.onload = function(){
-
-function init(){
-  var allTRs = document.getElementsByTagName('tr');
-  for (var i = 0; i < allTRs.length; i++){
-    var tr = allTRs[i];
-    tr.addEventListener('click', function() {
-      tr.firstElementChild.firstElementChild.click();
-    }, false);
+window.onload = function() {
+  var rows = document.getElementsByTagName('tr');
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].addEventListener('click', function() {
+      this.firstElementChild.firstElementChild.click();
+    });
   }
-}
-init();
 }
   </script>
 </head>

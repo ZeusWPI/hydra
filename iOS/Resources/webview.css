@@ -39,6 +39,7 @@ table a {
 }
 
 table.sports tr:nth-child(2n) { background: #ced6e0; }
+table.sports tr:hover { background: #CDE1FA; cursor: pointer; }
 
 table.hours td {
   vertical-align: middle;
