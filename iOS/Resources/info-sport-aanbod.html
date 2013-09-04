@@ -5,6 +5,16 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <link href="webview.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+window.onload = function() {
+  var rows = document.getElementsByTagName('tr');
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].addEventListener('click', function() {
+      this.firstElementChild.firstElementChild.click();
+    });
+  }
+}
+  </script>
 </head>
 <body class="no-margin">
 <table class="sports" cellspacing="0">
