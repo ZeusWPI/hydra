@@ -21,8 +21,8 @@ import java.util.Locale;
 public class Hydra extends AbstractSherlockActivity {
 
     public static final Locale LOCALE = new Locale("nl", "BE");
-    private static final boolean DEBUG = false;
-    private static final boolean BETA = true;
+    private static final boolean DEBUG = true;
+    private static final boolean BETA = false;
     public static boolean SHOWED_NETWORK = false;
 
     @Override
@@ -62,7 +62,6 @@ public class Hydra extends AbstractSherlockActivity {
             Log.d("Testflight:", "Enable bugtracking");
             //Initialize TestFlight with your app token.
             TestFlight.takeOff(this.getApplication(), "f498b778-92cf-49d7-9650-954daeaa8551");
-            TestFlight.passCheckpoint("Checkpointtest!"); 
         }
 
         // Google Analytics
