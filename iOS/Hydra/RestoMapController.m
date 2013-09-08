@@ -236,7 +236,11 @@
                                       reuseIdentifier:cellIdentifier];
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
-        cell.separatorInset = UIEdgeInsetsZero;
+
+        // iOS7
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
     }
 
     RestoLocation *resto = self.filteredMapItems[indexPath.row];

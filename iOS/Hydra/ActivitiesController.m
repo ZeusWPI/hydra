@@ -251,7 +251,11 @@
     cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
     cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
     cell.textLabel.highlightedTextColor = [UIColor colorWithWhite:0.94 alpha:1];
-    cell.separatorInset = UIEdgeInsetsZero;
+
+    // iOS7
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        cell.separatorInset = UIEdgeInsetsZero;
+    }
 
     CGFloat offsetX = IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 64 : 60;
     CGFloat width = self.view.bounds.size.width - offsetX - rightMargin;
