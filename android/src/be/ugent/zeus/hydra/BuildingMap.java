@@ -59,7 +59,7 @@ public class BuildingMap extends AbstractSherlockFragmentActivity implements Goo
                         activityManager.getDeviceConfigurationInfo();
                 final boolean supportsEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
                 if (!supportsEs2) {
-                    Toast.makeText(this, "Uw apparaat ondersteunt geen mapsversie.",
+                    Toast.makeText(this, R.string.maps_opengl_error,
                             Toast.LENGTH_SHORT).show();
                     finish();
                 }
