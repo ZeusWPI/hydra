@@ -12,11 +12,13 @@
 
 @interface AssociationNewsItem : NSObject <NSCoding>
 
+@property (nonatomic, assign) NSInteger itemId;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) Association *association;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, assign) BOOL highlighted;
+@property (nonatomic, assign) BOOL read;
 
 + (RKObjectMapping *)objectMapping;
 

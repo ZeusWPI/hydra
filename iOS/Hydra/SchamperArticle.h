@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *body;
+@property (nonatomic, assign) BOOL read;
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 

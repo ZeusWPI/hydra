@@ -36,6 +36,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 @property (nonatomic, strong) RKObjectManager *objectManager;
 @property (nonatomic, strong) NSMutableArray *activeRequests;
 
+@property (nonatomic, assign) BOOL storageOutdated;
+
 @end
 
 @implementation AssociationStore
@@ -123,19 +125,30 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 {
     // Get cache directory
     NSArray *cacheDirectories =
-    NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = cacheDirectories[0];
 
     return [cacheDirectory stringByAppendingPathComponent:@"association.archive"];
 }
 
-- (void)updateStoreCache
+- (void)syncStorage
 {
+    if (!self.storageOutdated) {
+        return;
+    }
+
+    // Immediately mark the cache as being updated, as this is an async operation
+    self.storageOutdated = NO;
+
     dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
-        DLog(@"Updating store cache");
         [NSKeyedArchiver archiveRootObject:self toFile:self.class.storeCachePath];
     });
+}
+
+- (void)markStorageOutdated
+{
+    self.storageOutdated = YES;
 }
 
 #pragma mark - Accessors
@@ -236,36 +249,63 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
     // Received some NewsItems
     if ([objectLoader.resourcePath isEqualToString:kNewsResource]) {
+        NSMutableSet *readItems = [NSMutableSet set];
+        // Using direct access because accessors reload the data
+        for (AssociationNewsItem *item in _newsItems) {
+            if (item.read) {
+                [readItems addObject:@(item.itemId)];
+            }
+        }
+        for (AssociationNewsItem *item in objects) {
+            if ([readItems containsObject:@(item.itemId)]) {
+                item.read = YES;
+            }
+        }
         self.newsItems = objects;
         self.newsLastUpdated = [NSDate date];
         notification = AssociationStoreDidUpdateNewsNotification;
     }
     // Received Activities
     else if ([objectLoader.resourcePath isEqualToString:kActivitiesResource]) {
-        // TODO: check if some information can be reused, e.g. underlying
-        // FacebookEvent's.
+        NSMutableDictionary *availableEvents = [NSMutableDictionary dictionary];
+        // Using direct access because accessors reload the data
+        for (AssociationActivity *activity in _activities) {
+            if ([activity hasFacebookEvent]) {
+                availableEvents[activity.facebookId] = activity;
+            }
+        }
+        for (AssociationActivity *activity in objects) {
+            if ([availableEvents objectForKey:activity.facebookId]) {
+                AssociationActivity *oldActivity = availableEvents[activity.facebookId];
+                activity.facebookEvent = oldActivity.facebookEvent;
+            }
+        }
         self.activities = objects;
         self.activitiesLastUpdated = [NSDate date];
         notification = AssociationStoreDidUpdateActivitiesNotification;
     }
+
+    [self markStorageOutdated];
+    [self syncStorage];
 
     // Send notification
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:notification object:self userInfo:nil];
 
     [self.activeRequests removeObject:objectLoader.resourcePath];
-    [self updateStoreCache];
 }
 
 #pragma mark - Notifications
 
 - (void)facebookEventUpdated:(NSNotification *)notification
 {
+    [self markStorageOutdated];
+
     // Call method in 10 seconds so multiple changes are written at once
     [[self class] cancelPreviousPerformRequestsWithTarget:self
-                                                 selector:@selector(updateStoreCache)
+                                                 selector:@selector(syncStorage)
                                                    object:nil];
-    [self performSelector:@selector(updateStoreCache) withObject:nil afterDelay:10];
+    [self performSelector:@selector(syncStorage) withObject:nil afterDelay:10];
 }
 
 @end
