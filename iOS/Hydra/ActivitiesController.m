@@ -194,7 +194,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 46.0f;
+    return 46;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -213,7 +213,7 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:NoHighlightCellIdentifier];
-            [self setupCell:cell withWidth:250];
+            [self setupCell:cell withRightMargin:10];
         }
     }
     else {
@@ -222,14 +222,13 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:HighlightCellIdentifier];
-            [self setupCell:cell withWidth:220];
+            [self setupCell:cell withRightMargin:40];
 
             UIImageView *star = [[UIImageView alloc] initWithImage:
                                  [UIImage imageNamed:@"icon-star"]];
             star.frame = CGRectMake(286, 8, 27, 27);
             [cell.contentView addSubview:star];
         }
-
     }
     titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
     subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
@@ -247,19 +246,24 @@
     return cell;
 }
 
-- (void)setupCell:(UITableViewCell *)cell withWidth:(int)width
+- (void)setupCell:(UITableViewCell *)cell withRightMargin:(int)rightMargin
 {
     cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
     cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+    cell.textLabel.highlightedTextColor = [UIColor colorWithWhite:0.94 alpha:1];
+    cell.separatorInset = UIEdgeInsetsZero;
 
-    CGRect titleFrame = CGRectMake(60, 4, width, 20);
+    CGFloat offsetX = IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 64 : 60;
+    CGFloat width = self.view.bounds.size.width - offsetX - rightMargin;
+
+    CGRect titleFrame = CGRectMake(offsetX, 4, width, 20);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
     titleLabel.tag = kCellTitleLabel;
     titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
     titleLabel.highlightedTextColor = [UIColor whiteColor];
     [cell.contentView addSubview:titleLabel];
 
-    CGRect subtitleFrame = CGRectMake(60, 24, width, 16);
+    CGRect subtitleFrame = CGRectMake(offsetX, 24, width, 16);
     UILabel *subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
     subtitleLabel.tag = kCellSubtitleLabel;
     subtitleLabel.font = [UIFont systemFontOfSize:13.0f];

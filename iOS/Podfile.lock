@@ -6,7 +6,7 @@ PODS:
   - GoogleAnalytics-iOS-SDK (3.0)
   - ISO8601DateFormatter (0.6)
   - JSONKit (1.5pre)
-  - LibComponentLogging-Core (1.3.1)
+  - LibComponentLogging-Core (1.3.2)
   - LibComponentLogging-NSLog (1.0.4):
     - LibComponentLogging-Core (>= 1.1.6)
   - libwebp (0.3.0-rc7):
@@ -97,7 +97,7 @@ SPEC CHECKSUMS:
   GoogleAnalytics-iOS-SDK: f8d5faf4862b679667be0c270531a189572275d1
   ISO8601DateFormatter: 077ce9d8cfba171bc1ced6cba0d2ae4aefab7619
   JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
-  LibComponentLogging-Core: 344f6045453ca28fa8f2909eb9624ec9d15ef256
+  LibComponentLogging-Core: f86c1221a20106257dbac29fb638711f1e9c11cd
   LibComponentLogging-NSLog: a4bb0f6de612eef7b5fcdbd9cc96dc868ba1f2df
   libwebp: 40517fa1fd3716eded73b4696c45fc0b66e4b414
   NSData+Base64: 36c4e5b6479259c1a68866ccd2a8dd385c9744f7
@@ -110,4 +110,4 @@ SPEC CHECKSUMS:
   TestFlightSDK: 940906d4b2550cf397c6f2d2fcc4ebfdcd8ae858
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
 
-COCOAPODS: 0.23.0
+COCOAPODS: 0.24.0
