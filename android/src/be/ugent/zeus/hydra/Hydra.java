@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
 import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.testflightapp.lib.TestFlight;
 import java.util.Locale;
 
 /**
@@ -19,10 +20,9 @@ import java.util.Locale;
  */
 public class Hydra extends AbstractSherlockActivity {
 
-//    ZubhiumSDK sdk;
     public static final Locale LOCALE = new Locale("nl", "BE");
-    private static final boolean DEBUG = true;
-    private static final boolean BETA = false;
+    private static final boolean DEBUG = false;
+    private static final boolean BETA = true;
     public static boolean SHOWED_NETWORK = false;
 
     @Override
@@ -57,15 +57,13 @@ public class Hydra extends AbstractSherlockActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_main);
 
-        // Zubhium
-//        if (!DEBUG) {
-//        Log.d("Zubhium:", "Enable bugtracking");
-//        sdk = ZubhiumSDK.getZubhiumSDKInstance(getApplicationContext(), "4837990a007ee67c597d1059742293");
-//        if (sdk != null) {
-//            // We are registering update receiver
-//            sdk.registerUpdateReceiver(Hydra.this);
-//        }
-//        }
+        // Testflight
+        if (!DEBUG) {
+            Log.d("Testflight:", "Enable bugtracking");
+            //Initialize TestFlight with your app token.
+            TestFlight.takeOff(this.getApplication(), "f498b778-92cf-49d7-9650-954daeaa8551");
+            TestFlight.passCheckpoint("Checkpointtest!"); 
+        }
 
         // Google Analytics
         if (BETA || DEBUG) {
@@ -112,23 +110,6 @@ public class Hydra extends AbstractSherlockActivity {
 //                return true;
 //            default:
 //                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
-//    @Override
-//    protected void onDestroy() {
-//        if (sdk != null) {
-//            sdk.unRegisterUpdateReceiver();     // Don't forget to unregister receiver
-//        }
-//        super.onDestroy();
-//    }
-
-//    protected void setupFeedback() {
-//        /**
-//         * Now lets listen to users, by enabling in app help desk. *
-//         */
-//        if (sdk != null) {
-//            sdk.openFeedbackDialog(Hydra.this);
 //        }
 //    }
 }
