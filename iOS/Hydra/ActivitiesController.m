@@ -351,7 +351,11 @@
                                                     otherButtonTitles:nil];
 
     // Create datepicker
-    self.datePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        self.datePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
+    } else {
+        self.datePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 30, 0, 0)];
+    }
     self.datePicker.showsSelectionIndicator = YES;
     self.datePicker.dataSource = self;
     self.datePicker.delegate = self;
@@ -368,14 +372,28 @@
     UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     pickerToolbar.tintColor = [UIColor hydraTintColor];
     pickerToolbar.items = @[flexSpace, doneBtn];
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+        CALayer *topBorder = [CALayer layer];
+        topBorder.borderColor = [UIColor lightGrayColor].CGColor;
+        topBorder.borderWidth = 0.25;
+        topBorder.frame = CGRectMake(-2, pickerToolbar.frame.size.height,pickerToolbar.frame.size.width+4,0.25);
+        [pickerToolbar.layer addSublayer:topBorder];
+    }
+
     [actionSheet addSubview:pickerToolbar];
 
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 250, 22)];
     title.font = [UIFont boldSystemFontOfSize:18];
     title.text = @"Selecteer een dag";
-    title.textColor = [UIColor whiteColor];
     title.textAlignment = UITextAlignmentCenter;
-    title.shadowColor = [UIColor blackColor];
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        // Load resources for iOS 6.1 or earlier
+        title.textColor = [UIColor whiteColor];
+        title.shadowColor = [UIColor darkTextColor];
+    } else {
+        // Load resources for iOS 7 or later
+        title.textColor = [UIColor darkTextColor];
+    }
     title.shadowOffset = CGSizeMake(1, 1);
     title.backgroundColor = [UIColor clearColor];
     [actionSheet addSubview:title];
