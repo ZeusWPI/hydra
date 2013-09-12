@@ -20,6 +20,10 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
+		904BC46A17E2014A0000FED6 /* dot-current-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46617E2014A0000FED6 /* dot-current-question.png */; };
+		904BC46B17E2014A0000FED6 /* dot-current-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46717E2014A0000FED6 /* dot-current-question@2x.png */; };
+		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
+		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
@@ -85,7 +89,6 @@
 		F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */; };
 		F56B177116C9069300AB59D6 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */; };
 		F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F56F139E169731FE003D4447 /* UrgentViewController.xib */; };
-		F56F9D0F16B32F710020856B /* InfoPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F56F9D0E16B32F710020856B /* InfoPageControl.m */; };
 		F57CB9DA15B84C4B00D87CB3 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */; };
 		F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0B15B837F000D2A59E /* icon-meal.png */; };
 		F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */ = {isa = PBXBuildFile; fileRef = F57E7E0C15B837F000D2A59E /* icon-soup.png */; };
@@ -240,6 +243,10 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		904BC46617E2014A0000FED6 /* dot-current-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-current-question.png"; sourceTree = "<group>"; };
+		904BC46717E2014A0000FED6 /* dot-current-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-current-question@2x.png"; sourceTree = "<group>"; };
+		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
+		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		906C1D8817C8A4A600145CD3 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
@@ -326,8 +333,6 @@
 		F56B176F16C9069300AB59D6 /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
 		F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
 		F56F139D169731FE003D4447 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/UrgentViewController.xib; sourceTree = "<group>"; };
-		F56F9D0D16B32F710020856B /* InfoPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoPageControl.h; sourceTree = "<group>"; };
-		F56F9D0E16B32F710020856B /* InfoPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPageControl.m; sourceTree = "<group>"; };
 		F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		F57E7E0B15B837F000D2A59E /* icon-meal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-meal.png"; sourceTree = "<group>"; };
@@ -518,8 +523,6 @@
 				3BAFFE7D15BB04B600921E7D /* BadgedButton.m */,
 				F5ACC3AF16D2693F00626EAE /* CustomTableViewCell.h */,
 				F5ACC3B016D2694000626EAE /* CustomTableViewCell.m */,
-				F56F9D0D16B32F710020856B /* InfoPageControl.h */,
-				F56F9D0E16B32F710020856B /* InfoPageControl.m */,
 			);
 			name = "Custom views";
 			sourceTree = "<group>";
@@ -605,6 +608,10 @@
 		F53D2488159DB4DB00F408AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				904BC46617E2014A0000FED6 /* dot-current-question.png */,
+				904BC46717E2014A0000FED6 /* dot-current-question@2x.png */,
+				904BC46817E2014A0000FED6 /* dot-question.png */,
+				904BC46917E2014A0000FED6 /* dot-question@2x.png */,
 				F5B6509816C129B700989ADB /* btn-urgent-bg-highlighted.png */,
 				F5B6509916C129B700989ADB /* btn-urgent-bg-highlighted@2x.png */,
 				F5B6509A16C129B700989ADB /* btn-urgent-bg.png */,
@@ -1043,9 +1050,11 @@
 				F57E7E1015B837F100D2A59E /* icon-vegetables.png in Resources */,
 				F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */,
 				F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */,
+				904BC46C17E2014A0000FED6 /* dot-question.png in Resources */,
 				F5F43C1415BAC8A7003C2AAE /* Associations.plist in Resources */,
 				F59D16F415BD693F00B6F892 /* info-academiccalendar.png in Resources */,
 				F59D16F515BD693F00B6F892 /* info-academiccalendar@2x.png in Resources */,
+				904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */,
 				F59D16F615BD693F00B6F892 /* info-bicycle.png in Resources */,
 				F59D16F715BD693F00B6F892 /* info-bicycle@2x.png in Resources */,
 				F59D16FA15BD693F00B6F892 /* info-library.png in Resources */,
@@ -1066,6 +1075,7 @@
 				F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */,
 				F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */,
 				F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */,
+				904BC46B17E2014A0000FED6 /* dot-current-question@2x.png in Resources */,
 				F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */,
 				F5A81CC415CF1CC500FE033B /* external-link@2x.png in Resources */,
 				F5E7F06C15EF9408004024AA /* header-bg@2x.png in Resources */,
@@ -1107,6 +1117,7 @@
 				F531DE7016B30A0F0050D88B /* button-track@2x.png in Resources */,
 				F5B9F2E917CEA96F0042C8A4 /* Icon-iOS6@2x.png in Resources */,
 				F531DE9016B31FFC0050D88B /* button-track-highlighted.png in Resources */,
+				904BC46A17E2014A0000FED6 /* dot-current-question.png in Resources */,
 				F531DE9116B31FFC0050D88B /* button-track-selected-highlighted.png in Resources */,
 				F531DE9216B31FFC0050D88B /* button-track-selected.png in Resources */,
 				F531DE9316B31FFC0050D88B /* button-track.png in Resources */,
@@ -1250,7 +1261,6 @@
 				90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */,
 				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 				F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */,
-				F56F9D0F16B32F710020856B /* InfoPageControl.m in Sources */,
 				445C81F516C3DB0B0080819C /* AssociationPreferenceController.m in Sources */,
 				F5DF2FB916C41DDE003B05EC /* MarqueeLabel.m in Sources */,
 				F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */,
