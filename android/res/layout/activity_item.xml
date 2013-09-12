@@ -115,7 +115,6 @@
             android:layout_height="1dp"
             
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             
             android:background="@color/ugent_grey_light"
         />
@@ -138,6 +137,9 @@
                       
                       android:gravity="right"
                       
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="10dp"
+                      
                       android:text="@string/activity_item_location_title"
                       android:textColor="@color/ugent_grey_dark">
             </TextView>
@@ -148,7 +150,10 @@
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
                       android:layout_weight="5"
-                      android:paddingLeft="10dp">
+                      android:paddingLeft="10dp"
+                      
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="10dp">
             </TextView>
             
             <View android:id="@+id/activity_item_location_sideborder"
@@ -156,16 +161,21 @@
                   android:layout_width="1dp"
                   android:layout_height="fill_parent"
             
-                  android:background="@color/ugent_grey_light"/>
+                  android:background="@color/ugent_grey_light"
+                      
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"/>
             
             <ImageView android:id="@+id/activity_item_directions"
                 
                        android:src="@drawable/icon_directions"
+                       android:background="@drawable/tabbable_textview"
                        
                        android:layout_gravity="center"
+                       android:padding="10dp"
                         
                        android:layout_width="0dp"
-                       android:layout_height="25dp"
+                       android:layout_height="fill_parent"
                        android:layout_weight="1">
             </ImageView>
 
@@ -176,9 +186,6 @@
             
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             
             android:background="@color/ugent_grey_light"
         />
@@ -197,6 +204,9 @@
                       android:layout_height="wrap_content"
                       android:layout_weight="2"
                       
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="10dp"
+                      
                       android:gravity="right"
                       
                       android:text="@string/activity_item_guests_title"
@@ -211,6 +221,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                      
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 
                 android:paddingLeft="10dp">
                 
@@ -282,19 +295,24 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="fill_parent"
+                      
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
             
                 android:background="@color/ugent_grey_light"/>
             
             <ImageView android:id="@+id/activity_item_facebook_external"
-                
+            
+                       android:background="@drawable/tabbable_textview"
                        android:src="@drawable/external_link_dark"
                         
                        android:layout_gravity="center"
                         
                        android:adjustViewBounds="true"
+                       android:padding="10dp"
                                
                        android:layout_width="0dp"
-                       android:layout_height="15dp"
+                       android:layout_height="fill_parent"
                        android:layout_weight="1">
             </ImageView>
             
@@ -306,7 +324,6 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             
             android:background="@color/ugent_grey_light"
