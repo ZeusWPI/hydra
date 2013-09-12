@@ -381,10 +381,6 @@
                       
                       android:padding="10dp"
                       
-                      android:textColorHighlight="#000000"
-                      android:focusable="true"
-                      android:focusableInTouchMode="true"
-                      
                       android:singleLine="true"
                       android:ellipsize="end">
             </TextView>
