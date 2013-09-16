@@ -44,8 +44,9 @@ public class NewsList extends ArrayAdapter<NewsItem> {
         // We opened a news item: add the ID to the shared preferences
         SharedPreferences sharedPrefs = getContext().getSharedPreferences("be.ugent.zeus.hydra.news", MODE_PRIVATE);
         boolean read = sharedPrefs.getBoolean(Integer.toString(item.id), false);
-        if(read) {
-           title.setTypeface(null, Typeface.NORMAL);
+
+        if (read) {
+            title.setTypeface(null, Typeface.NORMAL);
         }
         title.setText(Html.fromHtml(item.title));
 

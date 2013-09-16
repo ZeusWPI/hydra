@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.data.NewsItem;
 import com.google.analytics.tracking.android.EasyTracker;
@@ -54,6 +55,6 @@ public class NewsItemActivity extends AbstractSherlockActivity {
         
         // We opened a news item: add the ID to the shared preferences
         SharedPreferences sharedPrefs = getSharedPreferences("be.ugent.zeus.hydra.news", MODE_PRIVATE);
-        sharedPrefs.edit().putBoolean(Integer.toString(item.id), true);
+        sharedPrefs.edit().putBoolean(Integer.toString(item.id), true).apply();
     }
 }

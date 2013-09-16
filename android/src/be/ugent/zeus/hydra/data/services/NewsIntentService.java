@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import org.json.JSONArray;
 
@@ -40,31 +39,35 @@ public class NewsIntentService extends HTTPIntentService {
 
         try {
 
-            String fetchedData = fetch(HYDRA_BASE_URL + NEWS_URL, cache.lastModified(FEED_NAME));
+            String fetchedData = fetch(HYDRA_BASE_URL + NEWS_URL, cache.lastModified(FEED_NAME) - 100000);
 
             if (fetchedData != null) {
-                
+
                 // Get the new list
                 ArrayList<NewsItem> newsList = new ArrayList<NewsItem>(Arrays.asList(parseJsonArray(new JSONArray(fetchedData), NewsItem.class)));
 
-                
+
                 // Put decent dates and meanwhile build the idSet
                 Set<String> idSet = new HashSet<String>();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE);
                 for (NewsItem newsItem : newsList) {
                     newsItem.dateDate = dateFormat.parse(newsItem.date);
                     idSet.add(Integer.toString(newsItem.id));
+                    Log.e("SUP", Integer.toString(newsItem.id));
                 }
 
+                // Get the read ID's
                 SharedPreferences sharedPrefs = getSharedPreferences("be.ugent.zeus.hydra.news", MODE_PRIVATE);
                 Set<String> readItemSet = sharedPrefs.getAll().keySet();
-                
+
+                // Remove the items that do not exist anymore
                 readItemSet.removeAll(idSet);
-                
-                for(String readItem : readItemSet) {
+
+                for (String readItem : readItemSet) {
                     sharedPrefs.edit().remove(readItem);
                 }
-                
+                sharedPrefs.edit().apply();
+
                 // And save the list
                 cache.put(FEED_NAME, newsList);
             }
