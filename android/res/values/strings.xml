@@ -20,7 +20,7 @@
     <string name="title_external_components">Externe componenten</string>
     
     <string name="details">Details</string>
-    <string name="search_title">Zoek</string>
+    <string name="search_title">Zoek activiteit&#8230;</string>
 
     <string name="no_associations_selected">Selecteer ten minste 1 vereniging in de instellingen.</string>
     <string name="no_news_available">Geen nieuws beschikbaar.</string>
