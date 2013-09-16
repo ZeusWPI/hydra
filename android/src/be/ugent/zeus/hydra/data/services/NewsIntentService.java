@@ -53,7 +53,6 @@ public class NewsIntentService extends HTTPIntentService {
                 for (NewsItem newsItem : newsList) {
                     newsItem.dateDate = dateFormat.parse(newsItem.date);
                     idSet.add(Integer.toString(newsItem.id));
-                    Log.e("SUP", Integer.toString(newsItem.id));
                 }
 
                 // Get the read ID's

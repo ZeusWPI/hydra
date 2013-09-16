@@ -40,10 +40,11 @@ public class NewsList extends ArrayAdapter<NewsItem> {
         NewsItem item = getItem(position);
 
         TextView title = (TextView) row.findViewById(R.id.news_item_title);
-        // We opened a news item: add the ID to the shared preferences
+        // Have we read the news item?
         SharedPreferences sharedPrefs = getContext().getSharedPreferences("be.ugent.zeus.hydra.news", Context.MODE_PRIVATE);
         boolean read = sharedPrefs.getBoolean(Integer.toString(item.id), false);
 
+        // Yes? Normalize the title!
         if (read) {
             title.setTypeface(null, Typeface.NORMAL);
         }
