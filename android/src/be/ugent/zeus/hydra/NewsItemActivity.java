@@ -1,5 +1,6 @@
 package be.ugent.zeus.hydra;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -50,5 +51,9 @@ public class NewsItemActivity extends AbstractSherlockActivity {
         content.setText(Html.fromHtml(item.content.replace("\n\n", "").replace("\n", "<br>")));
         content.setMovementMethod(LinkMovementMethod.getInstance());
         Linkify.addLinks(content, Linkify.ALL);
+        
+        // We opened a news item: add the ID to the shared preferences
+        SharedPreferences sharedPrefs = getSharedPreferences("be.ugent.zeus.hydra.news", MODE_PRIVATE);
+        sharedPrefs.edit().putBoolean(Integer.toString(item.id), true).apply();
     }
 }

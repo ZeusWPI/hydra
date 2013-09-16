@@ -1,6 +1,8 @@
 package be.ugent.zeus.hydra.ui.schamper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,15 @@ public class ChannelAdapter extends ArrayAdapter<Item> {
         Item item = getItem(position);
 
         TextView title = (TextView) row.findViewById(R.id.schamper_item_title);
+        
+        // Have we read the article?
+        SharedPreferences sharedPrefs = getContext().getSharedPreferences("be.ugent.zeus.hydra.schamper", Context.MODE_PRIVATE);
+        boolean read = sharedPrefs.getBoolean(item.link, false);
+
+        // Yes? Normalize the title!
+        if (read) {
+            title.setTypeface(null, Typeface.NORMAL);
+        }
         title.setText(item.title);
 
         String postedBy = getContext().getResources().getString(R.string.posted_by);
