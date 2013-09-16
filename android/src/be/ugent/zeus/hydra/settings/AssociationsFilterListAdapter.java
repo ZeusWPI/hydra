@@ -31,7 +31,7 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
 
     public AssociationsFilterListAdapter(Context context, ArrayList<PreferenceAssociation> assocations) {
         inflater = LayoutInflater.from(context);
-        
+
         this.filteredList = assocations;
         this.assocations = assocations;
 
@@ -128,10 +128,12 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
     }
 
     private class HeaderViewHolder {
+
         TextView header_text;
     }
 
     private class ViewHolder {
+
         CheckBox checkBox;
         String internalName;
     }
@@ -147,7 +149,7 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
             } else {
                 ArrayList<PreferenceAssociation> preferenceAssociationList = new ArrayList<PreferenceAssociation>();
                 for (PreferenceAssociation assocation : assocations) {
-                    
+
                     // If the name or the name of the konvent contains the search string: display it
                     if (assocation.getName().toUpperCase().contains(constraint.toString().toUpperCase())
                             || assocation.getParentAssociation().toUpperCase().contains(constraint.toString().toUpperCase())) {

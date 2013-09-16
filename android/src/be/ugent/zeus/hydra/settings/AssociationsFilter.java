@@ -108,7 +108,7 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
         SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
         searchView.setQueryHint(getString(R.string.pref_filter_associations_hint));
         searchView.setOnQueryTextListener(this);
-       
+
         menu.add("Search")
                 .setOnActionExpandListener(this)
                 .setIcon(R.drawable.abs__ic_search)
@@ -137,7 +137,6 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
     /*
      * SearchViewListeners
      */
-    
     public boolean onQueryTextSubmit(String query) {
         // No need to handle this as filtering happens after a keyup
         return true;
@@ -151,14 +150,13 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
     /*
      * ActionViewExpandlisteners
      */
-    
     public boolean onMenuItemActionExpand(MenuItem item) {
         return true;
     }
-    
+
     public boolean onMenuItemActionCollapse(MenuItem item) {
-        // If the search closes: remove te filter
-        if("Search".equals(item.getTitle())) {
+        // If the search closes: remove the filter
+        if ("Search".equals(item.getTitle())) {
             listAdapter.getFilter().filter("");
         }
         return true;
