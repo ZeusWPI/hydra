@@ -1,6 +1,8 @@
 package be.ugent.zeus.hydra.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +40,14 @@ public class NewsList extends ArrayAdapter<NewsItem> {
         NewsItem item = getItem(position);
 
         TextView title = (TextView) row.findViewById(R.id.news_item_title);
+        // Have we read the news item?
+        SharedPreferences sharedPrefs = getContext().getSharedPreferences("be.ugent.zeus.hydra.news", Context.MODE_PRIVATE);
+        boolean read = sharedPrefs.getBoolean(Integer.toString(item.id), false);
+
+        // Yes? Normalize the title!
+        if (read) {
+            title.setTypeface(null, Typeface.NORMAL);
+        }
         title.setText(Html.fromHtml(item.title));
 
         String postedBy = getContext().getResources().getString(R.string.posted_by);

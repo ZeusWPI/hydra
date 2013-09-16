@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class NewsItem implements Serializable {
 
+    public int id;
     public String title;
     public Association association;
     public int highlighted;

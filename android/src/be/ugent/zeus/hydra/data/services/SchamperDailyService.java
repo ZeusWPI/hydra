@@ -1,14 +1,21 @@
 package be.ugent.zeus.hydra.data.services;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 import be.ugent.zeus.hydra.data.caches.ChannelCache;
+import be.ugent.zeus.hydra.data.rss.Channel;
+import be.ugent.zeus.hydra.data.rss.Item;
 import be.ugent.zeus.hydra.util.RSSParser;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * TODO: Rework a bit, so we can show a notification if new schamper posts are availble
+ * TODO: Rework a bit, so we can show a notification if new schamper posts are
+ * availble
  *
  * @author Thomas Meire
  */
@@ -39,7 +46,27 @@ public class SchamperDailyService extends HTTPIntentService {
             String fetchedData = fetch(SCHAMPER_RSS_URL, cache.lastModified(ChannelCache.SCHAMPER));
 
             if (fetchedData != null) {
-                cache.put(ChannelCache.SCHAMPER, parser.parse(fetchedData));
+                Channel parse = parser.parse(fetchedData);
+
+                Set<String> idSet = new HashSet<String>();
+                for (Item item : parse.items) {
+                    idSet.add(item.link);
+                }
+
+                // Get the read ID's
+                SharedPreferences sharedPrefs = getSharedPreferences("be.ugent.zeus.hydra.schamper", Context.MODE_PRIVATE);
+                Set<String> readItemSet = sharedPrefs.getAll().keySet();
+
+                // Remove the items that do not exist anymore
+                readItemSet.removeAll(idSet);
+
+                for (String readItem : readItemSet) {
+                    sharedPrefs.edit().remove(readItem);
+                }
+                sharedPrefs.edit().apply();
+
+                // And put the items in the cache
+                cache.put(ChannelCache.SCHAMPER, parse);
             }
 
             if (receiver != null) {
