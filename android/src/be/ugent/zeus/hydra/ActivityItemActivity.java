@@ -1,6 +1,7 @@
 /**
  *
- * @author Tom Naessens Tom.Naessens@UGent.be 3de Bachelor Informatica Universiteit Gent
+ * @author Tom Naessens Tom.Naessens@UGent.be 3de Bachelor Informatica
+ * Universiteit Gent
  *
  */
 package be.ugent.zeus.hydra;
@@ -146,7 +147,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
                 onSessionStateChange(session, session.getState(), null);
 
             } else if (session != null
-                && (session.isOpened() || session.isClosed())) {
+                    && (session.isOpened() || session.isClosed())) {
                 onSessionStateChange(session, session.getState(), null);
             }
         }
@@ -183,15 +184,15 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
          */
         TextView date = (TextView) findViewById(R.id.activity_item_date);
         String datum =
-            new SimpleDateFormat("EEE dd MMMM", Hydra.LOCALE).format(item.startDate);
+                new SimpleDateFormat("EEE dd MMMM", Hydra.LOCALE).format(item.startDate);
         String start =
-            new SimpleDateFormat("HH:mm", Hydra.LOCALE).format(item.startDate);
+                new SimpleDateFormat("HH:mm", Hydra.LOCALE).format(item.startDate);
         String eind =
-            new SimpleDateFormat("HH:mm", Hydra.LOCALE).format(item.endDate);
+                new SimpleDateFormat("HH:mm", Hydra.LOCALE).format(item.endDate);
 
         date.setText(
-            String.format(getResources().getString(R.string.activity_item_time_location),
-            datum, start, eind));
+                String.format(getResources().getString(R.string.activity_item_time_location),
+                datum, start, eind));
 
         /**
          * Association
@@ -204,7 +205,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         }
 
         association.setText(
-            String.format(getResources().getString(R.string.activity_item_association_title), poster));
+                String.format(getResources().getString(R.string.activity_item_association_title), poster));
 
         /**
          * Location
@@ -229,7 +230,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             if (item.latitude != 0 && item.longitude != 0) {
                 directions.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        onDirectionsClick(item.latitude, item.longitude);
+                        onDirectionsClick(item.location, item.latitude, item.longitude);
                     }
                 });
 
@@ -304,13 +305,15 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
 //            context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
 //            return new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("fb://event/%s/", id)));
 //        } catch (Exception e) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://www.facebook.com/events/%s/", id)));
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://www.facebook.com/events/%s/", id)));
 //        }
     }
 
-    public void onDirectionsClick(double latitude, double longitude) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("http://maps.google.com/maps?q=%s,%s", latitude, longitude)));
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+    public void onDirectionsClick(String name, double latitude, double longitude) {
+        Intent intent = new Intent(this, ActivityLocationMap.class);
+        intent.putExtra("name", name);
+        intent.putExtra("lat", latitude);
+        intent.putExtra("lng", longitude);
         startActivity(intent);
     }
 
@@ -321,20 +324,20 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         };
 
         new AlertDialog.Builder(this)
-            .setTitle("Status")
-            .setCancelable(true)
-            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setTitle("Status")
+                .setCancelable(true)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 updateStatus(button, id);
             }
         })
-            .setNegativeButton("Cancel", null)
-            .setSingleChoiceItems(choiceList, selected, new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", null)
+                .setSingleChoiceItems(choiceList, selected, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 selected = which;
             }
         })
-            .create().show();
+                .create().show();
     }
 
     public void updateStatus(Button button, String id) {
@@ -346,9 +349,9 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             List<String> newPermissions = Arrays.asList("rsvp_event");
 
             session.requestNewPublishPermissions(
-                new Session.NewPermissionsRequest(this, newPermissions)
-                .setDefaultAudience(SessionDefaultAudience.FRIENDS)
-                .setCallback(new ActivityItemActivity.SessionStatusCallback()));
+                    new Session.NewPermissionsRequest(this, newPermissions)
+                    .setDefaultAudience(SessionDefaultAudience.FRIENDS)
+                    .setCallback(new ActivityItemActivity.SessionStatusCallback()));
         } else {
             new AsyncComingSetter(this, id, button, AttendingStatus.values()[selected]).execute();
         }
