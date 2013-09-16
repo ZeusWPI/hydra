@@ -1,6 +1,7 @@
 /**
  *
- * @author Tom Naessens Tom.Naessens@UGent.be 3de Bachelor Informatica Universiteit Gent
+ * @author Tom Naessens Tom.Naessens@UGent.be 3de Bachelor Informatica
+ * Universiteit Gent
  *
  */
 package be.ugent.zeus.hydra.settings;
@@ -10,6 +11,9 @@ import android.widget.AbsListView;
 import be.ugent.zeus.hydra.AbstractSherlockActivity;
 import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.caches.AssociationsCache;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
 import com.dd.plist.NSArray;
 import com.dd.plist.NSDictionary;
 import com.dd.plist.NSString;
@@ -21,11 +25,12 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AssociationsFilter extends AbstractSherlockActivity implements AbsListView.OnScrollListener {
+public class AssociationsFilter extends AbstractSherlockActivity implements AbsListView.OnScrollListener, SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
     private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
     public static final String FILTERED_ACTIVITIES = "FILTERED_ACTIVITIES";
     private int firstVisible;
+    private AssociationsFilterListAdapter listAdapter;
     private StickyListHeadersListView stickyList;
 
     @Override
@@ -92,9 +97,25 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
             associationList.add(association);
         }
 
-
-        stickyList.setAdapter(new AssociationsFilterListAdapter(this, associationList));
+        listAdapter = new AssociationsFilterListAdapter(this, associationList);
+        stickyList.setAdapter(listAdapter);
         stickyList.setSelection(firstVisible);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Create the search view
+        SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
+        searchView.setQueryHint(getString(R.string.pref_filter_associations_hint));
+        searchView.setOnQueryTextListener(this);
+
+        menu.add("Search")
+            .setOnActionExpandListener(this)
+            .setIcon(R.drawable.abs__ic_search)
+            .setActionView(searchView)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -111,5 +132,33 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
+    }
+
+    /*
+     * SearchViewListeners
+     */
+    public boolean onQueryTextSubmit(String query) {
+        // No need to handle this as filtering happens after a keyup
+        return true;
+    }
+
+    public boolean onQueryTextChange(String newText) {
+        listAdapter.getFilter().filter(newText);
+        return false;
+    }
+
+    /*
+     * ActionViewExpandlisteners
+     */
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return true;
+    }
+
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        // If the search closes: remove the filter
+        if ("Search".equals(item.getTitle())) {
+            listAdapter.getFilter().filter("");
+        }
+        return true;
     }
 }

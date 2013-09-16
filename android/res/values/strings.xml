@@ -48,6 +48,7 @@
     <string name="inappsupport">Feedback</string>
     <string name="pref_filter">Filter</string>
     <string name="pref_filter_activites">Toon alle verenigingen</string>
+    <string name="pref_filter_associations_hint">Zoek vereniging&#8230;</string>
     <string name="pref_filter_activities_summary">Selecteer verenigingen om activiteiten en nieuwsberichten te filteren. Berichten die in de kijker staan worden steeds getoond.</string>
     <string name="pref_filter_activities_list">Selectie</string>
     <string name="pref_facebook">Facebook</string>
