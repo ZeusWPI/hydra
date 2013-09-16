@@ -20,11 +20,13 @@ import be.ugent.zeus.hydra.data.services.ActivityIntentService;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.settings.Settings;
 import be.ugent.zeus.hydra.ui.ActivityListAdapter;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 
@@ -32,15 +34,17 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
  * @author blackskad
  */
 public class Calendar extends AbstractSherlockActivity implements OnScrollListener,
-        AdapterView.OnItemClickListener,
-        PullToRefreshAttacher.OnRefreshListener {
+    AdapterView.OnItemClickListener,
+    PullToRefreshAttacher.OnRefreshListener,
+    SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
     private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
     private int firstVisible;
-    private List<Activity> items;
+    private ArrayList<Activity> items;
     private ActivityCache cache;
     private AssociationsCache assCache;
     private PullToRefreshAttacher attacher;
+    private ActivityListAdapter listAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,28 +59,28 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("advertise_facebook", true);
         if (firstrun) {
             getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-                    .edit()
-                    .putBoolean("advertise_facebook", false)
-                    .commit();
+                .edit()
+                .putBoolean("advertise_facebook", false)
+                .commit();
 
             new AlertDialog.Builder(this)
-                    .setCancelable(true)
-                    .setTitle(getResources().getString(R.string.koppel_title))
-                    .setMessage(getResources().getString(R.string.koppel_text))
-                    .setPositiveButton(getResources().getString(R.string.now), new DialogInterface.OnClickListener() {
+                .setCancelable(true)
+                .setTitle(getResources().getString(R.string.koppel_title))
+                .setMessage(getResources().getString(R.string.koppel_text))
+                .setPositiveButton(getResources().getString(R.string.now), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(Calendar.this, Settings.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                     startActivity(intent);
                 }
             })
-                    .setNegativeButton(getResources().getString(R.string.not_now), new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.not_now), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             })
-                    .create()
-                    .show();
+                .create()
+                .show();
         }
 
         cache = ActivityCache.getInstance(this);
@@ -158,12 +162,30 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
                 stickyList.setOnScrollListener(this);
                 stickyList.setOnItemClickListener(this);
 
-                stickyList.setAdapter(new ActivityListAdapter(this, items));
+                listAdapter = new ActivityListAdapter(this, items);
+                
+                stickyList.setAdapter(listAdapter);
                 stickyList.setSelection(firstVisible);
             }
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Create the search view
+        SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
+        searchView.setQueryHint(getString(R.string.pref_filter_associations_hint));
+        searchView.setOnQueryTextListener(this);
+
+        menu.add("Search")
+            .setOnActionExpandListener(this)
+            .setIcon(R.drawable.abs__ic_search)
+            .setActionView(searchView)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -172,7 +194,7 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
+        int visibleItemCount, int totalItemCount) {
         this.firstVisible = firstVisibleItem;
     }
 
@@ -193,6 +215,34 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
         refresh(false, true);
     }
 
+    /*
+     * SearchViewListeners
+     */
+    public boolean onQueryTextSubmit(String query) {
+        // No need to handle this as filtering happens after a keyup
+        return true;
+    }
+
+    public boolean onQueryTextChange(String newText) {
+        listAdapter.getFilter().filter(newText);
+        return false;
+    }
+
+    /*
+     * ActionViewExpandlisteners
+     */
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return true;
+    }
+
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        // If the search closes: remove the filter
+        if ("Search".equals(item.getTitle())) {
+            listAdapter.getFilter().filter("");
+        }
+        return true;
+    }
+    
     private class CalendarResultReceiver extends ResultReceiver {
 
         private ProgressDialog progressDialog;
@@ -206,8 +256,8 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
                 Calendar.this.runOnUiThread(new Runnable() {
                     public void run() {
                         progressDialog = ProgressDialog.show(Calendar.this,
-                                getResources().getString(R.string.title_calendar),
-                                getResources().getString(R.string.loading));
+                            getResources().getString(R.string.title_calendar),
+                            getResources().getString(R.string.loading));
                     }
                 });
             }

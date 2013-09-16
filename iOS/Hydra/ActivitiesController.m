@@ -420,21 +420,14 @@
 
 - (void)dateButtonTapped:(id)sender
 {
+    // TODO: this is abuse of UIActionSheet, and shouldn't be used like this
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:nil
                                                     cancelButtonTitle:nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:nil];
 
-    // Create datepicker
-    self.datePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
-    self.datePicker.showsSelectionIndicator = YES;
-    self.datePicker.dataSource = self;
-    self.datePicker.delegate = self;
-    [actionSheet addSubview:self.datePicker];
-
-    NSIndexPath *firstSection = [self.tableView indexPathsForVisibleRows][0];
-    [self.datePicker selectRow:firstSection.section inComponent:0 animated:NO];
+    BOOL iOS7 = IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0");
 
     // Create toolbar
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
@@ -444,19 +437,42 @@
     UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     pickerToolbar.tintColor = [UIColor hydraTintColor];
     pickerToolbar.items = @[flexSpace, doneBtn];
+
+    if (iOS7) {
+        // Add a gray border to the bottom of the toolbar
+        CALayer *border = [CALayer layer];
+        border.borderColor = [UIColor lightGrayColor].CGColor;
+        border.borderWidth = 0.25;
+        border.frame = CGRectMake(0, pickerToolbar.frame.size.height,
+                                  pickerToolbar.frame.size.width, 0.25);
+        [pickerToolbar.layer addSublayer:border];
+    }
+
     [actionSheet addSubview:pickerToolbar];
 
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 250, 22)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 290, 22)];
     title.font = [UIFont boldSystemFontOfSize:18];
     title.text = @"Selecteer een dag";
-    title.textColor = [UIColor whiteColor];
     title.textAlignment = UITextAlignmentCenter;
-    title.shadowColor = [UIColor blackColor];
-    title.shadowOffset = CGSizeMake(1, 1);
     title.backgroundColor = [UIColor clearColor];
+
+    if (!iOS7) {
+        title.textColor = [UIColor whiteColor];
+        title.shadowColor = [UIColor darkTextColor];
+    }
     [actionSheet addSubview:title];
 
-    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+    // Create datepicker
+    self.datePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, iOS7 ? 34 : 44, 0, 0)];
+    self.datePicker.showsSelectionIndicator = YES;
+    self.datePicker.dataSource = self;
+    self.datePicker.delegate = self;
+    [actionSheet addSubview:self.datePicker];
+
+    NSIndexPath *firstSection = [self.tableView indexPathsForVisibleRows][0];
+    [self.datePicker selectRow:firstSection.section inComponent:0 animated:NO];
+
+    [actionSheet showInView:self.view];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
 }
 
