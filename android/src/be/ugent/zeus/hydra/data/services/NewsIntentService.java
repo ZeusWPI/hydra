@@ -10,6 +10,7 @@ import be.ugent.zeus.hydra.data.caches.NewsCache;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import org.json.JSONArray;
 
 public class NewsIntentService extends HTTPIntentService {
@@ -45,6 +46,30 @@ public class NewsIntentService extends HTTPIntentService {
                     newsItem.dateDate = dateFormat.parse(newsItem.date);
                 }
 
+                // Get the old items
+                ArrayList<NewsItem> oldList = cache.get(FEED_NAME);
+                HashSet<Integer> readIds = new HashSet<Integer>();
+                
+                // If there are old items, do some magic!
+                if(oldList != null) {
+                    
+                    // If they are read: add their ID to the set
+                    for(NewsItem item : oldList) {
+                        if(item.read) {
+                            readIds.add(item.id);
+                        }
+                    }
+                    
+                    // Loop over the new set and set the read status accordingly
+                    for(NewsItem item : newsList) {
+                        if(readIds.contains(item.id)) {
+                            item.read = true;
+                        }
+                    }
+                    
+                }
+                
+                // And save the list
                 cache.put(FEED_NAME, newsList);
             }
 
