@@ -24,7 +24,6 @@ import be.ugent.zeus.hydra.data.caches.LegendCache;
 import be.ugent.zeus.hydra.data.services.HTTPIntentService;
 import be.ugent.zeus.hydra.data.services.LegendService;
 import be.ugent.zeus.hydra.data.services.MenuService;
-import be.ugent.zeus.hydra.data.services.RestoService;
 import be.ugent.zeus.hydra.ui.SwipeyTabs;
 import be.ugent.zeus.hydra.ui.SwipeyTabsAdapter;
 import be.ugent.zeus.hydra.ui.menu.MenuView;
@@ -213,8 +212,7 @@ public class RestoMenu extends AbstractSherlockActivity {
                 showAboutDialog();
                 return true;
             case R.id.show_map:
-                Intent intent = new Intent(this, BuildingMap.class);
-                intent.putExtra("class", this.getClass().getCanonicalName());
+                Intent intent = new Intent(this, RestoMap.class);
                 startActivity(intent);
                 return true;
             default:

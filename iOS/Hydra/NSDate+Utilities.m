@@ -334,16 +334,8 @@
 
 - (NSInteger) yearOfCalendarWeek
 {
-    // TODO: Test that requesting this component does not crash on iOS4
     NSDateComponents *components = [CURRENT_CALENDAR components:NSYearForWeekOfYearCalendarUnit fromDate:self];
-    if ([components respondsToSelector:@selector(yearForWeekOfYear)]) {
-        return components.yearForWeekOfYear;
-    }
-    else {
-        // iOS4 support: use simple heuristic to detect that the week is in the next year
-        components = [CURRENT_CALENDAR components:NSWeekCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];
-        return components.year + (components.month > components.week ? 1 : 0);
-    }
+    return components.yearForWeekOfYear;
 }
 
 - (NSInteger) weekday

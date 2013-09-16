@@ -8,7 +8,6 @@ package be.ugent.zeus.hydra.util.facebook.event.tasks;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.util.facebook.RequestBuilder;
@@ -53,9 +52,9 @@ public class AsyncInfoGetter extends AsyncTask<Void, Void, JSONObject> {
             return null;
         }
         GraphObject object = response.getGraphObject();
-        
+
         Log.e("FACEBOOK", response.toString());
-        
+
         JSONObject obj = null;
         try {
             obj = ((JSONArray) object.getProperty("data")).getJSONObject(0);

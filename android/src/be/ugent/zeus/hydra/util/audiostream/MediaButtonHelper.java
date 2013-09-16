@@ -3,7 +3,6 @@ package be.ugent.zeus.hydra.util.audiostream;
 import android.content.ComponentName;
 import android.media.AudioManager;
 import android.util.Log;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

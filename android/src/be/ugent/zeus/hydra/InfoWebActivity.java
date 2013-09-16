@@ -1,9 +1,7 @@
 package be.ugent.zeus.hydra;
 
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebView;
-import com.actionbarsherlock.app.SherlockActivity;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

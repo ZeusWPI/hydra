@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) SchamperArticle *article;
 
+@property (nonatomic, assign) BOOL animationActive;
 @property (nonatomic, assign) CGFloat startContentOffset;
 @property (nonatomic, assign) CGFloat lastContentOffset;
 
@@ -33,6 +34,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+#ifdef __IPHONE_7_0
+    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+#endif
 
     // Set tracked name
     self.trackedViewName = [@"Schamper > " stringByAppendingString:self.article.title];
@@ -54,10 +61,10 @@
     NSURL *bundeUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     [self.webView loadHTMLString:html baseURL:bundeUrl];
 
-    // iOS4 doesn't have the scrollView property
-    UIScrollView *scrollView = (UIScrollView *)[self.webView.subviews objectAtIndex:0];
+    UIScrollView *scrollView = self.webView.scrollView;
     scrollView.delegate = self;
-    scrollView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+    CGFloat scrollOffset = IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 64 : 44;
+    scrollView.contentInset = UIEdgeInsetsMake(scrollOffset, 0, 0, 0);
     scrollView.scrollIndicatorInsets = scrollView.contentInset;
 
     // Recognize taps
@@ -136,19 +143,33 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (void)setNavigationBarHidden:(BOOL)hide
 {
+    if (self.animationActive) {
+        return;
+    }
+
     BOOL current = self.navigationController.navigationBarHidden;
     if (current == hide) return;
 
+    self.animationActive = true;
+
     // Don't do anything if the content's not big enough
-    // iOS4 doesn't have the scrollView property
-    UIScrollView *scrollView = (UIScrollView *)[self.webView.subviews objectAtIndex:0];
+    UIScrollView *scrollView = self.webView.scrollView;
     CGSize contentSize = scrollView.contentSize;
     if (contentSize.height <= self.view.frame.size.height) return;
 
+    // This will cause a recursive call in this method
     [self.navigationController setNavigationBarHidden:hide animated:YES];
 
-    scrollView.contentInset = UIEdgeInsetsMake(hide ? 0 : 44, 0, 0, 0);
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [[UIApplication sharedApplication] setStatusBarHidden:hide withAnimation:UIStatusBarAnimationSlide];
+        scrollView.contentInset = UIEdgeInsetsMake(hide ? 0 : 64, 0, 0, 0);
+    }
+    else {
+        scrollView.contentInset = UIEdgeInsetsMake(hide ? 0 : 44, 0, 0, 0);
+    }
     scrollView.scrollIndicatorInsets = scrollView.contentInset;
+
+    self.animationActive = false;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

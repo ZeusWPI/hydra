@@ -8,7 +8,7 @@
 
 #import "DashboardViewController.h"
 #import "NewsViewController.h"
-#import "ActivityViewController.h"
+#import "ActivitiesController.h"
 #import "InfoViewController.h"
 #import "RestoMenuController.h"
 #import "UrgentViewController.h"
@@ -48,12 +48,32 @@
     ];
     self.codeField = nil;
 #endif
+
+#ifdef __IPHONE_7_0
+    // iOS 7 layout
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+    else {
+        // TODO: create IBOutlet for this
+        UIView *headerView = self.view.subviews[0];
+        CGRect headerFrame = headerView.frame;
+        headerFrame.size.height -= 10;
+        headerView.frame = headerFrame;
+    }
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+
+#ifdef __IPHONE_7_0
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+#endif
 
 #if EasterEggEnabled
     [self configureMoveDetectionForMove:0];
@@ -70,6 +90,7 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -89,7 +110,7 @@
 - (IBAction)showActivities:(id)sender
 {
     DLog(@"Dashboard switching to Activities");
-    ActivityViewController *c = [[ActivityViewController alloc] init];
+    ActivitiesController *c = [[ActivitiesController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
 

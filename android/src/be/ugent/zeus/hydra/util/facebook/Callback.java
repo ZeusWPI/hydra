@@ -12,7 +12,7 @@ import com.facebook.SessionState;
 public class Callback implements Session.StatusCallback {
 
     public static final String TAG = "FACEBOOK";
-    
+
     @Override
     public void call(Session session, SessionState state, Exception exception) {
 

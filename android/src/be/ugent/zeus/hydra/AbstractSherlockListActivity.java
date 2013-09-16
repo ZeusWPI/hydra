@@ -27,7 +27,7 @@ public abstract class AbstractSherlockListActivity extends SherlockListActivity 
         inflater.inflate(R.menu.settings, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return ActionBarHelper.onOptionsItemSelected(item, this);

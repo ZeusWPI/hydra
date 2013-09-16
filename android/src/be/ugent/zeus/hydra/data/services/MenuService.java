@@ -1,11 +1,11 @@
 package be.ugent.zeus.hydra.data.services;
 
-import be.ugent.zeus.hydra.data.caches.MenuCache;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 import be.ugent.zeus.hydra.data.Menu;
+import be.ugent.zeus.hydra.data.caches.MenuCache;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;

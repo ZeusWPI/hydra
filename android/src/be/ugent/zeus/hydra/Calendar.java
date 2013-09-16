@@ -185,7 +185,6 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
         // Launch a new activity
         Intent intent = new Intent(this, ActivityItemActivity.class);
-        intent.putExtra("class", this.getClass().getCanonicalName());
         intent.putExtra("item", items.get(position));
         startActivity(intent);
     }

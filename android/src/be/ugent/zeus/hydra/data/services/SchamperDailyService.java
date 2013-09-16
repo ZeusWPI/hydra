@@ -45,7 +45,7 @@ public class SchamperDailyService extends HTTPIntentService {
             if (receiver != null) {
                 receiver.send(STATUS_FINISHED, Bundle.EMPTY);
             }
-            
+
         } catch (Exception e) {
             if (receiver != null) {
                 receiver.send(STATUS_ERROR, Bundle.EMPTY);

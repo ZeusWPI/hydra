@@ -10,7 +10,6 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.DateUtils;
 import org.apache.http.util.EntityUtils;
@@ -39,7 +38,7 @@ public abstract class HTTPIntentService extends IntentService {
         HttpGet request = new HttpGet(url);
 
         HttpResponse response = httpclient.execute(request);
-        
+
         return EntityUtils.toString(response.getEntity(), "UTF-8");
     }
 

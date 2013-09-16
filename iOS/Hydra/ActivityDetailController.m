@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 
-#import "ActivityDetailViewController.h"
+#import "ActivityDetailController.h"
 #import "AssociationActivity.h"
 #import "Association.h"
 #import "NSDateFormatter+AppLocale.h"
@@ -15,7 +15,7 @@
 #import "CustomTableViewCell.h"
 #import "FacebookSession.h"
 #import "PreferencesService.h"
-#import "ActivityMapViewController.h"
+#import "ActivityMapController.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <EventKit/EventKit.h>
@@ -37,7 +37,7 @@
     #define kRsvpActionRow 0
     #define kCalendarActionRow 1
 
-@interface ActivityDetailViewController () <EKEventEditViewDelegate, UIActionSheetDelegate>
+@interface ActivityDetailController () <EKEventEditViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) AssociationActivity *activity;
 @property (nonatomic, strong) NSArray *fields;
@@ -49,7 +49,7 @@
 
 @end
 
-@implementation ActivityDetailViewController
+@implementation ActivityDetailController
 
 - (id)initWithActivity:(AssociationActivity *)activity delegate:(id<ActivityListDelegate>)delegate
 {
@@ -414,16 +414,17 @@
             break;
 
         case kLocationRow:
-            // TODO: make the location go to a seperate view with just a map
             cell.textLabel.text = @"Locatie";
             if ([self.activity hasCoordinates]) {
-                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             break;
 
         case kGuestsRow: {
             cell.textLabel.text = @"Gasten";
             cell.alignToTop = YES;
+            // TODO: should be UITableViewCellAccessoryDetailButton on iOS7
             cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
             FacebookEvent *event = self.activity.facebookEvent;
@@ -564,6 +565,10 @@
                 [[UIApplication sharedApplication] openURL:url];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
+            else if (row == kLocationRow) {
+                ActivityMapController *c = [[ActivityMapController alloc] initWithActivity:self.activity];
+                [self.navigationController pushViewController:c animated:YES];
+            }
             break;
 
         case kActionSection:
@@ -587,17 +592,6 @@
         NSUInteger row = [self virtualRowAtIndexPath:indexPath];
         if (row == kGuestsRow) {
             [self.activity.facebookEvent showExternally];
-        }
-        else if (row == kLocationRow) {
-            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.activity.latitude,
-                                                                           self.activity.longitude);
-            // Create MKMapItem out of coordinates
-            MKPlacemark *placeMark = [[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil];
-            MKMapItem *destination =  [[MKMapItem alloc] initWithPlacemark:placeMark];
-            destination.name = self.activity.location;
-
-            UIViewController *c = [[ActivityMapViewController alloc] initWithMapItem:destination];
-            [self.navigationController pushViewController:c animated:YES];
         }
     }
 }

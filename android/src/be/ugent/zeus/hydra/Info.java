@@ -9,11 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-import be.ugent.zeus.hydra.R;
-import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.ui.info.InfoList;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.dd.plist.BinaryPropertyListParser;
 import com.dd.plist.BinaryPropertyListWriter;
 import com.dd.plist.NSArray;
@@ -22,7 +18,6 @@ import com.dd.plist.NSObject;
 import com.dd.plist.NSString;
 import com.dd.plist.XMLPropertyListParser;
 import com.google.analytics.tracking.android.EasyTracker;
-import com.google.analytics.tracking.android.GoogleAnalytics;
 
 /**
  *
@@ -36,7 +31,7 @@ public class Info extends AbstractSherlockListActivity {
         setTitle(R.string.title_info);
 
         EasyTracker.getInstance().setContext(this);
-        
+
         NSArrayWrapper wrapper = (NSArrayWrapper) getIntent().getParcelableExtra("content");
         NSArray content;
         if (wrapper != null) {
@@ -83,14 +78,13 @@ public class Info extends AbstractSherlockListActivity {
             NSArrayWrapper wrapper = new NSArrayWrapper((NSArray) action);
 
             Intent intent = new Intent(this, Info.class);
-            intent.putExtra("class", this.getClass().getCanonicalName());
             intent.putExtra("tracking", getIntent().getStringExtra("tracking") + "/" + item.objectForKey("title"));
             intent.putExtra("content", wrapper);
             startActivity(intent);
 
         } else if ((action = item.objectForKey("url")) != null || (action = item.objectForKey("url-android")) != null) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(((NSString) action).toString()));
-            // Handle external activities as described in 
+            // Handle external activities as described in
             // http://developer.android.com/training/implementing-navigation/descendant.html#external-activities
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
@@ -101,7 +95,6 @@ public class Info extends AbstractSherlockListActivity {
             startActivity(intent);
         } else if ((action = item.objectForKey("html")) != null) {
             Intent intent = new Intent(this, InfoWebActivity.class);
-            intent.putExtra("class", this.getClass().getCanonicalName());
 
             EasyTracker.getTracker().sendView(getIntent().getStringExtra("tracking") + " > " + item.objectForKey("title"));
             Log.i("Tracking", getIntent().getStringExtra("tracking") + " > " + item.objectForKey("title"));

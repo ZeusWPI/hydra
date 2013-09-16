@@ -72,7 +72,7 @@ public class InfoList implements ListAdapter {
 
         text.setCompoundDrawablesWithIntrinsicBounds(iconid, 0, extid, 0);
         text.setCompoundDrawablePadding(10);
-        
+
 
         return text;
     }

@@ -74,7 +74,12 @@
     static NSString *CellIdentifier = @"InfoCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
+        // iOS7
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
     }
 
     cell.contentView.backgroundColor = [UIColor whiteColor];
@@ -87,10 +92,6 @@
     if(icon) {
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.imageView.image = icon;
-
-        // Add more padding to the images
-        cell.indentationLevel = 1;
-        cell.indentationWidth = 15;
     }
     else {
         cell.imageView.image = nil;

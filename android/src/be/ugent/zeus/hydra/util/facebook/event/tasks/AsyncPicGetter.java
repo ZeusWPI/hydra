@@ -7,7 +7,6 @@ package be.ugent.zeus.hydra.util.facebook.event.tasks;
 
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +41,7 @@ public class AsyncPicGetter extends AsyncTask<Void, Void, Drawable> {
 
     @Override
     protected void onPostExecute(Drawable result) {
-        
+
         image.setImageDrawable(result);
     }
 }

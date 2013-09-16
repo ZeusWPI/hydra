@@ -25,4 +25,7 @@ extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 - (void)reloadNewsItems;
 - (void)reloadActivities;
 
+- (void)syncStorage;
+- (void)markStorageOutdated;
+
 @end

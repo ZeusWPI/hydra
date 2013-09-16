@@ -12,8 +12,7 @@
 
 - (void)loadView
 {
-    CGRect bounds = [UIScreen mainScreen].bounds;
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:bounds];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth
                              | UIViewAutoresizingFlexibleHeight;
     webView.delegate = self;

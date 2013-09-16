@@ -1,59 +1,34 @@
 //
-//  ActivityMapViewController.m
+//  MapViewController.m
 //  Hydra
 //
-//  Created by Feliciaan De Palmenaer on 24/08/13.
+//  Created by Pieter De Baets on 27/08/13.
 //  Copyright (c) 2013 Zeus WPI. All rights reserved.
 //
 
-#import "ActivityMapViewController.h"
+#import "MapViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface ActivityMapViewController () <MKMapViewDelegate>
+@interface MapViewController () <MKMapViewDelegate>
 
-@property (nonatomic, unsafe_unretained) MKMapView *mapView;
 @property (nonatomic, unsafe_unretained) UIButton *trackButton;
-
-@property (nonatomic, strong) MKMapItem *activityLocation;
-
-@property (nonatomic, strong) CLLocation *lastLocation;
 @property (nonatomic, assign) BOOL locationInitialized;
 
 @end
 
-@interface ActivityMapPin : NSObject<MKAnnotation> {
-    CLLocationCoordinate2D coordinate;
-    NSString *title;
-}
-
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property (nonatomic, readonly) NSString *title;
-
-- (id)initWithCoordinates:(CLLocationCoordinate2D)location placeName:(NSString *)placeName;
-
-@end
-
-@implementation ActivityMapViewController
-
-- (id)init
-{
-    if (self = [super init]) {
-    }
-    return self;
-}
-
-- (ActivityMapViewController*)initWithMapItem:(MKMapItem*)mapItem;
-{
-    self = [self init];
-    self.activityLocation = mapItem;
-    return self;
-}
+@implementation MapViewController
 
 - (void)loadView
 {
+#ifdef __IPHONE_7_0
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+#endif
+
     CGRect bounds = [UIScreen mainScreen].bounds;
     self.view = [[UIView alloc] initWithFrame:bounds];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth
@@ -90,30 +65,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Activiteit";
-
-    // Add button to navigation bar
-    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithTitle:@"Map"
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self action:@selector(menuButtonTapped:)];
-    self.navigationItem.rightBarButtonItem = menuButton;
-
-    //Add annotation
-    ActivityMapPin *pin = [[ActivityMapPin alloc]initWithCoordinates:self.activityLocation.placemark.coordinate placeName:self.activityLocation.name];
-    [self.mapView addAnnotation:pin];
 
     // Load map information and set initial map view
+    [self loadMapItems];
     [self resetMapViewRect];
-    
+
     // Only do this after the annotations have been added
     self.mapView.showsUserLocation = YES;
-    [self trackUser:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    GAI_Track(@"Activiteit Kaart");
+    //[self trackUser:YES];
 }
 
 - (void)dealloc
@@ -122,19 +81,9 @@
     self.mapView.delegate = nil;
 }
 
-- (void)menuButtonTapped:(id)sender
+- (void)loadMapItems
 {
-    // Use native maps on iOS6 or open Google Maps on iOS5
-    if ([self.activityLocation respondsToSelector:@selector(openInMapsWithLaunchOptions:)]) {
-        [self.activityLocation openInMapsWithLaunchOptions:nil];
-    }
-    else {
-        NSString *url = [NSString stringWithFormat: @"http://maps.apple.com/maps?ll=%f,%f",
-                         self.activityLocation.placemark.coordinate.latitude,
-                         self.activityLocation.placemark.coordinate.longitude];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-    }
-
+    // Should be overriden in subclasses
 }
 
 #pragma mark - MapView delegate
@@ -158,19 +107,19 @@
         MKMapRect regionOfInterest = [self mapRectOfInterest];
         if (!MKMapRectContainsPoint(regionOfInterest, userPoint)) {
             [self trackUser:NO];
-            [self resetMapViewRect];
+        }
+        else {
+            [self trackUser:YES];
         }
 
         self.locationInitialized = YES;
-    }
-    if (!self.lastLocation || [userLocation.location distanceFromLocation:self.lastLocation] < kUpdateDistance) {
-        self.lastLocation = userLocation.location;
-        [self resetMapViewRect];
     }
 }
 
 - (MKMapRect)mapRectOfInterest
 {
+    // TODO: allow the mapRectOfInterest to also contain the user's position
+
     MKMapRect rect = MKMapRectNull;
     for (id<MKAnnotation> annotation in self.mapView.annotations) {
         // Because we decide to track on the distance of the user location
@@ -181,7 +130,8 @@
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
         if (MKMapRectIsNull(rect)) {
             rect = pointRect;
-        } else {
+        }
+        else {
             rect = MKMapRectUnion(rect, pointRect);
         }
     }
@@ -190,19 +140,7 @@
 
 - (void)resetMapViewRect
 {
-    // Center again arround the venue location
     MKMapRect defaultRect = [self mapRectOfInterest];
-
-    MKMapRect userRect;
-    if ([CLLocationManager locationServicesEnabled]){
-        MKMapPoint userPoint = MKMapPointForCoordinate(self.lastLocation.coordinate);
-        userRect = MKMapRectMake(userPoint.x, userPoint.y, 0, 0);
-    }else {
-        CLLocationCoordinate2D ghent = CLLocationCoordinate2DMake(51.0500, 3.7333);
-        MKMapPoint ghentPoint = MKMapPointForCoordinate(ghent);
-        userRect = MKMapRectMake(ghentPoint.x, ghentPoint.y, 2*kRectOfInterestMargin, 2*kRectOfInterestMargin);
-    }
-    defaultRect = MKMapRectUnion(defaultRect, userRect);
     [self.mapView setVisibleMapRect:defaultRect animated:NO];
 }
 
@@ -213,11 +151,11 @@
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
 
-    static NSString *pinIdentifier = @"ActivityMapPin";
+    static NSString *pinIdentifier = @"MapViewControllerPin";
     MKPinAnnotationView *view = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
     if (!view) {
         view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
-                                               reuseIdentifier:@"ActivityMapPin"];
+                                               reuseIdentifier:@"MapViewControllerPin"];
         view.canShowCallout = YES;
 
         UIButton *routeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -253,8 +191,8 @@
         MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
                        launchOptions:@{
-   MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking
-         }];
+            MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking
+        }];
     }
     // iOS < 6 use maps.apple.com
     else {
@@ -280,28 +218,9 @@
 
 - (void)trackUser:(BOOL)track
 {
-    if ([self.mapView respondsToSelector:@selector(setUserTrackingMode:)]) {
-        MKUserTrackingMode newMode = track ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
-        [self.mapView setUserTrackingMode:newMode animated:YES];
-        self.trackButton.selected = track;
-    }
-    // if you stop tracking reset map
-    if (!track){
-        [self resetMapViewRect];
-    }
-}
-
-@end
-
-@implementation ActivityMapPin
-
-- (id)initWithCoordinates:(CLLocationCoordinate2D)location placeName:placeName {
-    self = [super init];
-    if (self != nil) {
-        _coordinate = location;
-        _title = placeName;
-    }
-    return self;
+    MKUserTrackingMode newMode = track ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
+    [self.mapView setUserTrackingMode:newMode animated:YES];
+    self.trackButton.selected = track;
 }
 
 @end

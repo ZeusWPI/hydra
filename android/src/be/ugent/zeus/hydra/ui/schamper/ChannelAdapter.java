@@ -10,7 +10,6 @@ import be.ugent.zeus.hydra.Hydra;
 import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.rss.Channel;
 import be.ugent.zeus.hydra.data.rss.Item;
-import java.text.SimpleDateFormat;
 import org.ocpsoft.prettytime.PrettyTime;
 
 /**

@@ -21,4 +21,6 @@
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
 
+- (NSString *)title;
+
 @end

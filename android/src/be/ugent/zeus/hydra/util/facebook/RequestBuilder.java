@@ -6,7 +6,6 @@
 package be.ugent.zeus.hydra.util.facebook;
 
 import android.os.Bundle;
-import be.ugent.zeus.hydra.ActivityItemActivity;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Session;

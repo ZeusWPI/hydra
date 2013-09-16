@@ -11,23 +11,17 @@
 #import "RestoLocation.h"
 #import "RestoStore.h"
 #import "UINavigationController+ReplaceController.h"
-#import <QuartzCore/QuartzCore.h>
-#import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
 
-@interface RestoMapController () <MKMapViewDelegate, UISearchDisplayDelegate,
-    UITableViewDataSource, UITableViewDelegate>
+@interface RestoMapController () <UISearchDisplayDelegate, UITableViewDataSource,
+    UITableViewDelegate>
 
 @property (nonatomic, strong) UISearchDisplayController *searchController;
-@property (nonatomic, unsafe_unretained) MKMapView *mapView;
-@property (nonatomic, unsafe_unretained) UIButton *trackButton;
 
 @property (nonatomic, strong) NSArray *mapItems;
 @property (nonatomic, strong) NSArray *filteredMapItems;
 @property (nonatomic, strong) NSMutableDictionary *distances;
 
-@property (nonatomic, strong) CLLocation *lastLocation;
-@property (nonatomic, assign) BOOL locationInitialized;
+@property (nonatomic, assign) BOOL endingSearch;
 
 @end
 
@@ -40,7 +34,7 @@
     if (self = [super init]) {
         // Register for updates
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserver:self selector:@selector(reloadData)
+        [center addObserver:self selector:@selector(loadMapItems)
                        name:RestoStoreDidUpdateInfoNotification object:nil];
     }
     return self;
@@ -48,12 +42,10 @@
 
 - (void)loadView
 {
-    CGRect bounds = [UIScreen mainScreen].bounds;
-    self.view = [[UIView alloc] initWithFrame:bounds];
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth
-                               | UIViewAutoresizingFlexibleHeight;
+    [super loadView];
 
     // Search field
+    CGRect bounds = [UIScreen mainScreen].bounds;
     CGRect searchBarFrame = CGRectMake(0, 0, bounds.size.width, 44);
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:searchBarFrame];
     searchBar.placeholder = @"Zoek een resto";
@@ -65,35 +57,10 @@
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
 
-    // Performance hack: already load the tableview
-    [self.view addSubview:self.searchController.searchResultsTableView];
-
-    // Map view
-    CGRect mapFrame = CGRectMake(0, 44, bounds.size.width, bounds.size.height - 44);
-    MKMapView *mapView = [[MKMapView alloc] initWithFrame:mapFrame];
-    mapView.autoresizingMask = self.view.autoresizingMask;
-    mapView.delegate = self;
-
-    [self.view addSubview:mapView];
-    self.mapView = mapView;
-
-    // Tracking button
-    UIButton *trackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    trackButton.frame = CGRectMake(bounds.size.width - 50, bounds.size.height - 40, 42, 34);
-    trackButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
-    trackButton.hidden = ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized);
-    [trackButton setBackgroundImage:[UIImage imageNamed:@"button-track"]
-                           forState:UIControlStateNormal];
-    [trackButton setBackgroundImage:[UIImage imageNamed:@"button-track-highlighted"]
-                           forState:UIControlStateHighlighted];
-    [trackButton setBackgroundImage:[UIImage imageNamed:@"button-track-selected"]
-                           forState:UIControlStateSelected];
-    [trackButton setBackgroundImage:[UIImage imageNamed:@"button-track-selected-highlighted"]
-                           forState:UIControlStateSelected|UIControlStateHighlighted];
-    [trackButton addTarget:self action:@selector(trackButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-
-    [self.view addSubview:trackButton];
-    self.trackButton = trackButton;
+    // Offset map frame a little bit
+    CGRect mapFrame = self.mapView.frame;
+    mapFrame.origin.y = 44;
+    self.mapView.frame = mapFrame;
 }
 
 - (void)viewDidLoad
@@ -106,14 +73,6 @@
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self action:@selector(menuButtonTapped:)];
     self.navigationItem.rightBarButtonItem = menuButton;
-
-    // Load map information and set initial map view
-    [self reloadMapItems];
-    [self resetMapViewRect];
-
-    // Only do this after the annotations have been added
-    self.mapView.showsUserLocation = YES;
-    [self trackUser:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -124,9 +83,6 @@
 
 - (void)dealloc
 {
-    // Make sure no reference is left
-    self.mapView.delegate = nil;
-
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -139,7 +95,7 @@
 
 #pragma mark - Data
 
-- (void)reloadMapItems
+- (void)loadMapItems
 {
     [self.mapView removeAnnotations:self.mapItems];
     self.mapItems = [RestoStore sharedStore].locations;
@@ -150,6 +106,8 @@
 
 - (void)calculateDistances
 {
+    // TODO: call this method on location updates and get the tableview to update
+
     CLLocation *user = self.mapView.userLocation.location;
     NSMutableDictionary *distances = [NSMutableDictionary dictionaryWithCapacity:self.mapItems.count];
     for (RestoLocation *resto in self.mapItems) {
@@ -194,145 +152,19 @@
 
 #pragma mark - MapView delegate
 
-#define kUpdateDistance 50.0
-#define kRectOfInterestMargin 2000.0
-
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    // Ignore old timestamps
-    if (!userLocation.location) {
-        return;
-    }
-
-    // Location updates are enabled, show the tracking button
-    self.trackButton.hidden = NO;
-
-    // Default to user tracking when the user is a relevant area
-    if (!self.locationInitialized) {
-        MKMapPoint userPoint = MKMapPointForCoordinate(userLocation.coordinate);
-        MKMapRect regionOfInterest = [self mapRectOfInterest];
-        if (!MKMapRectContainsPoint(regionOfInterest, userPoint)) {
-            [self trackUser:NO];
-            [self resetMapViewRect];
-        }
-
-        self.locationInitialized = YES;
-    }
-
-    if (!self.searchController.active) return;
-    if (self.lastLocation && [userLocation.location distanceFromLocation:self.lastLocation] < kUpdateDistance) {
-        [self calculateDistances];
-        self.lastLocation = userLocation.location;
-    }
-}
-
-- (MKMapRect)mapRectOfInterest
-{
-    MKMapRect rect = MKMapRectNull;
-    for (id<MKAnnotation> annotation in self.mapView.annotations) {
-        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
-        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
-        if (MKMapRectIsNull(rect)) {
-            rect = pointRect;
-        } else {
-            rect = MKMapRectUnion(rect, pointRect);
-        }
-    }
-    return MKMapRectInset(rect, -kRectOfInterestMargin, -kRectOfInterestMargin);
-}
-
 - (void)resetMapViewRect
 {
-    // Hardcoded rectangle for the central resto's
+    // Hardcoded rectangle for the central resto's, so the default map is a nice overview
     MKMapRect defaultRect = MKMapRectMake(13.6974e+7, 8.9796e+7, 30e3, 45e3);
     [self.mapView setVisibleMapRect:defaultRect animated:NO];
-}
-
-#pragma mark - Annotations
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-{
-    if ([annotation isKindOfClass:[MKUserLocation class]])
-        return nil;
-
-    static NSString *pinIdentifier = @"RestoMapPin";
-    MKPinAnnotationView *view = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
-    if (!view) {
-        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
-                                               reuseIdentifier:@"RestoMapPin"];
-        view.canShowCallout = YES;
-
-        UIButton *routeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        routeButton.frame = CGRectMake(0, 0, 24, 24);
-        [routeButton setImage:[UIImage imageNamed:@"button-route"] forState:UIControlStateNormal];
-        [routeButton addTarget:self action:@selector(routeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        view.leftCalloutAccessoryView = routeButton;
-    }
-    return view;
-}
-
-- (void)routeButtonTapped:(UIButton *)sender
-{
-    // Find annotationview in view hierarchy
-    UIView *view = sender;
-    while (![view isKindOfClass:[MKAnnotationView class]]) {
-        view = view.superview;
-    }
-
-    id<MKAnnotation> annotation = [(MKAnnotationView *)view annotation];
-    CLLocationCoordinate2D coordinates = [annotation coordinate];
-
-    // Check for iOS 6
-    Class mapItemClass = [MKMapItem class];
-    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)]) {
-        // Create an MKMapItem to pass to the Maps app
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinates
-                                                       addressDictionary:nil];
-        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-        [mapItem setName:annotation.title];
-
-        // Route between the current location and the mapitem
-        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
-        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
-                       launchOptions:@{
-                            MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking
-        }];
-    }
-    // iOS < 6 use maps.apple.com
-    else {
-        CLLocationCoordinate2D user = self.mapView.userLocation.coordinate;
-        NSString *url = [NSString stringWithFormat:@"http://maps.apple.com/maps?saddr=%f,%f&daddr=%f,%f&dirflg=w",
-                         user.latitude, user.longitude, coordinates.latitude, coordinates.longitude];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-    }
-}
-
-#pragma mark - User tracking
-
-- (void)trackButtonTapped:(UIButton *)sender
-{
-    BOOL currentlyTracking = (self.mapView.userTrackingMode != MKUserTrackingModeNone);
-    [self trackUser:!currentlyTracking];
-}
-
-- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
-{
-    self.trackButton.selected = (mode != MKUserTrackingModeNone);
-}
-
-- (void)trackUser:(BOOL)track
-{
-    if ([self.mapView respondsToSelector:@selector(setUserTrackingMode:)]) {
-        MKUserTrackingMode newMode = track ? MKUserTrackingModeFollow : MKUserTrackingModeNone;
-        [self.mapView setUserTrackingMode:newMode animated:YES];
-        self.trackButton.selected = track;
-    }
 }
 
 #pragma mark - SearchController delegate
 
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
 {
+    self.endingSearch = NO;
+
     // Just by accessing the property here, the searchResultsTableView will
     // be initialized with the correct frame. Crazy shit.
     [controller searchResultsTableView];
@@ -340,30 +172,52 @@
     // After this method the searchcontroller will start its animation, which we
     // want in on so we execute our hook in the next run loop.
     dispatch_async(dispatch_get_main_queue(), ^{
-        [controller.searchResultsTableView.layer removeAllAnimations];
-        [self.view addSubview:controller.searchResultsTableView];
-
-        // Smooth appearance
-        controller.searchResultsTableView.alpha = 0;
-        [UIView animateWithDuration:0.3 animations:^{
-            controller.searchResultsTableView.alpha = 1;
-        }];
+        [self _showSearchResults:controller.searchResultsTableView animated:YES];
+        controller.searchResultsTableView.contentOffset = CGPointZero;
     });
 
     [self calculateDistances];
     [self filterMapItems];
 }
 
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+{
+    self.endingSearch = YES;
+}
+
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
 {
-    // Prevent results from disappearing
-    [self.view addSubview:controller.searchResultsTableView];
+    if (!self.endingSearch) {
+        [self _showSearchResults:controller.searchResultsTableView animated:NO];
+    }
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self filterMapItems];
     return YES;
+}
+
+// Hacky method to show the search results tableview immediately
+- (void)_showSearchResults:(UITableView *)tableView animated:(BOOL)animated
+{
+    if (tableView.superview) {
+        // iOS7 approach: show tableview, hide overlay-view
+        tableView.hidden = NO;
+        [[tableView.superview.subviews lastObject] setHidden:YES];
+    }
+    else {
+        [tableView.layer removeAllAnimations];
+        [self.view addSubview:tableView];
+    }
+
+    if (animated) {
+        // Smooth appearance
+        tableView.alpha = 0;
+        [UIView animateWithDuration:0.3 animations:^{
+            tableView.alpha = 1;
+        }];
+    }
 }
 
 #pragma mark - SearchController tableView
@@ -382,6 +236,11 @@
                                       reuseIdentifier:cellIdentifier];
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+
+        // iOS7
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
     }
 
     RestoLocation *resto = self.filteredMapItems[indexPath.row];

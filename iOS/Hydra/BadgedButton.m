@@ -50,7 +50,8 @@
 {
     if(number != 0) {
     	[self setBadgeText:[NSString stringWithFormat:@"%d", number]];
-    } else {
+    }
+    else {
         [self setBadgeText:nil];
     }
 }

@@ -1,7 +1,7 @@
 /**
  *
- * @author Tom Naessens 
- * Tom.Naessens@UGent.be 
+ * @author Tom Naessens
+ * Tom.Naessens@UGent.be
  * 3de Bachelor Informatica
  * Universiteit Gent
  *
@@ -38,7 +38,7 @@ public class PreferenceAssociation {
     public void setInternalName(String internalName) {
         this.internalName = internalName;
     }
-    
+
     public String getParentAssociation() {
         return parentAssociation;
     }
@@ -54,7 +54,7 @@ public class PreferenceAssociation {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
-    
-    
-    
+
+
+
 }

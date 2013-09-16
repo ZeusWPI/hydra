@@ -61,7 +61,6 @@ public class News extends AbstractSherlockListActivity implements PullToRefreshA
 
         // Launch a new activity
         Intent intent = new Intent(this, NewsItemActivity.class);
-        intent.putExtra("class", this.getClass().getCanonicalName());
         intent.putExtra("item", item);
         startActivity(intent);
     }

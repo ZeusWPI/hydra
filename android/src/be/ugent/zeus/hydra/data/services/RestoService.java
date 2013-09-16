@@ -6,8 +6,6 @@ import android.os.ResultReceiver;
 import android.util.Log;
 import be.ugent.zeus.hydra.data.Resto;
 import be.ugent.zeus.hydra.data.caches.RestoCache;
-import java.util.HashMap;
-import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

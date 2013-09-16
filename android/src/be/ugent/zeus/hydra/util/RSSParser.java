@@ -130,9 +130,9 @@ public class RSSParser {
      private static String load() {
      try {
      BufferedReader reader = new BufferedReader(new FileReader(new File("/home/blackskad/Downloads/schamper-dailies.rss")));
-  
+
      String xml = "";
-  
+
      String line;
      while ((line = reader.readLine()) != null) {
      xml += line;
@@ -142,13 +142,13 @@ public class RSSParser {
      return "";
      }
      }
-  
+
      public static void main(String[] args) {
      String xml = load();
-  
+
      RSSParser parser = new RSSParser();
      parser.parse(xml);
      }
-     * 
+     *
      */
 }

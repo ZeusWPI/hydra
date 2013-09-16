@@ -115,8 +115,9 @@
                                       reuseIdentifier:cellIdentifier];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
         cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+        cell.backgroundColor = [UIColor clearColor];
 
-        keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, 14)];
+        keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, 19)];
         keyLabel.tag = kCellKeyLabel;
         keyLabel.font = [UIFont boldSystemFontOfSize:13];
         keyLabel.backgroundColor = [UIColor clearColor];
@@ -126,7 +127,7 @@
 
         CGFloat valueX = CGRectGetMaxX(keyLabel.frame) + 10;
         CGRect valueFrame = CGRectMake(valueX, 0, cell.frame.size.width - valueX - 20,
-                                       cell.frame.size.height - 5);
+                                       cell.frame.size.height);
         valueLabel = [[UILabel alloc] initWithFrame:valueFrame];
         valueLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight
                                     | UIViewAutoresizingFlexibleWidth;
@@ -145,7 +146,8 @@
 
     if ([legend.style isEqual:@"bold"]) {
         keyLabel.font = [UIFont boldSystemFontOfSize:13];
-    } else {
+    }
+    else {
         keyLabel.font = [UIFont systemFontOfSize:13];
     }
 
