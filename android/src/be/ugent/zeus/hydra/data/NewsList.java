@@ -1,7 +1,6 @@
 package be.ugent.zeus.hydra.data;
 
 import android.content.Context;
-import static android.content.Context.MODE_PRIVATE;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.Html;
@@ -42,7 +41,7 @@ public class NewsList extends ArrayAdapter<NewsItem> {
 
         TextView title = (TextView) row.findViewById(R.id.news_item_title);
         // We opened a news item: add the ID to the shared preferences
-        SharedPreferences sharedPrefs = getContext().getSharedPreferences("be.ugent.zeus.hydra.news", MODE_PRIVATE);
+        SharedPreferences sharedPrefs = getContext().getSharedPreferences("be.ugent.zeus.hydra.news", Context.MODE_PRIVATE);
         boolean read = sharedPrefs.getBoolean(Integer.toString(item.id), false);
 
         if (read) {
