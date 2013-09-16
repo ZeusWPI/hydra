@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 #import <QuartzCore/QuartzCore.h>
-#import "InfoPageControl.h"
+#import "SMPageControl.h"
 #import "NSDate+Utilities.h"
 #import "RestoInfoView.h"
 #import "RestoMapController.h"
@@ -22,7 +22,7 @@
 @interface RestoMenuController () <UIScrollViewDelegate>
 
 @property (nonatomic, unsafe_unretained) UIScrollView *scrollView;
-@property (nonatomic, unsafe_unretained) InfoPageControl *pageControl;
+@property (nonatomic, unsafe_unretained) SMPageControl *pageControl;
 @property (nonatomic, unsafe_unretained) RestoInfoView *infoSheet;
 @property (nonatomic, unsafe_unretained) RestoMenuView *menuSheetA;
 @property (nonatomic, unsafe_unretained) RestoMenuView *menuSheetB;
@@ -75,7 +75,7 @@
     self.scrollView = scrollView;
 
     CGRect pageControlFrame = CGRectMake(0, bounds.size.height - 36, bounds.size.width, 36);
-    InfoPageControl *pageControl = [[InfoPageControl alloc] initWithFrame:pageControlFrame];
+    SMPageControl *pageControl = [[SMPageControl alloc] initWithFrame:pageControlFrame];
     pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [pageControl addTarget:self action:@selector(pageChanged:)
           forControlEvents:UIControlEventValueChanged];
@@ -116,6 +116,7 @@
     // Setup pageControl
     self.pageControlUsed = 0;
     self.pageControl.numberOfPages = self.days.count + 1;
+    [self.pageControl setImageMask:[UIImage imageNamed:@"dot-question"] forPage:0];
     self.pageControl.currentPage = 1;
 }
 
