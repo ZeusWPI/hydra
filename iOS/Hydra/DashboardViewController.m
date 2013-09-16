@@ -14,6 +14,7 @@
 #import "UrgentViewController.h"
 #import "SchamperViewController.h"
 #import "PreferencesController.h"
+#import <MessageUI/MessageUI.h>
 
 #if TestFlightEnabled
 #import "TestFlight.h"
@@ -34,7 +35,7 @@
 
 - (void)viewDidLoad
 {
-#if TestFlightEnabled
+#if BETA_RELEASE
     self.feedbackButton.hidden = NO;
 #endif
 
@@ -144,9 +145,17 @@
 
 - (IBAction)showFeedbackView:(id)sender
 {
-#if TestFlightEnabled
-    [TestFlight openFeedbackView];
-#endif
+    MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+    [controller setMailComposeDelegate:self];
+    [controller setToRecipients:@[@"hydra@zeus.ugent.be"]];
+    [controller setSubject:@"Bericht via Hydra"];
+    [self presentModalViewController:controller animated:YES];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 -(IBAction)showPreferences:(id)sender
