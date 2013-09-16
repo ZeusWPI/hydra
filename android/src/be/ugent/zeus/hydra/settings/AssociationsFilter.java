@@ -51,7 +51,7 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
         NSArray assocations = null;
         try {
             assocations = (NSArray) XMLPropertyListParser.parse(getResources()
-                    .openRawResource(R.raw.assocations));
+                .openRawResource(R.raw.assocations));
         } catch (Exception ex) {
             Logger.getLogger(AssociationsFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,9 +60,9 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
         for (int i = 0; i < assocations.count(); i++) {
             NSDictionary association = (NSDictionary) assocations.objectAtIndex(i);
             if (((NSString) association.objectForKey("internalName")).toString()
-                    .equals(((NSString) association.objectForKey("parentAssociation")).toString())) {
+                .equals(((NSString) association.objectForKey("parentAssociation")).toString())) {
                 centraal.put(((NSString) association.objectForKey("internalName")).toString(),
-                        ((NSString) association.objectForKey("displayName")).toString());
+                    ((NSString) association.objectForKey("displayName")).toString());
             }
         }
 
@@ -88,11 +88,11 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
             }
 
             PreferenceAssociation association =
-                    new PreferenceAssociation(
-                    name,
-                    internalName,
-                    centraal.get(((NSString) item.objectForKey("parentAssociation")).toString()),
-                    checked);
+                new PreferenceAssociation(
+                name,
+                internalName,
+                centraal.get(((NSString) item.objectForKey("parentAssociation")).toString()),
+                checked);
 
             associationList.add(association);
         }
@@ -110,10 +110,10 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
         searchView.setOnQueryTextListener(this);
 
         menu.add("Search")
-                .setOnActionExpandListener(this)
-                .setIcon(R.drawable.abs__ic_search)
-                .setActionView(searchView)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+            .setOnActionExpandListener(this)
+            .setIcon(R.drawable.abs__ic_search)
+            .setActionView(searchView)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -126,7 +126,7 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
+        int visibleItemCount, int totalItemCount) {
         this.firstVisible = firstVisibleItem;
     }
 

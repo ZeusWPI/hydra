@@ -152,7 +152,7 @@ public class AssociationsFilterListAdapter extends BaseAdapter implements Sticky
 
                     // If the name or the name of the konvent contains the search string: display it
                     if (assocation.getName().toUpperCase().contains(constraint.toString().toUpperCase())
-                            || assocation.getParentAssociation().toUpperCase().contains(constraint.toString().toUpperCase())) {
+                        || assocation.getParentAssociation().toUpperCase().contains(constraint.toString().toUpperCase())) {
                         preferenceAssociationList.add(assocation);
                     }
                 }
