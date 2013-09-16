@@ -11,6 +11,8 @@
 #import "DashboardViewController.h"
 #import "ShareKitConfigurator.h"
 #import "FacebookSession.h"
+#import "SchamperStore.h"
+#import "AssociationStore.h"
 
 #import <RestKit/RestKit.h>
 #import <ShareKit/ShareKit.h>
@@ -69,6 +71,7 @@
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
     self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
 
+    // iOS7 specific appearance
     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         self.navController.view.backgroundColor = [UIColor hydraBackgroundColor];
     }
@@ -96,6 +99,9 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+    [[SchamperStore sharedStore] syncStorage];
+    [[AssociationStore sharedStore] syncStorage];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

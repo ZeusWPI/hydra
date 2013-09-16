@@ -81,6 +81,11 @@
 {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
+
+    // Update store cache if moving out of this contraller
+    if ([self isMovingFromParentViewController]) {
+        [[SchamperStore sharedStore] syncStorage];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -104,9 +109,21 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
         cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.3 alpha:1];
+
+        // iOS7
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
     }
 
     SchamperArticle *article = self.articles[indexPath.row];
+
+    if (article.read){
+        cell.textLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    }
+    else {
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    }
 
     SORelativeDateTransformer *dateTransformer = [[SORelativeDateTransformer alloc] init];
     NSString *transformedDate = [dateTransformer transformedValue:article.date];
@@ -149,6 +166,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SchamperArticle *article = self.articles[indexPath.row];
+    if (!article.read){
+        article.read = YES;
+        [tableView reloadRowsAtIndexPaths:@[indexPath]
+                         withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     SchamperDetailViewController *controller = [[SchamperDetailViewController alloc] initWithArticle:article];
     [self.navigationController pushViewController:controller animated:YES];
 }

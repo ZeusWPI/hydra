@@ -22,11 +22,13 @@
 @property (nonatomic, strong) NSString *descriptionText;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSArray *categories;
+@property (nonatomic, strong) NSString *facebookId;
 @property (nonatomic, assign) BOOL highlighted;
 
-@property (nonatomic, strong, readonly) FacebookEvent *facebookEvent;
+@property (nonatomic, strong) FacebookEvent *facebookEvent;
 
 + (RKObjectMapping *)objectMapping;
 - (BOOL)hasCoordinates;
+- (BOOL)hasFacebookEvent;
 
 @end

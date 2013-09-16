@@ -22,6 +22,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 @property (nonatomic, assign) BOOL active;
 @property (nonatomic, strong) NSArray *articles;
 @property (nonatomic, strong) NSDate *lastUpdated;
+@property (nonatomic, assign) BOOL storageOutdated;
 
 @end
 
@@ -91,12 +92,24 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     [self updateArticles];
 }
 
-- (void)updateStoreCache
+- (void)syncStorage
 {
+    if (!self.storageOutdated) {
+        return;
+    }
+
+    // Immediately mark the cache as being updated, as this is an async operation
+    self.storageOutdated = NO;
+
     dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
         [NSKeyedArchiver archiveRootObject:self toFile:self.class.articleCachePath];
     });
+}
+
+- (void)markStorageOutdated
+{
+    self.storageOutdated = YES;
 }
 
 #pragma mark - Article fetching
@@ -128,13 +141,26 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
+    NSMutableSet *set = [NSMutableSet set];
+    for (SchamperArticle *article in self.articles) {
+        if (article.read) {
+            [set addObject:article.link];
+        }
+    }
+    for (SchamperArticle *article in objects) {
+        if ([set containsObject:article.link]) {
+            article.read = YES;
+        }
+    }
     self.articles = objects;
     self.lastUpdated = [NSDate date];
-    self.active = false;
+    self.active = NO;
+
+    [self markStorageOutdated];
+    [self syncStorage];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];
-    [self updateStoreCache];
 }
 
 @end

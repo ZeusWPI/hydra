@@ -78,6 +78,11 @@
 {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
+
+    // Update store cache if moving out of this contraller
+    if ([self isMovingFromParentViewController]) {
+        [[AssociationStore sharedStore] syncStorage];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -99,6 +104,11 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
+        cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.3 alpha:1];
+        // iOS7
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
     }
 
     AssociationNewsItem *newsItem = self.newsItems[indexPath.row];
@@ -109,10 +119,16 @@
         dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
         dateFormatter.dateFormat = @"EE d MMM";
     }
-
     NSString *detailText = [NSString stringWithFormat:@"%@, %@", [dateFormatter stringFromDate:newsItem.date], association.displayName];
     cell.textLabel.text = newsItem.title;
     cell.detailTextLabel.text = detailText;
+
+    if (newsItem.read){
+        cell.textLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+    }
+    else {
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+    }
 
     if (newsItem.highlighted) {
         UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-star"]];
@@ -121,7 +137,7 @@
     else {
         cell.accessoryView = nil;
     }
-    
+
     return cell;
 }
 
@@ -171,6 +187,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AssociationNewsItem *item = self.newsItems[indexPath.row];
+    if (!item.read){
+        item.read = YES;
+        [tableView reloadRowsAtIndexPaths:@[indexPath]
+                         withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     NewsDetailViewController *c = [[NewsDetailViewController alloc] initWithNewsItem:item];
     [self.navigationController pushViewController:c animated:YES];
 }

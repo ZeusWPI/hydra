@@ -36,10 +36,10 @@ table a {
   font-size: 16px;
   color: #000;
   text-decoration: none;
-  border-bottom: 1px solid #444;
 }
 
 table.sports tr:nth-child(2n) { background: #ced6e0; }
+table.sports tr:hover { background: #CDE1FA; cursor: pointer; }
 
 table.hours td {
   vertical-align: middle;

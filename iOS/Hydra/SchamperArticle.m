@@ -7,6 +7,7 @@
 //
 
 #import "SchamperArticle.h"
+#import "SchamperStore.h"
 #import <RestKit/RestKit.h>
 #import <RestKit/RKXMLParserXMLReader.h>
 
@@ -20,11 +21,12 @@
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        self.title = [decoder decodeObjectForKey:@"title"];
-        self.link = [decoder decodeObjectForKey:@"link"];
-        self.date = [decoder decodeObjectForKey:@"date"];
-        self.author = [decoder decodeObjectForKey:@"author"];
-        self.body = [decoder decodeObjectForKey:@"body"];
+        _title = [decoder decodeObjectForKey:@"title"];
+        _link = [decoder decodeObjectForKey:@"link"];
+        _date = [decoder decodeObjectForKey:@"date"];
+        _author = [decoder decodeObjectForKey:@"author"];
+        _body = [decoder decodeObjectForKey:@"body"];
+        _read = [decoder decodeBoolForKey:@"read"];
     }
     return self;
 }
@@ -36,6 +38,7 @@
     [coder encodeObject:self.date forKey:@"date"];
     [coder encodeObject:self.author forKey:@"author"];
     [coder encodeObject:self.body forKey:@"body"];
+    [coder encodeBool:self.read forKey:@"read"];
 }
 
 + (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
@@ -59,6 +62,16 @@
     [mapping setDateFormatters:@[dateFormatter]];
 
     [mappingProvider setObjectMapping:mapping forKeyPath:@"rss.channel.item"];
+}
+
+#pragma mark - Properties
+
+- (void)setRead:(BOOL)read
+{
+    if (read != _read) {
+        _read = read;
+        [[SchamperStore sharedStore] markStorageOutdated];
+    }
 }
 
 @end
