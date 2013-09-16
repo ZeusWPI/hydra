@@ -39,7 +39,7 @@ public class NewsIntentService extends HTTPIntentService {
 
         try {
 
-            String fetchedData = fetch(HYDRA_BASE_URL + NEWS_URL, cache.lastModified(FEED_NAME) - 100000);
+            String fetchedData = fetch(HYDRA_BASE_URL + NEWS_URL, cache.lastModified(FEED_NAME));
 
             if (fetchedData != null) {
 
