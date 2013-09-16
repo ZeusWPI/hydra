@@ -362,7 +362,6 @@
     pickerToolbar.tintColor = [UIColor hydraTintColor];
     pickerToolbar.items = @[flexSpace, doneBtn];
 
-
     if (iOS7) {
         // Add a gray border to the bottom of the toolbar
         CALayer *border = [CALayer layer];
