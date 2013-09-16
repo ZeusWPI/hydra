@@ -48,7 +48,7 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
         if (savedInstanceState != null) {
             firstVisible = savedInstanceState.getInt(KEY_LIST_POSITION);
         }
-        NSArray assocations = null;
+        NSArray assocations = new NSArray();
         try {
             assocations = (NSArray) XMLPropertyListParser.parse(getResources()
                 .openRawResource(R.raw.assocations));
