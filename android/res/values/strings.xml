@@ -20,7 +20,7 @@
     <string name="title_external_components">Externe componenten</string>
     
     <string name="details">Details</string>
-    <string name="search_title">Zoek</string>
+    <string name="search_title">Zoek activiteit&#8230;</string>
 
     <string name="no_associations_selected">Selecteer ten minste 1 vereniging in de instellingen.</string>
     <string name="no_news_available">Geen nieuws beschikbaar.</string>
@@ -39,7 +39,6 @@
     <string name="activity_item_time_location">%1$s van %2$s - %3$s</string>
 
     <!-- Facebook in Calendar -->
-
     <string name="now">Koppel</string>
     <string name="not_now">Niet nu</string>
     <string name="koppel_text">Koppel Hydra aan Facebook en krijg meer informatie bij de activiteiten. Je kan dit later altijd aanpassen in de voorkeuren.</string>
@@ -49,6 +48,7 @@
     <string name="inappsupport">Feedback</string>
     <string name="pref_filter">Filter</string>
     <string name="pref_filter_activites">Toon alle verenigingen</string>
+    <string name="pref_filter_associations_hint">Zoek vereniging&#8230;</string>
     <string name="pref_filter_activities_summary">Selecteer verenigingen om activiteiten en nieuwsberichten te filteren. Berichten die in de kijker staan worden steeds getoond.</string>
     <string name="pref_filter_activities_list">Selectie</string>
     <string name="pref_facebook">Facebook</string>
@@ -67,6 +67,7 @@
     <!-- About strings -->
     <string name="about_text">Hydra werd ontwikkeld door Zeus WPI, de studentenwerkgroep informatica van Universiteit Gent, in opdracht van de Dienst StudentenActiviteiten.</string>
     <string name="about_zeus_button">Meer informatie</string>
+    
     <!-- External Components strings -->
     <string name="external_components_intro">Deze app maakt gebruik van de volgende bibliotheken van derden.</string>
     
@@ -79,7 +80,10 @@
     <string name="legend">Legende</string>
     <string name="legend_swiping">Je kan het menu voor de volgende dagen bekijken door naar links te swipen.</string>
     <string name="resto_search_label"></string>
-    <string name="resto_search_hint">Zoek Resto...</string>
+    <string name="resto_search_hint">Zoek Resto&#8230;</string>
+
+    <!-- Map stuffz -->
+    <string name="maps_opengl_error">Uw apparaat ondersteunt de laatste versie van Google Maps niet.</string>
 
     <!-- other stuff -->
     <string name="loading">Laden…</string>
@@ -89,7 +93,7 @@
     <string name="posted_by_newline">%1$s\ndoor %2$s</string>
     
     <string name="no_song_info_found">Geen plaat(info)</string>
-    <string name="schamper_readmore">Meer lezen? Bezoek Schamper online...</string>
+    <string name="schamper_readmore">Meer lezen? Bezoek Schamper online&#8230;</string>
     <string name="refresh">Vernieuwen</string>
     <string name="btn_info">Info</string>
     

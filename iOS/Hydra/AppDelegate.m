@@ -71,6 +71,7 @@
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
     self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
 
+    // iOS7 specific appearance
     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         self.navController.view.backgroundColor = [UIColor hydraBackgroundColor];
     }

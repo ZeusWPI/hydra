@@ -33,3 +33,7 @@ out/
 *.ipr
 *~
 *.swp
+
+# Lib samples
+libs/ActionBarSherlock/actionbarsherlock-samples/*
+libs/StickyListHeaders/sample/*

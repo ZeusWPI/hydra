@@ -43,6 +43,7 @@ PODS:
   - ShareKit/Twitter (2.3.1):
     - JSONKit (~> 1.4)
     - ShareKit/Core
+  - SMPageControl (1.1)
   - SOCKit (1.1)
   - SSKeychain (0.2.1)
   - SVProgressHUD (0.9)
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.4)
   - ShareKit/Facebook (~> 2.3)
   - ShareKit/Twitter (~> 2.3)
+  - SMPageControl (~> 1.1)
   - SVProgressHUD (~> 0.9)
   - TestFlightSDK (~> 2.0)
   - TUSafariActivity (from `External/TUSafariActivity.podspec`)
@@ -79,6 +81,7 @@ SPEC CHECKSUMS:
   RKXMLReaderSerialization: 340ce8c21cf74fd10bd63c8401b13eed53722103
   SDWebImage: f13f791e411c632489824aa7f129e230b52bf5c4
   ShareKit: f1d9200c6126d23415bc1b4bff264647615b271b
+  SMPageControl: c723bd0716b6bfc6ea927de2538b64c1929f7da6
   SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
   SSKeychain: ffa1a79eb716d9ed1ca184fb0cf218087ca28486
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
@@ -87,4 +90,4 @@ SPEC CHECKSUMS:
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
   XMLReader: d8a522b0362140b328bcaec7f289ff4ffffebf29
 
-COCOAPODS: 0.23.0
+COCOAPODS: 0.24.0

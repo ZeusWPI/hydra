@@ -104,6 +104,11 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
+        cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.3 alpha:1];
+        // iOS7
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
     }
 
     AssociationNewsItem *newsItem = self.newsItems[indexPath.row];

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import be.ugent.zeus.hydra.Hydra;
@@ -17,32 +18,34 @@ import be.ugent.zeus.hydra.R;
 import be.ugent.zeus.hydra.data.Activity;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class ActivityListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
-    private Activity[] activities;
+    private ArrayList<Activity> activities;
+    private ArrayList<Activity> filtered;
     private LayoutInflater inflater;
-    private Context context;
+    private Filter filter;
 
-    public ActivityListAdapter(Context context, List<Activity> items) {
-        this.context = context;
+    public ActivityListAdapter(Context context, ArrayList<Activity> items) {
         inflater = LayoutInflater.from(context);
-        this.activities = new Activity[items.size()];
-        activities = items.toArray(activities);
-        Arrays.sort(activities, new ActivityComparator());
+        
+        activities = items;
+        Collections.sort(activities, new ActivityComparator());
+        
+        filtered = activities;
     }
 
     @Override
     public int getCount() {
-        return activities.length;
+        return filtered.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return activities[position];
+        return filtered.get(position);
     }
 
     @Override
@@ -66,7 +69,7 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Activity activity = activities[position];
+        Activity activity = filtered.get(position);
 
         holder.title.setText(activity.title);
         holder.assocation.setText(activity.association.display_name);
@@ -93,7 +96,7 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
             holder = (HeaderViewHolder) convertView.getTag();
         }
 
-        String headerChar = new SimpleDateFormat("dd MMMM", Hydra.LOCALE).format(activities[position].startDate);
+        String headerChar = new SimpleDateFormat("dd MMMM", Hydra.LOCALE).format(filtered.get(position).startDate);
         holder.header_text.setText(headerChar);
         return convertView;
     }
@@ -101,15 +104,22 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
     //remember that these have to be static, postion=1 should walys return the same Id that is.
     @Override
     public long getHeaderId(int position) {
-        return new SimpleDateFormat("dd MMMM").format(activities[position].startDate).hashCode();
+        return new SimpleDateFormat("dd MMMM").format(filtered.get(position).startDate).hashCode();
+    }
+    
+    public Filter getFilter() {
+        if (filter == null) {
+            filter = new ActivityListAdapter.ActivityFilter();
+        }
+        return filter;
     }
 
-    class HeaderViewHolder {
+    private class HeaderViewHolder {
 
         TextView header_text;
     }
 
-    class ViewHolder {
+    private class ViewHolder {
 
         TextView title;
         TextView assocation;
@@ -121,6 +131,55 @@ public class ActivityListAdapter extends BaseAdapter implements StickyListHeader
 
         public int compare(Activity item1, Activity item2) {
             return item1.start.compareTo(item2.start);
+        }
+    }
+    
+    private class ActivityFilter extends Filter {
+
+        @Override
+        protected Filter.FilterResults performFiltering(CharSequence constraint) {
+            Filter.FilterResults results = new Filter.FilterResults();
+            if (constraint == null || constraint.length() == 0) {
+                results.values = activities;
+                results.count = activities.size();
+            } else {
+                ArrayList<Activity> activityList = new ArrayList<Activity>();
+                for (Activity activity : activities) {
+                    
+                    if(activity.title.toLowerCase().contains(constraint.toString().toLowerCase())
+                        || activity.association.display_name.toLowerCase().contains(constraint.toString().toLowerCase())
+                        || categoryContains(constraint.toString(), activity.categories)) {
+                        activityList.add(activity);
+                    }
+                    
+                }
+                results.values = activityList;
+                results.count = activityList.size();
+            }
+            return results;
+        }
+
+        private boolean categoryContains(String constraint, String[] categories) {
+            
+            if(categories != null && categories.length > 0) {
+                for(String category : categories) {
+                    if(category.toLowerCase().contains(constraint.toLowerCase())) {
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+        
+        protected void publishResults(CharSequence constraint, Filter.FilterResults results) {
+            if (results.count == 0) {
+                notifyDataSetInvalidated();
+            } else {
+                filtered = (ArrayList<Activity>) results.values;
+
+                notifyDataSetChanged();
+            }
         }
     }
 }

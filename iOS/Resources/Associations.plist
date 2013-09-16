@@ -774,6 +774,14 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
+		<string>FLUX</string>
+		<key>internalName</key>
+		<string>FLUX</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
 		<string>FLYSE</string>
 		<key>fullName</key>
 		<string>Flanders Youth Society for Entrepreneurship</string>
@@ -789,6 +797,14 @@
 		<string>IEEE Student Branch Gent</string>
 		<key>internalName</key>
 		<string>IEEE</string>
+		<key>parentAssociation</key>
+		<string>WVKCENTRAAL</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Kajira</string>
+		<key>internalName</key>
+		<string>kajira</string>
 		<key>parentAssociation</key>
 		<string>WVKCENTRAAL</string>
 	</dict>
@@ -858,7 +874,7 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Werkgroepen &amp; Vereningingen Konvent</string>
+		<string>Werkgroepen &amp; Verenigingen Konvent</string>
 		<key>internalName</key>
 		<string>WVKCENTRAAL</string>
 		<key>parentAssociation</key>
