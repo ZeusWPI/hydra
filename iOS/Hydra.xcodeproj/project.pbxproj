@@ -20,8 +20,6 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
-		904BC46A17E2014A0000FED6 /* dot-current-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46617E2014A0000FED6 /* dot-current-question.png */; };
-		904BC46B17E2014A0000FED6 /* dot-current-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46717E2014A0000FED6 /* dot-current-question@2x.png */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
@@ -243,8 +241,6 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
-		904BC46617E2014A0000FED6 /* dot-current-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-current-question.png"; sourceTree = "<group>"; };
-		904BC46717E2014A0000FED6 /* dot-current-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-current-question@2x.png"; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -608,10 +604,6 @@
 		F53D2488159DB4DB00F408AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				904BC46617E2014A0000FED6 /* dot-current-question.png */,
-				904BC46717E2014A0000FED6 /* dot-current-question@2x.png */,
-				904BC46817E2014A0000FED6 /* dot-question.png */,
-				904BC46917E2014A0000FED6 /* dot-question@2x.png */,
 				F5B6509816C129B700989ADB /* btn-urgent-bg-highlighted.png */,
 				F5B6509916C129B700989ADB /* btn-urgent-bg-highlighted@2x.png */,
 				F5B6509A16C129B700989ADB /* btn-urgent-bg.png */,
@@ -668,6 +660,8 @@
 				F54AB5A0166FF510006C1189 /* button-urgent-active@2x.png */,
 				F54AB5A1166FF510006C1189 /* button-urgent.png */,
 				F54AB5A2166FF510006C1189 /* button-urgent@2x.png */,
+				904BC46817E2014A0000FED6 /* dot-question.png */,
+				904BC46917E2014A0000FED6 /* dot-question@2x.png */,
 				F5A81CBF15CF1CC500FE033B /* external-link-active.png */,
 				F5A81CC015CF1CC500FE033B /* external-link-active@2x.png */,
 				F5A81CBD15CF1BA700FE033B /* external-link.png */,
@@ -1075,7 +1069,6 @@
 				F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */,
 				F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */,
 				F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */,
-				904BC46B17E2014A0000FED6 /* dot-current-question@2x.png in Resources */,
 				F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */,
 				F5A81CC415CF1CC500FE033B /* external-link@2x.png in Resources */,
 				F5E7F06C15EF9408004024AA /* header-bg@2x.png in Resources */,
@@ -1117,7 +1110,6 @@
 				F531DE7016B30A0F0050D88B /* button-track@2x.png in Resources */,
 				F5B9F2E917CEA96F0042C8A4 /* Icon-iOS6@2x.png in Resources */,
 				F531DE9016B31FFC0050D88B /* button-track-highlighted.png in Resources */,
-				904BC46A17E2014A0000FED6 /* dot-current-question.png in Resources */,
 				F531DE9116B31FFC0050D88B /* button-track-selected-highlighted.png in Resources */,
 				F531DE9216B31FFC0050D88B /* button-track-selected.png in Resources */,
 				F531DE9316B31FFC0050D88B /* button-track.png in Resources */,
@@ -1339,6 +1331,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1361,6 +1354,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};

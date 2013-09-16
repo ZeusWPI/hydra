@@ -116,8 +116,7 @@
     // Setup pageControl
     self.pageControlUsed = 0;
     self.pageControl.numberOfPages = self.days.count + 1;
-    [self.pageControl setImage:[UIImage imageNamed:@"dot-question"] forPage:0];
-    [self.pageControl setCurrentImage:[UIImage imageNamed:@"dot-current-question"] forPage:0];
+    [self.pageControl setImageMask:[UIImage imageNamed:@"dot-question"] forPage:0];
     self.pageControl.currentPage = 1;
 }
 
