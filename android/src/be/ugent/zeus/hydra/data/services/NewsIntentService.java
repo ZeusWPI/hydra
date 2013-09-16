@@ -1,6 +1,6 @@
 package be.ugent.zeus.hydra.data.services;
 
-import static android.content.Context.MODE_PRIVATE;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -57,7 +57,7 @@ public class NewsIntentService extends HTTPIntentService {
                 }
 
                 // Get the read ID's
-                SharedPreferences sharedPrefs = getSharedPreferences("be.ugent.zeus.hydra.news", MODE_PRIVATE);
+                SharedPreferences sharedPrefs = getSharedPreferences("be.ugent.zeus.hydra.news", Context.MODE_PRIVATE);
                 Set<String> readItemSet = sharedPrefs.getAll().keySet();
 
                 // Remove the items that do not exist anymore
