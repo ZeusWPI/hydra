@@ -1,6 +1,8 @@
 package be.ugent.zeus.hydra.data.services;
 
+import static android.content.Context.MODE_PRIVATE;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
@@ -11,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import org.json.JSONArray;
 
 public class NewsIntentService extends HTTPIntentService {
@@ -39,34 +43,26 @@ public class NewsIntentService extends HTTPIntentService {
             String fetchedData = fetch(HYDRA_BASE_URL + NEWS_URL, cache.lastModified(FEED_NAME));
 
             if (fetchedData != null) {
+                
+                // Get the new list
                 ArrayList<NewsItem> newsList = new ArrayList<NewsItem>(Arrays.asList(parseJsonArray(new JSONArray(fetchedData), NewsItem.class)));
 
+                
+                // Put decent dates and meanwhile build the idSet
+                Set<String> idSet = new HashSet<String>();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Hydra.LOCALE);
                 for (NewsItem newsItem : newsList) {
                     newsItem.dateDate = dateFormat.parse(newsItem.date);
+                    idSet.add(Integer.toString(newsItem.id));
                 }
 
-                // Get the old items
-                ArrayList<NewsItem> oldList = cache.get(FEED_NAME);
-                HashSet<Integer> readIds = new HashSet<Integer>();
+                SharedPreferences sharedPrefs = getSharedPreferences("be.ugent.zeus.hydra.news", MODE_PRIVATE);
+                Set<String> readItemSet = sharedPrefs.getAll().keySet();
                 
-                // If there are old items, do some magic!
-                if(oldList != null) {
-                    
-                    // If they are read: add their ID to the set
-                    for(NewsItem item : oldList) {
-                        if(item.read) {
-                            readIds.add(item.id);
-                        }
-                    }
-                    
-                    // Loop over the new set and set the read status accordingly
-                    for(NewsItem item : newsList) {
-                        if(readIds.contains(item.id)) {
-                            item.read = true;
-                        }
-                    }
-                    
+                readItemSet.removeAll(idSet);
+                
+                for(String readItem : readItemSet) {
+                    sharedPrefs.edit().remove(readItem);
                 }
                 
                 // And save the list

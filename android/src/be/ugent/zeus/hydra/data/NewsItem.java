@@ -12,5 +12,4 @@ public class NewsItem implements Serializable {
     public String content;
     public String date;
     public Date dateDate;
-    public boolean read;
 }
