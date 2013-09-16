@@ -344,10 +344,7 @@
             NSMutableArray *activities = self.data[day];
             NSMutableArray *filteredActivities = [[NSMutableArray alloc] init];
             for (AssociationActivity *activity in activities) {
-                NSRange title = [activity.title rangeOfString:searchString options:NSCaseInsensitiveSearch];
-                NSRange org = [activity.association.fullName rangeOfString:searchString options:NSCaseInsensitiveSearch];
-                NSRange orgInt = [activity.association.internalName rangeOfString:searchString options:NSCaseInsensitiveSearch];
-                if (title.location != NSNotFound || org.location != NSNotFound || orgInt.location != NSNotFound) {
+                if ([self filterActivity:activity fromString:searchString]) {
                     [filteredActivities addObject:activity];
                 }
             }
@@ -359,6 +356,22 @@
         self.days = filteredDays;
         self.data = filteredData;
     }
+}
+
+- (BOOL) filterActivity:(AssociationActivity*)activity fromString:(NSString*)searchString
+{
+    NSStringCompareOptions option = NSCaseInsensitiveSearch;
+    if ([activity.title rangeOfString:searchString options:option].location != NSNotFound ||
+        [activity.association.fullName rangeOfString:searchString options:option].location != NSNotFound ||
+        [activity.association.internalName rangeOfString:searchString options:option].location != NSNotFound) {
+        return YES;
+    }
+    for(NSString* categorie in activity.categories){
+        if([categorie rangeOfString:searchString options:option].location != NSNotFound){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - Activy list delegate
