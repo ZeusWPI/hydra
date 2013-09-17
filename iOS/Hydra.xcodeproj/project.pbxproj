@@ -20,6 +20,7 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
+		9023646017E8EA8C00EC8090 /* InfoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9023645F17E8EA8C00EC8090 /* InfoWebViewController.m */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
@@ -242,6 +243,8 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		9023645E17E8EA8C00EC8090 /* InfoWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoWebViewController.h; sourceTree = "<group>"; };
+		9023645F17E8EA8C00EC8090 /* InfoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoWebViewController.m; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -555,6 +558,17 @@
 				F5C6093716D2DFCB0043BD44 /* PreferencesService.m */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		9023645D17E8EA2600EC8090 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				3B436DF615B8915200984D3F /* InfoViewController.h */,
+				3B436DF715B8915200984D3F /* InfoViewController.m */,
+				9023645E17E8EA8C00EC8090 /* InfoWebViewController.h */,
+				9023645F17E8EA8C00EC8090 /* InfoWebViewController.m */,
+			);
+			name = Info;
 			sourceTree = "<group>";
 		};
 		F521D11316C5386F00B686B2 /* Preferences */ = {
@@ -911,8 +925,7 @@
 				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
 				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
 				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
-				3B436DF615B8915200984D3F /* InfoViewController.h */,
-				3B436DF715B8915200984D3F /* InfoViewController.m */,
+				9023645D17E8EA2600EC8090 /* Info */,
 				F536359E16A69C94000A50C4 /* News */,
 				F521D11316C5386F00B686B2 /* Preferences */,
 				3B7AD3B615BC82EB0026BB62 /* Resto */,
@@ -1248,6 +1261,7 @@
 				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,
 				F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */,
 				F53A5E8416700B29009EA4CC /* ApplicationWithRemoteSupport.m in Sources */,
+				9023646017E8EA8C00EC8090 /* InfoWebViewController.m in Sources */,
 				F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */,
 				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
 				90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */,

@@ -7,7 +7,7 @@
 //
 
 #import "InfoViewController.h"
-#import "WebViewController.h"
+#import "InfoWebViewController.h"
 
 @interface InfoViewController ()
 
@@ -130,7 +130,7 @@
         [self.navigationController pushViewController:c animated:YES];
     }
     else if(item[@"html"]) {
-        WebViewController *c = [[WebViewController alloc] init];
+        InfoWebViewController *c = [[InfoWebViewController alloc] init];
         c.title = item[@"title"];
         c.trackedViewName = [NSString stringWithFormat:@"%@ > %@", self.trackedViewName, c.title];
         [c loadHtml:item[@"html"]];
