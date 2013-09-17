@@ -27,7 +27,7 @@
 
     self.path = path;
 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kCachingBaseURL, path]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kCachingBaseURL, path]];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     [self.webView loadRequest:request];
 }
