@@ -424,8 +424,12 @@
         case kGuestsRow: {
             cell.textLabel.text = @"Gasten";
             cell.alignToTop = YES;
-            // TODO: should be UITableViewCellAccessoryDetailButton on iOS7
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+            if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            }
 
             FacebookEvent *event = self.activity.facebookEvent;
             if (event.friendsAttending.count > 0) {
