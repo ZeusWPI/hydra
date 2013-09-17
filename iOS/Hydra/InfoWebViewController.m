@@ -34,11 +34,11 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    NSLog(@"Error WebView: %@ for path: %@",error.localizedDescription, self.path);
+    NSLog(@"Error WebView: %@",error.localizedDescription);
+
     NSString *path = [[NSBundle mainBundle] pathForResource:self.path ofType:nil];
     if (path) {
-        NSURL *url = [[NSBundle mainBundle] URLForResource:self.path withExtension:nil];
-        [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+        [super loadHtml:self.path];
     }
 }
 @end

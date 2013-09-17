@@ -49,6 +49,12 @@
     RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelInfo);
 #endif
 
+    // Add URLCache
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                         diskCapacity:20 * 1024 * 1024
+                                                             diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
+
     // Configure some parts of the application asynchronously
     dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(async, ^{
