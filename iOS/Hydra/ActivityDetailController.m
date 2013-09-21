@@ -258,7 +258,15 @@
                         width = tableView.frame.size.width - 20;
                         self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                     }
-                    return self.descriptionView.contentSize.height + 4;
+                    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+                        CGSize boundingSize = CGSizeMake(width - 40, CGFLOAT_MAX); //make width smaller because it's not total width
+                        CGSize textSize = [self.activity.descriptionText sizeWithFont:self.descriptionView.font
+                                                                    constrainedToSize:boundingSize
+                                                                        lineBreakMode: NSLineBreakByWordWrapping];
+                        return textSize.height + 4;
+                    } else {
+                        return self.descriptionView.contentSize.height + 4;
+                    }
                     break;
             }
             break;
