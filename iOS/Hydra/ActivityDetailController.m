@@ -245,6 +245,7 @@
                     break;
 
                 case kGuestsRow: {
+                    width -= 40;
                     FacebookEvent *fbEvent = self.activity.facebookEvent;
                     if (fbEvent.friendsAttending.count > 0) {
                         spacing += 40;
@@ -264,7 +265,8 @@
                                                                     constrainedToSize:boundingSize
                                                                         lineBreakMode: NSLineBreakByWordWrapping];
                         return textSize.height + 4;
-                    } else {
+                    }
+                    else {
                         return self.descriptionView.contentSize.height + 4;
                     }
                     break;
