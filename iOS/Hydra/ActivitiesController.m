@@ -75,6 +75,13 @@
     // Make sure we scroll with any selection that may have been set
     [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:NO];
 
+    // reload activities, refresh the data if it's not later than today
+    NSDate *firstDay = self.days[0];
+    if (!firstDay || [firstDay isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]) {
+        [[AssociationStore sharedStore] reloadActivities];
+        [self loadActivities];
+    }
+
     // Call super last, as it will clear the selection
     [super viewWillAppear:animated];
 }
