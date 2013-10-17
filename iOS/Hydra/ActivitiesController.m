@@ -79,7 +79,6 @@
     NSDate *firstDay = self.days[0];
     if (!firstDay || [firstDay isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]) {
         [[AssociationStore sharedStore] reloadActivities];
-        [self loadActivities];
     }
 
     // Call super last, as it will clear the selection
