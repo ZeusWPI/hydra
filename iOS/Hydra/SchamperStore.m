@@ -89,7 +89,10 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
 - (void)reloadArticles
 {
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSURLRequest *schamper = [[NSURLRequest alloc] initWithURL:
+                              [[NSURL alloc] initWithString:
+                               [NSString stringWithFormat:@"%@%@", kSchamperBaseUrl,kSchamperDailyUrl]]];
+    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:schamper];
     [self updateArticles];
 }
 

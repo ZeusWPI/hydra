@@ -189,14 +189,20 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)reloadActivities
 {
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSURLRequest *news = [[NSURLRequest alloc] initWithURL:
+                          [[NSURL alloc] initWithString:
+                           [NSString stringWithFormat:@"%@%@", kBaseUrl,kActivitiesResource]]];
+    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:news];
     [self updateResource:kActivitiesResource lastUpdated:nil
            objectMapping:[AssociationActivity objectMapping]];
 }
 
 - (void)reloadNewsItems
 {
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSURLRequest *news = [[NSURLRequest alloc] initWithURL:
+                              [[NSURL alloc] initWithString:
+                               [NSString stringWithFormat:@"%@%@", kBaseUrl,kNewsResource]]];
+    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:news];
     [self updateResource:kNewsResource lastUpdated:nil
            objectMapping:[AssociationNewsItem objectMapping]];
 }
