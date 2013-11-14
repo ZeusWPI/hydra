@@ -53,7 +53,7 @@ public class MusicService extends Service implements OnCompletionListener, OnPre
     OnErrorListener, MusicFocusable {
 
     // Stream URL
-    final static String URL = "http://195.10.10.207/urgent/high.mp3";
+    final static String URL = "http://195.10.10.209/urgent/high.mp3";
     // The tag we put on debug messages
     final static String TAG = "Urgent.fm";
     // These are the Intent actions that we are prepared to handle. Notice that the fact these
