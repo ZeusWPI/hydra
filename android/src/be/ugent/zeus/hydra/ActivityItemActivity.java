@@ -292,6 +292,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             moreContent.setText(item.url);
             moreContentContainer.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    if (!item.url.contains("://")) item.url = "http://" + item.url;
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.url));
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                     startActivity(intent);
