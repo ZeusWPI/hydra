@@ -51,7 +51,7 @@ public class AssociationsFilter extends AbstractSherlockActivity implements AbsL
         NSArray assocations = new NSArray();
         try {
             assocations = (NSArray) XMLPropertyListParser.parse(getResources()
-                .openRawResource(R.raw.assocations));
+                .openRawResource(R.raw.associations));
         } catch (Exception ex) {
             Logger.getLogger(AssociationsFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
