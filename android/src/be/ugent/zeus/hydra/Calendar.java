@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -204,10 +205,9 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         // Launch a new activity
         Intent intent = new Intent(this, ActivityItemActivity.class);
-        intent.putExtra("item", items.get(position));
+        intent.putExtra("item", (Activity) listAdapter.getItem(position));
         startActivity(intent);
     }
 
