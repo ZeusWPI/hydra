@@ -42,7 +42,7 @@ class Week(object):
         day_of_week = 4
         for row in rows:
             menu = Menu(friday - timedelta(day_of_week))
-	    menu.parse(row, lang)
+            menu.parse(row, lang)
             day_of_week -=  1
             self.days.append(menu)
 
@@ -98,7 +98,7 @@ class MenuItem(object):
     def process_description(self, description, lang):
         match = re.match(u'^€([0-9,. ]+)-([a-z -]+):([^(]+)(\(.+\))?$', description, re.I)
         self.price = float(match.group(1).replace(',', '.'))
-	self.name = match.group(3).strip()
+        self.name = match.group(3).strip()
 
         self.type = match.group(2).strip().lower()
         if self.type in LABELS[lang]:
@@ -121,13 +121,13 @@ def download_menu(year, week, lang):
         if not week_menu:
             print('ERROR: failed to parse menu for week %02d' % week)
         else:
-	    json = None
+            json = None
             if lang == 'nl':
                 json = create_api_10_representation(week_menu)
                 dump_representation('1.0', year, week, json)
-	    elif lang == 'nl-omg':
-		json = create_api_10_representation(week_menu)
-	    return json
+            elif lang == 'nl-omg':
+                json = create_api_10_representation(week_menu)
+            return json
 
 def get_menu_page(url, week):
     print('Fetching week %02d menu webpage' % week)
@@ -202,13 +202,13 @@ def dump_representation(identifier, year, week, menu):
 def download_wrapper(year, week, langs):
     dict = {}
     for l in langs:
-	dict[l] = download_menu(isocalendar[0], isocalendar[1], l)
-    dump_representation('2.0', year, week, dict)
+        dict[l] = download_menu(isocalendar[0], isocalendar[1], l)
+        dump_representation('2.0', year, week, dict)
 
 if __name__ == "__main__":
     # Fetch the menu for the next three weeks
     weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
     for week in weeks:
         isocalendar = week.isocalendar()
-	langs = ['nl', 'nl-omg']
+        langs = ['nl', 'nl-omg']
         download_wrapper(isocalendar[0], isocalendar[1], langs)
