@@ -203,7 +203,6 @@ def download_wrapper(year, week, lang, langs):
     dict = {}
     for l in langs:
         key = l.split("-")[-1]
-        lang = l.split("-")[0]
         if key == 'nl':
             key = 'default'
         dict[key] = download_menu(isocalendar[0], isocalendar[1], l)
