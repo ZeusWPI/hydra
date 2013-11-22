@@ -121,12 +121,9 @@ def download_menu(year, week, lang):
         if not week_menu:
             print('ERROR: failed to parse menu for week %02d' % week)
         else:
-            json = None
+            json = create_api_10_representation(week_menu)
             if lang == 'nl':
-                json = create_api_10_representation(week_menu)
                 dump_representation('1.0', year, week, json)
-            elif lang == 'nl-sintjansvest':
-                json = create_api_10_representation(week_menu)
             return json
 
 def get_menu_page(url, week):
@@ -203,15 +200,16 @@ def download_wrapper(year, week, lang, langs):
     dict = {}
     for l in langs:
         key = l.split("-")[-1]
-        if key == 'nl':
+        if key == 'nl' or key == 'en':
             key = 'default'
         dict[key] = download_menu(isocalendar[0], isocalendar[1], l)
     dump_representation('2.0/'+lang, year, week, dict)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Fetch the menu for the next three weeks
+    langs = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
     weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
     for week in weeks:
         isocalendar = week.isocalendar()
-        langs = ['nl', 'nl-sintjansvest']
-        download_wrapper(isocalendar[0], isocalendar[1], "nl", langs)
+        for key in langs:
+            download_wrapper(isocalendar[0], isocalendar[1], key, langs[key])
