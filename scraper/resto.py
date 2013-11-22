@@ -199,15 +199,15 @@ def dump_representation(identifier, year, week, menu):
     with open('%s/%s.json' % (path, week), 'w') as f:
         json.dump(menu, f, sort_keys=True)
 
-def download_wrapper(year, week, langs):
+def download_wrapper(year, week, lang, langs):
     dict = {}
     for l in langs:
         key = l.split("-")[-1]
-        print key
+        lang = l.split("-")[0]
         if key == 'nl':
             key = 'default'
         dict[key] = download_menu(isocalendar[0], isocalendar[1], l)
-        dump_representation('2.0', year, week, dict)
+    dump_representation('2.0/'+lang, year, week, dict)
 
 if __name__ == "__main__":
     # Fetch the menu for the next three weeks
@@ -215,4 +215,4 @@ if __name__ == "__main__":
     for week in weeks:
         isocalendar = week.isocalendar()
         langs = ['nl', 'nl-sintjansvest']
-        download_wrapper(isocalendar[0], isocalendar[1], langs)
+        download_wrapper(isocalendar[0], isocalendar[1], "nl", langs)
