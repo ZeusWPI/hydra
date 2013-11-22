@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 SOURCES = {
     'nl': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu/week%02d.htm',
-    'nl-omg': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu-sintjansvest/week%02d.htm',
+    'nl-sintjansvest': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu-sintjansvest/week%02d.htm',
     'en': 'http://www.ugent.be/en/facilities/food/weekly-menu/menu%02d.htm'
 }
 
@@ -125,7 +125,7 @@ def download_menu(year, week, lang):
             if lang == 'nl':
                 json = create_api_10_representation(week_menu)
                 dump_representation('1.0', year, week, json)
-            elif lang == 'nl-omg':
+            elif lang == 'nl-sintjansvest':
                 json = create_api_10_representation(week_menu)
             return json
 
@@ -202,7 +202,11 @@ def dump_representation(identifier, year, week, menu):
 def download_wrapper(year, week, langs):
     dict = {}
     for l in langs:
-        dict[l] = download_menu(isocalendar[0], isocalendar[1], l)
+        key = l.split("-")[-1]
+        print key
+        if key == 'nl':
+            key = 'default'
+        dict[key] = download_menu(isocalendar[0], isocalendar[1], l)
         dump_representation('2.0', year, week, dict)
 
 if __name__ == "__main__":
@@ -210,5 +214,5 @@ if __name__ == "__main__":
     weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
     for week in weeks:
         isocalendar = week.isocalendar()
-        langs = ['nl', 'nl-omg']
+        langs = ['nl', 'nl-sintjansvest']
         download_wrapper(isocalendar[0], isocalendar[1], langs)
