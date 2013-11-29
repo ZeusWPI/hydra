@@ -22,6 +22,14 @@
 	</dict>
 	<dict>
 		<key>image</key>
+		<string>info-guide</string>
+		<key>title</key>
+		<string>GUIDe</string>
+		<key>url</key>
+		<string>http://www.ugent.be/nl/vragen</string>
+	</dict>
+	<dict>
+		<key>image</key>
 		<string>info-sports</string>
 		<key>title</key>
 		<string>Sportvoorzieningen</string>
