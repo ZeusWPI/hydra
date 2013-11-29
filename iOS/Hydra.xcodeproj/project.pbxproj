@@ -20,6 +20,8 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
+		90410B101848DF9100331F6C /* info-guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0E1848DF9100331F6C /* info-guide.png */; };
+		90410B111848DF9100331F6C /* info-guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0F1848DF9100331F6C /* info-guide@2x.png */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
@@ -242,6 +244,8 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		90410B0E1848DF9100331F6C /* info-guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide.png"; sourceTree = "<group>"; };
+		90410B0F1848DF9100331F6C /* info-guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide@2x.png"; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -696,6 +700,8 @@
 				F59D16ED15BD693F00B6F892 /* info-more@2x.png */,
 				F59D16EE15BD693F00B6F892 /* info-sports.png */,
 				F59D16EF15BD693F00B6F892 /* info-sports@2x.png */,
+				90410B0E1848DF9100331F6C /* info-guide.png */,
+				90410B0F1848DF9100331F6C /* info-guide@2x.png */,
 				F5C4618B166E442000874D79 /* navigation-down.png */,
 				F5C4618C166E442000874D79 /* navigation-down@2x.png */,
 				F5C4618D166E442000874D79 /* navigation-up.png */,
@@ -1071,6 +1077,7 @@
 				F5CFAA3D15BD9B87008E75B0 /* info-fietsen.html in Resources */,
 				F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */,
 				F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */,
+				90410B101848DF9100331F6C /* info-guide.png in Resources */,
 				F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */,
 				F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */,
 				F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */,
@@ -1109,6 +1116,7 @@
 				F531DE6816B2EE720050D88B /* button-route.png in Resources */,
 				F5B9F2F217CEAA040042C8A4 /* Icon-Small-iOS7@2x.png in Resources */,
 				F531DE6D16B30A0F0050D88B /* button-track-selected-highlighted@2x.png in Resources */,
+				90410B111848DF9100331F6C /* info-guide@2x.png in Resources */,
 				F531DE6E16B30A0F0050D88B /* button-track-highlighted@2x.png in Resources */,
 				F531DE6F16B30A0F0050D88B /* button-track-selected@2x.png in Resources */,
 				F531DE7016B30A0F0050D88B /* button-track@2x.png in Resources */,
