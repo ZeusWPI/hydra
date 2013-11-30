@@ -1,17 +1,7 @@
 PODS:
-  - AFNetworking (1.3.2)
-  - Facebook-iOS-SDK (3.7.1)
-  - GoogleAnalytics-iOS-SDK (3.0)
-  - JSONKit (1.5pre)
-  - libwebp (0.3.0-rc7):
-    - libwebp/dec
-    - libwebp/dsp
-    - libwebp/utils
-    - libwebp/webp
-  - libwebp/dec (0.3.0-rc7)
-  - libwebp/dsp (0.3.0-rc7)
-  - libwebp/utils (0.3.0-rc7)
-  - libwebp/webp (0.3.0-rc7)
+  - AFNetworking (1.3.3)
+  - Facebook-iOS-SDK (3.10.0)
+  - GoogleAnalytics-iOS-SDK (3.0.2)
   - RestKit (0.20.3):
     - RestKit/Core
   - RestKit/Core (0.20.3):
@@ -30,24 +20,27 @@ PODS:
   - RKXMLReaderSerialization (0.1.0):
     - RestKit (>= 0.20.0dev)
     - XMLReader (>= 0.0.2)
-  - SDWebImage (3.4):
-    - libwebp
-    - SDWebImage/MapKit
-  - SDWebImage/MapKit (3.4):
-    - libwebp
-  - ShareKit/Core (2.3.1):
-    - SSKeychain (= 0.2.1)
-  - ShareKit/Facebook (2.3.1):
-    - Facebook-iOS-SDK (~> 3.7)
+  - SDWebImage (3.5):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.5)
+  - ShareKit/Core (2.4.6):
+    - ShareKit/NoARC
+    - ShareKit/Reachability
+    - SSKeychain (~> 0.2.1)
+    - SSToolkit (~> 1.0.4)
+  - ShareKit/Facebook (2.4.6):
+    - Facebook-iOS-SDK (~> 3.8)
     - ShareKit/Core
-  - ShareKit/Twitter (2.3.1):
-    - JSONKit (~> 1.4)
+  - ShareKit/NoARC (2.4.6)
+  - ShareKit/Reachability (2.4.6)
+  - ShareKit/Twitter (2.4.6):
     - ShareKit/Core
   - SMPageControl (1.1)
   - SOCKit (1.1)
   - SSKeychain (0.2.1)
+  - SSToolkit (1.0.4)
   - SVProgressHUD (0.9)
-  - TestFlightSDK (2.0)
+  - TestFlightSDK (2.1.1-beta)
   - TransitionKit (1.1.1)
   - TUSafariActivity (0.0.1)
   - XMLReader (0.0.2)
@@ -72,22 +65,21 @@ EXTERNAL SOURCES:
     :podspec: External/TUSafariActivity.podspec
 
 SPEC CHECKSUMS:
-  AFNetworking: 7f9bcd7c287a75476cd5c61e82fd3380e93e4c54
-  Facebook-iOS-SDK: bf38d403928f6adb652e2e5ae46253e0c6ba9a19
-  GoogleAnalytics-iOS-SDK: f8d5faf4862b679667be0c270531a189572275d1
-  JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
-  libwebp: 40517fa1fd3716eded73b4696c45fc0b66e4b414
+  AFNetworking: 0700ec7a58c36ad217173e167f6e4df7270df66b
+  Facebook-iOS-SDK: ef402579aeb30cf0c4a6370fb0a927e3dc3059e5
+  GoogleAnalytics-iOS-SDK: 86393b99f7328ae8d8e975fcaa8632a39dafafe8
   RestKit: 1f181c180105a92f11ec4f6cd7de37625e516d83
   RKXMLReaderSerialization: 340ce8c21cf74fd10bd63c8401b13eed53722103
-  SDWebImage: f13f791e411c632489824aa7f129e230b52bf5c4
-  ShareKit: f1d9200c6126d23415bc1b4bff264647615b271b
+  SDWebImage: f1a72472f8a2d54445f1fedafe2090593d9caf7f
+  ShareKit: ba581dd29ef2bb26ef3c82739fd0c0581d07d062
   SMPageControl: c723bd0716b6bfc6ea927de2538b64c1929f7da6
   SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
   SSKeychain: ffa1a79eb716d9ed1ca184fb0cf218087ca28486
+  SSToolkit: 689acaedac79c2079e492e528a55bcb5db9d98c4
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
-  TestFlightSDK: 940906d4b2550cf397c6f2d2fcc4ebfdcd8ae858
+  TestFlightSDK: dea28c16f0bf65c49c4ed8939b2ae0b0ed9bf8b0
   TransitionKit: d0e3344aac92991395d4c2e72d9c5a8ceeb12910
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
   XMLReader: d8a522b0362140b328bcaec7f289ff4ffffebf29
 
-COCOAPODS: 0.24.0
+COCOAPODS: 0.28.0
