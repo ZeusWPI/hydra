@@ -9,9 +9,9 @@ import json, libxml2, os, os.path, datetime, locale, re, requests
 from datetime import datetime, timedelta
 
 SOURCES = {
-    'nl': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu/week%02d.htm',
-    'nl-sintjansvest': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu-sintjansvest/week%02d.htm',
-    'en': 'http://www.ugent.be/en/facilities/food/weekly-menu/menu%02d.htm'
+    'nl': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu/week%02d',
+    'nl-sintjansvest': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu-sintjansvest/week%02d',
+    'en': 'http://www.ugent.be/en/facilities/restaurants/weekly-menu/week%02d'
 }
 
 LOCALES = {
@@ -22,12 +22,21 @@ LOCALES = {
 # Only contains word which need a translation, e.g. not 'snack'
 LABELS = {
     'nl': { 'groenten': 'vegetables', 'soep': 'soup', 'vlees': 'meat',
-            'vis': 'fish', 'vegetarisch': 'vegetarian', "niet-veggie": "meat" },
+            'vis': 'fish', 'vegetarisch': 'vegetarian', 'niet-veggie': 'meat' },
     'en': { 'vegi': 'vegetarian' }
 }
-OPTIONS = {
-    'nl': { 'recommended': 'aanbevolen' },
-    'en': { 'recommended': 'recommended' }
+
+class IdentityDict(dict):
+    def __missing__(self, key):
+        return key
+
+DICTIONARY = {
+    'en': IdentityDict(),
+    'nl': {
+            'recommended': 'aanbevolen',
+            'Main course': 'Hoofdgerecht',
+            'Vegetables': 'Groenten',
+          }
 }
 
 API_PATH = 'resto/%s/menu'
@@ -38,11 +47,11 @@ class Week(object):
         self.week = week
         self.days = []
 
-    def parse(self, rows, friday, lang):
+    def parse(self, menus_txt, friday, lang):
         day_of_week = 4
-        for row in rows:
+        for menu_txt in menus_txt:
             menu = Menu(friday - timedelta(day_of_week))
-            menu.parse(row, lang)
+            menu.parse(menu_txt, lang)
             day_of_week -=  1
             self.days.append(menu)
 
@@ -52,39 +61,30 @@ class Menu(object):
         self.items = []
         self.vegetables = []
 
-    def parse(self, row, lang):
-        items = row.xpathEval('./td')[1].xpathEval('.//li')
-        for item in items:
-            text = unicode(item.content.strip(), encoding='utf8')
-            if len(text) == 0:
-                continue
+    def parse(self, menu_div, lang):
+        types = [x.content for x in menu_div.xpathEval('./h3')]
+        lists = menu_div.xpathEval('./ul')
+        if len(types) != len(lists):
+            print('ERROR: Inconsistent format')
+            return
 
-            if text.startswith(u'€'):
-                menu_item = MenuItem(text, lang)
-                self.items.append(menu_item)
+        for type_, list_ in zip(types, lists):
+            list_items = (unicode(x.content, encoding='utf8')
+                          for x in list_.xpathEval('./li'))
+            if type_ == DICTIONARY[lang]['Main Course']:
+                for descriptions in list_items:
+                    self.items.append(MenuItem(description, lang))
+            elif type_ == DICTIONARY[lang]['Vegetables']:
+                self.vegetables = [x.capitalize() for x in list_items]
             else:
-                match = re.search('^([a-z ]+):(.*)$', text, re.I)
-                if match:
-                    keyword = match.group(1).lower()
-                    if keyword in LABELS[lang]:
-                        keyword = LABELS[lang][keyword]
-
-                    if keyword == 'vegetables':
-                        self.parse_vegetables(match.group(2).strip())
-
-                else:
-                    print('Unknown line format: ' + text)
+                descriptions = ['%s: %s' % (type_, x) for x in list_items]
+                for description in descriptions:
+                    self.items.append(MenuItem(description, lang))
 
     def open(self):
         # Consider the resto to be open when there's some items
         return len(self.items) > 0
 
-    def parse_vegetables(self, line):
-        r = re.compile(' (?:of|or) ', re.I)
-        for vegetable in r.split(line, 0):
-            # drop remark
-            vegetable = re.sub('\(.*\)$', '', vegetable).strip()
-            self.vegetables.append(vegetable.capitalize())
 
 class MenuItem(object):
     def __init__(self, description, lang):
@@ -96,19 +96,20 @@ class MenuItem(object):
         self.process_description(description, lang)
 
     def process_description(self, description, lang):
-        match = re.match(u'^€([0-9,. ]+)-([a-z -]+):([^(]+)(\(.+\))?$', description, re.I)
-        self.price = float(match.group(1).replace(',', '.'))
-        self.name = match.group(3).strip()
+        match = re.match(u'^([^:]+): +([^€]+) - € *([0-9,. ]+)$', description, re.I)
 
-        self.type = match.group(2).strip().lower()
+        self.name = match.group(2).strip()
+        self.type = match.group(1).strip().lower()
+        self.price = float(match.group(3).replace(',', '.'))
+
         if self.type in LABELS[lang]:
             self.type = LABELS[lang][self.type]
 
         # TODO: parse availability
-        if match.group(4):
-            remark = match.group(4).strip()
-            if re.search(OPTIONS[lang]['recommended'], remark):
-                self.recommended = True
+        # if match.group(4):
+        #     remark = match.group(4).strip()
+        #     if re.search(DICTIONARY[lang]['recommended'], remark):
+        #         self.recommended = True
 
 def download_menu(year, week, lang):
     parsed_lang = re.match(u'^([a-z]+)', lang, re.I).group(0)
@@ -156,11 +157,10 @@ def parse_week_menu(page, year, week, lang):
         print('Incorrect information retrieved: expected %s-%s, got %s-%s' %
             (year, week, isocalendar[0], isocalendar[1]))
         return None
-    menuElement = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
-    rows = menuElement[0].xpathEval('.//tr')[1:]
+    menus = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
 
     week_menu = Week(year, week)
-    week_menu.parse(rows, friday, lang)
+    week_menu.parse(menus, friday, lang)
     return week_menu
 
 def create_api_10_representation(week):
