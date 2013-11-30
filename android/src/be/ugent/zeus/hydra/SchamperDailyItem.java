@@ -1,6 +1,8 @@
 package be.ugent.zeus.hydra;
 
+import static android.content.Context.MODE_PRIVATE;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.webkit.WebView;
 import be.ugent.zeus.hydra.data.rss.Item;
@@ -52,6 +54,11 @@ public class SchamperDailyItem extends AbstractSherlockActivity {
 
         WebView content = (WebView) findViewById(R.id.schamper_item);
         content.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null);
+        
+        // We opened a schamper article: add the ID to the shared preferences
+        SharedPreferences sharedPrefs = getSharedPreferences("be.ugent.zeus.hydra.schamper", MODE_PRIVATE);
+        sharedPrefs.edit().putBoolean(item.link, true).apply();
+
     }
 
     @Override

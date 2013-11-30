@@ -19,11 +19,16 @@
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
 
-@interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UISearchDisplayDelegate>
 
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSDictionary *data;
+@property (nonatomic, strong) NSArray *oldDays;
+@property (nonatomic, strong) NSDictionary *oldData;
 @property (nonatomic, assign) NSUInteger count;
+@property (nonatomic, assign) NSUInteger previousSearchLength;
+
+@property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) UIPickerView *datePicker;
 
 @end
@@ -60,6 +65,14 @@
     btn.enabled = self.days.count > 0;
     self.navigationItem.rightBarButtonItem = btn;
 
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,320,44)];
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+    self.searchController.delegate = self;
+    self.searchController.searchResultsDataSource = self;
+    self.searchController.searchResultsDelegate = self;
+
+    self.tableView.tableHeaderView = searchBar;
+    
     if ([UIRefreshControl class]) {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         refreshControl.tintColor = [UIColor hydraTintColor];
@@ -283,6 +296,82 @@
     ActivityDetailController *detailViewController = [[ActivityDetailController alloc]
                                                           initWithActivity:activity delegate:self];
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - Searchbar delegate
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
+    self.oldDays = [[NSArray alloc] initWithArray:self.days copyItems:YES];
+    self.oldData = [[NSDictionary alloc] initWithDictionary:self.data copyItems:YES];
+
+    [self filterActivities];
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
+{
+    self.data = self.oldData;
+    self.days = self.oldDays;
+    self.previousSearchLength = 0;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterActivities];
+    return YES;
+}
+
+- (void) filterActivities
+{
+    NSString *searchString = self.searchController.searchBar.text;
+    if (searchString.length == 0) {
+        self.days = self.oldDays;
+        self.data = self.oldData;
+        self.previousSearchLength = 0;
+    }
+    else {
+        if (self.previousSearchLength > searchString.length){
+            self.days = self.oldDays;
+            self.data = self.oldData;
+        }
+        
+        self.previousSearchLength = searchString.length;
+        
+        NSMutableArray *filteredDays = [[NSMutableArray alloc] init];
+        NSMutableDictionary *filteredData = [[NSMutableDictionary alloc] init];
+        
+        for (NSDate *day in self.days) {
+            NSMutableArray *activities = self.data[day];
+            NSMutableArray *filteredActivities = [[NSMutableArray alloc] init];
+            for (AssociationActivity *activity in activities) {
+                if ([self filterActivity:activity fromString:searchString]) {
+                    [filteredActivities addObject:activity];
+                }
+            }
+            if (filteredActivities.count > 0){
+                [filteredDays addObject:day];
+                filteredData[day] = filteredActivities;
+            }
+        }
+        self.days = filteredDays;
+        self.data = filteredData;
+    }
+}
+
+- (BOOL) filterActivity:(AssociationActivity*)activity fromString:(NSString*)searchString
+{
+    NSStringCompareOptions option = NSCaseInsensitiveSearch;
+    if ([activity.title rangeOfString:searchString options:option].location != NSNotFound ||
+        [activity.association.fullName rangeOfString:searchString options:option].location != NSNotFound ||
+        [activity.association.internalName rangeOfString:searchString options:option].location != NSNotFound) {
+        return YES;
+    }
+    for(NSString* categorie in activity.categories){
+        if([categorie rangeOfString:searchString options:option].location != NSNotFound){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - Activy list delegate

@@ -81,3 +81,4 @@ In order of first contribution:
 * Stijn Seghers
 * Ruben Taelman
 * Wouter Pinnoo
+* Titouan Vervack
