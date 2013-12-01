@@ -256,26 +256,33 @@
                     // Different calculation for UITextView
                     if (!self.descriptionView) {
                         self.descriptionView = [self createDescriptionView];
-                        width = tableView.frame.size.width - 20;
+                        if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+                            width = tableView.frame.size.width;
+                        } else {
+                            width = tableView.frame.size.width - 20;
+                        }
                         self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                     }
                     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
-                        CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
+                        UIEdgeInsets textContainerInsets = self.descriptionView.textContainerInset;
+                        UIEdgeInsets contentInsets = self.descriptionView.contentInset;
 
-                        NSDictionary *attributesDictionary = @{NSFontAttributeName: self.descriptionView.font};
+                        CGFloat leftRightPadding = textContainerInsets.left + textContainerInsets.right + contentInsets.left + contentInsets.right +
+                                                    self.descriptionView.textContainer.lineFragmentPadding * 2;
+                        CGFloat topBottomPadding = textContainerInsets.top + textContainerInsets.bottom + contentInsets.top + contentInsets.bottom;
+
+                        width -= leftRightPadding;
+
+                        NSDictionary *attributes = @{ NSFontAttributeName: self.descriptionView.font};
+
+                        CGRect size = [self.descriptionView.text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                                               attributes:attributes
+                                                                  context:nil];
                         
-                        CGRect frame = [self.activity.descriptionText boundingRectWithSize:boundingSize
-                                                          options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                                       attributes:attributesDictionary
-                                                          context:nil];
-                        CGFloat adj = ceilf(self.descriptionView.font.ascender - self.descriptionView.font.capHeight);
-                        CGFloat insets = self.descriptionView.textContainerInset.top + self.descriptionView.textContainerInset.bottom;
-                        NSLog(@"height: %f,  with hackz: %f",frame.size.height , frame.size.height + adj + insets);
-                        CGFloat height = frame.size.height; //HACKZ <= BUG IN SDK: http://slidetorock.com/blog/uitextview-height-in-ios-7.html
-                        if (height < 100) {
-                            return height + adj + insets;
-                        }
-                        return height + adj;
+                        CGFloat height = ceilf(CGRectGetHeight(size) + topBottomPadding + 1);
+
+                        return height;
                     }
                     else {
                         return self.descriptionView.contentSize.height + 4;
