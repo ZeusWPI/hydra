@@ -34,8 +34,8 @@ DICTIONARY = {
     'en': IdentityDict(),
     'nl': {
             'recommended': 'aanbevolen',
-            'Main course': 'Hoofdgerecht',
-            'Vegetables': 'Groenten',
+            'main course': 'hoofdgerecht',
+            'vegetables': 'groenten',
           }
 }
 
@@ -62,24 +62,28 @@ class Menu(object):
         self.vegetables = []
 
     def parse(self, menu_div, lang):
-        types = [x.content for x in menu_div.xpathEval('./h3')]
-        lists = menu_div.xpathEval('./ul')
-        if len(types) != len(lists):
-            print('ERROR: Inconsistent format')
-            return
+        titles = [x.content.lower() for x in menu_div.xpathEval('./h3')]
+        lists = menu_div.xpathEval('./ul[*]')
 
-        for type_, list_ in zip(types, lists):
+        if len(titles) != len(lists):
+            print('ERROR: Inconsistent format')
+            # TODO: this will fail december 20th, since we sometimes have <li>'s
+            # split over multiple <ul>'s. Somebody needs to learn HTML.
+            # Better parser would split li's by surrounding <h3> tag.
+            return -1
+
+        for title, list_ in zip(titles, lists):
             list_items = (unicode(x.content, encoding='utf8')
                           for x in list_.xpathEval('./li'))
-            if type_ == DICTIONARY[lang]['Main Course']:
-                for descriptions in list_items:
+            if title == DICTIONARY[lang]['main course']:
+                for description in list_items:
                     self.items.append(MenuItem(description, lang))
-            elif type_ == DICTIONARY[lang]['Vegetables']:
+            elif title == DICTIONARY[lang]['vegetables']:
                 self.vegetables = [x.capitalize() for x in list_items]
             else:
-                descriptions = ['%s: %s' % (type_, x) for x in list_items]
+                descriptions = ['%s: %s' % (title, x) for x in list_items]
                 for description in descriptions:
-                    self.items.append(MenuItem(description, lang))
+                    self.items.append(MenuItem(description.capitalize(), lang))
 
     def open(self):
         # Consider the resto to be open when there's some items
@@ -96,7 +100,8 @@ class MenuItem(object):
         self.process_description(description, lang)
 
     def process_description(self, description, lang):
-        match = re.match(u'^([^:]+): +([^€]+) - € *([0-9,. ]+)$', description, re.I)
+        print description
+        match = re.match(u'^([^:]+): +([^€]+) - € *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
 
         self.name = match.group(2).strip()
         self.type = match.group(1).strip().lower()
@@ -122,10 +127,7 @@ def download_menu(year, week, lang):
         if not week_menu:
             print('ERROR: failed to parse menu for week %02d' % week)
         else:
-            json = create_api_10_representation(week_menu)
-            if lang == 'nl':
-                dump_representation('1.0', year, week, json)
-            return json
+            return week_menu
 
 def get_menu_page(url, week):
     print('Fetching week %02d menu webpage' % week)
@@ -188,28 +190,32 @@ def create_api_10_representation(week):
 
     return root
 
-def dump_representation(identifier, year, week, menu):
+def dump_representation(identifier, year, week, menus):
     path = os.path.join(API_PATH % identifier, str(year))
     print('Writing object tree to %s' % path);
+
     if not os.path.isdir(path):
         os.makedirs(path)
     with open('%s/%s.json' % (path, week), 'w') as f:
+        menu = create_api_10_representation(menus['default'])
         json.dump(menu, f, sort_keys=True)
 
-def download_wrapper(year, week, lang, langs):
-    dict = {}
-    for l in langs:
-        key = l.split("-")[-1]
-        if key == 'nl' or key == 'en':
+def process_sources(year, week, lang, sources):
+    parsed_menus = {}
+    for source in sources:
+        if source.find('-') != -1:
+            key = source.split('-')[-1]
+        else:
             key = 'default'
-        dict[key] = download_menu(isocalendar[0], isocalendar[1], l)
-    dump_representation('2.0/'+lang, year, week, dict)
+        parsed_menus[key] = download_menu(isocalendar[0], isocalendar[1], source)
+    if lang == 'nl':
+        dump_representation('1.0', year, week, parsed_menus)
 
 if __name__ == '__main__':
     # Fetch the menu for the next three weeks
-    langs = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
+    language_sources = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
     weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
     for week in weeks:
         isocalendar = week.isocalendar()
-        for key in langs:
-            download_wrapper(isocalendar[0], isocalendar[1], key, langs[key])
+        for lang in language_sources:
+            process_sources(isocalendar[0], isocalendar[1], lang, language_sources[lang])
