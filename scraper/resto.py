@@ -22,7 +22,8 @@ LOCALES = {
 # Only contains word which need a translation, e.g. not 'snack'
 LABELS = {
     'nl': { 'groenten': 'vegetables', 'soep': 'soup', 'vlees': 'meat',
-            'vis': 'fish', 'vegetarisch': 'vegetarian', 'niet-veggie': 'meat' },
+            'vis': 'fish', 'vegetarisch': 'vegetarian', 'niet-veggie': 'meat',
+            'maaltijdsoep': 'meal soup' },
     'en': { 'vegi': 'vegetarian' }
 }
 
@@ -73,17 +74,17 @@ class Menu(object):
             return -1
 
         for title, list_ in zip(titles, lists):
-            list_items = (unicode(x.content, encoding='utf8')
-                          for x in list_.xpathEval('./li'))
+            list_items = [unicode(x.content, encoding='utf8')
+                          for x in list_.xpathEval('./li')]
             if title == DICTIONARY[lang]['main course']:
-                for description in list_items:
-                    self.items.append(MenuItem(description, lang))
+                for item in list_items:
+                    self.items.append(MenuItem(item, lang))
             elif title == DICTIONARY[lang]['vegetables']:
                 self.vegetables = [x.capitalize() for x in list_items]
             else:
-                descriptions = ['%s: %s' % (title, x) for x in list_items]
-                for description in descriptions:
-                    self.items.append(MenuItem(description.capitalize(), lang))
+                for item in list_items:
+                    description = '%s: %s' % (title.capitalize(), item.capitalize())
+                    self.items.append(MenuItem(description, lang))
 
     def open(self):
         # Consider the resto to be open when there's some items
@@ -100,7 +101,6 @@ class MenuItem(object):
         self.process_description(description, lang)
 
     def process_description(self, description, lang):
-        print description
         match = re.match(u'^([^:]+): +([^€]+) - € *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
 
         self.name = match.group(2).strip()
