@@ -21,8 +21,8 @@ import java.util.Locale;
 public class Hydra extends AbstractSherlockActivity {
 
     public static final Locale LOCALE = new Locale("nl", "BE");
-    private static final boolean DEBUG = true;
-    private static final boolean BETA = true;
+    private static final boolean DEBUG = true; // Put to true when implementing new features!
+    private static final boolean BETA = false; // Put to true when releasing a beta update!
     public static boolean SHOWED_NETWORK = false;
 
     @Override
@@ -65,6 +65,7 @@ public class Hydra extends AbstractSherlockActivity {
         }
 
         // Google Analytics
+        // If we are in beta or debugging? Opt out! Opt out!
         if (BETA || DEBUG) {
             Log.d("GAnalytics:", "Tracking disabled");
             GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
