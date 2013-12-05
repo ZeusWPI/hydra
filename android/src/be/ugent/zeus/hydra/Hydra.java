@@ -22,7 +22,7 @@ public class Hydra extends AbstractSherlockActivity {
 
     public static final Locale LOCALE = new Locale("nl", "BE");
     private static final boolean DEBUG = true;
-    private static final boolean BETA = false;
+    private static final boolean BETA = true;
     public static boolean SHOWED_NETWORK = false;
 
     @Override
@@ -58,7 +58,7 @@ public class Hydra extends AbstractSherlockActivity {
         getSupportActionBar().setCustomView(R.layout.abs_main);
 
         // Testflight
-        if (!DEBUG) {
+        if (!DEBUG && BETA) {
             Log.d("Testflight:", "Enable bugtracking");
             //Initialize TestFlight with your app token.
             TestFlight.takeOff(this.getApplication(), "f498b778-92cf-49d7-9650-954daeaa8551");
