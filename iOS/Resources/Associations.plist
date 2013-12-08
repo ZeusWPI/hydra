@@ -116,14 +116,6 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Politeia</string>
-		<key>internalName</key>
-		<string>POLITEIA</string>
-		<key>parentAssociation</key>
-		<string>FKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
 		<string>Slavia</string>
 		<key>internalName</key>
 		<string>SLAVIA</string>

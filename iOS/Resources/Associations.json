@@ -70,11 +70,6 @@
         "parentAssociation": "FKCENTRAAL"
     },
     {
-        "displayName": "Politeia",
-        "internalName": "POLITEIA",
-        "parentAssociation": "FKCENTRAAL"
-    },
-    {
         "displayName": "Slavia",
         "internalName": "SLAVIA",
         "parentAssociation": "FKCENTRAAL"

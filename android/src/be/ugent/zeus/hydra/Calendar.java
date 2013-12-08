@@ -204,10 +204,9 @@ public class Calendar extends AbstractSherlockActivity implements OnScrollListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         // Launch a new activity
         Intent intent = new Intent(this, ActivityItemActivity.class);
-        intent.putExtra("item", items.get(position));
+        intent.putExtra("item", (Activity) listAdapter.getItem(position));
         startActivity(intent);
     }
 
