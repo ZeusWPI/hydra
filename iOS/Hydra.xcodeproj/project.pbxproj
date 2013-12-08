@@ -26,6 +26,8 @@
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
+		90E814F31854C76C00075F96 /* ios7-Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */; };
+		90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F21854C76C00075F96 /* ios7-Default@2x.png */; };
 		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
 		90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegendItem.m */; };
 		90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F0525C168C663F004CAFFC /* RestoMapController.m */; };
@@ -251,6 +253,8 @@
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
 		90C532A916A325A200857EB0 /* FacebookEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookEvent.h; sourceTree = "<group>"; };
 		90C532AA16A325A200857EB0 /* FacebookEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookEvent.m; sourceTree = "<group>"; };
+		90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default-568h@2x.png"; sourceTree = "<group>"; };
+		90E814F21854C76C00075F96 /* ios7-Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default@2x.png"; sourceTree = "<group>"; };
 		90EB7BE11688BCC700A9582D /* RestoInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoInfoView.h; sourceTree = "<group>"; };
 		90EB7BE21688BCC700A9582D /* RestoInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoInfoView.m; sourceTree = "<group>"; };
 		90EB7BE81688ECE300A9582D /* RestoLegendItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegendItem.h; sourceTree = "<group>"; };
@@ -863,6 +867,8 @@
 				F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */,
 				F5D36BB315B5BD2A00B6E017 /* Default.png */,
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
+				90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */,
+				90E814F21854C76C00075F96 /* ios7-Default@2x.png */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
 				F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */,
 				F5CE522016C2BDA70033A52B /* Errors.strings */,
@@ -1071,6 +1077,7 @@
 				F5CFAA3D15BD9B87008E75B0 /* info-fietsen.html in Resources */,
 				F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */,
 				F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */,
+				90E814F31854C76C00075F96 /* ios7-Default-568h@2x.png in Resources */,
 				F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */,
 				F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */,
 				F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */,
@@ -1092,6 +1099,7 @@
 				F533DABA16315E87001269A8 /* schamper.css in Resources */,
 				F533DABC163163E2001269A8 /* schamper-bg.png in Resources */,
 				F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */,
+				90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */,
 				F5EBF0E0164BE583002C14BF /* SORelativeDateTransformer.bundle in Resources */,
 				F5C4618F166E442000874D79 /* navigation-down.png in Resources */,
 				F5C46190166E442000874D79 /* navigation-down@2x.png in Resources */,

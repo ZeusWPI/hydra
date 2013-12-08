@@ -200,7 +200,7 @@
     static NSDateFormatter *dateFormatter = nil;
     if (!dateFormatter) {
         dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
-        dateFormatter.dateFormat = @"d MMMM";
+        dateFormatter.dateFormat = @"E d MMMM";
     }
     return [dateFormatter stringFromDate:self.days[section]];
 }
