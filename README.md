@@ -82,3 +82,4 @@ In order of first contribution:
 * Ruben Taelman
 * Wouter Pinnoo
 * Titouan Vervack
+* Caroline De Brouwer
