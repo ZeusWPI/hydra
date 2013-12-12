@@ -260,11 +260,22 @@
                         self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                     }
                     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
-                        CGSize boundingSize = CGSizeMake(width - 40, CGFLOAT_MAX); //make width smaller because it's not total width
-                        CGSize textSize = [self.activity.descriptionText sizeWithFont:self.descriptionView.font
-                                                                    constrainedToSize:boundingSize
-                                                                        lineBreakMode: NSLineBreakByWordWrapping];
-                        return textSize.height + 4;
+                        CGSize boundingSize = CGSizeMake(width, CGFLOAT_MAX);
+
+                        NSDictionary *attributesDictionary = @{NSFontAttributeName: self.descriptionView.font};
+                        
+                        CGRect frame = [self.activity.descriptionText boundingRectWithSize:boundingSize
+                                                          options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                                       attributes:attributesDictionary
+                                                          context:nil];
+                        CGFloat adj = ceilf(self.descriptionView.font.ascender - self.descriptionView.font.capHeight);
+                        CGFloat insets = self.descriptionView.textContainerInset.top + self.descriptionView.textContainerInset.bottom;
+                        NSLog(@"height: %f,  with hackz: %f",frame.size.height , frame.size.height + adj + insets);
+                        CGFloat height = frame.size.height; //HACKZ <= BUG IN SDK: http://slidetorock.com/blog/uitextview-height-in-ios-7.html
+                        if (height < 100) {
+                            return height + adj + insets;
+                        }
+                        return height + adj;
                     }
                     else {
                         return self.descriptionView.contentSize.height + 4;
