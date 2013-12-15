@@ -21,6 +21,8 @@
 
 @interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UISearchDisplayDelegate>
 
+@property (nonatomic, assign) BOOL activitiesUpdated;
+
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, strong) NSArray *oldDays;
@@ -35,7 +37,7 @@
 
 @implementation ActivitiesController
 
-- (id)init
+- (instancetype)init
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
         self.count = 0;
@@ -98,7 +100,7 @@
     GAI_Track(@"Activities");
 
     // Show loading indicator when no content is found yet
-    if (self.days.count == 0) {
+    if (self.days.count == 0 && !self.activitiesUpdated) {
         [SVProgressHUD show];
     }
 }
@@ -163,6 +165,8 @@
 
 - (void)activitiesUpdated:(NSNotification *)notification
 {
+    self.activitiesUpdated = YES;
+
     [self loadActivities];
     [self.tableView reloadData];
 

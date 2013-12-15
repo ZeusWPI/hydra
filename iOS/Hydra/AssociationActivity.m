@@ -21,18 +21,17 @@
 + (RKObjectMapping *)objectMapping
 {
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
-    [objectMapping addAttributeMappingsFromArray:
-     @[
-       @"title", @"location", @"start", @"end", @"url",
-       @"latitude", @"longitude", @"categories", @"highlighted"
+    [objectMapping addAttributeMappingsFromArray:@[
+        @"title", @"location", @"start", @"end", @"url",
+        @"latitude", @"longitude", @"categories", @"highlighted"
     ]];
-    [objectMapping addAttributeMappingsFromDictionary:
-     @{
-       @"facebook_id": @"facebookId",
-       @"description": @"descriptionText"
-       }];
-    [objectMapping addRelationshipMappingWithSourceKeyPath:@"association" mapping:[Association objectMapping]];
-    
+    [objectMapping addAttributeMappingsFromDictionary:@{
+        @"facebook_id": @"facebookId",
+        @"description": @"descriptionText"
+    }];
+    [objectMapping addRelationshipMappingWithSourceKeyPath:@"association"
+                                                   mapping:[Association objectMapping]];
+
     return objectMapping;
 }
 
