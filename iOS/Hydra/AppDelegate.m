@@ -51,16 +51,15 @@
 #endif
 
     // Configure some parts of the application asynchronously
-    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(async, ^{
         // Check for internet connectivity
-        Reachability* reach = [Reachability reachabilityWithHostname:@"zeus.ugent.be"];
+        Reachability *reachability = [Reachability reachabilityWithHostname:@"zeus.ugent.be"];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(reachabilityStatusDetermined:)
+                                                 selector:@selector(reachabilityStatusChanged:)
                                                      name:kReachabilityChangedNotification
                                                    object:nil];
-        
-        [reach startNotifier];
+        [reachability startNotifier];
         
         // Configure ShareKit
         ShareKitConfigurator *config = [[ShareKitConfigurator alloc] init];
@@ -131,17 +130,15 @@
     [[FBSession activeSession] close];
 }
 
-- (void)reachabilityStatusDetermined:(NSNotification *) notification
+- (void)reachabilityStatusChanged:(NSNotification *)notification
 {
-
     // Prevent this dialog from showing up more than once
     static BOOL reachabilityDetermined = NO;
     if(reachabilityDetermined) return;
     reachabilityDetermined = YES;
 
-    Reachability *reach = notification.object;
-    if (!reach.isReachable)
-    {
+    Reachability *reachability = notification.object;
+    if (!reachability.isReachable) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{
             kErrorTitleKey: @"Geen internetverbinding",
             kErrorDescriptionKey: @"Sommige onderdelen van Hydra vereisen een "
