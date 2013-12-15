@@ -11,9 +11,10 @@
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import <GAI.h>
 #import "UIColor+AppColors.h"
-#import <SystemConfiguration/SystemConfiguration.h>
 #endif
 
 #define PUBLIC_RELEASE 0

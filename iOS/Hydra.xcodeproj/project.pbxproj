@@ -79,7 +79,6 @@
 		F55895C415B60F450001B399 /* RestoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C315B60F450001B399 /* RestoMenu.m */; };
 		F55895C715B610140001B399 /* RestoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C615B610130001B399 /* RestoStore.m */; };
 		F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */; };
-		F55E89F516A4B928008595CB /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F55E89F416A4B928008595CB /* ShareKit.bundle */; };
 		F567044416BD5D8100C6B00D /* icon-meal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044016BD5D8100C6B00D /* icon-meal@2x.png */; };
 		F567044516BD5D8100C6B00D /* icon-soup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044116BD5D8100C6B00D /* icon-soup@2x.png */; };
 		F567044616BD5D8100C6B00D /* icon-vegetables@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044216BD5D8100C6B00D /* icon-vegetables@2x.png */; };
@@ -320,7 +319,6 @@
 		F55895C615B610130001B399 /* RestoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoStore.m; sourceTree = "<group>"; };
 		F55E89EA16A4AF8E008595CB /* ShareKitConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareKitConfigurator.h; sourceTree = "<group>"; };
 		F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareKitConfigurator.m; sourceTree = "<group>"; };
-		F55E89F416A4B928008595CB /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = "<group>"; };
 		F567044016BD5D8100C6B00D /* icon-meal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-meal@2x.png"; sourceTree = "<group>"; };
 		F567044116BD5D8100C6B00D /* icon-soup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-soup@2x.png"; sourceTree = "<group>"; };
 		F567044216BD5D8100C6B00D /* icon-vegetables@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-vegetables@2x.png"; sourceTree = "<group>"; };
@@ -896,7 +894,6 @@
 			children = (
 				F5DF2FB716C41DDE003B05EC /* MarqueeLabel.h */,
 				F5DF2FB816C41DDE003B05EC /* MarqueeLabel.m */,
-				F55E89F416A4B928008595CB /* ShareKit.bundle */,
 				F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */,
 				F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */,
 				F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */,
@@ -1104,7 +1101,6 @@
 				F54AB5A5166FF510006C1189 /* button-urgent.png in Resources */,
 				F54AB5A6166FF510006C1189 /* button-urgent@2x.png in Resources */,
 				F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */,
-				F55E89F516A4B928008595CB /* ShareKit.bundle in Resources */,
 				F531DE6516B2E41B0050D88B /* button-route@2x.png in Resources */,
 				F531DE6816B2EE720050D88B /* button-route.png in Resources */,
 				F5B9F2F217CEAA040042C8A4 /* Icon-Small-iOS7@2x.png in Resources */,
