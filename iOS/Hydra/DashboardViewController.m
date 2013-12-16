@@ -7,22 +7,24 @@
 //
 
 #import "DashboardViewController.h"
-#import "NewsViewController.h"
-#import "ActivitiesController.h"
-#import "InfoViewController.h"
-#import "RestoMenuController.h"
-#import "UrgentViewController.h"
-#import "SchamperViewController.h"
-#import "PreferencesController.h"
+
 #import <MessageUI/MessageUI.h>
 
 #if TestFlightEnabled
-#import "TestFlight.h"
+#import <TestFlightSDK/TestFlight.h>
 #endif
+
+#import "ActivitiesController.h"
+#import "InfoViewController.h"
+#import "NewsViewController.h"
+#import "PreferencesController.h"
+#import "RestoMenuController.h"
+#import "SchamperViewController.h"
+#import "UrgentViewController.h"
 
 #define EasterEggEnabled 0
 
-@interface DashboardViewController () <UITextFieldDelegate>
+@interface DashboardViewController () <UITextFieldDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UISwipeGestureRecognizer *gestureRecognizer;
 @property (nonatomic, unsafe_unretained) UITextField *codeField;

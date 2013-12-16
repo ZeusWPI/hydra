@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@class RKObjectMappingProvider;
+@class RKObjectMapping;
 
 @interface RestoLocation : NSObject <MKAnnotation, NSCoding>
 
@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (RKObjectMapping *)objectMapping;
 
 - (NSString *)title;
 

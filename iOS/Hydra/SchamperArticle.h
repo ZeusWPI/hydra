@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKObjectMappingProvider;
+@class RKObjectMapping;
 
 @interface SchamperArticle : NSObject <NSCoding>
 
@@ -19,6 +19,6 @@
 @property (nonatomic, strong) NSString *body;
 @property (nonatomic, assign) BOOL read;
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (RKObjectMapping *)objectMapping;
 
 @end
