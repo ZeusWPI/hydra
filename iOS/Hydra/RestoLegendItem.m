@@ -16,14 +16,13 @@
     return [NSString stringWithFormat:@"<RestoLegend for key '%@'>", self.key];
 }
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider
++ (RKObjectMapping *)objectMapping
 {
     // Create mapping for locations
     RKObjectMapping *legendMapping = [RKObjectMapping mappingForClass:self];
-    [legendMapping mapAttributes:@"key", @"value", @"style", nil];
+    [legendMapping addAttributeMappingsFromArray:@[@"key", @"value", @"style"]];
 
-    // Register mapping
-    [mappingProvider setObjectMapping:legendMapping forKeyPath:@"legend"];
+    return legendMapping;
 }
 
 - (id)initWithCoder:(NSCoder *)aCoder

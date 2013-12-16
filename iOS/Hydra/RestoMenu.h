@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKObjectMappingProvider, RestoMenuItem;
+@class RKObjectMapping, RestoMenuItem;
 
 @interface RestoMenu : NSObject <NSCoding>
 
@@ -19,7 +19,7 @@
 @property (nonatomic, strong) RestoMenuItem *soup;
 @property (nonatomic, strong) NSDate *lastUpdated;
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (RKObjectMapping *)objectMapping;
 
 @end
 

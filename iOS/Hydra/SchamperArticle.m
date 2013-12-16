@@ -9,7 +9,7 @@
 #import "SchamperArticle.h"
 #import "SchamperStore.h"
 #import <RestKit/RestKit.h>
-#import <RestKit/RKXMLParserXMLReader.h>
+#import <RKXMLReaderSerialization.h>
 
 @implementation SchamperArticle
 
@@ -41,27 +41,29 @@
     [coder encodeBool:self.read forKey:@"read"];
 }
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (RKObjectMapping *)objectMapping
 {
     // Register rss+xml MIME-type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKXMLParserXMLReader class]
-                                          forMIMEType:@"application/rss+xml"];
+    [RKMIMETypeSerialization registerClass:[RKXMLReaderSerialization class] forMIMEType:@"application/rss+xml"];
 
     // Create mapping
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self];
-    [mapping mapKeyPath:@"title" toAttribute:@"title"];
-    [mapping mapKeyPath:@"link" toAttribute:@"link"];
-    [mapping mapKeyPath:@"pubDate" toAttribute:@"date"];
-    [mapping mapKeyPath:@"dc:creator" toAttribute:@"author"];
-    [mapping mapKeyPath:@"description" toAttribute:@"body"];
+    [mapping setForceCollectionMapping:YES];
+
+    [mapping addAttributeMappingsFromDictionary:@{
+       @"title.text": @"title",
+       @"link.text": @"link",
+       @"pubDate.text": @"date",
+       @"dc:creator.text": @"author",
+       @"description.text": @"body"
+    }];
 
     // Date format: Sun, 10 Jun 2012 01:03:24 +0200 (RFC2822)
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"EEE, d MMM y HH:mm:ss Z";
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     [mapping setDateFormatters:@[dateFormatter]];
-
-    [mappingProvider setObjectMapping:mapping forKeyPath:@"rss.channel.item"];
+    return mapping;
 }
 
 #pragma mark - Properties

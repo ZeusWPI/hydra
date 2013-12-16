@@ -9,8 +9,8 @@ import json, libxml2, os, os.path, datetime, locale, re, requests
 from datetime import datetime, timedelta
 
 SOURCES = {
-    'nl': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu/week%02d',
-    'nl-sintjansvest': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/menu/weekmenu-sintjansvest/week%02d',
+    'nl': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu/week%02d',
+    'nl-sintjansvest': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest/week%02d',
     'en': 'http://www.ugent.be/en/facilities/restaurants/weekly-menu/week%02d'
 }
 
@@ -131,7 +131,7 @@ def download_menu(year, week, lang):
 
 def get_menu_page(url, week):
     print('Fetching week %02d menu webpage' % week)
-    r = requests.get(url % week, allow_redirects=False)
+    r = requests.get(url % week)
     if r.status_code == 200:
         return r.text
     else:

@@ -11,6 +11,11 @@
         "url": "https://minerva.ugent.be/mobile/"
     },
     {
+        "image": "info-guide",
+        "title": "GUIDe",
+        "url": "http://www.ugent.be/nl/vragen"
+    },
+    {
         "image": "info-sports",
         "subcontent": [
             {

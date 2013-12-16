@@ -19,6 +19,7 @@
 #import <ShareKit/SHKConfiguration.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <GAIDictionaryBuilder.h>
+#import <Reachability/Reachability.h>
 
 #if TestFlightEnabled
 #import <TestFlight.h>
@@ -50,13 +51,19 @@
 #endif
 
     // Configure some parts of the application asynchronously
-    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    dispatch_queue_t async = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(async, ^{
         // Check for internet connectivity
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusDetermined:)
-                                                     name:RKReachabilityWasDeterminedNotification object:nil];
-        [RKReachabilityObserver reachabilityObserverForInternet];
+        Reachability *reachability = [Reachability reachabilityWithHostname:@"zeus.ugent.be"];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reachabilityStatusChanged:)
+                                                     name:kReachabilityChangedNotification
+                                                   object:nil];
+        [reachability startNotifier];
 
+        // Enable network activity indicator
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+        
         // Configure ShareKit
         ShareKitConfigurator *config = [[ShareKitConfigurator alloc] init];
         [SHKConfiguration sharedInstanceWithConfigurator:config];
@@ -126,16 +133,15 @@
     [[FBSession activeSession] close];
 }
 
-- (void)reachabilityStatusDetermined:(NSNotification *)notification
+- (void)reachabilityStatusChanged:(NSNotification *)notification
 {
     // Prevent this dialog from showing up more than once
-    static BOOL reachabilityDetermined = false;
+    static BOOL reachabilityDetermined = NO;
     if(reachabilityDetermined) return;
     reachabilityDetermined = YES;
 
-    RKReachabilityObserver *reachability = notification.object;
-    if (!reachability.isNetworkReachable)
-    {
+    Reachability *reachability = notification.object;
+    if (!reachability.isReachable) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{
             kErrorTitleKey: @"Geen internetverbinding",
             kErrorDescriptionKey: @"Sommige onderdelen van Hydra vereisen een "
@@ -149,7 +155,7 @@ BOOL errorDialogShown = false;
 
 - (void)handleError:(NSError *)error
 {
-    NSLog(@"An error occured: %@", error);
+    NSLog(@"An error occured: %@, %@", error, error.domain);
     id<GAITracker> tracker = [GAI sharedInstance].defaultTracker;
     [tracker send:[[GAIDictionaryBuilder createExceptionWithDescription:[error description]
                                                               withFatal:NO] build]];

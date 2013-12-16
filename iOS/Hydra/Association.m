@@ -96,10 +96,11 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
 + (RKObjectMapping *)objectMapping
 {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self];
-    [mapping mapKeyPathsToAttributes:
-        @"internal_name", @"internalName",
-        @"full_name", @"fullName",
-        @"display_name", @"displayName", nil];
+    [mapping addAttributeMappingsFromDictionary:@{
+        @"internal_name": @"internalName",
+        @"full_name": @"fullName",
+        @"display_name": @"displayName"
+    }];
     return mapping;
 }
 

@@ -20,6 +20,8 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
+		90410B101848DF9100331F6C /* info-guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0E1848DF9100331F6C /* info-guide.png */; };
+		90410B111848DF9100331F6C /* info-guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0F1848DF9100331F6C /* info-guide@2x.png */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
@@ -81,7 +83,6 @@
 		F55895C415B60F450001B399 /* RestoMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C315B60F450001B399 /* RestoMenu.m */; };
 		F55895C715B610140001B399 /* RestoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F55895C615B610130001B399 /* RestoStore.m */; };
 		F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */; };
-		F55E89F516A4B928008595CB /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F55E89F416A4B928008595CB /* ShareKit.bundle */; };
 		F567044416BD5D8100C6B00D /* icon-meal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044016BD5D8100C6B00D /* icon-meal@2x.png */; };
 		F567044516BD5D8100C6B00D /* icon-soup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044116BD5D8100C6B00D /* icon-soup@2x.png */; };
 		F567044616BD5D8100C6B00D /* icon-vegetables@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F567044216BD5D8100C6B00D /* icon-vegetables@2x.png */; };
@@ -244,6 +245,8 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		90410B0E1848DF9100331F6C /* info-guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide.png"; sourceTree = "<group>"; };
+		90410B0F1848DF9100331F6C /* info-guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide@2x.png"; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -324,7 +327,6 @@
 		F55895C615B610130001B399 /* RestoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoStore.m; sourceTree = "<group>"; };
 		F55E89EA16A4AF8E008595CB /* ShareKitConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareKitConfigurator.h; sourceTree = "<group>"; };
 		F55E89EB16A4AF8E008595CB /* ShareKitConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareKitConfigurator.m; sourceTree = "<group>"; };
-		F55E89F416A4B928008595CB /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = "<group>"; };
 		F567044016BD5D8100C6B00D /* icon-meal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-meal@2x.png"; sourceTree = "<group>"; };
 		F567044116BD5D8100C6B00D /* icon-soup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-soup@2x.png"; sourceTree = "<group>"; };
 		F567044216BD5D8100C6B00D /* icon-vegetables@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-vegetables@2x.png"; sourceTree = "<group>"; };
@@ -700,6 +702,8 @@
 				F59D16ED15BD693F00B6F892 /* info-more@2x.png */,
 				F59D16EE15BD693F00B6F892 /* info-sports.png */,
 				F59D16EF15BD693F00B6F892 /* info-sports@2x.png */,
+				90410B0E1848DF9100331F6C /* info-guide.png */,
+				90410B0F1848DF9100331F6C /* info-guide@2x.png */,
 				F5C4618B166E442000874D79 /* navigation-down.png */,
 				F5C4618C166E442000874D79 /* navigation-down@2x.png */,
 				F5C4618D166E442000874D79 /* navigation-up.png */,
@@ -902,7 +906,6 @@
 			children = (
 				F5DF2FB716C41DDE003B05EC /* MarqueeLabel.h */,
 				F5DF2FB816C41DDE003B05EC /* MarqueeLabel.m */,
-				F55E89F416A4B928008595CB /* ShareKit.bundle */,
 				F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */,
 				F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */,
 				F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */,
@@ -1078,6 +1081,7 @@
 				F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */,
 				F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */,
 				90E814F31854C76C00075F96 /* ios7-Default-568h@2x.png in Resources */,
+				90410B101848DF9100331F6C /* info-guide.png in Resources */,
 				F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */,
 				F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */,
 				F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */,
@@ -1112,11 +1116,11 @@
 				F54AB5A5166FF510006C1189 /* button-urgent.png in Resources */,
 				F54AB5A6166FF510006C1189 /* button-urgent@2x.png in Resources */,
 				F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */,
-				F55E89F516A4B928008595CB /* ShareKit.bundle in Resources */,
 				F531DE6516B2E41B0050D88B /* button-route@2x.png in Resources */,
 				F531DE6816B2EE720050D88B /* button-route.png in Resources */,
 				F5B9F2F217CEAA040042C8A4 /* Icon-Small-iOS7@2x.png in Resources */,
 				F531DE6D16B30A0F0050D88B /* button-track-selected-highlighted@2x.png in Resources */,
+				90410B111848DF9100331F6C /* info-guide@2x.png in Resources */,
 				F531DE6E16B30A0F0050D88B /* button-track-highlighted@2x.png in Resources */,
 				F531DE6F16B30A0F0050D88B /* button-track-selected@2x.png in Resources */,
 				F531DE7016B30A0F0050D88B /* button-track@2x.png in Resources */,

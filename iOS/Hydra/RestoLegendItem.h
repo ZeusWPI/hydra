@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RKObjectMappingProvider;
+@class RKObjectMapping;
 
 @interface RestoLegendItem : NSObject <NSCoding>
 
@@ -16,6 +16,6 @@
 @property (nonatomic, strong) NSString *value;
 @property (nonatomic, strong) NSString *style; // if bold or underlined
 
-+ (void)registerObjectMappingWith:(RKObjectMappingProvider *)mappingProvider;
++ (RKObjectMapping *)objectMapping;
 
 @end
