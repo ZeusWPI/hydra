@@ -141,7 +141,6 @@
 
 - (void)articlesUpdated:(NSNotification *)notification
 {
-    DLog(@"Updating tableView");
     self.articles = [notification.object articles];
     [self.tableView reloadData];
 

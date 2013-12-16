@@ -9,8 +9,9 @@
 #import "SchamperStore.h"
 #import "SchamperArticle.h"
 #import "AppDelegate.h"
+
 #import <RestKit/RestKit.h>
-#import <RKXMLReaderSerialization.h>
+#import <RKXMLReaderSerialization/RKXMLReaderSerialization.h>
 
 #define kSchamperBaseUrl @"http://zeus.ugent.be/hydra/api/1.0/schamper/"
 #define kSchamperDailyUrl @"daily.xml"
@@ -89,10 +90,7 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
 
 - (void)reloadArticles
 {
-    NSURLRequest *schamper = [[NSURLRequest alloc] initWithURL:
-                              [[NSURL alloc] initWithString:
-                               [NSString stringWithFormat:@"%@%@", kSchamperBaseUrl,kSchamperDailyUrl]]];
-    [[NSURLCache sharedURLCache] removeCachedResponseForRequest:schamper];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self updateArticles];
 }
 
@@ -128,48 +126,54 @@ NSString *const SchamperStoreDidUpdateArticlesNotification =
     // will not be received properly and all kinds of weird stuff happen
     if (!self.objectManager) {
         self.objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:kSchamperBaseUrl]];
-        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     }
 
     [self.objectManager addResponseDescriptor:
-        [RKResponseDescriptor responseDescriptorWithMapping:
-         [SchamperArticle objectMapping] method:RKRequestMethodGET
+        [RKResponseDescriptor responseDescriptorWithMapping:[SchamperArticle objectMapping]
+                                                     method:RKRequestMethodGET
                                                 pathPattern:kSchamperDailyUrl
                                                     keyPath:@"rss.channel.item"
                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     [self.objectManager getObjectsAtPath:kSchamperDailyUrl
                               parameters:nil
-                                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         NSArray *objects = [mappingResult array];
-         NSMutableSet *set = [NSMutableSet set];
-         for (SchamperArticle *article in self.articles) {
-             if (article.read) {
-                 [set addObject:article.link];
-             }
-         }
-         for (SchamperArticle *article in objects) {
-             if ([set containsObject:article.link]) {
-                 article.read = YES;
-             }
-         }
-         self.articles = objects;
-         self.lastUpdated = [NSDate date];
-         self.active = NO;
-
-         [self markStorageOutdated];
-         [self syncStorage];
-
-         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-         [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];
-     }
+                                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                    [self _processResult:mappingResult];
+                                 }
                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
-         self.active = NO;
-         NSLog(@"Error: %@",error);
-         // Show error
-         AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-         [app handleError:error];
-     }];
+                                     NSLog(@"Updating schamper failed: %@", error);
+                                     AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                                     [app handleError:error];
+
+                                     [self _processResult:nil];
+                                 }];
+}
+
+- (void)_processResult:(RKMappingResult *)mappingResult
+{
+
+  NSArray *objects = [mappingResult array];
+  if (objects.count > 0) {
+      NSMutableSet *set = [NSMutableSet set];
+      for (SchamperArticle *article in self.articles) {
+        if (article.read) {
+          [set addObject:article.link];
+        }
+      }
+      for (SchamperArticle *article in objects) {
+        if ([set containsObject:article.link]) {
+          article.read = YES;
+        }
+      }
+      self.articles = objects;
+      self.lastUpdated = [NSDate date];
+      self.active = NO;
+
+      [self markStorageOutdated];
+      [self syncStorage];
+  }
+
+  NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+  [center postNotificationName:SchamperStoreDidUpdateArticlesNotification object:self];
 }
 
 @end

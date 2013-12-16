@@ -185,14 +185,14 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     [self.objectManager getObjectsAtPath:path
                               parameters:nil
                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                   [self _processMenuResult:mappingResult forPath:path];
+                                     [self _processMenuResult:mappingResult forPath:path];
                                  }
                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                   NSLog(@"Updating resource %@ failed: %@", path, error);
-                                   AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                                   [app handleError:error];
+                                     NSLog(@"Updating resource %@ failed: %@", path, error);
+                                     AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                                     [app handleError:error];
 
-                                   [self _processMenuResult:nil forPath:path];
+                                     [self _processMenuResult:nil forPath:path];
                                  }];
 }
 

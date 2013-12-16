@@ -50,14 +50,13 @@
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self];
     [mapping setForceCollectionMapping:YES];
 
-    [mapping addAttributeMappingsFromDictionary:
-     @{
+    [mapping addAttributeMappingsFromDictionary:@{
        @"title.text": @"title",
        @"link.text": @"link",
        @"pubDate.text": @"date",
        @"dc:creator.text": @"author",
        @"description.text": @"body"
-       }];
+    }];
 
     // Date format: Sun, 10 Jun 2012 01:03:24 +0200 (RFC2822)
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
