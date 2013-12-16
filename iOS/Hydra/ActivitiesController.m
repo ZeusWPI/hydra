@@ -172,13 +172,7 @@
 
     // Hide or update HUD
     if ([SVProgressHUD isVisible]) {
-        if (self.days.count > 0) {
-            [SVProgressHUD dismiss];
-        }
-        else {
-            NSString *errorMsg = @"Geen activiteiten gevonden";
-            [SVProgressHUD showErrorWithStatus:errorMsg];
-        }
+        [SVProgressHUD dismiss];
     }
 
     if ([UIRefreshControl class]) {

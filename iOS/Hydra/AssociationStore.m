@@ -74,8 +74,6 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     self.associationLookup = [Association updateAssociations:self.associationLookup];
     self.activeRequests = [[NSMutableArray alloc] init];
     self.objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     // Listen for facebook-updates to activities
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

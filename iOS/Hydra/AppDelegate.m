@@ -60,6 +60,9 @@
                                                      name:kReachabilityChangedNotification
                                                    object:nil];
         [reachability startNotifier];
+
+        // Enable network activity indicator
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
         
         // Configure ShareKit
         ShareKitConfigurator *config = [[ShareKitConfigurator alloc] init];

@@ -28,20 +28,22 @@
     RKObjectMapping *menuMapping = [RKObjectMapping mappingForClass:self];
     [menuMapping setForceCollectionMapping:YES];
     [menuMapping addAttributeMappingFromKeyOfRepresentationToAttribute:@"day"];
-    [menuMapping addAttributeMappingsFromDictionary:
-     @{
-       @"(day).open": @"open",
-       @"(day).vegetables": @"vegetables"
-       }];
-    RKRelationshipMapping *meatRelationshipMapping =
-    [RKRelationshipMapping relationshipMappingFromKeyPath:@"(day).meat" toKeyPath:@"meat" withMapping:itemMapping];
-    RKRelationshipMapping *soupRelationshipMapping =
-    [RKRelationshipMapping relationshipMappingFromKeyPath:@"(day).soup" toKeyPath:@"soup" withMapping:itemMapping];
-    [menuMapping addPropertyMappingsFromArray:@[meatRelationshipMapping,soupRelationshipMapping]];
-    // Date format: 2012-03-26
+    [menuMapping addAttributeMappingsFromDictionary:@{
+        @"(day).open": @"open",
+        @"(day).vegetables": @"vegetables"
+    }];
+
+    RKRelationshipMapping *meat = [RKRelationshipMapping relationshipMappingFromKeyPath:@"(day).meat"
+                                                                                toKeyPath:@"meat"
+                                                                            withMapping:itemMapping];
+    RKRelationshipMapping *soup = [RKRelationshipMapping relationshipMappingFromKeyPath:@"(day).soup"
+                                                                              toKeyPath:@"soup"
+                                                                            withMapping:itemMapping];
+    [menuMapping addPropertyMappingsFromArray:@[meat, soup]];
+
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd";
-    menuMapping.dateFormatters = @[ dateFormatter ];
+    dateFormatter.dateFormat = @"yyyy-MM-dd"; // date format: 2012-03-26
+    menuMapping.dateFormatters = @[dateFormatter];
 
     return menuMapping;
 }
