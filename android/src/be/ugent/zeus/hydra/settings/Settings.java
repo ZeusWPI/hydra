@@ -52,8 +52,7 @@ public class Settings extends AbstractSherlockPreferenceActivity implements Shar
 
         uiHelper.onCreate(icicle);
         Session session = Session.getActiveSession();
-        if (session
-            == null || !session.isOpened()) {
+        if (session == null || !session.isOpened()) {
 
             if (icicle != null) {
                 session = Session.restoreSession(this, null, statusCallback, icicle);
@@ -69,10 +68,7 @@ public class Settings extends AbstractSherlockPreferenceActivity implements Shar
 
             onSessionStateChange(session, session.getState(), null);
 
-        } else if (session
-            != null
-            && (session.isOpened()
-            || session.isClosed())) {
+        } else if (session.isOpened() || session.isClosed()) {
             onSessionStateChange(session, session.getState(), null);
         }
 

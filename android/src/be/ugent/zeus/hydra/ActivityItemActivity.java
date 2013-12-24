@@ -93,8 +93,6 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
                     imageView.setVisibility(View.GONE);
                 }
                 button.setVisibility(View.GONE);
-                return;
-
         }
     }
 
@@ -146,8 +144,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
 
                 onSessionStateChange(session, session.getState(), null);
 
-            } else if (session != null
-                    && (session.isOpened() || session.isClosed())) {
+            } else if (session.isOpened() || session.isClosed()) {
                 onSessionStateChange(session, session.getState(), null);
             }
         }
@@ -184,15 +181,15 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
          */
         TextView date = (TextView) findViewById(R.id.activity_item_date);
         String datum =
-                new SimpleDateFormat("EEE dd MMMM", Hydra.LOCALE).format(item.startDate);
+            new SimpleDateFormat("EEE dd MMMM", Hydra.LOCALE).format(item.startDate);
         String start =
-                new SimpleDateFormat("HH:mm", Hydra.LOCALE).format(item.startDate);
+            new SimpleDateFormat("HH:mm", Hydra.LOCALE).format(item.startDate);
         String eind =
-                new SimpleDateFormat("HH:mm", Hydra.LOCALE).format(item.endDate);
+            new SimpleDateFormat("HH:mm", Hydra.LOCALE).format(item.endDate);
 
         date.setText(
-                String.format(getResources().getString(R.string.activity_item_time_location),
-                datum, start, eind));
+            String.format(getResources().getString(R.string.activity_item_time_location),
+            datum, start, eind));
 
         /**
          * Association
@@ -205,7 +202,7 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         }
 
         association.setText(
-                String.format(getResources().getString(R.string.activity_item_association_title), poster));
+            String.format(getResources().getString(R.string.activity_item_association_title), poster));
 
         /**
          * Location
@@ -292,7 +289,9 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             moreContent.setText(item.url);
             moreContentContainer.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (!item.url.contains("://")) item.url = "http://" + item.url;
+                    if (!item.url.contains("://")) {
+                        item.url = "http://" + item.url;
+                    }
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.url));
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                     startActivity(intent);
@@ -325,20 +324,20 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
         };
 
         new AlertDialog.Builder(this)
-                .setTitle("Status")
-                .setCancelable(true)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            .setTitle("Status")
+            .setCancelable(true)
+            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 updateStatus(button, id);
             }
         })
-                .setNegativeButton("Cancel", null)
-                .setSingleChoiceItems(choiceList, selected, new DialogInterface.OnClickListener() {
+            .setNegativeButton("Cancel", null)
+            .setSingleChoiceItems(choiceList, selected, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 selected = which;
             }
         })
-                .create().show();
+            .create().show();
     }
 
     public void updateStatus(Button button, String id) {
@@ -350,9 +349,9 @@ public class ActivityItemActivity extends AbstractSherlockActivity {
             List<String> newPermissions = Arrays.asList("rsvp_event");
 
             session.requestNewPublishPermissions(
-                    new Session.NewPermissionsRequest(this, newPermissions)
-                    .setDefaultAudience(SessionDefaultAudience.FRIENDS)
-                    .setCallback(new ActivityItemActivity.SessionStatusCallback()));
+                new Session.NewPermissionsRequest(this, newPermissions)
+                .setDefaultAudience(SessionDefaultAudience.FRIENDS)
+                .setCallback(new ActivityItemActivity.SessionStatusCallback()));
         } else {
             new AsyncComingSetter(this, id, button, AttendingStatus.values()[selected]).execute();
         }
