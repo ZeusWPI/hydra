@@ -21,8 +21,8 @@ import java.util.Locale;
 public class Hydra extends AbstractSherlockActivity {
 
     public static final Locale LOCALE = new Locale("nl", "BE");
-    private static final boolean DEBUG = true; // Put to true when implementing new features!
-    private static final boolean BETA = false; // Put to true when releasing a beta update!
+    private static final boolean DEBUG = false; // Put to true when implementing new features!
+    private static final boolean BETA = true; // Put to true when releasing a beta update!
     public static boolean SHOWED_NETWORK = false;
 
     @Override
@@ -93,23 +93,4 @@ public class Hydra extends AbstractSherlockActivity {
             }
         });
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getSupportMenuInflater();
-//        inflater.inflate(R.menu.hydra, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.feedbackButton:
-//                setupFeedback();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 }
