@@ -48,6 +48,7 @@ table {
 .wrapper{
     overflow:hidden;
     position:relative;
+    min-height: 46px;
 }
 
 .det {
