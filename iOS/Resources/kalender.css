@@ -55,18 +55,25 @@ table {
 	background: #ced6e0;
 	padding-left: 10px;
 	color: #214e80;
-    -webkit-transition:all 0.55s ease;  
-    transition:all 0.55s ease;
 }
 
 .hidden {
 	max-height: 0px;
+	-webkit-transition:all 0s ease-out 10s, 
+               padding-top .2s ease-out 0.35s,
+               max-height 0.55s cubic-bezier(.6,.1,.2,1);
+    transition:all 0s ease-out 10s, 
+               padding-top .2s ease-out 0.35s,
+               max-height 0.55s cubic-bezier(.6,.1,.2,1);
 }
+
 .background {
 	padding: 10px 20px 0px 10px;
 	height: auto;
 	max-height: 2000px;
 	opacity: 1;
+	-webkit-transition:max-height 2s cubic-bezier(.6,.1,.2,1); 
+    transition:max-height 2s cubic-bezier(.6,.1,.2,1);
 }
 
 .title-background {
