@@ -122,7 +122,7 @@ class MenuItem(object):
 def get_menu(year, week, lang):
     parsed_lang = re.match(u'^([a-z]+)', lang, re.I).group(0)
     locale.setlocale(locale.LC_ALL, LOCALES[parsed_lang])
-    page = download_menu(SOURCES[lang], week)
+    page = download_menu(SOURCES[lang], week, lang)
     if not page:
         print('ERROR: failed to retrieve menu for week %02d' % week)
     else:
@@ -132,10 +132,10 @@ def get_menu(year, week, lang):
         else:
             return week_menu
 
-def download_menu(url, week):
-    print('Fetching week %02d menu webpage' % week)
+def download_menu(url, week, lang):
+    print('Fetching week %02d menu webpage for %s' % (week, lang))
     r = requests.get(url % week)
-    if r.status_code == 200:
+    if r.status_code == 200 and not 'login.ugent.be' in r.url: 
         return r.text
     else:
         return None
