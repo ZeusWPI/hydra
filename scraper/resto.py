@@ -170,6 +170,11 @@ def parse_week_menu(page, year, week, lang):
 
 def create_api_10_representation(week):
     root = {}
+
+    if week == None or len(week.days) == 0:
+        print ('ERROR: Invalid menu')
+        return None
+
     for day in week.days:
         root[str(day.date)] = menu = { 'open': day.open() }
         if not day.open():
@@ -199,8 +204,13 @@ def dump_api_10_representation(year, week, menu):
 
     if not os.path.isdir(path):
         os.makedirs(path)
+
+    menu = create_api_10_representation(menu)
+    if menu is None:
+        # don't write if invalid format
+        return None
+
     with open('%s/%s.json' % (path, week), 'w') as f:
-        menu = create_api_10_representation(menu)
         json.dump(menu, f, sort_keys=True)
 
 def process_sources(year, week, lang, sources):
