@@ -124,11 +124,11 @@ def get_menu(year, week, lang):
     locale.setlocale(locale.LC_ALL, LOCALES[parsed_lang])
     page = download_menu(SOURCES[lang], week, lang)
     if not page:
-        print('ERROR: failed to retrieve menu for week %02d in %s' % (week, lang), file=sys.stderr)
+        print('ERROR: Failed to retrieve menu for week %02d in %s' % (week, lang), file=sys.stderr)
     else:
         week_menu = parse_week_menu(page, year, week, parsed_lang)
         if not week_menu:
-            print('ERROR: failed to parse menu for week %02d in %s' % (week,lang), file=sys.stderr)
+            print('ERROR: Failed to parse menu for week %02d in %s' % (week,lang), file=sys.stderr)
         else:
             return week_menu
 
