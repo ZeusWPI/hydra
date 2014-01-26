@@ -4,8 +4,8 @@ Parse the weekly menu from a webpage and export it as JSON in the different
 API version formats.
 """
 
-from __future__ import with_statement
-import json, libxml2, os, os.path, datetime, locale, re, requests
+from __future__ import with_statement, print_function
+import json, libxml2, os, os.path, sys, datetime, locale, re, requests
 from datetime import datetime, timedelta
 
 SOURCES = {
@@ -71,7 +71,7 @@ class Menu(object):
             return;
 
         if len(titles) != len(lists):
-            print('ERROR: Inconsistent format')
+            print('ERROR: Inconsistent format for', self.date, file=sys.stderr)
             # TODO: this will fail december 20th, since we sometimes have <li>'s
             # split over multiple <ul>'s. Somebody needs to learn HTML.
             # Better parser would split li's by surrounding <h3> tag.
@@ -124,11 +124,11 @@ def get_menu(year, week, lang):
     locale.setlocale(locale.LC_ALL, LOCALES[parsed_lang])
     page = download_menu(SOURCES[lang], week, lang)
     if not page:
-        print('ERROR: failed to retrieve menu for week %02d' % week)
+        print('ERROR: failed to retrieve menu for week %02d in %s' % (week, lang), file=sys.stderr)
     else:
         week_menu = parse_week_menu(page, year, week, parsed_lang)
         if not week_menu:
-            print('ERROR: failed to parse menu for week %02d' % week)
+            print('ERROR: failed to parse menu for week %02d in %s' % (week,lang), file=sys.stderr)
         else:
             return week_menu
 
@@ -172,7 +172,7 @@ def create_api_10_representation(week):
     root = {}
 
     if week == None or len(week.days) == 0:
-        print ('ERROR: Invalid menu')
+        # invalid menu
         return None
 
     for day in week.days:
@@ -208,6 +208,7 @@ def dump_api_10_representation(year, week, menu):
     menu = create_api_10_representation(menu)
     if menu is None:
         # don't write if invalid format
+        print ('ERROR: Invalid menu for week %02d' % week,file=sys.stderr)
         return None
 
     with open('%s/%s.json' % (path, week), 'w') as f:
