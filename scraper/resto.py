@@ -221,7 +221,7 @@ def process_sources(year, week, lang, sources):
             key = source.split('-')[-1]
         else:
             key = 'default'
-        parsed_menus[key] = get_menu(isocalendar[0], isocalendar[1], source)
+        parsed_menus[key] = get_menu(year, week, source)
 
     if lang == 'nl' and parsed_menus['default']:
         dump_api_10_representation(year, week, parsed_menus['default'])
