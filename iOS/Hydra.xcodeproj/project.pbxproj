@@ -198,7 +198,6 @@
 		F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */; };
 		F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */; };
 		F5EBF14C159E1E3600EB5D26 /* SchamperArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */; };
-		F5F43C1415BAC8A7003C2AAE /* Associations.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5F43C1315BAC8A7003C2AAE /* Associations.plist */; };
 		F5F43C3E15BAD246003C2AAE /* AssociationNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */; };
 		F5F43C4115BAD2CC003C2AAE /* AssociationActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C4015BAD2CC003C2AAE /* AssociationActivity.m */; };
 		F5F43C4415BAD2EB003C2AAE /* AssociationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */; };
@@ -457,7 +456,6 @@
 		F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F5EBF14A159E1E3600EB5D26 /* SchamperArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperArticle.h; sourceTree = "<group>"; };
 		F5EBF14B159E1E3600EB5D26 /* SchamperArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperArticle.m; sourceTree = "<group>"; };
-		F5F43C1315BAC8A7003C2AAE /* Associations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Associations.plist; path = Resources/Associations.plist; sourceTree = "<group>"; };
 		F5F43C3C15BAD246003C2AAE /* AssociationNewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationNewsItem.h; sourceTree = "<group>"; };
 		F5F43C3D15BAD246003C2AAE /* AssociationNewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssociationNewsItem.m; sourceTree = "<group>"; };
 		F5F43C3F15BAD2CC003C2AAE /* AssociationActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationActivity.h; sourceTree = "<group>"; };
@@ -860,7 +858,6 @@
 			isa = PBXGroup;
 			children = (
 				F5BAEC961518868200F6A1B1 /* main.m */,
-				F5F43C1315BAC8A7003C2AAE /* Associations.plist */,
 				F5BC3D8D162EBB5100E4A902 /* Default-568h@2x.png */,
 				F5D36BB315B5BD2A00B6E017 /* Default.png */,
 				F5D36BB415B5BD2A00B6E017 /* Default@2x.png */,
@@ -1048,7 +1045,6 @@
 				F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */,
 				F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */,
 				904BC46C17E2014A0000FED6 /* dot-question.png in Resources */,
-				F5F43C1415BAC8A7003C2AAE /* Associations.plist in Resources */,
 				F59D16F415BD693F00B6F892 /* info-academiccalendar.png in Resources */,
 				F59D16F515BD693F00B6F892 /* info-academiccalendar@2x.png in Resources */,
 				904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */,

@@ -15,7 +15,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<AssocationNewsItem '%@'>", self.title];
+    return [NSString stringWithFormat:@"<AssociationNewsItem '%@'>", self.title];
 }
 
 + (RKObjectMapping *)objectMapping
@@ -23,7 +23,7 @@
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:self];
     [objectMapping addAttributeMappingsFromArray:@[@"title", @"date", @"content", @"highlighted"]];
     [objectMapping addAttributeMappingsFromDictionary:@{@"id": @"itemId"}];
-    [objectMapping addRelationshipMappingWithSourceKeyPath:@"association" mapping:[Association objectMapping]];
+    [objectMapping addRelationshipMappingWithSourceKeyPath:@"association" mapping:[Association objectMappingActivities]];
     
     return objectMapping;
 }

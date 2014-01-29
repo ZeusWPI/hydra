@@ -30,7 +30,7 @@
         @"description": @"descriptionText"
     }];
     [objectMapping addRelationshipMappingWithSourceKeyPath:@"association"
-                                                   mapping:[Association objectMapping]];
+                                                   mapping:[Association objectMappingActivities]];
 
     return objectMapping;
 }
