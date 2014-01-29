@@ -104,7 +104,7 @@ class MenuItem(object):
         self.process_description(description, lang)
 
     def process_description(self, description, lang):
-        match = re.match(u'^([^:]+): *([^€]+) - € *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
+        match = re.match(u'^([^:]+): *([^€]+) - €? *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
 
         self.name = match.group(2).strip()
         self.type = match.group(1).strip().lower()
@@ -221,7 +221,7 @@ def process_sources(year, week, lang, sources):
             key = source.split('-')[-1]
         else:
             key = 'default'
-        parsed_menus[key] = get_menu(isocalendar[0], isocalendar[1], source)
+        parsed_menus[key] = get_menu(year, week, source)
 
     if lang == 'nl' and parsed_menus['default']:
         dump_api_10_representation(year, week, parsed_menus['default'])
