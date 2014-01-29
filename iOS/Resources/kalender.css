@@ -1,48 +1,46 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
 }
+
 body {
-	line-height: 1;
+  line-height: 1;
 }
+
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
+
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
 }
+
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 .wrapper{
@@ -52,74 +50,74 @@ table {
 }
 
 .det {
-	background: #ced6e0;
-	padding-left: 10px;
-	color: #214e80;
+  background: #ced6e0;
+  padding-left: 10px;
+  color: #214e80;
 }
 
 .hidden {
-	max-height: 0px;
-	-webkit-transition:all 0s ease-out 10s, 
-               padding-top .2s ease-out 0.35s,
-               max-height 0.55s cubic-bezier(.6,.1,.2,1);
-    transition:all 0s ease-out 10s, 
-               padding-top .2s ease-out 0.35s,
-               max-height 0.55s cubic-bezier(.6,.1,.2,1);
+  max-height: 0px;
+  -webkit-transition: all 0s ease-out 10s,
+                      padding-top .2s ease-out 0.35s,
+                      max-height 0.55s cubic-bezier(.6,.1,.2,1);
+          transition: all 0s ease-out 10s,
+                      padding-top .2s ease-out 0.35s,
+                      max-height 0.55s cubic-bezier(.6,.1,.2,1);
 }
 
 .background {
-	padding: 10px 20px 0px 10px;
-	height: auto;
-	max-height: 2000px;
-	opacity: 1;
-	-webkit-transition:max-height 2s cubic-bezier(.6,.1,.2,1); 
-    transition:max-height 2s cubic-bezier(.6,.1,.2,1);
+  padding: 10px 20px 0px 10px;
+  height: auto;
+  max-height: 2000px;
+  opacity: 1;
+  -webkit-transition:max-height 2s cubic-bezier(.6,.1,.2,1);
+          transition:max-height 2s cubic-bezier(.6,.1,.2,1);
 }
 
 .title-background {
-	padding: 10px 20px 15px 10px;
-	color: #214e80;
-	background-color: #FFF;
-	border-top: 1px solid #ced6e0;
-
+  padding: 10px 20px 15px 10px;
+  color: #214e80;
+  background-color: #FFF;
+  border-top: 1px solid #ced6e0;
 }
 
 .detailed li{
-	list-style: none;
-	padding: 0px;
-	margin: 0px;
-	padding-bottom: 10px;
-	padding-left: 10px;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 
 .detailed {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 
 .arrow {
-	margin-left: 97%;
-	width: 0; 
-	height: 0; 
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent;
-	border-left: 10px solid #ced6e0;
-	-webkit-transition: all 0.5s linear;
-	transition: all 0.5s linear;
+  margin-left: 97%;
+  width: 0;
+  height: 0;
+
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #ced6e0;
+
+  -webkit-transition: all 0.5s linear;
+          transition: all 0.5s linear;
 }
 
 
 .arrow-down {
-	transform: rotate(90deg);
-	-webkit-transform: rotate(90deg); /* Safari and Chrome */
-
+  -webkit-transform: rotate(90deg); /* Safari and Chrome */
+          transform: rotate(90deg);
 }
 
 .indent {
-	padding-left: 15px;
+  padding-left: 15px;
 }
 
 .left {
-	float: left;
+  float: left;
 }
