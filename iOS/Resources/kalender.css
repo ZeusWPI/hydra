@@ -16,6 +16,10 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+h3 {
+   padding-bottom: 3px;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block;
@@ -94,7 +98,7 @@ table {
   width: 0px;
   height: 0px;
 
-  top: -15px;
+  top: -17px;
   right: 35px;
 
   color: #214e80;
