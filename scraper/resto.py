@@ -228,7 +228,8 @@ def process_sources(year, week, lang, sources):
 
 if __name__ == '__main__':
     # Fetch the menu for the next three weeks
-    language_sources = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
+    #language_sources = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
+    language_sources = {'nl': ['nl']}
     weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
     for week in weeks:
         isocalendar = week.isocalendar()
