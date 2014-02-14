@@ -9,8 +9,9 @@
 #import "PreferencesController.h"
 #import "AssociationPreferenceController.h"
 #import "FacebookSession.h"
-#import "WebViewController.h"
 #import "PreferencesService.h"
+
+#import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
 
 #define kFacebookSection 0
 #define kFilterSection 1
@@ -282,9 +283,7 @@
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
             else if (indexPath.row == 2) {
-                WebViewController *c = [[WebViewController alloc] init];
-                c.title = @"Externe componenten";
-                [c loadHtml:@"pods-acknowledgements.html"];
+                UIViewController *c = [VTAcknowledgementsViewController acknowledgementsViewController];
                 [self.navigationController pushViewController:c animated:YES];
             }
         }

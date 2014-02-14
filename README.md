@@ -1,4 +1,4 @@
-# Hydra
+# Hydra [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/hydra/README.md?pixel)](https://github.com/igrigorik/ga-beacon)
 
 ![hydra-icon-web](https://f.cloud.github.com/assets/5676/46955/0101cef4-58a8-11e2-8b16-06537c38a8cf.png)
 
