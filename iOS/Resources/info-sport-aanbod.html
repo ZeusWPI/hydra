@@ -10,7 +10,8 @@ window.onload = function() {
   var rows = document.getElementsByTagName('tr');
   for (var i = 0; i < rows.length; i++) {
     rows[i].addEventListener('click', function() {
-      window.location = this.firstElementChild.firstElementChild.href;
+      window.open(this.firstElementChild.firstElementChild.href);
+      return false;
     });
   }
 }
