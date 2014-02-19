@@ -10,7 +10,14 @@
       var rows = document.getElementsByTagName('tr');
       for (var i = 0; i < rows.length; i++) {
         rows[i].addEventListener('click', function() {
-          this.firstElementChild.firstElementChild.click();
+          var iOS = /(iPad|iPhone|iPod)/g.test( navigator.userAgent );
+          if (iOS){
+            this.firstElementChild.firstElementChild.click();
+          }else {
+            window.location = this.firstElementChild.firstElementChild.href;
+          }
+
+          return false;
         });
       }
     }
