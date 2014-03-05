@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width" />
   <link href="webview.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript">
-    window.onload = function() {
+    window.onload = function(){
       var rows = document.getElementsByTagName('tr');
       for (var i = 0; i < rows.length; i++) {
         rows[i].addEventListener('click', function() {
-          var iOS = /(iPad|iPhone|iPod)/g.test( navigator.userAgent );
-          if (iOS){
+          var iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+          if (iOS) {
             this.firstElementChild.firstElementChild.click();
-          }else {
+          } else {
             window.location = this.firstElementChild.firstElementChild.href;
           }
 
