@@ -4,8 +4,8 @@ Parse the weekly menu from a webpage and export it as JSON in the different
 API version formats.
 """
 
-from __future__ import with_statement
-import json, libxml2, os, os.path, datetime, locale, re, requests
+from __future__ import with_statement, print_function
+import json, libxml2, os, os.path, sys, datetime, locale, re, requests
 from datetime import datetime, timedelta
 
 SOURCES = {
@@ -37,6 +37,7 @@ DICTIONARY = {
             'recommended': 'aanbevolen',
             'main course': 'hoofdgerecht',
             'vegetables': 'groenten',
+            'closed': 'gesloten',
           }
 }
 
@@ -66,8 +67,11 @@ class Menu(object):
         titles = [x.content.lower() for x in menu_div.xpathEval('./h3')]
         lists = menu_div.xpathEval('./ul[*]')
 
+        if len(titles) == 1 and titles[0] == DICTIONARY[lang]['closed']:
+            return;
+
         if len(titles) != len(lists):
-            print('ERROR: Inconsistent format')
+            print('ERROR: Inconsistent format for', self.date, file=sys.stderr)
             # TODO: this will fail december 20th, since we sometimes have <li>'s
             # split over multiple <ul>'s. Somebody needs to learn HTML.
             # Better parser would split li's by surrounding <h3> tag.
@@ -90,7 +94,6 @@ class Menu(object):
         # Consider the resto to be open when there's some items
         return len(self.items) > 0
 
-
 class MenuItem(object):
     def __init__(self, description, lang):
         self.name = ''
@@ -101,7 +104,7 @@ class MenuItem(object):
         self.process_description(description, lang)
 
     def process_description(self, description, lang):
-        match = re.match(u'^([^:]+): +([^€]+) - € *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
+        match = re.match(u'^([^:]+): *([^€]+) - €? *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
 
         self.name = match.group(2).strip()
         self.type = match.group(1).strip().lower()
@@ -116,23 +119,23 @@ class MenuItem(object):
         #     if re.search(DICTIONARY[lang]['recommended'], remark):
         #         self.recommended = True
 
-def download_menu(year, week, lang):
+def get_menu(year, week, lang):
     parsed_lang = re.match(u'^([a-z]+)', lang, re.I).group(0)
     locale.setlocale(locale.LC_ALL, LOCALES[parsed_lang])
-    page = get_menu_page(SOURCES[lang], week)
+    page = download_menu(SOURCES[lang], week, lang)
     if not page:
-        print('ERROR: failed to retrieve menu for week %02d' % week)
+        print('ERROR: Failed to retrieve menu for week %02d in %s' % (week, lang), file=sys.stderr)
     else:
         week_menu = parse_week_menu(page, year, week, parsed_lang)
         if not week_menu:
-            print('ERROR: failed to parse menu for week %02d' % week)
+            print('ERROR: Failed to parse menu for week %02d in %s' % (week,lang), file=sys.stderr)
         else:
             return week_menu
 
-def get_menu_page(url, week):
-    print('Fetching week %02d menu webpage' % week)
+def download_menu(url, week, lang):
+    print('Fetching week %02d menu webpage for %s' % (week, lang))
     r = requests.get(url % week)
-    if r.status_code == 200:
+    if r.status_code == 200 and not 'login.ugent.be' in r.url: 
         return r.text
     else:
         return None
@@ -167,6 +170,11 @@ def parse_week_menu(page, year, week, lang):
 
 def create_api_10_representation(week):
     root = {}
+
+    if week == None or len(week.days) == 0:
+        # invalid menu
+        return None
+
     for day in week.days:
         root[str(day.date)] = menu = { 'open': day.open() }
         if not day.open():
@@ -190,14 +198,20 @@ def create_api_10_representation(week):
 
     return root
 
-def dump_representation(identifier, year, week, menus):
-    path = os.path.join(API_PATH % identifier, str(year))
+def dump_api_10_representation(year, week, menu):
+    path = os.path.join(API_PATH % '1.0', str(year))
     print('Writing object tree to %s' % path);
 
     if not os.path.isdir(path):
         os.makedirs(path)
+
+    menu = create_api_10_representation(menu)
+    if menu is None:
+        # don't write if invalid format
+        print ('ERROR: Invalid menu for week %02d' % week,file=sys.stderr)
+        return None
+
     with open('%s/%s.json' % (path, week), 'w') as f:
-        menu = create_api_10_representation(menus['default'])
         json.dump(menu, f, sort_keys=True)
 
 def process_sources(year, week, lang, sources):
@@ -207,13 +221,15 @@ def process_sources(year, week, lang, sources):
             key = source.split('-')[-1]
         else:
             key = 'default'
-        parsed_menus[key] = download_menu(isocalendar[0], isocalendar[1], source)
-    if lang == 'nl':
-        dump_representation('1.0', year, week, parsed_menus)
+        parsed_menus[key] = get_menu(year, week, source)
+
+    if lang == 'nl' and parsed_menus['default']:
+        dump_api_10_representation(year, week, parsed_menus['default'])
 
 if __name__ == '__main__':
     # Fetch the menu for the next three weeks
-    language_sources = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
+    #language_sources = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
+    language_sources = {'nl': ['nl']}
     weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
     for week in weeks:
         isocalendar = week.isocalendar()

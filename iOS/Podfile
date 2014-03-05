@@ -12,3 +12,4 @@ pod 'RKXMLReaderSerialization', :podspec => 'External/RKXMLReaderSerialization.p
 pod 'TUSafariActivity',         :podspec => 'External/TUSafariActivity.podspec'
 pod 'SMPageControl',            '~> 1.1'
 pod 'Reachability',             '~> 3.1.1'
+pod 'VTAcknowledgementsViewController', '~> 0.6'

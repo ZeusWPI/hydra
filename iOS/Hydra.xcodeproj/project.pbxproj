@@ -25,6 +25,7 @@
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
+		908DFF03188E932D00D526DC /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
@@ -41,7 +42,6 @@
 		F5016BA91627665800BBDB0A /* ActivityDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailController.m */; };
 		F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CD15BDC1E600A697F8 /* info-kalender.html */; };
 		F50527D015BDC5F600A697F8 /* info-studentenartsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */; };
-		F508A88816CA748900418A15 /* pods-acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = F508A88716CA748900418A15 /* pods-acknowledgements.html */; };
 		F50C12CC169A225800F0D010 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F50C12CB169A225800F0D010 /* MediaPlayer.framework */; };
 		F50EE09715B5F587000F1992 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50EE09515B5F587000F1992 /* WebViewController.m */; };
 		F520A2DD166E933500EE340F /* icon-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = F520A2DB166E933500EE340F /* icon-calendar.png */; };
@@ -163,7 +163,6 @@
 		F5C46192166E442000874D79 /* navigation-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5C4618E166E442000874D79 /* navigation-up@2x.png */; };
 		F5C6093816D2DFCB0043BD44 /* PreferencesService.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C6093716D2DFCB0043BD44 /* PreferencesService.m */; };
 		F5CE522216C2BDA70033A52B /* Errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5CE522016C2BDA70033A52B /* Errors.strings */; };
-		F5CEE55517E7550F00209B6F /* pods-acknowledgements.js in Resources */ = {isa = PBXBuildFile; fileRef = F5CEE55317E752FE00209B6F /* pods-acknowledgements.js */; };
 		F5CFAA3D15BD9B87008E75B0 /* info-fietsen.html in Resources */ = {isa = PBXBuildFile; fileRef = F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */; };
 		F5D2B6B515EFE2DE003EA54C /* button-news@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D2B6B415EFE2DE003EA54C /* button-news@2x.png */; };
 		F5D2B6B715EFEAAF003EA54C /* button-news-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5D2B6B615EFEAAF003EA54C /* button-news-active@2x.png */; };
@@ -251,6 +250,7 @@
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		906C1D8817C8A4A600145CD3 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
@@ -275,7 +275,6 @@
 		F5016BA81627665800BBDB0A /* ActivityDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailController.m; sourceTree = "<group>"; };
 		F50527CD15BDC1E600A697F8 /* info-kalender.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-kalender.html"; sourceTree = "<group>"; };
 		F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-studentenartsen.html"; sourceTree = "<group>"; };
-		F508A88716CA748900418A15 /* pods-acknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "pods-acknowledgements.html"; sourceTree = "<group>"; };
 		F50C12CB169A225800F0D010 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		F50EE09415B5F587000F1992 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		F50EE09515B5F587000F1992 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -417,7 +416,6 @@
 		F5C6093616D2DFCB0043BD44 /* PreferencesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesService.h; sourceTree = "<group>"; };
 		F5C6093716D2DFCB0043BD44 /* PreferencesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesService.m; sourceTree = "<group>"; };
 		F5CE522116C2BDA70033A52B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Hydra/nl.lproj/Errors.strings; sourceTree = "<group>"; };
-		F5CEE55317E752FE00209B6F /* pods-acknowledgements.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "pods-acknowledgements.js"; sourceTree = "<group>"; };
 		F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-fietsen.html"; sourceTree = "<group>"; };
 		F5D2B6B415EFE2DE003EA54C /* button-news@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-news@2x.png"; sourceTree = "<group>"; };
 		F5D2B6B615EFEAAF003EA54C /* button-news-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-news-active@2x.png"; sourceTree = "<group>"; };
@@ -790,8 +788,7 @@
 				F59D170815BD7CE500B6F892 /* info-sport-openingsuren.html */,
 				F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */,
 				90B1029617A85E9200669CCD /* kalender.css */,
-				F508A88716CA748900418A15 /* pods-acknowledgements.html */,
-				F5CEE55317E752FE00209B6F /* pods-acknowledgements.js */,
+				908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */,
 				F533DAB916315E87001269A8 /* schamper.css */,
 				F59D170F15BD813E00B6F892 /* webview.css */,
 			);
@@ -1034,7 +1031,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5CEE55517E7550F00209B6F /* pods-acknowledgements.js in Resources */,
 				F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */,
 				F53D248A159DB50800F408AB /* header-bg.png in Resources */,
 				F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */,
@@ -1069,6 +1065,7 @@
 				F59D16FC15BD693F00B6F892 /* info-more.png in Resources */,
 				F59D16FD15BD693F00B6F892 /* info-more@2x.png in Resources */,
 				F59D16FE15BD693F00B6F892 /* info-sports.png in Resources */,
+				908DFF03188E932D00D526DC /* Pods-acknowledgements.plist in Resources */,
 				F59D16FF15BD693F00B6F892 /* info-sports@2x.png in Resources */,
 				F59D170015BD693F00B6F892 /* info-doctors.png in Resources */,
 				F59D170115BD693F00B6F892 /* info-doctors@2x.png in Resources */,
@@ -1169,7 +1166,6 @@
 				F5B9F2EA17CEA96F0042C8A4 /* Icon-iOS7@2x.png in Resources */,
 				F5E851D416C44BD7003DF993 /* hydra-logo.png in Resources */,
 				F5E851D516C44BD7003DF993 /* hydra-logo@2x.png in Resources */,
-				F508A88816CA748900418A15 /* pods-acknowledgements.html in Resources */,
 				90B1029717A85E9200669CCD /* kalender.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

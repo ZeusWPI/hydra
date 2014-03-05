@@ -93,23 +93,4 @@ public class Hydra extends AbstractSherlockActivity {
             }
         });
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getSupportMenuInflater();
-//        inflater.inflate(R.menu.hydra, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.feedbackButton:
-//                setupFeedback();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 }
