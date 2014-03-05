@@ -8,9 +8,9 @@
   <script type="text/javascript">
     window.onload = function() {
       var rows = document.getElementsByTagName('tr');
+      var iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
       for (var i = 0; i < rows.length; i++) {
         rows[i].addEventListener('click', function() {
-          var iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
           if (iOS) {
             this.firstElementChild.firstElementChild.click();
           } else {
