@@ -65,7 +65,6 @@ class Menu(object):
 
     def parse(self, menu_div, lang):
         titles = [x.content.lower() for x in menu_div.xpathEval('./h3') if len(x.content) > 0]
-        print(titles)
         lists = menu_div.xpathEval('./ul[*]')
 
         if len(titles) == 1 and titles[0] == DICTIONARY[lang]['closed']:
