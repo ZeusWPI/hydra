@@ -2,7 +2,7 @@ platform :ios, '6.0'
 
 pod 'GoogleAnalytics-iOS-SDK',  '~> 3.0'
 pod 'TestFlightSDK',            '~> 3.0'
-pod 'Facebook-iOS-SDK',         '~> 3.7'
+pod 'Facebook-iOS-SDK',         '~> 3.15'
 pod 'SVProgressHUD',            '~> 0.9'
 pod 'SDWebImage',               '~> 3.4'
 pod 'RestKit',                  '~> 0.20.0'

@@ -1,6 +1,8 @@
 PODS:
   - AFNetworking (1.3.4)
-  - Facebook-iOS-SDK (3.10.0)
+  - Bolts (1.1.0)
+  - Facebook-iOS-SDK (3.15.1):
+    - Bolts
   - GoogleAnalytics-iOS-SDK (3.0.2)
   - PKMultipartInputStream (1.1.0)
   - Reachability (3.1.1)
@@ -55,7 +57,7 @@ PODS:
   - XMLReader (0.0.2)
 
 DEPENDENCIES:
-  - Facebook-iOS-SDK (~> 3.7)
+  - Facebook-iOS-SDK (~> 3.15)
   - GoogleAnalytics-iOS-SDK (~> 3.0)
   - Reachability (~> 3.1.1)
   - RestKit (~> 0.20.0)
@@ -75,7 +77,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
-  Facebook-iOS-SDK: 05120005da8567053915379f3cf32a39d7c0c7ad
+  Bolts: 91c2af8eae1d44e1dd75946a5b0ae04a43ea43e4
+  Facebook-iOS-SDK: 56214af8e0ef16e751eb2804250326b709e571b8
   GoogleAnalytics-iOS-SDK: 092c6c87301bb419ed44c1992cad87bc214de9ae
   PKMultipartInputStream: 9e18cd438cbfb8900ccb4d26b3f848768cd92e10
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
