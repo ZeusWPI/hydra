@@ -5,6 +5,7 @@ PODS:
     - Bolts
   - GoogleAnalytics-iOS-SDK (3.0.2)
   - PKMultipartInputStream (1.1.0)
+  - PKRevealController (2.0.6)
   - Reachability (3.1.1)
   - RestKit (0.20.3):
     - RestKit/Core
@@ -59,6 +60,7 @@ PODS:
 DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.15)
   - GoogleAnalytics-iOS-SDK (~> 3.0)
+  - PKRevealController (~> 2.0)
   - Reachability (~> 3.1.1)
   - RestKit (~> 0.20.0)
   - RKXMLReaderSerialization (from `External/RKXMLReaderSerialization.podspec`)
@@ -81,6 +83,7 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: 56214af8e0ef16e751eb2804250326b709e571b8
   GoogleAnalytics-iOS-SDK: 092c6c87301bb419ed44c1992cad87bc214de9ae
   PKMultipartInputStream: 9e18cd438cbfb8900ccb4d26b3f848768cd92e10
+  PKRevealController: 4f175a432ad868c806dce1ebb3fd8a35d228bdb5
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
   RestKit: 7f9490e709ee745e166c4d2aa7a8d132831275b0
   RKXMLReaderSerialization: 340ce8c21cf74fd10bd63c8401b13eed53722103
