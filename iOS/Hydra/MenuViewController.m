@@ -20,7 +20,9 @@
 #import "UrgentViewController.h"
 
 @interface MenuViewController ()
+
 @property (nonatomic, strong) NSArray *controllers;
+
 @end
 
 @implementation MenuViewController
@@ -137,7 +139,8 @@
 
 #pragma mark MenuObject
 @implementation MenuObject
-- (MenuObject*)initWithImage:(NSString *)image andTitle:(NSString *)title andController:(Class)controller
+
+- (MenuObject *)initWithImage:(NSString *)image andTitle:(NSString *)title andController:(Class)controller
 {
     self = [super init];
     if(self) {
@@ -152,6 +155,5 @@
 {
     return [[self.viewController alloc] init];
 }
-
 
 @end
