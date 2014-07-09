@@ -20,16 +20,16 @@
 #import "UrgentViewController.h"
 
 @interface MenuViewController ()
-
+@property (nonatomic, strong) NSArray *controllers;
 @end
 
 @implementation MenuViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        // Custom initialization
+        [self createControllers];
     }
     return self;
 }
@@ -46,84 +46,112 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Button actions
-- (IBAction)showDashboard:(id)sender
+- (void)createControllers
 {
-    DLog(@"Menu switching to Dashboard");
-    DashboardViewController *c = [[DashboardViewController alloc] init];
-    [self showViewController:c];
-}
-
-- (IBAction)showNews:(id)sender
-{
-    DLog(@"Menu switching to News");
+    MenuObject *dashboard = [[MenuObject alloc] initWithImage:nil
+                                                     andTitle:@"Dashboard"
+                                                andController:[DashboardViewController class]];
     
-    NewsViewController *c = [[NewsViewController alloc] init];
-    [self showViewController:c];
+    MenuObject *news = [[MenuObject alloc] initWithImage:nil
+                                                andTitle:@"News"
+                                           andController:[NewsViewController class]];
+    
+    MenuObject *activities = [[MenuObject alloc] initWithImage:nil
+                                                      andTitle:@"Activities"
+                                                 andController:[ActivitiesController class]];
+    
+    MenuObject *info = [[MenuObject alloc] initWithImage:nil
+                                                andTitle:@"Info" andController:[InfoViewController class]];
+    
+    MenuObject *resto = [[MenuObject alloc] initWithImage:nil
+                                                 andTitle:@"Resto Menu"
+                                            andController:[RestoMenuController class]];
+    
+    MenuObject *urgent = [[MenuObject alloc] initWithImage:nil
+                                                  andTitle:@"Urgent.fm"
+                                             andController:[UrgentViewController class]];
+    
+    MenuObject *schamper = [[MenuObject alloc] initWithImage:nil
+                                                    andTitle:@"Schamper"
+                                               andController:[SchamperViewController class]];
+    
+    MenuObject *preferences = [[MenuObject alloc] initWithImage:nil
+                                                       andTitle:@"Preferences"
+                                                  andController:[PreferencesController class]];
+    
+    NSArray *controllers = [[NSArray alloc] initWithObjects:dashboard, news, activities,
+                            info, resto, urgent, schamper, preferences, nil];
+    
+    self.controllers = controllers;
 }
 
-- (IBAction)showActivities:(id)sender
+#pragma mark - Table view delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    DLog(@"Menu switching to Activities");
-    ActivitiesController *c = [[ActivitiesController alloc] init];
-    [self showViewController:c];
+    return 1;
 }
 
-- (IBAction)showInfo:(id)sender
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    DLog(@"Menu switching to Info");
-	InfoViewController *c = [[InfoViewController alloc] init];
-    [self showViewController:c];
+    return [[self controllers] count];
 }
 
-- (IBAction)showResto:(id)sender
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DLog(@"Menu switching to Resto");
-    RestoMenuController *c = [[RestoMenuController alloc] init];
-    [self showViewController:c];
+    return 46;
 }
 
-- (IBAction)showUrgent:(id)sender
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DLog(@"Menu switching to Urgent");
-    UrgentViewController *c = [[UrgentViewController alloc] init];
-    [self showViewController:c];
+    static NSString *MenuCellIdentifier = @"ActivityCellNoHighlight";
+    UITableViewCell *cell;
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:MenuCellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:MenuCellIdentifier];
+        [self setupCell:cell];
+        
+    }
+    
+    MenuObject *menuItem = self.controllers[indexPath.row];
+    [cell.textLabel setText:menuItem.title];
+   
+    return cell;
 }
 
-- (IBAction)showSchamper:(id)sender
+- (void)setupCell:(UITableViewCell *)cell
 {
-    DLog(@"Menu switching to Schamper");
-    SchamperViewController *c = [[SchamperViewController alloc] init];
-    [self showViewController:c];
+    //TODO
 }
 
-- (IBAction)showFeedbackView:(id)sender
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
-    [controller setMailComposeDelegate:self];
-    [controller setToRecipients:@[@"hydra@zeus.ugent.be"]];
-    [controller setSubject:@"Bericht via Hydra"];
-    [self presentModalViewController:controller animated:YES];
-}
-
-- (void)mailComposeController:(MFMailComposeViewController *)controller
-          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-    [self dismissModalViewControllerAnimated:YES];
-}
-
--(IBAction)showPreferences:(id)sender
-{
-    DLog(@"Menu switching to Preferences");
-    PreferencesController *c = [[PreferencesController alloc] init];
-    [self showViewController:c];
-}
-
--(void)showViewController:(UIViewController *)controller
-{
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+    UIViewController *c = [self.controllers[indexPath.row] controller];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:c];
     [self.revealController setFrontViewController:nav];
     [self.revealController resignPresentationModeEntirely:NO animated:YES completion:nil];
 }
+@end
+
+#pragma mark MenuObject
+@implementation MenuObject
+- (MenuObject*)initWithImage:(NSString *)image andTitle:(NSString *)title andController:(Class)controller
+{
+    self = [super init];
+    if(self) {
+        self.image = image;
+        self.title = title;
+        self.viewController = controller;
+    }
+    return self;
+}
+
+- (UIViewController *)controller
+{
+    return [[self.viewController alloc] init];
+}
+
 
 @end

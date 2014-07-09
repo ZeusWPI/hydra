@@ -8,16 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuViewController : UIViewController
+@interface MenuViewController : UITableViewController
 
-- (IBAction)showDashboard:(id)sender;
-- (IBAction)showNews:(id)sender;
-- (IBAction)showActivities:(id)sender;
-- (IBAction)showInfo:(id)sender;
-- (IBAction)showResto:(id)sender;
-- (IBAction)showUrgent:(id)sender;
-- (IBAction)showSchamper:(id)sender;
-- (IBAction)showFeedbackView:(id)sender;
-- (IBAction)showPreferences:(id)sender;
+@end
 
+@interface MenuObject : NSObject
+@property (nonatomic, strong) NSString *image;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) Class viewController;
+
+- (MenuObject*)initWithImage:(NSString *)image andTitle:(NSString *)title andController:(Class)controller;
+- (UIViewController *)controller;
 @end
