@@ -22,11 +22,30 @@
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
 		90410B101848DF9100331F6C /* info-guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0E1848DF9100331F6C /* info-guide.png */; };
 		90410B111848DF9100331F6C /* info-guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0F1848DF9100331F6C /* info-guide@2x.png */; };
+		90425BF71998F1C600A6502A /* icon-schamper.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425BF61998F1C600A6502A /* icon-schamper.png */; };
+		90425BF91998F1F700A6502A /* icon-schamper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425BF81998F1F700A6502A /* icon-schamper@2x.png */; };
+		90425BFC1998F50C00A6502A /* menu-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425BFA1998F50C00A6502A /* menu-button.png */; };
+		90425BFD1998F50C00A6502A /* menu-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425BFB1998F50C00A6502A /* menu-button@2x.png */; };
+		90425C001998F7EB00A6502A /* icon-activities.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425BFE1998F7EB00A6502A /* icon-activities.png */; };
+		90425C011998F7EB00A6502A /* icon-activities@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425BFF1998F7EB00A6502A /* icon-activities@2x.png */; };
+		90425C041998F8A400A6502A /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C021998F8A400A6502A /* icon-info.png */; };
+		90425C051998F8A400A6502A /* icon-info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C031998F8A400A6502A /* icon-info@2x.png */; };
+		90425C081998F94200A6502A /* icon-resto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C061998F94200A6502A /* icon-resto@2x.png */; };
+		90425C091998F94200A6502A /* icon-resto.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C071998F94200A6502A /* icon-resto.png */; };
+		90425C0C1998F9BE00A6502A /* icon-news.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C0A1998F9BE00A6502A /* icon-news.png */; };
+		90425C0D1998F9BE00A6502A /* icon-news@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C0B1998F9BE00A6502A /* icon-news@2x.png */; };
+		90425C101998FA3900A6502A /* icon-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C0E1998FA3900A6502A /* icon-settings@2x.png */; };
+		90425C111998FA3900A6502A /* icon-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C0F1998FA3900A6502A /* icon-settings.png */; };
+		90425C141998FC6700A6502A /* icon-dashboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C121998FC6700A6502A /* icon-dashboard@2x.png */; };
+		90425C151998FC6700A6502A /* icon-dashboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 90425C131998FC6700A6502A /* icon-dashboard.png */; };
+		90425C181999048400A6502A /* UIViewController+SlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 90425C171999048400A6502A /* UIViewController+SlideMenu.m */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
 		908DAD71196C89A000ADE20C /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908DAD6F196C89A000ADE20C /* MenuViewController.m */; };
 		908DFF03188E932D00D526DC /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */; };
+		90B0C9901999205B0045449E /* icon-urgent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B0C98E1999205B0045449E /* icon-urgent@2x.png */; };
+		90B0C9911999205B0045449E /* icon-urgent.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B0C98F1999205B0045449E /* icon-urgent.png */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
@@ -247,6 +266,24 @@
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		90410B0E1848DF9100331F6C /* info-guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide.png"; sourceTree = "<group>"; };
 		90410B0F1848DF9100331F6C /* info-guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide@2x.png"; sourceTree = "<group>"; };
+		90425BF61998F1C600A6502A /* icon-schamper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-schamper.png"; sourceTree = "<group>"; };
+		90425BF81998F1F700A6502A /* icon-schamper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-schamper@2x.png"; sourceTree = "<group>"; };
+		90425BFA1998F50C00A6502A /* menu-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-button.png"; sourceTree = "<group>"; };
+		90425BFB1998F50C00A6502A /* menu-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-button@2x.png"; sourceTree = "<group>"; };
+		90425BFE1998F7EB00A6502A /* icon-activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-activities.png"; sourceTree = "<group>"; };
+		90425BFF1998F7EB00A6502A /* icon-activities@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-activities@2x.png"; sourceTree = "<group>"; };
+		90425C021998F8A400A6502A /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		90425C031998F8A400A6502A /* icon-info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info@2x.png"; sourceTree = "<group>"; };
+		90425C061998F94200A6502A /* icon-resto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-resto@2x.png"; sourceTree = "<group>"; };
+		90425C071998F94200A6502A /* icon-resto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-resto.png"; sourceTree = "<group>"; };
+		90425C0A1998F9BE00A6502A /* icon-news.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-news.png"; sourceTree = "<group>"; };
+		90425C0B1998F9BE00A6502A /* icon-news@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-news@2x.png"; sourceTree = "<group>"; };
+		90425C0E1998FA3900A6502A /* icon-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings@2x.png"; sourceTree = "<group>"; };
+		90425C0F1998FA3900A6502A /* icon-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings.png"; sourceTree = "<group>"; };
+		90425C121998FC6700A6502A /* icon-dashboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dashboard@2x.png"; sourceTree = "<group>"; };
+		90425C131998FC6700A6502A /* icon-dashboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dashboard.png"; sourceTree = "<group>"; };
+		90425C161999048400A6502A /* UIViewController+SlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SlideMenu.h"; sourceTree = "<group>"; };
+		90425C171999048400A6502A /* UIViewController+SlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SlideMenu.m"; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -254,6 +291,8 @@
 		908DAD6E196C89A000ADE20C /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		908DAD6F196C89A000ADE20C /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
+		90B0C98E1999205B0045449E /* icon-urgent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-urgent@2x.png"; sourceTree = "<group>"; };
+		90B0C98F1999205B0045449E /* icon-urgent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-urgent.png"; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
@@ -679,14 +718,30 @@
 				F5E7F06B15EF9407004024AA /* header-bg@2x.png */,
 				F5E851D216C44BD7003DF993 /* hydra-logo.png */,
 				F5E851D316C44BD7003DF993 /* hydra-logo@2x.png */,
+				90425BFE1998F7EB00A6502A /* icon-activities.png */,
+				90425BFF1998F7EB00A6502A /* icon-activities@2x.png */,
 				F520A2DB166E933500EE340F /* icon-calendar.png */,
 				F520A2DF166E999400EE340F /* icon-calendar@2x.png */,
+				90425C131998FC6700A6502A /* icon-dashboard.png */,
+				90425C121998FC6700A6502A /* icon-dashboard@2x.png */,
+				90425C021998F8A400A6502A /* icon-info.png */,
+				90425C031998F8A400A6502A /* icon-info@2x.png */,
 				F57E7E0B15B837F000D2A59E /* icon-meal.png */,
 				F567044016BD5D8100C6B00D /* icon-meal@2x.png */,
+				90425C0A1998F9BE00A6502A /* icon-news.png */,
+				90425C0B1998F9BE00A6502A /* icon-news@2x.png */,
+				90425C071998F94200A6502A /* icon-resto.png */,
+				90425C061998F94200A6502A /* icon-resto@2x.png */,
+				90425BF61998F1C600A6502A /* icon-schamper.png */,
+				90425BF81998F1F700A6502A /* icon-schamper@2x.png */,
+				90425C0F1998FA3900A6502A /* icon-settings.png */,
+				90425C0E1998FA3900A6502A /* icon-settings@2x.png */,
 				F57E7E0C15B837F000D2A59E /* icon-soup.png */,
 				F567044116BD5D8100C6B00D /* icon-soup@2x.png */,
 				F5B86EE116C3106000BC5D66 /* icon-star.png */,
 				F5B86E1816C30EF900BC5D66 /* icon-star@2x.png */,
+				90B0C98F1999205B0045449E /* icon-urgent.png */,
+				90B0C98E1999205B0045449E /* icon-urgent@2x.png */,
 				F57E7E0D15B837F000D2A59E /* icon-vegetables.png */,
 				F567044216BD5D8100C6B00D /* icon-vegetables@2x.png */,
 				F59D16E415BD693F00B6F892 /* info-academiccalendar.png */,
@@ -695,6 +750,8 @@
 				F59D16E715BD693F00B6F892 /* info-bicycle@2x.png */,
 				F59D16F015BD693F00B6F892 /* info-doctors.png */,
 				F59D16F115BD693F00B6F892 /* info-doctors@2x.png */,
+				90410B0E1848DF9100331F6C /* info-guide.png */,
+				90410B0F1848DF9100331F6C /* info-guide@2x.png */,
 				F59D16EA15BD693F00B6F892 /* info-library.png */,
 				F59D16EB15BD693F00B6F892 /* info-library@2x.png */,
 				F567044316BD5D8100C6B00D /* info-minerva.png */,
@@ -703,8 +760,8 @@
 				F59D16ED15BD693F00B6F892 /* info-more@2x.png */,
 				F59D16EE15BD693F00B6F892 /* info-sports.png */,
 				F59D16EF15BD693F00B6F892 /* info-sports@2x.png */,
-				90410B0E1848DF9100331F6C /* info-guide.png */,
-				90410B0F1848DF9100331F6C /* info-guide@2x.png */,
+				90425BFA1998F50C00A6502A /* menu-button.png */,
+				90425BFB1998F50C00A6502A /* menu-button@2x.png */,
 				F5C4618B166E442000874D79 /* navigation-down.png */,
 				F5C4618C166E442000874D79 /* navigation-down@2x.png */,
 				F5C4618D166E442000874D79 /* navigation-up.png */,
@@ -764,6 +821,8 @@
 				F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */,
 				F56B176F16C9069300AB59D6 /* NSMutableArray+Shuffling.h */,
 				F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */,
+				90425C161999048400A6502A /* UIViewController+SlideMenu.h */,
+				90425C171999048400A6502A /* UIViewController+SlideMenu.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1039,6 +1098,7 @@
 				F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */,
 				F53D248A159DB50800F408AB /* header-bg.png in Resources */,
 				F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */,
+				90425C041998F8A400A6502A /* icon-info.png in Resources */,
 				F58408B8159DDA0E00EE7010 /* button-activities.png in Resources */,
 				F58408BB159DDA0E00EE7010 /* button-info-active.png in Resources */,
 				F58408BC159DDA0E00EE7010 /* button-info.png in Resources */,
@@ -1048,12 +1108,15 @@
 				F58408C0159DDA0E00EE7010 /* button-resto.png in Resources */,
 				F58408C1159DDA0E00EE7010 /* button-schamper-active.png in Resources */,
 				F58408C2159DDA0E00EE7010 /* button-schamper.png in Resources */,
+				90B0C9911999205B0045449E /* icon-urgent.png in Resources */,
 				F5D36BB715B5BD2A00B6E017 /* Default.png in Resources */,
 				F5D36BB815B5BD2A00B6E017 /* Default@2x.png in Resources */,
 				F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */,
 				F54B160315B7FFE6000A4407 /* resto-logo@2x.png in Resources */,
+				90B0C9901999205B0045449E /* icon-urgent@2x.png in Resources */,
 				F5B9F2F117CEAA040042C8A4 /* Icon-Small-iOS6@2x.png in Resources */,
 				F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */,
+				90425C151998FC6700A6502A /* icon-dashboard.png in Resources */,
 				F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */,
 				F57E7E1015B837F100D2A59E /* icon-vegetables.png in Resources */,
 				F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */,
@@ -1087,6 +1150,7 @@
 				F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */,
 				F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */,
 				F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */,
+				90425C0D1998F9BE00A6502A /* icon-news@2x.png in Resources */,
 				F5A81CC415CF1CC500FE033B /* external-link@2x.png in Resources */,
 				F5E7F06C15EF9408004024AA /* header-bg@2x.png in Resources */,
 				F5E7F07215EFAA51004024AA /* button-activities-active@2x.png in Resources */,
@@ -1104,10 +1168,13 @@
 				F5D3B613162EF02F00698C3E /* button-feedback@2x.png in Resources */,
 				F533DABA16315E87001269A8 /* schamper.css in Resources */,
 				F533DABC163163E2001269A8 /* schamper-bg.png in Resources */,
+				90425BFC1998F50C00A6502A /* menu-button.png in Resources */,
 				F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */,
+				90425C011998F7EB00A6502A /* icon-activities@2x.png in Resources */,
 				90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */,
 				F5EBF0E0164BE583002C14BF /* SORelativeDateTransformer.bundle in Resources */,
 				F5C4618F166E442000874D79 /* navigation-down.png in Resources */,
+				90425BFD1998F50C00A6502A /* menu-button@2x.png in Resources */,
 				F5C46190166E442000874D79 /* navigation-down@2x.png in Resources */,
 				F5C46191166E442000874D79 /* navigation-up.png in Resources */,
 				F5C46192166E442000874D79 /* navigation-up@2x.png in Resources */,
@@ -1118,6 +1185,7 @@
 				F54AB5A5166FF510006C1189 /* button-urgent.png in Resources */,
 				F54AB5A6166FF510006C1189 /* button-urgent@2x.png in Resources */,
 				F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */,
+				90425C111998FA3900A6502A /* icon-settings.png in Resources */,
 				F531DE6516B2E41B0050D88B /* button-route@2x.png in Resources */,
 				F531DE6816B2EE720050D88B /* button-route.png in Resources */,
 				F5B9F2F217CEAA040042C8A4 /* Icon-Small-iOS7@2x.png in Resources */,
@@ -1128,7 +1196,9 @@
 				F531DE7016B30A0F0050D88B /* button-track@2x.png in Resources */,
 				F5B9F2E917CEA96F0042C8A4 /* Icon-iOS6@2x.png in Resources */,
 				F531DE9016B31FFC0050D88B /* button-track-highlighted.png in Resources */,
+				90425C091998F94200A6502A /* icon-resto.png in Resources */,
 				F531DE9116B31FFC0050D88B /* button-track-selected-highlighted.png in Resources */,
+				90425C0C1998F9BE00A6502A /* icon-news.png in Resources */,
 				F531DE9216B31FFC0050D88B /* button-track-selected.png in Resources */,
 				F531DE9316B31FFC0050D88B /* button-track.png in Resources */,
 				F5D51CF716B6D44800826B51 /* info-minerva@2x.png in Resources */,
@@ -1137,24 +1207,30 @@
 				F567044616BD5D8100C6B00D /* icon-vegetables@2x.png in Resources */,
 				F567044716BD5D8100C6B00D /* info-minerva.png in Resources */,
 				F5B6509C16C129B700989ADB /* btn-urgent-bg-highlighted.png in Resources */,
+				90425C001998F7EB00A6502A /* icon-activities.png in Resources */,
 				F5B6509D16C129B700989ADB /* btn-urgent-bg-highlighted@2x.png in Resources */,
 				F5B6509E16C129B700989ADB /* btn-urgent-bg.png in Resources */,
 				F5B6509F16C129B700989ADB /* btn-urgent-bg@2x.png in Resources */,
 				F5B9F2F317CEAA040042C8A4 /* iTunesArtwork.png in Resources */,
 				F5B650A416C12A9300989ADB /* btn-urgent-pause.png in Resources */,
+				90425C051998F8A400A6502A /* icon-info@2x.png in Resources */,
 				F5B650A516C12A9300989ADB /* btn-urgent-pause@2x.png in Resources */,
 				F5B650A616C12A9300989ADB /* btn-urgent-play.png in Resources */,
 				F5B650A716C12A9300989ADB /* btn-urgent-play@2x.png in Resources */,
+				90425C141998FC6700A6502A /* icon-dashboard@2x.png in Resources */,
 				F5B650AE16C135A900989ADB /* urgent-logo.png in Resources */,
 				F5B650AF16C135A900989ADB /* urgent-logo@2x.png in Resources */,
 				F5CE522216C2BDA70033A52B /* Errors.strings in Resources */,
 				F5B86E1916C30EF900BC5D66 /* icon-star@2x.png in Resources */,
 				F5B86EE216C3106100BC5D66 /* icon-star.png in Resources */,
+				90425C101998FA3900A6502A /* icon-settings@2x.png in Resources */,
 				445C81FC16C45D7A0080819C /* button-settings.png in Resources */,
+				90425C081998F94200A6502A /* icon-resto@2x.png in Resources */,
 				445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */,
 				F5E851BE16C43174003DF993 /* btn-urgent-facebook.png in Resources */,
 				F5E851BF16C43174003DF993 /* btn-urgent-facebook@2x.png in Resources */,
 				F5E851C016C43174003DF993 /* btn-urgent-home.png in Resources */,
+				90425BF71998F1C600A6502A /* icon-schamper.png in Resources */,
 				F5E851C116C43174003DF993 /* btn-urgent-home@2x.png in Resources */,
 				F5E851C216C43174003DF993 /* btn-urgent-mail.png in Resources */,
 				F5E851C316C43174003DF993 /* btn-urgent-mail@2x.png in Resources */,
@@ -1167,6 +1243,7 @@
 				F5E851CC16C447C4003DF993 /* urgent-nowplaying.jpg in Resources */,
 				F5E851CD16C447C4003DF993 /* urgent-nowplaying@2x.jpg in Resources */,
 				F5E851D016C44B47003DF993 /* urgent-bg.jpg in Resources */,
+				90425BF91998F1F700A6502A /* icon-schamper@2x.png in Resources */,
 				F5E851D116C44B47003DF993 /* urgent-bg@2x.jpg in Resources */,
 				F5B9F2EA17CEA96F0042C8A4 /* Icon-iOS7@2x.png in Resources */,
 				F5E851D416C44BD7003DF993 /* hydra-logo.png in Resources */,
@@ -1239,6 +1316,7 @@
 				F5EBF117159E040700EB5D26 /* RestoMenuController.m in Sources */,
 				F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */,
 				F5EBF14C159E1E3600EB5D26 /* SchamperArticle.m in Sources */,
+				90425C181999048400A6502A /* UIViewController+SlideMenu.m in Sources */,
 				F5D36BC115B5BDA500B6E017 /* SchamperStore.m in Sources */,
 				F50EE09715B5F587000F1992 /* WebViewController.m in Sources */,
 				F55895C415B60F450001B399 /* RestoMenu.m in Sources */,

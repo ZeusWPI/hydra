@@ -10,6 +10,7 @@
 #import "AssociationPreferenceController.h"
 #import "FacebookSession.h"
 #import "PreferencesService.h"
+#import "UIViewController+SlideMenu.h"
 
 #import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
 
@@ -47,6 +48,8 @@
 {
     [super viewDidLoad];
     self.title = @"Voorkeuren";
+    
+    [self H_setSlideMenuButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated

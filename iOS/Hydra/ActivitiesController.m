@@ -13,6 +13,7 @@
 #import "NSDate+Utilities.h"
 #import "ActivityDetailController.h"
 #import "NSDateFormatter+AppLocale.h"
+#import "UIViewController+SlideMenu.h"
 #import "PreferencesService.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
@@ -83,6 +84,8 @@
 
         self.refreshControl = refreshControl;
     }
+    
+    [self H_setSlideMenuButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -39,7 +39,41 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    // Style & set-up tableview
+    self.tableView.bounces = NO;
+    self.tableView.backgroundColor = [UIColor hydraBackgroundColor];
+    self.tableView.tableHeaderView = [self createHeaderView];
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        self.tableView.separatorInset = UIEdgeInsetsMake(0, 45, 0, 0);
+    }
+    self.tableView.separatorColor = [UIColor hydraTintColor];
+    self.tableView.tableFooterView = [[UIView alloc] init]; // Fixes seperator lines in empty cells
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    GAI_Track(@"Menu");
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,35 +84,36 @@
 
 - (void)createControllers
 {
-    MenuObject *dashboard = [[MenuObject alloc] initWithImage:nil
+    MenuObject *dashboard = [[MenuObject alloc] initWithImage:@"icon-dashboard"
                                                      andTitle:@"Dashboard"
                                                 andController:[DashboardViewController class]];
     
-    MenuObject *news = [[MenuObject alloc] initWithImage:nil
-                                                andTitle:@"News"
+    MenuObject *news = [[MenuObject alloc] initWithImage:@"icon-news"
+                                                andTitle:@"Nieuws"
                                            andController:[NewsViewController class]];
     
-    MenuObject *activities = [[MenuObject alloc] initWithImage:nil
-                                                      andTitle:@"Activities"
+    MenuObject *activities = [[MenuObject alloc] initWithImage:@"icon-activities"
+                                                      andTitle:@"Activiteiten"
                                                  andController:[ActivitiesController class]];
     
-    MenuObject *info = [[MenuObject alloc] initWithImage:nil
-                                                andTitle:@"Info" andController:[InfoViewController class]];
+    MenuObject *info = [[MenuObject alloc] initWithImage:@"icon-info"
+                                                andTitle:@"Info"
+                                           andController:[InfoViewController class]];
     
-    MenuObject *resto = [[MenuObject alloc] initWithImage:nil
+    MenuObject *resto = [[MenuObject alloc] initWithImage:@"icon-resto"
                                                  andTitle:@"Resto Menu"
                                             andController:[RestoMenuController class]];
     
-    MenuObject *urgent = [[MenuObject alloc] initWithImage:nil
+    MenuObject *urgent = [[MenuObject alloc] initWithImage:@"icon-urgent"
                                                   andTitle:@"Urgent.fm"
                                              andController:[UrgentViewController class]];
     
-    MenuObject *schamper = [[MenuObject alloc] initWithImage:nil
-                                                    andTitle:@"Schamper"
+    MenuObject *schamper = [[MenuObject alloc] initWithImage:@"icon-schamper"
+                                                    andTitle:@"Schamper Daily"
                                                andController:[SchamperViewController class]];
     
-    MenuObject *preferences = [[MenuObject alloc] initWithImage:nil
-                                                       andTitle:@"Preferences"
+    MenuObject *preferences = [[MenuObject alloc] initWithImage:@"icon-settings"
+                                                       andTitle:@"Voorkeuren"
                                                   andController:[PreferencesController class]];
     
     NSArray *controllers = [[NSArray alloc] initWithObjects:dashboard, news, activities,
@@ -87,7 +122,34 @@
     self.controllers = controllers;
 }
 
+- (UIView *)createHeaderView
+{
+    // Create header background
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 114)];
+    headerView.backgroundColor = [UIColor blueColor];
+    UIImage *background = [UIImage imageNamed:@"header-bg.png"];
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:headerView.bounds];
+    backgroundView.image = background;
+    backgroundView.contentMode = UIViewContentModeScaleToFill;
+    backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [headerView addSubview:backgroundView];
+    
+    // place hydra logo
+    UIImage *hydraLogo = [UIImage imageNamed:@"hydra-logo"];
+    //UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(93, 37, 134, 50)];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(65, 37, 134, 50)];
+    logoView.image = hydraLogo;
+    logoView.contentMode = UIViewContentModeScaleToFill;
+    logoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [headerView addSubview:logoView];
+    
+    return headerView;
+}
+
 #pragma mark - Table view delegate
+#define kTitleTag 234
+#define kImageTag 235
+#define kImageTitleTag 236
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -106,26 +168,112 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *MenuCellIdentifier = @"ActivityCellNoHighlight";
-    UITableViewCell *cell;
+    //Do not use identifiers because every cell is placed on the screen
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     
-    cell = [tableView dequeueReusableCellWithIdentifier:MenuCellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:MenuCellIdentifier];
-        [self setupCell:cell];
-        
-    }
+    [self setupCell:cell];
     
     MenuObject *menuItem = self.controllers[indexPath.row];
-    [cell.textLabel setText:menuItem.title];
-   
+    if (menuItem.title) {
+        [self setupTitleCell:cell];
+        
+        UILabel *titleLabel = (UILabel*)[cell viewWithTag:kTitleTag];
+        [titleLabel setText: menuItem.title];
+        
+        if (menuItem.image) {
+            UIImage *image = [UIImage imageNamed:menuItem.image];
+            UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageTag];
+            imageView.image = image;
+        }
+    }
+    else if(menuItem.image) {
+        [self setupImageCell:cell];
+        UIImage *image = [UIImage imageNamed:menuItem.image];
+        UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageTitleTag];
+        imageView.image = image;
+    }
+
     return cell;
 }
 
 - (void)setupCell:(UITableViewCell *)cell
 {
-    //TODO
+    // Style cell
+    [cell setBackgroundColor:[UIColor clearColor]];
+}
+
+- (void)setupTitleCell:(UITableViewCell *)cell
+{
+    UIView *contentView = cell.contentView;
+
+    // Add cell attributes
+    UILabel *titleLabel = [[UILabel alloc] init];
+    [titleLabel setTag:kTitleTag];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    [titleLabel setTextColor:[UIColor hydraTintColor]];
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [contentView addSubview:titleLabel];
+    
+    UIImageView *imageView = [[UIImageView alloc] init];
+    [imageView setTag:kImageTag];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    imageView.contentMode = UIViewContentModeCenter;
+    [contentView addSubview:imageView];
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(titleLabel, imageView);
+    
+    // Use auto-layout to place the cells
+    NSArray *horizontalLayoutConstraints =
+            [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[imageView(40)]-5-[titleLabel]|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:viewsDictionary
+             ];
+    
+    NSArray *verticalImageViewConstraint =
+            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:viewsDictionary
+             ];
+    
+    NSArray *verticalTitleConstraint =
+            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleLabel]|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:viewsDictionary
+             ];
+
+    [contentView addConstraints:horizontalLayoutConstraints];
+    [contentView addConstraints:verticalImageViewConstraint];
+    [contentView addConstraints:verticalTitleConstraint];
+}
+
+- (void)setupImageCell:(UITableViewCell *)cell
+{
+    UIImageView *imageView = [[UIImageView alloc] init];
+    [imageView setTag:kImageTitleTag];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    imageView.contentMode = UIViewContentModeCenter;
+    [cell.contentView addSubview:imageView];
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(imageView);
+    NSArray *horizontalConstraints =
+            [NSLayoutConstraint constraintsWithVisualFormat:@"|-50-[imageView]-(>=5)-|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:viewsDictionary
+             ];
+    
+    NSArray *verticalImageViewConstraint =
+            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:viewsDictionary
+             ];
+    
+    [cell.contentView addConstraints:horizontalConstraints];
+    [cell.contentView addConstraints:verticalImageViewConstraint];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -148,6 +296,19 @@
         self.title = title;
         self.viewController = controller;
     }
+    
+    return self;
+}
+
+- (MenuObject *)initWithImage:(NSString *)image andController:(Class)controller
+{
+    self = [super init];
+    if (self) {
+        self.image = image;
+        self.title = nil;
+        self.viewController = controller;
+    }
+    
     return self;
 }
 

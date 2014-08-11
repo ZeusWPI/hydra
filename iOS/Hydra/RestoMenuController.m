@@ -15,6 +15,7 @@
 #import "RestoMenuView.h"
 #import "RestoStore.h"
 #import "UIColor+AppColors.h"
+#import "UIViewController+SlideMenu.h"
 #import "UINavigationController+ReplaceController.h"
 
 #define kRestoDaysShown 5
@@ -95,6 +96,8 @@
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self action:@selector(mapButtonTapped:)];
     [self.navigationItem setRightBarButtonItem:mapButton];
+    
+    [self H_setSlideMenuButton];
 }
 
 - (void)viewDidLoad
