@@ -44,11 +44,11 @@
     self.tableView.bounces = NO;
     self.tableView.backgroundColor = [UIColor hydraBackgroundColor];
     self.tableView.tableHeaderView = [self createHeaderView];
+    self.tableView.separatorColor = [UIColor hydraTintColor];
+    self.tableView.tableFooterView = [[UIView alloc] init]; // Fixes seperator lines in empty cells
     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         self.tableView.separatorInset = UIEdgeInsetsMake(0, 45, 0, 0);
     }
-    self.tableView.separatorColor = [UIColor hydraTintColor];
-    self.tableView.tableFooterView = [[UIView alloc] init]; // Fixes seperator lines in empty cells
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,6 +65,9 @@
 {
     [super viewDidAppear:animated];
     GAI_Track(@"Menu");
+    
+    // Disable touch on frontviewcontroller
+    [[self.revealController frontViewController].view setUserInteractionEnabled:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -74,6 +77,9 @@
     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     }
+    
+    // Re-enable touch on frontviewcontroller
+    [[self.revealController frontViewController].view setUserInteractionEnabled:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -174,22 +180,13 @@
     [self setupCell:cell];
     
     MenuObject *menuItem = self.controllers[indexPath.row];
-    if (menuItem.title) {
-        [self setupTitleCell:cell];
+    
+    UILabel *titleLabel = (UILabel*)[cell viewWithTag:kTitleTag];
+    [titleLabel setText: menuItem.title];
         
-        UILabel *titleLabel = (UILabel*)[cell viewWithTag:kTitleTag];
-        [titleLabel setText: menuItem.title];
-        
-        if (menuItem.image) {
-            UIImage *image = [UIImage imageNamed:menuItem.image];
-            UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageTag];
-            imageView.image = image;
-        }
-    }
-    else if(menuItem.image) {
-        [self setupImageCell:cell];
+    if (menuItem.image) {
         UIImage *image = [UIImage imageNamed:menuItem.image];
-        UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageTitleTag];
+        UIImageView *imageView = (UIImageView *)[cell viewWithTag:kImageTag];
         imageView.image = image;
     }
 
@@ -200,12 +197,9 @@
 {
     // Style cell
     [cell setBackgroundColor:[UIColor clearColor]];
-}
-
-- (void)setupTitleCell:(UITableViewCell *)cell
-{
+    
     UIView *contentView = cell.contentView;
-
+    
     // Add cell attributes
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setTag:kTitleTag];
@@ -224,56 +218,29 @@
     
     // Use auto-layout to place the cells
     NSArray *horizontalLayoutConstraints =
-            [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[imageView(40)]-5-[titleLabel]|"
-                                                    options:0
-                                                    metrics:nil
-                                                      views:viewsDictionary
-             ];
+    [NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[imageView(40)]-5-[titleLabel]|"
+                                            options:0
+                                            metrics:nil
+                                              views:viewsDictionary
+     ];
     
     NSArray *verticalImageViewConstraint =
-            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
-                                                    options:0
-                                                    metrics:nil
-                                                      views:viewsDictionary
-             ];
+    [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
+                                            options:0
+                                            metrics:nil
+                                              views:viewsDictionary
+     ];
     
     NSArray *verticalTitleConstraint =
-            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleLabel]|"
-                                                    options:0
-                                                    metrics:nil
-                                                      views:viewsDictionary
-             ];
-
+    [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleLabel]|"
+                                            options:0
+                                            metrics:nil
+                                              views:viewsDictionary
+     ];
+    
     [contentView addConstraints:horizontalLayoutConstraints];
     [contentView addConstraints:verticalImageViewConstraint];
     [contentView addConstraints:verticalTitleConstraint];
-}
-
-- (void)setupImageCell:(UITableViewCell *)cell
-{
-    UIImageView *imageView = [[UIImageView alloc] init];
-    [imageView setTag:kImageTitleTag];
-    imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    imageView.contentMode = UIViewContentModeCenter;
-    [cell.contentView addSubview:imageView];
-    
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(imageView);
-    NSArray *horizontalConstraints =
-            [NSLayoutConstraint constraintsWithVisualFormat:@"|-50-[imageView]-(>=5)-|"
-                                                    options:0
-                                                    metrics:nil
-                                                      views:viewsDictionary
-             ];
-    
-    NSArray *verticalImageViewConstraint =
-            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
-                                                    options:0
-                                                    metrics:nil
-                                                      views:viewsDictionary
-             ];
-    
-    [cell.contentView addConstraints:horizontalConstraints];
-    [cell.contentView addConstraints:verticalImageViewConstraint];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -294,18 +261,6 @@
     if(self) {
         self.image = image;
         self.title = title;
-        self.viewController = controller;
-    }
-    
-    return self;
-}
-
-- (MenuObject *)initWithImage:(NSString *)image andController:(Class)controller
-{
-    self = [super init];
-    if (self) {
-        self.image = image;
-        self.title = nil;
         self.viewController = controller;
     }
     
