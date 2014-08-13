@@ -245,6 +245,7 @@
                     break;
 
                 case kGuestsRow: {
+                    width -= 40;
                     FacebookEvent *fbEvent = self.activity.facebookEvent;
                     if (fbEvent.friendsAttending.count > 0) {
                         spacing += 40;
@@ -255,10 +256,37 @@
                     // Different calculation for UITextView
                     if (!self.descriptionView) {
                         self.descriptionView = [self createDescriptionView];
-                        width = tableView.frame.size.width - 20;
+                        if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+                            width = tableView.frame.size.width;
+                        } else {
+                            width = tableView.frame.size.width - 20;
+                        }
                         self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                     }
-                    return self.descriptionView.contentSize.height + 4;
+                    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+                        UIEdgeInsets textContainerInsets = self.descriptionView.textContainerInset;
+                        UIEdgeInsets contentInsets = self.descriptionView.contentInset;
+
+                        CGFloat leftRightPadding = textContainerInsets.left + textContainerInsets.right + contentInsets.left + contentInsets.right +
+                                                    self.descriptionView.textContainer.lineFragmentPadding * 2;
+                        CGFloat topBottomPadding = textContainerInsets.top + textContainerInsets.bottom + contentInsets.top + contentInsets.bottom;
+
+                        width -= leftRightPadding;
+
+                        NSDictionary *attributes = @{ NSFontAttributeName: self.descriptionView.font};
+
+                        CGRect size = [self.descriptionView.text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                                               attributes:attributes
+                                                                  context:nil];
+                        
+                        CGFloat height = ceilf(CGRectGetHeight(size) + topBottomPadding + 1);
+
+                        return height;
+                    }
+                    else {
+                        return self.descriptionView.contentSize.height + 4;
+                    }
                     break;
             }
             break;
@@ -424,8 +452,12 @@
         case kGuestsRow: {
             cell.textLabel.text = @"Gasten";
             cell.alignToTop = YES;
-            // TODO: should be UITableViewCellAccessoryDetailButton on iOS7
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+            if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            }
 
             FacebookEvent *event = self.activity.facebookEvent;
             if (event.friendsAttending.count > 0) {

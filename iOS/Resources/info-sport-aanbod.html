@@ -6,14 +6,21 @@
   <meta name="viewport" content="width=device-width" />
   <link href="webview.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript">
-window.onload = function() {
-  var rows = document.getElementsByTagName('tr');
-  for (var i = 0; i < rows.length; i++) {
-    rows[i].addEventListener('click', function() {
-      this.firstElementChild.firstElementChild.click();
-    });
-  }
-}
+    window.onload = function() {
+      var rows = document.getElementsByTagName('tr');
+      var iOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+      for (var i = 0; i < rows.length; i++) {
+        rows[i].addEventListener('click', function() {
+          if (iOS) {
+            this.firstElementChild.firstElementChild.click();
+          } else {
+            window.location = this.firstElementChild.firstElementChild.href;
+          }
+
+          return false;
+        });
+      }
+    }
   </script>
 </head>
 <body class="no-margin">

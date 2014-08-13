@@ -64,7 +64,7 @@ class Menu(object):
         self.vegetables = []
 
     def parse(self, menu_div, lang):
-        titles = [x.content.lower() for x in menu_div.xpathEval('./h3')]
+        titles = [x.content.lower() for x in menu_div.xpathEval('./h3') if x.content]
         lists = menu_div.xpathEval('./ul[*]')
 
         if len(titles) == 1 and titles[0] == DICTIONARY[lang]['closed']:
@@ -104,7 +104,7 @@ class MenuItem(object):
         self.process_description(description, lang)
 
     def process_description(self, description, lang):
-        match = re.match(u'^([^:]+): *([^€]+) - € *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
+        match = re.match(u'^([^:]+): *([^€]+) - €? *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
 
         self.name = match.group(2).strip()
         self.type = match.group(1).strip().lower()
@@ -221,14 +221,15 @@ def process_sources(year, week, lang, sources):
             key = source.split('-')[-1]
         else:
             key = 'default'
-        parsed_menus[key] = get_menu(isocalendar[0], isocalendar[1], source)
+        parsed_menus[key] = get_menu(year, week, source)
 
     if lang == 'nl' and parsed_menus['default']:
         dump_api_10_representation(year, week, parsed_menus['default'])
 
 if __name__ == '__main__':
     # Fetch the menu for the next three weeks
-    language_sources = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
+    #language_sources = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
+    language_sources = {'nl': ['nl']}
     weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
     for week in weeks:
         isocalendar = week.isocalendar()
