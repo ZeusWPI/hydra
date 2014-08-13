@@ -26,7 +26,7 @@
 - (id)init
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
-        [self loadAssocations];
+        [self loadAssociations];
     }
     return self;
 }
@@ -64,9 +64,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)loadAssocations
+- (void)loadAssociations
 {
-    NSArray *all = [[AssociationStore sharedStore] assocations];
+    NSArray *all = [[AssociationStore sharedStore] associations];
 
     // Get all unique parent organisations
     NSSet *convents = [NSSet setWithArray:[all valueForKey:@"parentAssociation"]];

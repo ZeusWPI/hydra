@@ -1,5 +1,5 @@
 //
-//  Assocation.h
+//  Association.h
 //  Hydra
 //
 //  Created by Pieter De Baets on 21/07/12.
@@ -20,8 +20,8 @@
 
 // Check that the current association list is up-to-date with the one provided
 // in the application bundle
-+ (NSDictionary *)updateAssociations:(NSDictionary *)associations;
 + (RKObjectMapping *)objectMapping;
++ (RKObjectMapping *)objectMappingActivities;
 
 - (BOOL)matches:(NSString *)query;
 

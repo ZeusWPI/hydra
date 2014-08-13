@@ -14,9 +14,11 @@
 #import "FacebookEvent.h"
 #import <RestKit/RestKit.h>
 
-#define kBaseUrl @"http://student.ugent.be/hydra/api/1.0/"
+//#define kBaseUrl @"http://student.ugent.be/hydra/api/1.0/"
+#define kBaseUrl @"http://kelder.zeus.ugent.be/~feliciaan/dsa/"
 #define kActivitiesResource @"all_activities.json"
 #define kNewsResource @"all_news.json"
+#define kAssociationResource @"associations.json"
 #define kUpdateInterval (15 * 60)
 
 NSString *const AssociationStoreDidUpdateNewsNotification =
@@ -27,11 +29,13 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 @interface AssociationStore () <NSCoding>
 
 @property (nonatomic, strong) NSDictionary *associationLookup;
+@property (nonatomic, strong) NSArray *associations;
 @property (nonatomic, strong) NSArray *newsItems;
 @property (nonatomic, strong) NSArray *activities;
 
 @property (nonatomic, strong) NSDate *newsLastUpdated;
 @property (nonatomic, strong) NSDate *activitiesLastUpdated;
+@property (nonatomic, strong) NSDate *associationsLastUpdated;
 
 @property (nonatomic, strong) RKObjectManager *objectManager;
 @property (nonatomic, strong) NSMutableArray *activeRequests;
@@ -71,7 +75,6 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)sharedInit
 {
-    self.associationLookup = [Association updateAssociations:self.associationLookup];
     self.activeRequests = [[NSMutableArray alloc] init];
     self.objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     
@@ -91,8 +94,10 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 - (id)initWithCoder:(NSCoder *)decoder
 {
     if (self = [super init]) {
-        _associationLookup = [decoder decodeObjectForKey:@"associationLookup"];
-        AssertClassOrNil(_associationLookup, NSDictionary);
+        _associations = [decoder decodeObjectForKey:@"associations"];
+        AssertClassOrNil(_associations, NSArray);
+        _associationsLastUpdated = [decoder decodeObjectForKey:@"associationsLastUpdated"];
+        AssertClassOrNil(_associationsLastUpdated, NSDate);
 
         _newsItems = [decoder decodeObjectForKey:@"newsItems"];
         AssertClassOrNil(_newsItems, NSArray);
@@ -111,7 +116,8 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:_associationLookup forKey:@"associationLookup"];
+    [coder encodeObject:_associationsLastUpdated forKey:@"associationsLastUpdated"];
+    [coder encodeObject:_associations forKey:@"associations"];
     [coder encodeObject:_newsLastUpdated forKey:@"newsLastUpdated"];
     [coder encodeObject:_newsItems forKey:@"newsItems"];
     [coder encodeObject:_activitiesLastUpdated forKey:@"activitiesLastUpdated"];
@@ -150,13 +156,11 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 #pragma mark - Accessors
 
-- (NSArray *)assocations
-{
-    return [self.associationLookup allValues];
-}
-
 - (Association *)associationWithName:(NSString *)internalName
 {
+    if (self.associationLookup == nil) {
+        [self createAssociationsLookup];
+    }
     Association *association = self.associationLookup[internalName];
 
     // If the association is unknown, just give a fake record
@@ -167,6 +171,13 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     }
 
     return association;
+}
+
+- (NSArray *)associations
+{
+    [self _updateResource:kAssociationResource lastUpdated:self.newsLastUpdated
+            objectMapping:[AssociationNewsItem objectMapping]];
+    return _associations;
 }
 
 - (NSArray *)activities
@@ -189,6 +200,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self _updateResource:kActivitiesResource lastUpdated:nil
            objectMapping:[AssociationActivity objectMapping]];
+    [self reloadAssociations];
 }
 
 - (void)reloadNewsItems
@@ -196,6 +208,13 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [self _updateResource:kNewsResource lastUpdated:nil
            objectMapping:[AssociationNewsItem objectMapping]];
+    [self reloadAssociations];
+}
+
+- (void)reloadAssociations
+{
+    [self _updateResource:kAssociationResource lastUpdated:nil
+            objectMapping:[Association objectMapping]];
 }
 
 #pragma mark - RestKit Object loading
@@ -274,6 +293,10 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
       self.activitiesLastUpdated = [NSDate date];
       notification = AssociationStoreDidUpdateActivitiesNotification;
     }
+    else if ([resource isEqualToString:kAssociationResource]) {
+        self.associations = objects;
+        [self createAssociationsLookup];
+    }
 
     [self markStorageOutdated];
     [self syncStorage];
@@ -307,6 +330,17 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
       [self.activeRequests removeObject:resource];
     });
+}
+
+#pragma mark - Utility functions
+- (void)createAssociationsLookup
+{
+    NSMutableDictionary *associationsLookup = [NSMutableDictionary dictionary];
+    for (Association *association in self.associations) {
+        associationsLookup[association.internalName] = association;
+    }
+
+    self.associationLookup = associationsLookup;
 }
 
 #pragma mark - Notifications
