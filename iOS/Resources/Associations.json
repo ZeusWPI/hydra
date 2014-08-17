@@ -16,7 +16,7 @@
     },
     {
         "displayName": "Faculteiten Konvent",
-        "internalName": "FKCENTRAAL",
+        "internalName": "FK",
         "parentAssociation": "FKCENTRAAL"
     },
     {
@@ -35,23 +35,44 @@
         "parentAssociation": "FKCENTRAAL"
     },
     {
-        "displayName": "Gentse Farmaceutische Kring",
+        "displayName": "Germania",
+        "internalName": "GERMANIA",
+        "parentAssociation": "FKCENTRAAL"
+    },
+    {
+        "displayName": "Gentse Farma Kring",
         "internalName": "GFK",
         "parentAssociation": "FKCENTRAAL"
     },
     {
+        "displayName": "Hermes",
+        "internalName": "HERMES",
+        "parentAssociation": "FKCENTRAAL"
+    },
+    {
         "displayName": "HILOK",
+        "fullName": "Hoger instituut voor lichamelijke opvoeding en kinesitherapie",
         "internalName": "HILOK",
         "parentAssociation": "FKCENTRAAL"
     },
     {
-        "displayName": "KunstHistorische Kring",
+        "displayName": "Kunsthistorische kring",
         "internalName": "KHK",
         "parentAssociation": "FKCENTRAAL"
     },
     {
         "displayName": "Kring Moraal en Filosofie",
         "internalName": "KMF",
+        "parentAssociation": "FKCENTRAAL"
+    },
+    {
+        "displayName": "Moeder lies",
+        "internalName": "LIES",
+        "parentAssociation": "FKCENTRAAL"
+    },
+    {
+        "displayName": "Lila",
+        "internalName": "LILA",
         "parentAssociation": "FKCENTRAAL"
     },
     {
@@ -67,6 +88,11 @@
     {
         "displayName": "Politeia",
         "internalName": "POLITEIA",
+        "parentAssociation": "FKCENTRAAL"
+    },
+    {
+        "displayName": "Romania",
+        "internalName": "ROMANIA",
         "parentAssociation": "FKCENTRAAL"
     },
     {
@@ -87,6 +113,11 @@
     {
         "displayName": "Vlaamse Economische Kring",
         "internalName": "VEK",
+        "parentAssociation": "FKCENTRAAL"
+    },
+    {
+        "displayName": "VeTo",
+        "internalName": "VETO",
         "parentAssociation": "FKCENTRAAL"
     },
     {
@@ -135,7 +166,7 @@
         "parentAssociation": "HKCENTRAAL"
     },
     {
-        "displayName": "Home Bertha",
+        "displayName": "Home Bertha de Vriese",
         "internalName": "BERTHA",
         "parentAssociation": "HKCENTRAAL"
     },
@@ -151,12 +182,17 @@
     },
     {
         "displayName": "Home Konvent",
-        "internalName": "HKCENTRAAL",
+        "internalName": "HK",
         "parentAssociation": "HKCENTRAAL"
     },
     {
         "displayName": "Home Vermeylen",
         "internalName": "VERMEYL",
+        "parentAssociation": "HKCENTRAAL"
+    },
+    {
+        "displayName": "Home Vesalius",
+        "internalName": "VESALIUS",
         "parentAssociation": "HKCENTRAAL"
     },
     {
@@ -166,7 +202,7 @@
     },
     {
         "displayName": "ChiSAG",
-        "fullName": "Chinese Student Association Ghent",
+        "fullName": "Chinese Students Organisation",
         "internalName": "CHISAG",
         "parentAssociation": "IKCENTRAAL"
     },
@@ -178,17 +214,22 @@
     },
     {
         "displayName": "Internationaal Konvent",
-        "internalName": "IKCENTRAAL",
+        "internalName": "IK",
         "parentAssociation": "IKCENTRAAL"
     },
     {
         "displayName": "ISAG",
-        "fullName": "International Students Association Ghent ",
+        "fullName": "International Students Association",
         "internalName": "ISAG",
         "parentAssociation": "IKCENTRAAL"
     },
     {
-        "displayName": "Students Welcome Club",
+        "displayName": "Indonesian Students Association Ghent",
+        "internalName": "IndoSAG",
+        "parentAssociation": "IKCENTRAAL"
+    },
+    {
+        "displayName": "Students' Welcome Club",
         "internalName": "SWC",
         "parentAssociation": "IKCENTRAAL"
     },
@@ -210,7 +251,7 @@
     {
         "displayName": "GUDc",
         "fullName": "Gentse Universitaire Dansclub",
-        "internalName": "GUDC",
+        "internalName": "GUDc",
         "parentAssociation": "KULTKCENTRAAL"
     },
     {
@@ -232,7 +273,7 @@
     },
     {
         "displayName": "Kultureel Konvent",
-        "internalName": "KULTKCENTRAAL",
+        "internalName": "KULTK",
         "parentAssociation": "KULTKCENTRAAL"
     },
     {
@@ -246,7 +287,7 @@
         "parentAssociation": "KULTKCENTRAAL"
     },
     {
-        "displayName": "Studentenfanfare Ghendt",
+        "displayName": "Studentenfanfare",
         "internalName": "SF",
         "parentAssociation": "KULTKCENTRAAL"
     },
@@ -256,8 +297,8 @@
         "parentAssociation": "PFKCENTRAAL"
     },
     {
-        "displayName": "Animo StuGent",
-        "internalName": "ANIMO",
+        "displayName": "Anarchistisch Kollectief",
+        "internalName": "ANARCH",
         "parentAssociation": "PFKCENTRAAL"
     },
     {
@@ -279,8 +320,13 @@
     },
     {
         "displayName": "GRAS Gent",
-        "fullName": "Groene Alternatieve Studenten",
+        "fullName": "Groen Alternatieve Studenten",
         "internalName": "GRAS",
+        "parentAssociation": "PFKCENTRAAL"
+    },
+    {
+        "displayName": "International Fellowship of Christian Students",
+        "internalName": "IFECS",
         "parentAssociation": "PFKCENTRAAL"
     },
     {
@@ -294,9 +340,24 @@
         "parentAssociation": "PFKCENTRAAL"
     },
     {
+        "displayName": "Jongsocialisten StuGent",
+        "internalName": "JS",
+        "parentAssociation": "PFKCENTRAAL"
+    },
+    {
+        "displayName": "KASPER",
+        "internalName": "KASPER",
+        "parentAssociation": "PFKCENTRAAL"
+    },
+    {
         "displayName": "KVHV",
         "fullName": "Katholiek Vlaams Hoogstudenten Verbond",
         "internalName": "KVHV",
+        "parentAssociation": "PFKCENTRAAL"
+    },
+    {
+        "displayName": "L2 UGent",
+        "internalName": "L2UGENT",
         "parentAssociation": "PFKCENTRAAL"
     },
     {
@@ -318,13 +379,33 @@
     },
     {
         "displayName": "Politiek en Filosofisch Konvent",
-        "internalName": "PFKCENTRAAL",
+        "internalName": "PFK",
+        "parentAssociation": "PFKCENTRAAL"
+    },
+    {
+        "displayName": "Ronduit N-VA Gent",
+        "internalName": "RNVA",
+        "parentAssociation": "PFKCENTRAAL"
+    },
+    {
+        "displayName": "Socialisme 21 UGent",
+        "internalName": "Socialisme 21 UG",
         "parentAssociation": "PFKCENTRAAL"
     },
     {
         "displayName": "'t Zal Wel Gaan",
         "internalName": "TZAL",
         "parentAssociation": "PFKCENTRAAL"
+    },
+    {
+        "displayName": "Vonk, Marxistische Studenten",
+        "internalName": "VMS",
+        "parentAssociation": "PFKCENTRAAL"
+    },
+    {
+        "displayName": "Schamper",
+        "internalName": "SCHAMPDRUK",
+        "parentAssociation": "SCHAMPER"
     },
     {
         "displayName": "Schamper",
@@ -352,7 +433,7 @@
         "parentAssociation": "SKCENTRAAL"
     },
     {
-        "displayName": "De Dijlebrassers",
+        "displayName": "HSC De Dijlebrassers",
         "internalName": "DIJLEBRASSERS",
         "parentAssociation": "SKCENTRAAL"
     },
@@ -418,7 +499,7 @@
     },
     {
         "displayName": "Senioren Konvent",
-        "internalName": "SKCENTRAAL",
+        "internalName": "SK",
         "parentAssociation": "SKCENTRAAL"
     },
     {
@@ -447,9 +528,14 @@
         "parentAssociation": "URGENT"
     },
     {
+        "displayName": "UGent AAPG Studentchapter",
+        "internalName": "AAPGSC",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
         "displayName": "Amnesty",
-        "fullName": "Amnesty International Studentenkern Gent",
-        "internalName": "AIS",
+        "fullName": "Amnesty International Studenten Gent",
+        "internalName": "AISG",
         "parentAssociation": "WVKCENTRAAL"
     },
     {
@@ -460,6 +546,16 @@
     {
         "displayName": "Archeologische Werkgroep",
         "internalName": "AW",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
+        "displayName": "BeMSA",
+        "internalName": "BeMSA",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
+        "displayName": "Capitant Gent",
+        "internalName": "CAPITANT",
         "parentAssociation": "WVKCENTRAAL"
     },
     {
@@ -484,14 +580,29 @@
         "parentAssociation": "WVKCENTRAAL"
     },
     {
+        "displayName": "Gentse Interculturele Studenten Associatie",
+        "internalName": "GISA",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
+        "displayName": "Groene Kring",
+        "internalName": "GK",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
         "displayName": "IEEE SB",
         "fullName": "IEEE Student Branch Gent",
         "internalName": "IEEE",
         "parentAssociation": "WVKCENTRAAL"
     },
     {
+        "displayName": "Jong EVA",
+        "internalName": "JE",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
         "displayName": "Kajira",
-        "internalName": "kajira",
+        "internalName": "KAJIRA",
         "parentAssociation": "WVKCENTRAAL"
     },
     {
@@ -500,8 +611,18 @@
         "parentAssociation": "WVKCENTRAAL"
     },
     {
-        "displayName": "MaChT",
+        "displayName": "LingForum",
+        "internalName": "LINGFORUM",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
+        "displayName": "MaCht",
         "internalName": "MACHT",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
+        "displayName": "Milieu Aktie Forum",
+        "internalName": "MAF",
         "parentAssociation": "WVKCENTRAAL"
     },
     {
@@ -525,6 +646,16 @@
         "parentAssociation": "WVKCENTRAAL"
     },
     {
+        "displayName": "Studenten Tegen Racisme",
+        "internalName": "STER",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
+        "displayName": "Symposium Culturele Vereniging",
+        "internalName": "SYMPOSIUM",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
         "displayName": "Verkeerd Geparkeerd",
         "internalName": "VG",
         "parentAssociation": "WVKCENTRAAL"
@@ -535,12 +666,23 @@
         "parentAssociation": "WVKCENTRAAL"
     },
     {
+        "displayName": "Werkgroep Electronica",
+        "internalName": "WELEC",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
+        "displayName": "Werkgroep Sterrenkunde",
+        "internalName": "WS",
+        "parentAssociation": "WVKCENTRAAL"
+    },
+    {
         "displayName": "Werkgroepen & Verenigingen Konvent",
-        "internalName": "WVKCENTRAAL",
+        "internalName": "WVK",
         "parentAssociation": "WVKCENTRAAL"
     },
     {
         "displayName": "Zeus WPI",
+        "fullName": "Zeus WerkgroeP Informatica",
         "internalName": "ZEUS",
         "parentAssociation": "WVKCENTRAAL"
     }
