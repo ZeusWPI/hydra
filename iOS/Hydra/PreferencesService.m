@@ -66,6 +66,9 @@
 {
     NSArray *list = [self.settings objectForKey:kPreferredAssociationsKey];
     AssertClassOrNil(list, NSArray);
+    if (list == nil) {
+        list = [[NSArray alloc] init];
+    }
     return list;
 }
 
