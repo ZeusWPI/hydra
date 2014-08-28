@@ -9,23 +9,15 @@ It's output is supposed to be served through the API.
 
 import csv
 
-KONVENT_MAP = {
-    'fk': 'FKCENTRAAL',
-    'hk': 'HKCENTRAAL',
-    'ik': 'IKCENTRAAL',
-    'kultk': 'KULTKCENTRAAL',
-    'pfk': 'PFKCENTRAAL',
-    'schamper': 'SCHAMPER',
-    'sk': 'SKCENTRAAL',
-    'urgent': 'URGENT',
-    'wvk': 'WVKCENTRAAL'
+KONVENT_SET = {
+    'fk', 'hk', 'ik', 'kultk', 'pfk', 'schamper', 'sk', 'urgent', 'wvk'
 }
 
 
 def jsonify(db_line):
     entry = {
         'internalName': db_line[2],
-        'parentAssociation': KONVENT_MAP[db_line[6]]
+        'parentAssociation': db_line[6].upper()
     }
     if db_line[5] == 'NULL':
         entry['displayName'] = db_line[3]
@@ -36,7 +28,7 @@ def jsonify(db_line):
 
 
 def in_vkv(db_line):
-    return db_line[6] in KONVENT_MAP
+    return db_line[6] in KONVENT_SET
 
 
 def parse_and_sort(file_):
