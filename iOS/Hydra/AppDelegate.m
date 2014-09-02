@@ -41,7 +41,6 @@
     gai.trackUncaughtExceptions = YES;
     gai.dispatchInterval = 30;
     gai.defaultTracker = [gai trackerWithTrackingId:kGoogleAnalyticsToken];
-    gai.debug = DEBUG;
 #endif
 
 #if DEBUG
