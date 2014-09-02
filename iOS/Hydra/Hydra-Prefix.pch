@@ -34,7 +34,8 @@
 #endif
 
 #if GoogleAnalyticsEnabled
-#define GAI_Track(screen) {id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker]; [tracker set:kGAIScreenName value:screen]; [tracker send:[[GAIDictionaryBuilder createAppView]  build]];}
+    #define GAI_Track(screen) { id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker]; \
+                                [tracker set:kGAIScreenName value:screen]; [tracker send:[[GAIDictionaryBuilder createAppView]  build]];}
 #else
     #define GAI_Track(screen) do { } while (0)
 #endif
