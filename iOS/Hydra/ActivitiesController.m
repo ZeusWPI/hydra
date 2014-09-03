@@ -364,9 +364,11 @@
         [activity.association.internalName rangeOfString:searchString options:option].location != NSNotFound) {
         return YES;
     }
-    for(NSString* categorie in activity.categories){
-        if([categorie rangeOfString:searchString options:option].location != NSNotFound){
-            return YES;
+    if (![activity.categories  isEqual: @[[NSNull null]]]) {
+        for(NSString* categorie in activity.categories){
+            if([categorie rangeOfString:searchString options:option].location != NSNotFound){
+                return YES;
+            }
         }
     }
     return NO;
