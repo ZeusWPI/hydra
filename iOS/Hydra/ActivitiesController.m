@@ -421,12 +421,14 @@
 - (void)didSelectActivity:(AssociationActivity *)activity
 {
     NSDate *day = [activity.start dateAtStartOfDay];
-    NSUInteger row = [self.data[day] indexOfObject:activity];
     NSUInteger section = [self.days indexOfObject:day];
+    NSUInteger row = [self.data[day] indexOfObject:activity];
 
-    NSIndexPath *selection = [NSIndexPath indexPathForRow:row inSection:section];
-    [self.tableView selectRowAtIndexPath:selection animated:NO
-                          scrollPosition:UITableViewScrollPositionNone];
+    if (row != NSNotFound) {
+        NSIndexPath *selection = [NSIndexPath indexPathForRow:row inSection:section];
+        [self.tableView selectRowAtIndexPath:selection animated:NO
+                              scrollPosition:UITableViewScrollPositionNone];
+    }
 }
 
 #pragma mark - Date button and UIPickerView

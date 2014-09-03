@@ -695,17 +695,24 @@
 
 - (void)segmentTapped:(UISegmentedControl *)control
 {
+    AssociationActivity *activity;
     if (control.selectedSegmentIndex == 0) {
-        self.activity = [self.listDelegate activityBefore:self.activity];
+        activity = [self.listDelegate activityBefore:self.activity];
     }
     else {
-        self.activity = [self.listDelegate activityAfter:self.activity];
+        activity = [self.listDelegate activityAfter:self.activity];
+    }
+    
+    if (activity != nil) {
+        [self reloadData];
+        [self enableSegments:control];
+        [self viewDidAppear:NO]; // Trigger analytics
+        [self.listDelegate didSelectActivity:self.activity];
+    } else {
+        [self enableSegments:control]; // disables segments
     }
 
-    [self reloadData];
-    [self enableSegments:control];
-    [self viewDidAppear:NO]; // Trigger analytics
-    [self.listDelegate didSelectActivity:self.activity];
+    
 }
 
 #pragma mark - Notifications
