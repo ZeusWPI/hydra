@@ -704,6 +704,7 @@
     }
     
     if (activity != nil) {
+        self.activity = activity;
         [self reloadData];
         [self enableSegments:control];
         [self viewDidAppear:NO]; // Trigger analytics
