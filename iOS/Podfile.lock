@@ -1,7 +1,10 @@
 PODS:
-  - AFNetworking (1.3.3)
-  - Facebook-iOS-SDK (3.10.0)
-  - GoogleAnalytics-iOS-SDK (3.0.2)
+  - AFNetworking (1.3.4)
+  - Bolts (1.1.2)
+  - Facebook-iOS-SDK (3.17.0):
+    - Bolts
+  - GoogleAnalytics-iOS-SDK (3.0.9)
+  - PKMultipartInputStream (1.1.0)
   - Reachability (3.1.1)
   - RestKit (0.20.3):
     - RestKit/Core
@@ -21,30 +24,36 @@ PODS:
   - RKXMLReaderSerialization (0.1.0):
     - RestKit (>= 0.20.0dev)
     - XMLReader (>= 0.0.2)
-  - SDWebImage (3.5.1):
+  - SAMTextView (0.2.1)
+  - SDWebImage (3.7.1):
     - SDWebImage/Core
-  - SDWebImage/Core (3.5.1)
-  - ShareKit/Core (2.4.6):
+  - SDWebImage/Core (3.7.1)
+  - ShareKit/Core (2.5.9):
+    - SAMTextView (~> 0.2.1)
+    - SDWebImage
     - ShareKit/NoARC
     - ShareKit/Reachability
-    - SSKeychain (~> 0.2.1)
-    - SSToolkit (~> 1.0.4)
-  - ShareKit/Facebook (2.4.6):
-    - Facebook-iOS-SDK (~> 3.8)
+    - SSKeychain (~> 1.2.2)
+    - UIActivityIndicator-for-SDWebImage
+  - ShareKit/Facebook (2.5.9):
+    - Facebook-iOS-SDK
     - ShareKit/Core
-  - ShareKit/NoARC (2.4.6)
-  - ShareKit/Reachability (2.4.6)
-  - ShareKit/Twitter (2.4.6):
+  - ShareKit/NoARC (2.5.9):
+    - PKMultipartInputStream
+    - ShareKit/Core
+  - ShareKit/Reachability (2.5.9)
+  - ShareKit/Twitter (2.5.9):
     - ShareKit/Core
   - SMPageControl (1.2)
   - SOCKit (1.1)
-  - SSKeychain (0.2.1)
-  - SSToolkit (1.0.4)
+  - SSKeychain (1.2.2)
   - SVProgressHUD (0.9)
-  - TestFlightSDK (2.1.3-noadid-beta)
+  - TestFlightSDK (2.2.3-beta)
   - TransitionKit (1.1.1)
   - TUSafariActivity (0.0.1)
-  - VTAcknowledgementsViewController (0.6)
+  - UIActivityIndicator-for-SDWebImage (1.2):
+    - SDWebImage (~> 3.7)
+  - VTAcknowledgementsViewController (0.11)
   - XMLReader (0.0.2)
 
 DEPENDENCIES:
@@ -69,23 +78,26 @@ EXTERNAL SOURCES:
     :podspec: External/TUSafariActivity.podspec
 
 SPEC CHECKSUMS:
-  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
-  Facebook-iOS-SDK: ef402579aeb30cf0c4a6370fb0a927e3dc3059e5
-  GoogleAnalytics-iOS-SDK: 86393b99f7328ae8d8e975fcaa8632a39dafafe8
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
-  RestKit: 1f181c180105a92f11ec4f6cd7de37625e516d83
+  AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
+  Bolts: 2635e8698a630774689441047f3465d78c48d485
+  Facebook-iOS-SDK: f20274d809f112ba540842e2b6cbe50128d51b7b
+  GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
+  PKMultipartInputStream: 9e18cd438cbfb8900ccb4d26b3f848768cd92e10
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  RestKit: 7f9490e709ee745e166c4d2aa7a8d132831275b0
   RKXMLReaderSerialization: 340ce8c21cf74fd10bd63c8401b13eed53722103
-  SDWebImage: a408b548a634b792372e07e753fc1079aff5032a
-  ShareKit: ba581dd29ef2bb26ef3c82739fd0c0581d07d062
-  SMPageControl: 0c5c5d7e142c1ce6ef5b0d7182d6ad3b2af8f2e3
-  SOCKit: 2f3bc4d07910de12dcc202815e07db68a3802581
-  SSKeychain: ffa1a79eb716d9ed1ca184fb0cf218087ca28486
-  SSToolkit: 689acaedac79c2079e492e528a55bcb5db9d98c4
-  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
-  TestFlightSDK: 8f8941d0dd990508e127480b06cc6c36379c1b49
-  TransitionKit: d0e3344aac92991395d4c2e72d9c5a8ceeb12910
+  SAMTextView: 1062a784ba7b2080b0c17748001c416b53010b4b
+  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
+  ShareKit: 6a90d88043bb2348000247ece3983021496084ea
+  SMPageControl: 506b0c561d3ddbe2d5df28cb33acc8e4b1f93f19
+  SOCKit: d8d0dd3688ae1026c12367570da8fa8e1a6980fb
+  SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
+  SVProgressHUD: adf9def97327df88dee15e9ad8033fde6961f7b4
+  TestFlightSDK: f713ed33c62f3f22b66634e7caeeb9a3a8d2a3fb
+  TransitionKit: b573f93c422f6aedf7d40e93e7c2f202d1295063
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
-  VTAcknowledgementsViewController: aa281a1c4b72c0530d30c5f3ac84a571fb5e2cb0
-  XMLReader: d8a522b0362140b328bcaec7f289ff4ffffebf29
+  UIActivityIndicator-for-SDWebImage: 8bd92c15280fbe54816448c6b14674145eee05c7
+  VTAcknowledgementsViewController: 6e71652adbe73c68f0a278a73ac9ca1e1fc00b90
+  XMLReader: 2264fd2f8167343285a9943929c3b7e4b74626c0
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.33.1
