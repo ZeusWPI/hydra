@@ -1,4 +1,4 @@
-platform :ios, '5.0'
+platform :ios, '6.0'
 
 pod 'GoogleAnalytics-iOS-SDK',  '~> 3.0'
 pod 'TestFlightSDK',            '~> 2.0'

@@ -24,6 +24,8 @@
 			<key>UIPrerenderedIcon</key>
 			<true/>
 		</dict>
+		<key>Icon already includes gloss effects</key>
+		<true/>
 	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>be.ugent.zeus.${PRODUCT_NAME:rfc1034identifier}${CUSTOM_IDENTIFIER_SUFFIX}</string>
