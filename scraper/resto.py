@@ -104,7 +104,7 @@ class MenuItem(object):
         self.process_description(description, lang)
 
     def process_description(self, description, lang):
-        match = re.match(u'^([^:]+): *([^€]+) - €? *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
+        match = re.match(u'^([^:]+): *([^€]+) *- *€? *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
 
         self.name = match.group(2).strip()
         self.type = match.group(1).strip().lower()
@@ -135,7 +135,7 @@ def get_menu(year, week, lang):
 def download_menu(url, week, lang):
     print('Fetching week %02d menu webpage for %s' % (week, lang))
     r = requests.get(url % week)
-    if r.status_code == 200 and not 'login.ugent.be' in r.url: 
+    if r.status_code == 200 and not 'login.ugent.be' in r.url:
         return r.text
     else:
         return None
