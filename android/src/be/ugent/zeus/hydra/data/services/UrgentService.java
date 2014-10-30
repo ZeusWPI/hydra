@@ -17,8 +17,8 @@ import be.ugent.zeus.hydra.data.caches.SongCache;
 public class UrgentService extends HTTPIntentService {
 
     private static final String TAG = "UrgentService";
-    private static final String SONG_URL = "http://urgent.fm/nowplaying/livetrack.txt";
-    private static final String PROGRAM_URL = "http://urgent.fm/nowplaying/program.php";
+    private static final String SONG_URL = "http://old.urgent.fm/nowplaying/livetrack.txt";
+    private static final String PROGRAM_URL = "http://old.urgent.fm/nowplaying/program.php";
     private SongCache cache;
 
     public UrgentService() {
