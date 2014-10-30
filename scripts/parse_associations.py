@@ -16,8 +16,8 @@ KONVENT_SET = {
 
 def jsonify(db_line):
     entry = {
-        'internalName': db_line[2],
-        'parentAssociation': db_line[6].upper()
+        'internalName': db_line[1].upper(),
+        'parentAssociation': db_line[6].upper() + "CENTRAAL"
     }
     if db_line[5] == 'NULL':
         entry['displayName'] = db_line[3]
