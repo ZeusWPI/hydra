@@ -403,14 +403,14 @@
         "parentAssociation": "PFKCENTRAAL"
     },
     {
-        "displayName": "Schamper",
-        "internalName": "SCHAMPER",
-        "parentAssociation": "SCHAMPERCENTRAAL"
+        "displayName": "Schamperdruk",
+        "internalName": "SCHAMPDRUK",
+        "parentAssociation": "SCHAMPER"
     },
     {
         "displayName": "Schamper",
         "internalName": "SCHAMPER",
-        "parentAssociation": "SCHAMPERCENTRAAL"
+        "parentAssociation": "SCHAMPER"
     },
     {
         "displayName": "Vader Aalsterse",
@@ -525,7 +525,7 @@
     {
         "displayName": "Urgent.fm",
         "internalName": "URGENT",
-        "parentAssociation": "URGENTCENTRAAL"
+        "parentAssociation": "URGENT"
     },
     {
         "displayName": "UGent AAPG Studentchapter",
