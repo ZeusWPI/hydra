@@ -9,6 +9,9 @@ import sys
 # Where to write to.
 OUTFILE = "resto/1.0/menu/{}/{}.json"
 
+# Languages
+TYPES = ['nl', 'en', 'nl-sintjansvest']
+
 # The url containing the list of weekmenu's.
 WEEKMENU_URL = {
     "nl": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
@@ -48,14 +51,14 @@ def get_days(which, iso_week, url):
     "Retrieves a dictionary from isoweeks on which the resto is open."
     # close all days by default.
     r = {
-        str(DateStuff.from_iso_week_day(which, iso_week, day)): None
+        DateStuff.from_iso_week_day(which, iso_week, day): None
         for day in DateStuff.DAY_OF_THE_WEEK[which]
     }
 
     # open on the avaible days
     weekmenu = pq(url=url)
     r.update({
-        str(DateStuff.from_iso_week_day(which, iso_week, pq(e).html())):
+        DateStuff.from_iso_week_day(which, iso_week, pq(e).html()):
             str(pq(e).attr("href"))
         for e in weekmenu(DAY_SELECTOR)
     })
@@ -73,27 +76,26 @@ def get_day_menu(which, url):
     #       and \2 is the price.
     daymenu = pq(url=url)
     vegetables = []
-    priced = []
+    meats = []
+    soups = []
 
     if CLOSED[which] in daymenu(CLOSED_SELECTOR).html():
-        return {"open": False}
+        return dict(open=False)
 
     for meal in daymenu(MEAL_SELECTOR):
         meal = pq(meal).html()
         if '€' in meal:
-            priced.append({
-                "name": '-'.join(meal.split('-')[:-1]).strip(),
-                "price": meal.split('-')[-1].strip()
-            })
+            price = meal.split('-')[-1].strip()
+            name = '-'.join(meal.split('-')[:-1]).strip()
+            if ':' in meal: # Meat
+                kind, name = [s.strip() for s in name.split(':')]
+                meats.append(dict(price=price, name=name, kind=kind))
+            else: # soup
+                soups.append(dict(price=price, name=name))
         else:
             vegetables.append(meal)
-    soup, *meats = priced
-    return {
-        "open": True,
-        "vegetables": vegetables,
-        "soup": soup,
-        "meat": [dict(meat, recommended=False) for meat in meats]
-    }
+    r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats)
+    return r
 
 
 class DateStuff(object):
@@ -156,50 +158,87 @@ class DateStuff(object):
             problems.append("Failed to retrieve the menu of the next week.")
         return problems
 
+
+def write_1_0(menus):
+    # 1.0 is only nl.
+    for weekyear, weekmenu in menus['nl'].items():
+        year, week = weekyear
+        menu = {}
+        for day, daymenu in weekmenu.items():
+            daymenu1_0 = {}
+            if not daymenu["open"]:
+                daymenu1_0 = {"open": False}
+            else:
+                daymenu1_0 = {
+                    "open": True,
+                    "soup": daymenu["soup"][0],
+                    "meat": [daymenu["soup"][1]],
+                    "vegetables": daymenu["vegetables"]
+                }
+                for meat in daymenu["meat"]:
+                    name = meat["name"]
+                    price = meat["price"]
+                    if "Vegetarisch" in meat["kind"]:
+                        name = "Veg. " + name
+                    daymenu1_0["meat"].append(
+                        dict(name=name, price=price, recommended=False)
+                    )
+            menu[str(day)] = daymenu1_0
+        json.dump(menu, open(OUTFILE.format(year, week), 'w'),
+                sort_keys=True)
+
 def main():
     "The main method."
-    which = "en"
-    problems = []
 
-    weeks = {}
-    try:
-        # Get weeks. Expect at least this week (if <= friday) and the following.
-        weeks = get_weeks(which)
-        problems.extend(DateStuff.problems_with_weeks(weeks))
-    except:
-        problems.append("Failed to parse the weekmenu on {}.".format(
-            WEEKMENU_URL[which]))
+    all_problems = {}
+    menus = {}
+    for which in TYPES:
+        problems = []
+        menus[which] = {}
 
-    for week, week_url in weeks.items():
-
-        year, week = week
-        days = {}
+        weeks = {}
         try:
-            # Get days. Expect every day to be there.
-            days = get_days(which, week, week_url)
-            problems.extend([
-                "{} is not available in week {}.".format(day, week)
-                for day in days if days[day] is None
-            ])
+            # Get weeks. Expect at least this week (if <= friday) and the following.
+            weeks = get_weeks(which)
+            problems.extend(DateStuff.problems_with_weeks(weeks))
         except:
-            problems.append("Failed to parse days from {}.".format(week_url))
+            problems.append("Failed to parse the weekmenu on {}.".format(
+                WEEKMENU_URL[which]))
 
-        week_dict = {}
-        for day, day_url in days.items():
-            if day_url is None: continue # skipping unavailable days.
+        for week, week_url in weeks.items():
 
+            year, week = week
+            days = {}
             try:
-                menu = get_day_menu(which, day_url)
-                week_dict[day] = menu
+                # Get days. Expect every day to be there.
+                days = get_days(which, week, week_url)
+                problems.extend([
+                    "{} is not available in week {}.".format(day, week)
+                    for day in days if days[day] is None
+                ])
             except:
-                problems.append("Failed parsing daymenu from {}.".format(
-                    day_url))
+                problems.append("Failed to parse days from {}.".format(week_url))
 
-        # Write menu to file.
-        json.dump(week_dict, open(OUTFILE.format(year, week), 'w'), sort_keys=True)
+            week_dict = {}
+            for day, day_url in days.items():
+                if day_url is None: continue # skipping unavailable days.
 
-    if problems: pprint(problems, stream=sys.stderr)
+                try:
+                    menu = get_day_menu(which, day_url)
+                    week_dict[day] = menu
+                except Exception as e:
+                    problems.append("Failed parsing daymenu from {}.".format(
+                        day_url))
+                    print(e)
 
+            menus[which][(year, week)] = week_dict
+
+        if problems: all_problems[which] = problems
+
+    # Print the parsing problems.
+    if all_problems: pprint(all_problems, stream=sys.stderr)
+
+    write_1_0(menus)
 
 
 
