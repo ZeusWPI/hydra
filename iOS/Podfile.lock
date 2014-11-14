@@ -1,6 +1,6 @@
 PODS:
   - AFNetworking (1.3.4)
-  - Bolts (1.1.2)
+  - Bolts (1.1.3)
   - Facebook-iOS-SDK (3.17.0):
     - Bolts
   - GoogleAnalytics-iOS-SDK (3.0.9)
@@ -79,7 +79,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
-  Bolts: 2635e8698a630774689441047f3465d78c48d485
+  Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   Facebook-iOS-SDK: f20274d809f112ba540842e2b6cbe50128d51b7b
   GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
   PKMultipartInputStream: 9e18cd438cbfb8900ccb4d26b3f848768cd92e10
@@ -100,4 +100,4 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 6e71652adbe73c68f0a278a73ac9ca1e1fc00b90
   XMLReader: 2264fd2f8167343285a9943929c3b7e4b74626c0
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.4

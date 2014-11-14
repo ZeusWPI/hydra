@@ -225,11 +225,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		24046D4357E2426386B31283 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		395C117816272D8000B99F9B /* NewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
 		395C117916272D8000B99F9B /* NewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		395C117B1627437000B99F9B /* NewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
 		395C117C1627437000B99F9B /* NewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
+		39B9A4055F5F374AA56058ED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3B436DF615B8915200984D3F /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		3B436DF715B8915200984D3F /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		3B7AD3B715BC830F0026BB62 /* RestoMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMenuView.h; sourceTree = "<group>"; };
@@ -271,6 +271,7 @@
 		90F05264168C7D19004CAFFC /* RestoLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLocation.h; sourceTree = "<group>"; };
 		90F05265168C7D19004CAFFC /* RestoLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLocation.m; sourceTree = "<group>"; };
 		E747F0E311D74638A7FC212F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2E1004E081A013343FCA87A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F5016BA4162756F300BBDB0A /* ActivitiesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesController.h; sourceTree = "<group>"; };
 		F5016BA5162756F300BBDB0A /* ActivitiesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesController.m; sourceTree = "<group>"; };
 		F5016BA71627665800BBDB0A /* ActivityDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailController.h; sourceTree = "<group>"; };
@@ -406,7 +407,7 @@
 		F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F5BAECA21518868200F6A1B1 /* DashboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DashboardViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAECA31518868200F6A1B1 /* DashboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
-		F5BAECAD1518868200F6A1B1 /* HydraTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HydraTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5BAECAD1518868200F6A1B1 /* HydraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HydraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HydraTests-Info.plist"; sourceTree = "<group>"; };
 		F5BAECBA1518868200F6A1B1 /* HydraTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HydraTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAECBB1518868200F6A1B1 /* HydraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HydraTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -561,6 +562,15 @@
 				F5C6093716D2DFCB0043BD44 /* PreferencesService.m */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		B007FEAAB912E2F80EF4FE3C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F2E1004E081A013343FCA87A /* Pods.debug.xcconfig */,
+				39B9A4055F5F374AA56058ED /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F521D11316C5386F00B686B2 /* Preferences */ = {
@@ -806,6 +816,7 @@
 				F5CFDF851631597E008CBF98 /* External */,
 				F5BAEC891518868200F6A1B1 /* Frameworks */,
 				F5BAEC871518868200F6A1B1 /* Products */,
+				B007FEAAB912E2F80EF4FE3C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -813,7 +824,7 @@
 			isa = PBXGroup;
 			children = (
 				F5BAEC861518868200F6A1B1 /* Hydra.app */,
-				F5BAECAD1518868200F6A1B1 /* HydraTests.octest */,
+				F5BAECAD1518868200F6A1B1 /* HydraTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -821,7 +832,6 @@
 		F5BAEC891518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				24046D4357E2426386B31283 /* Pods.xcconfig */,
 				E747F0E311D74638A7FC212F /* libPods.a */,
 				F54DC88D16A1A97C00FD212E /* libxml2.dylib */,
 				3B93FB9E1630939200C962DC /* AudioToolbox.framework */,
@@ -984,7 +994,6 @@
 				F5BAECA81518868200F6A1B1 /* Sources */,
 				F5BAECA91518868200F6A1B1 /* Frameworks */,
 				F5BAECAA1518868200F6A1B1 /* Resources */,
-				F5BAECAB1518868200F6A1B1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -993,8 +1002,8 @@
 			);
 			name = HydraTests;
 			productName = HydraTests;
-			productReference = F5BAECAD1518868200F6A1B1 /* HydraTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = F5BAECAD1518868200F6A1B1 /* HydraTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1196,20 +1205,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-		};
-		F5BAECAB1518868200F6A1B1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 		};
 		F5D3B621162EFBD400698C3E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1347,7 +1343,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "";
 			};
 			name = Debug;
 		};
@@ -1370,13 +1366,13 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "";
 			};
 			name = Release;
 		};
 		F5BAECC01518868200F6A1B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24046D4357E2426386B31283 /* Pods.xcconfig */;
+			baseConfigurationReference = F2E1004E081A013343FCA87A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1396,7 +1392,7 @@
 		};
 		F5BAECC11518868200F6A1B1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24046D4357E2426386B31283 /* Pods.xcconfig */;
+			baseConfigurationReference = 39B9A4055F5F374AA56058ED /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1416,39 +1412,165 @@
 		};
 		F5BAECC31518868200F6A1B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24046D4357E2426386B31283 /* Pods.xcconfig */;
+			baseConfigurationReference = F2E1004E081A013343FCA87A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Hydra.app/Hydra";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "HydraTests/HydraTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"GoogleAnalyticsServices\"",
+					"-l\"Pods-AFNetworking\"",
+					"-l\"Pods-Bolts\"",
+					"-l\"Pods-Facebook-iOS-SDK\"",
+					"-l\"Pods-GoogleAnalytics-iOS-SDK\"",
+					"-l\"Pods-PKMultipartInputStream\"",
+					"-l\"Pods-RKXMLReaderSerialization\"",
+					"-l\"Pods-Reachability\"",
+					"-l\"Pods-RestKit\"",
+					"-l\"Pods-SAMTextView\"",
+					"-l\"Pods-SDWebImage\"",
+					"-l\"Pods-SMPageControl\"",
+					"-l\"Pods-SOCKit\"",
+					"-l\"Pods-SSKeychain\"",
+					"-l\"Pods-SVProgressHUD\"",
+					"-l\"Pods-ShareKit\"",
+					"-l\"Pods-TUSafariActivity\"",
+					"-l\"Pods-TestFlightSDK\"",
+					"-l\"Pods-TransitionKit\"",
+					"-l\"Pods-UIActivityIndicator-for-SDWebImage\"",
+					"-l\"Pods-VTAcknowledgementsViewController\"",
+					"-l\"Pods-XMLReader\"",
+					"-l\"TestFlight\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"Twitter\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
 		F5BAECC41518868200F6A1B1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24046D4357E2426386B31283 /* Pods.xcconfig */;
+			baseConfigurationReference = 39B9A4055F5F374AA56058ED /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Hydra.app/Hydra";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "HydraTests/HydraTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"GoogleAnalyticsServices\"",
+					"-l\"Pods-AFNetworking\"",
+					"-l\"Pods-Bolts\"",
+					"-l\"Pods-Facebook-iOS-SDK\"",
+					"-l\"Pods-GoogleAnalytics-iOS-SDK\"",
+					"-l\"Pods-PKMultipartInputStream\"",
+					"-l\"Pods-RKXMLReaderSerialization\"",
+					"-l\"Pods-Reachability\"",
+					"-l\"Pods-RestKit\"",
+					"-l\"Pods-SAMTextView\"",
+					"-l\"Pods-SDWebImage\"",
+					"-l\"Pods-SMPageControl\"",
+					"-l\"Pods-SOCKit\"",
+					"-l\"Pods-SSKeychain\"",
+					"-l\"Pods-SVProgressHUD\"",
+					"-l\"Pods-ShareKit\"",
+					"-l\"Pods-TUSafariActivity\"",
+					"-l\"Pods-TestFlightSDK\"",
+					"-l\"Pods-TransitionKit\"",
+					"-l\"Pods-UIActivityIndicator-for-SDWebImage\"",
+					"-l\"Pods-VTAcknowledgementsViewController\"",
+					"-l\"Pods-XMLReader\"",
+					"-l\"TestFlight\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accounts\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"Social\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"Twitter\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

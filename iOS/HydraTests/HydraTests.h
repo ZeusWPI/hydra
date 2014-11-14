@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface HydraTests : SenTestCase
+@interface HydraTests : XCTestCase
 
 @end
