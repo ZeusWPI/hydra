@@ -39,6 +39,17 @@
 		90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F05262168C7726004CAFFC /* MapKit.framework */; };
 		90F05266168C7D19004CAFFC /* RestoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F05265168C7D19004CAFFC /* RestoLocation.m */; };
 		B50ED58F220549D98F92E254 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E747F0E311D74638A7FC212F /* libPods.a */; };
+		F49F792E1A1671950040987F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F49F792D1A1671950040987F /* NotificationCenter.framework */; };
+		F49F79331A1671950040987F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F79321A1671950040987F /* TodayViewController.swift */; };
+		F49F79381A1671950040987F /* RestoMenuToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F49F792C1A1671950040987F /* RestoMenuToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F49F79461A1672410040987F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F49F793E1A1672410040987F /* MainInterface.storyboard */; };
+		F49F79471A1672410040987F /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F793F1A1672410040987F /* Menu.swift */; };
+		F49F79481A1672410040987F /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F79401A1672410040987F /* MenuItem.swift */; };
+		F49F79491A1672410040987F /* MenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F79411A1672410040987F /* MenuItemTableViewCell.swift */; };
+		F49F794A1A1672410040987F /* DecimalNumberExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F79421A1672410040987F /* DecimalNumberExtension.swift */; };
+		F49F794B1A1672410040987F /* RestoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49F79431A1672410040987F /* RestoManager.swift */; };
+		F49F79531A16748B0040987F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F49F79551A16748B0040987F /* Localizable.strings */; };
+		F4BE9FD01A168C5B00BFB8F8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE9FCF1A168C5B00BFB8F8 /* String.swift */; };
 		F5016BA6162756F300BBDB0A /* ActivitiesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA5162756F300BBDB0A /* ActivitiesController.m */; };
 		F5016BA91627665800BBDB0A /* ActivityDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5016BA81627665800BBDB0A /* ActivityDetailController.m */; };
 		F50527CE15BDC1E600A697F8 /* info-kalender.html in Resources */ = {isa = PBXBuildFile; fileRef = F50527CD15BDC1E600A697F8 /* info-kalender.html */; };
@@ -215,6 +226,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F49F79361A1671950040987F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5BAEC7D1518868100F6A1B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F49F792B1A1671950040987F;
+			remoteInfo = RestoMenuToday;
+		};
 		F5BAECB21518868200F6A1B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5BAEC7D1518868100F6A1B1 /* Project object */;
@@ -223,6 +241,20 @@
 			remoteInfo = Hydra;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F49F793C1A1671960040987F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F49F79381A1671950040987F /* RestoMenuToday.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		395C117816272D8000B99F9B /* NewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
@@ -272,6 +304,18 @@
 		90F05265168C7D19004CAFFC /* RestoLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLocation.m; sourceTree = "<group>"; };
 		E747F0E311D74638A7FC212F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E1004E081A013343FCA87A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F49F792C1A1671950040987F /* RestoMenuToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RestoMenuToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F49F792D1A1671950040987F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		F49F79311A1671950040987F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F49F79321A1671950040987F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		F49F793E1A1672410040987F /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		F49F793F1A1672410040987F /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		F49F79401A1672410040987F /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		F49F79411A1672410040987F /* MenuItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemTableViewCell.swift; sourceTree = "<group>"; };
+		F49F79421A1672410040987F /* DecimalNumberExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecimalNumberExtension.swift; sourceTree = "<group>"; };
+		F49F79431A1672410040987F /* RestoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoManager.swift; sourceTree = "<group>"; };
+		F49F79541A16748B0040987F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4BE9FCF1A168C5B00BFB8F8 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F5016BA4162756F300BBDB0A /* ActivitiesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesController.h; sourceTree = "<group>"; };
 		F5016BA5162756F300BBDB0A /* ActivitiesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesController.m; sourceTree = "<group>"; };
 		F5016BA71627665800BBDB0A /* ActivityDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailController.h; sourceTree = "<group>"; };
@@ -482,6 +526,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F49F79291A1671950040987F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F49F792E1A1671950040987F /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5BAEC831518868200F6A1B1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -571,6 +623,63 @@
 				39B9A4055F5F374AA56058ED /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F49F792F1A1671950040987F /* RestoMenuToday */ = {
+			isa = PBXGroup;
+			children = (
+				F49F794D1A1672520040987F /* Model */,
+				F49F794E1A1672570040987F /* View */,
+				F49F79501A1672630040987F /* Controller */,
+				F49F794F1A16725C0040987F /* Extensions */,
+				F49F79301A1671950040987F /* Supporting Files */,
+			);
+			path = RestoMenuToday;
+			sourceTree = "<group>";
+		};
+		F49F79301A1671950040987F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F49F793E1A1672410040987F /* MainInterface.storyboard */,
+				F49F79551A16748B0040987F /* Localizable.strings */,
+				F49F79311A1671950040987F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F49F794D1A1672520040987F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F49F79431A1672410040987F /* RestoManager.swift */,
+				F49F793F1A1672410040987F /* Menu.swift */,
+				F49F79401A1672410040987F /* MenuItem.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F49F794E1A1672570040987F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F49F79411A1672410040987F /* MenuItemTableViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		F49F794F1A16725C0040987F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F4BE9FCF1A168C5B00BFB8F8 /* String.swift */,
+				F49F79421A1672410040987F /* DecimalNumberExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		F49F79501A1672630040987F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F49F79321A1671950040987F /* TodayViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		F521D11316C5386F00B686B2 /* Preferences */ = {
@@ -812,6 +921,7 @@
 			children = (
 				F5BAEC901518868200F6A1B1 /* Hydra */,
 				F5BAECB41518868200F6A1B1 /* HydraTests */,
+				F49F792F1A1671950040987F /* RestoMenuToday */,
 				F5BAEC911518868200F6A1B1 /* Resources */,
 				F5CFDF851631597E008CBF98 /* External */,
 				F5BAEC891518868200F6A1B1 /* Frameworks */,
@@ -825,6 +935,7 @@
 			children = (
 				F5BAEC861518868200F6A1B1 /* Hydra.app */,
 				F5BAECAD1518868200F6A1B1 /* HydraTests.xctest */,
+				F49F792C1A1671950040987F /* RestoMenuToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -851,6 +962,7 @@
 				F54DC88516A1A7BE00FD212E /* Security.framework */,
 				F54DC88B16A1A97100FD212E /* SystemConfiguration.framework */,
 				F5BAEC8A1518868200F6A1B1 /* UIKit.framework */,
+				F49F792D1A1671950040987F /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -968,6 +1080,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F49F792B1A1671950040987F /* RestoMenuToday */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F49F79391A1671960040987F /* Build configuration list for PBXNativeTarget "RestoMenuToday" */;
+			buildPhases = (
+				F49F79281A1671950040987F /* Sources */,
+				F49F79291A1671950040987F /* Frameworks */,
+				F49F792A1A1671950040987F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RestoMenuToday;
+			productName = RestoMenuToday;
+			productReference = F49F792C1A1671950040987F /* RestoMenuToday.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F5BAEC851518868200F6A1B1 /* Hydra */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5BAECBF1518868200F6A1B1 /* Build configuration list for PBXNativeTarget "Hydra" */;
@@ -977,10 +1106,12 @@
 				F5D3B621162EFBD400698C3E /* ShellScript */,
 				F5BAEC841518868200F6A1B1 /* Resources */,
 				7DF2C18BBE7D41B8B3A020A6 /* Copy Pods Resources */,
+				F49F793C1A1671960040987F /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F49F79371A1671950040987F /* PBXTargetDependency */,
 			);
 			name = Hydra;
 			productName = Hydra;
@@ -1014,8 +1145,12 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Zeus WPI";
 				TargetAttributes = {
+					F49F792B1A1671950040987F = {
+						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 5AEDAJT7YY;
+					};
 					F5BAEC851518868200F6A1B1 = {
-						DevelopmentTeam = D38FNBFRY3;
+						DevelopmentTeam = 5AEDAJT7YY;
 					};
 				};
 			};
@@ -1034,11 +1169,21 @@
 			targets = (
 				F5BAEC851518868200F6A1B1 /* Hydra */,
 				F5BAECAC1518868200F6A1B1 /* HydraTests */,
+				F49F792B1A1671950040987F /* RestoMenuToday */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F49F792A1A1671950040987F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F49F79461A1672410040987F /* MainInterface.storyboard in Resources */,
+				F49F79531A16748B0040987F /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5BAEC841518868200F6A1B1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1223,6 +1368,20 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F49F79281A1671950040987F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F49F79481A1672410040987F /* MenuItem.swift in Sources */,
+				F49F79491A1672410040987F /* MenuItemTableViewCell.swift in Sources */,
+				F49F79471A1672410040987F /* Menu.swift in Sources */,
+				F49F79331A1671950040987F /* TodayViewController.swift in Sources */,
+				F4BE9FD01A168C5B00BFB8F8 /* String.swift in Sources */,
+				F49F794A1A1672410040987F /* DecimalNumberExtension.swift in Sources */,
+				F49F794B1A1672410040987F /* RestoManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5BAEC821518868200F6A1B1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1286,6 +1445,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F49F79371A1671950040987F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F49F792B1A1671950040987F /* RestoMenuToday */;
+			targetProxy = F49F79361A1671950040987F /* PBXContainerItemProxy */;
+		};
 		F5BAECB31518868200F6A1B1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F5BAEC851518868200F6A1B1 /* Hydra */;
@@ -1294,6 +1458,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		F49F79551A16748B0040987F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F49F79541A16748B0040987F /* nl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		F56F139E169731FE003D4447 /* UrgentViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1321,6 +1493,80 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F49F793A1A1671960040987F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = RestoMenuToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F49F793B1A1671960040987F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = RestoMenuToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		F5BAECBD1518868200F6A1B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1343,7 +1589,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Debug;
 		};
@@ -1366,7 +1612,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Release;
 		};
@@ -1380,6 +1626,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME} β";
 				CUSTOM_IDENTIFIER_SUFFIX = "-dev";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				INFOPLIST_FILE = "Hydra-Info.plist";
@@ -1400,6 +1647,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME}";
 				CUSTOM_IDENTIFIER_SUFFIX = "";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				INFOPLIST_FILE = "Hydra-Info.plist";
@@ -1577,6 +1825,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F49F79391A1671960040987F /* Build configuration list for PBXNativeTarget "RestoMenuToday" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F49F793A1A1671960040987F /* Debug */,
+				F49F793B1A1671960040987F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F5BAEC801518868100F6A1B1 /* Build configuration list for PBXProject "Hydra" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

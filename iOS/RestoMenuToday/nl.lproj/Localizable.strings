@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  Hydra
+
+  Created by Simon Schellaert on 14/11/14.
+  Copyright (c) 2014 Simon Schellaert. All rights reserved.
+*/
+
+
+
+"No Data Available" = "Geen data beschikbaar";
+"We're Currently Closed" = "Wij zijn momenteel gesloten";
+"Loading Data..." = "Data aan het laden...";
