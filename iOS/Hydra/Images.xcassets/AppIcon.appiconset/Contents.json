@@ -1,6 +1,36 @@
 {
   "images" : [
     {
+      "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "Icon-Small-iOS6.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "Icon-Small-iOS6@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "Icon-Small-iOS7@3x.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "Icon-Small-iOS7@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "Icon-Small-iOS7@3x-1.png",
+      "scale" : "3x"
+    },
+    {
       "size" : "57x57",
       "idiom" : "iphone",
       "filename" : "Icon-iOS6.png",
@@ -19,22 +49,76 @@
       "scale" : "2x"
     },
     {
-      "size" : "29x29",
+      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "Icon-Small-iOS6.png",
+      "filename" : "Icon-iOS7@3x.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "Icon-Small-iOS6-1.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
-      "idiom" : "iphone",
-      "filename" : "Icon-Small-iOS6@2x.png",
+      "idiom" : "ipad",
+      "filename" : "Icon-Small-iOS6@2x-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
-      "idiom" : "iphone",
-      "filename" : "Icon-Small-iOS7@2x.png",
+      "idiom" : "ipad",
+      "filename" : "iOS-iPad-spotlight40.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "Icon-Small-iOS7@2x-1.png",
       "scale" : "2x"
+    },
+    {
+      "size" : "50x50",
+      "idiom" : "ipad",
+      "filename" : "icon-iOS6-ipad-spotlight.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "50x50",
+      "idiom" : "ipad",
+      "filename" : "icon-iOS6-ipad-spotlight@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "72x72",
+      "idiom" : "ipad",
+      "filename" : "icon-iPad-iOS6.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "72x72",
+      "idiom" : "ipad",
+      "filename" : "icon-iPad-iOS6@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "icon-iPad-iOS7.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "icon-iPad-iOS7@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "120x120",
+      "idiom" : "car",
+      "filename" : "Icon-CarPlay.png",
+      "scale" : "1x"
     }
   ],
   "info" : {
