@@ -1,247 +1,237 @@
+# coding=utf-8
+"""
+Parse the weekly menu from a webpage and export it as JSON in the different
+API version formats.
+"""
 
-from pprint import pprint
-from pyquery import PyQuery as pq
-import json
-import datetime
-import collections
-import sys
+from __future__ import with_statement, print_function
+import json, libxml2, os, os.path, sys, datetime, locale, re, requests
+from datetime import datetime, timedelta
 
-# Where to write to.
-OUTFILE = "resto/1.0/menu/{}/{}.json"
-
-# Languages
-TYPES = ['nl', 'en', 'nl-sintjansvest']
-
-# The url containing the list of weekmenu's.
-WEEKMENU_URL = {
-    "nl": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "en": "http://www.ugent.be/en/facilities/restaurants/weekly-menu",
-    "nl-sintjansvest": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest"
+SOURCES = {
+    'nl': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu/week%02d',
+    'nl-sintjansvest': 'http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest/week%02d',
+    'en': 'http://www.ugent.be/en/facilities/restaurants/weekly-menu/week%02d'
 }
 
-# The jQuery selector for each weekmenu <a> element on the WEEKMENU_URL page.
-WEEK_SELECTOR = {
-    "nl": ".summary .url",
-    "en": ".summary .url",
-    "nl-sintjansvest": "#content-core .state-published"
+LOCALES = {
+    'nl': 'nl_BE.utf-8',
+    'en': 'en_US.utf-8'
 }
 
-# The jQuery selector for each day title <a> element on each weekmenu.
-DAY_SELECTOR = ".summary.url"
+# Only contains word which need a translation, e.g. not 'snack'
+LABELS = {
+    'nl': { 'groenten': 'vegetables', 'soep': 'soup', 'vlees': 'meat',
+            'vis': 'fish', 'vegetarisch': 'vegetarian', 'niet-veggie': 'meat',
+            'maaltijdsoep': 'meal soup' },
+    'en': { 'vegi': 'vegetarian' }
+}
 
-# The jQuery selector for the meals on the menu page.
-CLOSED_SELECTOR = "#content-core"
-MEAL_SELECTOR = "#content-core li"
+class IdentityDict(dict):
+    def __missing__(self, key):
+        return key
 
-# The string indicating a closed day.
-CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
+DICTIONARY = {
+    'en': IdentityDict(),
+    'nl': {
+            'recommended': 'aanbevolen',
+            'main course': 'hoofdgerecht',
+            'vegetables': 'groenten',
+            'closed': 'gesloten',
+          }
+}
 
-def get_weeks(which):
-    "Retrieves a dictionary of weeknumbers to the url of the menu for that week from the given weekmenu overview."
-    weekmenu = pq(url=WEEKMENU_URL[which])
-    week_urls = weekmenu(WEEK_SELECTOR[which]).map(lambda i, e: pq(e).attr("href"))
+API_PATH = 'resto/%s/menu'
 
-    r = {}
-    for url in week_urls:
-        iso_year, iso_week, _ = DateStuff.from_iso_week(int(url.split("week")[-1])).isocalendar()
-        r[(iso_year, iso_week)] = url
-    return r
+class Week(object):
+    def __init__(self, year, week):
+        self.year = year
+        self.week = week
+        self.days = []
 
-def get_days(which, iso_week, url):
-    "Retrieves a dictionary from isoweeks on which the resto is open."
-    # close all days by default.
-    r = {
-        DateStuff.from_iso_week_day(which, iso_week, day): None
-        for day in DateStuff.DAY_OF_THE_WEEK[which]
-    }
+    def parse(self, menus_txt, friday, lang):
+        day_of_week = 4
+        for menu_txt in menus_txt:
+            menu = Menu(friday - timedelta(day_of_week))
+            menu.parse(menu_txt, lang)
+            day_of_week -=  1
+            self.days.append(menu)
 
-    # open on the avaible days
-    weekmenu = pq(url=url)
-    r.update({
-        DateStuff.from_iso_week_day(which, iso_week, pq(e).html()):
-            str(pq(e).attr("href"))
-        for e in weekmenu(DAY_SELECTOR)
-    })
+class Menu(object):
+    def __init__(self, date):
+        self.date = date
+        self.items = []
+        self.vegetables = []
 
-    return r
+    def parse(self, menu_div, lang):
+        titles = [x.content.lower() for x in menu_div.xpathEval('./h3') if x.content]
+        lists = menu_div.xpathEval('./ul[*]')
 
-def get_day_menu(which, url):
-    "Parses the daymenu from the given url."
-    # Assumptions:
-    # - The #content-core contains only <li> items belonging to the menu.
-    # - Menu items without a price are vegetables.
-    # - First item is the soup.
-    # - Second item is the meal soup. (unused in old JSON)
-    # - Priced items are of the form "\(.*\)-\([^-]*\)" where \1 is the name
-    #       and \2 is the price.
-    daymenu = pq(url=url)
-    vegetables = []
-    meats = []
-    soups = []
+        if len(titles) == 1 and titles[0] == DICTIONARY[lang]['closed']:
+            return;
 
-    if CLOSED[which] in daymenu(CLOSED_SELECTOR).html():
-        return dict(open=False)
+        if len(titles) != len(lists):
+            print('ERROR: Inconsistent format for', self.date, file=sys.stderr)
+            # TODO: this will fail december 20th, since we sometimes have <li>'s
+            # split over multiple <ul>'s. Somebody needs to learn HTML.
+            # Better parser would split li's by surrounding <h3> tag.
+            return -1
 
-    for meal in daymenu(MEAL_SELECTOR):
-        meal = pq(meal).html()
-        if '€' in meal:
-            price = meal.split('-')[-1].strip()
-            name = '-'.join(meal.split('-')[:-1]).strip()
-            if ':' in meal: # Meat
-                kind, name = [s.strip() for s in name.split(':')]
-                meats.append(dict(price=price, name=name, kind=kind))
-            else: # soup
-                soups.append(dict(price=price, name=name))
-        else:
-            vegetables.append(meal)
-    r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats)
-    return r
-
-
-class DateStuff(object):
-
-    # Day names to day of the week.
-    DAY_OF_THE_WEEK = collections.defaultdict(lambda: {
-        "Maandag": 1,
-        "Dinsdag": 2,
-        "Woensdag": 3,
-        "Donderdag": 4,
-        "Vrijdag": 5
-    }, {
-        "en": {
-            "Monday": 1,
-            "Tuesday": 2,
-            "Wednesday": 3,
-            "Thursday": 4,
-            "Friday": 5
-        }
-    })
-
-
-    def iso_year_start(iso_year):
-        "The gregorian calendar date of the first day of the given ISO year"
-        fourth_jan = datetime.date(iso_year, 1, 4)
-        delta = datetime.timedelta(fourth_jan.isoweekday()-1)
-        return fourth_jan - delta
-
-    def iso_to_gregorian(iso_year, iso_week, iso_day):
-        "Gregorian calendar date for the given ISO year, week and day"
-        year_start = DateStuff.iso_year_start(iso_year)
-        return year_start + datetime.timedelta(days=iso_day-1, weeks=iso_week-1)
-
-    def from_iso_week(iso_week):
-        return DateStuff._from_iso_week_day(iso_week, 1)
-
-    def from_iso_week_day(which, iso_week, iso_day_name):
-        iso_day = DateStuff.DAY_OF_THE_WEEK[which][iso_day_name]
-        return DateStuff._from_iso_week_day(iso_week, iso_day)
-
-    def _from_iso_week_day(iso_week, iso_day):
-        iso_current_year, iso_current_week, _ = datetime.date.today().isocalendar()
-        if iso_current_week > 40 and iso_week < 10:
-            iso_year = iso_current_year + 1
-        elif iso_current_week < 10 and iso_week > 40:
-            iso_year = iso_current_year - 1
-        else:
-            iso_year = iso_current_year
-        return DateStuff.iso_to_gregorian(iso_year, iso_week, iso_day)
-
-    def problems_with_weeks(weeks):
-        year, week, day = datetime.date.today().isocalendar()
-        problems = []
-        # If before saturday, should contain the current week.
-        if(day < 6 and (year, week) not in weeks):
-            problems.append("Failed to retrieve the menu of the current week.")
-        # Should contain the next week, always.
-        year, week, day = (datetime.date.today() + datetime.timedelta(weeks=1)).isocalendar()
-        if (year, week) not in weeks:
-            problems.append("Failed to retrieve the menu of the next week.")
-        return problems
-
-
-def write_1_0(menus):
-    # 1.0 is only nl.
-    for weekyear, weekmenu in menus['nl'].items():
-        year, week = weekyear
-        menu = {}
-        for day, daymenu in weekmenu.items():
-            daymenu1_0 = {}
-            if not daymenu["open"]:
-                daymenu1_0 = {"open": False}
+        for title, list_ in zip(titles, lists):
+            list_items = [unicode(x.content, encoding='utf8')
+                          for x in list_.xpathEval('./li')]
+            if title == DICTIONARY[lang]['main course']:
+                for item in list_items:
+                    self.items.append(MenuItem(item, lang))
+            elif title == DICTIONARY[lang]['vegetables']:
+                self.vegetables = [x.capitalize() for x in list_items]
             else:
-                daymenu1_0 = {
-                    "open": True,
-                    "soup": daymenu["soup"][0],
-                    "meat": [daymenu["soup"][1]],
-                    "vegetables": daymenu["vegetables"]
-                }
-                for meat in daymenu["meat"]:
-                    name = meat["name"]
-                    price = meat["price"]
-                    if "Vegetarisch" in meat["kind"]:
-                        name = "Veg. " + name
-                    daymenu1_0["meat"].append(
-                        dict(name=name, price=price, recommended=False)
-                    )
-            menu[str(day)] = daymenu1_0
-        json.dump(menu, open(OUTFILE.format(year, week), 'w'),
-                sort_keys=True)
+                for item in list_items:
+                    description = '%s: %s' % (title.capitalize(), item.capitalize())
+                    self.items.append(MenuItem(description, lang))
 
-def main():
-    "The main method."
+    def open(self):
+        # Consider the resto to be open when there's some items
+        return len(self.items) > 0
 
-    all_problems = {}
-    menus = {}
-    for which in TYPES:
-        problems = []
-        menus[which] = {}
+class MenuItem(object):
+    def __init__(self, description, lang):
+        self.name = ''
+        self.type = ''
+        self.price = 0
+        self.recommended = False
+        self.availability = None
+        self.process_description(description, lang)
 
-        weeks = {}
-        try:
-            # Get weeks. Expect at least this week (if <= friday) and the following.
-            weeks = get_weeks(which)
-            problems.extend(DateStuff.problems_with_weeks(weeks))
-        except:
-            problems.append("Failed to parse the weekmenu on {}.".format(
-                WEEKMENU_URL[which]))
+    def process_description(self, description, lang):
+        match = re.match(u'^([^:]+): *([^€]+) *- *€? *([0-9,. ]+)(\s*\([A-Za-z ]+\))?$', description, re.I)
 
-        for week, week_url in weeks.items():
+        self.name = match.group(2).strip()
+        self.type = match.group(1).strip().lower()
+        self.price = float(match.group(3).replace(',', '.'))
 
-            year, week = week
-            days = {}
-            try:
-                # Get days. Expect every day to be there.
-                days = get_days(which, week, week_url)
-                problems.extend([
-                    "{} is not available in week {}.".format(day, week)
-                    for day in days if days[day] is None
-                ])
-            except:
-                problems.append("Failed to parse days from {}.".format(week_url))
+        if self.type in LABELS[lang]:
+            self.type = LABELS[lang][self.type]
 
-            week_dict = {}
-            for day, day_url in days.items():
-                if day_url is None: continue # skipping unavailable days.
+        # TODO: parse availability
+        # if match.group(4):
+        #     remark = match.group(4).strip()
+        #     if re.search(DICTIONARY[lang]['recommended'], remark):
+        #         self.recommended = True
 
-                try:
-                    menu = get_day_menu(which, day_url)
-                    week_dict[day] = menu
-                except Exception as e:
-                    problems.append("Failed parsing daymenu from {}.".format(
-                        day_url))
-                    print(e)
+def get_menu(year, week, lang):
+    parsed_lang = re.match(u'^([a-z]+)', lang, re.I).group(0)
+    locale.setlocale(locale.LC_ALL, LOCALES[parsed_lang])
+    page = download_menu(SOURCES[lang], week, lang)
+    if not page:
+        print('ERROR: Failed to retrieve menu for week %02d in %s' % (week, lang), file=sys.stderr)
+    else:
+        week_menu = parse_week_menu(page, year, week, parsed_lang)
+        if not week_menu:
+            print('ERROR: Failed to parse menu for week %02d in %s' % (week,lang), file=sys.stderr)
+        else:
+            return week_menu
 
-            menus[which][(year, week)] = week_dict
+def download_menu(url, week, lang):
+    print('Fetching week %02d menu webpage for %s' % (week, lang))
+    r = requests.get(url % week)
+    if r.status_code == 200 and not 'login.ugent.be' in r.url:
+        return r.text
+    else:
+        return None
 
-        if problems: all_problems[which] = problems
+def parse_week_menu(page, year, week, lang):
+    print('Parsing menu webpage')
+    # replace those pesky non-breakable spaces
+    page = page.replace('&nbsp;', ' ')
 
-    # Print the parsing problems.
-    if all_problems: pprint(all_problems, stream=sys.stderr)
+    doc = libxml2.htmlReadDoc(page.encode('utf-8'), None, 'utf-8', libxml2.XML_PARSE_RECOVER | libxml2.XML_PARSE_NOERROR)
 
-    write_1_0(menus)
+    dateComponents = doc.xpathEval("//*[@id='parent-fieldname-title']")[0].content.strip().split()
+    # Date description is not consistent, sometimes misses year
+    if not dateComponents[-1].isdigit():
+        dateComponents.append(str(year))
 
+    # always start from the last day of the week, since it will be in the correct year and month
+    friday = datetime.strptime("%s %s %s" % tuple(dateComponents[-3:]), "%d %B %Y").date()
 
+    # verify that this is the week we are searching for
+    isocalendar = friday.isocalendar()
+
+    if isocalendar[0] != year or isocalendar[1] != week:
+        print('Incorrect information retrieved: expected %s-%s, got %s-%s' %
+            (year, week, isocalendar[0], isocalendar[1]))
+        return None
+    menus = doc.xpathEval("//*[starts-with(@id, 'parent-fieldname-text')]")
+
+    week_menu = Week(year, week)
+    week_menu.parse(menus, friday, lang)
+    return week_menu
+
+def create_api_10_representation(week):
+    root = {}
+
+    if week == None or len(week.days) == 0:
+        # invalid menu
+        return None
+
+    for day in week.days:
+        root[str(day.date)] = menu = { 'open': day.open() }
+        if not day.open():
+            continue
+
+        menu['meat'] = []
+        for item in day.items:
+            price = (u'€ %0.2f' % item.price).replace('.', ',')
+            if item.type == 'soup':
+                menu['soup'] = { 'name': item.name, 'price': price }
+            else:
+                prefix = 'Veg. ' if item.type == 'vegetarian' else ''
+                menu['meat'].append({
+                    'recommended': item.recommended,
+                    'price': price,
+                    'name': prefix + item.name
+                })
+
+        if len(day.vegetables) > 0:
+            menu['vegetables'] = day.vegetables
+
+    return root
+
+def dump_api_10_representation(year, week, menu):
+    path = os.path.join(API_PATH % '1.0', str(year))
+    print('Writing object tree to %s' % path);
+
+    if not os.path.isdir(path):
+        os.makedirs(path)
+
+    menu = create_api_10_representation(menu)
+    if menu is None:
+        # don't write if invalid format
+        print ('ERROR: Invalid menu for week %02d' % week,file=sys.stderr)
+        return None
+
+    with open('%s/%s.json' % (path, week), 'w') as f:
+        json.dump(menu, f, sort_keys=True)
+
+def process_sources(year, week, lang, sources):
+    parsed_menus = {}
+    for source in sources:
+        if source.find('-') != -1:
+            key = source.split('-')[-1]
+        else:
+            key = 'default'
+        parsed_menus[key] = get_menu(year, week, source)
+
+    if lang == 'nl' and parsed_menus['default']:
+        dump_api_10_representation(year, week, parsed_menus['default'])
 
 if __name__ == '__main__':
-    main()
-
+    # Fetch the menu for the next three weeks
+    #language_sources = {'nl': ['nl', 'nl-sintjansvest'], 'en': ['en']}
+    language_sources = {'nl': ['nl']}
+    weeks = [datetime.today() + timedelta(weeks = n) for n in range(3)]
+    for week in weeks:
+        isocalendar = week.isocalendar()
+        for lang in language_sources:
+            process_sources(isocalendar[0], isocalendar[1], lang, language_sources[lang])
