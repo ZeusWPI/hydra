@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="RestoMenuToday" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
+                        <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ikL-6r-RcG" userLabel="Menu Items Table View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuItemTableViewCell" id="O1g-F0-72T" userLabel="Menu Item Table View Cell" customClass="MenuItemTableViewCell" customModule="RestoMenuToday" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="O1g-F0-72T" id="lOJ-fN-sIA">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€ 9,99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RjW-36-NyW" userLabel="Price Label">
+                                                    <rect key="frame" x="255" y="12.5" width="43" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.73333333333333328" green="0.72941176470588232" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-sT-2YU" userLabel="Name Label">
+                                                    <rect key="frame" x="2" y="12.5" width="37.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="RjW-36-NyW" firstAttribute="baseline" secondItem="8Sf-sT-2YU" secondAttribute="baseline" id="OqB-ps-HSM"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="RjW-36-NyW" secondAttribute="trailingMargin" constant="22" id="TsV-r8-dMR"/>
+                                                <constraint firstItem="8Sf-sT-2YU" firstAttribute="centerY" secondItem="lOJ-fN-sIA" secondAttribute="centerY" id="eaH-54-ba2"/>
+                                                <constraint firstItem="RjW-36-NyW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Sf-sT-2YU" secondAttribute="trailing" constant="12" id="qC4-1m-ChQ"/>
+                                                <constraint firstItem="8Sf-sT-2YU" firstAttribute="leadingMargin" secondItem="lOJ-fN-sIA" secondAttribute="leadingMargin" constant="2" id="wK5-dY-IVg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="8Sf-sT-2YU" id="veF-yI-2Kk"/>
+                                            <outlet property="priceLabel" destination="RjW-36-NyW" id="Qbf-6m-C1T"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="M4Y-Lb-cyx" id="inO-CS-ew4"/>
+                                    <outlet property="delegate" destination="M4Y-Lb-cyx" id="pOF-3b-Efe"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="left" secondItem="S3S-Oj-5AN" secondAttribute="left" id="0Qn-3L-Gmx"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="height" secondItem="S3S-Oj-5AN" secondAttribute="height" id="Lhc-LN-67K"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="top" id="enA-T9-z1S"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" id="zCj-hN-BRh"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
+                    <connections>
+                        <outlet property="menuItemsTableView" destination="ikL-6r-RcG" id="XBD-iu-WbI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="516" y="283"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
