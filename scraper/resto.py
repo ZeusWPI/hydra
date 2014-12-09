@@ -175,6 +175,7 @@ def write_1_0(menus):
                     "meat": [daymenu["soup"][1]],
                     "vegetables": daymenu["vegetables"]
                 }
+                daymenu1_0["meat"][0]["recommended"] = False
                 for meat in daymenu["meat"]:
                     name = meat["name"]
                     price = meat["price"]
