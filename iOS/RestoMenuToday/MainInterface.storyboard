@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="RestoMenuToday" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
+                        <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ikL-6r-RcG" userLabel="Menu Items Table View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuItemTableViewCell" id="O1g-F0-72T" userLabel="Menu Item Table View Cell" customClass="MenuItemTableViewCell" customModule="RestoMenuToday" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O1g-F0-72T" id="lOJ-fN-sIA">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-sT-2YU" userLabel="Name Label">
+                                                    <rect key="frame" x="0.0" y="0.0" width="252" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 9,99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RjW-36-NyW" userLabel="Price Label">
+                                                    <rect key="frame" x="262" y="0.0" width="48" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.73333333333333328" green="0.72941176470588232" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8Sf-sT-2YU" firstAttribute="leading" secondItem="lOJ-fN-sIA" secondAttribute="leading" id="3rF-HC-eUf"/>
+                                                <constraint firstItem="RjW-36-NyW" firstAttribute="trailing" secondItem="lOJ-fN-sIA" secondAttribute="trailing" constant="-10" id="57g-qY-mcc"/>
+                                                <constraint firstItem="RjW-36-NyW" firstAttribute="top" secondItem="lOJ-fN-sIA" secondAttribute="top" id="BbE-E8-oqA"/>
+                                                <constraint firstItem="RjW-36-NyW" firstAttribute="leading" secondItem="8Sf-sT-2YU" secondAttribute="trailing" constant="10" id="ISz-5g-BeQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="8Sf-sT-2YU" secondAttribute="bottom" id="cO9-ig-sWx"/>
+                                                <constraint firstItem="8Sf-sT-2YU" firstAttribute="top" secondItem="lOJ-fN-sIA" secondAttribute="top" id="goL-dZ-h5j"/>
+                                                <constraint firstAttribute="bottom" secondItem="RjW-36-NyW" secondAttribute="bottom" id="txR-EU-wiT"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="8Sf-sT-2YU" id="veF-yI-2Kk"/>
+                                            <outlet property="priceLabel" destination="RjW-36-NyW" id="Qbf-6m-C1T"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="M4Y-Lb-cyx" id="inO-CS-ew4"/>
+                                    <outlet property="delegate" destination="M4Y-Lb-cyx" id="pOF-3b-Efe"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="ikL-6r-RcG" secondAttribute="bottom" id="1UO-qF-AnN"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="D9f-fy-6ZQ"/>
+                            <constraint firstAttribute="trailing" secondItem="ikL-6r-RcG" secondAttribute="trailing" id="ZRz-k8-DPf"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="fqg-Fc-sDu"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
+                    <connections>
+                        <outlet property="menuItemsTableView" destination="ikL-6r-RcG" id="XBD-iu-WbI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="516" y="283"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
