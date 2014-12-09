@@ -9,14 +9,11 @@
 import UIKit
 import NotificationCenter
 
-
-
 class TodayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NCWidgetProviding {
     
     // MARK: Interface Builder Outlets
     
     @IBOutlet weak var menuItemsTableView: UITableView!
-    
     
     // MARK: Properties
     
@@ -27,8 +24,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     var filteredMenuItems : [MenuItem]!
     
     let menuItemTableViewCellIdentifier = "menuItemTableViewCell"
-    
-    
+
     // MARK: UIViewController
     
     override func viewDidLoad() {
@@ -55,7 +51,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Move the warning label to the left to account for the left margin of the today extension
         self.warningLabel.center.x -= (UIScreen.mainScreen().bounds.width - self.view.bounds.width) / 2
     }
-    
 
     // MARK: Custom Methods
     
@@ -88,7 +83,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.view.setNeedsLayout()
     }
 
-    
     // MARK: NCWidgetProviding
     
     func widgetPerformUpdateWithCompletionHandler(_ completionHandler: ((NCUpdateResult) -> Void) = {result in return}) {
@@ -99,13 +93,11 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             completionHandler(.NoData)
             return
         }
-        
-        
+
         if menu == nil {
             self.warningLabel.text = NSLocalizedString("Loading Data...", comment: "")
             self.warningLabel.hidden = false
         }
-        
         
         RestoManager.sharedManager.retrieveMenuForDate(NSDate(), completionHandler: { (menu, error) -> () in
             if let menu = menu {
@@ -122,8 +114,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.updateView()
         })
     }
-    
-    
+
     // MARK: UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -136,15 +127,12 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(menuItemTableViewCellIdentifier, forIndexPath: indexPath) as MenuItemTableViewCell
-        
         cell.menuItem = self.filteredMenuItems[indexPath.row]
-        
         return cell
     }
-    
-    
+
     // MARK: UITableViewDelegate
-    
+
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         // Set the layout margins explicitly on iOS 8 to force no separator insets
         cell.layoutMargins = UIEdgeInsetsZero
@@ -152,6 +140,6 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44
+        return 36
     }
 }

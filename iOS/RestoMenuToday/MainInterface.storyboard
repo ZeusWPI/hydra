@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Today View Controller-->
@@ -19,34 +20,31 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ikL-6r-RcG" userLabel="Menu Items Table View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuItemTableViewCell" id="O1g-F0-72T" userLabel="Menu Item Table View Cell" customClass="MenuItemTableViewCell" customModule="RestoMenuToday" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuItemTableViewCell" id="O1g-F0-72T" userLabel="Menu Item Table View Cell" customClass="MenuItemTableViewCell" customModule="RestoMenuToday" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O1g-F0-72T" id="lOJ-fN-sIA">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="O1g-F0-72T" id="lOJ-fN-sIA">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-sT-2YU" userLabel="Name Label">
-                                                    <rect key="frame" x="0.0" y="0.0" width="252" height="44"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€ 9,99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RjW-36-NyW" userLabel="Price Label">
+                                                    <rect key="frame" x="255" y="12.5" width="43" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.73333333333333328" green="0.72941176470588232" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 9,99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RjW-36-NyW" userLabel="Price Label">
-                                                    <rect key="frame" x="262" y="0.0" width="48" height="44"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.73333333333333328" green="0.72941176470588232" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-sT-2YU" userLabel="Name Label">
+                                                    <rect key="frame" x="2" y="12.5" width="37.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="8Sf-sT-2YU" firstAttribute="leading" secondItem="lOJ-fN-sIA" secondAttribute="leading" id="3rF-HC-eUf"/>
-                                                <constraint firstItem="RjW-36-NyW" firstAttribute="trailing" secondItem="lOJ-fN-sIA" secondAttribute="trailing" constant="-10" id="57g-qY-mcc"/>
-                                                <constraint firstItem="RjW-36-NyW" firstAttribute="top" secondItem="lOJ-fN-sIA" secondAttribute="top" id="BbE-E8-oqA"/>
-                                                <constraint firstItem="RjW-36-NyW" firstAttribute="leading" secondItem="8Sf-sT-2YU" secondAttribute="trailing" constant="10" id="ISz-5g-BeQ"/>
-                                                <constraint firstAttribute="bottom" secondItem="8Sf-sT-2YU" secondAttribute="bottom" id="cO9-ig-sWx"/>
-                                                <constraint firstItem="8Sf-sT-2YU" firstAttribute="top" secondItem="lOJ-fN-sIA" secondAttribute="top" id="goL-dZ-h5j"/>
-                                                <constraint firstAttribute="bottom" secondItem="RjW-36-NyW" secondAttribute="bottom" id="txR-EU-wiT"/>
+                                                <constraint firstItem="RjW-36-NyW" firstAttribute="baseline" secondItem="8Sf-sT-2YU" secondAttribute="baseline" id="OqB-ps-HSM"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="RjW-36-NyW" secondAttribute="trailingMargin" constant="22" id="TsV-r8-dMR"/>
+                                                <constraint firstItem="8Sf-sT-2YU" firstAttribute="centerY" secondItem="lOJ-fN-sIA" secondAttribute="centerY" id="eaH-54-ba2"/>
+                                                <constraint firstItem="RjW-36-NyW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Sf-sT-2YU" secondAttribute="trailing" constant="12" id="qC4-1m-ChQ"/>
+                                                <constraint firstItem="8Sf-sT-2YU" firstAttribute="leadingMargin" secondItem="lOJ-fN-sIA" secondAttribute="leadingMargin" constant="2" id="wK5-dY-IVg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -63,10 +61,10 @@
                             </tableView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="ikL-6r-RcG" secondAttribute="bottom" id="1UO-qF-AnN"/>
-                            <constraint firstItem="ikL-6r-RcG" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="D9f-fy-6ZQ"/>
-                            <constraint firstAttribute="trailing" secondItem="ikL-6r-RcG" secondAttribute="trailing" id="ZRz-k8-DPf"/>
-                            <constraint firstItem="ikL-6r-RcG" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="fqg-Fc-sDu"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="left" secondItem="S3S-Oj-5AN" secondAttribute="left" id="0Qn-3L-Gmx"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="height" secondItem="S3S-Oj-5AN" secondAttribute="height" id="Lhc-LN-67K"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="top" id="enA-T9-z1S"/>
+                            <constraint firstItem="ikL-6r-RcG" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" id="zCj-hN-BRh"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

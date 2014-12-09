@@ -8,16 +8,13 @@
 
 import UIKit
 
-
-
 class MenuItemTableViewCell: UITableViewCell {
     
     // MARK: Interface Builder Outlets
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    
-    
+
     // MARK: Properties
     
     let numberFormatter = NSNumberFormatter()
@@ -35,7 +32,6 @@ class MenuItemTableViewCell: UITableViewCell {
             }
         }
     }
-    
     
     // MARK: Initialization
     

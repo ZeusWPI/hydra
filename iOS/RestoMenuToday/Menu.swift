@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class Menu: NSObject, Printable {
     
     // MARK: Properties
@@ -17,8 +15,7 @@ class Menu: NSObject, Printable {
     let date: NSDate
     let menuItems: [MenuItem]
     let open: Bool
-    
-    
+
     // MARK: Initialization
     
     init(date: NSDate, menuItems: [MenuItem], open: Bool) {
@@ -26,8 +23,7 @@ class Menu: NSObject, Printable {
         self.menuItems = menuItems
         self.open = open
     }
-    
-    
+
     // MARK: <Printable>
     
     override var description : String {

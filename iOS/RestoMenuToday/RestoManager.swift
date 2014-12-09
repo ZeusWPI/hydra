@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 let RestoKitErrorDomain = "com.zeus.RestoKit.ErrorDomain"
 
 enum RestoKitError : Int {
@@ -17,8 +15,6 @@ enum RestoKitError : Int {
     case NoData                 = -7
     case ParseJSONFailed        = -8
 }
-
-
 
 class RestoManager: NSObject {
     
@@ -85,7 +81,6 @@ class RestoManager: NSObject {
             }
         }
     }
-    
     
     // MARK: Private Methods
     

@@ -8,10 +8,7 @@
 
 import Foundation
 
-
-
 extension String {
-    
     /** 
     A representation of the receiver with the first character capitalized. (read-only)
     */
@@ -22,5 +19,4 @@ extension String {
             return self
         }
     }
-    
 }

@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 /**
 Menu item type
 
@@ -23,8 +21,6 @@ enum MenuItemType {
     case Soup
 }
 
-
-
 class MenuItem: NSObject, Printable {
     
     // MARK: Properties
@@ -33,7 +29,6 @@ class MenuItem: NSObject, Printable {
     let type: MenuItemType
     let price: NSDecimalNumber?
     
-    
     // MARK: Initialization
     
     init(name: String, type: MenuItemType, price: NSDecimalNumber?) {
@@ -41,7 +36,6 @@ class MenuItem: NSObject, Printable {
         self.type = type
         self.price = price
     }
-    
     
     // MARK: <Printable>
     
