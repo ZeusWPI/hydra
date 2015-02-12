@@ -8,8 +8,12 @@
 	<string>Resto Menu</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIcons</key>
+	<dict/>
+	<key>CFBundleIcons~ipad</key>
+	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>be.ugent.zeus.Hydra-dev.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>be.ugent.zeus.Hydra${CUSTOM_IDENTIFIER_SUFFIX}.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -29,5 +33,7 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widget-extension</string>
 	</dict>
+	<key>UILaunchStoryboardName</key>
+	<string>MainInterface</string>
 </dict>
 </plist>

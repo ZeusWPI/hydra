@@ -81,6 +81,14 @@
 	</dict>
 	<dict>
 		<key>image</key>
+		<string>info-mapmarker</string>
+		<key>title</key>
+		<string>Bloklocaties</string>
+		<key>html</key>
+		<string>info-bloklocaties.html</string>
+	</dict>
+	<dict>
+		<key>image</key>
 		<string>info-more</string>
 		<key>title</key>
 		<string>Meer informatie</string>

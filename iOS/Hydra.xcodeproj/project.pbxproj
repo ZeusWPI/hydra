@@ -20,11 +20,15 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
+		9015D0FA1A8ABA4B00228ADC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 908E536419BE4F3900F1DA57 /* Images.xcassets */; };
+		902939441A8C22EB00868221 /* info-bloklocaties.html in Resources */ = {isa = PBXBuildFile; fileRef = 902939431A8C22EB00868221 /* info-bloklocaties.html */; };
 		90410B101848DF9100331F6C /* info-guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0E1848DF9100331F6C /* info-guide.png */; };
 		90410B111848DF9100331F6C /* info-guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0F1848DF9100331F6C /* info-guide@2x.png */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
+		908CA4DD1A8D439C00F8C31F /* info-mapmarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CA4DB1A8D439C00F8C31F /* info-mapmarker.png */; };
+		908CA4DE1A8D439C00F8C31F /* info-mapmarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CA4DC1A8D439C00F8C31F /* info-mapmarker@2x.png */; };
 		908DFF03188E932D00D526DC /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */; };
 		908E536519BE4F3900F1DA57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 908E536419BE4F3900F1DA57 /* Images.xcassets */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
@@ -277,12 +281,15 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		902939431A8C22EB00868221 /* info-bloklocaties.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-bloklocaties.html"; sourceTree = "<group>"; };
 		90410B0E1848DF9100331F6C /* info-guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide.png"; sourceTree = "<group>"; };
 		90410B0F1848DF9100331F6C /* info-guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide@2x.png"; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		906C1D8817C8A4A600145CD3 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		908CA4DB1A8D439C00F8C31F /* info-mapmarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-mapmarker.png"; sourceTree = "<group>"; };
+		908CA4DC1A8D439C00F8C31F /* info-mapmarker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-mapmarker@2x.png"; sourceTree = "<group>"; };
 		908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		908E536419BE4F3900F1DA57 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
@@ -815,6 +822,8 @@
 				F59D16F115BD693F00B6F892 /* info-doctors@2x.png */,
 				F59D16EA15BD693F00B6F892 /* info-library.png */,
 				F59D16EB15BD693F00B6F892 /* info-library@2x.png */,
+				908CA4DB1A8D439C00F8C31F /* info-mapmarker.png */,
+				908CA4DC1A8D439C00F8C31F /* info-mapmarker@2x.png */,
 				F567044316BD5D8100C6B00D /* info-minerva.png */,
 				F5D51CF616B6D44800826B51 /* info-minerva@2x.png */,
 				F59D16EC15BD693F00B6F892 /* info-more.png */,
@@ -905,6 +914,7 @@
 				F59D170715BD7CE500B6F892 /* info-content.plist */,
 				F5CFAA3C15BD9B87008E75B0 /* info-fietsen.html */,
 				F50527CD15BDC1E600A697F8 /* info-kalender.html */,
+				902939431A8C22EB00868221 /* info-bloklocaties.html */,
 				F59D170D15BD811000B6F892 /* info-sport-aanbod.html */,
 				F59D170815BD7CE500B6F892 /* info-sport-openingsuren.html */,
 				F50527CF15BDC5F600A697F8 /* info-studentenartsen.html */,
@@ -1147,10 +1157,10 @@
 				TargetAttributes = {
 					F49F792B1A1671950040987F = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 5AEDAJT7YY;
+						DevelopmentTeam = D38FNBFRY3;
 					};
 					F5BAEC851518868200F6A1B1 = {
-						DevelopmentTeam = 5AEDAJT7YY;
+						DevelopmentTeam = D38FNBFRY3;
 					};
 				};
 			};
@@ -1179,6 +1189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9015D0FA1A8ABA4B00228ADC /* Images.xcassets in Resources */,
 				F49F79461A1672410040987F /* MainInterface.storyboard in Resources */,
 				F49F79531A16748B0040987F /* Localizable.strings in Resources */,
 			);
@@ -1191,6 +1202,7 @@
 				F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */,
 				F53D248A159DB50800F408AB /* header-bg.png in Resources */,
 				F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */,
+				908CA4DD1A8D439C00F8C31F /* info-mapmarker.png in Resources */,
 				F58408B8159DDA0E00EE7010 /* button-activities.png in Resources */,
 				F58408BB159DDA0E00EE7010 /* button-info-active.png in Resources */,
 				F58408BC159DDA0E00EE7010 /* button-info.png in Resources */,
@@ -1268,11 +1280,13 @@
 				F520A2E0166E999400EE340F /* icon-calendar@2x.png in Resources */,
 				F54AB5A3166FF510006C1189 /* button-urgent-active.png in Resources */,
 				F54AB5A4166FF510006C1189 /* button-urgent-active@2x.png in Resources */,
+				902939441A8C22EB00868221 /* info-bloklocaties.html in Resources */,
 				F54AB5A5166FF510006C1189 /* button-urgent.png in Resources */,
 				F54AB5A6166FF510006C1189 /* button-urgent@2x.png in Resources */,
 				F56F139C169731FE003D4447 /* UrgentViewController.xib in Resources */,
 				F531DE6516B2E41B0050D88B /* button-route@2x.png in Resources */,
 				F531DE6816B2EE720050D88B /* button-route.png in Resources */,
+				908CA4DE1A8D439C00F8C31F /* info-mapmarker@2x.png in Resources */,
 				F5B9F2F217CEAA040042C8A4 /* Icon-Small-iOS7@2x.png in Resources */,
 				F531DE6D16B30A0F0050D88B /* button-track-selected-highlighted@2x.png in Resources */,
 				90410B111848DF9100331F6C /* info-guide@2x.png in Resources */,
@@ -1497,6 +1511,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1537,6 +1552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1575,6 +1591,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CUSTOM_IDENTIFIER_SUFFIX = "-dev";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1601,6 +1618,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				CUSTOM_IDENTIFIER_SUFFIX = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_SHADOW = YES;
@@ -1630,7 +1648,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				INFOPLIST_FILE = "Hydra-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1651,7 +1669,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				INFOPLIST_FILE = "Hydra-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1690,12 +1708,10 @@
 					"-l\"Pods-SVProgressHUD\"",
 					"-l\"Pods-ShareKit\"",
 					"-l\"Pods-TUSafariActivity\"",
-					"-l\"Pods-TestFlightSDK\"",
 					"-l\"Pods-TransitionKit\"",
 					"-l\"Pods-UIActivityIndicator-for-SDWebImage\"",
 					"-l\"Pods-VTAcknowledgementsViewController\"",
 					"-l\"Pods-XMLReader\"",
-					"-l\"TestFlight\"",
 					"-l\"sqlite3\"",
 					"-l\"z\"",
 					"-framework",
@@ -1772,12 +1788,10 @@
 					"-l\"Pods-SVProgressHUD\"",
 					"-l\"Pods-ShareKit\"",
 					"-l\"Pods-TUSafariActivity\"",
-					"-l\"Pods-TestFlightSDK\"",
 					"-l\"Pods-TransitionKit\"",
 					"-l\"Pods-UIActivityIndicator-for-SDWebImage\"",
 					"-l\"Pods-VTAcknowledgementsViewController\"",
 					"-l\"Pods-XMLReader\"",
-					"-l\"TestFlight\"",
 					"-l\"sqlite3\"",
 					"-l\"z\"",
 					"-framework",

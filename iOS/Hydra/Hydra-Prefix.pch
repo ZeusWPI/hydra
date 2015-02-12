@@ -24,13 +24,10 @@
 
 #if PUBLIC_RELEASE
     #define GoogleAnalyticsEnabled 1
-    #define TestFlightEnabled 0
 #elif !TARGET_IPHONE_SIMULATOR && !DEBUG
     #define GoogleAnalyticsEnabled 0
-    #define TestFlightEnabled 1
 #else
     #define GoogleAnalyticsEnabled 0
-    #define TestFlightEnabled 0
 #endif
 
 #if GoogleAnalyticsEnabled

@@ -10,10 +10,6 @@
 
 #import <MessageUI/MessageUI.h>
 
-#if TestFlightEnabled
-#import <TestFlightSDK/TestFlight.h>
-#endif
-
 #import "ActivitiesController.h"
 #import "InfoViewController.h"
 #import "NewsViewController.h"
