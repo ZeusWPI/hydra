@@ -145,10 +145,10 @@
 
     FacebookEvent *fbEvent = self.activity.facebookEvent;
     if (fbEvent.valid) {
-        NSString *guests = [NSString stringWithFormat:@"%d aanwezig", fbEvent.attendees];
+        NSString *guests = [NSString stringWithFormat:@"%lu aanwezig", (unsigned long)fbEvent.attendees];
         if (fbEvent.friendsAttending) {
             NSUInteger count = fbEvent.friendsAttending.count;
-            guests = [guests stringByAppendingFormat:@", %d %@", count,
+            guests = [guests stringByAppendingFormat:@", %lu %@", (unsigned long)count,
                       (count == 1 ? @"vriend" : @"vrienden")];
         }
         fields[kGuestsRow] = guests;
@@ -263,7 +263,26 @@
                         }
                         self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                     }
-                    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+                    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+                        UIEdgeInsets textContainerInsets = self.descriptionView.textContainerInset;
+                        UIEdgeInsets contentInsets = self.descriptionView.contentInset;
+                        
+                        CGFloat leftRightPadding = textContainerInsets.left + textContainerInsets.right + contentInsets.left + contentInsets.right +
+                                                    self.descriptionView.textContainer.lineFragmentPadding * 2;
+
+                        width -= leftRightPadding;
+
+                        text = [self.descriptionView.text stringByAppendingString:@"\n"];
+                        CGRect size = [text boundingRectWithSize:CGSizeMake(width, NSUIntegerMax)
+                                                                              options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                                              attributes:nil
+                                                                              context:nil];
+                        
+                        CGFloat height = ceilf(CGRectGetHeight(size) + 1);
+
+                        return height;
+
+                    } else if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
                         UIEdgeInsets textContainerInsets = self.descriptionView.textContainerInset;
                         UIEdgeInsets contentInsets = self.descriptionView.contentInset;
 
