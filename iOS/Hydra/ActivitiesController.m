@@ -14,12 +14,13 @@
 #import "ActivityDetailController.h"
 #import "NSDateFormatter+AppLocale.h"
 #import "PreferencesService.h"
+#import "RMPickerViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
 
-@interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UISearchDisplayDelegate>
+@interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UISearchDisplayDelegate, RMPickerViewControllerDelegate>
 
 @property (nonatomic, assign) BOOL activitiesUpdated;
 
@@ -83,6 +84,9 @@
 
         self.refreshControl = refreshControl;
     }
+    
+    [RMPickerViewController setLocalizedTitleForCancelButton:@"Sluit"];
+    [RMPickerViewController setLocalizedTitleForSelectButton:@"Gereed"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -435,6 +439,15 @@
 
 - (void)dateButtonTapped:(id)sender
 {
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        RMPickerViewController *pickerVC = [RMPickerViewController pickerController];
+        pickerVC.delegate = self;
+        UIPickerView *picker = pickerVC.picker;
+        NSInteger row = ((NSIndexPath *)[self.tableView indexPathsForVisibleRows][0]).section;
+        [picker selectRow:row inComponent:0 animated:NO];
+        
+        [pickerVC show];
+    } else {
     // TODO: this is abuse of UIActionSheet, and shouldn't be used like this
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:nil
@@ -489,6 +502,7 @@
 
     [actionSheet showInView:self.view];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
+    }
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -537,4 +551,12 @@
     self.datePicker = nil;
 }
 
+#pragma mark - RMPickerViewController Delegates
+- (void)pickerViewController:(RMPickerViewController *)vc didSelectRows:(NSArray  *)selectedRows {
+    //Do something
+}
+
+- (void)pickerViewControllerDidCancel:(RMPickerViewController *)vc {
+    //Do something else
+}
 @end

@@ -1,4 +1,4 @@
-platform :ios, '6.0'
+platform :ios, '7.0'
 
 pod 'GoogleAnalytics-iOS-SDK',  '~> 3.0'
 pod 'Facebook-iOS-SDK',         '~> 3.7'
@@ -12,3 +12,4 @@ pod 'TUSafariActivity',         :podspec => 'External/TUSafariActivity.podspec'
 pod 'SMPageControl',            '~> 1.1'
 pod 'Reachability',             '~> 3.1.1'
 pod 'VTAcknowledgementsViewController', '~> 0.6'
+pod "RMPickerViewController", "~> 1.3.3"
