@@ -103,8 +103,27 @@
         FacebookSession *session = [FacebookSession sharedSession];
         PreferencesService *prefs = [PreferencesService sharedService];
         if (!session.open && !prefs.shownFacebookPrompt){
-            [session openWithAllowLoginUI:YES];
             prefs.shownFacebookPrompt = YES;
+            
+            if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Koppel aan Facebook!"
+                                                                               message:@"Koppel Hydra aan Facebook en krijg "
+                                                                                        "meer informatie bij de activiteiten. "
+                                                                                        "Je kan dit later altijd aanpassen "
+                                                                                        "in de voorkeuren."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Annuleer" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *login = [UIAlertAction actionWithTitle:@"Koppel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    [session openWithAllowLoginUI:YES];
+                }];
+                
+                [alert addAction:cancel];
+                [alert addAction:login];
+                
+                [self presentViewController:alert animated:YES completion:nil];
+            } else {
+                [session openWithAllowLoginUI:YES];
+            }
         }
     }
 }
@@ -406,17 +425,15 @@
     NSURL *imageUrl = self.activity.facebookEvent.smallImageUrl;
     if (imageUrl) {
         if (!self.imageView) {
-            CGRect imageRect = CGRectMake(-1, -1, 72, 72);
+            CGRect imageRect = CGRectMake(0, 0, 70, 70);
             self.imageView = [[UIImageView alloc] initWithFrame:imageRect];
             self.imageView.backgroundColor = [UIColor whiteColor];
             self.imageView.contentMode = UIViewContentModeScaleAspectFill;
             self.imageView.layer.masksToBounds = YES;
-            self.imageView.layer.cornerRadius = 5;
-            self.imageView.layer.borderWidth = 1.2;
             self.imageView.layer.borderColor = [UIColor colorWithWhite:0.65 alpha:1].CGColor;
         }
 
-        [self.imageView setImageWithURL:imageUrl];
+        [self.imageView sd_setImageWithURL:imageUrl];
         cell.customView = self.imageView;
         cell.indentationLevel = 7; // inset text 70pt
     }

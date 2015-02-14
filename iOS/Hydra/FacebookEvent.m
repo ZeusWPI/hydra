@@ -51,10 +51,7 @@ NSString *const FacebookEventDidUpdateNotification = @"FacebookEventDidUpdateNot
 - (void)showExternally
 {
     UIApplication *app = [UIApplication sharedApplication];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://event/%@", self.eventId]];
-    if (![app canOpenURL:url]) {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.facebook.com/events/%@", self.eventId]];
-    }
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.facebook.com/events/%@", self.eventId]];
     [app openURL:url];
 }
 
