@@ -147,13 +147,13 @@
     [controller setMailComposeDelegate:self];
     [controller setToRecipients:@[@"hydra@zeus.ugent.be"]];
     [controller setSubject:@"Bericht via Hydra"];
-    [self presentModalViewController:controller animated:YES];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller
           didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)showPreferences:(id)sender

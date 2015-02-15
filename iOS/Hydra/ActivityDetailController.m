@@ -86,7 +86,6 @@
     [segmentedControl addTarget:self action:@selector(segmentTapped:)
                forControlEvents:UIControlEventValueChanged];
     segmentedControl.frame = CGRectMake(0, 0, 90, 30);
-    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.momentary = YES;
     [self enableSegments:segmentedControl];
 
@@ -341,8 +340,13 @@
     }
 
     if (text) {
-        CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
-                           lineBreakMode:NSLineBreakByWordWrapping];
+        NSDictionary *attributes = @{NSFontAttributeName: font};
+        
+        CGSize size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                                           attributes:attributes
+                                                              context:nil].size;
+
         return MAX(minHeight, size.height + spacing);
     }
     else {
@@ -408,7 +412,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.shadowColor = [UIColor whiteColor];
@@ -612,7 +616,7 @@
         UIImageView *image = [[UIImageView alloc] initWithFrame:pictureFrame];
         image.layer.masksToBounds = YES;
         image.layer.cornerRadius = 5;
-        [image setImageWithURL:[friends[i] photoUrl] placeholderImage:placeholder];
+        [image sd_setImageWithURL:[friends[i] photoUrl] placeholderImage:placeholder];
         [container addSubview:image];
 
         pictureFrame.origin.x += 35;
@@ -694,13 +698,13 @@
     eventViewController.event = event;
     eventViewController.eventStore = store;
     eventViewController.editViewDelegate = self;
-    [self.navigationController presentModalViewController:eventViewController animated:YES];
+    [self.navigationController presentViewController:eventViewController animated:YES completion:nil];
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller
           didCompleteWithAction:(EKEventEditViewAction)action
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex

@@ -16,7 +16,7 @@
 
 #define kRestoUrl @"http://zeus.ugent.be/hydra/api/1.0/resto/"
 #define kRestoInfoPath @"meta.json"
-#define kRestoMenuPath @"menu/%d/%d.json"
+#define kRestoMenuPath @"menu/%lu/%lu.json"
 
 //#define kInfoUpdateIterval (24 * 60 * 60) /* one day */
 #define kInfoUpdateIterval 20
@@ -143,7 +143,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
             }
         }
         [self.menus removeObjectsForKeys:toRemove];
-        DLog(@"Purged %d old menus from RestoStore", [toRemove count]);
+        DLog(@"Purged %lu old menus from RestoStore", (unsigned long)[toRemove count]);
 
         NSString *cachePath = [[self class] menuCachePath];
         [NSKeyedArchiver archiveRootObject:self toFile:cachePath];
@@ -167,14 +167,14 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 
 - (void)_fetchMenuForWeek:(NSUInteger)week year:(NSUInteger)year
 {
-    NSString *path = [NSString stringWithFormat:kRestoMenuPath, year, week];
+    NSString *path = [NSString stringWithFormat:kRestoMenuPath, (unsigned long)year, (unsigned long)week];
 
     // Only one request for each resource allowed
     if ([self.activeRequests containsObject:path]) {
       return;
     }
 
-    DLog(@"Fetching resto information for %d/%d", year, week);
+    DLog(@"Fetching resto information for %lu/%lu", (unsigned long)year, (unsigned long)week);
     [self.activeRequests addObject:path];
     [self.objectManager addResponseDescriptor:
         [RKResponseDescriptor responseDescriptorWithMapping:[RestoMenu objectMapping]
@@ -260,7 +260,7 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 - (void)_processInfoResult:(RKMappingResult *)mappingResult
 {
     RestoInfo *restoInfo = [mappingResult firstObject];
-    DLog(@"Received %d legends and %d locations", [restoInfo.legend count], [restoInfo.locations count]);
+    DLog(@"Received %lu legends and %lu locations", (unsigned long)[restoInfo.legend count], (unsigned long)[restoInfo.locations count]);
     [self _delayActiveRequestRemoval:kRestoInfoPath];
 
     if ([restoInfo.legend count] > 0) {

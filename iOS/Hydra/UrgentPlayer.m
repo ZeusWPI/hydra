@@ -62,6 +62,8 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
                        name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
         [center addObserver:self selector:@selector(playerFinished:)
                        name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+        [center addObserver:self selector:@selector(audioRouteChanged:)
+                       name:AVAudioSessionRouteChangeNotification object:nil];
     }
     return self;
 }
@@ -106,18 +108,12 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         return;
     }
 
-    // Registers the audio route change listener callback function
-    AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange,
-                                    audioRouteChangeListenerCallback, NULL);
-
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [super play];
 }
 
 - (void)stop
 {
-    AudioSessionRemovePropertyListenerWithUserData(kAudioSessionProperty_AudioRouteChange,
-                                                   audioRouteChangeListenerCallback, NULL);
     [super stop];
 }
 
@@ -144,6 +140,22 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     // Force the player to stop completely, otherwise restarting the player
     // does not seem to work
     [self stop];
+}
+
+- (void)audioRouteChanged:(NSNotification *)notification
+{
+    // Only do an action when playing
+    if ([self isPlaying]) {
+        NSNumber *routeChangeReason = notification.userInfo[AVAudioSessionRouteChangeReasonKey];
+        //AVAudioSessionRouteDescription *previousRoute = notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
+        
+        if (routeChangeReason.unsignedIntegerValue == AVAudioSessionRouteChangeReasonOldDeviceUnavailable) {
+            NSLog(@"Output device removed, so application audio was paused.");
+            [self pause];
+        } else {
+            DLog(@"A route change occurred that does not require pausing of application audio.");
+        }
+    }
 }
 
 #pragma mark - Timer management
@@ -305,48 +317,3 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 }
 
 @end
-
-// Audio session callback function for responding to audio route changes. If playing
-// back application audio when the headset is unplugged, this callback pauses
-// playback and displays an alert that allows the user to resume or stop playback.
-//
-// The system takes care of iPod audio pausing during route changes--this callback
-// is not involved with pausing playback of iPod audio.
-void audioRouteChangeListenerCallback (void                   *inUserData,
-                                       AudioSessionPropertyID inPropertyID,
-                                       UInt32                 inPropertyValueSize,
-                                       const void             *inPropertyValue)
-{
-    // Ensure that this callback was invoked for a route change
-    if (inPropertyID != kAudioSessionProperty_AudioRouteChange) return;
-
-    UrgentPlayer *player = [UrgentPlayer sharedPlayer];
-
-    // Ff application sound is not playing, there's nothing to do, so return.
-    if (![player isPlaying]) {
-        DLog(@"Audio route change while application audio is stopped.");
-        return;
-    }
-    else {
-        // Determines the reason for the route change, to ensure that it is not
-        // because of a category change.
-        CFDictionaryRef routeChangeDictionary = inPropertyValue;
-
-        CFNumberRef routeChangeReasonRef = CFDictionaryGetValue(
-            routeChangeDictionary, CFSTR(kAudioSession_AudioRouteChangeKey_Reason));
-
-        SInt32 routeChangeReason;
-        CFNumberGetValue(routeChangeReasonRef, kCFNumberSInt32Type, &routeChangeReason);
-
-        // "Old device unavailable" indicates that a headset was unplugged, or that the
-        // device was removed from a dock connector that supports audio output. This is
-        // the recommended test for when to pause audio.
-        if (routeChangeReason == kAudioSessionRouteChangeReason_OldDeviceUnavailable) {
-            NSLog(@"Output device removed, so application audio was paused.");
-            [player pause];
-        }
-        else {
-            DLog(@"A route change occurred that does not require pausing of application audio.");
-        }
-    }
-}

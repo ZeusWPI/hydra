@@ -439,7 +439,7 @@
 
 - (void)dateButtonTapped:(id)sender
 {
-    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         RMPickerViewController *pickerVC = [RMPickerViewController pickerController];
         pickerVC.delegate = self;
         UIPickerView *picker = pickerVC.picker;
@@ -481,7 +481,7 @@
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 290, 22)];
     title.font = [UIFont boldSystemFontOfSize:18];
     title.text = @"Selecteer een dag";
-    title.textAlignment = UITextAlignmentCenter;
+    title.textAlignment = NSTextAlignmentCenter;
     title.backgroundColor = [UIColor clearColor];
 
     if (!iOS7) {
@@ -521,7 +521,7 @@
     if (!view) {
         label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 37)];
         label.font = [UIFont boldSystemFontOfSize:18];
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         label.backgroundColor = [UIColor clearColor];
     }
     else {

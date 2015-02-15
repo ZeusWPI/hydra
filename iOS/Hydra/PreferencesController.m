@@ -116,7 +116,7 @@
                 case 1: {
                     cell.textLabel.text = @"Selectie";
                     NSUInteger count = prefs.preferredAssociations.count;
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@", count,
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu %@", (unsigned long)count,
                                                  count == 1 ? @"vereniging" : @"verenigingen"];
 
                     if (prefs.filterAssociations) {
@@ -155,7 +155,7 @@
                         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                       reuseIdentifier:CellIdentifier];
                         cell.textLabel.font = [UIFont systemFontOfSize:14];
-                        cell.textLabel.textAlignment = UITextAlignmentCenter;
+                        cell.textLabel.textAlignment = NSTextAlignmentCenter;
                         cell.textLabel.numberOfLines = 0;
                         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -219,11 +219,11 @@
         info.text = @"Selecteer verenigingen om activiteiten en nieuws"
                      "berichten te filteren. Berichten die in de kijker "
                      "staan worden steeds getoond.";
-        info.lineBreakMode = UILineBreakModeWordWrap;
+        info.lineBreakMode = NSLineBreakByWordWrapping;
         info.numberOfLines = 0;
         info.shadowColor = [UIColor whiteColor];
         info.shadowOffset = CGSizeMake(0, 1);
-        info.textAlignment = UITextAlignmentCenter;
+        info.textAlignment = NSTextAlignmentCenter;
         info.textColor = [UIColor H_hintColor];
 
         UIView *wrapper = [[UIView alloc] initWithFrame:CGRectZero];

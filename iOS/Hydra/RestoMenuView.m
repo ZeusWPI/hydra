@@ -68,7 +68,7 @@
     CGRect dateHeaderFrame = CGRectMake(0, 3, self.frame.size.width, kDateHeaderHeight - 3);
     UILabel *dateHeader = [[UILabel alloc] initWithFrame:dateHeaderFrame];
     dateHeader.font = [UIFont boldSystemFontOfSize:19];
-    dateHeader.textAlignment = UITextAlignmentCenter;
+    dateHeader.textAlignment = NSTextAlignmentCenter;
     dateHeader.textColor = [UIColor whiteColor];
     dateHeader.backgroundColor = [UIColor clearColor];
     dateHeader.shadowColor = [UIColor blackColor];
@@ -159,7 +159,7 @@
         CGRect labelFrame = CGRectMake(10, 0, self.tableView.frame.size.width - 70, kRowHeight - 1);
         textLabel = [[UILabel alloc] initWithFrame:labelFrame];
         textLabel.tag = kCellLabelTag;
-        textLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
+        textLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
         [cell.contentView addSubview:textLabel];
 
         cell.detailTextLabel.textColor = textLabel.textColor;
@@ -237,7 +237,7 @@
     header.backgroundColor = [UIColor whiteColor];
 
     UIFont *font = [UIFont fontWithName:@"Futura-Medium" size:18];
-    CGSize textSize = [title sizeWithFont:font];
+    CGSize textSize = [title sizeWithAttributes:@{NSFontAttributeName: font}];
     CGFloat offsetX = roundf((self.bounds.size.width - textSize.width - 34) / 2);
 
     CGRect iconFrame = CGRectMake(offsetX - 20, 13, 30, 30);
@@ -247,7 +247,7 @@
     
     CGRect titleFrame = CGRectMake(offsetX + 17, 19, textSize.width, 22);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
-    titleLabel.textAlignment = UITextAlignmentCenter;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
     titleLabel.font = font;
     titleLabel.text = title;

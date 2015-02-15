@@ -58,7 +58,7 @@
     infoLabel.backgroundColor = [UIColor clearColor];
     infoLabel.textColor = [UIColor whiteColor];
     infoLabel.font = [UIFont systemFontOfSize:14];
-    infoLabel.textAlignment = UITextAlignmentCenter;
+    infoLabel.textAlignment = NSTextAlignmentCenter;
     infoLabel.numberOfLines = 4;
     [headerView addSubview:infoLabel];
 
@@ -122,7 +122,7 @@
         keyLabel.font = [UIFont boldSystemFontOfSize:13];
         keyLabel.backgroundColor = [UIColor clearColor];
         keyLabel.textColor = [UIColor whiteColor];
-        keyLabel.textAlignment = UITextAlignmentRight;
+        keyLabel.textAlignment = NSTextAlignmentRight;
         [cell.contentView addSubview:keyLabel];
 
         CGFloat valueX = CGRectGetMaxX(keyLabel.frame) + 10;
@@ -132,7 +132,7 @@
         valueLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight
                                     | UIViewAutoresizingFlexibleWidth;
         valueLabel.numberOfLines = 0;
-        valueLabel.lineBreakMode = UILineBreakModeWordWrap;
+        valueLabel.lineBreakMode = NSLineBreakByWordWrapping;
         valueLabel.tag = kCellValueLabel;
         valueLabel.font = [UIFont systemFontOfSize:13];
         valueLabel.backgroundColor = [UIColor clearColor];
@@ -163,9 +163,17 @@
     RestoLegendItem *legend = self.legend[indexPath.row];
     
     CGSize constraintSize = CGSizeMake(200, CGFLOAT_MAX);
-    CGSize labelSize = [legend.value sizeWithFont:[UIFont systemFontOfSize:13]
-                                constrainedToSize:constraintSize
-                                    lineBreakMode:UILineBreakModeWordWrap];
+    
+    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+
+    NSDictionary *attributes = @{ NSFontAttributeName: [UIFont systemFontOfSize:13], NSParagraphStyleAttributeName: paragraphStyle};
+    
+    CGSize labelSize = [legend.value boundingRectWithSize:constraintSize
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:attributes
+                                             context:nil].size;
     return labelSize.height + 5;
 }
 

@@ -14,8 +14,8 @@
 - (NSString *)description
 {
     NSUInteger count = [self.meat count] + [self.vegetables count];
-    return [NSString stringWithFormat:@"<RestoMenu for %@ (%d items) open=%@>",
-                self.day, count, NSStringFromBOOL(self.open)];
+    return [NSString stringWithFormat:@"<RestoMenu for %@ (%lu items) open=%@>",
+                self.day, (unsigned long)count, NSStringFromBOOL(self.open)];
 }
 
 + (RKObjectMapping *)objectMapping
