@@ -147,8 +147,9 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
     // Only do an action when playing
     if ([self isPlaying]) {
         NSNumber *routeChangeReason = notification.userInfo[AVAudioSessionRouteChangeReasonKey];
-        //AVAudioSessionRouteDescription *previousRoute = notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
-        
+
+        // "Old device unavailable" indicates that a headset was unplugged, or that the
+        // device was removed from a dock connector that supports audio output.
         if (routeChangeReason.unsignedIntegerValue == AVAudioSessionRouteChangeReasonOldDeviceUnavailable) {
             NSLog(@"Output device removed, so application audio was paused.");
             [self pause];
