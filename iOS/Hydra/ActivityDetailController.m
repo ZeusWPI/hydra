@@ -638,8 +638,11 @@
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
             else if (row == kLocationRow) {
-                ActivityMapController *c = [[ActivityMapController alloc] initWithActivity:self.activity];
-                [self.navigationController pushViewController:c animated:YES];
+                // Only show map when location coordinates are available
+                if (self.activity.hasCoordinates) {
+                    ActivityMapController *c = [[ActivityMapController alloc] initWithActivity:self.activity];
+                    [self.navigationController pushViewController:c animated:YES];
+                }
             }
             break;
 

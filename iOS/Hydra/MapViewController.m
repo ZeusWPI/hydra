@@ -16,6 +16,7 @@
 
 @property (nonatomic, unsafe_unretained) UIButton *trackButton;
 @property (nonatomic, assign) BOOL locationInitialized;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -34,6 +35,11 @@
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth
     | UIViewAutoresizingFlexibleHeight;
 
+    self.locationManager = [[CLLocationManager alloc] init];
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    
     // Map view
     CGRect mapFrame = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
     MKMapView *mapView = [[MKMapView alloc] initWithFrame:mapFrame];
