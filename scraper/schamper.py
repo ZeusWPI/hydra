@@ -40,6 +40,13 @@ def fetch_full_article(item):
     print('Processing ' + link)
     article = read_html_from_url(link)
 
+    # do not keep articles without title
+    titleNode = item.xpathEval('./title')[0]
+    if titleNode == None or len(titleNode.content) == 0:
+         itemNode = item.xpathEval('.')[0]
+         itemNode.unlinkNode()
+         return
+
     authorNode = item.xpathEval('./dc:creator')[0]
     authors = get_article_authors(article)
     authorNode.setContent(article.encodeSpecialChars(authors))
@@ -50,9 +57,12 @@ def fetch_full_article(item):
     descriptionNode.addChild(article.newCDataBlock(body, len(body)))
 
 def get_article_authors(page):
-    authors = page.xpathEval("//span[@class='submitted']")[0]
-    m = re.search(' door (.+)$', authors.getContent())
-    return m.group(1)
+    authors_list = page.xpathEval("//span[@class='submitted']")
+    if len(authors_list) > 0:
+        authors = authors_list[0]
+        m = re.search(' door (.+)$', authors.getContent())
+        return m.group(1)
+    return ""
 
 def get_article_body(page):
     result = ''
