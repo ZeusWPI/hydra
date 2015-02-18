@@ -1,7 +1,7 @@
 PODS:
   - AFNetworking (1.3.4)
   - Bolts (1.1.3)
-  - Facebook-iOS-SDK (3.21.1):
+  - Facebook-iOS-SDK (3.23.0):
     - Bolts (~> 1.0)
   - GoogleAnalytics-iOS-SDK (3.10):
     - GoogleAnalytics-iOS-SDK/Core
@@ -50,7 +50,6 @@ PODS:
   - SOCKit (1.1)
   - SSKeychain (1.2.2)
   - SVProgressHUD (0.9)
-  - TestFlightSDK (2.2.3-beta)
   - TransitionKit (1.1.1)
   - TUSafariActivity (0.0.1)
   - UIActivityIndicator-for-SDWebImage (1.2):
@@ -69,7 +68,6 @@ DEPENDENCIES:
   - ShareKit/Twitter (~> 2.3)
   - SMPageControl (~> 1.1)
   - SVProgressHUD (~> 0.9)
-  - TestFlightSDK (~> 2.0)
   - TUSafariActivity (from `External/TUSafariActivity.podspec`)
   - VTAcknowledgementsViewController (~> 0.6)
 
@@ -82,7 +80,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
-  Facebook-iOS-SDK: 18c26e86ab25c17854a2ee2a8f60562099c6600f
+  Facebook-iOS-SDK: 3d65f685348b789e46a9aacf92bfa85b60b63755
   GoogleAnalytics-iOS-SDK: f422062075d9ccb1ea8d783fc5ba3829461e9502
   PKMultipartInputStream: 9e18cd438cbfb8900ccb4d26b3f848768cd92e10
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
@@ -95,7 +93,6 @@ SPEC CHECKSUMS:
   SOCKit: d8d0dd3688ae1026c12367570da8fa8e1a6980fb
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
   SVProgressHUD: adf9def97327df88dee15e9ad8033fde6961f7b4
-  TestFlightSDK: f713ed33c62f3f22b66634e7caeeb9a3a8d2a3fb
   TransitionKit: b573f93c422f6aedf7d40e93e7c2f202d1295063
   TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
   UIActivityIndicator-for-SDWebImage: 8bd92c15280fbe54816448c6b14674145eee05c7

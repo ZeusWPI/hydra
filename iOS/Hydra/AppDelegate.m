@@ -21,20 +21,12 @@
 #import <GAIDictionaryBuilder.h>
 #import <Reachability/Reachability.h>
 
-#if TestFlightEnabled
-#import <TestFlight.h>
-#endif
-
-#define kTestFlightToken @"5bc4ec5d-0095-4731-bb0c-ebb0b41ff14a"
 #define kGoogleAnalyticsToken @"UA-25444917-3"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if TestFlightEnabled
-    [TestFlight takeOff:kTestFlightToken];
-#endif
 
 #if GoogleAnalyticsEnabled
     GAI *gai = [GAI sharedInstance];
