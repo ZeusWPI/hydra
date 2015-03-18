@@ -93,6 +93,14 @@
                                                    options:UIViewAnimationOptionTransitionFlipFromLeft];
 }
 
+- (void)mapLocationUpdated
+{
+    if (self.searchController.isActive) {
+        [self calculateDistances];
+        [[[self searchController] searchResultsTableView] reloadData];
+    }
+}
+
 #pragma mark - Data
 
 - (void)loadMapItems
@@ -106,8 +114,6 @@
 
 - (void)calculateDistances
 {
-    // TODO: call this method on location updates and get the tableview to update
-
     CLLocation *user = self.mapView.userLocation.location;
     NSMutableDictionary *distances = [NSMutableDictionary dictionaryWithCapacity:self.mapItems.count];
     for (RestoLocation *resto in self.mapItems) {

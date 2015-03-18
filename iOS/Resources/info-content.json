@@ -49,6 +49,11 @@
         "title": "Academische kalender"
     },
     {
+        "html": "info-bloklocaties.html",
+        "image": "info-mapmarker",
+        "title": "Bloklocaties"
+    },
+    {
         "image": "info-more",
         "subcontent": [
             {

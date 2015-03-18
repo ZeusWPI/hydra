@@ -42,16 +42,24 @@
 
     // Title
     UIFont *titleFont = [UIFont boldSystemFontOfSize:19];
-    CGSize actualSize = [self.newsItem.title sizeWithFont:titleFont
-                                        constrainedToSize:contentSize
-                               lineBreakMode:NSLineBreakByWordWrapping];
+    
+    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: titleFont, NSParagraphStyleAttributeName: paragraphStyle};
+    
+    CGSize actualSize = [self.newsItem.title boundingRectWithSize:contentSize
+                                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                                       attributes:attributes
+                                                          context:nil].size;
 
     CGRect titleFrame = CGRectMake(10, 8, contentSize.width, actualSize.height);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.font = titleFont;
     titleLabel.text = self.newsItem.title;
-    titleLabel.textAlignment = UITextAlignmentCenter;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor hydraTintColor];
     titleLabel.numberOfLines = 0;
     titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -69,20 +77,22 @@
     dateLabel.backgroundColor = [UIColor clearColor];
     dateLabel.font = metaFont;
     dateLabel.text = formatttedDate;
-    dateLabel.textAlignment = UITextAlignmentCenter;
+    dateLabel.textAlignment = NSTextAlignmentCenter;
     dateLabel.textColor = [UIColor hydraTintColor];
 
     // Association
-    actualSize = [self.newsItem.association.displayedFullName sizeWithFont:metaFont
-                                                         constrainedToSize:contentSize
-                                                             lineBreakMode:NSLineBreakByWordWrapping];
+    attributes = @{NSFontAttributeName: metaFont, NSParagraphStyleAttributeName: paragraphStyle};
+    actualSize = [self.newsItem.association.displayedFullName boundingRectWithSize:contentSize
+                                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                                       attributes:attributes
+                                                          context:nil].size;
     CGRect associationFrame = CGRectMake(10, CGRectGetMaxY(dateFrame),
                                          contentSize.width, actualSize.height);
     UILabel *associationLabel = [[UILabel alloc] initWithFrame:associationFrame];
     associationLabel.backgroundColor = [UIColor clearColor];
     associationLabel.font = metaFont;
     associationLabel.text = self.newsItem.association.displayedFullName;
-    associationLabel.textAlignment = UITextAlignmentCenter;
+    associationLabel.textAlignment = NSTextAlignmentCenter;
     associationLabel.textColor = [UIColor hydraTintColor];
     associationLabel.numberOfLines = 0;
     associationLabel.lineBreakMode = NSLineBreakByWordWrapping;

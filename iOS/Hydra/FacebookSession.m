@@ -126,7 +126,8 @@ NSString *const FacebookUserInfoUpdatedNotifcation =
 
 - (FBRequest *)requestWithQuery:(NSString *)query
 {
-    return [self requestWithGraphPath:@"/fql" parameters:@{@"q": query} HTTPMethod:@"GET"];
+    // TODO: change all fql requests to graph requests (fix before 7 August 2016)
+    return [self requestWithGraphPath:@"/v2.0/fql" parameters:@{@"q": query} HTTPMethod:@"GET"];
 }
 
 - (FBRequest *)requestWithGraphPath:(NSString *)path parameters:(NSDictionary *)parameters HTTPMethod:(NSString *)method

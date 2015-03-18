@@ -294,7 +294,7 @@
 
 - (void)pageChanged:(UIPageControl *)sender
 {
-    DLog(@"UIPageControl requesting page %d", self.pageControl.currentPage);
+    DLog(@"UIPageControl requesting page %ld", (long)self.pageControl.currentPage);
 
     CGRect newPage = self.scrollView.bounds;
     newPage.origin.x = newPage.size.width * self.pageControl.currentPage;

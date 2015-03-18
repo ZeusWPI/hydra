@@ -29,7 +29,7 @@
     [_textLayer setString:badgeText];
     
     //under development!!!
-    CGSize textSize = [badgeText sizeWithFont:badgeFont];
+    CGSize textSize = [badgeText sizeWithAttributes:@{NSFontAttributeName: badgeFont}];
     CGFloat textWidth = MAX(textSize.height, textSize.width);
     CGRect textFrame = CGRectMake(0, badgeHeight -textSize.height, textWidth, textSize.height);
     
