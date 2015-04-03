@@ -104,8 +104,8 @@
                     cell.textLabel.text = @"Toon alle verenigingen";
                     cell.detailTextLabel.text = @"";
 
-                    CGFloat screen_width = self.view.frame.size.width;
-                    CGRect toggleRect = CGRectMake(screen_width - 60, 9, 0, 0);
+                    CGFloat screenWidth = self.view.frame.size.width;
+                    CGRect toggleRect = CGRectMake(screenWidth - 60, 9, 0, 0);
                     UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
                     toggle.tag = kSwitchTag;
                     toggle.on = !prefs.filterAssociations;
@@ -213,8 +213,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (section == kFilterSection) {
-        CGFloat screen_width = self.view.frame.size.width;
-        CGRect infoRect = CGRectMake(10, 3, screen_width - 20, 58);
+        CGFloat screenWidth = self.view.frame.size.width;
+        CGRect infoRect = CGRectMake(10, 3, screenWidth - 20, 58);
         UILabel *info = [[UILabel alloc] initWithFrame:infoRect];
         info.backgroundColor = [UIColor clearColor];
         info.font = [UIFont systemFontOfSize:14];
