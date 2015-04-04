@@ -13,6 +13,7 @@
 #import "NSDate+Utilities.h"
 #import "ActivityDetailController.h"
 #import "NSDateFormatter+AppLocale.h"
+#import "UIViewController+SlideMenu.h"
 #import "PreferencesService.h"
 #import "RMPickerViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
@@ -75,7 +76,7 @@
     self.searchController.searchResultsDelegate = self;
 
     self.tableView.tableHeaderView = searchBar;
-    
+
     if ([UIRefreshControl class]) {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         refreshControl.tintColor = [UIColor hydraTintColor];
@@ -84,7 +85,8 @@
 
         self.refreshControl = refreshControl;
     }
-    
+
+    [self H_setSlideMenuButton];
     [RMPickerViewController setLocalizedTitleForCancelButton:@"Sluit"];
     [RMPickerViewController setLocalizedTitleForSelectButton:@"Gereed"];
 }
@@ -336,12 +338,12 @@
             self.days = self.oldDays;
             self.data = self.oldData;
         }
-        
+
         self.previousSearchLength = searchString.length;
-        
+
         NSMutableArray *filteredDays = [[NSMutableArray alloc] init];
         NSMutableDictionary *filteredData = [[NSMutableDictionary alloc] init];
-        
+
         for (NSDate *day in self.days) {
             NSMutableArray *activities = self.data[day];
             NSMutableArray *filteredActivities = [[NSMutableArray alloc] init];
@@ -445,7 +447,7 @@
         UIPickerView *picker = pickerVC.picker;
         NSInteger row = ((NSIndexPath *)[self.tableView indexPathsForVisibleRows][0]).section;
         [picker selectRow:row inComponent:0 animated:NO];
-        
+
         [pickerVC show];
     } else {
     // TODO: this is abuse of UIActionSheet, and shouldn't be used like this

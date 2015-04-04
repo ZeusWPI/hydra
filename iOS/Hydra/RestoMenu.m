@@ -41,10 +41,6 @@
                                                                             withMapping:itemMapping];
     [menuMapping addPropertyMappingsFromArray:@[meat, soup]];
 
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd"; // date format: 2012-03-26
-    menuMapping.dateFormatters = @[dateFormatter];
-
     return menuMapping;
 }
 

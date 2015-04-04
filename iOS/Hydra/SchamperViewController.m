@@ -11,6 +11,7 @@
 #import "SchamperArticle.h"
 #import "SchamperDetailViewController.h"
 #import "SORelativeDateTransformer.h"
+#import "UIViewController+SlideMenu.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
 @interface SchamperViewController ()
@@ -59,7 +60,9 @@
                  forControlEvents:UIControlEventValueChanged];
 
         self.refreshControl = refreshControl;
-    }    
+    }
+    
+    [self H_setSlideMenuButton];
 }
 
 - (void)didPullRefreshControl:(id)sender

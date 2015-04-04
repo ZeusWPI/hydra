@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "UIColor+AppColors.h"
+#import "MenuViewController.h"
 #import "DashboardViewController.h"
 #import "ShareKitConfigurator.h"
 #import "FacebookSession.h"
@@ -20,8 +21,14 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <GAIDictionaryBuilder.h>
 #import <Reachability/Reachability.h>
+#import <PKRevealController/PKRevealController.h>
 
 #define kGoogleAnalyticsToken @"UA-25444917-3"
+
+@interface AppDelegate () <PKRevealing>
+@property (nonatomic, strong)PKRevealController *revealController;
+
+@end
 
 @implementation AppDelegate
 
@@ -69,15 +76,28 @@
     DashboardViewController *dashboard = [[DashboardViewController alloc] init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
     self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
-
+    
     // iOS7 specific appearance
     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         self.navController.view.backgroundColor = [UIColor hydraBackgroundColor];
     }
+    
+    MenuViewController *menuViewcontroller = [[MenuViewController alloc] init];
+    
+    self.revealController = [PKRevealController revealControllerWithFrontViewController:self.navController leftViewController:menuViewcontroller];
+    
+    self.revealController.delegate = self;
+    self.revealController.animationDuration = 0.15;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = self.navController;
+    self.window.rootViewController = self.revealController;
+    
     [self.window makeKeyAndVisible];
+
+
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //self.window.rootViewController = self.navController;
+    //[self.window makeKeyAndVisible];
 
     return YES;
 }
@@ -198,6 +218,19 @@ BOOL errorDialogShown = false;
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     errorDialogShown = false;
+}
+
+#pragma mark - PKRevealing delegate
+
+- (void)revealController:(PKRevealController *)revealController didChangeToState:(PKRevealControllerState)state
+{
+    // NSLog(@"%@ (%d)", NSStringFromSelector(_cmd), (int)state);
+}
+
+- (void)revealController:(PKRevealController *)revealController willChangeToState:(PKRevealControllerState)next
+{
+    //PKRevealControllerState current = revealController.state;
+    //NSLog(@"%@ (%d -> %d)", NSStringFromSelector(_cmd), (int)current, (int)next);
 }
 
 @end

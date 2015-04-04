@@ -278,8 +278,8 @@
                             width = tableView.frame.size.width;
                         } else {
                             width = tableView.frame.size.width - 20;
+                            self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                         }
-                        self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                     }
                     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
                         UIEdgeInsets textContainerInsets = self.descriptionView.textContainerInset;
@@ -288,12 +288,20 @@
                         CGFloat leftRightPadding = textContainerInsets.left + textContainerInsets.right + contentInsets.left + contentInsets.right +
                                                     self.descriptionView.textContainer.lineFragmentPadding * 2;
 
-                        width -= leftRightPadding;
-
-                        text = [self.descriptionView.text stringByAppendingString:@"\n"];
-                        CGRect size = [text boundingRectWithSize:CGSizeMake(width, NSUIntegerMax)
+                        width = self.tableView.frame.size.width - leftRightPadding;
+                        
+                        text = self.descriptionView.text;
+                        
+                        unichar last = [text characterAtIndex:[text length] - 1];
+                        if (![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:last]) {
+                            // Add new line to keep the last line, if no new line is at the end of the text
+                            text = [text stringByAppendingString:@"\n"];
+                        }
+                        
+                        NSDictionary *attributes = @{NSFontAttributeName: self.descriptionView.font};
+                        NSMutableAttributedString *mutableText = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+                        CGRect size = [mutableText boundingRectWithSize:CGSizeMake(width, NSUIntegerMax)
                                                                               options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                                                              attributes:nil
                                                                               context:nil];
                         
                         CGFloat height = ceilf(CGRectGetHeight(size) + 1);
@@ -342,12 +350,13 @@
     if (text) {
         NSDictionary *attributes = @{NSFontAttributeName: font};
         
-        CGSize size = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
-                                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                                           attributes:attributes
-                                                              context:nil].size;
-
-        return MAX(minHeight, size.height + spacing);
+        NSMutableAttributedString *mutableText = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+        CGRect size = [mutableText boundingRectWithSize:CGSizeMake(width, NSUIntegerMax)
+                                                options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                context:nil];
+        
+        CGFloat height = ceilf(CGRectGetHeight(size) + 1);
+        return MAX(minHeight, height + spacing);
     }
     else {
         return minHeight;

@@ -10,6 +10,7 @@
 #import "AssociationPreferenceController.h"
 #import "FacebookSession.h"
 #import "PreferencesService.h"
+#import "UIViewController+SlideMenu.h"
 
 #import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
 
@@ -47,6 +48,8 @@
 {
     [super viewDidLoad];
     self.title = @"Voorkeuren";
+    
+    [self H_setSlideMenuButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -104,7 +107,8 @@
                     cell.textLabel.text = @"Toon alle verenigingen";
                     cell.detailTextLabel.text = @"";
 
-                    CGRect toggleRect = CGRectMake(225, 9, 0, 0);
+                    CGFloat screenWidth = self.view.frame.size.width;
+                    CGRect toggleRect = CGRectMake(screenWidth - 60, 9, 0, 0);
                     UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
                     toggle.tag = kSwitchTag;
                     toggle.on = !prefs.filterAssociations;
@@ -212,7 +216,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (section == kFilterSection) {
-        CGRect infoRect = CGRectMake(10, 3, 300, 58);
+        CGFloat screenWidth = self.view.frame.size.width;
+        CGRect infoRect = CGRectMake(10, 3, screenWidth - 20, 58);
         UILabel *info = [[UILabel alloc] initWithFrame:infoRect];
         info.backgroundColor = [UIColor clearColor];
         info.font = [UIFont systemFontOfSize:14];
