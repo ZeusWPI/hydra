@@ -37,7 +37,7 @@
 		<array>
 			<dict>
 				<key>title</key>
-				<string>Openingsuren</string>
+				<string>Openingsuren GUSB</string>
 				<key>html</key>
 				<string>info-sport-openingsuren.html</string>
 			</dict>
@@ -78,6 +78,14 @@
 		<string>Academische kalender</string>
 		<key>html</key>
 		<string>info-kalender.html</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>info-mapmarker</string>
+		<key>title</key>
+		<string>Bloklocaties</string>
+		<key>html</key>
+		<string>info-bloklocaties.html</string>
 	</dict>
 	<dict>
 		<key>image</key>

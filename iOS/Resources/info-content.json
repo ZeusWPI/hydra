@@ -20,7 +20,7 @@
         "subcontent": [
             {
                 "html": "info-sport-openingsuren.html",
-                "title": "Openingsuren"
+                "title": "Openingsuren GUSB"
             },
             {
                 "html": "info-sport-aanbod.html",
@@ -47,6 +47,11 @@
         "html": "info-kalender.html",
         "image": "info-academiccalendar",
         "title": "Academische kalender"
+    },
+    {
+        "html": "info-bloklocaties.html",
+        "image": "info-mapmarker",
+        "title": "Bloklocaties"
     },
     {
         "image": "info-more",

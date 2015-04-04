@@ -16,6 +16,8 @@
 
 @property (nonatomic, unsafe_unretained) UIButton *trackButton;
 @property (nonatomic, assign) BOOL locationInitialized;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *previousLocation;
 
 @end
 
@@ -34,6 +36,11 @@
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth
     | UIViewAutoresizingFlexibleHeight;
 
+    self.locationManager = [[CLLocationManager alloc] init];
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    
     // Map view
     CGRect mapFrame = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
     MKMapView *mapView = [[MKMapView alloc] initWithFrame:mapFrame];
@@ -86,6 +93,11 @@
     // Should be overriden in subclasses
 }
 
+- (void)mapLocationUpdated
+{
+    // Should be overriden in subclasses
+}
+
 #pragma mark - MapView delegate
 
 #define kUpdateDistance 50.0
@@ -113,6 +125,11 @@
         }
 
         self.locationInitialized = YES;
+    }
+    
+    if ([self shouldUpdateLocation:userLocation.location withPreviousLocation:self.previousLocation]) {
+        [self mapLocationUpdated];
+        self.previousLocation = userLocation.location;
     }
 }
 
@@ -144,6 +161,19 @@
     [self.mapView setVisibleMapRect:defaultRect animated:NO];
 }
 
+- (BOOL)shouldUpdateLocation:(CLLocation *)userLocation withPreviousLocation:(CLLocation *)previousLocation
+{
+    if (!previousLocation) {
+        return YES;
+    }
+    
+    CLLocationDistance distance = [previousLocation distanceFromLocation:userLocation];
+    if (distance > kUpdateDistance) {
+        return YES;
+    }
+    
+    return NO;
+}
 #pragma mark - Annotations
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation

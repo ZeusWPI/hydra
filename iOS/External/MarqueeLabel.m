@@ -269,9 +269,16 @@ NSString *const kMarqueeLabelShouldAnimateNotification = @"MarqueeLabelShouldAni
         if (CGSizeEqualToSize(maxSize, CGSizeZero)) {
             maxSize = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
         }
-        CGSize minimizedLabelSize = [self.labelText sizeWithFont:self.subLabel.font
-                                               constrainedToSize:maxSize
-                                                   lineBreakMode:self.subLabel.lineBreakMode];
+        
+        NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineBreakMode = self.subLabel.lineBreakMode;
+        paragraphStyle.alignment = NSTextAlignmentLeft;
+        NSDictionary *attributes = @{ NSFontAttributeName: self.subLabel.font, NSParagraphStyleAttributeName: paragraphStyle};
+        
+        CGSize minimizedLabelSize = [self.labelText boundingRectWithSize:maxSize
+                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                attributes:attributes
+                                                   context:nil].size;
         // Adjust for fade length
         minimizedLabelSize = CGSizeMake(minimizedLabelSize.width + (self.fadeLength * 2), minimizedLabelSize.height);
 
@@ -321,16 +328,24 @@ NSString *const kMarqueeLabelShouldAnimateNotification = @"MarqueeLabelShouldAni
                 NSString *doubledText = [self.labelText stringByAppendingFormat:@"%@%@", self.continuousMarqueeSeparator, self.labelText];
 
                 // Size of the new doubled label
-                CGSize expectedLabelSizeDoubled = [doubledText sizeWithFont:self.subLabel.font
-                                                          constrainedToSize:maximumLabelSize
-                                                              lineBreakMode:self.subLabel.lineBreakMode];
+                NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                paragraphStyle.lineBreakMode = self.subLabel.lineBreakMode;
+                paragraphStyle.alignment = NSTextAlignmentLeft;
+                NSDictionary *attributes = @{ NSFontAttributeName: self.subLabel.font, NSParagraphStyleAttributeName: paragraphStyle};
+                
+                CGSize expectedLabelSizeDoubled = [doubledText boundingRectWithSize:maximumLabelSize
+                                                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                                                      attributes:attributes
+                                                                         context:nil].size;
 
                 CGRect continuousLabelFrame = CGRectMake(self.fadeLength, 0, expectedLabelSizeDoubled.width, self.bounds.size.height);
 
                 // Size of the label and the separator. This is the period of the translation to the left.
-                CGSize labelAndSeparatorSize = [[self.labelText stringByAppendingString:self.continuousMarqueeSeparator] sizeWithFont:self.subLabel.font
-                                                                                                                    constrainedToSize:maximumLabelSize
-                                                                                                                        lineBreakMode:self.subLabel.lineBreakMode];
+                
+                CGSize labelAndSeparatorSize = [[self.labelText stringByAppendingString:self.continuousMarqueeSeparator] boundingRectWithSize:maximumLabelSize
+                                                                                                                                      options:NSStringDrawingUsesLineFragmentOrigin
+                                                                                                                                   attributes:attributes
+                                                                                                                                      context:nil].size;
                 self.homeLabelFrame = continuousLabelFrame;
                 self.awayLabelFrame = CGRectOffset(continuousLabelFrame, -labelAndSeparatorSize.width, 0.0);
 
@@ -339,7 +354,7 @@ NSString *const kMarqueeLabelShouldAnimateNotification = @"MarqueeLabelShouldAni
 
                 self.subLabel.frame = self.homeLabelFrame;
                 self.subLabel.text = doubledText;
-                self.subLabel.textAlignment = UITextAlignmentLeft;
+                self.subLabel.textAlignment = NSTextAlignmentLeft;
 
                 break;
             }
@@ -356,7 +371,7 @@ NSString *const kMarqueeLabelShouldAnimateNotification = @"MarqueeLabelShouldAni
                 self.subLabel.text = self.labelText;
 
                 // Enforce text alignment for this type
-                self.subLabel.textAlignment = UITextAlignmentRight;
+                self.subLabel.textAlignment = NSTextAlignmentRight;
 
                 break;
             }
@@ -373,7 +388,7 @@ NSString *const kMarqueeLabelShouldAnimateNotification = @"MarqueeLabelShouldAni
                 self.subLabel.text = self.labelText;
 
                 // Enforce text alignment for this type
-                self.subLabel.textAlignment = UITextAlignmentLeft;
+                self.subLabel.textAlignment = NSTextAlignmentLeft;
             }
 
         } //end of marqueeType switch
@@ -447,9 +462,18 @@ NSString *const kMarqueeLabelShouldAnimateNotification = @"MarqueeLabelShouldAni
 - (CGSize)subLabelSize {
     // Calculate label size
     CGSize maximumLabelSize = CGSizeMake(CGFLOAT_MAX, self.frame.size.height);
-    CGSize expectedLabelSize = [self.labelText sizeWithFont:self.subLabel.font
-                                          constrainedToSize:maximumLabelSize
-                                              lineBreakMode:self.subLabel.lineBreakMode];
+    
+    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = self.subLabel.lineBreakMode;
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+    
+    NSDictionary *attributes = @{ NSFontAttributeName: self.subLabel.font, NSParagraphStyleAttributeName: paragraphStyle};
+    
+    CGSize expectedLabelSize = [self.labelText boundingRectWithSize:maximumLabelSize
+                                                            options:NSStringDrawingUsesLineFragmentOrigin
+                                                         attributes:attributes
+                                                            context:nil].size;
+
     return expectedLabelSize;
 }
 
@@ -733,7 +757,7 @@ NSString *const kMarqueeLabelShouldAnimateNotification = @"MarqueeLabelShouldAni
     _marqueeType = marqueeType;
 
     if (_marqueeType == MLContinuous) {
-        self.textAlignment = UITextAlignmentCenter;
+        self.textAlignment = NSTextAlignmentCenter;
     }
 }
 

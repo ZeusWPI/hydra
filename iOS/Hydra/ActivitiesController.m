@@ -15,12 +15,13 @@
 #import "NSDateFormatter+AppLocale.h"
 #import "UIViewController+SlideMenu.h"
 #import "PreferencesService.h"
+#import "RMPickerViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
 #define kCellTitleLabel 101
 #define kCellSubtitleLabel 102
 
-@interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UISearchDisplayDelegate>
+@interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UISearchDisplayDelegate, RMPickerViewControllerDelegate>
 
 @property (nonatomic, assign) BOOL activitiesUpdated;
 
@@ -75,7 +76,7 @@
     self.searchController.searchResultsDelegate = self;
 
     self.tableView.tableHeaderView = searchBar;
-    
+
     if ([UIRefreshControl class]) {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         refreshControl.tintColor = [UIColor hydraTintColor];
@@ -84,8 +85,10 @@
 
         self.refreshControl = refreshControl;
     }
-    
+
     [self H_setSlideMenuButton];
+    [RMPickerViewController setLocalizedTitleForCancelButton:@"Sluit"];
+    [RMPickerViewController setLocalizedTitleForSelectButton:@"Gereed"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -335,12 +338,12 @@
             self.days = self.oldDays;
             self.data = self.oldData;
         }
-        
+
         self.previousSearchLength = searchString.length;
-        
+
         NSMutableArray *filteredDays = [[NSMutableArray alloc] init];
         NSMutableDictionary *filteredData = [[NSMutableDictionary alloc] init];
-        
+
         for (NSDate *day in self.days) {
             NSMutableArray *activities = self.data[day];
             NSMutableArray *filteredActivities = [[NSMutableArray alloc] init];
@@ -367,9 +370,11 @@
         [activity.association.internalName rangeOfString:searchString options:option].location != NSNotFound) {
         return YES;
     }
-    for(NSString* categorie in activity.categories){
-        if([categorie rangeOfString:searchString options:option].location != NSNotFound){
-            return YES;
+    if (![activity.categories  isEqual: @[[NSNull null]]]) {
+        for(NSString* categorie in activity.categories){
+            if([categorie rangeOfString:searchString options:option].location != NSNotFound){
+                return YES;
+            }
         }
     }
     return NO;
@@ -422,18 +427,29 @@
 - (void)didSelectActivity:(AssociationActivity *)activity
 {
     NSDate *day = [activity.start dateAtStartOfDay];
-    NSUInteger row = [self.data[day] indexOfObject:activity];
     NSUInteger section = [self.days indexOfObject:day];
+    NSUInteger row = [self.data[day] indexOfObject:activity];
 
-    NSIndexPath *selection = [NSIndexPath indexPathForRow:row inSection:section];
-    [self.tableView selectRowAtIndexPath:selection animated:NO
-                          scrollPosition:UITableViewScrollPositionNone];
+    if (row != NSNotFound) {
+        NSIndexPath *selection = [NSIndexPath indexPathForRow:row inSection:section];
+        [self.tableView selectRowAtIndexPath:selection animated:NO
+                              scrollPosition:UITableViewScrollPositionNone];
+    }
 }
 
 #pragma mark - Date button and UIPickerView
 
 - (void)dateButtonTapped:(id)sender
 {
+    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        RMPickerViewController *pickerVC = [RMPickerViewController pickerController];
+        pickerVC.delegate = self;
+        UIPickerView *picker = pickerVC.picker;
+        NSInteger row = ((NSIndexPath *)[self.tableView indexPathsForVisibleRows][0]).section;
+        [picker selectRow:row inComponent:0 animated:NO];
+
+        [pickerVC show];
+    } else {
     // TODO: this is abuse of UIActionSheet, and shouldn't be used like this
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:nil
@@ -467,7 +483,7 @@
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 290, 22)];
     title.font = [UIFont boldSystemFontOfSize:18];
     title.text = @"Selecteer een dag";
-    title.textAlignment = UITextAlignmentCenter;
+    title.textAlignment = NSTextAlignmentCenter;
     title.backgroundColor = [UIColor clearColor];
 
     if (!iOS7) {
@@ -488,6 +504,7 @@
 
     [actionSheet showInView:self.view];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
+    }
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -506,7 +523,7 @@
     if (!view) {
         label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 37)];
         label.font = [UIFont boldSystemFontOfSize:18];
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         label.backgroundColor = [UIColor clearColor];
     }
     else {
@@ -536,4 +553,12 @@
     self.datePicker = nil;
 }
 
+#pragma mark - RMPickerViewController Delegates
+- (void)pickerViewController:(RMPickerViewController *)vc didSelectRows:(NSArray  *)selectedRows {
+    //Do something
+}
+
+- (void)pickerViewControllerDidCancel:(RMPickerViewController *)vc {
+    //Do something else
+}
 @end

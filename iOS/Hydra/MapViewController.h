@@ -15,5 +15,6 @@
 
 - (void)trackUser:(BOOL)track;
 - (void)loadMapItems;
+- (void)mapLocationUpdated;
 
 @end

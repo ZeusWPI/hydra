@@ -221,7 +221,11 @@ public class Urgent extends AbstractSherlockActivity {
                     });
                     break;
                 case HTTPIntentService.STATUS_ERROR:
-                    Toast.makeText(Urgent.this, R.string.nowplaying_update_failed, Toast.LENGTH_SHORT).show();
+                    Urgent.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(Urgent.this, R.string.nowplaying_update_failed, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     break;
             }
         }

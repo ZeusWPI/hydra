@@ -100,11 +100,11 @@
 // This hard codes the assumption that a week is 7 days
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate
 {
-	NSDateComponents *components1 = [CURRENT_CALENDAR components:NSWeekCalendarUnit fromDate:self];
-	NSDateComponents *components2 = [CURRENT_CALENDAR components:NSWeekCalendarUnit fromDate:aDate];
+	NSDateComponents *components1 = [CURRENT_CALENDAR components:NSWeekOfYearCalendarUnit fromDate:self];
+	NSDateComponents *components2 = [CURRENT_CALENDAR components:NSWeekOfYearCalendarUnit fromDate:aDate];
 
 	// Must be same week. 12/31 and 1/1 will both be week "1" if they are in the same week
-	if (components1.week != components2.week) return NO;
+	if (components1.weekOfYear != components2.weekOfYear) return NO;
 
 	// Must have a time interval under 1 week. Thanks @aclark
 	return (abs([self timeIntervalSinceDate:aDate]) < D_WEEK);
@@ -328,8 +328,8 @@
 
 - (NSInteger) week
 {
-	NSDateComponents *components = [CURRENT_CALENDAR components:NSWeekCalendarUnit fromDate:self];
-	return components.week;
+	NSDateComponents *components = [CURRENT_CALENDAR components:NSWeekOfYearCalendarUnit fromDate:self];
+	return components.weekOfYear;
 }
 
 - (NSInteger) yearOfCalendarWeek

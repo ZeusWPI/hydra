@@ -13,27 +13,29 @@
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import <GAI.h>
 #import <PKRevealController/PKRevealController.h>
+#import <GAI.h>
+#import <GAIDictionaryBuilder.h>
+#import <GAIFields.h>
 #import "UIColor+AppColors.h"
 #endif
 
-#define PUBLIC_RELEASE 0
+#define PUBLIC_RELEASE 1
 #define BETA_RELEASE !PUBLIC_RELEASE
 
 #if PUBLIC_RELEASE
     #define GoogleAnalyticsEnabled 1
-    #define TestFlightEnabled 0
 #elif !TARGET_IPHONE_SIMULATOR && !DEBUG
     #define GoogleAnalyticsEnabled 0
-    #define TestFlightEnabled 1
 #else
     #define GoogleAnalyticsEnabled 0
-    #define TestFlightEnabled 0
 #endif
 
 #if GoogleAnalyticsEnabled
-    #define GAI_Track(screen) [[GAI sharedInstance].defaultTracker trackView:(screen)];
+    #define GAI_Track(screen) { id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker]; \
+                                [tracker set:kGAIScreenName value:screen]; \
+                                [tracker send:[[GAIDictionaryBuilder createAppView]  build]];\
+                              }
 #else
     #define GAI_Track(screen) do { } while (0)
 #endif

@@ -23,11 +23,6 @@
 #import <Reachability/Reachability.h>
 #import <PKRevealController/PKRevealController.h>
 
-#if TestFlightEnabled
-#import <TestFlight.h>
-#endif
-
-#define kTestFlightToken @"5bc4ec5d-0095-4731-bb0c-ebb0b41ff14a"
 #define kGoogleAnalyticsToken @"UA-25444917-3"
 
 @interface AppDelegate () <PKRevealing>
@@ -39,16 +34,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if TestFlightEnabled
-    [TestFlight takeOff:kTestFlightToken];
-#endif
 
 #if GoogleAnalyticsEnabled
     GAI *gai = [GAI sharedInstance];
     gai.trackUncaughtExceptions = YES;
     gai.dispatchInterval = 30;
     gai.defaultTracker = [gai trackerWithTrackingId:kGoogleAnalyticsToken];
-    gai.debug = DEBUG;
+    gai.defaultTracker.allowIDFACollection = NO;
 #endif
 
 #if DEBUG

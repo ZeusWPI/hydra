@@ -86,7 +86,6 @@
     [segmentedControl addTarget:self action:@selector(segmentTapped:)
                forControlEvents:UIControlEventValueChanged];
     segmentedControl.frame = CGRectMake(0, 0, 90, 30);
-    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.momentary = YES;
     [self enableSegments:segmentedControl];
 
@@ -103,8 +102,27 @@
         FacebookSession *session = [FacebookSession sharedSession];
         PreferencesService *prefs = [PreferencesService sharedService];
         if (!session.open && !prefs.shownFacebookPrompt){
-            [session openWithAllowLoginUI:YES];
             prefs.shownFacebookPrompt = YES;
+            
+            if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Koppel aan Facebook!"
+                                                                               message:@"Koppel Hydra aan Facebook en krijg "
+                                                                                        "meer informatie bij de activiteiten. "
+                                                                                        "Je kan dit later altijd aanpassen "
+                                                                                        "in de voorkeuren."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Annuleer" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *login = [UIAlertAction actionWithTitle:@"Koppel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    [session openWithAllowLoginUI:YES];
+                }];
+                
+                [alert addAction:cancel];
+                [alert addAction:login];
+                
+                [self presentViewController:alert animated:YES completion:nil];
+            } else {
+                [session openWithAllowLoginUI:YES];
+            }
         }
     }
 }
@@ -145,10 +163,10 @@
 
     FacebookEvent *fbEvent = self.activity.facebookEvent;
     if (fbEvent.valid) {
-        NSString *guests = [NSString stringWithFormat:@"%d aanwezig", fbEvent.attendees];
+        NSString *guests = [NSString stringWithFormat:@"%lu aanwezig", (unsigned long)fbEvent.attendees];
         if (fbEvent.friendsAttending) {
             NSUInteger count = fbEvent.friendsAttending.count;
-            guests = [guests stringByAppendingFormat:@", %d %@", count,
+            guests = [guests stringByAppendingFormat:@", %lu %@", (unsigned long)count,
                       (count == 1 ? @"vriend" : @"vrienden")];
         }
         fields[kGuestsRow] = guests;
@@ -260,10 +278,37 @@
                             width = tableView.frame.size.width;
                         } else {
                             width = tableView.frame.size.width - 20;
+                            self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                         }
-                        self.descriptionView.frame = CGRectMake(0, 0, width, 0);
                     }
-                    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+                    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+                        UIEdgeInsets textContainerInsets = self.descriptionView.textContainerInset;
+                        UIEdgeInsets contentInsets = self.descriptionView.contentInset;
+                        
+                        CGFloat leftRightPadding = textContainerInsets.left + textContainerInsets.right + contentInsets.left + contentInsets.right +
+                                                    self.descriptionView.textContainer.lineFragmentPadding * 2;
+
+                        width = self.tableView.frame.size.width - leftRightPadding;
+                        
+                        text = self.descriptionView.text;
+                        
+                        unichar last = [text characterAtIndex:[text length] - 1];
+                        if (![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:last]) {
+                            // Add new line to keep the last line, if no new line is at the end of the text
+                            text = [text stringByAppendingString:@"\n"];
+                        }
+                        
+                        NSDictionary *attributes = @{NSFontAttributeName: self.descriptionView.font};
+                        NSMutableAttributedString *mutableText = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+                        CGRect size = [mutableText boundingRectWithSize:CGSizeMake(width, NSUIntegerMax)
+                                                                              options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                                              context:nil];
+                        
+                        CGFloat height = ceilf(CGRectGetHeight(size) + 1);
+
+                        return height;
+
+                    } else if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
                         UIEdgeInsets textContainerInsets = self.descriptionView.textContainerInset;
                         UIEdgeInsets contentInsets = self.descriptionView.contentInset;
 
@@ -303,9 +348,15 @@
     }
 
     if (text) {
-        CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
-                           lineBreakMode:NSLineBreakByWordWrapping];
-        return MAX(minHeight, size.height + spacing);
+        NSDictionary *attributes = @{NSFontAttributeName: font};
+        
+        NSMutableAttributedString *mutableText = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+        CGRect size = [mutableText boundingRectWithSize:CGSizeMake(width, NSUIntegerMax)
+                                                options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                context:nil];
+        
+        CGFloat height = ceilf(CGRectGetHeight(size) + 1);
+        return MAX(minHeight, height + spacing);
     }
     else {
         return minHeight;
@@ -370,7 +421,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.shadowColor = [UIColor whiteColor];
@@ -387,17 +438,15 @@
     NSURL *imageUrl = self.activity.facebookEvent.smallImageUrl;
     if (imageUrl) {
         if (!self.imageView) {
-            CGRect imageRect = CGRectMake(-1, -1, 72, 72);
+            CGRect imageRect = CGRectMake(0, 0, 70, 70);
             self.imageView = [[UIImageView alloc] initWithFrame:imageRect];
             self.imageView.backgroundColor = [UIColor whiteColor];
             self.imageView.contentMode = UIViewContentModeScaleAspectFill;
             self.imageView.layer.masksToBounds = YES;
-            self.imageView.layer.cornerRadius = 5;
-            self.imageView.layer.borderWidth = 1.2;
             self.imageView.layer.borderColor = [UIColor colorWithWhite:0.65 alpha:1].CGColor;
         }
 
-        [self.imageView setImageWithURL:imageUrl];
+        [self.imageView sd_setImageWithURL:imageUrl];
         cell.customView = self.imageView;
         cell.indentationLevel = 7; // inset text 70pt
     }
@@ -576,7 +625,7 @@
         UIImageView *image = [[UIImageView alloc] initWithFrame:pictureFrame];
         image.layer.masksToBounds = YES;
         image.layer.cornerRadius = 5;
-        [image setImageWithURL:[friends[i] photoUrl] placeholderImage:placeholder];
+        [image sd_setImageWithURL:[friends[i] photoUrl] placeholderImage:placeholder];
         [container addSubview:image];
 
         pictureFrame.origin.x += 35;
@@ -598,8 +647,11 @@
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
             else if (row == kLocationRow) {
-                ActivityMapController *c = [[ActivityMapController alloc] initWithActivity:self.activity];
-                [self.navigationController pushViewController:c animated:YES];
+                // Only show map when location coordinates are available
+                if (self.activity.hasCoordinates) {
+                    ActivityMapController *c = [[ActivityMapController alloc] initWithActivity:self.activity];
+                    [self.navigationController pushViewController:c animated:YES];
+                }
             }
             break;
 
@@ -658,13 +710,13 @@
     eventViewController.event = event;
     eventViewController.eventStore = store;
     eventViewController.editViewDelegate = self;
-    [self.navigationController presentModalViewController:eventViewController animated:YES];
+    [self.navigationController presentViewController:eventViewController animated:YES completion:nil];
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller
           didCompleteWithAction:(EKEventEditViewAction)action
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -695,17 +747,25 @@
 
 - (void)segmentTapped:(UISegmentedControl *)control
 {
+    AssociationActivity *activity;
     if (control.selectedSegmentIndex == 0) {
-        self.activity = [self.listDelegate activityBefore:self.activity];
+        activity = [self.listDelegate activityBefore:self.activity];
     }
     else {
-        self.activity = [self.listDelegate activityAfter:self.activity];
+        activity = [self.listDelegate activityAfter:self.activity];
+    }
+    
+    if (activity != nil) {
+        self.activity = activity;
+        [self reloadData];
+        [self enableSegments:control];
+        [self viewDidAppear:NO]; // Trigger analytics
+        [self.listDelegate didSelectActivity:self.activity];
+    } else {
+        [self enableSegments:control]; // disables segments
     }
 
-    [self reloadData];
-    [self enableSegments:control];
-    [self viewDidAppear:NO]; // Trigger analytics
-    [self.listDelegate didSelectActivity:self.activity];
+    
 }
 
 #pragma mark - Notifications
