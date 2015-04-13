@@ -112,7 +112,7 @@ class RestoManager: NSObject {
                 
                 if JSONMainMenuItems != nil {
                     for JSONMainMenuItem in JSONMainMenuItems! {
-                        let name = JSONMainMenuItem["name"] as String
+                        let name = JSONMainMenuItem["name"] as! String
                         var type : MenuItemType = .Main
                         
                         // Some soups are also passed as main menu items in the API.
@@ -121,26 +121,26 @@ class RestoManager: NSObject {
                             type = .Soup
                         }
                         
-                        let menuItem = MenuItem(name: name.sentenceCapitalizedString, type: type, price: NSDecimalNumber(euroString: JSONMainMenuItem["price"] as String))
+                        let menuItem = MenuItem(name: name.sentenceCapitalizedString as String, type: type, price: NSDecimalNumber(euroString: JSONMainMenuItem["price"] as! String))
                         menuItems.append(menuItem)
                     }
                 }
                 
                 if JSONSoupMenuItems != nil {
                     for JSONSoupMenuItem in JSONSoupMenuItems! {
-                        let menuItem = MenuItem(name: (JSONSoupMenuItem["name"] as String).sentenceCapitalizedString, type: .Soup, price: NSDecimalNumber(euroString: JSONSoupMenuItem["price"] as String))
+                        let menuItem = MenuItem(name: (JSONSoupMenuItem["name"] as! String).sentenceCapitalizedString as String, type: .Soup, price: NSDecimalNumber(euroString: JSONSoupMenuItem["price"] as! String))
                         menuItems.append(menuItem)
                     }
                 }
                 
                 if JSONVegetableMenuItems != nil {
                     for JSONVegetableMenuItem in JSONVegetableMenuItems! {
-                        let menuItem = MenuItem(name: JSONVegetableMenuItem.sentenceCapitalizedString, type: .Vegetable, price: nil)
+                        let menuItem = MenuItem(name: JSONVegetableMenuItem.sentenceCapitalizedString as String, type: .Vegetable, price: nil)
                         menuItems.append(menuItem)
                     }
                 }
                 
-                let menu = Menu(date: date, menuItems: menuItems, open: JSONMenu["open"] as Bool)
+                let menu = Menu(date: date, menuItems: menuItems, open: JSONMenu["open"] as! Bool)
                 return (menu, nil)
             } else {
                let menu = Menu(date: date, menuItems: [], open: false)

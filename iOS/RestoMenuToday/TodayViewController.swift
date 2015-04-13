@@ -104,7 +104,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.menu = menu
                 
                 // Filter all the menu items to only display the main menu items
-                self.filteredMenuItems = menu.menuItems.filter { return $0.type == .Main }
+                self.filteredMenuItems = menu.menuItems.filter { return $0.type == MenuItemType.Main }
                 
                 completionHandler(.NewData)
             } else {
@@ -126,7 +126,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(menuItemTableViewCellIdentifier, forIndexPath: indexPath) as MenuItemTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(menuItemTableViewCellIdentifier, forIndexPath: indexPath) as! MenuItemTableViewCell
         cell.menuItem = self.filteredMenuItems[indexPath.row]
         return cell
     }
