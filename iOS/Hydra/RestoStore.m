@@ -14,7 +14,7 @@
 #import "AppDelegate.h"
 #import <RestKit/RestKit.h>
 
-#define kRestoUrl @"http://zeus.ugent.be/hydra/api/1.0/resto/"
+#define kRestoUrl @"https://zeus.ugent.be/hydra/api/1.0/resto/"
 #define kRestoInfoPath @"meta.json"
 #define kRestoMenuPath @"menu/%lu/%lu.json"
 
