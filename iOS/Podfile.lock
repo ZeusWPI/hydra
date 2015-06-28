@@ -1,77 +1,81 @@
 PODS:
   - AFNetworking (1.3.4)
-  - Bolts (1.1.3)
-  - Facebook-iOS-SDK (3.23.0):
+  - Bolts (1.1.4)
+  - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
   - GoogleAnalytics-iOS-SDK (3.10):
-    - GoogleAnalytics-iOS-SDK/Core
+    - GoogleAnalytics-iOS-SDK/Core (= 3.10)
   - GoogleAnalytics-iOS-SDK/Core (3.10)
+  - ISO8601DateFormatterValueTransformer (0.6.0):
+    - RKValueTransformers (~> 1.1.0)
   - PKMultipartInputStream (1.1.0)
-  - Reachability (3.1.1)
-  - RestKit (0.20.3):
-    - RestKit/Core
-  - RestKit/Core (0.20.3):
+  - Reachability (3.2)
+  - RestKit (0.24.1):
+    - RestKit/Core (= 0.24.1)
+  - RestKit/Core (0.24.1):
     - RestKit/CoreData
     - RestKit/Network
     - RestKit/ObjectMapping
-  - RestKit/CoreData (0.20.3)
-  - RestKit/Network (0.20.3):
+  - RestKit/CoreData (0.24.1):
+    - RestKit/ObjectMapping
+  - RestKit/Network (0.24.1):
     - AFNetworking (~> 1.3.0)
     - RestKit/ObjectMapping
     - RestKit/Support
     - SOCKit
-  - RestKit/ObjectMapping (0.20.3)
-  - RestKit/Support (0.20.3):
-    - TransitionKit (= 1.1.1)
+  - RestKit/ObjectMapping (0.24.1):
+    - ISO8601DateFormatterValueTransformer (~> 0.6.0)
+    - RestKit/Support
+    - RKValueTransformers (~> 1.1.0)
+  - RestKit/Support (0.24.1):
+    - TransitionKit (~> 2.1.0)
+  - RKValueTransformers (1.1.2)
   - RKXMLReaderSerialization (0.1.0):
     - RestKit (>= 0.20.0dev)
     - XMLReader (>= 0.0.2)
   - RMPickerViewController (1.3.3)
   - SAMTextView (0.2.2)
   - SDWebImage (3.7.1):
-    - SDWebImage/Core
+    - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
-  - ShareKit/Core (2.5.9):
+  - ShareKit/Core (4.0.4):
+    - PKMultipartInputStream
     - SAMTextView (~> 0.2.1)
-    - SDWebImage
-    - ShareKit/NoARC
+    - SDWebImage (~> 3.7)
     - ShareKit/Reachability
     - SSKeychain (~> 1.2.2)
-    - UIActivityIndicator-for-SDWebImage
-  - ShareKit/Facebook (2.5.9):
-    - Facebook-iOS-SDK
+    - UIActivityIndicator-for-SDWebImage (~> 1.2)
+  - ShareKit/Facebook (4.0.4):
+    - Facebook-iOS-SDK (~> 3.2)
     - ShareKit/Core
-  - ShareKit/NoARC (2.5.9):
-    - PKMultipartInputStream
-    - ShareKit/Core
-  - ShareKit/Reachability (2.5.9)
-  - ShareKit/Twitter (2.5.9):
+  - ShareKit/Reachability (4.0.4)
+  - ShareKit/Twitter (4.0.4):
     - ShareKit/Core
   - SMPageControl (1.2)
   - SOCKit (1.1)
-  - SSKeychain (1.2.2)
-  - SVProgressHUD (0.9)
-  - TransitionKit (1.1.1)
+  - SSKeychain (1.2.3)
+  - SVProgressHUD (1.1.3)
+  - TransitionKit (2.1.1)
   - TUSafariActivity (0.0.1)
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
-  - VTAcknowledgementsViewController (0.12)
+  - VTAcknowledgementsViewController (0.13)
   - XMLReader (0.0.2)
 
 DEPENDENCIES:
-  - Facebook-iOS-SDK (~> 3.7)
-  - GoogleAnalytics-iOS-SDK (~> 3.0)
-  - Reachability (~> 3.1.1)
-  - RestKit (~> 0.20.0)
+  - Facebook-iOS-SDK (~> 3.2)
+  - GoogleAnalytics-iOS-SDK (~> 3.10)
+  - Reachability (~> 3.2)
+  - RestKit (~> 0.24.0)
   - RKXMLReaderSerialization (from `External/RKXMLReaderSerialization.podspec`)
   - RMPickerViewController (~> 1.3.3)
-  - SDWebImage (~> 3.4)
-  - ShareKit/Facebook (~> 2.3)
-  - ShareKit/Twitter (~> 2.3)
-  - SMPageControl (~> 1.1)
-  - SVProgressHUD (~> 0.9)
+  - SDWebImage (~> 3.7)
+  - ShareKit/Facebook (~> 4.0)
+  - ShareKit/Twitter (~> 4.0)
+  - SMPageControl (~> 1.2)
+  - SVProgressHUD (~> 1.1)
   - TUSafariActivity (from `External/TUSafariActivity.podspec`)
-  - VTAcknowledgementsViewController (~> 0.6)
+  - VTAcknowledgementsViewController (~> 0.13)
 
 EXTERNAL SOURCES:
   RKXMLReaderSerialization:
@@ -80,26 +84,28 @@ EXTERNAL SOURCES:
     :podspec: External/TUSafariActivity.podspec
 
 SPEC CHECKSUMS:
-  AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
-  Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
-  Facebook-iOS-SDK: 3d65f685348b789e46a9aacf92bfa85b60b63755
-  GoogleAnalytics-iOS-SDK: f422062075d9ccb1ea8d783fc5ba3829461e9502
-  PKMultipartInputStream: 9e18cd438cbfb8900ccb4d26b3f848768cd92e10
-  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
-  RestKit: 7f9490e709ee745e166c4d2aa7a8d132831275b0
-  RKXMLReaderSerialization: 340ce8c21cf74fd10bd63c8401b13eed53722103
-  RMPickerViewController: 0f26f3e53d326ce86fe0337cc84366fae0e8c78c
-  SAMTextView: c37f114b5bbf3260d804453aa9614b721714646e
-  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  ShareKit: 6a90d88043bb2348000247ece3983021496084ea
-  SMPageControl: 506b0c561d3ddbe2d5df28cb33acc8e4b1f93f19
-  SOCKit: d8d0dd3688ae1026c12367570da8fa8e1a6980fb
-  SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
-  SVProgressHUD: adf9def97327df88dee15e9ad8033fde6961f7b4
-  TransitionKit: b573f93c422f6aedf7d40e93e7c2f202d1295063
-  TUSafariActivity: a20b9144e7bcafbc4a774ea448739299764e129b
-  UIActivityIndicator-for-SDWebImage: 8bd92c15280fbe54816448c6b14674145eee05c7
-  VTAcknowledgementsViewController: 5cdab8f3d003680b8fbdfcce90fcab92cee962a6
-  XMLReader: 2264fd2f8167343285a9943929c3b7e4b74626c0
+  AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
+  Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
+  Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
+  GoogleAnalytics-iOS-SDK: 4f98a376c1d61e6ac4ca47951655820314856eef
+  ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
+  PKMultipartInputStream: 1fb466fac9347857e3477e4dfc6fcc62fea7a944
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  RestKit: 1987b5efef289c6b27bd980714d6ca48d3871b78
+  RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
+  RKXMLReaderSerialization: 92e75808b3e46d8538ddc58c08e6822fc63313ad
+  RMPickerViewController: 1a64e211e86ac3d961214c9c376de7c0241ac25b
+  SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
+  SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
+  ShareKit: 48a9a3aed20d4b59b49ae3c8efdbb46e95beab33
+  SMPageControl: 922892813001cfaf059e86e6801f46a967e9ee29
+  SOCKit: c7376ac262bea9115b8f749358f762522a47d392
+  SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
+  TUSafariActivity: 83284fca15bb3331b1680ee1fbe39be38fe3a6e3
+  UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
+  VTAcknowledgementsViewController: f2391b007c3abafd3b3afccda7d8914a59b44309
+  XMLReader: c7e54b707c368e2fa545d8313276b4de13a36ff5
 
-COCOAPODS: 0.34.0
+COCOAPODS: 0.36.3

@@ -48,7 +48,7 @@
     // logo
     UIImage *logo = [UIImage imageNamed:@"resto-logo.png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:logo];
-    [imageView setFrame:CGRectMake(90, 0, 100, 100)];
+    [imageView setFrame:CGRectMake(self.frame.size.width/2-50, 0, 100, 100)];
     [headerView addSubview:imageView];
 
     // resto info

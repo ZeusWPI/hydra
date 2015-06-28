@@ -13,7 +13,7 @@
 #import <RestKit/RestKit.h>
 #import <RKXMLReaderSerialization/RKXMLReaderSerialization.h>
 
-#define kSchamperBaseUrl @"http://zeus.ugent.be/hydra/api/1.0/schamper/"
+#define kSchamperBaseUrl @"https://zeus.ugent.be/hydra/api/1.0/schamper/"
 #define kSchamperDailyUrl @"daily.xml"
 NSString *const SchamperStoreDidUpdateArticlesNotification =
     @"SchamperStoreDidUpdateArticlesNotification";
