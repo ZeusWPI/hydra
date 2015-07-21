@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 # Update symlink
 rm resto/1.0/week
 ln -s "menu/$(date +%Y)" resto/1.0/week
