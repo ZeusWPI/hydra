@@ -36,16 +36,21 @@ MEAL_SELECTOR = "#content-core li"
 # The string indicating a closed day.
 CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
 
+
 def get_weeks(which):
-    "Retrieves a dictionary of weeknumbers to the url of the menu for that week from the given weekmenu overview."
+    """Retrieves a dictionary of weeknumbers to the url of the menu for that
+    week from the given weekmenu overview.
+    """
     weekmenu = pq(url=WEEKMENU_URL[which])
-    week_urls = weekmenu(WEEK_SELECTOR[which]).map(lambda i, e: pq(e).attr("href"))
+    week_urls = (pq(e).attr("href") for i, e in weekmenu(WEEK_SELECTOR[which]))
 
     r = {}
     for url in week_urls:
-        iso_year, iso_week, _ = DateStuff.from_iso_week(int(url.split("week")[-1])).isocalendar()
+        iso_week = int(url.split("week")[-1])
+        iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
         r[(iso_year, iso_week)] = url
     return r
+
 
 def get_days(which, iso_week, url):
     "Retrieves a dictionary from isoweeks on which the resto is open."
@@ -64,6 +69,7 @@ def get_days(which, iso_week, url):
     })
 
     return r
+
 
 def get_day_menu(which, url):
     "Parses the daymenu from the given url."
@@ -87,10 +93,10 @@ def get_day_menu(which, url):
         if '€' in meal:
             price = meal.split('-')[-1].strip()
             name = '-'.join(meal.split('-')[:-1]).strip()
-            if ':' in meal: # Meat
+            if ':' in meal:  # Meat
                 kind, name = [s.strip() for s in name.split(':')]
                 meats.append(dict(price=price, name=name, kind=kind))
-            else: # soup
+            else:  # Soup
                 soups.append(dict(price=price, name=name))
         else:
             vegetables.append(meal)
@@ -117,17 +123,17 @@ class DateStuff(object):
         }
     })
 
-
     def iso_year_start(iso_year):
         "The gregorian calendar date of the first day of the given ISO year"
         fourth_jan = datetime.date(iso_year, 1, 4)
-        delta = datetime.timedelta(fourth_jan.isoweekday()-1)
+        delta = datetime.timedelta(fourth_jan.isoweekday() - 1)
         return fourth_jan - delta
 
     def iso_to_gregorian(iso_year, iso_week, iso_day):
         "Gregorian calendar date for the given ISO year, week and day"
         year_start = DateStuff.iso_year_start(iso_year)
-        return year_start + datetime.timedelta(days=iso_day-1, weeks=iso_week-1)
+        return year_start + datetime.timedelta(days=iso_day - 1,
+                                               weeks=iso_week - 1)
 
     def from_iso_week(iso_week):
         return DateStuff._from_iso_week_day(iso_week, 1)
@@ -137,7 +143,8 @@ class DateStuff(object):
         return DateStuff._from_iso_week_day(iso_week, iso_day)
 
     def _from_iso_week_day(iso_week, iso_day):
-        iso_current_year, iso_current_week, _ = datetime.date.today().isocalendar()
+        today_iso_calendar = datetime.date.today().isocalendar()
+        iso_current_year, iso_current_week, _ = today_iso_calendar
         if iso_current_week > 40 and iso_week < 10:
             iso_year = iso_current_year + 1
         elif iso_current_week < 10 and iso_week > 40:
@@ -153,7 +160,8 @@ class DateStuff(object):
         if(day < 6 and (year, week) not in weeks):
             problems.append("Failed to retrieve the menu of the current week.")
         # Should contain the next week, always.
-        year, week, day = (datetime.date.today() + datetime.timedelta(weeks=1)).isocalendar()
+        one_week_from_now = datetime.date.today() + datetime.timedelta(weeks=1)
+        year, week, day = one_week_from_now.isocalendar()
         if (year, week) not in weeks:
             problems.append("Failed to retrieve the menu of the next week.")
         return problems
@@ -185,8 +193,8 @@ def write_1_0(menus):
                         dict(name=name, price=price, recommended=False)
                     )
             menu[str(day)] = daymenu1_0
-        json.dump(menu, open(OUTFILE.format(year, week), 'w'),
-                sort_keys=True)
+        json.dump(menu, open(OUTFILE.format(year, week), 'w'), sort_keys=True)
+
 
 def main():
     "The main method."
@@ -199,7 +207,8 @@ def main():
 
         weeks = {}
         try:
-            # Get weeks. Expect at least this week (if <= friday) and the following.
+            # Get weeks. Expect at least this week (if <= friday) and the
+            # following.
             weeks = get_weeks(which)
             problems.extend(DateStuff.problems_with_weeks(weeks))
         except:
@@ -218,11 +227,13 @@ def main():
                     for day in days if days[day] is None
                 ])
             except:
-                problems.append("Failed to parse days from {}.".format(week_url))
+                problem = "Failed to parse days from {}.".format(week_url)
+                problems.append(problem)
 
             week_dict = {}
             for day, day_url in days.items():
-                if day_url is None: continue # skipping unavailable days.
+                if day_url is None:
+                    continue  # Skip unavailable days.
 
                 try:
                     menu = get_day_menu(which, day_url)
@@ -234,15 +245,15 @@ def main():
 
             menus[which][(year, week)] = week_dict
 
-        if problems: all_problems[which] = problems
+        if problems:
+            all_problems[which] = problems
 
     # Print the parsing problems.
-    if all_problems: pprint(all_problems, stream=sys.stderr)
+    if all_problems:
+        pprint(all_problems, stream=sys.stderr)
 
     write_1_0(menus)
 
 
-
 if __name__ == '__main__':
     main()
-
