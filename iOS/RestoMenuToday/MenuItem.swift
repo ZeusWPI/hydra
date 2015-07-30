@@ -21,7 +21,7 @@ enum MenuItemType {
     case Soup
 }
 
-class MenuItem: NSObject, Printable {
+class MenuItem: NSObject {
     
     // MARK: Properties
     

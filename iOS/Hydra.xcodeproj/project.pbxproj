@@ -1152,6 +1152,8 @@
 		F5BAEC7D1518868100F6A1B1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Zeus WPI";
 				TargetAttributes = {

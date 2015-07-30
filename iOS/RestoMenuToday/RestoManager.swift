@@ -23,7 +23,7 @@ class RestoManager: NSObject {
     /**
     Returns the shared Resto manager object for the process.
 
-    :returns: The shared RestoManager object.
+    - returns: The shared RestoManager object.
     */
     class var sharedManager : RestoManager {
         struct Static {
@@ -51,16 +51,16 @@ class RestoManager: NSObject {
     Retrieves the menu for the given date in the background and caches it.
     If the menu is already in the cache, the cached menu is used and no request is made.
     
-    :param: date The date of the menu you want to retrieve.
+    - parameter date: The date of the menu you want to retrieve.
     
-    :param: completionHandler A block that is executed on the main queue when the request has succeeded or failed.
+    - parameter completionHandler: A block that is executed on the main queue when the request has succeeded or failed.
                               The optional menu parameter holds the eventually retrieved menu.
                               The optional error parameter holds any error that caused the request to fail.
                               Either the menu or the error is not nil.
     */
     func retrieveMenuForDate(date: NSDate, completionHandler: (menu: Menu?, error: NSError?) -> ()) {
         // Construct the URL for the API request based on the year and week of the given date
-        let dateComponents = NSCalendar.currentCalendar().components(.WeekOfYearCalendarUnit | .YearCalendarUnit, fromDate: date)
+        let dateComponents = NSCalendar.currentCalendar().components([.NSWeekOfYearCalendarUnit, .NSYearCalendarUnit], fromDate: date)
         let URL = NSURL(string: "http://zeus.ugent.be/hydra/api/1.0/resto/menu/\(dateComponents.year)/\(dateComponents.weekOfYear).json")
         
         // We're relying on NSURLCache to cache the data for us when the user is offline
@@ -73,7 +73,12 @@ class RestoManager: NSObject {
                 completionHandler(menu: nil, error: error)
             } else {
                 if data != nil {
-                    completionHandler(self.menuForDate(date, withData: data))
+                    do {
+                    try completionHandler(self.menuForDate(date, withData: data!))
+                    } catch _ {
+                        let error = NSError(domain: RestoKitErrorDomain, code: RestoKitError.NoData.rawValue, userInfo: nil)
+                        completionHandler(menu: nil, error: error)
+                    }
                 } else {
                     let error = NSError(domain: RestoKitErrorDomain, code: RestoKitError.NoData.rawValue, userInfo: nil)
                     completionHandler(menu: nil, error: error)
@@ -87,16 +92,14 @@ class RestoManager: NSObject {
     /**
     Creates a Menu for the given date based on the given JSON data.
     
-    :param: date The date of the menu you want to parse.
-    :param: data The NSData representation of the JSON containing the menu for the given date.
+    - parameter date: The date of the menu you want to parse.
+    - parameter data: The NSData representation of the JSON containing the menu for the given date.
     
-    :returns: A tuple consisting of an optional menu and an optional error.
+    - returns: A tuple consisting of an optional menu and an optional error.
               Either the menu or the error is not nil.
     */
-    private func menuForDate(date : NSDate, withData data : NSData) -> (menu: Menu?, error : NSError?) {
-        var error : NSError?
-        let JSONDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as? [String : AnyObject]
-        
+    private func menuForDate(date : NSDate, withData data : NSData) throws -> (menu: Menu?, error : NSError?) {
+        let JSONDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String : AnyObject]
         if let JSONDictionary = JSONDictionary {
             // Create a date string from the given date
             let dateFormatter = NSDateFormatter()
@@ -143,12 +146,11 @@ class RestoManager: NSObject {
                 let menu = Menu(date: date, menuItems: menuItems, open: JSONMenu["open"] as! Bool)
                 return (menu, nil)
             } else {
-               let menu = Menu(date: date, menuItems: [], open: false)
+                let menu = Menu(date: date, menuItems: [], open: false)
                 return (menu, nil)
             }
             
-        } else {
-            return (nil, error)
         }
+        return (nil, nil) //TODO: shouldn't be reached, and needs to be rewritten to use standard hydra resto items
     }
 }
