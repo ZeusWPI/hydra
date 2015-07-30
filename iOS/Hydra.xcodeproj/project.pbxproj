@@ -33,9 +33,14 @@
 		908E536519BE4F3900F1DA57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 908E536419BE4F3900F1DA57 /* Images.xcassets */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
+		90BE1F891B6AB3390061888C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BE1F881B6AB3390061888C /* HomeViewController.swift */; };
+		90BE1F8D1B6AB61D0061888C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90BE1F8C1B6AB61D0061888C /* MainStoryboard.storyboard */; };
+		90BE1F901B6AB8780061888C /* home-header.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BE1F8E1B6AB8780061888C /* home-header.png */; };
+		90BE1F911B6AB8780061888C /* home-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BE1F8F1B6AB8780061888C /* home-background.png */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
 		90E814F31854C76C00075F96 /* ios7-Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */; };
 		90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F21854C76C00075F96 /* ios7-Default@2x.png */; };
+		90E8DDC11B6AD45C0059F71B /* home-button-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E8DDC01B6AD45C0059F71B /* home-button-bar.png */; };
 		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
 		90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegendItem.m */; };
 		90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F0525C168C663F004CAFFC /* RestoMapController.m */; };
@@ -135,7 +140,6 @@
 		F59D170115BD693F00B6F892 /* info-doctors@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F59D16F115BD693F00B6F892 /* info-doctors@2x.png */; };
 		F59D170915BD7CE500B6F892 /* info-content.plist in Resources */ = {isa = PBXBuildFile; fileRef = F59D170715BD7CE500B6F892 /* info-content.plist */; };
 		F59D170A15BD7CE500B6F892 /* info-sport-openingsuren.html in Resources */ = {isa = PBXBuildFile; fileRef = F59D170815BD7CE500B6F892 /* info-sport-openingsuren.html */; };
-		F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */; };
 		F59D170E15BD811000B6F892 /* info-sport-aanbod.html in Resources */ = {isa = PBXBuildFile; fileRef = F59D170D15BD811000B6F892 /* info-sport-aanbod.html */; };
 		F59D171015BD813E00B6F892 /* webview.css in Resources */ = {isa = PBXBuildFile; fileRef = F59D170F15BD813E00B6F892 /* webview.css */; };
 		F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */ = {isa = PBXBuildFile; fileRef = F5A81CBD15CF1BA700FE033B /* external-link.png */; };
@@ -168,7 +172,6 @@
 		F5BAEC8F1518868200F6A1B1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8E1518868200F6A1B1 /* CoreGraphics.framework */; };
 		F5BAEC971518868200F6A1B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAEC961518868200F6A1B1 /* main.m */; };
 		F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */; };
-		F5BAECA41518868200F6A1B1 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAECA31518868200F6A1B1 /* DashboardViewController.m */; };
 		F5BAECB01518868200F6A1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8A1518868200F6A1B1 /* UIKit.framework */; };
 		F5BAECB11518868200F6A1B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5BAEC8C1518868200F6A1B1 /* Foundation.framework */; };
 		F5BAECBC1518868200F6A1B1 /* HydraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BAECBB1518868200F6A1B1 /* HydraTests.m */; };
@@ -295,10 +298,16 @@
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
+		90BE1F871B6AB3390061888C /* Hydra-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Hydra-Bridging-Header.h"; path = "Hydra/Hydra-Bridging-Header.h"; sourceTree = "<group>"; };
+		90BE1F881B6AB3390061888C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		90BE1F8C1B6AB61D0061888C /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		90BE1F8E1B6AB8780061888C /* home-header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-header.png"; sourceTree = "<group>"; };
+		90BE1F8F1B6AB8780061888C /* home-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-background.png"; sourceTree = "<group>"; };
 		90C532A916A325A200857EB0 /* FacebookEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookEvent.h; sourceTree = "<group>"; };
 		90C532AA16A325A200857EB0 /* FacebookEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookEvent.m; sourceTree = "<group>"; };
 		90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default-568h@2x.png"; sourceTree = "<group>"; };
 		90E814F21854C76C00075F96 /* ios7-Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default@2x.png"; sourceTree = "<group>"; };
+		90E8DDC01B6AD45C0059F71B /* home-button-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-button-bar.png"; sourceTree = "<group>"; };
 		90EB7BE11688BCC700A9582D /* RestoInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoInfoView.h; sourceTree = "<group>"; };
 		90EB7BE21688BCC700A9582D /* RestoInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoInfoView.m; sourceTree = "<group>"; };
 		90EB7BE81688ECE300A9582D /* RestoLegendItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegendItem.h; sourceTree = "<group>"; };
@@ -456,8 +465,6 @@
 		F5BAEC961518868200F6A1B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = main.m; path = Hydra/main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F5BAEC991518868200F6A1B1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F5BAEC9A1518868200F6A1B1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F5BAECA21518868200F6A1B1 /* DashboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DashboardViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		F5BAECA31518868200F6A1B1 /* DashboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
 		F5BAECAD1518868200F6A1B1 /* HydraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HydraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BAECB61518868200F6A1B1 /* HydraTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HydraTests-Info.plist"; sourceTree = "<group>"; };
 		F5BAECBA1518868200F6A1B1 /* HydraTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HydraTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -506,7 +513,6 @@
 		F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SORelativeDateTransformer.bundle; sourceTree = "<group>"; };
 		F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SORelativeDateTransformer.h; sourceTree = "<group>"; };
 		F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SORelativeDateTransformer.m; sourceTree = "<group>"; };
-		F5EBF112159DFDEC00EB5D26 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/DashboardViewController.xib; sourceTree = "<group>"; };
 		F5EBF114159E040700EB5D26 /* RestoMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMenuController.h; sourceTree = "<group>"; };
 		F5EBF115159E040700EB5D26 /* RestoMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenuController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		F5EBF11A159E092300EB5D26 /* SchamperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperViewController.h; sourceTree = "<group>"; };
@@ -621,6 +627,14 @@
 				F5C6093716D2DFCB0043BD44 /* PreferencesService.m */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		90BE1F861B6AB30F0061888C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				90BE1F881B6AB3390061888C /* HomeViewController.swift */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 		B007FEAAB912E2F80EF4FE3C /* Pods */ = {
@@ -802,6 +816,9 @@
 				F5A81CC115CF1CC500FE033B /* external-link@2x.png */,
 				F53D2489159DB50800F408AB /* header-bg.png */,
 				F5E7F06B15EF9407004024AA /* header-bg@2x.png */,
+				90BE1F8F1B6AB8780061888C /* home-background.png */,
+				90E8DDC01B6AD45C0059F71B /* home-button-bar.png */,
+				90BE1F8E1B6AB8780061888C /* home-header.png */,
 				F5E851D216C44BD7003DF993 /* hydra-logo.png */,
 				F5E851D316C44BD7003DF993 /* hydra-logo@2x.png */,
 				F520A2DB166E933500EE340F /* icon-calendar.png */,
@@ -820,6 +837,8 @@
 				F59D16E715BD693F00B6F892 /* info-bicycle@2x.png */,
 				F59D16F015BD693F00B6F892 /* info-doctors.png */,
 				F59D16F115BD693F00B6F892 /* info-doctors@2x.png */,
+				90410B0E1848DF9100331F6C /* info-guide.png */,
+				90410B0F1848DF9100331F6C /* info-guide@2x.png */,
 				F59D16EA15BD693F00B6F892 /* info-library.png */,
 				F59D16EB15BD693F00B6F892 /* info-library@2x.png */,
 				908CA4DB1A8D439C00F8C31F /* info-mapmarker.png */,
@@ -830,8 +849,6 @@
 				F59D16ED15BD693F00B6F892 /* info-more@2x.png */,
 				F59D16EE15BD693F00B6F892 /* info-sports.png */,
 				F59D16EF15BD693F00B6F892 /* info-sports@2x.png */,
-				90410B0E1848DF9100331F6C /* info-guide.png */,
-				90410B0F1848DF9100331F6C /* info-guide@2x.png */,
 				F5C4618B166E442000874D79 /* navigation-down.png */,
 				F5C4618C166E442000874D79 /* navigation-down@2x.png */,
 				F5C4618D166E442000874D79 /* navigation-up.png */,
@@ -986,7 +1003,6 @@
 				F53A5E8316700B28009EA4CC /* ApplicationWithRemoteSupport.m */,
 				F57CB9DB15B84C4E00D87CB3 /* Categories */,
 				F5EBF119159E04B500EB5D26 /* Controllers */,
-				3B059BF215B99B4800B4C1DA /* Custom views */,
 				F5EBF11F159E09C700EB5D26 /* Models */,
 				3B93FBA01630942500C962DC /* Services */,
 				F59CEE9716A189290038FD24 /* Social */,
@@ -1007,6 +1023,7 @@
 				90E814F21854C76C00075F96 /* ios7-Default@2x.png */,
 				F5BAEC921518868200F6A1B1 /* Hydra-Info.plist */,
 				F5D36BD815B5CD1500B6E017 /* Hydra-Prefix.pch */,
+				90BE1F871B6AB3390061888C /* Hydra-Bridging-Header.h */,
 				F5CE522016C2BDA70033A52B /* Errors.strings */,
 				F56D76701699ED4D002CF245 /* Icons */,
 				F53D2488159DB4DB00F408AB /* Images */,
@@ -1049,9 +1066,7 @@
 			isa = PBXGroup;
 			children = (
 				F536359C16A69C86000A50C4 /* Activities */,
-				F5BAECA21518868200F6A1B1 /* DashboardViewController.h */,
-				F5BAECA31518868200F6A1B1 /* DashboardViewController.m */,
-				F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */,
+				90BE1F861B6AB30F0061888C /* Home */,
 				3B436DF615B8915200984D3F /* InfoViewController.h */,
 				3B436DF715B8915200984D3F /* InfoViewController.m */,
 				F536359E16A69C94000A50C4 /* News */,
@@ -1062,6 +1077,8 @@
 				F53A5E7416700242009EA4CC /* UrgentViewController.h */,
 				F53A5E7516700242009EA4CC /* UrgentViewController.m */,
 				F56F139E169731FE003D4447 /* UrgentViewController.xib */,
+				90BE1F8C1B6AB61D0061888C /* MainStoryboard.storyboard */,
+				3B059BF215B99B4800B4C1DA /* Custom views */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1201,7 +1218,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F59D170B15BD7E7E00B6F892 /* DashboardViewController.xib in Resources */,
 				F53D248A159DB50800F408AB /* header-bg.png in Resources */,
 				F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */,
 				908CA4DD1A8D439C00F8C31F /* info-mapmarker.png in Resources */,
@@ -1213,6 +1229,7 @@
 				F58408BF159DDA0E00EE7010 /* button-resto-active.png in Resources */,
 				F58408C0159DDA0E00EE7010 /* button-resto.png in Resources */,
 				F58408C1159DDA0E00EE7010 /* button-schamper-active.png in Resources */,
+				90BE1F8D1B6AB61D0061888C /* MainStoryboard.storyboard in Resources */,
 				F58408C2159DDA0E00EE7010 /* button-schamper.png in Resources */,
 				F5D36BB715B5BD2A00B6E017 /* Default.png in Resources */,
 				F5D36BB815B5BD2A00B6E017 /* Default@2x.png in Resources */,
@@ -1253,6 +1270,7 @@
 				F5A81CBE15CF1BA700FE033B /* external-link.png in Resources */,
 				F5A81CC215CF1CC500FE033B /* external-link-active.png in Resources */,
 				F5A81CC315CF1CC500FE033B /* external-link-active@2x.png in Resources */,
+				90BE1F901B6AB8780061888C /* home-header.png in Resources */,
 				F5A81CC415CF1CC500FE033B /* external-link@2x.png in Resources */,
 				F5E7F06C15EF9408004024AA /* header-bg@2x.png in Resources */,
 				F5E7F07215EFAA51004024AA /* button-activities-active@2x.png in Resources */,
@@ -1272,6 +1290,7 @@
 				F533DABA16315E87001269A8 /* schamper.css in Resources */,
 				F533DABC163163E2001269A8 /* schamper-bg.png in Resources */,
 				F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */,
+				90BE1F911B6AB8780061888C /* home-background.png in Resources */,
 				90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */,
 				F5EBF0E0164BE583002C14BF /* SORelativeDateTransformer.bundle in Resources */,
 				F5C4618F166E442000874D79 /* navigation-down.png in Resources */,
@@ -1304,6 +1323,7 @@
 				F567044416BD5D8100C6B00D /* icon-meal@2x.png in Resources */,
 				F567044516BD5D8100C6B00D /* icon-soup@2x.png in Resources */,
 				F567044616BD5D8100C6B00D /* icon-vegetables@2x.png in Resources */,
+				90E8DDC11B6AD45C0059F71B /* home-button-bar.png in Resources */,
 				F567044716BD5D8100C6B00D /* info-minerva.png in Resources */,
 				F5B6509C16C129B700989ADB /* btn-urgent-bg-highlighted.png in Resources */,
 				F5B6509D16C129B700989ADB /* btn-urgent-bg-highlighted@2x.png in Resources */,
@@ -1405,7 +1425,6 @@
 				3B0D77EC15BB0945002B23C1 /* BadgedButton.m in Sources */,
 				F5BAEC971518868200F6A1B1 /* main.m in Sources */,
 				F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */,
-				F5BAECA41518868200F6A1B1 /* DashboardViewController.m in Sources */,
 				F5EBF117159E040700EB5D26 /* RestoMenuController.m in Sources */,
 				F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */,
 				F5EBF14C159E1E3600EB5D26 /* SchamperArticle.m in Sources */,
@@ -1431,6 +1450,7 @@
 				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,
 				F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */,
 				F53A5E8416700B29009EA4CC /* ApplicationWithRemoteSupport.m in Sources */,
+				90BE1F891B6AB3390061888C /* HomeViewController.swift in Sources */,
 				F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */,
 				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
 				90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */,
@@ -1496,14 +1516,6 @@
 				F5CE522116C2BDA70033A52B /* nl */,
 			);
 			name = Errors.strings;
-			sourceTree = "<group>";
-		};
-		F5EBF10F159DFD3B00EB5D26 /* DashboardViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F5EBF112159DFDEC00EB5D26 /* nl */,
-			);
-			name = DashboardViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1594,6 +1606,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CUSTOM_IDENTIFIER_SUFFIX = "-dev";
+				ENABLE_BITCODE = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1621,6 +1634,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				CUSTOM_IDENTIFIER_SUFFIX = "";
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_SHADOW = YES;
@@ -1642,6 +1656,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME} β";
@@ -1651,8 +1666,11 @@
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				INFOPLIST_FILE = "Hydra-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Hydra/Hydra-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1663,6 +1681,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CUSTOM_BUNDLE_DISPLAY_NAME = "${PRODUCT_NAME}";
@@ -1672,8 +1691,10 @@
 				GCC_PREFIX_HEADER = "Hydra/Hydra-Prefix.pch";
 				INFOPLIST_FILE = "Hydra-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Hydra/Hydra-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
