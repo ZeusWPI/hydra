@@ -31,35 +31,42 @@ class HomeFeedService {
         schamperStore.reloadArticles()
     }
     
-    func createFeed() -> Array<FeedItem> {
-        var list = Array<FeedItem>()
+    func createFeed() -> [FeedItem] {
+        var list = [FeedItem]()
         //TODO: unread recent important news
         
         // resto today
-        //TODO: test if today is weekday
-        for day in calculateDays() {
-            let feedItem = FeedItem(itemType: .RestoItem, object: restoStore.menuForDay(day))
-            debugPrint(restoStore.menuForDay(day))
+        for feedItem in calculateDays() {
             list.append(feedItem)
         }
         
         return list
     }
     
-    //MARK: -Resto functions
-    func calculateDays() -> Array<NSDate>{
+    //MARK: - Resto functions
+    private func calculateDays() -> [FeedItem]{
         var day = NSDate()
-        var days = Array<NSDate>()
+        var days = [FeedItem]()
         
         // Find the next x days to display
         while (days.count < 5) { //TODO: replace with var
             if day.isTypicallyWorkday() {
-                days.append(day)
+                days.append(FeedItem(itemType: .RestoItem, object: restoStore.menuForDay(day)))
             }
             day = day.dateByAddingDays(1)
         }
         
         return days
+    }
+    
+    private func getSchamperArticles() -> [FeedItem]{
+        var higlighted_articles = [FeedItem]()
+        if let articles = schamperStore.articles as? [SchamperArticle] {
+            for article in articles { //TODO: test articles and sort them
+                higlighted_articles.append(FeedItem(itemType: .SchamperNewsItem, object: article))
+            }
+        }
+        return higlighted_articles
     }
 }
 

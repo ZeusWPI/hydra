@@ -10,6 +10,7 @@
 
 // Models
 #import "RestoMenu.h"
+#import "SchamperArticle.h"
 
 // Controllers
 #import "RestoMenuController.h"
