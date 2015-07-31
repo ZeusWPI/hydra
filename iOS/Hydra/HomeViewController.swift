@@ -37,11 +37,13 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         switch feedItem.itemType {
         case .RestoItem:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath)
-            if let day_label = cell.viewWithTag(112) as? UILabel {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath) as? HomeRestoCollectionViewCell
+            
+            cell?.restoMenu = feedItem.object as? RestoMenu
+            if let day_label = cell!.viewWithTag(112) as? UILabel {
                 day_label.text = "Menu morgen"
             }
-            return cell
+            return cell!
         default:
             return collectionView.dequeueReusableCellWithReuseIdentifier("testCell", forIndexPath: indexPath)
         }
@@ -52,7 +54,20 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(self.view.frame.size.width, 175) //TODO: per type
+        let feedItem = feedItems[indexPath.row]
+        
+        switch feedItem.itemType {
+        case .RestoItem:
+            let restoMenu = feedItem.object as? RestoMenu
+            var count = 1
+            if (restoMenu != nil) {
+                count = restoMenu!.meat.count
+            }
+
+            return CGSizeMake(self.view.frame.size.width, CGFloat(146+count*17))
+        default:
+            return CGSizeMake(self.view.frame.size.width, 175) //TODO: per type
+        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
