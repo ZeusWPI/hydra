@@ -37,8 +37,29 @@ class HomeFeedService {
         
         // resto today
         //TODO: test if today is weekday
-        list.append(FeedItem(itemType: .RestoItem, object: restoStore.menuForDay(NSDate())))
+        for day in calculateDays() {
+            let feedItem = FeedItem(itemType: .RestoItem, object: restoStore.menuForDay(day))
+            debugPrint(restoStore.menuForDay(day))
+            list.append(feedItem)
+        }
+        
         return list
+    }
+    
+    //MARK: -Resto functions
+    func calculateDays() -> Array<NSDate>{
+        var day = NSDate()
+        var days = Array<NSDate>()
+        
+        // Find the next x days to display
+        while (days.count < 5) { //TODO: replace with var
+            if day.isTypicallyWorkday() {
+                days.append(day)
+            }
+            day = day.dateByAddingDays(1)
+        }
+        
+        return days
     }
 }
 

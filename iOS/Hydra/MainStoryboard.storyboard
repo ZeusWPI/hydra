@@ -164,7 +164,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tomatensoep mascarpone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU6-CS-bep">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="120" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tomatensoep mascarpone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU6-CS-bep">
                                                     <rect key="frame" x="8" y="70" width="172" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="Aso-NO-wuC"/>
@@ -185,7 +185,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 1,80" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgM-GK-lA9">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="130" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 1,80" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgM-GK-lA9">
                                                     <rect key="frame" x="280" y="70" width="40" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="4OL-4i-G07"/>
@@ -210,7 +210,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 3,70" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQX-Bm-dDD">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="131" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 3,70" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQX-Bm-dDD">
                                                     <rect key="frame" x="280" y="87" width="40" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="235" id="Nfg-dr-cMj"/>
@@ -235,7 +235,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oostends vispannetje" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58o-yD-irv">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="122" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oostends vispannetje" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58o-yD-irv">
                                                     <rect key="frame" x="8" y="104" width="172" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="235" id="dEU-R6-tgk"/>
@@ -256,7 +256,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kalkoenpavé" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MS8-c3-unC">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="121" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kalkoenpavé" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MS8-c3-unC">
                                                     <rect key="frame" x="8" y="87" width="172" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="172" id="Y7U-3K-gtO"/>
@@ -290,7 +290,7 @@
                                                         <action selector="showResto:" destination="pLP-uP-Iay" eventType="touchUpInside" id="VVG-6c-AS9"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 4,20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDt-08-raN">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="132" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 4,20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDt-08-raN">
                                                     <rect key="frame" x="280" y="104" width="40" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="LJO-ff-B7d">
