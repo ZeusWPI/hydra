@@ -14,7 +14,15 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     let homeFeedService = HomeFeedService.sharedService
 
     var feedItems = HomeFeedService.sharedService.createFeed()
+    let refreshControl = UIRefreshControl()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.refreshControl.addTarget(self, action: "startRefresh", forControlEvents: .ValueChanged)
+        self.feedCollectionView.addSubview(refreshControl)
+        self.feedCollectionView.alwaysBounceVertical = true
+    }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -25,6 +33,15 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewWillDisappear(animated)
         
         self.navigationController?.navigationBarHidden = false
+    }
+    
+    func startRefresh() {
+        //self.homeFeedService.refreshStores()
+        self.feedItems = self.homeFeedService.createFeed()
+        
+        self.feedCollectionView.reloadData()
+        
+        self.refreshControl.endRefreshing()
     }
     
     // MARK: - UICollectionViewDataSource and Delegate methods
@@ -38,8 +55,11 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         switch feedItem.itemType {
         case .RestoItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath) as? HomeRestoCollectionViewCell
-            
             cell?.restoMenu = feedItem.object as? RestoMenu
+            return cell!
+        case .SchamperNewsItem:
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("schamperCell", forIndexPath: indexPath) as? HomeSchamperCollectionViewCell
+            cell!.article = feedItem.object as? SchamperArticle
             return cell!
         default:
             return collectionView.dequeueReusableCellWithReuseIdentifier("testCell", forIndexPath: indexPath)
@@ -75,5 +95,15 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBAction func showResto(sender: UIButton) {
         print("Switching to Resto")
         self.navigationController?.pushViewController(RestoMenuController(), animated: true)
+    }
+    
+    @IBAction func showSchamperArticle(sender: UIButton) {
+        print("Switching to schamper article")
+        let schamperViewCell = sender.superview as? HomeSchamperCollectionViewCell
+        if !schamperViewCell!.article!.read {
+            schamperViewCell!.article!.read = true
+        }
+        
+        self.navigationController?.pushViewController(SchamperDetailViewController(article: schamperViewCell?.article), animated: true)
     }
 }

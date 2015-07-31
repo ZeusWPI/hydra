@@ -36,10 +36,14 @@ class HomeFeedService {
         //TODO: unread recent important news
         
         // resto today
-        for feedItem in calculateDays() {
-            list.append(feedItem)
-        }
+        list.extend(calculateDays())
         
+        // schamper
+        list.extend(getSchamperArticles())
+        
+        list.sortInPlace{ $0.priority > $1.priority }
+        
+        list.map { el in debugPrint("Type: \(el.itemType), priority: \(el.priority)")}
         return list
     }
     
@@ -51,7 +55,9 @@ class HomeFeedService {
         // Find the next x days to display
         while (days.count < 5) { //TODO: replace with var
             if day.isTypicallyWorkday() {
-                days.append(FeedItem(itemType: .RestoItem, object: restoStore.menuForDay(day)))
+                if let menu = restoStore.menuForDay(day) {
+                    days.append(FeedItem(itemType: .RestoItem, object: menu, priority: 1000 - 100*days.count))
+                }
             }
             day = day.dateByAddingDays(1)
         }
@@ -60,23 +66,34 @@ class HomeFeedService {
     }
     
     private func getSchamperArticles() -> [FeedItem]{
-        var higlighted_articles = [FeedItem]()
+        var higlightedArticles = [FeedItem]()
         if let articles = schamperStore.articles as? [SchamperArticle] {
             for article in articles { //TODO: test articles and sort them
-                higlighted_articles.append(FeedItem(itemType: .SchamperNewsItem, object: article))
+                let daysOld = article.date.daysBeforeDate(NSDate())
+                var priority = 999
+                if !article.read {
+                    priority = priority - daysOld*40
+                } else {
+                    priority = priority - daysOld*150
+                }
+                if priority > 0 {
+                    higlightedArticles.append(FeedItem(itemType: .SchamperNewsItem, object: article, priority: priority))
+                }
             }
         }
-        return higlighted_articles
+        return higlightedArticles
     }
 }
 
 struct FeedItem {
     let itemType: FeedItemType
     let object: AnyObject?
+    let priority: Int
     
-    init(itemType: FeedItemType, object: AnyObject? ) {
+    init(itemType: FeedItemType, object: AnyObject?, priority: Int) {
         self.itemType = itemType
         self.object = object
+        self.priority = priority
     }
 }
 

@@ -14,7 +14,11 @@
 
 // Controllers
 #import "RestoMenuController.h"
+#import "SchamperDetailViewController.h"
 
 // Categories and extenions
-#import "NSDate+Utilities.h"
 #import "NSDateFormatter+AppLocale.h"
+
+// Third party classes
+#import "NSDate+Utilities.h"
+#import "SORelativeDateTransformer.h"

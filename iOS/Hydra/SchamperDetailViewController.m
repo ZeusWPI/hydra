@@ -35,11 +35,9 @@
 {
     [super viewDidLoad];
 
-#ifdef __IPHONE_7_0
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-#endif
 
     // Set tracked name
     self.trackedViewName = [@"Schamper > " stringByAppendingString:self.article.title];

@@ -10,24 +10,24 @@ import UIKit
 
 class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dayLabel: UILabel!
     
     var restoMenu: RestoMenu? {
         didSet {
-            if let dayLabel = self.viewWithTag(112) as? UILabel{
-                if restoMenu != nil {
-                    if restoMenu!.day.isToday() {
-                        dayLabel.text = "Menu vandaag"
-                    } else if restoMenu!.day.isTomorrow() {
-                        dayLabel.text = "Menu morgen"
-                    } else {
-                        let formatter = NSDateFormatter.H_dateFormatterWithAppLocale()
-                        formatter.dateFormat = "EEEE d MMMM"
-                        dayLabel.text = "Menu " + formatter.stringFromDate(restoMenu!.day)
-                    }
+            if restoMenu != nil {
+                if restoMenu!.day.isToday() {
+                    dayLabel.text = "Menu vandaag"
+                } else if restoMenu!.day.isTomorrow() {
+                    dayLabel.text = "Menu morgen"
                 } else {
-                    dayLabel.text = "Menu"
+                    let formatter = NSDateFormatter.H_dateFormatterWithAppLocale()
+                    formatter.dateFormat = "EEEE d MMMM"
+                    dayLabel.text = "Menu " + formatter.stringFromDate(restoMenu!.day)
                 }
+            } else {
+                dayLabel.text = "Menu"
             }
+            //TODO: test if closed, and add banner or something
         }
     }
     
