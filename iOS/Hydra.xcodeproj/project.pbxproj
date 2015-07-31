@@ -38,6 +38,7 @@
 		90BE1F901B6AB8780061888C /* home-header.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BE1F8E1B6AB8780061888C /* home-header.png */; };
 		90BE1F911B6AB8780061888C /* home-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BE1F8F1B6AB8780061888C /* home-background.png */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
+		90C8CA2E1B6AE3E80073E026 /* HomeFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */; };
 		90E814F31854C76C00075F96 /* ios7-Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */; };
 		90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F21854C76C00075F96 /* ios7-Default@2x.png */; };
 		90E8DDC11B6AD45C0059F71B /* home-button-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E8DDC01B6AD45C0059F71B /* home-button-bar.png */; };
@@ -305,6 +306,7 @@
 		90BE1F8F1B6AB8780061888C /* home-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-background.png"; sourceTree = "<group>"; };
 		90C532A916A325A200857EB0 /* FacebookEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookEvent.h; sourceTree = "<group>"; };
 		90C532AA16A325A200857EB0 /* FacebookEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookEvent.m; sourceTree = "<group>"; };
+		90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFeedService.swift; sourceTree = "<group>"; };
 		90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default-568h@2x.png"; sourceTree = "<group>"; };
 		90E814F21854C76C00075F96 /* ios7-Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default@2x.png"; sourceTree = "<group>"; };
 		90E8DDC01B6AD45C0059F71B /* home-button-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-button-bar.png"; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 				3B93FBA91630969900C962DC /* UrgentPlayer.m */,
 				F5C6093616D2DFCB0043BD44 /* PreferencesService.h */,
 				F5C6093716D2DFCB0043BD44 /* PreferencesService.m */,
+				90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1446,6 +1449,7 @@
 				F5016BA6162756F300BBDB0A /* ActivitiesController.m in Sources */,
 				F5016BA91627665800BBDB0A /* ActivityDetailController.m in Sources */,
 				3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */,
+				90C8CA2E1B6AE3E80073E026 /* HomeFeedService.swift in Sources */,
 				F52A8B7917CD366E00C3379C /* ActivityMapController.m in Sources */,
 				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,
 				F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */,
