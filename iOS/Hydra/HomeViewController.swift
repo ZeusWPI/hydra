@@ -12,25 +12,39 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet weak var feedCollectionView: UICollectionView!
     
     let homeFeedService = HomeFeedService.sharedService
+
+    var feedItems = HomeFeedService.sharedService.createFeed()
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBarHidden = false
+    }
+    
+    // MARK: - UICollectionViewDataSource and Delegate methods
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10;
+        return feedItems.count;
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        switch indexPath.row {
-        case 1:
-            return collectionView.dequeueReusableCellWithReuseIdentifier("testCell", forIndexPath: indexPath)
-        case 2:
+        let feedItem = feedItems[indexPath.row]
+        
+        switch feedItem.itemType {
+        case .RestoItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath)
             if let day_label = cell.viewWithTag(112) as? UILabel {
                 day_label.text = "Menu morgen"
             }
             return cell
         default:
-            return collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath)
+            return collectionView.dequeueReusableCellWithReuseIdentifier("testCell", forIndexPath: indexPath)
         }
-
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -43,5 +57,11 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10, 0, 0, 0)
+    }
+    
+    //MARK: - Buttons
+    @IBAction func showResto(sender: UIButton) {
+        print("Switching to Resto")
+        self.navigationController?.pushViewController(RestoMenuController(), animated: true)
     }
 }

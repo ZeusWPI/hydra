@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14F6a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pLP-uP-Iay">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14F6a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="b55-Kn-LA0">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
@@ -8,6 +8,22 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="sGH-dp-xb1">
+            <objects>
+                <navigationController id="b55-Kn-LA0" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yf7-bc-Yrf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pLP-uP-Iay" kind="relationship" relationship="rootViewController" id="xed-dn-Xo7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="07i-NU-fOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-873" y="299.25"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="hw6-Bq-z2H">
             <objects>
@@ -270,6 +286,9 @@
                                                     <state key="normal" title="Open..." backgroundImage="home-button-bar.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="showResto:" destination="pLP-uP-Iay" eventType="touchUpInside" id="VVG-6c-AS9"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="€ 4,20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDt-08-raN">
                                                     <rect key="frame" x="280" y="104" width="40" height="17"/>
@@ -338,6 +357,7 @@
                                                 <variation key="widthClass=compact" constant="3"/>
                                                 <variation key="heightClass=regular-widthClass=compact" constant="-4"/>
                                             </constraint>
+                                            <constraint firstItem="iWs-cx-6kf" firstAttribute="top" secondItem="FTC-2g-92l" secondAttribute="bottom" id="iOq-hF-DAV"/>
                                             <constraint firstItem="Tpa-gk-ZU7" firstAttribute="leading" secondItem="ncn-RR-Iiv" secondAttribute="leading" id="kU6-4C-Kpo">
                                                 <variation key="heightClass=regular-widthClass=compact" constant="8"/>
                                             </constraint>
@@ -387,6 +407,8 @@
                                                 <exclude reference="XrJ-da-gAz"/>
                                                 <include reference="r3H-r1-lsn"/>
                                                 <exclude reference="eRt-Tb-xwt"/>
+                                                <exclude reference="h2f-gc-UT0"/>
+                                                <include reference="iOq-hF-DAV"/>
                                                 <exclude reference="sx5-tJ-phz"/>
                                                 <exclude reference="vAd-D3-K9y"/>
                                                 <exclude reference="y1Z-eX-hQb"/>
@@ -532,6 +554,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="NUA-z8-hkD"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>

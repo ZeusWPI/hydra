@@ -32,10 +32,31 @@ class HomeFeedService {
     }
     
     func createFeed() -> Array<FeedItem> {
-        return []
+        var list = Array<FeedItem>()
+        //TODO: unread recent important news
+        
+        // resto today
+        //TODO: test if today is weekday
+        list.append(FeedItem(itemType: .RestoItem, object: restoStore.menuForDay(NSDate())))
+        return list
     }
 }
 
-class FeedItem {
+struct FeedItem {
+    let itemType: FeedItemType
+    let object: AnyObject?
     
+    init(itemType: FeedItemType, object: AnyObject? ) {
+        self.itemType = itemType
+        self.object = object
+    }
+}
+
+enum FeedItemType {
+    case NewsItem
+    case ActivityItem
+    case InfoItem
+    case RestoItem
+    case UrgentItem
+    case SchamperNewsItem
 }

@@ -8,3 +8,5 @@
 #import "PreferencesService.h"
 
 #import "RestoMenu.h"
+
+#import "RestoMenuController.h"
