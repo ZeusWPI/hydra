@@ -16,6 +16,7 @@
 
 // Controllers
 #import "ActivityDetailController.h"
+#import "PreferencesController.h"
 #import "RestoMenuController.h"
 #import "SchamperDetailViewController.h"
 

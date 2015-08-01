@@ -55,10 +55,10 @@ class HomeFeedService {
     //MARK: - Resto functions
     private func getRestoMenus() -> [FeedItem]{
         var day = NSDate()
-        var days = [FeedItem]()
+        var feedItems = [FeedItem]()
         
         // Find the next x days to display
-        while (days.count < 5) { //TODO: replace with var
+        while (feedItems.count < 5) { //TODO: replace with var
             if day.isTypicallyWorkday() {
                 var menu = restoStore.menuForDay(day)
                 
@@ -68,16 +68,16 @@ class HomeFeedService {
                     menu.day = day
                 }
                 
-                days.append(FeedItem(itemType: .RestoItem, object: menu, priority: 1000 - 100*days.count))
+                feedItems.append(FeedItem(itemType: .RestoItem, object: menu, priority: 1000 - 100*feedItems.count))
             }
             day = day.dateByAddingDays(1)
         }
         
-        return days
+        return feedItems
     }
     
     private func getSchamperArticles() -> [FeedItem] {
-        var higlightedArticles = [FeedItem]()
+        var feedItems = [FeedItem]()
         if let articles = schamperStore.articles as? [SchamperArticle] {
             for article in articles { //TODO: test articles and sort them
                 let daysOld = article.date.daysBeforeDate(NSDate())
@@ -88,30 +88,34 @@ class HomeFeedService {
                     priority = priority - daysOld*150
                 }
                 if priority > 0 {
-                    higlightedArticles.append(FeedItem(itemType: .SchamperNewsItem, object: article, priority: priority))
+                    feedItems.append(FeedItem(itemType: .SchamperNewsItem, object: article, priority: priority))
                 }
             }
         }
-        return higlightedArticles
+        return feedItems
     }
     
     private func getActivities() -> [FeedItem] {
-        var highlightedActivities = [FeedItem]()
-        if var activities = associationStore.activities as? [AssociationActivity] {
+        var feedItems = [FeedItem]()
+        if let activities = associationStore.activities as? [AssociationActivity] {
+            var filter: ((AssociationActivity) -> (Bool))
             if preferencesService.filterAssociations {
                 let associations = preferencesService.preferredAssociations
-                activities = activities.filter { activity in activity.highlighted || associations.contains { activity.association.internalName == ($0 as! String) } }
+                filter = { activity in activity.highlighted || associations.contains { activity.association.internalName == ($0 as! String) } }
+            } else {
+                filter = { $0.highlighted }
+                feedItems.append(FeedItem(itemType: .SettingsItem, object: nil, priority: 850))
             }
             
-            for activity in activities {
+            for activity in activities.filter(filter) {
                 var priority = 999 //TODO: calculate priorities, with more options
                 priority -= activity.start.daysAfterDate(NSDate()) * 100
                 if priority > 0 {
-                    highlightedActivities.append(FeedItem(itemType: .ActivityItem, object: activity, priority: priority))
+                    feedItems.append(FeedItem(itemType: .ActivityItem, object: activity, priority: priority))
                 }
             }
         }
-        return highlightedActivities
+        return feedItems
     }
 }
 
@@ -134,4 +138,5 @@ enum FeedItemType {
     case RestoItem
     case UrgentItem
     case SchamperNewsItem
+    case SettingsItem
 }

@@ -65,6 +65,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("activityCell", forIndexPath: indexPath) as? HomeActivityCollectionViewCell
             cell?.activity = feedItem.object as? AssociationActivity
             return cell!
+        case .SettingsItem:
+            return collectionView.dequeueReusableCellWithReuseIdentifier("settingsCell", forIndexPath: indexPath)
         default:
             return collectionView.dequeueReusableCellWithReuseIdentifier("testCell", forIndexPath: indexPath)
         }
@@ -89,7 +91,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         case .ActivityItem:
             let activity = feedItem.object as? AssociationActivity
             //TODO: guess height of cell
-            return CGSizeMake(self.view.frame.size.width, CGFloat(220))
+            return CGSizeMake(self.view.frame.size.width, 220)
+        case .SettingsItem:
+            return CGSizeMake(self.view.frame.size.width, 120)
         default:
             return CGSizeMake(self.view.frame.size.width, 175) //TODO: per type
         }
@@ -112,12 +116,18 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     @IBAction func showSchamperArticle(sender: UIButton) {
-        print("Switching to schamper article")
+        print("Switching to Schamper article")
         let schamperViewCell = sender.superview as? HomeSchamperCollectionViewCell
         if !schamperViewCell!.article!.read {
             schamperViewCell!.article!.read = true
         }
         
         self.navigationController?.pushViewController(SchamperDetailViewController(article: schamperViewCell?.article), animated: true)
+    }
+    
+    @IBAction func showSettings(sender: UIButton) {
+        print("Switching to settings")
+        
+        self.navigationController?.pushViewController(PreferencesController(), animated: true)
     }
 }
