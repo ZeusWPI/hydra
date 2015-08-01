@@ -88,7 +88,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             return CGSizeMake(self.view.frame.size.width, CGFloat(146+count*17))
         case .ActivityItem:
             let activity = feedItem.object as? AssociationActivity
-            
+            //TODO: guess height of cell
             return CGSizeMake(self.view.frame.size.width, CGFloat(220))
         default:
             return CGSizeMake(self.view.frame.size.width, 175) //TODO: per type

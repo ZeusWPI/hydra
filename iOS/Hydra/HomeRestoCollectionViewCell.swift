@@ -28,6 +28,7 @@ class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, 
                 dayLabel.text = "Menu"
             }
             //TODO: test if closed, and add banner or something
+            tableView.reloadData()
         }
     }
     

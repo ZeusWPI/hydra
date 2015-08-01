@@ -26,6 +26,7 @@
 		9035BF141B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9035BF131B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift */; };
 		9035BF161B6C37FE008E7875 /* home-zeus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9035BF151B6C37FE008E7875 /* home-zeus.png */; };
 		9035BF181B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9035BF171B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift */; };
+		9035BF1A1B6CF663008E7875 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9035BF191B6CF663008E7875 /* LocationService.swift */; };
 		90410B101848DF9100331F6C /* info-guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0E1848DF9100331F6C /* info-guide.png */; };
 		90410B111848DF9100331F6C /* info-guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0F1848DF9100331F6C /* info-guide@2x.png */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
@@ -295,6 +296,7 @@
 		9035BF131B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeSchamperCollectionViewCell.swift; sourceTree = "<group>"; };
 		9035BF151B6C37FE008E7875 /* home-zeus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-zeus.png"; sourceTree = "<group>"; };
 		9035BF171B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeActivityCollectionViewCell.swift; sourceTree = "<group>"; };
+		9035BF191B6CF663008E7875 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		90410B0E1848DF9100331F6C /* info-guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide.png"; sourceTree = "<group>"; };
 		90410B0F1848DF9100331F6C /* info-guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide@2x.png"; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
@@ -630,15 +632,16 @@
 			children = (
 				F5F43C4215BAD2EB003C2AAE /* AssociationStore.h */,
 				F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */,
+				90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */,
+				9035BF191B6CF663008E7875 /* LocationService.swift */,
+				F5C6093616D2DFCB0043BD44 /* PreferencesService.h */,
+				F5C6093716D2DFCB0043BD44 /* PreferencesService.m */,
 				F55895C515B6100C0001B399 /* RestoStore.h */,
 				F55895C615B610130001B399 /* RestoStore.m */,
 				F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */,
 				F5D36BC015B5BDA500B6E017 /* SchamperStore.m */,
 				3B93FBA81630969900C962DC /* UrgentPlayer.h */,
 				3B93FBA91630969900C962DC /* UrgentPlayer.m */,
-				F5C6093616D2DFCB0043BD44 /* PreferencesService.h */,
-				F5C6093716D2DFCB0043BD44 /* PreferencesService.m */,
-				90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1492,6 +1495,7 @@
 				90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */,
 				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 				F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */,
+				9035BF1A1B6CF663008E7875 /* LocationService.swift in Sources */,
 				445C81F516C3DB0B0080819C /* AssociationPreferenceController.m in Sources */,
 				F5DF2FB916C41DDE003B05EC /* MarqueeLabel.m in Sources */,
 				F521D11616C53A1200B686B2 /* PreferencesController.m in Sources */,

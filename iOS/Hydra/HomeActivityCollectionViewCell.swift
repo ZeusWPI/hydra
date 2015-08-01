@@ -35,7 +35,20 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
             }
             
             descriptionLabel.text = activity?.descriptionText
-            locationLabel.text = activity?.location
+            var distance: Double? = nil
+            if (activity?.latitude != nil && activity?.longitude != nil) {
+                distance = LocationService.sharedService.calculateDistance(activity!.latitude, longitude: activity!.longitude)
+            }
+            
+            if let d = distance where d < 100*1000{
+                if d < 1000 {
+                    locationLabel.text = activity!.location + " (\(Int(d))m)"
+                } else {
+                    locationLabel.text = activity!.location + " (\(Int(d/1000))km)"
+                }
+            } else {
+                locationLabel.text = activity?.location
+            }
         }
     }
     

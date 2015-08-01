@@ -16,9 +16,11 @@ class HomeFeedService {
     let restoStore = RestoStore.sharedStore()
     let schamperStore = SchamperStore.sharedStore()
     let preferencesService = PreferencesService.sharedService()
+    let locationService = LocationService.sharedService
     
     private init() {
         refreshStores()
+        locationService.startUpdating()
     }
     
     func refreshStores() {
@@ -95,10 +97,15 @@ class HomeFeedService {
     
     private func getActivities() -> [FeedItem] {
         var highlightedActivities = [FeedItem]()
-        if let activities = associationStore.activities as? [AssociationActivity] {
+        if var activities = associationStore.activities as? [AssociationActivity] {
+            if preferencesService.filterAssociations {
+                let associations = preferencesService.preferredAssociations
+                activities = activities.filter { activity in activity.highlighted || associations.contains { activity.association.internalName == ($0 as! String) } }
+            }
+            
             for activity in activities {
-                var priority = 1001 //TODO: calculate priorities
-                priority += 1
+                var priority = 999 //TODO: calculate priorities, with more options
+                priority -= activity.start.daysAfterDate(NSDate()) * 100
                 if priority > 0 {
                     highlightedActivities.append(FeedItem(itemType: .ActivityItem, object: activity, priority: priority))
                 }
