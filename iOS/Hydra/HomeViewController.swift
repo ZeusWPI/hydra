@@ -61,6 +61,10 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("schamperCell", forIndexPath: indexPath) as? HomeSchamperCollectionViewCell
             cell!.article = feedItem.object as? SchamperArticle
             return cell!
+        case .ActivityItem:
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("activityCell", forIndexPath: indexPath) as? HomeActivityCollectionViewCell
+            cell?.activity = feedItem.object as? AssociationActivity
+            return cell!
         default:
             return collectionView.dequeueReusableCellWithReuseIdentifier("testCell", forIndexPath: indexPath)
         }
@@ -77,11 +81,15 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         case .RestoItem:
             let restoMenu = feedItem.object as? RestoMenu
             var count = 1
-            if (restoMenu != nil) {
+            if (restoMenu != nil && restoMenu!.open) {
                 count = restoMenu!.meat.count
             }
 
             return CGSizeMake(self.view.frame.size.width, CGFloat(146+count*17))
+        case .ActivityItem:
+            let activity = feedItem.object as? AssociationActivity
+            
+            return CGSizeMake(self.view.frame.size.width, CGFloat(220))
         default:
             return CGSizeMake(self.view.frame.size.width, 175) //TODO: per type
         }
@@ -92,6 +100,12 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     //MARK: - Buttons
+    @IBAction func showActivity(sender: UIButton) {
+        let activityViewCell = sender.superview as? HomeActivityCollectionViewCell
+        
+        self.navigationController?.pushViewController(ActivityDetailController(activity: activityViewCell?.activity, delegate: nil), animated: true)
+    }
+    
     @IBAction func showResto(sender: UIButton) {
         print("Switching to Resto")
         self.navigationController?.pushViewController(RestoMenuController(), animated: true)

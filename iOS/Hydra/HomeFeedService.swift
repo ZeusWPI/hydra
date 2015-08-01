@@ -35,10 +35,13 @@ class HomeFeedService {
         var list = [FeedItem]()
         //TODO: unread recent important news
         
-        // resto today
-        list.extend(calculateDays())
+        // activities
+        list.extend(getActivities())
         
-        // schamper
+        // resto menus
+        list.extend(getRestoMenus())
+        
+        // schamper articles
         list.extend(getSchamperArticles())
         
         list.sortInPlace{ $0.priority > $1.priority }
@@ -48,16 +51,22 @@ class HomeFeedService {
     }
     
     //MARK: - Resto functions
-    private func calculateDays() -> [FeedItem]{
+    private func getRestoMenus() -> [FeedItem]{
         var day = NSDate()
         var days = [FeedItem]()
         
         // Find the next x days to display
         while (days.count < 5) { //TODO: replace with var
             if day.isTypicallyWorkday() {
-                if let menu = restoStore.menuForDay(day) {
-                    days.append(FeedItem(itemType: .RestoItem, object: menu, priority: 1000 - 100*days.count))
+                var menu = restoStore.menuForDay(day)
+                
+                if (menu == nil) {
+                    menu = RestoMenu()
+                    menu.open = false
+                    menu.day = day
                 }
+                
+                days.append(FeedItem(itemType: .RestoItem, object: menu, priority: 1000 - 100*days.count))
             }
             day = day.dateByAddingDays(1)
         }
@@ -65,7 +74,7 @@ class HomeFeedService {
         return days
     }
     
-    private func getSchamperArticles() -> [FeedItem]{
+    private func getSchamperArticles() -> [FeedItem] {
         var higlightedArticles = [FeedItem]()
         if let articles = schamperStore.articles as? [SchamperArticle] {
             for article in articles { //TODO: test articles and sort them
@@ -82,6 +91,20 @@ class HomeFeedService {
             }
         }
         return higlightedArticles
+    }
+    
+    private func getActivities() -> [FeedItem] {
+        var highlightedActivities = [FeedItem]()
+        if let activities = associationStore.activities as? [AssociationActivity] {
+            for activity in activities {
+                var priority = 1001 //TODO: calculate priorities
+                priority += 1
+                if priority > 0 {
+                    highlightedActivities.append(FeedItem(itemType: .ActivityItem, object: activity, priority: priority))
+                }
+            }
+        }
+        return highlightedActivities
     }
 }
 

@@ -9,10 +9,13 @@
 #import "PreferencesService.h"
 
 // Models
+#import "Association.h"
+#import "AssociationActivity.h"
 #import "RestoMenu.h"
 #import "SchamperArticle.h"
 
 // Controllers
+#import "ActivityDetailController.h"
 #import "RestoMenuController.h"
 #import "SchamperDetailViewController.h"
 
