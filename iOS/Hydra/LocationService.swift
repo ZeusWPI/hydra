@@ -41,7 +41,7 @@ public class LocationService: NSObject, CLLocationManagerDelegate {
         self.locationManager.startUpdatingLocation()
     }
     
-    public func pauseUpdating() {
+    public func pauseUpdating() { //TODO: call this
         self.locationManager.stopUpdatingLocation()
     }
     

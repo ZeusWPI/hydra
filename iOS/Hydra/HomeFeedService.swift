@@ -46,6 +46,9 @@ class HomeFeedService {
         // schamper articles
         list.extend(getSchamperArticles())
         
+        // Urgent.fm
+        list.append(FeedItem(itemType: .UrgentItem, object: nil, priority: 825))
+        
         list.sortInPlace{ $0.priority > $1.priority }
         
         list.map { el in debugPrint("Type: \(el.itemType), priority: \(el.priority)")}

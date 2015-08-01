@@ -65,6 +65,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("activityCell", forIndexPath: indexPath) as? HomeActivityCollectionViewCell
             cell?.activity = feedItem.object as? AssociationActivity
             return cell!
+        case .UrgentItem:
+            return collectionView.dequeueReusableCellWithReuseIdentifier("urgentfmCell", forIndexPath: indexPath)
         case .SettingsItem:
             return collectionView.dequeueReusableCellWithReuseIdentifier("settingsCell", forIndexPath: indexPath)
         default:

@@ -50,6 +50,7 @@
 		90E8DDC11B6AD45C0059F71B /* home-button-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E8DDC01B6AD45C0059F71B /* home-button-bar.png */; };
 		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
 		90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegendItem.m */; };
+		90EF4A591B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EF4A581B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift */; };
 		90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F0525C168C663F004CAFFC /* RestoMapController.m */; };
 		90F05261168C7022004CAFFC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F05260168C7022004CAFFC /* CoreLocation.framework */; };
 		90F05263168C7726004CAFFC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F05262168C7726004CAFFC /* MapKit.framework */; };
@@ -326,6 +327,7 @@
 		90EB7BE21688BCC700A9582D /* RestoInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoInfoView.m; sourceTree = "<group>"; };
 		90EB7BE81688ECE300A9582D /* RestoLegendItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegendItem.h; sourceTree = "<group>"; };
 		90EB7BE91688ECE300A9582D /* RestoLegendItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLegendItem.m; sourceTree = "<group>"; };
+		90EF4A581B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeUrgentCollectionViewCell.swift; sourceTree = "<group>"; };
 		90F0525B168C663F004CAFFC /* RestoMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMapController.h; sourceTree = "<group>"; };
 		90F0525C168C663F004CAFFC /* RestoMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMapController.m; sourceTree = "<group>"; };
 		90F05260168C7022004CAFFC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -660,6 +662,7 @@
 				9035BF171B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift */,
 				90DDFB781B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift */,
 				9035BF131B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift */,
+				90EF4A581B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1485,6 +1488,7 @@
 				F53A5E8416700B29009EA4CC /* ApplicationWithRemoteSupport.m in Sources */,
 				90BE1F891B6AB3390061888C /* HomeViewController.swift in Sources */,
 				F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */,
+				90EF4A591B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift in Sources */,
 				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
 				90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */,
 				90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */,
