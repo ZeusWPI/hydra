@@ -603,7 +603,7 @@
                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         </variation>
                                                                     </label>
-                                                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dSv-5h-kpj">
+                                                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="right" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="38" id="dSv-5h-kpj">
                                                                         <rect key="frame" x="50" y="0.0" width="175" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

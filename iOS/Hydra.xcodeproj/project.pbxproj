@@ -605,6 +605,7 @@
 				3BAFFE7D15BB04B600921E7D /* BadgedButton.m */,
 				F5ACC3AF16D2693F00626EAE /* CustomTableViewCell.h */,
 				F5ACC3B016D2694000626EAE /* CustomTableViewCell.m */,
+				90DDFB7B1B6BB40100DDAFA0 /* Home */,
 			);
 			name = "Custom views";
 			sourceTree = "<group>";
@@ -650,20 +651,12 @@
 			name = Home;
 			sourceTree = "<group>";
 		};
-		90DDFB7A1B6BB3F900DDAFA0 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				90DDFB7B1B6BB40100DDAFA0 /* Home */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		90DDFB7B1B6BB40100DDAFA0 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9035BF171B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift */,
 				90DDFB781B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift */,
 				9035BF131B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift */,
-				9035BF171B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1040,7 +1033,6 @@
 				F5EBF11F159E09C700EB5D26 /* Models */,
 				3B93FBA01630942500C962DC /* Services */,
 				F59CEE9716A189290038FD24 /* Social */,
-				90DDFB7A1B6BB3F900DDAFA0 /* Views */,
 			);
 			path = Hydra;
 			sourceTree = "<group>";

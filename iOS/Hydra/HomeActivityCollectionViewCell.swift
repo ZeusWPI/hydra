@@ -17,7 +17,7 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
     
     var activity: AssociationActivity? {
         didSet {
-            associationLabel.text = activity?.association.displayedFullName
+            associationLabel.text = activity?.association.displayName
             
             let dateStartFormatter = NSDateFormatter.H_dateFormatterWithAppLocale()
             dateStartFormatter.dateFormat = "EEE d MMMM H:mm";
