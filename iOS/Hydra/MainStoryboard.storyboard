@@ -184,7 +184,7 @@
                                                     <rect key="frame" x="80" y="29" width="108" height="13"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="13" id="DJk-ua-EGp"/>
-                                                        <constraint firstAttribute="width" constant="108" id="k9R-3V-GWQ">
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="108" id="k9R-3V-GWQ">
                                                             <variation key="heightClass=regular-widthClass=compact" constant="107"/>
                                                         </constraint>
                                                         <constraint firstAttribute="width" constant="107" id="ltN-bJ-FsU"/>

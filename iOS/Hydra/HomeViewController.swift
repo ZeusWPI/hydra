@@ -40,9 +40,6 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath) as? HomeRestoCollectionViewCell
             
             cell?.restoMenu = feedItem.object as? RestoMenu
-            if let day_label = cell!.viewWithTag(112) as? UILabel {
-                day_label.text = "Menu morgen"
-            }
             return cell!
         default:
             return collectionView.dequeueReusableCellWithReuseIdentifier("testCell", forIndexPath: indexPath)

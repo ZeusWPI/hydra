@@ -11,7 +11,25 @@ import UIKit
 class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
-    var restoMenu: RestoMenu?
+    var restoMenu: RestoMenu? {
+        didSet {
+            if let dayLabel = self.viewWithTag(112) as? UILabel{
+                if restoMenu != nil {
+                    if restoMenu!.day.isToday() {
+                        dayLabel.text = "Menu vandaag"
+                    } else if restoMenu!.day.isTomorrow() {
+                        dayLabel.text = "Menu morgen"
+                    } else {
+                        let formatter = NSDateFormatter.H_dateFormatterWithAppLocale()
+                        formatter.dateFormat = "EEEE d MMMM"
+                        dayLabel.text = "Menu " + formatter.stringFromDate(restoMenu!.day)
+                    }
+                } else {
+                    dayLabel.text = "Menu"
+                }
+            }
+        }
+    }
     
     override func awakeFromNib() {
         tableView.separatorColor = UIColor.clearColor()
@@ -19,7 +37,6 @@ class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, 
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = restoMenu?.meat.count {
-            debugPrint(String(format:"The count: %2d", count))
             return count
         }
         return 0
@@ -32,7 +49,6 @@ class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, 
             cell = UITableViewCell(style: UITableViewCellStyle.Value2, reuseIdentifier: "restoMenuTableViewCell")
         }
         let meat = restoMenu?.meat[indexPath.row] as? RestoMenuItem
-        debugPrint("Creating an new cell: " + (meat?.name)!)
         cell!.textLabel?.text = meat?.name
         cell!.detailTextLabel?.text = meat?.price
         
