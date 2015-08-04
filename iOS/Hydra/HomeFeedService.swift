@@ -36,6 +36,8 @@ class HomeFeedService {
     func createFeed() -> [FeedItem] {
         var list = [FeedItem]()
         //TODO: unread recent important news
+        // news items
+        list.extend(getNewsItems())
         
         // activities
         list.extend(getActivities())
@@ -58,6 +60,9 @@ class HomeFeedService {
     //MARK: - Resto functions
     private func getRestoMenus() -> [FeedItem]{
         var day = NSDate()
+        if day.hour > 20 {
+            day = day.dateByAddingDays(1)
+        }
         var feedItems = [FeedItem]()
         
         // Find the next x days to display
@@ -109,7 +114,7 @@ class HomeFeedService {
                 filter = { $0.highlighted }
                 feedItems.append(FeedItem(itemType: .SettingsItem, object: nil, priority: 850))
             }
-            filter = { $0 != nil }
+
             for activity in activities.filter(filter) {
                 var priority = 999 //TODO: calculate priorities, with more options
                 priority -= activity.start.daysAfterDate(NSDate()) * 100
@@ -119,6 +124,28 @@ class HomeFeedService {
                 }
             }
         }
+        return feedItems
+    }
+    
+    private func getNewsItems() -> [FeedItem] {
+        var feedItems = [FeedItem]()
+        
+        if let newsItems = associationStore.newsItems as? [AssociationNewsItem] {
+            for newsItem in newsItems {
+                var priority = 999 //TODO: calculate priorities
+                let daysOld = newsItem.date.daysBeforeDate(NSDate())
+                if newsItem.highlighted {
+                    priority -= 25*daysOld
+                } else {
+                    priority -= 90*daysOld
+                }
+
+                if priority > 0 {
+                    feedItems.append(FeedItem(itemType: .NewsItem, object: newsItem, priority: priority))
+                }
+            }
+        }
+        
         return feedItems
     }
 }

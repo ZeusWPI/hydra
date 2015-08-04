@@ -11,23 +11,25 @@ import UIKit
 class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var closedLabel: UILabel!
     
     var restoMenu: RestoMenu? {
         didSet {
             if restoMenu != nil {
+                closedLabel.hidden = !restoMenu!.open
                 if restoMenu!.day.isToday() {
-                    dayLabel.text = "Menu vandaag"
+                    dayLabel.text = "vandaag"
                 } else if restoMenu!.day.isTomorrow() {
-                    dayLabel.text = "Menu morgen"
+                    dayLabel.text = "morgen"
                 } else {
                     let formatter = NSDateFormatter.H_dateFormatterWithAppLocale()
                     formatter.dateFormat = "EEEE d MMMM"
-                    dayLabel.text = "Menu " + formatter.stringFromDate(restoMenu!.day)
+                    dayLabel.text = "" + formatter.stringFromDate(restoMenu!.day)
                 }
             } else {
-                dayLabel.text = "Menu"
+                dayLabel.text = ""
+                closedLabel.hidden = true
             }
-            //TODO: test if closed, and add banner or something
             tableView.reloadData()
         }
     }

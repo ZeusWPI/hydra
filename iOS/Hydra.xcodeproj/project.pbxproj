@@ -21,6 +21,7 @@
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
 		9015D0FA1A8ABA4B00228ADC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 908E536419BE4F3900F1DA57 /* Images.xcassets */; };
+		901603DC1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901603DB1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift */; };
 		902939441A8C22EB00868221 /* info-bloklocaties.html in Resources */ = {isa = PBXBuildFile; fileRef = 902939431A8C22EB00868221 /* info-bloklocaties.html */; };
 		9035BF121B6C1753008E7875 /* schamper.png in Resources */ = {isa = PBXBuildFile; fileRef = 9035BF111B6C1753008E7875 /* schamper.png */; };
 		9035BF141B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9035BF131B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift */; };
@@ -292,6 +293,7 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		901603DB1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNewsItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		902939431A8C22EB00868221 /* info-bloklocaties.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-bloklocaties.html"; sourceTree = "<group>"; };
 		9035BF111B6C1753008E7875 /* schamper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schamper.png; sourceTree = "<group>"; };
 		9035BF131B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeSchamperCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -663,6 +665,7 @@
 				90DDFB781B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift */,
 				9035BF131B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift */,
 				90EF4A581B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift */,
+				901603DB1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1491,6 +1494,7 @@
 				90EF4A591B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift in Sources */,
 				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
 				90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */,
+				901603DC1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift in Sources */,
 				90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */,
 				9035BF141B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift in Sources */,
 				90DDFB791B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift in Sources */,

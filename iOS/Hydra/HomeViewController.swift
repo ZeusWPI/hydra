@@ -65,6 +65,10 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("activityCell", forIndexPath: indexPath) as? HomeActivityCollectionViewCell
             cell?.activity = feedItem.object as? AssociationActivity
             return cell!
+        case .NewsItem:
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("newsItemCell", forIndexPath: indexPath) as? HomeNewsItemCollectionViewCell
+            cell?.article = feedItem.object as? AssociationNewsItem
+            return cell!
         case .UrgentItem:
             return collectionView.dequeueReusableCellWithReuseIdentifier("urgentfmCell", forIndexPath: indexPath)
         case .SettingsItem:
@@ -96,6 +100,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             return CGSizeMake(self.view.frame.size.width, 180)
         case .SettingsItem:
             return CGSizeMake(self.view.frame.size.width, 80)
+        case .NewsItem:
+            return CGSizeMake(self.view.frame.size.width, 100)
         default:
             return CGSizeMake(self.view.frame.size.width, 135) //TODO: per type
         }
@@ -120,6 +126,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             }
             
             self.navigationController?.pushViewController(SchamperDetailViewController(article: article), animated: true)
+        case .NewsItem:
+            self.navigationController?.pushViewController(NewsDetailViewController(newsItem: feedItem.object as! AssociationNewsItem), animated: true)
         case .SettingsItem:
             self.navigationController?.pushViewController(PreferencesController(), animated: true)
         default: break

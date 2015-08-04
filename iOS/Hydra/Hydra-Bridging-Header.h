@@ -13,6 +13,7 @@
 #import "Association.h"
 #import "AssociationActivity.h"
 #import "AssociationNewsItem.h"
+#import "NewsDetailViewController.h"
 #import "RestoMenu.h"
 #import "SchamperArticle.h"
 
