@@ -89,15 +89,15 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 count = restoMenu!.meat.count
             }
 
-            return CGSizeMake(self.view.frame.size.width, CGFloat(146+count*17))
+            return CGSizeMake(self.view.frame.size.width, CGFloat(106+count*17))
         case .ActivityItem:
             let activity = feedItem.object as? AssociationActivity
             //TODO: guess height of cell
-            return CGSizeMake(self.view.frame.size.width, 220)
+            return CGSizeMake(self.view.frame.size.width, 180)
         case .SettingsItem:
-            return CGSizeMake(self.view.frame.size.width, 120)
+            return CGSizeMake(self.view.frame.size.width, 80)
         default:
-            return CGSizeMake(self.view.frame.size.width, 175) //TODO: per type
+            return CGSizeMake(self.view.frame.size.width, 135) //TODO: per type
         }
     }
     
@@ -105,31 +105,24 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         return UIEdgeInsetsMake(10, 0, 0, 0)
     }
     
-    //MARK: - Buttons
-    @IBAction func showActivity(sender: UIButton) {
-        let activityViewCell = sender.superview as? HomeActivityCollectionViewCell
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let feedItem = feedItems[indexPath.row]
         
-        self.navigationController?.pushViewController(ActivityDetailController(activity: activityViewCell?.activity, delegate: nil), animated: true)
-    }
-    
-    @IBAction func showResto(sender: UIButton) {
-        print("Switching to Resto")
-        self.navigationController?.pushViewController(RestoMenuController(), animated: true)
-    }
-    
-    @IBAction func showSchamperArticle(sender: UIButton) {
-        print("Switching to Schamper article")
-        let schamperViewCell = sender.superview as? HomeSchamperCollectionViewCell
-        if !schamperViewCell!.article!.read {
-            schamperViewCell!.article!.read = true
+        switch feedItem.itemType {
+        case .RestoItem:
+            self.navigationController?.pushViewController(RestoMenuController(), animated: true)
+        case .ActivityItem:
+            self.navigationController?.pushViewController(ActivityDetailController(activity: feedItem.object as! AssociationActivity, delegate: nil), animated: true)
+        case .SchamperNewsItem:
+            let article = feedItem.object as! SchamperArticle
+            if !article.read {
+                article.read = true
+            }
+            
+            self.navigationController?.pushViewController(SchamperDetailViewController(article: article), animated: true)
+        case .SettingsItem:
+            self.navigationController?.pushViewController(PreferencesController(), animated: true)
+        default: break
         }
-        
-        self.navigationController?.pushViewController(SchamperDetailViewController(article: schamperViewCell?.article), animated: true)
-    }
-    
-    @IBAction func showSettings(sender: UIButton) {
-        print("Switching to settings")
-        
-        self.navigationController?.pushViewController(PreferencesController(), animated: true)
     }
 }
