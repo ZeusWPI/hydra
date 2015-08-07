@@ -9,9 +9,12 @@
 #import "UrgentViewController.h"
 #import "UrgentPlayer.h"
 #import "MarqueeLabel.h"
+#import "UIViewController+SlideMenu.h"
+
 #import <ShareKit/ShareKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MessageUI/MessageUI.h>
+
 
 #define UrgentSocialEnabled 0
 
@@ -77,6 +80,9 @@
                                                                          target:self action:@selector(shareButtonTapped:)];
     self.navigationItem.rightBarButtonItem = btn;
 #endif
+    
+    // Setup slide menu
+    [self H_setSlideMenuButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated

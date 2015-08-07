@@ -1109,7 +1109,6 @@
 			isa = PBXGroup;
 			children = (
 				F536359C16A69C86000A50C4 /* Activities */,
-				3B059BF215B99B4800B4C1DA /* Custom views */,
 				90BE1F861B6AB30F0061888C /* Home */,
 				3B436DF615B8915200984D3F /* InfoViewController.h */,
 				3B436DF715B8915200984D3F /* InfoViewController.m */,
@@ -1124,6 +1123,7 @@
 				F53A5E7416700242009EA4CC /* UrgentViewController.h */,
 				F53A5E7516700242009EA4CC /* UrgentViewController.m */,
 				F56F139E169731FE003D4447 /* UrgentViewController.xib */,
+				3B059BF215B99B4800B4C1DA /* Custom views */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

@@ -13,6 +13,7 @@
 #import "AssociationNewsItem.h"
 #import "Association.h"
 #import "NSDateFormatter+AppLocale.h"
+#import "UIViewController+SlideMenu.h"
 #import "PreferencesService.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
@@ -56,6 +57,9 @@
 
         self.refreshControl = refreshControl;
     }
+    
+    // Setup slide menu
+    [self H_setSlideMenuButton];
 }
 
 - (void)didPullRefreshControl:(id)sender

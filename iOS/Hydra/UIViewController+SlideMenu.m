@@ -12,13 +12,14 @@
 
 - (void) H_setSlideMenuButton
 {
-    
-    UIBarButtonItem *menuButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu-button.png"]
-                                                                       style:UIBarButtonItemStylePlain
-                                                                      target:self
-                                                                      action:@selector(H_openSlideMenu:)];
-    
-    self.navigationItem.leftBarButtonItems = @[menuButtonItem];
+    if (self==[self.navigationController.viewControllers objectAtIndex:0]) {
+        UIBarButtonItem *menuButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"MENU"
+                                                                           style:UIBarButtonItemStylePlain
+                                                                          target:self
+                                                                          action:@selector(H_openSlideMenu:)];
+        
+        self.navigationItem.leftBarButtonItems = @[menuButtonItem];
+    }
 }
 
 - (void)H_openSlideMenu:(id)sender

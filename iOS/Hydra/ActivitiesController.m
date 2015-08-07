@@ -14,6 +14,7 @@
 #import "ActivityDetailController.h"
 #import "NSDateFormatter+AppLocale.h"
 #import "PreferencesService.h"
+#import "UIViewController+SlideMenu.h"
 #import "RMPickerViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
@@ -87,6 +88,9 @@
     
     [RMPickerViewController setLocalizedTitleForCancelButton:@"Sluit"];
     [RMPickerViewController setLocalizedTitleForSelectButton:@"Gereed"];
+    
+    // Setup slide menu
+    [self H_setSlideMenuButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
