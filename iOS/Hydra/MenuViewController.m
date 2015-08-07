@@ -43,13 +43,11 @@
     
     // Style & set-up tableview
     self.tableView.bounces = NO;
-    self.tableView.backgroundColor = [UIColor hydraBackgroundColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableHeaderView = [self createHeaderView];
-    self.tableView.separatorColor = [UIColor hydraTintColor];
+    self.tableView.separatorColor = [UIColor colorWithWhite:0.92549 alpha:1.0];
     self.tableView.tableFooterView = [[UIView alloc] init]; // Fixes seperator lines in empty cells
-    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        self.tableView.separatorInset = UIEdgeInsetsMake(0, 45, 0, 0);
-    }
+    //self.tableView.separatorInset = UIEdgeInsetsMake(0, -10, 0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -57,9 +55,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
-    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    }
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -75,9 +71,7 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    }
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
     // Re-enable touch on frontviewcontroller
     [[self.revealController frontViewController].view setUserInteractionEnabled:YES];
@@ -123,25 +117,16 @@
 
 - (UIView *)createHeaderView
 {
-    //TODO: modify header view: only add a close button
     // Create header background
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 114)];
-    headerView.backgroundColor = [UIColor blueColor];
-    UIImage *background = [UIImage imageNamed:@"header-bg.png"];
-    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:headerView.bounds];
-    backgroundView.image = background;
-    backgroundView.contentMode = UIViewContentModeScaleToFill;
-    backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [headerView addSubview:backgroundView];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 91)];
     
-    // place hydra logo
-    UIImage *hydraLogo = [UIImage imageNamed:@"hydra-logo"];
-    //UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(93, 37, 134, 50)];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(65, 37, 134, 50)];
-    logoView.image = hydraLogo;
-    logoView.contentMode = UIViewContentModeScaleToFill;
-    logoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [headerView addSubview:logoView];
+    // Add seperator
+    CGRect sepFrame = CGRectMake(0, headerView.frame.size.height-1, self.view.bounds.size.width, 1);
+    UIView *seperatorView = [[UIView alloc] initWithFrame:sepFrame];
+    seperatorView.backgroundColor = [UIColor colorWithWhite:0.92549 alpha:1.0];
+    [headerView addSubview:seperatorView];
+    
+    //TODO: add close button
     
     return headerView;
 }
@@ -161,7 +146,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 46;
+    return 62;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -181,6 +166,21 @@
 
 - (void)setupCell:(UITableViewCell *)cell
 {
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    
     // Style cell
     [cell setBackgroundColor:[UIColor clearColor]];
     
@@ -189,8 +189,9 @@
     // Add cell attributes
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setTag:kTitleTag];
+    [titleLabel setFont:[UIFont systemFontOfSize:20.0 weight:UIFontWeightLight]]; //TODO: find better font
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextColor:[UIColor hydraTintColor]];
+    [titleLabel setTextColor:[UIColor colorWithWhite:0.0862745 alpha:1.0]];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [contentView addSubview:titleLabel];
     
