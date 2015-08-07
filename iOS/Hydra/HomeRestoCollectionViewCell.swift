@@ -16,7 +16,7 @@ class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, 
     var restoMenu: RestoMenu? {
         didSet {
             if restoMenu != nil {
-                closedLabel.hidden = !restoMenu!.open
+                closedLabel.hidden = restoMenu!.open
                 if restoMenu!.day.isToday() {
                     dayLabel.text = "vandaag"
                 } else if restoMenu!.day.isTomorrow() {
@@ -28,7 +28,7 @@ class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, 
                 }
             } else {
                 dayLabel.text = ""
-                closedLabel.hidden = true
+                closedLabel.hidden = false
             }
             tableView.reloadData()
         }
