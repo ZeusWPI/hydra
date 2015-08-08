@@ -8,6 +8,7 @@
 
 #import "InfoViewController.h"
 #import "WebViewController.h"
+#import "UIViewController+SlideMenu.h"
 
 @interface InfoViewController ()
 
@@ -44,6 +45,9 @@
     [super viewDidLoad];
     [[self tableView] setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [[self tableView] setBounces:NO];
+    
+    // Setup slide menu
+    [self H_setSlideMenuButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated

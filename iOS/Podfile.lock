@@ -9,6 +9,7 @@ PODS:
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
   - PKMultipartInputStream (1.1.0)
+  - PKRevealController (2.0.6)
   - Reachability (3.2)
   - RestKit (0.24.1):
     - RestKit/Core (= 0.24.1)
@@ -65,6 +66,7 @@ PODS:
 DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.2)
   - GoogleAnalytics-iOS-SDK (~> 3.10)
+  - PKRevealController (~> 2.0)
   - Reachability (~> 3.2)
   - RestKit (~> 0.24.0)
   - RKXMLReaderSerialization (from `External/RKXMLReaderSerialization.podspec`)
@@ -90,6 +92,7 @@ SPEC CHECKSUMS:
   GoogleAnalytics-iOS-SDK: 4f98a376c1d61e6ac4ca47951655820314856eef
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
   PKMultipartInputStream: 1fb466fac9347857e3477e4dfc6fcc62fea7a944
+  PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   RestKit: 1987b5efef289c6b27bd980714d6ca48d3871b78
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701

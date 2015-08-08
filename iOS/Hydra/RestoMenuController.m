@@ -15,6 +15,7 @@
 #import "RestoMenuView.h"
 #import "RestoStore.h"
 #import "UIColor+AppColors.h"
+#import "UIViewController+SlideMenu.h"
 #import "UINavigationController+ReplaceController.h"
 
 #define kRestoDaysShown 5
@@ -118,6 +119,9 @@
     self.pageControl.numberOfPages = self.days.count + 1;
     [self.pageControl setImageMask:[UIImage imageNamed:@"dot-question"] forPage:0];
     self.pageControl.currentPage = 1;
+    
+    // Setup slide menu
+    [self H_setSlideMenuButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated

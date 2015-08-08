@@ -10,6 +10,8 @@
 #import "SchamperStore.h"
 #import "SchamperArticle.h"
 #import "SchamperDetailViewController.h"
+#import "UIViewController+SlideMenu.h"
+
 #import "SORelativeDateTransformer.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
@@ -59,7 +61,10 @@
                  forControlEvents:UIControlEventValueChanged];
 
         self.refreshControl = refreshControl;
-    }    
+    }
+    
+    // Setup slide menu
+    [self H_setSlideMenuButton];
 }
 
 - (void)didPullRefreshControl:(id)sender

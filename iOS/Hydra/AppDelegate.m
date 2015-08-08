@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "UIColor+AppColors.h"
+#import "MenuViewController.h"
 #import "ShareKitConfigurator.h"
 #import "FacebookSession.h"
 #import "SchamperStore.h"
@@ -19,8 +20,16 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <GAIDictionaryBuilder.h>
 #import <Reachability/Reachability.h>
+#import <PKRevealController/PKRevealController.h>
+
 
 #define kGoogleAnalyticsToken @"UA-25444917-3"
+
+@interface AppDelegate () <PKRevealing>
+
+@property (nonatomic, strong)PKRevealController *revealController;
+
+@end
 
 @implementation AppDelegate
 
@@ -64,13 +73,23 @@
     // Restore Facebook-session
     [[FacebookSession sharedSession] openWithAllowLoginUI:NO];
 
+    
     // Start storyboard
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
     UIViewController *rootvc = [storyboard instantiateInitialViewController];
     
+    // Menu view controller
+    MenuViewController *menuViewcontroller = [[MenuViewController alloc] init];
+
+    // Side menu lib
+    self.revealController = [PKRevealController revealControllerWithFrontViewController:rootvc leftViewController:menuViewcontroller];
+    
+    self.revealController.delegate = self;
+    self.revealController.animationDuration = 0.15;
+    
     // Set root view controller and make windows visible
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = rootvc;
+    self.window.rootViewController = self.revealController;
     
     [self.window makeKeyAndVisible];
 
@@ -193,6 +212,19 @@ BOOL errorDialogShown = false;
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     errorDialogShown = false;
+}
+
+#pragma mark - PKRevealing delegate
+
+- (void)revealController:(PKRevealController *)revealController didChangeToState:(PKRevealControllerState)state
+{
+    // NSLog(@"%@ (%d)", NSStringFromSelector(_cmd), (int)state);
+}
+
+- (void)revealController:(PKRevealController *)revealController willChangeToState:(PKRevealControllerState)next
+{
+    //PKRevealControllerState current = revealController.state;
+    //NSLog(@"%@ (%d -> %d)", NSStringFromSelector(_cmd), (int)current, (int)next);
 }
 
 @end
