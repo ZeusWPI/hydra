@@ -124,18 +124,19 @@
     [headerView addSubview:seperatorView];
     
     //TODO: add close button
+#define kButtonSize 20
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(50, 30.5, 30, 30);
+    button.frame = CGRectMake(50, 91/2-kButtonSize/2, kButtonSize, kButtonSize);
     button.backgroundColor = [UIColor grayColor];
     [button addTarget:self action:@selector(closeButton:) forControlEvents:UIControlEventTouchUpInside];
     
     // Bezier Drawing
     UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-    [bezierPath moveToPoint: CGPointMake(0, 30)];
-    [bezierPath addLineToPoint: CGPointMake(15, 15)];
-    [bezierPath addLineToPoint: CGPointMake(30, 0)];
-    [bezierPath addLineToPoint: CGPointMake(15, 15)];
-    [bezierPath addLineToPoint: CGPointMake(30, 30)];
+    [bezierPath moveToPoint: CGPointMake(0, kButtonSize)];
+    [bezierPath addLineToPoint: CGPointMake(kButtonSize/2, kButtonSize/2)];
+    [bezierPath addLineToPoint: CGPointMake(kButtonSize, 0)];
+    [bezierPath addLineToPoint: CGPointMake(kButtonSize/2, kButtonSize/2)];
+    [bezierPath addLineToPoint: CGPointMake(kButtonSize, kButtonSize)];
     [bezierPath addLineToPoint: CGPointMake(0, 0)];
     bezierPath.lineCapStyle = kCGLineCapRound;
     bezierPath.lineJoinStyle = kCGLineJoinRound;
@@ -147,7 +148,7 @@
     shapeLayer.path = bezierPath.CGPath;
     shapeLayer.fillColor = [UIColor clearColor].CGColor;//[UIColor clearColor].CGColor;
     shapeLayer.strokeColor = [UIColor blackColor].CGColor;
-    shapeLayer.lineWidth = 3;
+    shapeLayer.lineWidth = MAX(kButtonSize/10, 2);
     button.layer.mask = shapeLayer;
     
     [headerView addSubview:button];
