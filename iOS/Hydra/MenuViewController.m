@@ -54,8 +54,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -71,7 +69,6 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
     // Re-enable touch on frontviewcontroller
     [[self.revealController frontViewController].view setUserInteractionEnabled:YES];
@@ -121,12 +118,39 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 91)];
     
     // Add seperator
-    CGRect sepFrame = CGRectMake(0, headerView.frame.size.height-1, self.view.bounds.size.width, 1);
+    CGRect sepFrame = CGRectMake(0, headerView.frame.size.height-1, self.view.bounds.size.width, 0.5);
     UIView *seperatorView = [[UIView alloc] initWithFrame:sepFrame];
     seperatorView.backgroundColor = [UIColor colorWithWhite:0.92549 alpha:1.0];
     [headerView addSubview:seperatorView];
     
     //TODO: add close button
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(50, 30.5, 30, 30);
+    button.backgroundColor = [UIColor grayColor];
+    [button addTarget:self action:@selector(closeButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Bezier Drawing
+    UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+    [bezierPath moveToPoint: CGPointMake(0, 30)];
+    [bezierPath addLineToPoint: CGPointMake(15, 15)];
+    [bezierPath addLineToPoint: CGPointMake(30, 0)];
+    [bezierPath addLineToPoint: CGPointMake(15, 15)];
+    [bezierPath addLineToPoint: CGPointMake(30, 30)];
+    [bezierPath addLineToPoint: CGPointMake(0, 0)];
+    bezierPath.lineCapStyle = kCGLineCapRound;
+    bezierPath.lineJoinStyle = kCGLineJoinRound;
+    
+    [bezierPath stroke];
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.frame = button.bounds;
+    shapeLayer.path = bezierPath.CGPath;
+    shapeLayer.fillColor = [UIColor clearColor].CGColor;//[UIColor clearColor].CGColor;
+    shapeLayer.strokeColor = [UIColor blackColor].CGColor;
+    shapeLayer.lineWidth = 3;
+    button.layer.mask = shapeLayer;
+    
+    [headerView addSubview:button];
     
     return headerView;
 }
@@ -229,6 +253,13 @@
     [self.revealController setFrontViewController:root];
     [self.revealController resignPresentationModeEntirely:NO animated:YES completion:nil];
 }
+
+#pragma mark Header button
+- (void) closeButton:(UIButton *)button
+{
+    [self.revealController showViewController:self.revealController.frontViewController];
+}
+
 @end
 
 #pragma mark MenuObject
