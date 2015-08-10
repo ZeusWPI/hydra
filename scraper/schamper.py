@@ -61,7 +61,7 @@ def transform_item_in_feed(item):
     author_node.string = _parse_article_authors(article)
 
     parsed_body = _extract_article_body(article)
-    cdata_block = CData('\n'.join(str(part) for part in parsed_body))
+    cdata_block = CData(parsed_body.decode_contents(formatter='html'))
     item.description.contents = [cdata_block]
 
 
@@ -81,7 +81,7 @@ def _parse_article_authors(article):
 def _extract_article_body(page):
     article = page.find(id='artikel').find(class_='content')
 
-    body = []
+    body = Tag(name='temporary_tag')
 
     # +1 internetz for the person who can tell me why I can't write:
     #   for element in article.children:
