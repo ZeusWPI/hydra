@@ -63,7 +63,7 @@ def transform_item_in_feed(item):
 
     parsed_body = _extract_article_body(article)
     encoded = parsed_body.decode_contents(formatter='html')
-    minified = htmlmin.minify(encoded)
+    minified = htmlmin.minify(encoded, remove_optional_attribute_quotes=False)
     item.description.contents = [CData(minified)]
 
 
