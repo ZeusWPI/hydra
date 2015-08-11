@@ -1,30 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14F6a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="b55-Kn-LA0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F25a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MRx-bt-pUY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="sGH-dp-xb1">
+        <!--Hydra Tab Bar Controller-->
+        <scene sceneID="5CF-FV-4pH">
             <objects>
-                <navigationController id="b55-Kn-LA0" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yf7-bc-Yrf">
+                <tabBarController id="MRx-bt-pUY" customClass="HydraTabBarController" customModule="Hydra" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Mrt-l7-JZD"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="4tx-lF-2SA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" red="0.090196078430000007" green="0.29411764709999999" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="U9p-w3-9Tu" kind="relationship" relationship="viewControllers" id="MOV-2W-HcV"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbm-m1-vAp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1079" y="293"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="Sag-be-DP4">
+            <objects>
+                <navigationController id="U9p-w3-9Tu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="RPs-ao-McA"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iV3-Id-xRx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="pLP-uP-Iay" kind="relationship" relationship="rootViewController" id="xed-dn-Xo7"/>
+                        <segue destination="pLP-uP-Iay" kind="relationship" relationship="rootViewController" id="duq-C7-cda"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="07i-NU-fOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CY0-j9-ews" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-873" y="299.25"/>
+            <point key="canvasLocation" x="-405" y="293"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Home-->
         <scene sceneID="hw6-Bq-z2H">
             <objects>
                 <viewController id="pLP-uP-Iay" customClass="HomeViewController" customModule="Hydra" sceneMemberID="viewController">
@@ -40,7 +61,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.090196078431372548" green="0.29411764705882354" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G42-GJ-PIo">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G42-GJ-PIo">
                                 <rect key="frame" x="0.0" y="200" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -137,16 +158,16 @@
                                                 <exclude reference="wTP-4A-jQa"/>
                                             </mask>
                                             <mask key="constraints">
+                                                <exclude reference="3K7-Mk-6Z1"/>
+                                                <exclude reference="aff-4Y-8o8"/>
+                                                <exclude reference="rcP-ZU-aNM"/>
+                                                <exclude reference="1Ce-1P-cRf"/>
+                                                <exclude reference="CdS-QM-zIu"/>
+                                                <exclude reference="f5U-d1-gE1"/>
                                                 <exclude reference="cef-iu-xqX"/>
                                                 <exclude reference="eKy-mQ-2hL"/>
                                                 <exclude reference="nRJ-LG-Kow"/>
                                                 <exclude reference="nzE-1d-cvo"/>
-                                                <exclude reference="1Ce-1P-cRf"/>
-                                                <exclude reference="CdS-QM-zIu"/>
-                                                <exclude reference="f5U-d1-gE1"/>
-                                                <exclude reference="3K7-Mk-6Z1"/>
-                                                <exclude reference="aff-4Y-8o8"/>
-                                                <exclude reference="rcP-ZU-aNM"/>
                                                 <exclude reference="BvK-xW-FH9"/>
                                                 <exclude reference="l3z-8e-MyJ"/>
                                                 <exclude reference="lfa-th-xza"/>
@@ -160,16 +181,16 @@
                                                 <include reference="wTP-4A-jQa"/>
                                             </mask>
                                             <mask key="constraints">
+                                                <include reference="3K7-Mk-6Z1"/>
+                                                <include reference="aff-4Y-8o8"/>
+                                                <include reference="rcP-ZU-aNM"/>
+                                                <include reference="1Ce-1P-cRf"/>
+                                                <include reference="CdS-QM-zIu"/>
+                                                <include reference="f5U-d1-gE1"/>
                                                 <include reference="cef-iu-xqX"/>
                                                 <include reference="eKy-mQ-2hL"/>
                                                 <include reference="nRJ-LG-Kow"/>
                                                 <include reference="nzE-1d-cvo"/>
-                                                <include reference="1Ce-1P-cRf"/>
-                                                <include reference="CdS-QM-zIu"/>
-                                                <include reference="f5U-d1-gE1"/>
-                                                <include reference="3K7-Mk-6Z1"/>
-                                                <include reference="aff-4Y-8o8"/>
-                                                <include reference="rcP-ZU-aNM"/>
                                                 <include reference="BvK-xW-FH9"/>
                                                 <include reference="l3z-8e-MyJ"/>
                                                 <exclude reference="lfa-th-xza"/>
@@ -1226,6 +1247,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Home" image="tabbar-home.png" id="URv-iT-sdj"/>
                     <navigationItem key="navigationItem" id="NUA-z8-hkD"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
@@ -1249,6 +1271,7 @@
         <image name="icon-star.png" width="27" height="27"/>
         <image name="resto-logo.png" width="100" height="100"/>
         <image name="schamper.png" width="241" height="60"/>
+        <image name="tabbar-home.png" width="40" height="40"/>
         <image name="urgent-bg.jpg" width="320" height="414"/>
         <image name="urgent-logo.png" width="234" height="54"/>
     </resources>

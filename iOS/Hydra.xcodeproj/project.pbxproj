@@ -30,6 +30,9 @@
 		9035BF1A1B6CF663008E7875 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9035BF191B6CF663008E7875 /* LocationService.swift */; };
 		90410B101848DF9100331F6C /* info-guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0E1848DF9100331F6C /* info-guide.png */; };
 		90410B111848DF9100331F6C /* info-guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0F1848DF9100331F6C /* info-guide@2x.png */; };
+		904166231B7A689500D231EF /* tabbar-urgent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904166211B7A689500D231EF /* tabbar-urgent@2x.png */; };
+		904166241B7A689500D231EF /* tabbar-urgent.png in Resources */ = {isa = PBXBuildFile; fileRef = 904166221B7A689500D231EF /* tabbar-urgent.png */; };
+		904166261B7A837C00D231EF /* tabbar-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 904166251B7A837C00D231EF /* tabbar-settings.png */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
@@ -38,6 +41,13 @@
 		908DFF03188E932D00D526DC /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */; };
 		908E536519BE4F3900F1DA57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 908E536419BE4F3900F1DA57 /* Images.xcassets */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
+		90B1EF0C1B7A5DC300E733C1 /* tabbar-home.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF0B1B7A5DC300E733C1 /* tabbar-home.png */; };
+		90B1EF0E1B7A5EF000E733C1 /* tabbar-resto.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF0D1B7A5EF000E733C1 /* tabbar-resto.png */; };
+		90B1EF101B7A5FDB00E733C1 /* tabbar-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF0F1B7A5FDB00E733C1 /* tabbar-info.png */; };
+		90B1EF121B7A606E00E733C1 /* tabbar-activities.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF111B7A606E00E733C1 /* tabbar-activities.png */; };
+		90B1EF141B7A60B000E733C1 /* tabbar-news.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF131B7A60B000E733C1 /* tabbar-news.png */; };
+		90B1EF161B7A60FC00E733C1 /* tabbar-schamper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF151B7A60FC00E733C1 /* tabbar-schamper@2x.png */; };
+		90B1EF181B7A61DD00E733C1 /* tabbar-schamper.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF171B7A61DD00E733C1 /* tabbar-schamper.png */; };
 		90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */; };
 		90BE1F891B6AB3390061888C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BE1F881B6AB3390061888C /* HomeViewController.swift */; };
 		90BE1F8D1B6AB61D0061888C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90BE1F8C1B6AB61D0061888C /* MainStoryboard.storyboard */; };
@@ -45,6 +55,7 @@
 		90BE1F911B6AB8780061888C /* home-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BE1F8F1B6AB8780061888C /* home-background.png */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
 		90C8CA2E1B6AE3E80073E026 /* HomeFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */; };
+		90D55B9B1B7A4CE800813179 /* HydraTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D55B9A1B7A4CE800813179 /* HydraTabbarController.swift */; };
 		90DDFB791B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDFB781B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift */; };
 		90E814F31854C76C00075F96 /* ios7-Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */; };
 		90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F21854C76C00075F96 /* ios7-Default@2x.png */; };
@@ -302,6 +313,9 @@
 		9035BF191B6CF663008E7875 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		90410B0E1848DF9100331F6C /* info-guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide.png"; sourceTree = "<group>"; };
 		90410B0F1848DF9100331F6C /* info-guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide@2x.png"; sourceTree = "<group>"; };
+		904166211B7A689500D231EF /* tabbar-urgent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-urgent@2x.png"; sourceTree = "<group>"; };
+		904166221B7A689500D231EF /* tabbar-urgent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-urgent.png"; sourceTree = "<group>"; };
+		904166251B7A837C00D231EF /* tabbar-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-settings.png"; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -311,6 +325,13 @@
 		908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		908E536419BE4F3900F1DA57 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
+		90B1EF0B1B7A5DC300E733C1 /* tabbar-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-home.png"; sourceTree = "<group>"; };
+		90B1EF0D1B7A5EF000E733C1 /* tabbar-resto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-resto.png"; sourceTree = "<group>"; };
+		90B1EF0F1B7A5FDB00E733C1 /* tabbar-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-info.png"; sourceTree = "<group>"; };
+		90B1EF111B7A606E00E733C1 /* tabbar-activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-activities.png"; sourceTree = "<group>"; };
+		90B1EF131B7A60B000E733C1 /* tabbar-news.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-news.png"; sourceTree = "<group>"; };
+		90B1EF151B7A60FC00E733C1 /* tabbar-schamper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-schamper@2x.png"; sourceTree = "<group>"; };
+		90B1EF171B7A61DD00E733C1 /* tabbar-schamper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-schamper.png"; sourceTree = "<group>"; };
 		90BAB264162749BC0043BA92 /* SchamperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperDetailViewController.h; sourceTree = "<group>"; };
 		90BAB265162749BC0043BA92 /* SchamperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperDetailViewController.m; sourceTree = "<group>"; };
 		90BE1F871B6AB3390061888C /* Hydra-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Hydra-Bridging-Header.h"; path = "Hydra/Hydra-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -321,6 +342,7 @@
 		90C532A916A325A200857EB0 /* FacebookEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookEvent.h; sourceTree = "<group>"; };
 		90C532AA16A325A200857EB0 /* FacebookEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookEvent.m; sourceTree = "<group>"; };
 		90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFeedService.swift; sourceTree = "<group>"; };
+		90D55B9A1B7A4CE800813179 /* HydraTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HydraTabbarController.swift; sourceTree = "<group>"; };
 		90DDFB781B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRestoCollectionViewCell.swift; sourceTree = "<group>"; };
 		90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default-568h@2x.png"; sourceTree = "<group>"; };
 		90E814F21854C76C00075F96 /* ios7-Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default@2x.png"; sourceTree = "<group>"; };
@@ -894,6 +916,16 @@
 				F533DABB163163E2001269A8 /* schamper-bg.png */,
 				F557EA45163431FC00635CDD /* schamper-bg@2x.png */,
 				9035BF111B6C1753008E7875 /* schamper.png */,
+				90B1EF111B7A606E00E733C1 /* tabbar-activities.png */,
+				90B1EF0B1B7A5DC300E733C1 /* tabbar-home.png */,
+				90B1EF0F1B7A5FDB00E733C1 /* tabbar-info.png */,
+				90B1EF131B7A60B000E733C1 /* tabbar-news.png */,
+				90B1EF0D1B7A5EF000E733C1 /* tabbar-resto.png */,
+				90B1EF171B7A61DD00E733C1 /* tabbar-schamper.png */,
+				90B1EF151B7A60FC00E733C1 /* tabbar-schamper@2x.png */,
+				904166251B7A837C00D231EF /* tabbar-settings.png */,
+				904166221B7A689500D231EF /* tabbar-urgent.png */,
+				904166211B7A689500D231EF /* tabbar-urgent@2x.png */,
 				F5E851CE16C44B47003DF993 /* urgent-bg.jpg */,
 				F5E851CF16C44B47003DF993 /* urgent-bg@2x.jpg */,
 				F5B650AC16C135A900989ADB /* urgent-logo.png */,
@@ -1102,6 +1134,7 @@
 			children = (
 				F536359C16A69C86000A50C4 /* Activities */,
 				90BE1F861B6AB30F0061888C /* Home */,
+				90D55B9A1B7A4CE800813179 /* HydraTabbarController.swift */,
 				3B436DF615B8915200984D3F /* InfoViewController.h */,
 				3B436DF715B8915200984D3F /* InfoViewController.m */,
 				F536359E16A69C94000A50C4 /* News */,
@@ -1268,6 +1301,7 @@
 				F58408C2159DDA0E00EE7010 /* button-schamper.png in Resources */,
 				F5D36BB715B5BD2A00B6E017 /* Default.png in Resources */,
 				F5D36BB815B5BD2A00B6E017 /* Default@2x.png in Resources */,
+				904166261B7A837C00D231EF /* tabbar-settings.png in Resources */,
 				F54B160215B7FFE6000A4407 /* resto-logo.png in Resources */,
 				F54B160315B7FFE6000A4407 /* resto-logo@2x.png in Resources */,
 				F5B9F2F117CEAA040042C8A4 /* Icon-Small-iOS6@2x.png in Resources */,
@@ -1279,6 +1313,7 @@
 				904BC46C17E2014A0000FED6 /* dot-question.png in Resources */,
 				F5F43C1415BAC8A7003C2AAE /* Associations.plist in Resources */,
 				F59D16F415BD693F00B6F892 /* info-academiccalendar.png in Resources */,
+				90B1EF141B7A60B000E733C1 /* tabbar-news.png in Resources */,
 				F59D16F515BD693F00B6F892 /* info-academiccalendar@2x.png in Resources */,
 				904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */,
 				F59D16F615BD693F00B6F892 /* info-bicycle.png in Resources */,
@@ -1308,7 +1343,9 @@
 				90BE1F901B6AB8780061888C /* home-header.png in Resources */,
 				F5A81CC415CF1CC500FE033B /* external-link@2x.png in Resources */,
 				F5E7F06C15EF9408004024AA /* header-bg@2x.png in Resources */,
+				90B1EF101B7A5FDB00E733C1 /* tabbar-info.png in Resources */,
 				F5E7F07215EFAA51004024AA /* button-activities-active@2x.png in Resources */,
+				90B1EF0C1B7A5DC300E733C1 /* tabbar-home.png in Resources */,
 				F5E7F07315EFAA51004024AA /* button-activities@2x.png in Resources */,
 				F5D2B6B515EFE2DE003EA54C /* button-news@2x.png in Resources */,
 				F5D2B6B715EFEAAF003EA54C /* button-news-active@2x.png in Resources */,
@@ -1316,6 +1353,7 @@
 				F5FC117015F0211300B3F127 /* button-info@2x.png in Resources */,
 				F5FC117115F0211300B3F127 /* button-resto-active@2x.png in Resources */,
 				F5FC117215F0211300B3F127 /* button-resto@2x.png in Resources */,
+				90B1EF181B7A61DD00E733C1 /* tabbar-schamper.png in Resources */,
 				F5FC117315F0211300B3F127 /* button-schamper-active@2x.png in Resources */,
 				F5FC117415F0211300B3F127 /* button-schamper@2x.png in Resources */,
 				F5BC3D8E162EBB5100E4A902 /* Default-568h@2x.png in Resources */,
@@ -1324,6 +1362,7 @@
 				908E536519BE4F3900F1DA57 /* Images.xcassets in Resources */,
 				F533DABA16315E87001269A8 /* schamper.css in Resources */,
 				F533DABC163163E2001269A8 /* schamper-bg.png in Resources */,
+				90B1EF121B7A606E00E733C1 /* tabbar-activities.png in Resources */,
 				F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */,
 				90BE1F911B6AB8780061888C /* home-background.png in Resources */,
 				90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */,
@@ -1380,6 +1419,7 @@
 				445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */,
 				F5E851BE16C43174003DF993 /* btn-urgent-facebook.png in Resources */,
 				F5E851BF16C43174003DF993 /* btn-urgent-facebook@2x.png in Resources */,
+				904166231B7A689500D231EF /* tabbar-urgent@2x.png in Resources */,
 				F5E851C016C43174003DF993 /* btn-urgent-home.png in Resources */,
 				F5E851C116C43174003DF993 /* btn-urgent-home@2x.png in Resources */,
 				F5E851C216C43174003DF993 /* btn-urgent-mail.png in Resources */,
@@ -1388,15 +1428,18 @@
 				F5B9F2F417CEAA040042C8A4 /* iTunesArtwork@2x.png in Resources */,
 				F5E851C516C43174003DF993 /* btn-urgent-soundcloud@2x.png in Resources */,
 				F5E851C616C43174003DF993 /* btn-urgent-twitter.png in Resources */,
+				90B1EF0E1B7A5EF000E733C1 /* tabbar-resto.png in Resources */,
 				F5E851C716C43174003DF993 /* btn-urgent-twitter@2x.png in Resources */,
 				F5B9F2E817CEA96F0042C8A4 /* Icon-iOS6.png in Resources */,
 				F5E851CC16C447C4003DF993 /* urgent-nowplaying.jpg in Resources */,
 				F5E851CD16C447C4003DF993 /* urgent-nowplaying@2x.jpg in Resources */,
+				90B1EF161B7A60FC00E733C1 /* tabbar-schamper@2x.png in Resources */,
 				F5E851D016C44B47003DF993 /* urgent-bg.jpg in Resources */,
 				F5E851D116C44B47003DF993 /* urgent-bg@2x.jpg in Resources */,
 				F5B9F2EA17CEA96F0042C8A4 /* Icon-iOS7@2x.png in Resources */,
 				F5E851D416C44BD7003DF993 /* hydra-logo.png in Resources */,
 				F5E851D516C44BD7003DF993 /* hydra-logo@2x.png in Resources */,
+				904166241B7A689500D231EF /* tabbar-urgent.png in Resources */,
 				90B1029717A85E9200669CCD /* kalender.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1497,6 +1540,7 @@
 				901603DC1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift in Sources */,
 				90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */,
 				9035BF141B6C1F5D008E7875 /* HomeSchamperCollectionViewCell.swift in Sources */,
+				90D55B9B1B7A4CE800813179 /* HydraTabbarController.swift in Sources */,
 				90DDFB791B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift in Sources */,
 				90F05266168C7D19004CAFFC /* RestoLocation.m in Sources */,
 				F59CEE8A16A188050038FD24 /* FacebookSession.m in Sources */,

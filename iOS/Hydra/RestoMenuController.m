@@ -55,11 +55,9 @@
 
 - (void)loadView
 {
-#ifdef __IPHONE_7_0
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-#endif
 
     CGRect bounds = [UIScreen mainScreen].bounds;
     self.view = [[UIView alloc] initWithFrame:bounds];
@@ -262,13 +260,17 @@
     if (self.pageControlUsed == 0) {
         self.pageControl.currentPage = round(fractionalPage);
     }
+    
 
     // Nothing needs to change for the InfoView
     if (fractionalPage < 1) return;
 
     NSInteger lowerNumber = floor(fractionalPage) - 1;
     NSInteger upperNumber = lowerNumber + 1;
-
+    
+    //TODO: tempfix
+    if (self.days.count <= lowerNumber) return;
+    
     NSDate *lowerDate = self.days[lowerNumber];
     NSDate *upperDate = nil;
     if (upperNumber < kRestoDaysShown) {
