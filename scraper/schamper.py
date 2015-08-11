@@ -43,7 +43,7 @@ def write_xml_to_file(doc, path):
     directory = os.path.dirname(path)
     os.makedirs(directory, exist_ok=True)
     with open(path, 'w') as file_:
-        file_.write(doc.prettify())
+        file_.write(str(doc))
 
 
 def transform_item_in_feed(item):
