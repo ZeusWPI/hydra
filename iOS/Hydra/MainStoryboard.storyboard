@@ -1247,7 +1247,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="tabbar-home.png" id="URv-iT-sdj"/>
+                    <tabBarItem key="tabBarItem" tag="220" title="Home" image="tabbar-home.png" id="URv-iT-sdj"/>
                     <navigationItem key="navigationItem" id="NUA-z8-hkD"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>

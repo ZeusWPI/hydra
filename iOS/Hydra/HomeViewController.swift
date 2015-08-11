@@ -18,7 +18,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.refreshControl.addTarget(self, action: "startRefresh", forControlEvents: .ValueChanged)
         self.feedCollectionView.addSubview(refreshControl)
         self.feedCollectionView.alwaysBounceVertical = true

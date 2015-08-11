@@ -12,6 +12,8 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
+
         let newsViewController = UINavigationController(rootViewController: NewsViewController()) // find way without instantiating view controllers
         let activityController = UINavigationController(rootViewController: ActivitiesController())
         let restoController = UINavigationController(rootViewController: RestoMenuController())
@@ -20,30 +22,68 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
         let prefsController = UINavigationController(rootViewController: PreferencesController())
         let urgentController = UrgentViewController()
         
-        restoController.tabBarItem.title = "Resto Menu"
-        restoController.tabBarItem.image = UIImage(named: "tabbar-resto.png")
+        update(restoController.tabBarItem, title: "Resto Menu", image: "resto", tag: 230)
+        update(infoController.tabBarItem, title: nil, image: "info", tag: 231)
+        update(activityController.tabBarItem, title: nil, image: "activities", tag: 232)
+        update(schamperController.tabBarItem, title: nil, image: "schamper", tag: 233)
+        update(newsViewController.tabBarItem, title: nil, image: "news", tag: 234)
+        update(urgentController.tabBarItem, title: "Urgent.fm", image: "urgent", tag: 235)
+        update(prefsController.tabBarItem, title: "Instellingen", image: "settings", tag: 236)
         
-        infoController.tabBarItem.image = UIImage(named: "tabbar-info.png")
-        
-        activityController.tabBarItem.image = UIImage(named: "tabbar-activities.png")
-        
-        schamperController.tabBarItem.image = UIImage(named: "tabbar-schamper.png")
-        
-        newsViewController.tabBarItem.image = UIImage(named: "tabbar-news.png")
-        
-        urgentController.tabBarItem.title = "Urgent"
-        urgentController.tabBarItem.image = UIImage(named: "tabbar-urgent.png")
-        
-        prefsController.tabBarItem.title = "Instellingen"
-        prefsController.tabBarItem.image = UIImage(named: "tabbar-settings.png")
-        
-        var viewControllers = self.viewControllers
-
-        viewControllers?.extend([restoController, infoController, activityController, newsViewController, schamperController, urgentController, prefsController])
-        
-        self.viewControllers = viewControllers
+        var viewControllers = self.viewControllers!
+        viewControllers.extend([restoController, infoController, activityController, newsViewController, schamperController, urgentController, prefsController])
         
         
+        self.viewControllers = orderViewControllers(viewControllers)
+        
+        // Fix gray tabbars
         self.tabBar.translucent = false
+    }
+    
+    func orderViewControllers(viewControllers: [UIViewController]) -> [UIViewController]{
+        let tagsOrder = PreferencesService.sharedService().hydraTabBarOrder as! [Int]
+        if tagsOrder.count == 0 {
+            return viewControllers
+        }
+        
+        var orderedViewControllers = [UIViewController]()
+        var oldViewControllers = viewControllers
+
+        for tag in tagsOrder {
+            let controller_index: Int? = oldViewControllers.indexOf({ (el) -> Bool in
+                el.tabBarItem.tag == tag
+            })
+            if let index = controller_index {
+                orderedViewControllers.append(oldViewControllers.removeAtIndex(index))
+            }
+        }
+        
+        // Add all other viewcontrollers, it's possible new ones are added
+        orderedViewControllers.extend(oldViewControllers)
+        return orderedViewControllers
+    }
+    
+    // MARK: UITabBarControllerDelegate
+    func tabBarController(tabBarController: UITabBarController, didEndCustomizingViewControllers viewControllers: [UIViewController], changed: Bool) {
+        debugPrint("didEndCustomizingViewControllers called")
+        if !changed {
+            return
+        }
+        
+        var tagsOrder = [Int]()
+        for controller in viewControllers {
+            tagsOrder.append(controller.tabBarItem.tag)
+        }
+        
+        PreferencesService.sharedService().hydraTabBarOrder = tagsOrder
+    }
+    
+    // MARK: TabBarItem functions
+    func update(tabBarItem: UITabBarItem, title: String?, image: String, tag: Int) {
+        if let t = title {
+            tabBarItem.title = t
+        }
+        tabBarItem.image = UIImage(named: "tabbar-" + image + ".png")
+        tabBarItem.tag = tag
     }
 }
