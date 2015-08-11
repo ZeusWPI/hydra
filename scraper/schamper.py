@@ -98,47 +98,50 @@ def _extract_article_body(page):
         if element.name is None and re.search('\S', str(element)) is None:
             continue
 
-        if element.name == 'div':
-            # TODO uncomment me when the app is ready to support subtitles
-            # Oh, and change the next if with an elif
-            #  if 'field-field-ondertitel' in element['class']:
-            #      paragraph = _extract_paragraph(element, 'subtitle')
-            #      body.append(paragraph)
+        # Nor div, nor form, nor whitespace: probably article content
+        if element.name != 'div':
+            body.append(element.extract())
+            continue
 
-            if 'field-field-inleiding' in element['class']:
-                paragraph = _extract_paragraph(element, 'introduction')
-                body.append(paragraph)
+        # TODO uncomment me when the app is ready to support subtitles
+        # Oh, and change the next if with an elif
+        #  if 'field-field-ondertitel' in element['class']:
+        #      paragraph = _extract_paragraph(element, 'subtitle')
+        #      body.append(paragraph)
 
-            elif 'field-field-img-regulier' in element['class']:
-                images_div = Tag(name='div', attrs={'class': 'image'})
-                for image_and_caption in element(id='image-and-caption'):
-                    image = image_and_caption.img
-                    caption = image_and_caption.find(class_='caption-text')
+        if 'field-field-inleiding' in element['class']:
+            paragraph = _extract_paragraph(element, 'introduction')
+            body.append(paragraph)
 
-                    paragraph = Tag(name='p')
-                    paragraph.append(image)
-                    if caption is not None:
-                        paragraph.append(caption.text)
+        elif 'field-field-img-regulier' in element['class']:
+            images_div = Tag(name='div', attrs={'class': 'image'})
+            for image_and_caption in element(id='image-and-caption'):
+                image = image_and_caption.img
+                caption = image_and_caption.find(class_='caption-text')
 
-                    images_div.append(paragraph)
-                body.append(images_div)
+                paragraph = Tag(name='p')
+                paragraph.append(image)
+                if caption is not None:
+                    paragraph.append(caption.text)
 
-            elif 'field-field-website' in element['class']:
-                label = element.find(class_='field-label').text
-                label_p = Tag(name='p')
-                label_s = Tag(name='strong')
-                label_s.append(label)
-                label_p.append(label_s)
-                body.append(label_p)
+                images_div.append(paragraph)
+            body.append(images_div)
 
-                websites = element.find(class_='field-item').contents
-                for website in list(websites):
-                    body.append(website)
-            # Ignore other divs
+        elif 'field-field-website' in element['class']:
+            label = element.find(class_='field-label').text
+            label_p = Tag(name='p')
+            label_s = Tag(name='strong')
+            label_s.append(label)
+            label_p.append(label_s)
+            body.append(label_p)
+
+            websites = element.find(class_='field-item').contents
+            for website in list(websites):
+                body.append(website)
 
         else:
-            # Nor div, nor form, nor whitespace: probably article content
-            body.append(element.extract())
+            # Ignore other divs
+            pass
 
     return body
 
