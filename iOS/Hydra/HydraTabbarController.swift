@@ -42,5 +42,8 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
         viewControllers?.extend([restoController, infoController, activityController, newsViewController, schamperController, urgentController, prefsController])
         
         self.viewControllers = viewControllers
+        
+        
+        self.tabBar.translucent = false
     }
 }

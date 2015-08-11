@@ -33,6 +33,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewWillDisappear(animated)
         
         self.navigationController?.navigationBarHidden = false
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
     
     func startRefresh() {

@@ -121,6 +121,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    self.navigationController.navigationBar.translucent = NO;
+    
     GAI_Track(@"Resto Menu");
 }
 
