@@ -110,6 +110,7 @@ def _extract_article_body(page):
                 body.append(paragraph)
 
             elif 'field-field-img-regulier' in element['class']:
+                images_div = Tag(name='div', attrs={'class': 'image'})
                 for image_and_caption in element(id='image-and-caption'):
                     image = image_and_caption.img
                     caption = image_and_caption.find(class_='caption-text')
@@ -118,9 +119,9 @@ def _extract_article_body(page):
                     paragraph.append(image)
                     if caption is not None:
                         paragraph.append(caption.text)
-                    paragraph['class'] = 'image'
 
-                    body.append(paragraph)
+                    images_div.append(paragraph)
+                body.append(images_div)
 
             elif 'field-field-website' in element['class']:
                 label = element.find(class_='field-label').text
@@ -130,8 +131,9 @@ def _extract_article_body(page):
                 label_p.append(label_s)
                 body.append(label_p)
 
-                website = _extract_paragraph(element, 'website')
-                body.append(website)
+                websites = element.find(class_='field-item').contents
+                for website in list(websites):
+                    body.append(website)
             # Ignore other divs
 
         else:
