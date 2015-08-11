@@ -9,6 +9,7 @@ import urllib.request
 
 from bs4 import BeautifulSoup, CData, Tag
 import lxml.html
+import htmlmin
 
 BASE_URL = 'http://www.schamper.ugent.be'
 RSS_URL = BASE_URL + '/dagelijks'
@@ -61,8 +62,9 @@ def transform_item_in_feed(item):
     author_node.string = _parse_article_authors(article)
 
     parsed_body = _extract_article_body(article)
-    cdata_block = CData(parsed_body.decode_contents(formatter='html'))
-    item.description.contents = [cdata_block]
+    encoded = parsed_body.decode_contents(formatter='html')
+    minified = htmlmin.minify(encoded)
+    item.description.contents = [CData(minified)]
 
 
 def _parse_article_authors(article):
