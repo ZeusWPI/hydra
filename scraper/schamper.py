@@ -88,13 +88,23 @@ def _extract_article_body(page):
     # or
     #   for element in article.contents:
     for element in list(article.children):
+        # Ignore the comment form
+        if element.name == 'form':
+            continue
+
+        # Ignore whitespace
+        if element.name is None and re.search('\S', str(element)) is None:
+            continue
+
         if element.name == 'div':
             if 'field-field-ondertitel' in element['class']:
                 paragraph = _extract_paragraph(element, 'subtitle')
                 body.append(paragraph)
+
             elif 'field-field-inleiding' in element['class']:
                 paragraph = _extract_paragraph(element, 'introduction')
                 body.append(paragraph)
+
             elif 'field-field-img-regulier' in element['class']:
                 for image_and_caption in element(id='image-and-caption'):
                     image = image_and_caption.img
@@ -107,6 +117,7 @@ def _extract_article_body(page):
                     paragraph['class'] = 'image'
 
                     body.append(paragraph)
+
             elif 'field-field-website' in element['class']:
                 label = element.find(class_='field-label').text
                 label_p = Tag(name='p')
@@ -118,12 +129,7 @@ def _extract_article_body(page):
                 website = _extract_paragraph(element, 'website')
                 body.append(website)
             # Ignore other divs
-        elif element.name == 'form':
-            # Ignore the comment form
-            pass
-        elif element.name is None and re.search('\S', str(element)) is None:
-            # Ignore whitespace
-            pass
+
         else:
             # Nor div, nor form, nor whitespace: probably article content
             body.append(element.extract())
@@ -134,7 +140,7 @@ def _extract_article_body(page):
 def _extract_paragraph(element, name):
     item = element.find(class_='field-item').extract()
     item_contents = [part for part in item.contents if _is_not_empty(part)]
-    paragraph = _wrap_in_paragraph(item_contents)
+    paragraph = _ensure_wrapped_in_paragraph(item_contents)
     paragraph['class'] = name
     return paragraph
 
@@ -143,7 +149,7 @@ def _is_not_empty(node):
     return not isinstance(node, str) or re.search('\S', node) is not None
 
 
-def _wrap_in_paragraph(contents):
+def _ensure_wrapped_in_paragraph(contents):
     if len(contents) == 1 and contents[0].name == 'p':
         return contents[0]
     else:
