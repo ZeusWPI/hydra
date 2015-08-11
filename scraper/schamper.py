@@ -100,11 +100,12 @@ def _extract_article_body(page):
 
         if element.name == 'div':
             # TODO uncomment me when the app is ready to support subtitles
+            # Oh, and change the next if with an elif
             #  if 'field-field-ondertitel' in element['class']:
             #      paragraph = _extract_paragraph(element, 'subtitle')
             #      body.append(paragraph)
 
-            elif 'field-field-inleiding' in element['class']:
+            if 'field-field-inleiding' in element['class']:
                 paragraph = _extract_paragraph(element, 'introduction')
                 body.append(paragraph)
 
