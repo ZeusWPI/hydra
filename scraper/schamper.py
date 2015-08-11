@@ -99,9 +99,10 @@ def _extract_article_body(page):
             continue
 
         if element.name == 'div':
-            if 'field-field-ondertitel' in element['class']:
-                paragraph = _extract_paragraph(element, 'subtitle')
-                body.append(paragraph)
+            # TODO uncomment me when the app is ready to support subtitles
+            #  if 'field-field-ondertitel' in element['class']:
+            #      paragraph = _extract_paragraph(element, 'subtitle')
+            #      body.append(paragraph)
 
             elif 'field-field-inleiding' in element['class']:
                 paragraph = _extract_paragraph(element, 'introduction')
