@@ -143,14 +143,14 @@ def _extract_article_body(page):
 
 def _extract_paragraph(element, name):
     item = element.find(class_='field-item').extract()
-    item_contents = [part for part in item.contents if _is_not_empty(part)]
+    item_contents = [part for part in item.contents if not _is_empty(part)]
     paragraph = _ensure_wrapped_in_paragraph(item_contents)
     paragraph['class'] = name
     return paragraph
 
 
-def _is_not_empty(node):
-    return not isinstance(node, str) or re.search('\S', node) is not None
+def _is_empty(node):
+    return isinstance(node, str) and re.search('\S', node) is None
 
 
 def _ensure_wrapped_in_paragraph(contents):
