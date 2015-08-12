@@ -14,7 +14,7 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
 
-        let newsViewController = UINavigationController(rootViewController: NewsViewController()) // find way without instantiating view controllers
+        let newsViewController = UINavigationController(rootViewController: NewsViewController())
         let activityController = UINavigationController(rootViewController: ActivitiesController())
         let restoController = UINavigationController(rootViewController: RestoMenuController())
         let infoController = UINavigationController(rootViewController: InfoViewController())
@@ -22,14 +22,14 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
         let prefsController = UINavigationController(rootViewController: PreferencesController())
         let urgentController = UrgentViewController()
         
-        update(restoController.tabBarItem, title: "Resto Menu", image: "resto", tag: 230)
-        update(infoController.tabBarItem, title: nil, image: "info", tag: 231)
-        update(activityController.tabBarItem, title: nil, image: "activities", tag: 232)
-        update(schamperController.tabBarItem, title: nil, image: "schamper", tag: 233)
-        update(newsViewController.tabBarItem, title: nil, image: "news", tag: 234)
-        update(urgentController.tabBarItem, title: "Urgent.fm", image: "urgent", tag: 235)
-        update(prefsController.tabBarItem, title: "Instellingen", image: "settings", tag: 236)
-        
+        restoController.tabBarItem.configure("Resto Menu", image: "resto", tag: 230)
+        infoController.tabBarItem.configure(nil, image: "info", tag: 231)
+        activityController.tabBarItem.configure(nil, image: "activities", tag: 232)
+        schamperController.tabBarItem.configure(nil, image: "schamper", tag: 233)
+        newsViewController.tabBarItem.configure(nil, image: "news", tag: 234)
+        urgentController.tabBarItem.configure("Urgent.fm", image: "urgent", tag: 235)
+        prefsController.tabBarItem.configure("Instellingen", image: "settings", tag: 236)
+
         var viewControllers = self.viewControllers!
         viewControllers.extend([restoController, infoController, activityController, newsViewController, schamperController, urgentController, prefsController])
         
@@ -77,13 +77,17 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         PreferencesService.sharedService().hydraTabBarOrder = tagsOrder
     }
+}
+
+// MARK: UITabBarItem functions
+extension UITabBarItem {
     
-    // MARK: TabBarItem functions
-    func update(tabBarItem: UITabBarItem, title: String?, image: String, tag: Int) {
-        if let t = title {
-            tabBarItem.title = t
+    // Configure UITabBarItem with string, image and tag
+    func configure(title: String?, image: String, tag: Int) {
+        if let title = title {
+            self.title = title
         }
-        tabBarItem.image = UIImage(named: "tabbar-" + image + ".png")
-        tabBarItem.tag = tag
+        self.image = UIImage(named: "tabbar-" + image + ".png")
+        self.tag = tag
     }
 }
