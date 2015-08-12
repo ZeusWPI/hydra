@@ -27,6 +27,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBarHidden = true
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
     }
     
     override func viewWillDisappear(animated: Bool) {

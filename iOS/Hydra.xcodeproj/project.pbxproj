@@ -35,6 +35,9 @@
 		904166261B7A837C00D231EF /* tabbar-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 904166251B7A837C00D231EF /* tabbar-settings.png */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
+		9068BA781B7BB437005F79FA /* tabbar-resto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9068BA771B7BB437005F79FA /* tabbar-resto@2x.png */; };
+		9068BA7A1B7BB560005F79FA /* tabbar-home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9068BA791B7BB560005F79FA /* tabbar-home@2x.png */; };
+		9068BA7C1B7BB684005F79FA /* tabbar-item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9068BA7B1B7BB684005F79FA /* tabbar-item@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
 		908CA4DD1A8D439C00F8C31F /* info-mapmarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CA4DB1A8D439C00F8C31F /* info-mapmarker.png */; };
 		908CA4DE1A8D439C00F8C31F /* info-mapmarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CA4DC1A8D439C00F8C31F /* info-mapmarker@2x.png */; };
@@ -318,6 +321,9 @@
 		904166251B7A837C00D231EF /* tabbar-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-settings.png"; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
+		9068BA771B7BB437005F79FA /* tabbar-resto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-resto@2x.png"; sourceTree = "<group>"; };
+		9068BA791B7BB560005F79FA /* tabbar-home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-home@2x.png"; sourceTree = "<group>"; };
+		9068BA7B1B7BB684005F79FA /* tabbar-item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-item@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		906C1D8817C8A4A600145CD3 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		908CA4DB1A8D439C00F8C31F /* info-mapmarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-mapmarker.png"; sourceTree = "<group>"; };
@@ -918,9 +924,12 @@
 				9035BF111B6C1753008E7875 /* schamper.png */,
 				90B1EF111B7A606E00E733C1 /* tabbar-activities.png */,
 				90B1EF0B1B7A5DC300E733C1 /* tabbar-home.png */,
+				9068BA791B7BB560005F79FA /* tabbar-home@2x.png */,
 				90B1EF0F1B7A5FDB00E733C1 /* tabbar-info.png */,
+				9068BA7B1B7BB684005F79FA /* tabbar-item@2x.png */,
 				90B1EF131B7A60B000E733C1 /* tabbar-news.png */,
 				90B1EF0D1B7A5EF000E733C1 /* tabbar-resto.png */,
+				9068BA771B7BB437005F79FA /* tabbar-resto@2x.png */,
 				90B1EF171B7A61DD00E733C1 /* tabbar-schamper.png */,
 				90B1EF151B7A60FC00E733C1 /* tabbar-schamper@2x.png */,
 				904166251B7A837C00D231EF /* tabbar-settings.png */,
@@ -1353,8 +1362,10 @@
 				F5FC117015F0211300B3F127 /* button-info@2x.png in Resources */,
 				F5FC117115F0211300B3F127 /* button-resto-active@2x.png in Resources */,
 				F5FC117215F0211300B3F127 /* button-resto@2x.png in Resources */,
+				9068BA7C1B7BB684005F79FA /* tabbar-item@2x.png in Resources */,
 				90B1EF181B7A61DD00E733C1 /* tabbar-schamper.png in Resources */,
 				F5FC117315F0211300B3F127 /* button-schamper-active@2x.png in Resources */,
+				9068BA7A1B7BB560005F79FA /* tabbar-home@2x.png in Resources */,
 				F5FC117415F0211300B3F127 /* button-schamper@2x.png in Resources */,
 				F5BC3D8E162EBB5100E4A902 /* Default-568h@2x.png in Resources */,
 				F5D3B612162EF02F00698C3E /* button-feedback.png in Resources */,
@@ -1366,6 +1377,7 @@
 				F557EA46163431FC00635CDD /* schamper-bg@2x.png in Resources */,
 				90BE1F911B6AB8780061888C /* home-background.png in Resources */,
 				90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */,
+				9068BA781B7BB437005F79FA /* tabbar-resto@2x.png in Resources */,
 				9035BF161B6C37FE008E7875 /* home-zeus.png in Resources */,
 				F5EBF0E0164BE583002C14BF /* SORelativeDateTransformer.bundle in Resources */,
 				F5C4618F166E442000874D79 /* navigation-down.png in Resources */,
