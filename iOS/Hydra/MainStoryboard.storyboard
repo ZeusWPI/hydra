@@ -218,34 +218,56 @@
                                                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <color key="sectionIndexBackgroundColor" red="1" green="0.0" blue="0.050213125070000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="restoMenuTableViewCell" textLabel="4nS-qq-st8" detailTextLabel="dSv-5h-kpj" rowHeight="17" style="IBUITableViewCellStyleValue1" id="146-rA-630">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="restoMenuTableViewCell" rowHeight="17" id="146-rA-630" customClass="HomeRestoMenuItemTableViewCell" customModule="Hydra" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="146-rA-630" id="RVo-86-3GN">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4nS-qq-st8">
-                                                                        <rect key="frame" x="15" y="0.0" width="29" height="17"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hny-tK-E8u">
+                                                                        <rect key="frame" x="8" y="1" width="33" height="16"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
-                                                                        <variation key="heightClass=regular-widthClass=compact">
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                        </variation>
                                                                     </label>
-                                                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="right" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="38" id="dSv-5h-kpj">
-                                                                        <rect key="frame" x="187" y="0.0" width="38" height="17"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                        <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77T-Rq-ecV">
+                                                                        <rect key="frame" x="197" y="1" width="33" height="16"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
-                                                                        <variation key="heightClass=regular-widthClass=compact">
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                        </variation>
                                                                     </label>
                                                                 </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="77T-Rq-ecV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hny-tK-E8u" secondAttribute="trailing" constant="12" id="30v-Gi-3ed"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="leading" secondItem="77T-Rq-ecV" secondAttribute="trailing" constant="120" id="7ef-yD-nDR"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="leading" secondItem="RVo-86-3GN" secondAttribute="leading" constant="8" id="JZR-uz-HBu"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="leading" secondItem="RVo-86-3GN" secondAttribute="leadingMargin" id="LDT-df-zSC"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="baseline" secondItem="77T-Rq-ecV" secondAttribute="baseline" id="PPl-vn-akR"/>
+                                                                    <constraint firstAttribute="leadingMargin" secondItem="Hny-tK-E8u" secondAttribute="leading" id="SsB-b0-HGv"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="77T-Rq-ecV" secondAttribute="trailing" constant="12" id="X70-fE-wSq"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="leading" secondItem="RVo-86-3GN" secondAttribute="leading" id="evd-Bz-EKI"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="leading" secondItem="RVo-86-3GN" secondAttribute="leadingMargin" id="gBa-cG-a3t"/>
+                                                                    <constraint firstAttribute="trailingMargin" secondItem="77T-Rq-ecV" secondAttribute="trailingMargin" constant="10" id="qkf-Vg-RGp"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="centerY" secondItem="RVo-86-3GN" secondAttribute="centerY" id="yQ7-NZ-s1b"/>
+                                                                    <constraint firstItem="Hny-tK-E8u" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="77T-Rq-ecV" secondAttribute="trailing" constant="12" id="yc9-py-NdM"/>
+                                                                </constraints>
+                                                                <variation key="default">
+                                                                    <mask key="constraints">
+                                                                        <exclude reference="7ef-yD-nDR"/>
+                                                                        <exclude reference="JZR-uz-HBu"/>
+                                                                        <exclude reference="LDT-df-zSC"/>
+                                                                        <exclude reference="X70-fE-wSq"/>
+                                                                        <exclude reference="evd-Bz-EKI"/>
+                                                                        <exclude reference="gBa-cG-a3t"/>
+                                                                        <exclude reference="yc9-py-NdM"/>
+                                                                    </mask>
+                                                                </variation>
                                                             </tableViewCellContentView>
+                                                            <connections>
+                                                                <outlet property="nameLabel" destination="Hny-tK-E8u" id="vqj-WT-U0d"/>
+                                                                <outlet property="priceLabel" destination="77T-Rq-ecV" id="ee9-Kc-IJP"/>
+                                                            </connections>
                                                         </tableViewCell>
                                                     </prototypes>
                                                     <connections>
@@ -280,7 +302,7 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Resto Menu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTC-2g-92l">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resto Menu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTC-2g-92l">
                                                     <rect key="frame" x="80" y="8" width="202" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="SaC-M5-wqx"/>
@@ -372,7 +394,7 @@
                                                 <variation key="widthClass=compact" constant="76"/>
                                                 <variation key="heightClass=regular-widthClass=compact" constant="69"/>
                                             </constraint>
-                                            <constraint firstAttribute="trailingMargin" secondItem="FTC-2g-92l" secondAttribute="trailing" constant="30" id="XrJ-da-gAz"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="FTC-2g-92l" secondAttribute="trailing" constant="310" id="XrJ-da-gAz"/>
                                             <constraint firstItem="FTC-2g-92l" firstAttribute="top" secondItem="ncn-RR-Iiv" secondAttribute="topMargin" id="ZYy-tY-w9L">
                                                 <variation key="heightClass=regular-widthClass=compact" constant="6"/>
                                             </constraint>
@@ -959,8 +981,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laO-Z0-RW4">
-                                                    <rect key="frame" x="50" y="32" width="473" height="72"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laO-Z0-RW4">
+                                                    <rect key="frame" x="50" y="32" width="753" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>

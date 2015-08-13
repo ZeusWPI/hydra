@@ -48,15 +48,25 @@ class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("restoMenuTableViewCell")
-        
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Value2, reuseIdentifier: "restoMenuTableViewCell")
-        }
-        let meat = restoMenu?.meat[indexPath.row] as? RestoMenuItem
-        cell!.textLabel?.text = meat?.name
-        cell!.detailTextLabel?.text = meat?.price
-        
+        let cell = tableView.dequeueReusableCellWithIdentifier("restoMenuTableViewCell") as? HomeRestoMenuItemTableViewCell
+
+        cell!.menuItem = restoMenu?.meat[indexPath.row] as? RestoMenuItem
+
         return cell!
+    }
+}
+
+class HomeRestoMenuItemTableViewCell: UITableViewCell {
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
+    var menuItem: RestoMenuItem? {
+        didSet {
+            if let menuItem = menuItem {
+                nameLabel.text = menuItem.name
+                priceLabel.text = menuItem.price
+                self.contentView.layoutIfNeeded() // relayout when prices are added
+            }
+        }
     }
 }
