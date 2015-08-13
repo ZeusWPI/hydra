@@ -18,10 +18,15 @@
 #import "SchamperArticle.h"
 
 // Controllers
+#import "NewsViewController.h"
+#import "ActivitiesController.h"
 #import "ActivityDetailController.h"
+#import "InfoViewController.h"
 #import "PreferencesController.h"
 #import "RestoMenuController.h"
+#import "SchamperViewController.h"
 #import "SchamperDetailViewController.h"
+#import "UrgentViewController.h"
 
 // Categories and extenions
 #import "NSDateFormatter+AppLocale.h"

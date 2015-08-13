@@ -18,7 +18,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.refreshControl.addTarget(self, action: "startRefresh", forControlEvents: .ValueChanged)
         self.feedCollectionView.addSubview(refreshControl)
         self.feedCollectionView.alwaysBounceVertical = true
@@ -27,12 +27,14 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBarHidden = true
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.navigationController?.navigationBarHidden = false
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
     
     func startRefresh() {

@@ -10,8 +10,8 @@
 
 #define kFilterAssociationsKey @"useAssociationFilter"
 #define kPreferredAssociationsKey @"preferredAssociations"
+#define kHydraTabBarOrder @"hydraTabBarOrder"
 #define kShownFacebookPrompt @"shownFacebookPrompt"
-
 
 @interface PreferencesService ()
 
@@ -79,4 +79,21 @@
     [self didChangeValueForKey:@"preferredAssociations"];
 }
 
+
+- (NSArray *)hydraTabBarOrder
+{
+    NSArray *list = [self.settings objectForKey:kHydraTabBarOrder];
+    AssertClassOrNil(list, NSArray);
+    if (list == nil) {
+        list = [[NSArray alloc] init];
+    }
+    return list;
+}
+
+- (void)setHydraTabBarOrder:(NSArray *)hydraTabBarOrder
+{
+    [self willChangeValueForKey:kHydraTabBarOrder];
+    [self.settings setObject:hydraTabBarOrder forKey:kHydraTabBarOrder];
+    [self didChangeValueForKey:kHydraTabBarOrder];
+}
 @end

@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) BOOL filterAssociations;
 @property (nonatomic, strong) NSArray *preferredAssociations;
+@property (nonatomic, strong) NSArray *hydraTabBarOrder;
 @property (nonatomic, assign) BOOL shownFacebookPrompt;
 
 @end
