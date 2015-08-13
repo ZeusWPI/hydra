@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		395C117A16272D8000B99F9B /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395C117916272D8000B99F9B /* NewsViewController.m */; };
 		395C117D1627437000B99F9B /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395C117C1627437000B99F9B /* NewsDetailViewController.m */; };
-		3B0D77EC15BB0945002B23C1 /* BadgedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFFE7D15BB04B600921E7D /* BadgedButton.m */; };
 		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
 		3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */; };
 		3B93FB9F1630939200C962DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FB9E1630939200C962DC /* AudioToolbox.framework */; };
@@ -300,8 +299,6 @@
 		3B93FBA81630969900C962DC /* UrgentPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrgentPlayer.h; sourceTree = "<group>"; };
 		3B93FBA91630969900C962DC /* UrgentPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrgentPlayer.m; sourceTree = "<group>"; };
 		3B93FBAB16309E2100C962DC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		3BAFFE7C15BB04B600921E7D /* BadgedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgedButton.h; sourceTree = "<group>"; };
-		3BAFFE7D15BB04B600921E7D /* BadgedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgedButton.m; sourceTree = "<group>"; };
 		445C81F316C3DB0B0080819C /* AssociationPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssociationPreferenceController.h; sourceTree = "<group>"; };
 		445C81F416C3DB0B0080819C /* AssociationPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssociationPreferenceController.m; sourceTree = "<group>"; };
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
@@ -635,8 +632,6 @@
 		3B059BF215B99B4800B4C1DA /* Custom views */ = {
 			isa = PBXGroup;
 			children = (
-				3BAFFE7C15BB04B600921E7D /* BadgedButton.h */,
-				3BAFFE7D15BB04B600921E7D /* BadgedButton.m */,
 				F5ACC3AF16D2693F00626EAE /* CustomTableViewCell.h */,
 				F5ACC3B016D2694000626EAE /* CustomTableViewCell.m */,
 				90DDFB7B1B6BB40100DDAFA0 /* Home */,
@@ -1514,7 +1509,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B0D77EC15BB0945002B23C1 /* BadgedButton.m in Sources */,
 				F5BAEC971518868200F6A1B1 /* main.m in Sources */,
 				F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */,
 				F5EBF117159E040700EB5D26 /* RestoMenuController.m in Sources */,
