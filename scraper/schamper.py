@@ -7,9 +7,10 @@ import sys
 import urllib.parse
 import urllib.request
 
-from bs4 import BeautifulSoup, CData, Tag
 import lxml.html
+
 import htmlmin
+from bs4 import BeautifulSoup, CData, Tag
 
 BASE_URL = 'http://www.schamper.ugent.be'
 RSS_URL = BASE_URL + '/dagelijks'
@@ -77,7 +78,8 @@ def _parse_article_authors(article):
     if match is None:
         raise Exception('Couldn\'t parse authors "{}"'.format(authors.text))
 
-    return match.group(1)
+    # Sometimes, there are random newlines and stuff
+    return re.sub(r'\s+', ' ', match.group(1))
 
 
 def _extract_article_body(page):
