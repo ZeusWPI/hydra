@@ -1,126 +1,171 @@
-from __future__ import with_statement
-import urllib, libxml2, os, re, urlparse
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-SOURCE = 'http://www.schamper.ugent.be/dagelijks'
-API_PATH = './schamper/daily.xml'
+import os
+import re
+import sys
+import urllib.parse
+import urllib.request
+
+from bs4 import BeautifulSoup, CData, Tag
+import lxml.html
+import htmlmin
+
 BASE_URL = 'http://www.schamper.ugent.be'
+RSS_URL = BASE_URL + '/dagelijks'
+API_PATH = './schamper/daily.xml'
+XML_PARSER = 'lxml-xml'
+HTML_PARSER = 'lxml'
 
-def process_schamper(source_url, destination_path):
-    doc = read_rss_from_url(source_url)
 
-    # To handle namespaces, we need a new context
-    context = doc.xpathNewContext()
-    context.xpathRegisterNs('dc', 'http://purl.org/dc/elements/1.1/')
+def process_schamper(destination_path):
+    rss_feed = read_xml_from_url(RSS_URL)
 
-    for item in context.xpathEval('//item'):
-        context.setContextNode(item)
-        fetch_full_article(context)
+    for item in rss_feed('item'):
+        transform_item_in_feed(item)
 
-    write_feed_to_file(doc, destination_path)
+    write_xml_to_file(rss_feed, destination_path)
 
-def read_rss_from_url(url):
-    f = urllib.urlopen(url)
-    doc = libxml2.readDoc(f.read(), None, 'UTF-8', libxml2.XML_PARSE_RECOVER | libxml2.XML_PARSE_NOERROR)
-    return doc
+
+def read_xml_from_url(url, parser=XML_PARSER):
+    with urllib.request.urlopen(url) as rss_feed:
+        return BeautifulSoup(rss_feed, parser)
+
 
 def read_html_from_url(url):
-    f = urllib.urlopen(url)
-    doc = libxml2.htmlReadDoc(f.read(), None, 'UTF-8', libxml2.XML_PARSE_RECOVER | libxml2.XML_PARSE_NOERROR)
-    return doc
+    soup = read_xml_from_url(url, parser=HTML_PARSER)
+    prettified = soup.prettify()
+    absolutified = lxml.html.make_links_absolute(prettified, base_url=BASE_URL)
+    return BeautifulSoup(absolutified, HTML_PARSER)
 
-def write_feed_to_file(doc, path):
+
+def write_xml_to_file(doc, path):
     directory = os.path.dirname(path)
-    if not os.path.isdir(directory):
-        os.makedirs(directory)
-    with open(path, 'w') as file:
-        doc.saveTo(file, 'UTF-8')
+    os.makedirs(directory, exist_ok=True)
+    with open(path, 'w') as file_:
+        file_.write(str(doc))
 
-def fetch_full_article(item):
-    link = item.xpathEval('./link')[0].content
-    print('Processing ' + link)
+
+def transform_item_in_feed(item):
+    link = item.link.text
+    print('Processing {}'.format(link), file=sys.stderr)
+
     article = read_html_from_url(link)
 
-    # do not keep articles without title
-    titleNode = item.xpathEval('./title')[0]
-    if titleNode == None or len(titleNode.content) == 0:
-         itemNode = item.xpathEval('.')[0]
-         itemNode.unlinkNode()
-         return
+    # Remove and ignore articles without title
+    title_node = item.title
+    if title_node is None or len(title_node.text) == 0:
+        item.decompose()
+        return
 
-    authorNode = item.xpathEval('./dc:creator')[0]
-    authors = get_article_authors(article)
-    authorNode.setContent(article.encodeSpecialChars(authors))
+    author_node = item.creator
+    author_node.string = _parse_article_authors(article)
 
-    descriptionNode = item.xpathEval('./description')[0]
-    body = get_article_body(article)
-    descriptionNode.setContent(None)
-    descriptionNode.addChild(article.newCDataBlock(body, len(body)))
+    parsed_body = _extract_article_body(article)
+    encoded = parsed_body.decode_contents(formatter='html')
+    minified = htmlmin.minify(encoded, remove_optional_attribute_quotes=False)
+    item.description.contents = [CData(minified)]
 
-def get_article_authors(page):
-    authors_list = page.xpathEval("//span[@class='submitted']")
-    if len(authors_list) > 0:
-        authors = authors_list[0]
-        m = re.search(' door (.+)$', authors.getContent())
-        return m.group(1)
-    return ""
 
-def get_article_body(page):
-    result = ''
+def _parse_article_authors(article):
+    authors = article.find('span', class_='submitted')
 
-    # Make all links and images absolute
-    for link in page.xpathEval('.//*[@href]'):
-        url = urlparse.urlparse(link.prop('href'))
-        if url.hostname == None:
-            link.setProp('href', BASE_URL + link.prop('href'))
-    for image in page.xpathEval('.//*[@src]'):
-        url = urlparse.urlparse(image.prop('src'))
-        if url.hostname == None:
-            image.setProp('src', BASE_URL + image.prop('src'))
+    if len(authors) == 0:
+        return ''
 
-    bodyNodes = page.xpathEval("//div[@id='artikel']/*/div[@class='content']/*")
-    for node in bodyNodes:
-        # Simple fix for div's missing a class
-        if node.name == 'div' and node.prop('class') == None:
-            node.setProp('class', '')
+    match = re.search('\sdoor\s+((.|\n)*\S)\s*$', authors.text)
+    if match is None:
+        raise Exception('Couldn\'t parse authors "{}"'.format(authors.text))
 
-        # Normal text (or header etc)
-        if node.name != 'form' and node.name != 'div':
-            result += node.serialize('UTF-8')
+    return match.group(1)
 
-        # Introductory paragraph
-        elif node.name == 'div' and node.prop('class').find('inleiding') >= 0:
-            paragraph = wrap_paragraph(node.xpathEval(".//*[@class='field-item']")[0], page)
-            paragraph.setProp('class', 'introduction')
-            result += paragraph.serialize('UTF-8')
 
-        # External links
-        elif node.name == 'div' and node.prop('class').find('website') >= 0:
-            label = node.xpathEval(".//*[@class='field-label']")[0]
-            result += '<p><strong>' + label.content + '</strong></p>'
-            paragraph = wrap_paragraph(node.xpathEval(".//*[@class='field-item']")[0], page)
-            result += paragraph.serialize('UTF-8')
+def _extract_article_body(page):
+    article = page.find(id='artikel').find(class_='content')
 
-        # Image
-        elif node.name == 'div' and node.prop('class').find('img-regulier') >= 0:
-            # Multiple images are possible
-            images = node.xpathEval(".//*[@id='image-and-caption']")
-            for imageWrapper in images:
-                captionText = ''
-                caption = imageWrapper.xpathEval(".//*[@class='caption-text']")
-                if len(caption) > 0:
-                    captionText = caption[0].children.serialize('utf-8')
+    body = Tag(name='temporary_tag')
 
-                image = imageWrapper.xpathEval('.//img')[0]
-                result += '<div class="image"><p>' + image.serialize('UTF-8') + captionText + '</p></div>'
+    # +1 internetz for the person who can tell me why I can't write:
+    #   for element in article.children:
+    # or
+    #   for element in article.contents:
+    for element in list(article.children):
+        # Ignore the comment form
+        if element.name == 'form':
+            continue
 
-    return result
+        # Ignore whitespace
+        if element.name is None and re.search('\S', str(element)) is None:
+            continue
 
-def wrap_paragraph(node, page):
-    # Sometimes there's a wrapping <p>, sometimes there isn't
-    paragraph = node.xpathEval('./p')
-    if len(paragraph) == 0:
-        paragraph = [page.newDocRawNode(None, 'p', node.children.serialize('UTF-8'))]
-    return paragraph[0]
+        # Nor div, nor form, nor whitespace: probably article content
+        if element.name != 'div':
+            body.append(element.extract())
+            continue
+
+        # TODO uncomment me when the app is ready to support subtitles
+        # Oh, and change the next if with an elif
+        #  if 'field-field-ondertitel' in element['class']:
+        #      paragraph = _extract_paragraph(element, 'subtitle')
+        #      body.append(paragraph)
+
+        if 'field-field-inleiding' in element['class']:
+            paragraph = _extract_paragraph(element, 'introduction')
+            body.append(paragraph)
+
+        elif 'field-field-img-regulier' in element['class']:
+            images_div = Tag(name='div', attrs={'class': 'image'})
+            for image_and_caption in element(id='image-and-caption'):
+                image = image_and_caption.img
+                caption = image_and_caption.find(class_='caption-text')
+
+                paragraph = Tag(name='p')
+                paragraph.append(image)
+                if caption is not None:
+                    paragraph.append(caption.text)
+
+                images_div.append(paragraph)
+            body.append(images_div)
+
+        elif 'field-field-website' in element['class']:
+            label = element.find(class_='field-label').text
+            label_p = Tag(name='p')
+            label_s = Tag(name='strong')
+            label_s.append(label)
+            label_p.append(label_s)
+            body.append(label_p)
+
+            websites = element.find(class_='field-item').contents
+            for website in list(websites):
+                body.append(website)
+
+        else:
+            # Ignore other divs
+            pass
+
+    return body
+
+
+def _extract_paragraph(element, name):
+    item = element.find(class_='field-item').extract()
+    item_contents = [part for part in item.contents if not _is_empty(part)]
+    paragraph = _ensure_wrapped_in_paragraph(item_contents)
+    paragraph['class'] = name
+    return paragraph
+
+
+def _is_empty(node):
+    return isinstance(node, str) and re.search('\S', node) is None
+
+
+def _ensure_wrapped_in_paragraph(contents):
+    if len(contents) == 1 and contents[0].name == 'p':
+        return contents[0]
+    else:
+        paragraph = Tag(name='p')
+        paragraph.contents = contents
+        return paragraph
+
 
 if __name__ == '__main__':
-    process_schamper(SOURCE, API_PATH)
+    process_schamper(API_PATH)
