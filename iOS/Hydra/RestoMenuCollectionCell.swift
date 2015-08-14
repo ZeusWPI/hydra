@@ -61,16 +61,9 @@ class RestoMenuCollectionCell: UICollectionViewCell, UITableViewDataSource, UITa
         return 40
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView{
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
         let frame = CGRectMake(0, 0, self.bounds.width, 40)
         let header = UIView(frame: frame)
-        
-        if section > 0 {
-            let seperator = UIView(frame: CGRectMake(0, 0, self.bounds.width, 1))
-            seperator.backgroundColor = UIColor.whiteColor()
-            
-            header.addSubview(seperator)
-        }
         
         let label = UILabel(frame: frame)
         label.textAlignment = .Center
@@ -122,5 +115,5 @@ class RestoMenuItemTableViewCell: UITableViewCell {
 }
 
 enum RestoMenuSection: Int {
-    case Soup = 0, Meat, Vegetable
+    case Soup = 0, Meat = 2, Vegetable = 1
 }

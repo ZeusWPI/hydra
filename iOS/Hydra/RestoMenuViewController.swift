@@ -9,8 +9,8 @@
 import UIKit
 
 class RestoMenuViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var restoMenuHeader: RestoMenuHeaderView!
+    @IBOutlet weak var collectionView: UICollectionView?
+    @IBOutlet weak var restoMenuHeader: RestoMenuHeaderView?
     
     
     var days: [NSDate] = []
@@ -47,8 +47,8 @@ class RestoMenuViewController: UIViewController {
         self.loadMenu()
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
         // update days and reloadData
-        self.restoMenuHeader.updateDays()
-        self.collectionView.reloadData()
+        self.restoMenuHeader?.updateDays()
+        self.collectionView?.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -82,14 +82,14 @@ class RestoMenuViewController: UIViewController {
     func reloadMenu() {
         debugPrint("Reloading menu")
         self.loadMenu()
-        self.collectionView.reloadData()
+        self.collectionView?.reloadData()
     }
     
     func reloadInfo() {
         // New info is available
         debugPrint("Reloading info")
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
-        self.collectionView.reloadData()
+        self.collectionView?.reloadData()
     }
     
     func applicationDidBecomeActive(notification: NSNotification) {
@@ -155,9 +155,9 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
 
 extension RestoMenuViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        let center = self.collectionView.contentOffset.x + self.view.frame.width/2
-        for cell in self.collectionView.visibleCells() {
-            let indexPath = self.collectionView.indexPathForCell(cell)
+        let center = self.collectionView!.contentOffset.x + self.view.frame.width/2
+        for cell in self.collectionView!.visibleCells() {
+            let indexPath = self.collectionView?.indexPathForCell(cell)
             // Cell takes more than 50% of the screen
             if cell.frame.origin.x < center && cell.frame.origin.x + cell.frame.width > center {
                 self.scrollToIndex(indexPath!.row)
@@ -169,8 +169,8 @@ extension RestoMenuViewController: UIScrollViewDelegate {
 // MARK: - Header view actions
 extension RestoMenuViewController {
     func scrollToIndex(index: Int) {
-        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
-        self.restoMenuHeader.selectedIndex(index)
+        self.collectionView!.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        self.restoMenuHeader?.selectedIndex(index)
         currentIndex = index
     }
 }
