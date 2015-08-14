@@ -38,6 +38,7 @@
 		9068BA7A1B7BB560005F79FA /* tabbar-home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9068BA791B7BB560005F79FA /* tabbar-home@2x.png */; };
 		9068BA7C1B7BB684005F79FA /* tabbar-item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9068BA7B1B7BB684005F79FA /* tabbar-item@2x.png */; };
 		906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C1D8817C8A4A600145CD3 /* MapViewController.m */; };
+		907CD3CA1B7E52B600DD7539 /* RestoMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907CD3C91B7E52B600DD7539 /* RestoMenuViewController.swift */; };
 		908CA4DD1A8D439C00F8C31F /* info-mapmarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CA4DB1A8D439C00F8C31F /* info-mapmarker.png */; };
 		908CA4DE1A8D439C00F8C31F /* info-mapmarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CA4DC1A8D439C00F8C31F /* info-mapmarker@2x.png */; };
 		908DFF03188E932D00D526DC /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */; };
@@ -323,6 +324,7 @@
 		9068BA7B1B7BB684005F79FA /* tabbar-item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-item@2x.png"; sourceTree = "<group>"; };
 		906C1D8717C8A4A600145CD3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		906C1D8817C8A4A600145CD3 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		907CD3C91B7E52B600DD7539 /* RestoMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoMenuViewController.swift; sourceTree = "<group>"; };
 		908CA4DB1A8D439C00F8C31F /* info-mapmarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-mapmarker.png"; sourceTree = "<group>"; };
 		908CA4DC1A8D439C00F8C31F /* info-mapmarker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-mapmarker@2x.png"; sourceTree = "<group>"; };
 		908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */,
 				F5EBF114159E040700EB5D26 /* RestoMenuController.h */,
 				F5EBF115159E040700EB5D26 /* RestoMenuController.m */,
+				907CD3C91B7E52B600DD7539 /* RestoMenuViewController.swift */,
 			);
 			name = Resto;
 			sourceTree = "<group>";
@@ -1510,6 +1513,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5BAEC971518868200F6A1B1 /* main.m in Sources */,
+				907CD3CA1B7E52B600DD7539 /* RestoMenuViewController.swift in Sources */,
 				F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */,
 				F5EBF117159E040700EB5D26 /* RestoMenuController.m in Sources */,
 				F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */,
