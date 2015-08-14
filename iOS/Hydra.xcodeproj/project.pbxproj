@@ -33,6 +33,7 @@
 		904166241B7A689500D231EF /* tabbar-urgent.png in Resources */ = {isa = PBXBuildFile; fileRef = 904166221B7A689500D231EF /* tabbar-urgent.png */; };
 		904166261B7A837C00D231EF /* tabbar-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 904166251B7A837C00D231EF /* tabbar-settings.png */; };
 		9041C3681B7E67B600E4A50C /* RestoMenuCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C3671B7E67B600E4A50C /* RestoMenuCollectionCell.swift */; };
+		9041C36D1B7E801B00E4A50C /* RestoMenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041C36C1B7E801B00E4A50C /* RestoMenuHeader.swift */; };
 		904BC46C17E2014A0000FED6 /* dot-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46817E2014A0000FED6 /* dot-question.png */; };
 		904BC46D17E2014A0000FED6 /* dot-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904BC46917E2014A0000FED6 /* dot-question@2x.png */; };
 		9068BA781B7BB437005F79FA /* tabbar-resto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9068BA771B7BB437005F79FA /* tabbar-resto@2x.png */; };
@@ -319,6 +320,7 @@
 		904166221B7A689500D231EF /* tabbar-urgent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-urgent.png"; sourceTree = "<group>"; };
 		904166251B7A837C00D231EF /* tabbar-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-settings.png"; sourceTree = "<group>"; };
 		9041C3671B7E67B600E4A50C /* RestoMenuCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoMenuCollectionCell.swift; sourceTree = "<group>"; };
+		9041C36C1B7E801B00E4A50C /* RestoMenuHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoMenuHeader.swift; sourceTree = "<group>"; };
 		904BC46817E2014A0000FED6 /* dot-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question.png"; sourceTree = "<group>"; };
 		904BC46917E2014A0000FED6 /* dot-question@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-question@2x.png"; sourceTree = "<group>"; };
 		9068BA771B7BB437005F79FA /* tabbar-resto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-resto@2x.png"; sourceTree = "<group>"; };
@@ -656,6 +658,7 @@
 				F5EBF115159E040700EB5D26 /* RestoMenuController.m */,
 				907CD3C91B7E52B600DD7539 /* RestoMenuViewController.swift */,
 				9041C3671B7E67B600E4A50C /* RestoMenuCollectionCell.swift */,
+				9041C36C1B7E801B00E4A50C /* RestoMenuHeader.swift */,
 			);
 			name = Resto;
 			sourceTree = "<group>";
@@ -1561,6 +1564,7 @@
 				90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */,
 				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 				F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */,
+				9041C36D1B7E801B00E4A50C /* RestoMenuHeader.swift in Sources */,
 				9035BF1A1B6CF663008E7875 /* LocationService.swift in Sources */,
 				445C81F516C3DB0B0080819C /* AssociationPreferenceController.m in Sources */,
 				F5DF2FB916C41DDE003B05EC /* MarqueeLabel.m in Sources */,

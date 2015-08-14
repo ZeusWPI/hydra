@@ -10,6 +10,8 @@ import UIKit
 
 class RestoMenuViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var restoMenuHeader: RestoMenuHeaderView!
+    
     
     var days: [NSDate] = []
     var menus: [RestoMenu?] = []
@@ -38,6 +40,21 @@ class RestoMenuViewController: UIViewController {
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //do not hide if in moreController
+        if self.parentViewController != self.tabBarController?.moreNavigationController {
+            self.navigationController?.navigationBarHidden = true
+        }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.navigationController?.navigationBarHidden = false
     }
     
     func reloadMenu() {
@@ -71,7 +88,7 @@ class RestoMenuViewController: UIViewController {
         // Find the next x days to display
         var day = NSDate()
         var days = [NSDate]()
-        while (days.count < 5) { //TODO: replace with var
+        while (days.count < 5) {
             if day.isTypicallyWorkday() {
                 days.append(day)
             }
@@ -79,11 +96,23 @@ class RestoMenuViewController: UIViewController {
         }
         return days
     }
+    
+    // MARK: - Headerview actions
+    
+    @IBAction func mapViewPressed(gestureRecognizer: UITapGestureRecognizer) {
+        debugPrint("Map view pressed!")
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(RestoMapController(), animated: true)
+        } else {
+            fatalError("An navigationcontroller should be present")
+        }
+    }
 }
 
+// MARK: - Collection view data source & delegate
 extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.days.count + 2
+        return self.days.count + 1
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -96,8 +125,6 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
             
             cell.restoMenu = self.menus[indexPath.row-1]
             return cell
-        case self.days.count + 1: // map cell
-            return collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath)
         default:
             debugPrint("Shouldn't be here")
             return collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath)
@@ -106,5 +133,11 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height) // cells always fill the whole screen
+    }
+}
+// MARK: - Header view actions
+extension RestoMenuViewController {
+    func scrollToIndex(index: Int) {
+        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
     }
 }
