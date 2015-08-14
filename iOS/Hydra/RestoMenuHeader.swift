@@ -10,13 +10,46 @@ import UIKit
 
 class RestoMenuHeaderView: UIView {
     @IBOutlet weak var controller: RestoMenuViewController?
+    @IBOutlet weak var infoView: UIView?
+    @IBOutlet weak var day1View: UIView?
+    @IBOutlet weak var day2View: UIView?
+    @IBOutlet weak var day3View: UIView?
+    @IBOutlet weak var day4View: UIView?
+    @IBOutlet weak var day5View: UIView?
     @IBOutlet weak var mapView: UIView?
     
     @IBAction func infoViewPressed(gestureRecognizer: UITapGestureRecognizer) {
         controller?.scrollToIndex(0)
     }
     
-    @IBAction func firstViewPressed(gestureRecognizer: UITapGestureRecognizer) {
-        controller?.scrollToIndex(1)
+    @IBAction func viewPressed(gestureRecognizer: UITapGestureRecognizer) {
+        controller?.scrollToIndex((gestureRecognizer.view?.tag)!)
+    }
+    
+    func updateDays() {
+        for (index, day) in (controller?.days.enumerate())! {
+            updateView(day, onIndex: index)
+        }
+    }
+    
+    func updateView(date: NSDate, onIndex index: Int) {
+        // Index only days so + 1
+        let view = headerViews()[index+1]
+        let dayLabel = view?.viewWithTag(998) as! UILabel
+        let numberLabel = view?.viewWithTag(999) as! UILabel
+        
+        let formatter = NSDateFormatter.H_dateFormatterWithAppLocale()
+        formatter.dateFormat = "EE"
+        dayLabel.text = formatter.stringFromDate(date).uppercaseString
+        formatter.dateFormat = "d"
+        numberLabel.text = formatter.stringFromDate(date)
+    }
+    
+    func selectedIndex(index: Int) {
+        // modify background of label
+    }
+    
+    func headerViews() -> [UIView?] {
+        return [infoView, day1View, day2View, day3View, day4View, day5View]
     }
 }

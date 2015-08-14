@@ -1301,15 +1301,16 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5LN-dv-Xpy" userLabel="Info view">
                                         <rect key="frame" x="5" y="0.0" width="42" height="115"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INFO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezh-nP-TR4">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INFO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezh-nP-TR4">
                                                 <rect key="frame" x="0.0" y="19" width="42" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytV-dO-GgV">
-                                                <rect key="frame" x="17" y="68" width="9" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytV-dO-GgV">
+                                                <rect key="frame" x="11" y="68" width="20" height="21"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="gij-Ip-I3c"/>
                                                     <constraint firstAttribute="height" constant="21" id="lhF-Tm-6yb"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
@@ -1342,19 +1343,20 @@
                                             <outletCollection property="gestureRecognizers" destination="el7-7z-4hE" appends="YES" id="gNi-d9-Xbo"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="muU-Qe-Jx5" userLabel="2day view">
+                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="muU-Qe-Jx5" userLabel="2day view">
                                         <rect key="frame" x="112" y="0.0" width="42" height="115"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWG-OQ-N40">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWG-OQ-N40">
                                                 <rect key="frame" x="0.0" y="19" width="42" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7b-3M-mLb">
-                                                <rect key="frame" x="16" y="68" width="11" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7b-3M-mLb">
+                                                <rect key="frame" x="11" y="68" width="20" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="XlH-9F-F1J"/>
+                                                    <constraint firstAttribute="width" constant="20" id="Zyc-kr-zI7"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1386,19 +1388,20 @@
                                             <outletCollection property="gestureRecognizers" destination="be8-bl-bNj" appends="YES" id="qoe-aC-drH"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W5Z-iM-dak" userLabel="3day view">
+                                    <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W5Z-iM-dak" userLabel="3day view">
                                         <rect key="frame" x="162" y="0.0" width="42" height="115"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIp-vr-nzb">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIp-vr-nzb">
                                                 <rect key="frame" x="0.0" y="19" width="42" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTI-rO-mki">
-                                                <rect key="frame" x="12" y="68" width="18" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTI-rO-mki">
+                                                <rect key="frame" x="11" y="68" width="20" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="5tN-Ap-3jO"/>
+                                                    <constraint firstAttribute="width" constant="20" id="W43-xt-MQ3"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1432,19 +1435,20 @@
                                             <outletCollection property="gestureRecognizers" destination="zQg-Pz-ZnP" appends="YES" id="Fiq-vg-vHe"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UxC-uW-b10" userLabel="4day view">
+                                    <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UxC-uW-b10" userLabel="4day view">
                                         <rect key="frame" x="212" y="0.0" width="42" height="115"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSZ-gW-oYJ">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSZ-gW-oYJ">
                                                 <rect key="frame" x="0.0" y="19" width="42" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kk6-YC-CaP">
-                                                <rect key="frame" x="14" y="68" width="15" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kk6-YC-CaP">
+                                                <rect key="frame" x="11" y="68" width="20" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="B3w-m9-Ogb"/>
+                                                    <constraint firstAttribute="width" constant="20" id="e2R-a6-OqY"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1476,19 +1480,20 @@
                                             <outletCollection property="gestureRecognizers" destination="ZDk-QW-HZw" appends="YES" id="I03-K3-nme"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rka-OG-aiA" userLabel="5day view">
+                                    <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rka-OG-aiA" userLabel="5day view">
                                         <rect key="frame" x="262" y="0.0" width="42" height="115"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpn-R4-vHF">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpn-R4-vHF">
                                                 <rect key="frame" x="0.0" y="19" width="42" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHx-jB-vFc">
-                                                <rect key="frame" x="13" y="68" width="17" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHx-jB-vFc">
+                                                <rect key="frame" x="11" y="68" width="20" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="HSz-pU-eEN"/>
+                                                    <constraint firstAttribute="width" constant="20" id="qA4-LK-xEv"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1579,19 +1584,20 @@
                                             <outletCollection property="gestureRecognizers" destination="rx4-35-tCm" appends="YES" id="2gS-GJ-uM9"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oe7-QC-aHY" userLabel="1day view">
+                                    <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oe7-QC-aHY" userLabel="1day view">
                                         <rect key="frame" x="62" y="0.0" width="42" height="115"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNE-yx-VML">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNE-yx-VML">
                                                 <rect key="frame" x="0.0" y="19" width="42" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLh-qd-fJO">
-                                                <rect key="frame" x="16" y="68" width="11" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLh-qd-fJO">
+                                                <rect key="frame" x="11" y="68" width="20" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="1X1-3l-YDG"/>
+                                                    <constraint firstAttribute="width" constant="20" id="B3w-Ac-2NT"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1658,6 +1664,12 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="controller" destination="ovy-G8-t38" id="LSK-qF-Lkv"/>
+                                    <outlet property="day1View" destination="oe7-QC-aHY" id="5OR-Fz-7gg"/>
+                                    <outlet property="day2View" destination="muU-Qe-Jx5" id="8hv-Nq-ikD"/>
+                                    <outlet property="day3View" destination="W5Z-iM-dak" id="Sn7-3U-SFC"/>
+                                    <outlet property="day4View" destination="UxC-uW-b10" id="gLd-82-Uc6"/>
+                                    <outlet property="day5View" destination="rka-OG-aiA" id="kJH-Yh-FBe"/>
+                                    <outlet property="infoView" destination="5LN-dv-Xpy" id="wKA-No-qkC"/>
                                     <outlet property="mapView" destination="A93-vf-jsW" id="h6E-92-zQd"/>
                                 </connections>
                             </view>
@@ -1818,13 +1830,29 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="KGZ-jh-AlJ" userLabel="1 Tap Gesture Recognizer">
                     <connections>
-                        <action selector="firstViewPressed:" destination="ya9-ae-ZCE" id="x5Z-Qg-Yj0"/>
+                        <action selector="viewPressed:" destination="ya9-ae-ZCE" id="lEZ-R4-ABl"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="be8-bl-bNj" userLabel="2 Tap Gesture Recognizer"/>
-                <tapGestureRecognizer id="zQg-Pz-ZnP" userLabel="3 Tap Gesture Recognizer"/>
-                <tapGestureRecognizer id="ZDk-QW-HZw" userLabel="4 Tap Gesture Recognizer"/>
-                <tapGestureRecognizer id="LNv-RD-VF2" userLabel="5 Tap Gesture Recognizer"/>
+                <tapGestureRecognizer id="be8-bl-bNj" userLabel="2 Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="viewPressed:" destination="ya9-ae-ZCE" id="Gaq-M4-EYu"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="zQg-Pz-ZnP" userLabel="3 Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="viewPressed:" destination="ya9-ae-ZCE" id="54R-WZ-N8S"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ZDk-QW-HZw" userLabel="4 Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="viewPressed:" destination="ya9-ae-ZCE" id="8GO-Um-JA5"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="LNv-RD-VF2" userLabel="5 Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="viewPressed:" destination="ya9-ae-ZCE" id="f6b-7L-Dz6"/>
+                    </connections>
+                </tapGestureRecognizer>
                 <tapGestureRecognizer id="rx4-35-tCm" userLabel="Map Tap Gesture Recognizer">
                     <connections>
                         <action selector="mapViewPressed:" destination="ovy-G8-t38" id="6xE-9m-vFt"/>

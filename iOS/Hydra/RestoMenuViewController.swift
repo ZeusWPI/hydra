@@ -34,12 +34,19 @@ class RestoMenuViewController: UIViewController {
         center.addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         days = calculateDays()
-        reloadMenu()
-        reloadInfo()
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.loadMenu()
+        self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
+        // update days and reloadData
+        self.restoMenuHeader.updateDays()
+        self.collectionView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -57,7 +64,7 @@ class RestoMenuViewController: UIViewController {
         self.navigationController?.navigationBarHidden = false
     }
     
-    func reloadMenu() {
+    func loadMenu() {
         // New menus are available
         let store = RestoStore.sharedStore()
         var menus = [RestoMenu?]()
@@ -66,13 +73,17 @@ class RestoMenuViewController: UIViewController {
             menus.append(menu)
         }
         self.menus = menus
-        
-        //TODO: reload collectionview cells
+    }
+    
+    func reloadMenu() {
+        self.loadMenu()
+        self.collectionView.reloadData()
     }
     
     func reloadInfo() {
         // New info is available
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
+        self.collectionView.reloadData()
     }
     
     func applicationDidBecomeActive(notification: NSNotification) {
