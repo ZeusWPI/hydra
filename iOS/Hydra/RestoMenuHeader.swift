@@ -47,6 +47,13 @@ class RestoMenuHeaderView: UIView {
     
     func selectedIndex(index: Int) {
         // modify background of label
+        for view in headerViews() {
+            let numberLabel = view?.viewWithTag(999) as! UILabel
+            numberLabel.backgroundColor = UIColor.clearColor()
+        }
+        let view = headerViews()[index]
+        let numberLabel = view?.viewWithTag(999) as! UILabel
+        numberLabel.backgroundColor = UIColor.redColor()
     }
     
     func headerViews() -> [UIView?] {

@@ -47,6 +47,10 @@ class RestoMenuViewController: UIViewController {
         // update days and reloadData
         self.restoMenuHeader.updateDays()
         self.collectionView.reloadData()
+        
+        // scroll to today
+        self.scrollToIndex(1)
+        self.restoMenuHeader.selectedIndex(1)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -146,6 +150,21 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
         return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height) // cells always fill the whole screen
     }
 }
+
+extension RestoMenuViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        let center = self.collectionView.contentOffset.x + self.view.frame.width/2
+        for cell in self.collectionView.visibleCells() {
+            let indexPath = self.collectionView.indexPathForCell(cell)
+            // Cell takes more than 50% of the screen
+            if cell.frame.origin.x < center && cell.frame.origin.x + cell.frame.width > center {
+                self.scrollToIndex(indexPath!.row)
+                self.restoMenuHeader.selectedIndex(indexPath!.row)
+            }
+        }
+    }
+}
+
 // MARK: - Header view actions
 extension RestoMenuViewController {
     func scrollToIndex(index: Int) {
