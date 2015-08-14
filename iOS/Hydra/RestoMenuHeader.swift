@@ -50,10 +50,14 @@ class RestoMenuHeaderView: UIView {
         for view in headerViews() {
             let numberLabel = view?.viewWithTag(999) as! UILabel
             numberLabel.backgroundColor = UIColor.clearColor()
+            numberLabel.layer.borderColor = UIColor.clearColor().CGColor
         }
         let view = headerViews()[index]
         let numberLabel = view?.viewWithTag(999) as! UILabel
-        numberLabel.backgroundColor = UIColor.redColor()
+        numberLabel.layer.masksToBounds = true
+        numberLabel.layer.borderColor = UIColor.whiteColor().CGColor
+        numberLabel.layer.borderWidth = 2
+        numberLabel.layer.cornerRadius = 15
     }
     
     func headerViews() -> [UIView?] {
