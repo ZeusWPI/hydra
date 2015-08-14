@@ -14,6 +14,7 @@
 #import "AssociationActivity.h"
 #import "AssociationNewsItem.h"
 #import "NewsDetailViewController.h"
+#import "RestoLegendItem.h"
 #import "RestoMenu.h"
 #import "SchamperArticle.h"
 
