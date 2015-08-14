@@ -17,6 +17,8 @@ class RestoMenuViewController: UIViewController {
     var menus: [RestoMenu?] = []
     var legend: [RestoLegendItem] = []
     
+    var currentIndex: Int = 1
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initialize()
@@ -47,10 +49,6 @@ class RestoMenuViewController: UIViewController {
         // update days and reloadData
         self.restoMenuHeader.updateDays()
         self.collectionView.reloadData()
-        
-        // scroll to today
-        self.scrollToIndex(1)
-        self.restoMenuHeader.selectedIndex(1)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -60,6 +58,8 @@ class RestoMenuViewController: UIViewController {
         if self.parentViewController != self.tabBarController?.moreNavigationController {
             self.navigationController?.navigationBarHidden = true
         }
+        // scroll to today
+        self.scrollToIndex(currentIndex)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -80,12 +80,14 @@ class RestoMenuViewController: UIViewController {
     }
     
     func reloadMenu() {
+        debugPrint("Reloading menu")
         self.loadMenu()
         self.collectionView.reloadData()
     }
     
     func reloadInfo() {
         // New info is available
+        debugPrint("Reloading info")
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
         self.collectionView.reloadData()
     }
@@ -159,7 +161,6 @@ extension RestoMenuViewController: UIScrollViewDelegate {
             // Cell takes more than 50% of the screen
             if cell.frame.origin.x < center && cell.frame.origin.x + cell.frame.width > center {
                 self.scrollToIndex(indexPath!.row)
-                self.restoMenuHeader.selectedIndex(indexPath!.row)
             }
         }
     }
@@ -169,5 +170,7 @@ extension RestoMenuViewController: UIScrollViewDelegate {
 extension RestoMenuViewController {
     func scrollToIndex(index: Int) {
         self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        self.restoMenuHeader.selectedIndex(index)
+        currentIndex = index
     }
 }
