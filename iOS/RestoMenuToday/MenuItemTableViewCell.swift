@@ -35,7 +35,7 @@ class MenuItemTableViewCell: UITableViewCell {
     
     // MARK: Initialization
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.numberFormatter.numberStyle = .CurrencyStyle
         self.numberFormatter.locale = NSLocale(localeIdentifier: "nl_BE")
         

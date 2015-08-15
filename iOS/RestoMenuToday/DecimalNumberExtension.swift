@@ -16,7 +16,7 @@ extension NSDecimalNumber {
     */
     convenience init(euroString : String) {
         // Replace the comma by a point since the NSDecimalNumber expects a point as decimal separator
-        var euroString = euroString.stringByReplacingOccurrencesOfString(",", withString: ".", options: nil, range: nil)
+        var euroString = euroString.stringByReplacingOccurrencesOfString(",", withString: ".", options: [], range: nil)
 
         // Remove any non-numerical characters
         let charactersToRemove = NSCharacterSet(charactersInString: "0123456789.").invertedSet

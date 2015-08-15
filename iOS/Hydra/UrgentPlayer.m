@@ -20,6 +20,8 @@
 #define kShowResourcePath @"http://urgent.fm/nowplaying/program.php"
 #define kStreamResourcePath @"http://urgent.stream.flumotion.com/urgent/high.mp3.m3u"
 
+#define UrgentNowPlayingEnabled 0
+
 NSString *const UrgentPlayerDidUpdateSongNotification =
     @"UrgentPlayerDidUpdateSongNotification";
 NSString *const UrgentPlayerDidUpdateShowNotification =
@@ -163,6 +165,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
 
 - (void)playerStateChanged
 {
+#if UrgentNowPlayingEnabled
     // Update timers
     if ([self isPlaying]) {
         // The state of updateSongTimer and updateShowTimer should always be equal
@@ -176,10 +179,11 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         self.currentSong = nil;
         self.previousSong = nil;
     }
-
     [self updateNowPlaying];
+#endif
 }
 
+#if UrgentNowPlayingEnabled
 - (void)updateNowPlaying
 {
     MPNowPlayingInfoCenter *center = [MPNowPlayingInfoCenter defaultCenter];
@@ -293,6 +297,7 @@ void audioRouteChangeListenerCallback (void                   *inUserData,
         }
     }];
 }
+#endif
 
 - (void)fetchString:(NSString *)resource withCompletion:(void (^)(NSString *result))completion
 {
