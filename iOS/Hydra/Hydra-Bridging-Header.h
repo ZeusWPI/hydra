@@ -25,7 +25,6 @@
 #import "InfoViewController.h"
 #import "PreferencesController.h"
 #import "RestoMapController.h"
-#import "RestoMenuController.h"
 #import "SchamperViewController.h"
 #import "SchamperDetailViewController.h"
 #import "UrgentViewController.h"
