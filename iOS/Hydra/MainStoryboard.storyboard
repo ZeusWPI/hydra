@@ -1365,38 +1365,36 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4d-37-Ltj">
-                                                <rect key="frame" x="20" y="68" width="5" height="30"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="resto-map-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="OwY-gi-P36">
+                                                <rect key="frame" x="12" y="73" width="20" height="20"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="ld9-KS-JVW"/>
+                                                    <constraint firstAttribute="width" constant="20" id="NcH-AR-HbL"/>
+                                                    <constraint firstAttribute="height" constant="20" id="ihh-tD-qHl"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstItem="y4d-37-Ltj" firstAttribute="centerX" secondItem="dB7-1c-wUK" secondAttribute="centerX" id="96V-yu-bEF"/>
                                             <constraint firstAttribute="width" constant="45" id="9wT-jf-GZT"/>
-                                            <constraint firstItem="y4d-37-Ltj" firstAttribute="top" secondItem="dB7-1c-wUK" secondAttribute="bottom" constant="32" id="CuE-nL-Ivp"/>
                                             <constraint firstItem="dB7-1c-wUK" firstAttribute="leading" secondItem="A93-vf-jsW" secondAttribute="leading" id="D3P-Zh-ZYM"/>
-                                            <constraint firstItem="y4d-37-Ltj" firstAttribute="centerY" secondItem="A93-vf-jsW" secondAttribute="centerY" id="KSa-hh-b7e"/>
+                                            <constraint firstItem="OwY-gi-P36" firstAttribute="top" secondItem="dB7-1c-wUK" secondAttribute="top" constant="54" id="FtY-e8-jzh"/>
                                             <constraint firstAttribute="trailing" secondItem="dB7-1c-wUK" secondAttribute="trailing" id="NTt-h7-pjq"/>
+                                            <constraint firstItem="OwY-gi-P36" firstAttribute="centerX" secondItem="A93-vf-jsW" secondAttribute="centerX" id="aq0-1S-bpO"/>
                                             <constraint firstItem="dB7-1c-wUK" firstAttribute="top" secondItem="A93-vf-jsW" secondAttribute="top" constant="19" id="b5g-YL-Zzv"/>
-                                            <constraint firstItem="y4d-37-Ltj" firstAttribute="leading" secondItem="A93-vf-jsW" secondAttribute="leading" constant="14" id="d4S-7O-pmN"/>
                                             <constraint firstAttribute="width" constant="45" id="m4U-Aq-hJ2"/>
+                                            <constraint firstItem="dB7-1c-wUK" firstAttribute="leading" secondItem="OwY-gi-P36" secondAttribute="trailing" constant="-32" id="oHa-I2-V04"/>
+                                            <constraint firstItem="OwY-gi-P36" firstAttribute="centerX" secondItem="dB7-1c-wUK" secondAttribute="centerX" id="rmW-Eb-tpr"/>
                                             <constraint firstItem="dB7-1c-wUK" firstAttribute="width" secondItem="A93-vf-jsW" secondAttribute="width" id="te9-gz-7ei"/>
                                             <constraint firstAttribute="trailing" secondItem="dB7-1c-wUK" secondAttribute="trailing" constant="8" id="xKb-Du-3Xr"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="m4U-Aq-hJ2"/>
+                                                <exclude reference="oHa-I2-V04"/>
                                                 <exclude reference="te9-gz-7ei"/>
                                                 <exclude reference="xKb-Du-3Xr"/>
-                                                <exclude reference="KSa-hh-b7e"/>
-                                                <exclude reference="d4S-7O-pmN"/>
+                                                <exclude reference="aq0-1S-bpO"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1926,6 +1924,7 @@
         <image name="hydra-logo.png" width="134" height="50"/>
         <image name="icon-star.png" width="27" height="27"/>
         <image name="resto-logo.png" width="100" height="100"/>
+        <image name="resto-map-icon.png" width="20" height="20"/>
         <image name="schamper.png" width="241" height="60"/>
         <image name="tabbar-home.png" width="36" height="36"/>
         <image name="tabbar-resto.png" width="30" height="30"/>

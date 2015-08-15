@@ -10,7 +10,6 @@
 		395C117A16272D8000B99F9B /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395C117916272D8000B99F9B /* NewsViewController.m */; };
 		395C117D1627437000B99F9B /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395C117C1627437000B99F9B /* NewsDetailViewController.m */; };
 		3B436DF815B8915300984D3F /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B436DF715B8915200984D3F /* InfoViewController.m */; };
-		3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */; };
 		3B93FB9F1630939200C962DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FB9E1630939200C962DC /* AudioToolbox.framework */; };
 		3B93FBA7163095F900C962DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B93FB9E1630939200C962DC /* AudioToolbox.framework */; };
 		3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B93FBA91630969900C962DC /* UrgentPlayer.m */; };
@@ -19,6 +18,8 @@
 		445C81FC16C45D7A0080819C /* button-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FA16C45D7A0080819C /* button-settings.png */; };
 		445C81FD16C45D7A0080819C /* button-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445C81FB16C45D7A0080819C /* button-settings@2x.png */; };
 		44A29C58162DA88E001A573C /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A29C57162DA88E001A573C /* EventKitUI.framework */; };
+		9004F58F1B7F2FB60041FAA6 /* resto-map-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9004F58D1B7F2FB60041FAA6 /* resto-map-icon@2x.png */; };
+		9004F5901B7F2FB60041FAA6 /* resto-map-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9004F58E1B7F2FB60041FAA6 /* resto-map-icon.png */; };
 		9015D0FA1A8ABA4B00228ADC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 908E536419BE4F3900F1DA57 /* Images.xcassets */; };
 		901603DC1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901603DB1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift */; };
 		902939441A8C22EB00868221 /* info-bloklocaties.html in Resources */ = {isa = PBXBuildFile; fileRef = 902939431A8C22EB00868221 /* info-bloklocaties.html */; };
@@ -65,7 +66,6 @@
 		90E814F31854C76C00075F96 /* ios7-Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */; };
 		90E814F41854C76C00075F96 /* ios7-Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F21854C76C00075F96 /* ios7-Default@2x.png */; };
 		90E8DDC11B6AD45C0059F71B /* home-button-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E8DDC01B6AD45C0059F71B /* home-button-bar.png */; };
-		90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE21688BCC700A9582D /* RestoInfoView.m */; };
 		90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EB7BE91688ECE300A9582D /* RestoLegendItem.m */; };
 		90EF4A591B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EF4A581B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift */; };
 		90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F0525C168C663F004CAFFC /* RestoMapController.m */; };
@@ -239,7 +239,6 @@
 		F5E851D516C44BD7003DF993 /* hydra-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5E851D316C44BD7003DF993 /* hydra-logo@2x.png */; };
 		F5EBF0E0164BE583002C14BF /* SORelativeDateTransformer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */; };
 		F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */; };
-		F5EBF117159E040700EB5D26 /* RestoMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF115159E040700EB5D26 /* RestoMenuController.m */; };
 		F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5EBF11B159E092300EB5D26 /* SchamperViewController.m */; };
 		F5EBF13D159E13E600EB5D26 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */; };
 		F5EBF143159E13FD00EB5D26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EBF142159E13FD00EB5D26 /* QuartzCore.framework */; };
@@ -296,8 +295,6 @@
 		39B9A4055F5F374AA56058ED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3B436DF615B8915200984D3F /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		3B436DF715B8915200984D3F /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
-		3B7AD3B715BC830F0026BB62 /* RestoMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMenuView.h; sourceTree = "<group>"; };
-		3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenuView.m; sourceTree = "<group>"; };
 		3B93FB9E1630939200C962DC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		3B93FBA81630969900C962DC /* UrgentPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrgentPlayer.h; sourceTree = "<group>"; };
 		3B93FBA91630969900C962DC /* UrgentPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrgentPlayer.m; sourceTree = "<group>"; };
@@ -307,6 +304,8 @@
 		445C81FA16C45D7A0080819C /* button-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings.png"; sourceTree = "<group>"; };
 		445C81FB16C45D7A0080819C /* button-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-settings@2x.png"; sourceTree = "<group>"; };
 		44A29C57162DA88E001A573C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		9004F58D1B7F2FB60041FAA6 /* resto-map-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resto-map-icon@2x.png"; sourceTree = "<group>"; };
+		9004F58E1B7F2FB60041FAA6 /* resto-map-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resto-map-icon.png"; sourceTree = "<group>"; };
 		901603DB1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNewsItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		902939431A8C22EB00868221 /* info-bloklocaties.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-bloklocaties.html"; sourceTree = "<group>"; };
 		9035BF111B6C1753008E7875 /* schamper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schamper.png; sourceTree = "<group>"; };
@@ -356,8 +355,6 @@
 		90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default-568h@2x.png"; sourceTree = "<group>"; };
 		90E814F21854C76C00075F96 /* ios7-Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default@2x.png"; sourceTree = "<group>"; };
 		90E8DDC01B6AD45C0059F71B /* home-button-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-button-bar.png"; sourceTree = "<group>"; };
-		90EB7BE11688BCC700A9582D /* RestoInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoInfoView.h; sourceTree = "<group>"; };
-		90EB7BE21688BCC700A9582D /* RestoInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoInfoView.m; sourceTree = "<group>"; };
 		90EB7BE81688ECE300A9582D /* RestoLegendItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoLegendItem.h; sourceTree = "<group>"; };
 		90EB7BE91688ECE300A9582D /* RestoLegendItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoLegendItem.m; sourceTree = "<group>"; };
 		90EF4A581B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeUrgentCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -562,8 +559,6 @@
 		F5EBF0DD164BE583002C14BF /* SORelativeDateTransformer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SORelativeDateTransformer.bundle; sourceTree = "<group>"; };
 		F5EBF0DE164BE583002C14BF /* SORelativeDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SORelativeDateTransformer.h; sourceTree = "<group>"; };
 		F5EBF0DF164BE583002C14BF /* SORelativeDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SORelativeDateTransformer.m; sourceTree = "<group>"; };
-		F5EBF114159E040700EB5D26 /* RestoMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoMenuController.h; sourceTree = "<group>"; };
-		F5EBF115159E040700EB5D26 /* RestoMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestoMenuController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		F5EBF11A159E092300EB5D26 /* SchamperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchamperViewController.h; sourceTree = "<group>"; };
 		F5EBF11B159E092300EB5D26 /* SchamperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchamperViewController.m; sourceTree = "<group>"; };
 		F5EBF13C159E13E600EB5D26 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -648,14 +643,8 @@
 		3B7AD3B615BC82EB0026BB62 /* Resto */ = {
 			isa = PBXGroup;
 			children = (
-				90EB7BE11688BCC700A9582D /* RestoInfoView.h */,
-				90EB7BE21688BCC700A9582D /* RestoInfoView.m */,
 				90F0525B168C663F004CAFFC /* RestoMapController.h */,
 				90F0525C168C663F004CAFFC /* RestoMapController.m */,
-				3B7AD3B715BC830F0026BB62 /* RestoMenuView.h */,
-				3B7AD3B815BC830F0026BB62 /* RestoMenuView.m */,
-				F5EBF114159E040700EB5D26 /* RestoMenuController.h */,
-				F5EBF115159E040700EB5D26 /* RestoMenuController.m */,
 				907CD3C91B7E52B600DD7539 /* RestoMenuViewController.swift */,
 				9041C3671B7E67B600E4A50C /* RestoMenuCollectionCell.swift */,
 				9041C36C1B7E801B00E4A50C /* RestoMenuHeader.swift */,
@@ -923,6 +912,8 @@
 				F5329E0115B9858900C4C5DF /* resto-closed@2x.jpg */,
 				F54B160015B7FFE6000A4407 /* resto-logo.png */,
 				F54B160115B7FFE6000A4407 /* resto-logo@2x.png */,
+				9004F58E1B7F2FB60041FAA6 /* resto-map-icon.png */,
+				9004F58D1B7F2FB60041FAA6 /* resto-map-icon@2x.png */,
 				F533DABB163163E2001269A8 /* schamper-bg.png */,
 				F557EA45163431FC00635CDD /* schamper-bg@2x.png */,
 				9035BF111B6C1753008E7875 /* schamper.png */,
@@ -1384,6 +1375,7 @@
 				9068BA781B7BB437005F79FA /* tabbar-resto@2x.png in Resources */,
 				9035BF161B6C37FE008E7875 /* home-zeus.png in Resources */,
 				F5EBF0E0164BE583002C14BF /* SORelativeDateTransformer.bundle in Resources */,
+				9004F58F1B7F2FB60041FAA6 /* resto-map-icon@2x.png in Resources */,
 				F5C4618F166E442000874D79 /* navigation-down.png in Resources */,
 				F5C46190166E442000874D79 /* navigation-down@2x.png in Resources */,
 				F5C46191166E442000874D79 /* navigation-up.png in Resources */,
@@ -1413,6 +1405,7 @@
 				F5D51CF716B6D44800826B51 /* info-minerva@2x.png in Resources */,
 				F567044416BD5D8100C6B00D /* icon-meal@2x.png in Resources */,
 				F567044516BD5D8100C6B00D /* icon-soup@2x.png in Resources */,
+				9004F5901B7F2FB60041FAA6 /* resto-map-icon.png in Resources */,
 				F567044616BD5D8100C6B00D /* icon-vegetables@2x.png in Resources */,
 				90E8DDC11B6AD45C0059F71B /* home-button-bar.png in Resources */,
 				F567044716BD5D8100C6B00D /* info-minerva.png in Resources */,
@@ -1521,7 +1514,6 @@
 				F5BAEC971518868200F6A1B1 /* main.m in Sources */,
 				907CD3CA1B7E52B600DD7539 /* RestoMenuViewController.swift in Sources */,
 				F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */,
-				F5EBF117159E040700EB5D26 /* RestoMenuController.m in Sources */,
 				F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */,
 				F5EBF14C159E1E3600EB5D26 /* SchamperArticle.m in Sources */,
 				F5D36BC115B5BDA500B6E017 /* SchamperStore.m in Sources */,
@@ -1535,7 +1527,6 @@
 				F5F43C4115BAD2CC003C2AAE /* AssociationActivity.m in Sources */,
 				F5F43C4415BAD2EB003C2AAE /* AssociationStore.m in Sources */,
 				F5F43C4715BAD42E003C2AAE /* Association.m in Sources */,
-				3B7AD3B915BC830F0026BB62 /* RestoMenuView.m in Sources */,
 				395C117A16272D8000B99F9B /* NewsViewController.m in Sources */,
 				395C117D1627437000B99F9B /* NewsDetailViewController.m in Sources */,
 				90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */,
@@ -1552,7 +1543,6 @@
 				90BE1F891B6AB3390061888C /* HomeViewController.swift in Sources */,
 				F52B9B77168507BD000B71D6 /* NSDateFormatter+AppLocale.m in Sources */,
 				90EF4A591B6D8AE40034AD8F /* HomeUrgentCollectionViewCell.swift in Sources */,
-				90EB7BE31688BCC700A9582D /* RestoInfoView.m in Sources */,
 				90EB7BEA1688ECE300A9582D /* RestoLegendItem.m in Sources */,
 				901603DC1B716DED002E0D60 /* HomeNewsItemCollectionViewCell.swift in Sources */,
 				90F0525E168C663F004CAFFC /* RestoMapController.m in Sources */,

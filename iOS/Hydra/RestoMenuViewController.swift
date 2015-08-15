@@ -56,6 +56,7 @@ class RestoMenuViewController: UIViewController {
         
         //do not hide if in moreController
         if self.parentViewController != self.tabBarController?.moreNavigationController {
+            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
             self.navigationController?.navigationBarHidden = true
         }
         // scroll to today
@@ -66,6 +67,7 @@ class RestoMenuViewController: UIViewController {
         super.viewDidDisappear(animated)
         
         self.navigationController?.navigationBarHidden = false
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
     
     func loadMenu() {
