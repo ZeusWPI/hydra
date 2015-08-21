@@ -1,5 +1,7 @@
 # Hydra [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/hydra/README.md?pixel)](https://github.com/igrigorik/ga-beacon)
 
+[![Join the chat at https://gitter.im/ZeusWPI/hydra](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ZeusWPI/hydra?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![hydra-icon-web](https://f.cloud.github.com/assets/5676/46955/0101cef4-58a8-11e2-8b16-06537c38a8cf.png)
 
 
