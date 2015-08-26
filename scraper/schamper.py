@@ -3,7 +3,6 @@
 
 import os
 import re
-import sys
 import urllib.parse
 import urllib.request
 
@@ -49,7 +48,7 @@ def write_xml_to_file(doc, path):
 
 def transform_item_in_feed(item):
     link = item.link.text
-    print('Processing {}'.format(link), file=sys.stderr)
+    print('Processing {}'.format(link))
 
     article = read_html_from_url(link)
 
