@@ -76,7 +76,9 @@ def _parse_article_authors(article):
 
     match = re.search('\sdoor\s+((.|\n)*\S)\s*$', authors.text)
     if match is None:
-        raise Exception('Couldn\'t parse authors "{}"'.format(authors.text))
+        print("Urgh, Schamper fucked up again. Can't parse authors",
+              authors.text, file=sys.stderr)
+        return ''
 
     # Sometimes, there are random newlines and stuff
     return re.sub(r'\s+', ' ', match.group(1))
