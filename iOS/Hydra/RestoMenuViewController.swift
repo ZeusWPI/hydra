@@ -12,6 +12,8 @@ class RestoMenuViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView?
     @IBOutlet weak var restoMenuHeader: RestoMenuHeaderView?
     
+    var showNavigationBar = false
+    
     
     var days: [NSDate] = []
     var menus: [RestoMenu?] = []
@@ -55,7 +57,7 @@ class RestoMenuViewController: UIViewController {
         super.viewDidAppear(animated)
         
         //do not hide if in moreController
-        if self.parentViewController != self.tabBarController?.moreNavigationController {
+        if self.parentViewController != self.tabBarController?.moreNavigationController && !self.showNavigationBar {
             UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
             self.navigationController?.navigationBarHidden = true
         }
@@ -171,7 +173,7 @@ extension RestoMenuViewController: UIScrollViewDelegate {
 // MARK: - Header view actions
 extension RestoMenuViewController {
     func scrollToIndex(index: Int) {
-        self.collectionView!.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        self.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
         self.restoMenuHeader?.selectedIndex(index)
         currentIndex = index
     }

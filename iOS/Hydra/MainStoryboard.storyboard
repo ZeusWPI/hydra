@@ -24,6 +24,7 @@
                     <connections>
                         <segue destination="U9p-w3-9Tu" kind="relationship" relationship="viewControllers" id="MOV-2W-HcV"/>
                         <segue destination="rU3-bn-FMo" kind="relationship" relationship="viewControllers" id="XzD-4w-vIU"/>
+                        <segue destination="rU3-bn-FMo" kind="show" id="Bc8-oZ-mq0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gbm-m1-vAp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1277,6 +1278,7 @@
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
                         <outlet property="feedCollectionView" destination="G42-GJ-PIo" id="Bcg-ql-Gcn"/>
+                        <segue destination="rU3-bn-FMo" kind="show" identifier="restoMenu" id="4k1-4g-6AZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HIv-yf-f5l" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1286,7 +1288,7 @@
         <!--Controller-->
         <scene sceneID="cME-dL-7dj">
             <objects>
-                <viewController title="Resto 2" id="ovy-G8-t38" customClass="RestoMenuViewController" customModule="Hydra" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="restoMenu" title="Resto 2" id="ovy-G8-t38" customClass="RestoMenuViewController" customModule="Hydra" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ibP-Wy-wL0"/>
                         <viewControllerLayoutGuide type="bottom" id="DW7-3I-QRb"/>
@@ -1899,7 +1901,7 @@
         <!--Resto-->
         <scene sceneID="fX1-hu-UkP">
             <objects>
-                <navigationController id="rU3-bn-FMo" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="restoMenuNavController" id="rU3-bn-FMo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="221" title="Resto" image="tabbar-resto.png" id="Sdc-Uo-DYg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="CuI-XX-o3D">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1931,4 +1933,7 @@
         <image name="urgent-bg.jpg" width="320" height="414"/>
         <image name="urgent-logo.png" width="234" height="54"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Bc8-oZ-mq0"/>
+    </inferredMetricsTieBreakers>
 </document>

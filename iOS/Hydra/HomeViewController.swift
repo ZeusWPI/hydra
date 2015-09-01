@@ -118,7 +118,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         switch feedItem.itemType {
         case .RestoItem:
-            self.navigationController?.pushViewController(RestoMenuViewController(), animated: true)
+            let restoMenuController = self.storyboard?.instantiateViewControllerWithIdentifier("restoMenu") as? RestoMenuViewController
+            restoMenuController?.showNavigationBar = true
+            self.navigationController?.pushViewController(restoMenuController!, animated: true)
         case .ActivityItem:
             self.navigationController?.pushViewController(ActivityDetailController(activity: feedItem.object as! AssociationActivity, delegate: nil), animated: true)
         case .SchamperNewsItem:
