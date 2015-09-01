@@ -118,9 +118,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         switch feedItem.itemType {
         case .RestoItem:
-            let restoMenuController = self.storyboard?.instantiateViewControllerWithIdentifier("restoMenu") as? RestoMenuViewController
-            restoMenuController?.showNavigationBar = true
-            self.navigationController?.pushViewController(restoMenuController!, animated: true)
+            let index = self.tabBarController?.viewControllers?.indexOf({$0.tabBarItem.tag == 221}) // using hardcoded tag of Resto Menu viewcontroller
+            self.tabBarController?.selectedIndex = index!
         case .ActivityItem:
             self.navigationController?.pushViewController(ActivityDetailController(activity: feedItem.object as! AssociationActivity, delegate: nil), animated: true)
         case .SchamperNewsItem:

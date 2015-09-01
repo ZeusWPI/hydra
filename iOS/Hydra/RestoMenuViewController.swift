@@ -12,9 +12,6 @@ class RestoMenuViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView?
     @IBOutlet weak var restoMenuHeader: RestoMenuHeaderView?
     
-    var showNavigationBar = false
-    
-    
     var days: [NSDate] = []
     var menus: [RestoMenu?] = []
     var legend: [RestoLegendItem] = []
@@ -57,7 +54,7 @@ class RestoMenuViewController: UIViewController {
         super.viewDidAppear(animated)
         
         //do not hide if in moreController
-        if self.parentViewController != self.tabBarController?.moreNavigationController && !self.showNavigationBar {
+        if self.parentViewController != self.tabBarController?.moreNavigationController {
             UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
             self.navigationController?.navigationBarHidden = true
         }
