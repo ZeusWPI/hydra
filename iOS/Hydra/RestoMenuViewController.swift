@@ -59,7 +59,7 @@ class RestoMenuViewController: UIViewController {
             self.navigationController?.navigationBarHidden = true
         }
         // scroll to today
-        self.scrollToIndex(currentIndex)
+        self.scrollToIndex(currentIndex, animated: false)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -169,9 +169,18 @@ extension RestoMenuViewController: UIScrollViewDelegate {
 
 // MARK: - Header view actions
 extension RestoMenuViewController {
-    func scrollToIndex(index: Int) {
-        self.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+    func scrollToIndex(index: Int, animated: Bool = true) {
+        self.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: animated)
         self.restoMenuHeader?.selectedIndex(index)
         currentIndex = index
+    }
+    
+    func scrollToDate(date: NSDate) {
+        for (index, day) in days.enumerate() {
+            if day.dateAtStartOfDay().isEqualToDate(date.dateAtStartOfDay()) {
+                self.scrollToIndex(index+1)
+                return
+            }
+        }
     }
 }

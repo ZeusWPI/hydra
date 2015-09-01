@@ -120,6 +120,11 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         case .RestoItem:
             let index = self.tabBarController?.viewControllers?.indexOf({$0.tabBarItem.tag == 221}) // using hardcoded tag of Resto Menu viewcontroller
             self.tabBarController?.selectedIndex = index!
+            let navigationController = self.tabBarController?.viewControllers![index!] as? UINavigationController
+            if let menuController = navigationController?.visibleViewController as? RestoMenuViewController {
+                let menu = feedItem.object as! RestoMenu
+                menuController.scrollToDate(menu.day)
+            }
         case .ActivityItem:
             self.navigationController?.pushViewController(ActivityDetailController(activity: feedItem.object as! AssociationActivity, delegate: nil), animated: true)
         case .SchamperNewsItem:
