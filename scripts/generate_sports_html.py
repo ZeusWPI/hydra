@@ -1,10 +1,20 @@
-from bs4 import BeautifulSoup
+from argparse import ArgumentParser
+
+from jinja2 import FileSystemLoader, Environment
+from bs4 import BeautifulSoup as bs
 import requests
-from jinja2 import Template
+
+parser = ArgumentParser(description='Create hydra sports page')
+parser.add_argument('--file',
+                    dest='filename',
+                    required=True,
+                    help='file location, for example: --file ../iOS/Resources/info-sport-aanbod.html')
+
+args = parser.parse_args()
 
 sports = []
 r = requests.get("http://www.ugent.be/nl/voorzieningen/sport/aanbod/overzicht-sporttakken")
-soup = BeautifulSoup(r.text, 'html.parser')
+soup = bs(r.text, 'html.parser')
 table = soup.find('table').find('tbody')
 rows = table.find_all('tr')
 for row in rows:
@@ -15,3 +25,11 @@ for row in rows:
         'text': row.find_all('td')[-1].text
     }
     sports.append(sport)
+
+template = Environment(
+    loader=FileSystemLoader('')
+).get_template('sports_template.html')
+
+with open(args.filename, 'w') as f:
+    html = bs(template.render(sports=sports), 'html.parser').prettify()
+    f.write(html)
