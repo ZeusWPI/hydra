@@ -60,14 +60,6 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Germania</string>
-		<key>internalName</key>
-		<string>GERMANIA</string>
-		<key>parentAssociation</key>
-		<string>FKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
 		<string>Gentse Farma Kring</string>
 		<key>internalName</key>
 		<string>GFK</string>
@@ -145,14 +137,6 @@
 		<string>Politeia</string>
 		<key>internalName</key>
 		<string>POLITEIA</string>
-		<key>parentAssociation</key>
-		<string>FKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Romania</string>
-		<key>internalName</key>
-		<string>ROMANIA</string>
 		<key>parentAssociation</key>
 		<string>FKCENTRAAL</string>
 	</dict>
@@ -326,6 +310,16 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
+		<string>BEST</string>
+		<key>fullName</key>
+		<string>Board of European Students of Technology Ghent</string>
+		<key>internalName</key>
+		<string>BEST</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
 		<string>ChiSAG</string>
 		<key>fullName</key>
 		<string>Chinese Students Organisation</string>
@@ -367,6 +361,16 @@
 		<string>International Students Association</string>
 		<key>internalName</key>
 		<string>ISAG</string>
+		<key>parentAssociation</key>
+		<string>IKCENTRAAL</string>
+	</dict>
+	<dict>
+		<key>displayName</key>
+		<string>Iaas</string>
+		<key>fullName</key>
+		<string>International Association of Agricultural Students</string>
+		<key>internalName</key>
+		<string>Iaas</string>
 		<key>parentAssociation</key>
 		<string>IKCENTRAAL</string>
 	</dict>
