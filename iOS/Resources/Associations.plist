@@ -862,19 +862,9 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Amnesty</string>
-		<key>fullName</key>
-		<string>Amnesty International Studenten Gent</string>
+		<string>180DC</string>
 		<key>internalName</key>
-		<string>AIS</string>
-		<key>parentAssociation</key>
-		<string>WVKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Asante</string>
-		<key>internalName</key>
-		<string>ASANTE</string>
+		<string>OEDC</string>
 		<key>parentAssociation</key>
 		<string>WVKCENTRAAL</string>
 	</dict>
@@ -938,14 +928,6 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Gentse Interculturele Studenten Associatie</string>
-		<key>internalName</key>
-		<string>GISA</string>
-		<key>parentAssociation</key>
-		<string>WVKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
 		<string>Groene Kring</string>
 		<key>internalName</key>
 		<string>GK</string>
@@ -959,14 +941,6 @@
 		<string>IEEE Student Branch Gent</string>
 		<key>internalName</key>
 		<string>IEEE</string>
-		<key>parentAssociation</key>
-		<string>WVKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Jong EVA</string>
-		<key>internalName</key>
-		<string>JONGEVA</string>
 		<key>parentAssociation</key>
 		<string>WVKCENTRAAL</string>
 	</dict>
@@ -988,14 +962,6 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>LingForum</string>
-		<key>internalName</key>
-		<string>LINGFORUM</string>
-		<key>parentAssociation</key>
-		<string>WVKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
 		<string>MaCht</string>
 		<key>internalName</key>
 		<string>MACHT</string>
@@ -1004,9 +970,9 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Milieu Aktie Forum</string>
+		<string>Moeder Theepot</string>
 		<key>internalName</key>
-		<string>MAF</string>
+		<string>THEEPOT</string>
 		<key>parentAssociation</key>
 		<string>WVKCENTRAAL</string>
 	</dict>
@@ -1044,17 +1010,9 @@
 	</dict>
 	<dict>
 		<key>displayName</key>
-		<string>Studenten Tegen Racisme</string>
+		<string>Sense</string>
 		<key>internalName</key>
-		<string>STER</string>
-		<key>parentAssociation</key>
-		<string>WVKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Symposium Culturele Vereniging</string>
-		<key>internalName</key>
-		<string>SYMPOSIUM</string>
+		<string>SENSE</string>
 		<key>parentAssociation</key>
 		<string>WVKCENTRAAL</string>
 	</dict>
@@ -1071,22 +1029,6 @@
 		<string>Vereniging Voor Natuurkunde</string>
 		<key>internalName</key>
 		<string>VVN</string>
-		<key>parentAssociation</key>
-		<string>WVKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Werkgroep Electronica</string>
-		<key>internalName</key>
-		<string>WELEC</string>
-		<key>parentAssociation</key>
-		<string>WVKCENTRAAL</string>
-	</dict>
-	<dict>
-		<key>displayName</key>
-		<string>Werkgroep Sterrenkunde</string>
-		<key>internalName</key>
-		<string>WS</string>
 		<key>parentAssociation</key>
 		<string>WVKCENTRAAL</string>
 	</dict>
