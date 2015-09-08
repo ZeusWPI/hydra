@@ -50,23 +50,25 @@ class RestoMenuViewController: UIViewController {
         self.collectionView?.reloadData()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         //do not hide if in moreController
         if self.parentViewController != self.tabBarController?.moreNavigationController {
-            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+            if UIApplication.sharedApplication().statusBarStyle != .LightContent {
+                UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+            }
             self.navigationController?.navigationBarHidden = true
         }
         // scroll to today
         self.scrollToIndex(currentIndex, animated: false)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         
         self.navigationController?.navigationBarHidden = false
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
     }
     
     func loadMenu() {
