@@ -42,7 +42,7 @@ def get_weeks(which):
     week from the given weekmenu overview.
     """
     weekmenu = pq(url=WEEKMENU_URL[which])
-    week_urls = (pq(e).attr("href") for i, e in weekmenu(WEEK_SELECTOR[which]))
+    week_urls = (pq(e).attr("href") for e in weekmenu(WEEK_SELECTOR[which]))
 
     r = {}
     for url in week_urls:

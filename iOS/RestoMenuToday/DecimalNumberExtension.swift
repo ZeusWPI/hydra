@@ -20,7 +20,7 @@ extension NSDecimalNumber {
 
         // Remove any non-numerical characters
         let charactersToRemove = NSCharacterSet(charactersInString: "0123456789.").invertedSet
-        euroString = "".join(euroString.componentsSeparatedByCharactersInSet(charactersToRemove))
+        euroString = euroString.componentsSeparatedByCharactersInSet(charactersToRemove).joinWithSeparator("")
         
         self.init(string: euroString)
     }

@@ -2,5 +2,5 @@
 
 set -euo pipefail
 
-python2 schamper.py
+python3 schamper.py
 rsync -a schamper ~/public/api/1.0

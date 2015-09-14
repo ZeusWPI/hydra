@@ -31,7 +31,7 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
         prefsController.tabBarItem.configure("Instellingen", image: "settings", tag: 236)
 
         var viewControllers = self.viewControllers!
-        viewControllers.extend([restoController, infoController, activityController, newsViewController, schamperController, urgentController, prefsController])
+        viewControllers.appendContentsOf([restoController, infoController, activityController, newsViewController, schamperController, urgentController, prefsController])
         
         
         self.viewControllers = orderViewControllers(viewControllers)
@@ -59,7 +59,7 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
         }
         
         // Add all other viewcontrollers, it's possible new ones are added
-        orderedViewControllers.extend(oldViewControllers)
+        orderedViewControllers.appendContentsOf(oldViewControllers)
         return orderedViewControllers
     }
     
