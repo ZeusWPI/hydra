@@ -1709,28 +1709,28 @@
                                 <rect key="frame" x="0.0" y="187" width="600" height="364"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="m01-YE-sWC">
-                                    <size key="itemSize" width="320" height="250"/>
+                                    <size key="itemSize" width="320" height="300"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="infoCell" id="Pst-lM-91v">
-                                        <rect key="frame" x="0.0" y="32" width="600" height="300"/>
+                                        <rect key="frame" x="0.0" y="7" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="resto-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="VSn-0q-Roi">
-                                                    <rect key="frame" x="240" y="8" width="120" height="120"/>
+                                                    <rect key="frame" x="100" y="8" width="120" height="120"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="120" id="AkE-Jz-kXb"/>
                                                         <constraint firstAttribute="width" constant="120" id="wwv-w3-RPd"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoI-Yf-sak">
-                                                    <rect key="frame" x="0.0" y="147" width="592" height="36"/>
+                                                    <rect key="frame" x="0.0" y="147" width="312" height="54"/>
                                                     <string key="text">De resto's van de UGent zijn elke weekdag open van 11u15 tot 14u. 's Avonds kan je ook terecht in resto De Brug van 17u30 tot 21u.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -1748,7 +1748,7 @@
                                             <constraint firstItem="VSn-0q-Roi" firstAttribute="top" secondItem="Pst-lM-91v" secondAttribute="topMargin" id="irQ-it-tQw"/>
                                             <constraint firstItem="VSn-0q-Roi" firstAttribute="centerY" secondItem="Pst-lM-91v" secondAttribute="centerY" id="lSx-i2-sdq"/>
                                         </constraints>
-                                        <size key="customSize" width="600" height="300"/>
+                                        <size key="customSize" width="320" height="350"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="lSx-i2-sdq"/>
@@ -1756,14 +1756,14 @@
                                         </variation>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restoMenuOpenCell" id="G7w-Gu-YVD" customClass="RestoMenuCollectionCell" customModule="Hydra" customModuleProvider="target">
-                                        <rect key="frame" x="610" y="32" width="600" height="300"/>
+                                        <rect key="frame" x="330" y="7" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pav-YX-hLa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                     <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1771,10 +1771,10 @@
                                                     <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="menuItemCell" id="q0b-Uh-AEc" customClass="RestoMenuItemTableViewCell" customModule="Hydra" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                                            <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q0b-Uh-AEc" id="MN3-nx-rZA">
-                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Tomatensoep" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LYg-cJ-uK6">
@@ -1784,7 +1784,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€ 0,50" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRf-OI-tqt">
-                                                                        <rect key="frame" x="542" y="11" width="50" height="21"/>
+                                                                        <rect key="frame" x="262" y="11" width="50" height="21"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="CG7-0c-9NS"/>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="bbo-OW-Izd"/>
@@ -1824,7 +1824,7 @@
                                             <constraint firstAttribute="bottom" secondItem="Pav-YX-hLa" secondAttribute="bottom" id="FSn-cf-E5I"/>
                                             <constraint firstItem="Pav-YX-hLa" firstAttribute="top" secondItem="G7w-Gu-YVD" secondAttribute="top" id="RBy-rK-Wm5"/>
                                         </constraints>
-                                        <size key="customSize" width="600" height="300"/>
+                                        <size key="customSize" width="320" height="350"/>
                                         <connections>
                                             <outlet property="tableView" destination="Pav-YX-hLa" id="3QV-hX-6mD"/>
                                         </connections>
