@@ -37,16 +37,16 @@ class HomeFeedService {
         var list = [FeedItem]()
         //TODO: unread recent important news
         // news items
-        list.extend(getNewsItems())
+        list.appendContentsOf(getNewsItems())
         
         // activities
-        list.extend(getActivities())
+        list.appendContentsOf(getActivities())
         
         // resto menus
-        list.extend(getRestoMenus())
+        list.appendContentsOf(getRestoMenus())
         
         // schamper articles
-        list.extend(getSchamperArticles())
+        list.appendContentsOf(getSchamperArticles())
         
         // Urgent.fm
         list.append(FeedItem(itemType: .UrgentItem, object: nil, priority: 825))
