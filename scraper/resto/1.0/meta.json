@@ -14,10 +14,10 @@
     ],
     "locations": [
         {
-            "name": "Resto Astrid",
-            "address": "Krijgslaan 250",
-            "latitude": 51.026952,
-            "longitude": 3.712086,
+            "name": "Resto S5",
+            "address": "Krijgslaan 281",
+            "latitude": 51.026024,
+            "longitude": 3.712939,
             "type": "resto"
         }, {
             "name": "Resto Boudewijn",
