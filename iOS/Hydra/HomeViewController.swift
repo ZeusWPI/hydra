@@ -101,7 +101,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 count = restoMenu!.meat.count
             }
 
-            return CGSizeMake(self.view.frame.size.width, CGFloat(106+count*17))
+            return CGSizeMake(self.view.frame.size.width, CGFloat(100+count*15))
         case .ActivityItem:
             let activity = feedItem.object as? AssociationActivity
             //TODO: guess height of cell

@@ -31,6 +31,7 @@ class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, 
                 closedLabel.hidden = false
             }
             tableView.reloadData()
+            self.layoutSubviews() // call this to force an update after setting the new menu, so the tableview height changes.
         }
     }
     
