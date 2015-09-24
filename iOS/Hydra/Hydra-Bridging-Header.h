@@ -14,6 +14,7 @@
 #import "AssociationActivity.h"
 #import "AssociationNewsItem.h"
 #import "NewsDetailViewController.h"
+#import "RestoLegendItem.h"
 #import "RestoMenu.h"
 #import "SchamperArticle.h"
 
@@ -23,7 +24,7 @@
 #import "ActivityDetailController.h"
 #import "InfoViewController.h"
 #import "PreferencesController.h"
-#import "RestoMenuController.h"
+#import "RestoMapController.h"
 #import "SchamperViewController.h"
 #import "SchamperDetailViewController.h"
 #import "UrgentViewController.h"

@@ -118,7 +118,6 @@ class HomeFeedService {
             for activity in activities.filter(filter) {
                 var priority = 999 //TODO: calculate priorities, with more options
                 priority -= activity.start.daysAfterDate(NSDate()) * 100
-                priority = 999
                 if priority > 0 {
                     feedItems.append(FeedItem(itemType: .ActivityItem, object: activity, priority: priority))
                 }

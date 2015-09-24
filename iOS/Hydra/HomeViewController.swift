@@ -27,7 +27,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBarHidden = true
-        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+        if UIApplication.sharedApplication().statusBarStyle != .LightContent {
+            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -58,10 +60,12 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         case .RestoItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath) as? HomeRestoCollectionViewCell
             cell?.restoMenu = feedItem.object as? RestoMenu
+            cell?.layoutIfNeeded()
             return cell!
         case .SchamperNewsItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("schamperCell", forIndexPath: indexPath) as? HomeSchamperCollectionViewCell
             cell!.article = feedItem.object as? SchamperArticle
+            cell?.layoutIfNeeded()
             return cell!
         case .ActivityItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("activityCell", forIndexPath: indexPath) as? HomeActivityCollectionViewCell
@@ -87,6 +91,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let feedItem = feedItems[indexPath.row]
         
+        print(self.view.frame.size.width)
+        
         switch feedItem.itemType {
         case .RestoItem:
             let restoMenu = feedItem.object as? RestoMenu
@@ -95,7 +101,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
                 count = restoMenu!.meat.count
             }
 
-            return CGSizeMake(self.view.frame.size.width, CGFloat(106+count*17))
+            return CGSizeMake(self.view.frame.size.width, CGFloat(100+count*15))
         case .ActivityItem:
             let activity = feedItem.object as? AssociationActivity
             //TODO: guess height of cell
@@ -118,7 +124,13 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         switch feedItem.itemType {
         case .RestoItem:
-            self.navigationController?.pushViewController(RestoMenuController(), animated: true)
+            let index = self.tabBarController?.viewControllers?.indexOf({$0.tabBarItem.tag == 221}) // using hardcoded tag of Resto Menu viewcontroller
+            self.tabBarController?.selectedIndex = index!
+            let navigationController = self.tabBarController?.viewControllers![index!] as? UINavigationController
+            if let menuController = navigationController?.visibleViewController as? RestoMenuViewController {
+                let menu = feedItem.object as! RestoMenu
+                menuController.scrollToDate(menu.day)
+            }
         case .ActivityItem:
             self.navigationController?.pushViewController(ActivityDetailController(activity: feedItem.object as! AssociationActivity, delegate: nil), animated: true)
         case .SchamperNewsItem:
