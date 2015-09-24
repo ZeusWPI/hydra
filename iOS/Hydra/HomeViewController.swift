@@ -60,10 +60,12 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         case .RestoItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath) as? HomeRestoCollectionViewCell
             cell?.restoMenu = feedItem.object as? RestoMenu
+            cell?.layoutIfNeeded()
             return cell!
         case .SchamperNewsItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("schamperCell", forIndexPath: indexPath) as? HomeSchamperCollectionViewCell
             cell!.article = feedItem.object as? SchamperArticle
+            cell?.layoutIfNeeded()
             return cell!
         case .ActivityItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("activityCell", forIndexPath: indexPath) as? HomeActivityCollectionViewCell
@@ -88,6 +90,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let feedItem = feedItems[indexPath.row]
+        
+        print(self.view.frame.size.width)
         
         switch feedItem.itemType {
         case .RestoItem:

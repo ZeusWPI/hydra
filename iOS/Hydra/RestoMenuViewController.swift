@@ -144,6 +144,7 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoMenuOpenCell", forIndexPath: indexPath) as! RestoMenuCollectionCell
             
             cell.restoMenu = self.menus[indexPath.row-1]
+            cell.layoutIfNeeded() // FUCKING BUGZ
             return cell
         default:
             debugPrint("Shouldn't be here")
