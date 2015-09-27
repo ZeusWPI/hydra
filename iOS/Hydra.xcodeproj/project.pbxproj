@@ -1187,6 +1187,7 @@
 			buildConfigurationList = F49F79391A1671960040987F /* Build configuration list for PBXNativeTarget "RestoMenuToday" */;
 			buildPhases = (
 				F49F79281A1671950040987F /* Sources */,
+				90EE4CD11BB804F600C2DD32 /* ShellScript */,
 				F49F79291A1671950040987F /* Frameworks */,
 				F49F792A1A1671950040987F /* Resources */,
 			);
@@ -1479,6 +1480,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+		};
+		90EE4CD11BB804F600C2DD32 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "src_plist=${PROJECT_DIR}/${INFOPLIST_FILE}\nbuild_plist=${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\n\nif [ $CONFIGURATION == Release ]; then\n    # increment the build number (ie 1.0.115 to 1.0.116)\n    echo \"Bumping build number...\"\n\n    full_version=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"${src_plist}\")\n    if [[ \"${full_version}\" == \"\" ]]; then\n        echo \"No build number in ${src_plist}\"\n        exit 2\n    fi\n\n    version=${full_version%.*}\n    build=${full_version##*.}\n    \n    new_version=\"$version.$(($build+1))\"\n    /usr/libexec/Plistbuddy -c \"Set :CFBundleVersion $new_version\" \"${src_plist}\"\n    echo \"Bumped build number to $new_version\"\nfi";
 		};
 		F5D3B621162EFBD400698C3E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
