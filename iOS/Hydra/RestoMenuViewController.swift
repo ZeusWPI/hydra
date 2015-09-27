@@ -47,7 +47,18 @@ class RestoMenuViewController: UIViewController {
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
         // update days and reloadData
         self.restoMenuHeader?.updateDays()
+        //self.collectionView?.reloadData() // Uncomment when bug is fixed
+        //self.scrollToIndex(self.currentIndex, animated: false)
+        
+        // REMOVE ME IF THE BUG IS FIXED, THIS IS UGLY
+        if #available(iOS 9, *) {
+            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer"), userInfo: nil, repeats: true)
+        }
+    }
+    
+    func refreshDataTimer(){ // REMOVE ME WHEN THE BUG IS FIXED
         self.collectionView?.reloadData()
+        self.scrollToIndex(self.currentIndex, animated: false)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -136,17 +147,16 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
+
         switch indexPath.row {
         case 0: // info cell
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath)
-            cell.layoutIfNeeded()
+
             return cell
         case 1...self.days.count:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoMenuOpenCell", forIndexPath: indexPath) as! RestoMenuCollectionCell
             
             cell.restoMenu = self.menus[indexPath.row-1]
-            cell.layoutIfNeeded() // FUCKING BUGZ
             return cell
         default:
             debugPrint("Shouldn't be here")

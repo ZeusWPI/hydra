@@ -22,7 +22,17 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         self.refreshControl.addTarget(self, action: "startRefresh", forControlEvents: .ValueChanged)
         self.feedCollectionView.addSubview(refreshControl)
         self.feedCollectionView.alwaysBounceVertical = true
+        
+        // REMOVE ME IF THE BUG IS FIXED, THIS IS FUCKING UGLY
+        if #available(iOS 9, *) {
+            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer"), userInfo: nil, repeats: true)
+        }
     }
+    
+    func refreshDataTimer(){ // REMOVE ME WHEN THE BUG IS FIXED
+        self.feedCollectionView?.reloadData()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -60,16 +70,17 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         case .RestoItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoCell", forIndexPath: indexPath) as? HomeRestoCollectionViewCell
             cell?.restoMenu = feedItem.object as? RestoMenu
-            cell?.layoutIfNeeded()
+            cell?.layoutIfNeeded() // iOS 9 bug
             return cell!
         case .SchamperNewsItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("schamperCell", forIndexPath: indexPath) as? HomeSchamperCollectionViewCell
             cell!.article = feedItem.object as? SchamperArticle
-            cell?.layoutIfNeeded()
+            cell?.layoutIfNeeded() // iOS 9 bug
             return cell!
         case .ActivityItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("activityCell", forIndexPath: indexPath) as? HomeActivityCollectionViewCell
             cell?.activity = feedItem.object as? AssociationActivity
+            cell?.layoutIfNeeded() // iOS 9 bug
             return cell!
         case .NewsItem:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("newsItemCell", forIndexPath: indexPath) as? HomeNewsItemCollectionViewCell
@@ -90,8 +101,6 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let feedItem = feedItems[indexPath.row]
-        
-        print(self.view.frame.size.width)
         
         switch feedItem.itemType {
         case .RestoItem:
