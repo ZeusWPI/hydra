@@ -44,6 +44,8 @@ class RestoMenuCollectionCell: UICollectionViewCell, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("menuItemCell") as? RestoMenuItemTableViewCell
 
+        cell?.backgroundColor = UIColor.clearColor() // for iPads, for some strange the cells lose their color
+
         let restoMenuSection = RestoMenuSection(rawValue: indexPath.section)
         switch restoMenuSection! {
         case .Soup:

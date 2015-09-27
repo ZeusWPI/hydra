@@ -1248,6 +1248,11 @@
                                         <exclude reference="NO0-n6-baR"/>
                                     </mask>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <exclude reference="NO0-n6-baR"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="pLP-uP-Iay" id="79H-jP-aFV"/>
                                     <outlet property="delegate" destination="pLP-uP-Iay" id="5C2-fC-msS"/>
@@ -1255,17 +1260,21 @@
                             </collectionView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.090196078430000007" green="0.29411764709999999" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.090196078430000007" green="0.29411764709999999" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="G42-GJ-PIo" firstAttribute="top" secondItem="PDT-9L-QeJ" secondAttribute="topMargin" constant="-20" id="1a1-EQ-n4Z"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="leading" secondItem="G42-GJ-PIo" secondAttribute="leading" id="24T-wc-7Jd"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="top" secondItem="G42-GJ-PIo" secondAttribute="top" id="4uj-pJ-IGx"/>
                             <constraint firstItem="G42-GJ-PIo" firstAttribute="width" secondItem="PDT-9L-QeJ" secondAttribute="width" id="7qo-rU-zWi"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="top" secondItem="PDT-9L-QeJ" secondAttribute="top" id="Ace-Gg-fgJ"/>
+                            <constraint firstItem="0Vy-Gv-ghI" firstAttribute="top" secondItem="G42-GJ-PIo" secondAttribute="bottom" id="GLU-Qd-yBP"/>
                             <constraint firstItem="G42-GJ-PIo" firstAttribute="top" secondItem="1mw-TO-9bS" secondAttribute="bottom" constant="-40" id="GQI-Lh-LC0"/>
                             <constraint firstItem="G42-GJ-PIo" firstAttribute="leading" secondItem="PDT-9L-QeJ" secondAttribute="leading" id="Jdz-Cy-4g7"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="height" secondItem="PDT-9L-QeJ" secondAttribute="height" id="Jmr-NG-kSP"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="trailing" secondItem="G42-GJ-PIo" secondAttribute="trailing" id="Kkn-ta-jWn"/>
                             <constraint firstItem="G42-GJ-PIo" firstAttribute="height" secondItem="PDT-9L-QeJ" secondAttribute="height" id="TqS-iW-8T4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="G42-GJ-PIo" secondAttribute="trailing" constant="-20" id="YDG-Z7-MD5"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="trailing" secondItem="G42-GJ-PIo" secondAttribute="trailing" id="aDQ-wr-QiD"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="leading" secondItem="G42-GJ-PIo" secondAttribute="leading" id="ad0-q7-GBg"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="leading" secondItem="G42-GJ-PIo" secondAttribute="leading" id="bMX-K6-lWk"/>
@@ -1275,6 +1284,7 @@
                             </constraint>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="leading" secondItem="PDT-9L-QeJ" secondAttribute="leadingMargin" constant="-20" id="jMe-sb-5fb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9fU-i8-lK7" secondAttribute="trailing" constant="-20" id="tmv-E4-Dab"/>
+                            <constraint firstItem="G42-GJ-PIo" firstAttribute="leading" secondItem="PDT-9L-QeJ" secondAttribute="leadingMargin" constant="-20" id="uzr-af-MO4"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="width" secondItem="PDT-9L-QeJ" secondAttribute="width" id="wyI-AA-JZm"/>
                             <constraint firstItem="9fU-i8-lK7" firstAttribute="bottom" secondItem="0Vy-Gv-ghI" secondAttribute="top" id="z5r-mX-Z4w"/>
                         </constraints>
@@ -1295,9 +1305,13 @@
                                 <exclude reference="tmv-E4-Dab"/>
                                 <exclude reference="wyI-AA-JZm"/>
                                 <exclude reference="z5r-mX-Z4w"/>
+                                <exclude reference="1a1-EQ-n4Z"/>
                                 <exclude reference="GQI-Lh-LC0"/>
                                 <exclude reference="TqS-iW-8T4"/>
+                                <exclude reference="YDG-Z7-MD5"/>
                                 <exclude reference="inr-t8-Y8H"/>
+                                <exclude reference="uzr-af-MO4"/>
+                                <exclude reference="GLU-Qd-yBP"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1321,6 +1335,16 @@
                                 <exclude reference="TqS-iW-8T4"/>
                                 <include reference="inr-t8-Y8H"/>
                                 <exclude reference="iyz-Ay-O3Q"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="1a1-EQ-n4Z"/>
+                                <exclude reference="7qo-rU-zWi"/>
+                                <include reference="YDG-Z7-MD5"/>
+                                <exclude reference="iyz-Ay-O3Q"/>
+                                <include reference="uzr-af-MO4"/>
+                                <include reference="GLU-Qd-yBP"/>
                             </mask>
                         </variation>
                     </view>
@@ -1847,6 +1871,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                     <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1862,6 +1887,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Tomatensoep" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LYg-cJ-uK6">
                                                                         <rect key="frame" x="8" y="11" width="105" height="21"/>
                                                                         <animations/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
@@ -1869,6 +1895,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€ 0,50" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRf-OI-tqt">
                                                                         <rect key="frame" x="262" y="11" width="50" height="21"/>
                                                                         <animations/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="CG7-0c-9NS"/>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="bbo-OW-Izd"/>
@@ -1906,6 +1933,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Pav-YX-hLa" secondAttribute="trailing" id="5Jj-an-4Ra"/>
                                             <constraint firstItem="Pav-YX-hLa" firstAttribute="leading" secondItem="G7w-Gu-YVD" secondAttribute="leading" id="BRM-4p-4zg"/>
@@ -2024,6 +2052,6 @@
         <image name="urgent-logo.png" width="234" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4k1-4g-6AZ"/>
+        <segue reference="Bc8-oZ-mq0"/>
     </inferredMetricsTieBreakers>
 </document>
