@@ -65,6 +65,8 @@ class RestoMenuViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.days = calculateDays()
+        self.restoMenuHeader?.updateDays()
         //do not hide if in moreController
         if self.parentViewController != self.tabBarController?.moreNavigationController {
             if UIApplication.sharedApplication().statusBarStyle != .LightContent {
@@ -176,29 +178,12 @@ extension RestoMenuViewController: UIScrollViewDelegate {
         let pageWidth = Float(self.collectionView!.frame.size.width)
         let currentOffset = Float(scrollView.contentOffset.x)
         let targetOffset = Float(targetContentOffset.memory.x) + pageWidth/2
-        var newTargetOffset = Float(0)
-        let scrollViewWidth = Float(scrollView.contentSize.width)
-        
-        if targetOffset > currentOffset {
-            newTargetOffset = ceil(targetOffset / pageWidth) * pageWidth
-        } else {
-            newTargetOffset = floor(targetOffset / pageWidth) * pageWidth
-        }
-        
-        if newTargetOffset < 0 {
-            newTargetOffset = 0
-        } else if newTargetOffset > scrollViewWidth {
-            newTargetOffset = scrollViewWidth
-        }
-        
-        //Float(targetContentOffset.memory.x) == currentOffset
-        let index = max(min(Int(newTargetOffset/pageWidth)-1, (self.collectionView?.numberOfItemsInSection(0))!-1),0)
-        //self.restoMenuHeader?.selectedIndex(index)
+
+        let index = max(min(Int(round(targetOffset / pageWidth))-1, (self.collectionView?.numberOfItemsInSection(0))!-1),0)
         
         targetContentOffset.memory = CGPointMake(CGFloat(currentOffset), 0)
 
         self.scrollToIndex(index, animated: true)
-        print("CurrentIndex: \(currentIndex), Point: \(CGPointMake(CGFloat(newTargetOffset), 0)), currentOffset: \(currentOffset)")
     }
 }
 
