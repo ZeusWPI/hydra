@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MRx-bt-pUY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MRx-bt-pUY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -62,18 +62,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="751"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9fU-i8-lK7">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.090196078431372548" green="0.29411764705882354" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G42-GJ-PIo">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G42-GJ-PIo">
                                 <rect key="frame" x="0.0" y="151" width="600" height="600"/>
                                 <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="NO0-n6-baR"/>
-                                </constraints>
+                                <color key="backgroundColor" red="0.090196078430000007" green="0.29411764709999999" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="zVi-8A-luJ">
                                     <size key="itemSize" width="600" height="130"/>
                                     <size key="headerReferenceSize" width="600" height="90"/>
@@ -1205,8 +1197,7 @@
                                                     <exclude reference="Y8E-OK-sAc"/>
                                                 </mask>
                                             </variation>
-                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="93" y="20" width="134" height="50"/>
+                                            <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
                                                     <include reference="Pkl-K2-Oui"/>
                                                     <include reference="Y8E-OK-sAc"/>
@@ -1243,11 +1234,6 @@
                                         </mask>
                                     </variation>
                                 </collectionReusableView>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="NO0-n6-baR"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="pLP-uP-Iay" id="79H-jP-aFV"/>
                                     <outlet property="delegate" destination="pLP-uP-Iay" id="5C2-fC-msS"/>
@@ -1255,72 +1241,26 @@
                             </collectionView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="leading" secondItem="G42-GJ-PIo" secondAttribute="leading" id="24T-wc-7Jd"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="top" secondItem="G42-GJ-PIo" secondAttribute="top" id="4uj-pJ-IGx"/>
-                            <constraint firstItem="G42-GJ-PIo" firstAttribute="width" secondItem="PDT-9L-QeJ" secondAttribute="width" id="7qo-rU-zWi"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="top" secondItem="PDT-9L-QeJ" secondAttribute="top" id="Ace-Gg-fgJ"/>
-                            <constraint firstItem="G42-GJ-PIo" firstAttribute="top" secondItem="1mw-TO-9bS" secondAttribute="bottom" constant="-40" id="GQI-Lh-LC0"/>
-                            <constraint firstItem="G42-GJ-PIo" firstAttribute="leading" secondItem="PDT-9L-QeJ" secondAttribute="leading" id="Jdz-Cy-4g7"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="height" secondItem="PDT-9L-QeJ" secondAttribute="height" id="Jmr-NG-kSP"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="trailing" secondItem="G42-GJ-PIo" secondAttribute="trailing" id="Kkn-ta-jWn"/>
-                            <constraint firstItem="G42-GJ-PIo" firstAttribute="height" secondItem="PDT-9L-QeJ" secondAttribute="height" id="TqS-iW-8T4"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="trailing" secondItem="G42-GJ-PIo" secondAttribute="trailing" id="aDQ-wr-QiD"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="leading" secondItem="G42-GJ-PIo" secondAttribute="leading" id="ad0-q7-GBg"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="leading" secondItem="G42-GJ-PIo" secondAttribute="leading" id="bMX-K6-lWk"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="G42-GJ-PIo" secondAttribute="bottom" constant="-24" id="inr-t8-Y8H"/>
-                            <constraint firstItem="G42-GJ-PIo" firstAttribute="bottom" secondItem="0Vy-Gv-ghI" secondAttribute="top" id="iyz-Ay-O3Q">
-                                <variation key="heightClass=regular" constant="-200"/>
+                            <constraint firstAttribute="trailing" secondItem="G42-GJ-PIo" secondAttribute="trailing" constant="-20" id="FrY-mp-ZSb">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                             </constraint>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="leading" secondItem="PDT-9L-QeJ" secondAttribute="leadingMargin" constant="-20" id="jMe-sb-5fb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9fU-i8-lK7" secondAttribute="trailing" constant="-20" id="tmv-E4-Dab"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="width" secondItem="PDT-9L-QeJ" secondAttribute="width" id="wyI-AA-JZm"/>
-                            <constraint firstItem="9fU-i8-lK7" firstAttribute="bottom" secondItem="0Vy-Gv-ghI" secondAttribute="top" id="z5r-mX-Z4w"/>
+                            <constraint firstItem="G42-GJ-PIo" firstAttribute="leading" secondItem="PDT-9L-QeJ" secondAttribute="leading" id="Jdz-Cy-4g7"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="G42-GJ-PIo" secondAttribute="bottom" constant="-24" id="inr-t8-Y8H">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="G42-GJ-PIo" firstAttribute="top" secondItem="PDT-9L-QeJ" secondAttribute="topMargin" constant="24" id="m73-jV-RWb">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-20"/>
+                            </constraint>
                         </constraints>
                         <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="9fU-i8-lK7"/>
-                            </mask>
                             <mask key="constraints">
-                                <exclude reference="24T-wc-7Jd"/>
-                                <exclude reference="4uj-pJ-IGx"/>
-                                <exclude reference="Ace-Gg-fgJ"/>
-                                <exclude reference="Jmr-NG-kSP"/>
-                                <exclude reference="Kkn-ta-jWn"/>
-                                <exclude reference="aDQ-wr-QiD"/>
-                                <exclude reference="ad0-q7-GBg"/>
-                                <exclude reference="bMX-K6-lWk"/>
-                                <exclude reference="jMe-sb-5fb"/>
-                                <exclude reference="tmv-E4-Dab"/>
-                                <exclude reference="wyI-AA-JZm"/>
-                                <exclude reference="z5r-mX-Z4w"/>
-                                <exclude reference="GQI-Lh-LC0"/>
-                                <exclude reference="TqS-iW-8T4"/>
-                                <exclude reference="inr-t8-Y8H"/>
+                                <exclude reference="m73-jV-RWb"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="9fU-i8-lK7"/>
-                            </mask>
                             <mask key="constraints">
-                                <exclude reference="24T-wc-7Jd"/>
-                                <exclude reference="4uj-pJ-IGx"/>
-                                <include reference="Ace-Gg-fgJ"/>
-                                <include reference="Jmr-NG-kSP"/>
-                                <exclude reference="Kkn-ta-jWn"/>
-                                <exclude reference="aDQ-wr-QiD"/>
-                                <include reference="ad0-q7-GBg"/>
-                                <exclude reference="bMX-K6-lWk"/>
-                                <exclude reference="jMe-sb-5fb"/>
-                                <exclude reference="tmv-E4-Dab"/>
-                                <include reference="wyI-AA-JZm"/>
-                                <include reference="z5r-mX-Z4w"/>
-                                <include reference="GQI-Lh-LC0"/>
-                                <exclude reference="TqS-iW-8T4"/>
-                                <include reference="inr-t8-Y8H"/>
-                                <exclude reference="iyz-Ay-O3Q"/>
+                                <include reference="m73-jV-RWb"/>
                             </mask>
                         </variation>
                     </view>
@@ -1781,11 +1721,11 @@
                                     <outlet property="mapView" destination="A93-vf-jsW" id="h6E-92-zQd"/>
                                 </connections>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Lg-qQ-xHf">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Lg-qQ-xHf">
                                 <rect key="frame" x="0.0" y="187" width="600" height="564"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="m01-YE-sWC">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="m01-YE-sWC">
                                     <size key="itemSize" width="320" height="300"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1837,7 +1777,7 @@
                                         </variation>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restoMenuOpenCell" id="G7w-Gu-YVD" customClass="RestoMenuCollectionCell" customModule="Hydra" customModuleProvider="target">
-                                        <rect key="frame" x="330" y="107" width="320" height="350"/>
+                                        <rect key="frame" x="320" y="107" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
