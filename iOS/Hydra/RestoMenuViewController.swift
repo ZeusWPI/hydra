@@ -45,6 +45,7 @@ class RestoMenuViewController: UIViewController {
         super.viewDidLoad()
         self.loadMenu()
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
+        
         // update days and reloadData
         self.restoMenuHeader?.updateDays()
         //self.collectionView?.reloadData() // Uncomment when bug is fixed
@@ -52,11 +53,11 @@ class RestoMenuViewController: UIViewController {
         
         // REMOVE ME IF THE BUG IS FIXED, THIS IS UGLY
         if #available(iOS 9, *) {
-            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer"), userInfo: nil, repeats: true)
+            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer:"), userInfo: nil, repeats: false)
         }
     }
     
-    func refreshDataTimer(){ // REMOVE ME WHEN THE BUG IS FIXED
+    func refreshDataTimer(timer: NSTimer){ // REMOVE ME WHEN THE BUG IS FIXED
         self.collectionView?.reloadData()
         self.scrollToIndex(self.currentIndex, animated: false)
     }
@@ -170,15 +171,34 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension RestoMenuViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        let center = self.collectionView!.contentOffset.x + self.view.frame.width/2
-        for cell in self.collectionView!.visibleCells() {
-            let indexPath = self.collectionView?.indexPathForCell(cell)
-            // Cell takes more than 50% of the screen
-            if cell.frame.origin.x < center && cell.frame.origin.x + cell.frame.width > center {
-                self.scrollToIndex(indexPath!.row)
-            }
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
+        let pageWidth = Float(self.collectionView!.frame.size.width)
+        let currentOffset = Float(scrollView.contentOffset.x)
+        let targetOffset = Float(targetContentOffset.memory.x) + pageWidth/2
+        var newTargetOffset = Float(0)
+        let scrollViewWidth = Float(scrollView.contentSize.width)
+        
+        if targetOffset > currentOffset {
+            newTargetOffset = ceil(targetOffset / pageWidth) * pageWidth
+        } else {
+            newTargetOffset = floor(targetOffset / pageWidth) * pageWidth
         }
+        
+        if newTargetOffset < 0 {
+            newTargetOffset = 0
+        } else if newTargetOffset > scrollViewWidth {
+            newTargetOffset = scrollViewWidth
+        }
+        
+        //Float(targetContentOffset.memory.x) == currentOffset
+        let index = max(min(Int(newTargetOffset/pageWidth)-1, (self.collectionView?.numberOfItemsInSection(0))!-1),0)
+        //self.restoMenuHeader?.selectedIndex(index)
+        
+        targetContentOffset.memory = CGPointMake(CGFloat(currentOffset), 0)
+
+        self.scrollToIndex(index, animated: true)
+        print("CurrentIndex: \(currentIndex), Point: \(CGPointMake(CGFloat(newTargetOffset), 0)), currentOffset: \(currentOffset)")
     }
 }
 
