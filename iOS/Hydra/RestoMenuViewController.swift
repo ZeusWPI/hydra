@@ -57,6 +57,10 @@ class RestoMenuViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: animated)
+    }
+    
     func refreshDataTimer(timer: NSTimer){ // REMOVE ME WHEN THE BUG IS FIXED
         self.collectionView?.reloadData()
         self.scrollToIndex(self.currentIndex, animated: false)
@@ -70,7 +74,7 @@ class RestoMenuViewController: UIViewController {
         //do not hide if in moreController
         if self.parentViewController != self.tabBarController?.moreNavigationController {
             if UIApplication.sharedApplication().statusBarStyle != .LightContent {
-                UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+                UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
             }
             self.navigationController?.navigationBarHidden = true
         }

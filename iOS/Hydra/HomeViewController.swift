@@ -37,16 +37,18 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBarHidden = true
-        if UIApplication.sharedApplication().statusBarStyle != .LightContent {
-            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
-        }
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.navigationController?.navigationBarHidden = false
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: animated)
     }
     
     func startRefresh() {
