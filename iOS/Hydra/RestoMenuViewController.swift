@@ -174,7 +174,11 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
 
 extension RestoMenuViewController: UIScrollViewDelegate {
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-
+        // Stop if velocity is 0
+        if velocity.x == 0{
+            return
+        }
+        
         let pageWidth = Float(self.collectionView!.frame.size.width)
         let currentOffset = Float(scrollView.contentOffset.x)
         let targetOffset = Float(targetContentOffset.memory.x) + pageWidth/2
