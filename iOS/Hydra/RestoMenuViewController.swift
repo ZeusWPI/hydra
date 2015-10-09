@@ -157,8 +157,9 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch indexPath.row {
         case 0: // info cell
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath)
-
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath) as! RestoMenuInfoCollectionViewCell
+            
+            cell.legend = self.legend
             return cell
         case 1...self.days.count:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoMenuOpenCell", forIndexPath: indexPath) as! RestoMenuCollectionCell
