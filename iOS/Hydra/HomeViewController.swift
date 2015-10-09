@@ -148,6 +148,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             let article = feedItem.object as! SchamperArticle
             if !article.read {
                 article.read = true
+                SchamperStore.sharedStore().syncStorage()
             }
             
             self.navigationController?.pushViewController(SchamperDetailViewController(article: article), animated: true)
