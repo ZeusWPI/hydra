@@ -26,7 +26,7 @@ class HydraTabBarController: UITabBarController, UITabBarControllerDelegate {
         schamperController.tabBarItem.configure(nil, image: "schamper", tag: 233)
         newsViewController.tabBarItem.configure(nil, image: "news", tag: 234)
         urgentController.tabBarItem.configure("Urgent.fm", image: "urgent", tag: 235)
-        prefsController.tabBarItem.configure("Instellingen", image: "settings", tag: 236)
+        prefsController.tabBarItem.configure("Voorkeuren", image: "settings", tag: 236)
 
         var viewControllers = self.viewControllers!
         viewControllers.appendContentsOf([infoController, activityController, newsViewController, schamperController, urgentController, prefsController])
