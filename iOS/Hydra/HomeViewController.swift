@@ -19,13 +19,13 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.refreshControl.addTarget(self, action: "startRefresh", forControlEvents: .ValueChanged)
-        self.feedCollectionView.addSubview(refreshControl)
-        self.feedCollectionView.alwaysBounceVertical = true
+        refreshControl.tintColor = .whiteColor()
+        refreshControl.addTarget(self, action: "startRefresh", forControlEvents: .ValueChanged)
+        feedCollectionView.addSubview(refreshControl)
         
         // REMOVE ME IF THE BUG IS FIXED, THIS IS FUCKING UGLY
         if #available(iOS 9, *) {
-            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer"), userInfo: nil, repeats: true)
+            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer"), userInfo: nil, repeats: false)
         }
     }
     
@@ -37,16 +37,18 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBarHidden = true
-        if UIApplication.sharedApplication().statusBarStyle != .LightContent {
-            UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
-        }
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.navigationController?.navigationBarHidden = false
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: animated)
     }
     
     func startRefresh() {
@@ -146,6 +148,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             let article = feedItem.object as! SchamperArticle
             if !article.read {
                 article.read = true
+                SchamperStore.sharedStore().syncStorage()
             }
             
             self.navigationController?.pushViewController(SchamperDetailViewController(article: article), animated: true)

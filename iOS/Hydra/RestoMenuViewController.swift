@@ -45,6 +45,7 @@ class RestoMenuViewController: UIViewController {
         super.viewDidLoad()
         self.loadMenu()
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
+        
         // update days and reloadData
         self.restoMenuHeader?.updateDays()
         //self.collectionView?.reloadData() // Uncomment when bug is fixed
@@ -52,11 +53,15 @@ class RestoMenuViewController: UIViewController {
         
         // REMOVE ME IF THE BUG IS FIXED, THIS IS UGLY
         if #available(iOS 9, *) {
-            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer"), userInfo: nil, repeats: true)
+            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer:"), userInfo: nil, repeats: false)
         }
     }
     
-    func refreshDataTimer(){ // REMOVE ME WHEN THE BUG IS FIXED
+    override func viewDidAppear(animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: animated)
+    }
+    
+    func refreshDataTimer(timer: NSTimer){ // REMOVE ME WHEN THE BUG IS FIXED
         self.collectionView?.reloadData()
         self.scrollToIndex(self.currentIndex, animated: false)
     }
@@ -64,10 +69,12 @@ class RestoMenuViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.days = calculateDays()
+        self.restoMenuHeader?.updateDays()
         //do not hide if in moreController
         if self.parentViewController != self.tabBarController?.moreNavigationController {
             if UIApplication.sharedApplication().statusBarStyle != .LightContent {
-                UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+                UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
             }
             self.navigationController?.navigationBarHidden = true
         }
@@ -150,8 +157,9 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
 
         switch indexPath.row {
         case 0: // info cell
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath)
-
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath) as! RestoMenuInfoCollectionViewCell
+            
+            cell.legend = self.legend
             return cell
         case 1...self.days.count:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoMenuOpenCell", forIndexPath: indexPath) as! RestoMenuCollectionCell
@@ -170,15 +178,21 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension RestoMenuViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        let center = self.collectionView!.contentOffset.x + self.view.frame.width/2
-        for cell in self.collectionView!.visibleCells() {
-            let indexPath = self.collectionView?.indexPathForCell(cell)
-            // Cell takes more than 50% of the screen
-            if cell.frame.origin.x < center && cell.frame.origin.x + cell.frame.width > center {
-                self.scrollToIndex(indexPath!.row)
-            }
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        // Stop if velocity is 0
+        if velocity.x == 0{
+            return
         }
+        
+        let pageWidth = Float(self.collectionView!.frame.size.width)
+        let currentOffset = Float(scrollView.contentOffset.x)
+        let targetOffset = Float(targetContentOffset.memory.x) + pageWidth/2
+
+        let index = max(min(Int(round(targetOffset / pageWidth))-1, (self.collectionView?.numberOfItemsInSection(0))!-1),0)
+        
+        targetContentOffset.memory = CGPointMake(CGFloat(currentOffset), 0)
+
+        self.scrollToIndex(index, animated: true)
     }
 }
 

@@ -82,6 +82,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (self.parentViewController != self.tabBarController.moreNavigationController) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
     GAI_Track(@"Urgent");
 }
 
@@ -94,6 +97,11 @@
     [self showUpdated:nil];
 
     [MarqueeLabel controllerViewAppearing:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 #pragma mark - Buttons

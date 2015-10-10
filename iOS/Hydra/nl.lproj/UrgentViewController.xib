@@ -215,6 +215,7 @@
                 <constraint firstItem="23" firstAttribute="top" secondItem="1" secondAttribute="top" constant="30" id="uVZ-06-nSC"/>
                 <constraint firstItem="35" firstAttribute="leading" secondItem="34" secondAttribute="trailing" constant="15" id="ztp-aa-oKZ"/>
             </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="323" y="302"/>
