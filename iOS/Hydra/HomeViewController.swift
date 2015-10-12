@@ -24,9 +24,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         feedCollectionView.addSubview(refreshControl)
         
         // REMOVE ME IF THE BUG IS FIXED, THIS IS FUCKING UGLY
-        if #available(iOS 9, *) {
-            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer"), userInfo: nil, repeats: false)
-        }
+        NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer"), userInfo: nil, repeats: false)
     }
     
     func refreshDataTimer(){ // REMOVE ME WHEN THE BUG IS FIXED
