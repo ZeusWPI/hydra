@@ -62,7 +62,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G42-GJ-PIo">
-                                <rect key="frame" x="0.0" y="64" width="600" height="687"/>
+                                <rect key="frame" x="0.0" y="24" width="600" height="727"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.090196078430000007" green="0.29411764709999999" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="zVi-8A-luJ">
@@ -523,6 +523,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="urgent-bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="2r8-5W-z3D">
+                                                    <rect key="frame" x="0.0" y="-27" width="600" height="149"/>
+                                                    <animations/>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="urgent-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="HxT-l4-O0j">
                                                     <rect key="frame" x="23" y="26" width="138" height="77"/>
                                                     <animations/>
@@ -545,10 +549,6 @@
                                                         <action selector="playButtonTapped:" destination="3dE-BS-2TA" eventType="touchUpInside" id="dx7-KB-V5Z"/>
                                                     </connections>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="urgent-bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="2r8-5W-z3D">
-                                                    <rect key="frame" x="0.0" y="-27" width="600" height="149"/>
-                                                    <animations/>
-                                                </imageView>
                                             </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -609,10 +609,11 @@
                             </collectionView>
                         </subviews>
                         <animations/>
+                        <color key="backgroundColor" red="0.090196078430000007" green="0.29411764709999999" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="G42-GJ-PIo" secondAttribute="trailing" id="FrY-mp-ZSb"/>
                             <constraint firstItem="G42-GJ-PIo" firstAttribute="leading" secondItem="PDT-9L-QeJ" secondAttribute="leading" id="Jdz-Cy-4g7"/>
-                            <constraint firstItem="G42-GJ-PIo" firstAttribute="top" secondItem="1mw-TO-9bS" secondAttribute="bottom" id="fEF-cW-eia"/>
+                            <constraint firstItem="G42-GJ-PIo" firstAttribute="top" secondItem="1mw-TO-9bS" secondAttribute="bottom" constant="-40" id="LxZ-Xc-zqO"/>
                             <constraint firstAttribute="bottomMargin" secondItem="G42-GJ-PIo" secondAttribute="bottom" id="inr-t8-Y8H"/>
                         </constraints>
                     </view>
