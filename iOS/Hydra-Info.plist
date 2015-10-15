@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.0.7</string>
+	<string>2.0.9</string>
 	<key>FacebookAppID</key>
 	<string>146947948791011</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -64,14 +64,22 @@
 		<string>audio</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>DashboardViewController</string>
+	<string>MainStoryboard</string>
 	<key>UIPrerenderedIcon</key>
+	<true/>
+	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>UIStatusBarHidden</key>
 	<false/>
+	<key>UIStatusBarHidden~ipad</key>
+	<true/>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleBlackOpaque</string>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
