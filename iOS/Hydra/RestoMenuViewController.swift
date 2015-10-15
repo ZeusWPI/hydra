@@ -52,9 +52,7 @@ class RestoMenuViewController: UIViewController {
         //self.scrollToIndex(self.currentIndex, animated: false)
         
         // REMOVE ME IF THE BUG IS FIXED, THIS IS UGLY
-        if #available(iOS 9, *) {
-            NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer:"), userInfo: nil, repeats: false)
-        }
+        NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("refreshDataTimer:"), userInfo: nil, repeats: false)
     }
     
     override func viewDidAppear(animated: Bool) {
