@@ -83,6 +83,8 @@ def get_day_menu(which, url):
     daymenu = pq(url=url)
     vegetables = []
     meats = []
+    fishes = []
+    vegetarians = []
     soups = []
 
     if CLOSED[which] in daymenu(CLOSED_SELECTOR).html():
@@ -93,14 +95,20 @@ def get_day_menu(which, url):
         if '€' in meal:
             price = meal.split('-')[-1].strip()
             name = '-'.join(meal.split('-')[:-1]).strip()
-            if ':' in meal:  # Meat
+            if ':' in meal:  # Meat, Fish, Vegetarian
                 kind, name = [s.strip() for s in name.split(':')]
-                meats.append(dict(price=price, name=name, kind=kind))
+                kindLower = kind.lower()
+                if kindLower == 'vis':
+                    fishes.append(dict(price=price, name=name))
+                elif kindLower == 'vegetarisch':
+                    vegetarians.append(dict(price=price, name=name))
+                elif kindLower == 'vlees':
+                    meats.append(dict(price=price, name=name))
             else:  # Soup
                 soups.append(dict(price=price, name=name))
         else:
             vegetables.append(meal)
-    r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats)
+    r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats, fish=fishes, vegetarian=vegetarians)
     return r
 
 
@@ -180,18 +188,11 @@ def write_1_0(menus):
                 daymenu1_0 = {
                     "open": True,
                     "soup": daymenu["soup"][0],
-                    "meat": [daymenu["soup"][1]],
+                    "meat": daymenu["meat"],
+                    "fish": daymenu["fish"],
+                    "vegetarian": daymenu["vegetarian"],
                     "vegetables": daymenu["vegetables"]
                 }
-                daymenu1_0["meat"][0]["recommended"] = False
-                for meat in daymenu["meat"]:
-                    name = meat["name"]
-                    price = meat["price"]
-                    if "Vegetarisch" in meat["kind"]:
-                        name = "Veg. " + name
-                    daymenu1_0["meat"].append(
-                        dict(name=name, price=price, recommended=False)
-                    )
             menu[str(day)] = daymenu1_0
         json.dump(menu, open(OUTFILE.format(year, week), 'w'), sort_keys=True)
 
