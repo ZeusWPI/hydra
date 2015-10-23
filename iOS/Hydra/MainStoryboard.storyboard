@@ -390,7 +390,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-zeus.png" translatesAutoresizingMaskIntoConstraints="NO" id="fmX-nH-H83">
-                                                    <rect key="frame" x="8" y="8" width="59" height="59"/>
+                                                    <rect key="frame" x="18" y="10" width="59" height="59"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="59" id="j4v-d3-8U9"/>
@@ -398,7 +398,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Codenight V" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqV-OK-YNc">
-                                                    <rect key="frame" x="78" y="18" width="514" height="21"/>
+                                                    <rect key="frame" x="88" y="18" width="504" height="21"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="zh5-OB-rFv"/>
@@ -408,7 +408,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Zeus WPI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNv-YN-uFD">
-                                                    <rect key="frame" x="78" y="39" width="120" height="23"/>
+                                                    <rect key="frame" x="88" y="39" width="120" height="23"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="7FF-MR-vFl"/>
@@ -420,7 +420,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="di 7 juli 15:00 - 22:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZl-M1-AsH">
-                                                    <rect key="frame" x="208" y="39" width="384" height="23"/>
+                                                    <rect key="frame" x="218" y="39" width="374" height="23"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="BH9-2J-T9Q"/>
@@ -429,12 +429,13 @@
                                                     <color key="textColor" red="0.63566417289999999" green="0.65302788590000005" blue="0.74753290409999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Degenen die de hittegolf overleefd hebben, zijn komende dinsdag welkom om te vertoeven in de kelder voor Codenight II 2015!" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdg-vx-0W8">
-                                                    <rect key="frame" x="18" y="68" width="564" height="60"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdg-vx-0W8">
+                                                    <rect key="frame" x="18" y="70" width="564" height="60"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="1I0-mS-be0"/>
                                                     </constraints>
+                                                    <string key="text">Degenen die de hittegolf overleefd hebben, zijn komende dinsdag welkom om te vertoeven in de kelder voor Codenight II 2015! Degenen die de hittegolf overleefd hebben, zijn komende dinsdag welkom om te vertoeven in de kelder voor Codenight II 2015! </string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -483,7 +484,7 @@
                                             <constraint firstItem="SqV-OK-YNc" firstAttribute="top" secondItem="YWV-Yk-dGH" secondAttribute="topMargin" constant="10" id="RPY-5a-Cm8"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="xcb-od-fdL" secondAttribute="trailing" constant="-8" id="WPk-hI-aWB"/>
                                             <constraint firstItem="moe-Hy-JDX" firstAttribute="top" secondItem="YWV-Yk-dGH" secondAttribute="topMargin" constant="-8" id="YVs-sv-ggi"/>
-                                            <constraint firstItem="fmX-nH-H83" firstAttribute="top" secondItem="YWV-Yk-dGH" secondAttribute="topMargin" id="ahR-Ww-EiB"/>
+                                            <constraint firstItem="fmX-nH-H83" firstAttribute="top" secondItem="YWV-Yk-dGH" secondAttribute="topMargin" constant="2" id="ahR-Ww-EiB"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="xxB-dP-Dxu" secondAttribute="trailing" constant="10" id="anS-iD-Lig"/>
                                             <constraint firstItem="OZl-M1-AsH" firstAttribute="leading" secondItem="lNv-YN-uFD" secondAttribute="trailing" constant="10" id="cvx-Df-xxo"/>
                                             <constraint firstItem="lNv-YN-uFD" firstAttribute="leading" secondItem="SqV-OK-YNc" secondAttribute="leading" id="jCJ-UY-n7F"/>
@@ -492,7 +493,7 @@
                                             <constraint firstAttribute="bottomMargin" secondItem="xxB-dP-Dxu" secondAttribute="bottom" constant="13" id="nU4-Uf-OFA"/>
                                             <constraint firstItem="OZl-M1-AsH" firstAttribute="trailing" secondItem="YWV-Yk-dGH" secondAttribute="trailingMargin" id="nXD-qi-59q"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="moe-Hy-JDX" secondAttribute="trailing" constant="-8" id="pRU-Mw-DX5"/>
-                                            <constraint firstItem="fmX-nH-H83" firstAttribute="leading" secondItem="YWV-Yk-dGH" secondAttribute="leadingMargin" id="qnk-uO-yJ0"/>
+                                            <constraint firstItem="fmX-nH-H83" firstAttribute="leading" secondItem="YWV-Yk-dGH" secondAttribute="leadingMargin" constant="10" id="qnk-uO-yJ0"/>
                                             <constraint firstItem="xxB-dP-Dxu" firstAttribute="leading" secondItem="YWV-Yk-dGH" secondAttribute="leadingMargin" constant="38" id="qzD-Cv-dYE"/>
                                             <constraint firstItem="xcb-od-fdL" firstAttribute="top" secondItem="YWV-Yk-dGH" secondAttribute="topMargin" constant="-8" id="tqe-TS-fnU"/>
                                             <constraint firstItem="2IO-QT-txz" firstAttribute="leading" secondItem="YWV-Yk-dGH" secondAttribute="leadingMargin" constant="10" id="uAn-v9-My6"/>
