@@ -22,7 +22,7 @@ class RestoMenuCollectionCell: UICollectionViewCell, UITableViewDataSource, UITa
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3; //TODO: add maaltijdsoep
+        return 4; //TODO: add maaltijdsoep
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,6 +35,8 @@ class RestoMenuCollectionCell: UICollectionViewCell, UITableViewDataSource, UITa
                 return (restoMenu?.meat.count)!
             case .Vegetable:
                 return (restoMenu?.vegetables.count)!
+            default:
+                return 0
             }
 
         }
@@ -54,16 +56,23 @@ class RestoMenuCollectionCell: UICollectionViewCell, UITableViewDataSource, UITa
             cell!.menuItem = restoMenu?.meat[indexPath.row] as? RestoMenuItem
         case .Vegetable:
             cell!.vegetable = restoMenu?.vegetables[indexPath.row] as? String
+        default: break
         }
         
         return cell!
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+    // Using footers of the previous section instead of headers so they scroll
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        // Zero height for last section footer
+        return section < 3 ? 40 : 0
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView?{
+        // Return nil if last footer
+        if section == 3 {
+            return nil
+        }
         let frame = CGRectMake(0, 0, self.bounds.width, 40)
         let header = UIView(frame: frame)
         
@@ -77,7 +86,7 @@ class RestoMenuCollectionCell: UICollectionViewCell, UITableViewDataSource, UITa
         }
         label.baselineAdjustment = .AlignCenters
         label.textColor = UIColor.whiteColor()
-        let restoMenuSection = RestoMenuSection(rawValue: section)
+        let restoMenuSection = RestoMenuSection(rawValue: section+1)
         switch restoMenuSection! {
         case .Soup:
             label.text = "SOEP"
@@ -85,6 +94,8 @@ class RestoMenuCollectionCell: UICollectionViewCell, UITableViewDataSource, UITa
             label.text = "VLEES & VEGGIE"
         case .Vegetable:
             label.text = "GROENTEN"
+        default:
+            return header
         }
         
         header.addSubview(label)
@@ -117,5 +128,5 @@ class RestoMenuItemTableViewCell: UITableViewCell {
 }
 
 enum RestoMenuSection: Int {
-    case Soup = 0, Meat = 2, Vegetable = 1
+    case Soup = 1, Meat = 3, Vegetable = 2, Empty = 0
 }
