@@ -208,7 +208,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="17" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="idm-Oh-InY">
-                                                            <rect key="frame" x="8" y="69" width="584" height="53"/>
+                                                            <rect key="frame" x="0.0" y="60" width="600" height="62"/>
                                                             <animations/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -216,10 +216,10 @@
                                                             <color key="sectionIndexBackgroundColor" red="1" green="0.0" blue="0.050213125070000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             <prototypes>
                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="restoMenuTableViewCell" rowHeight="17" id="146-rA-630" customClass="HomeRestoMenuItemTableViewCell" customModule="Hydra" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="22" width="584" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="22" width="600" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="146-rA-630" id="RVo-86-3GN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="584" height="17"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hny-tK-E8u">
@@ -230,7 +230,7 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77T-Rq-ecV">
-                                                                                <rect key="frame" x="541" y="1" width="33" height="16"/>
+                                                                                <rect key="frame" x="557" y="1" width="33" height="16"/>
                                                                                 <animations/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -282,7 +282,7 @@
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="idm-Oh-InY" firstAttribute="leading" secondItem="b6Y-V9-Kvu" secondAttribute="leading" constant="8" id="0go-MO-ZDN"/>
+                                                        <constraint firstItem="idm-Oh-InY" firstAttribute="leading" secondItem="b6Y-V9-Kvu" secondAttribute="leading" id="0go-MO-ZDN"/>
                                                         <constraint firstItem="mzv-83-JyM" firstAttribute="leading" secondItem="b6Y-V9-Kvu" secondAttribute="leading" id="1Vv-aW-6gj"/>
                                                         <constraint firstItem="iWs-cx-6kf" firstAttribute="top" secondItem="FTC-2g-92l" secondAttribute="bottom" constant="1" id="8dU-Yq-tYc"/>
                                                         <constraint firstItem="dKL-EY-ZSU" firstAttribute="centerX" secondItem="b6Y-V9-Kvu" secondAttribute="centerX" id="8dp-KY-KJr"/>
@@ -294,9 +294,9 @@
                                                         <constraint firstItem="FTC-2g-92l" firstAttribute="top" secondItem="b6Y-V9-Kvu" secondAttribute="top" constant="15" id="LGh-no-59f"/>
                                                         <constraint firstItem="FTC-2g-92l" firstAttribute="leading" secondItem="b6Y-V9-Kvu" secondAttribute="leading" constant="8" id="M1e-lw-Kkx"/>
                                                         <constraint firstItem="iWs-cx-6kf" firstAttribute="leading" secondItem="b6Y-V9-Kvu" secondAttribute="leading" constant="8" id="WHU-1z-9aQ"/>
-                                                        <constraint firstItem="idm-Oh-InY" firstAttribute="top" secondItem="iWs-cx-6kf" secondAttribute="bottom" constant="17" id="ZI7-rH-kmq"/>
+                                                        <constraint firstItem="idm-Oh-InY" firstAttribute="top" secondItem="iWs-cx-6kf" secondAttribute="bottom" constant="8" id="ZI7-rH-kmq"/>
                                                         <constraint firstItem="dKL-EY-ZSU" firstAttribute="centerY" secondItem="b6Y-V9-Kvu" secondAttribute="centerY" id="gGB-vj-6Ot"/>
-                                                        <constraint firstAttribute="trailing" secondItem="idm-Oh-InY" secondAttribute="trailing" constant="8" id="vGN-bH-W7Y"/>
+                                                        <constraint firstAttribute="trailing" secondItem="idm-Oh-InY" secondAttribute="trailing" id="vGN-bH-W7Y"/>
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
