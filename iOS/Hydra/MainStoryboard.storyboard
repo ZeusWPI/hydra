@@ -489,6 +489,7 @@
                                             <constraint firstItem="lNv-YN-uFD" firstAttribute="leading" secondItem="SqV-OK-YNc" secondAttribute="leading" id="jCJ-UY-n7F"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="2IO-QT-txz" secondAttribute="trailing" constant="10" id="mCF-Cp-gj2"/>
                                             <constraint firstItem="lNv-YN-uFD" firstAttribute="top" secondItem="SqV-OK-YNc" secondAttribute="bottom" id="mkf-Nk-g4g"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="xxB-dP-Dxu" secondAttribute="bottom" constant="13" id="nU4-Uf-OFA"/>
                                             <constraint firstItem="OZl-M1-AsH" firstAttribute="trailing" secondItem="YWV-Yk-dGH" secondAttribute="trailingMargin" id="nXD-qi-59q"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="moe-Hy-JDX" secondAttribute="trailing" constant="-8" id="pRU-Mw-DX5"/>
                                             <constraint firstItem="fmX-nH-H83" firstAttribute="leading" secondItem="YWV-Yk-dGH" secondAttribute="leadingMargin" id="qnk-uO-yJ0"/>
@@ -496,10 +497,17 @@
                                             <constraint firstItem="xcb-od-fdL" firstAttribute="top" secondItem="YWV-Yk-dGH" secondAttribute="topMargin" constant="-8" id="tqe-TS-fnU"/>
                                             <constraint firstItem="2IO-QT-txz" firstAttribute="leading" secondItem="YWV-Yk-dGH" secondAttribute="leadingMargin" constant="10" id="uAn-v9-My6"/>
                                             <constraint firstItem="xcb-od-fdL" firstAttribute="leading" secondItem="YWV-Yk-dGH" secondAttribute="leadingMargin" constant="-8" id="uCC-Bh-etU"/>
+                                            <constraint firstItem="xxB-dP-Dxu" firstAttribute="top" secondItem="2IO-QT-txz" secondAttribute="bottom" constant="8" id="vdS-2E-GrG"/>
                                             <constraint firstItem="Bdg-vx-0W8" firstAttribute="top" secondItem="fmX-nH-H83" secondAttribute="bottom" constant="1" id="xLg-g4-4W5"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Bdg-vx-0W8" secondAttribute="trailing" constant="10" id="yMu-hT-RVR"/>
                                         </constraints>
                                         <size key="customSize" width="600" height="180"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="E6g-5Y-GHM"/>
+                                                <exclude reference="8d7-A9-S72"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="associationLabel" destination="lNv-YN-uFD" id="u2L-RW-82M"/>
                                             <outlet property="dateLabel" destination="OZl-M1-AsH" id="RS9-Pz-EiN"/>

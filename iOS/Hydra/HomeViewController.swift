@@ -114,7 +114,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         case .ActivityItem:
             let activity = feedItem.object as? AssociationActivity
             //TODO: guess height of cell
-            return CGSizeMake(self.view.frame.size.width, 180)
+            let activity_height = activity!.descriptionText.isEmpty ? 60 : 0
+        
+            return CGSizeMake(self.view.frame.size.width, CGFloat(180 - activity_height))
         case .SettingsItem:
             return CGSizeMake(self.view.frame.size.width, 80)
         case .NewsItem:
