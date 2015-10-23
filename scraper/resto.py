@@ -72,7 +72,7 @@ def get_days(which, iso_week, url):
     return r
 
 
-def get_day_menu_1_0(which, url):
+def get_day_menu(which, url):
     "Parses the daymenu from the given url."
     # Assumptions:
     # - The #content-core contains only <li> items belonging to the menu.
@@ -83,42 +83,7 @@ def get_day_menu_1_0(which, url):
     #       and \2 is the price.
     daymenu = pq(url=url)
     vegetables = []
-    meats = []
-    soups = []
-
-    if CLOSED[which] in daymenu(CLOSED_SELECTOR).html():
-        return dict(open=False)
-
-    for meal in daymenu(MEAL_SELECTOR):
-        meal = pq(meal).html()
-        if '€' in meal:
-            price = meal.split('-')[-1].strip()
-            name = '-'.join(meal.split('-')[:-1]).strip()
-            if ':' in meal:  # Meat
-                kind, name = [s.strip() for s in name.split(':')]
-                meats.append(dict(price=price, name=name, kind=kind))
-            else:  # Soup
-                soups.append(dict(price=price, name=name))
-        else:
-            vegetables.append(meal)
-    r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats)
-    return r
-
-
-def get_day_menu_1_1(which, url):
-    "Parses the daymenu from the given url."
-    # Assumptions:
-    # - The #content-core contains only <li> items belonging to the menu.
-    # - Menu items without a price are vegetables.
-    # - First item is the soup.
-    # - Second item is the meal soup. (unused in old JSON)
-    # - Priced items are of the form "\(.*\)-\([^-]*\)" where \1 is the name
-    #       and \2 is the price.
-    daymenu = pq(url=url)
-    vegetables = []
-    meats = []
-    fishes = []
-    vegetarians = []
+    meals = []
     soups = []
 
     if CLOSED[which] in daymenu(CLOSED_SELECTOR).html():
@@ -132,17 +97,12 @@ def get_day_menu_1_1(which, url):
             if ':' in meal:  # Meat, Fish, Vegetarian
                 kind, name = [s.strip() for s in name.split(':')]
                 kindLower = kind.lower()
-                if kindLower == 'vis':
-                    fishes.append(dict(price=price, name=name))
-                elif kindLower == 'vegetarisch':
-                    vegetarians.append(dict(price=price, name=name))
-                elif kindLower == 'vlees':
-                    meats.append(dict(price=price, name=name))
+                meals.append(dict(price=price, name=name, kind=kindLower))
             else:  # Soup
                 soups.append(dict(price=price, name=name))
         else:
             vegetables.append(meal)
-    r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats, fish=fishes, vegetarian=vegetarians)
+    r = dict(open=True, vegetables=vegetables, soup=soups, meals=meals)
     return r
 
 
@@ -221,12 +181,11 @@ def write_1_0(menus):
             else:
                 daymenu1_0 = {
                     "open": True,
-                    "soup": daymenu["soup"][0],
-                    "meat": [daymenu["soup"][1]],
+                    "soup": daymenu["soup"],
+                    "meat": [],
                     "vegetables": daymenu["vegetables"]
                 }
-                daymenu1_0["meat"][0]["recommended"] = False
-                for meat in daymenu["meat"]:
+                for meat in daymenu["meals"]:
                     name = meat["name"]
                     price = meat["price"]
                     if "Vegetarisch" in meat["kind"]:
@@ -249,12 +208,24 @@ def write_1_1(menus):
             if not daymenu["open"]:
                 daymenu1_1 = {"open": False}
             else:
+                meats = []
+                fishes = []
+                vegetarians = []
+                for meal in daymenu["meals"]:
+                    if meal["kind"] == 'vlees':
+                        meats.append(dict(price=meal["price"], name=meal["name"]))
+                    elif meal["kind"] == 'vis':
+                        fishes.append(dict(price=meal["price"], name=meal["name"]))
+                    else:
+                        vegetarians.append(dict(price=meal["price"], name=meal["name"]))
+
+
                 daymenu1_1 = {
                     "open": True,
-                    "soup": daymenu["soup"][0],
-                    "meat": daymenu["meat"],
-                    "fish": daymenu["fish"],
-                    "vegetarian": daymenu["vegetarian"],
+                    "soup": daymenu["soup"],
+                    "meat": meats,
+                    "fish": fishes,
+                    "vegetarian": vegetarians,
                     "vegetables": daymenu["vegetables"]
                 }
             menu[str(day)] = daymenu1_1
@@ -265,12 +236,10 @@ def main():
     "The main method."
 
     all_problems = {}
-    menus1_0 = {}
-    menus1_1 = {}
+    menus = {}
     for which in TYPES:
         problems = []
-        menus1_0[which] = {}
-        menus1_1[which] = {}
+        menus[which] = {}
 
         weeks = {}
         try:
@@ -297,24 +266,20 @@ def main():
                 problem = "Failed to parse days from {}.".format(week_url)
                 problems.append(problem)
 
-            week_dict_1_0 = {}
-            week_dict_1_1 = {}
+            week_dict = {}
             for day, day_url in days.items():
                 if day_url is None:
                     continue  # Skip unavailable days.
 
                 try:
-                    menu1_0 = get_day_menu_1_0(which, day_url)
-                    menu1_1 = get_day_menu_1_1(which, day_url)
-                    week_dict_1_0[day] = menu1_0
-                    week_dict_1_1[day] = menu1_1
+                    menu = get_day_menu(which, day_url)
+                    week_dict[day] = menu
                 except Exception as e:
                     problems.append("Failed parsing daymenu from {}.".format(
                         day_url))
                     print(e)
 
-            menus1_0[which][(year, week)] = week_dict_1_0
-            menus1_1[which][(year, week)] = week_dict_1_1
+            menus[which][(year, week)] = week_dict
 
         if problems:
             all_problems[which] = problems
@@ -323,8 +288,8 @@ def main():
     if all_problems:
         pprint(all_problems, stream=sys.stderr)
 
-    write_1_0(menus1_0)
-    write_1_1(menus1_1)
+    write_1_0(menus)
+    write_1_1(menus)
 
 
 if __name__ == '__main__':
