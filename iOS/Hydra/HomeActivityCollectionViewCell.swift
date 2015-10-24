@@ -14,6 +14,7 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     
     var activity: AssociationActivity? {
         didSet {
@@ -48,6 +49,10 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
                 }
             } else {
                 locationLabel.text = activity?.location
+            }
+            
+            if let url = activity?.facebookEvent.smallImageUrl {
+                imageView.sd_setImageWithURL(url, placeholderImage: imageView.image)
             }
         }
     }

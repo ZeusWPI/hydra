@@ -17,6 +17,7 @@
 #import "RestoLegendItem.h"
 #import "RestoMenu.h"
 #import "SchamperArticle.h"
+#import "FacebookEvent.h"
 
 // Controllers
 #import "NewsViewController.h"
@@ -35,3 +36,7 @@
 // Third party classes
 #import "NSDate+Utilities.h"
 #import "SORelativeDateTransformer.h"
+
+
+// Remove from bridiging header when removing iOS 7 support, so we can use the iOS >= 8 frameworks in Cocoapods
+#import "UIImageView+WebCache.h"

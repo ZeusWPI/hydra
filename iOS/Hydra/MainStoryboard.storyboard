@@ -515,6 +515,7 @@
                                             <outlet property="associationLabel" destination="lNv-YN-uFD" id="u2L-RW-82M"/>
                                             <outlet property="dateLabel" destination="OZl-M1-AsH" id="RS9-Pz-EiN"/>
                                             <outlet property="descriptionLabel" destination="Bdg-vx-0W8" id="Ghg-aE-Pat"/>
+                                            <outlet property="imageView" destination="fmX-nH-H83" id="gBO-AQ-idu"/>
                                             <outlet property="locationLabel" destination="xxB-dP-Dxu" id="coz-B3-ffa"/>
                                             <outlet property="titleLabel" destination="SqV-OK-YNc" id="eBQ-ht-aeJ"/>
                                         </connections>
