@@ -35,9 +35,7 @@
 {
     [super viewDidLoad];
 
-    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     // Set tracked name
     self.trackedViewName = [@"Schamper > " stringByAppendingString:self.article.title];
@@ -61,7 +59,7 @@
 
     UIScrollView *scrollView = self.webView.scrollView;
     scrollView.delegate = self;
-    CGFloat scrollOffset = IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 64 : 44;
+    CGFloat scrollOffset = 64;
     scrollView.contentInset = UIEdgeInsetsMake(scrollOffset, 0, 0, 0);
     scrollView.scrollIndicatorInsets = scrollView.contentInset;
 
@@ -158,13 +156,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     // This will cause a recursive call in this method
     [self.navigationController setNavigationBarHidden:hide animated:YES];
 
-    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        [[UIApplication sharedApplication] setStatusBarHidden:hide withAnimation:UIStatusBarAnimationSlide];
-        scrollView.contentInset = UIEdgeInsetsMake(hide ? 0 : 64, 0, 0, 0);
-    }
-    else {
-        scrollView.contentInset = UIEdgeInsetsMake(hide ? 0 : 44, 0, 0, 0);
-    }
+    [[UIApplication sharedApplication] setStatusBarHidden:hide withAnimation:UIStatusBarAnimationSlide];
+    scrollView.contentInset = UIEdgeInsetsMake(hide ? 0 : 64, 0, 0, 0);
     scrollView.scrollIndicatorInsets = scrollView.contentInset;
 
     self.animationActive = false;

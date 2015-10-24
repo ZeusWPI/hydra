@@ -118,10 +118,7 @@
                                       reuseIdentifier:CellIdentifier];
         cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.3 alpha:1];
 
-        // iOS7
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            cell.separatorInset = UIEdgeInsetsZero;
-        }
+        cell.separatorInset = UIEdgeInsetsZero;
     }
 
     SchamperArticle *article = self.articles[indexPath.row];

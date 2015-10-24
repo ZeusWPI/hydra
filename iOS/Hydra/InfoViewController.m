@@ -78,10 +78,7 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
-        // iOS7
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            cell.separatorInset = UIEdgeInsetsZero;
-        }
+        cell.separatorInset = UIEdgeInsetsZero;
     }
 
     cell.contentView.backgroundColor = [UIColor whiteColor];

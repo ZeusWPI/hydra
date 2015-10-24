@@ -46,11 +46,7 @@
 {
     [super viewDidLoad];
 
-#ifdef __IPHONE_7_0
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-#endif
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     // Set state for highlighted|selected
     UIImage *selectedImage = [self.playButton imageForState:UIControlStateSelected];

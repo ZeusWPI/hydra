@@ -25,11 +25,7 @@
 
 - (void)loadView
 {
-#ifdef __IPHONE_7_0
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-#endif
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     CGRect bounds = [UIScreen mainScreen].bounds;
     self.view = [[UIView alloc] initWithFrame:bounds];
@@ -210,27 +206,18 @@
 
     // Check for iOS 6
     Class mapItemClass = [MKMapItem class];
-    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)]) {
-        // Create an MKMapItem to pass to the Maps app
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinates
-                                                       addressDictionary:nil];
-        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-        [mapItem setName:annotation.title];
+    // Create an MKMapItem to pass to the Maps app
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinates
+                                                   addressDictionary:nil];
+    MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+    [mapItem setName:annotation.title];
 
-        // Route between the current location and the mapitem
-        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
-        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
-                       launchOptions:@{
-            MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking
-        }];
-    }
-    // iOS < 6 use maps.apple.com
-    else {
-        CLLocationCoordinate2D user = self.mapView.userLocation.coordinate;
-        NSString *url = [NSString stringWithFormat:@"http://maps.apple.com/maps?saddr=%f,%f&daddr=%f,%f&dirflg=w",
-                         user.latitude, user.longitude, coordinates.latitude, coordinates.longitude];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-    }
+    // Route between the current location and the mapitem
+    MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+    [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
+                   launchOptions:@{
+      MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking
+    }];
 }
 
 #pragma mark - User tracking

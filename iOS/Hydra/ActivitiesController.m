@@ -267,12 +267,9 @@
     cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
     cell.textLabel.highlightedTextColor = [UIColor colorWithWhite:0.94 alpha:1];
 
-    // iOS7
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        cell.separatorInset = UIEdgeInsetsZero;
-    }
+    cell.separatorInset = UIEdgeInsetsZero;
 
-    CGFloat offsetX = IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 64 : 60;
+    CGFloat offsetX = 64;
     CGFloat width = self.view.bounds.size.width - offsetX - rightMargin;
 
     CGRect titleFrame = CGRectMake(offsetX, 4, width, 20);
@@ -439,70 +436,13 @@
 
 - (void)dateButtonTapped:(id)sender
 {
-    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        RMPickerViewController *pickerVC = [RMPickerViewController pickerController];
-        pickerVC.delegate = self;
-        UIPickerView *picker = pickerVC.picker;
-        NSInteger row = ((NSIndexPath *)[self.tableView indexPathsForVisibleRows][0]).section;
-        [picker selectRow:row inComponent:0 animated:NO];
+    RMPickerViewController *pickerVC = [RMPickerViewController pickerController];
+    pickerVC.delegate = self;
+    UIPickerView *picker = pickerVC.picker;
+    NSInteger row = ((NSIndexPath *)[self.tableView indexPathsForVisibleRows][0]).section;
+    [picker selectRow:row inComponent:0 animated:NO];
         
-        [pickerVC show];
-    } else {
-    // TODO: this is abuse of UIActionSheet, and shouldn't be used like this
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:nil
-                                                    cancelButtonTitle:nil
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:nil];
-
-    BOOL iOS7 = IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0");
-
-    // Create toolbar
-    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                               target:nil action:nil];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Gereed" style:UIBarButtonItemStyleBordered
-                                                               target:self action:@selector(dismissActionSheet:)];
-    UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    pickerToolbar.tintColor = [UIColor hydraTintColor];
-    pickerToolbar.items = @[flexSpace, doneBtn];
-
-    if (iOS7) {
-        // Add a gray border to the bottom of the toolbar
-        CALayer *border = [CALayer layer];
-        border.borderColor = [UIColor lightGrayColor].CGColor;
-        border.borderWidth = 0.25;
-        border.frame = CGRectMake(0, pickerToolbar.frame.size.height,
-                                  pickerToolbar.frame.size.width, 0.25);
-        [pickerToolbar.layer addSublayer:border];
-    }
-
-    [actionSheet addSubview:pickerToolbar];
-
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 290, 22)];
-    title.font = [UIFont boldSystemFontOfSize:18];
-    title.text = @"Selecteer een dag";
-    title.textAlignment = NSTextAlignmentCenter;
-    title.backgroundColor = [UIColor clearColor];
-
-    if (!iOS7) {
-        title.textColor = [UIColor whiteColor];
-        title.shadowColor = [UIColor darkTextColor];
-    }
-    [actionSheet addSubview:title];
-
-    // Create datepicker
-    self.datePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, iOS7 ? 34 : 44, 0, 0)];
-    self.datePicker.showsSelectionIndicator = YES;
-    self.datePicker.dataSource = self;
-    self.datePicker.delegate = self;
-    [actionSheet addSubview:self.datePicker];
-
-    NSIndexPath *firstSection = [self.tableView indexPathsForVisibleRows][0];
-    [self.datePicker selectRow:firstSection.section inComponent:0 animated:NO];
-
-    [actionSheet showInView:self.view];
-    [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
-    }
+    [pickerVC show];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
