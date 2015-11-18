@@ -15,7 +15,7 @@ extern NSString *const AssociationStoreDidUpdateActivitiesNotification;
 
 @interface AssociationStore : NSObject
 
-@property (nonatomic, strong, readonly) NSArray *assocations;
+@property (nonatomic, strong, readonly) NSArray *associations;
 @property (nonatomic, strong, readonly) NSArray *activities;
 @property (nonatomic, strong, readonly) NSArray *newsItems;
 
