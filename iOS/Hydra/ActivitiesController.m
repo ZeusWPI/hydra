@@ -270,6 +270,10 @@
     cell.separatorInset = UIEdgeInsetsZero;
 
     CGFloat offsetX = 64;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        offsetX = 96; // TODO: rewrite this class in auto-layout
+    }
     CGFloat width = self.view.bounds.size.width - offsetX - rightMargin;
 
     CGRect titleFrame = CGRectMake(offsetX, 4, width, 20);
