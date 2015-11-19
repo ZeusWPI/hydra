@@ -197,6 +197,13 @@ extension RestoMenuViewController: UIScrollViewDelegate {
 
         self.scrollToIndex(index, animated: true)
     }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate {
+            let index = Int((scrollView.contentOffset.x + self.collectionView!.frame.size.width/2) / self.collectionView!.frame.size.width)
+            scrollToIndex(index)
+        }
+    }
 }
 
 // MARK: - Header view actions
