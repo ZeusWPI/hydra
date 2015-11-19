@@ -160,10 +160,15 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
             cell.legend = self.legend
             return cell
         case 1...self.days.count:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoMenuOpenCell", forIndexPath: indexPath) as! RestoMenuCollectionCell
+            let menu = self.menus[indexPath.row-1]
+            if menu!.open {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("restoMenuOpenCell", forIndexPath: indexPath) as! RestoMenuCollectionCell
             
-            cell.restoMenu = self.menus[indexPath.row-1]
-            return cell
+                cell.restoMenu = menu
+                return cell
+            }
+            
+            return collectionView.dequeueReusableCellWithReuseIdentifier("restoMenuClosedCell", forIndexPath: indexPath)
         default:
             debugPrint("Shouldn't be here")
             return collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath)

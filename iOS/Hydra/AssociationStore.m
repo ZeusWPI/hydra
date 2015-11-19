@@ -174,7 +174,7 @@ NSString *const AssociationStoreDidUpdateActivitiesNotification =
 
 - (NSArray *)associations
 {
-    [self _updateResource:kAssociationResource lastUpdated:self.newsLastUpdated
+    [self _updateResource:kAssociationResource lastUpdated:self.associationsLastUpdated
             objectMapping:[AssociationNewsItem objectMapping]];
     return _associations;
 }

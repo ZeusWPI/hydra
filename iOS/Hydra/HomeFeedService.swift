@@ -8,6 +8,9 @@
 
 import Foundation
 
+let HomeFeedDidUpdateFeedNotification = "HomeFeedDidUpdateFeedNotification"
+let UpdateInterval: Double = 30 * 60 // half an hour
+
 class HomeFeedService {
     
     static let sharedService = HomeFeedService()
@@ -18,12 +21,38 @@ class HomeFeedService {
     let preferencesService = PreferencesService.sharedService()
     let locationService = LocationService.sharedService
     
+    var previousRefresh = NSDate()
+    
     private init() {
         refreshStores()
         locationService.startUpdating()
+        
+        let notifications = [RestoStoreDidReceiveMenuNotification, AssociationStoreDidUpdateActivitiesNotification, AssociationStoreDidUpdateNewsNotification, SchamperStoreDidUpdateArticlesNotification]
+        for notification in notifications {
+             NSNotificationCenter.defaultCenter().addObserver(self, selector: "storeUpdatedNotification:", name: notification, object: nil)
+        }
+    }
+    
+    
+    @objc func storeUpdatedNotification(notification: NSNotification) {
+        NSNotificationCenter.defaultCenter().postNotificationName(HomeFeedDidUpdateFeedNotification, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func refreshStoresIfNecessary()
+    {
+        if self.previousRefresh.timeIntervalSinceNow > -UpdateInterval {
+            self.refreshStores()
+        } else {
+            NSNotificationCenter.defaultCenter().postNotificationName(HomeFeedDidUpdateFeedNotification, object: nil)
+        }
     }
     
     func refreshStores() {
+        previousRefresh = NSDate()
         associationStore.reloadActivities()
         associationStore.reloadNewsItems()
         
@@ -35,7 +64,7 @@ class HomeFeedService {
     
     func createFeed() -> [FeedItem] {
         var list = [FeedItem]()
-        //TODO: unread recent important news
+
         // news items
         list.appendContentsOf(getNewsItems())
         
@@ -53,7 +82,6 @@ class HomeFeedService {
         
         list.sortInPlace{ $0.priority > $1.priority }
         
-        list.map { el in debugPrint("Type: \(el.itemType), priority: \(el.priority)")}
         return list
     }
     
@@ -116,6 +144,10 @@ class HomeFeedService {
             }
 
             for activity in activities.filter(filter) {
+                // Force load facebookEvent
+                if let facebookEvent = activity.facebookEvent {
+                    facebookEvent.update()
+                }
                 var priority = 999 //TODO: calculate priorities, with more options
                 priority -= activity.start.daysAfterDate(NSDate()) * 100
                 if priority > 0 {
@@ -131,7 +163,7 @@ class HomeFeedService {
         
         if let newsItems = associationStore.newsItems as? [AssociationNewsItem] {
             for newsItem in newsItems {
-                var priority = 999 //TODO: calculate priorities
+                var priority = 999
                 let daysOld = newsItem.date.daysBeforeDate(NSDate())
                 if newsItem.highlighted {
                     priority -= 25*daysOld

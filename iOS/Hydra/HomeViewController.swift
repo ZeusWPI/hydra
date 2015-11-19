@@ -15,7 +15,34 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     var feedItems = HomeFeedService.sharedService.createFeed()
     let refreshControl = UIRefreshControl()
+    var lastUpdated = NSDate()
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        sharedInit()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        sharedInit()
+    }
+    
+    private func sharedInit() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "homeFeedUpdatedNotification:", name: HomeFeedDidUpdateFeedNotification, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func homeFeedUpdatedNotification(notification: NSNotification) {
+        self.feedItems = HomeFeedService.sharedService.createFeed()
+        self.feedCollectionView?.reloadData()
+        
+        self.refreshControl.endRefreshing()
+    }
+    
+    // MARK - View initialization
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,6 +63,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         self.navigationController?.navigationBarHidden = true
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+        
+        HomeFeedService.sharedService.refreshStoresIfNecessary()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -50,12 +79,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func startRefresh() {
-        //self.homeFeedService.refreshStores()
-        self.feedItems = self.homeFeedService.createFeed()
-        
-        self.feedCollectionView.reloadData()
-        
-        self.refreshControl.endRefreshing()
+        self.homeFeedService.refreshStores()
     }
     
     // MARK: - UICollectionViewDataSource and Delegate methods
