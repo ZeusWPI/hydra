@@ -53,6 +53,8 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
             
             if let url = activity?.facebookEvent?.smallImageUrl {
                 imageView.sd_setImageWithURL(url, placeholderImage: imageView.image)
+            } else {
+                imageView.image = nil
             }
         }
     }

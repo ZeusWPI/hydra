@@ -272,7 +272,11 @@
     CGFloat offsetX = 64;
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
     {
-        offsetX = 96; // TODO: rewrite this class in auto-layout
+        if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+            offsetX = 96; // TODO: rewrite this class in auto-layout
+        } else {
+            offsetX = 224;
+        }
     }
     CGFloat width = self.view.bounds.size.width - offsetX - rightMargin;
 
