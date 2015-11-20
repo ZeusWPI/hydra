@@ -65,17 +65,11 @@ class HomeFeedService {
     func createFeed() -> [FeedItem] {
         var list = [FeedItem]()
 
-        // news items
-        list.appendContentsOf(getNewsItems())
-        
-        // activities
-        list.appendContentsOf(getActivities())
-        
-        // resto menus
-        list.appendContentsOf(getRestoMenus())
-        
-        // schamper articles
-        list.appendContentsOf(getSchamperArticles())
+        let feedItemProviders: [FeedItemProtocol] = [associationStore, restoStore, schamperStore]
+
+        for provider in feedItemProviders {
+            list.appendContentsOf(provider.feedItems())
+        }
         
         // Urgent.fm
         list.append(FeedItem(itemType: .UrgentItem, object: nil, priority: 825))
@@ -84,101 +78,10 @@ class HomeFeedService {
         
         return list
     }
-    
-    //MARK: - Resto functions
-    private func getRestoMenus() -> [FeedItem]{
-        var day = NSDate()
-        if day.hour > 20 {
-            day = day.dateByAddingDays(1)
-        }
-        var feedItems = [FeedItem]()
-        
-        // Find the next x days to display
-        while (feedItems.count < 5) { //TODO: replace with var
-            if day.isTypicallyWorkday() {
-                var menu = restoStore.menuForDay(day)
-                
-                if (menu == nil) {
-                    menu = RestoMenu()
-                    menu.open = false
-                    menu.day = day
-                }
-                
-                feedItems.append(FeedItem(itemType: .RestoItem, object: menu, priority: 1000 - 100*feedItems.count))
-            }
-            day = day.dateByAddingDays(1)
-        }
-        
-        return feedItems
-    }
-    
-    private func getSchamperArticles() -> [FeedItem] {
-        var feedItems = [FeedItem]()
-        if let articles = schamperStore.articles as? [SchamperArticle] {
-            for article in articles { //TODO: test articles and sort them
-                let daysOld = article.date.daysBeforeDate(NSDate())
-                var priority = 999
-                if !article.read {
-                    priority = priority - daysOld*40
-                } else {
-                    priority = priority - daysOld*150
-                }
-                if priority > 0 {
-                    feedItems.append(FeedItem(itemType: .SchamperNewsItem, object: article, priority: priority))
-                }
-            }
-        }
-        return feedItems
-    }
-    
-    private func getActivities() -> [FeedItem] {
-        var feedItems = [FeedItem]()
-        if let activities = associationStore.activities as? [AssociationActivity] {
-            var filter: ((AssociationActivity) -> (Bool))
-            if preferencesService.filterAssociations {
-                let associations = preferencesService.preferredAssociations
-                filter = { activity in activity.highlighted || associations.contains { activity.association.internalName == ($0 as! String) } }
-            } else {
-                filter = { $0.highlighted }
-                feedItems.append(FeedItem(itemType: .SettingsItem, object: nil, priority: 850))
-            }
+}
 
-            for activity in activities.filter(filter) {
-                // Force load facebookEvent
-                if let facebookEvent = activity.facebookEvent {
-                    facebookEvent.update()
-                }
-                var priority = 999 //TODO: calculate priorities, with more options
-                priority -= activity.start.daysAfterDate(NSDate()) * 100
-                if priority > 0 {
-                    feedItems.append(FeedItem(itemType: .ActivityItem, object: activity, priority: priority))
-                }
-            }
-        }
-        return feedItems
-    }
-    
-    private func getNewsItems() -> [FeedItem] {
-        var feedItems = [FeedItem]()
-        
-        if let newsItems = associationStore.newsItems as? [AssociationNewsItem] {
-            for newsItem in newsItems {
-                var priority = 999
-                let daysOld = newsItem.date.daysBeforeDate(NSDate())
-                if newsItem.highlighted {
-                    priority -= 25*daysOld
-                } else {
-                    priority -= 90*daysOld
-                }
-
-                if priority > 0 {
-                    feedItems.append(FeedItem(itemType: .NewsItem, object: newsItem, priority: priority))
-                }
-            }
-        }
-        
-        return feedItems
-    }
+protocol FeedItemProtocol {
+    func feedItems() -> [FeedItem]
 }
 
 struct FeedItem {

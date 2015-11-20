@@ -49,6 +49,9 @@
 		908CA4DE1A8D439C00F8C31F /* info-mapmarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CA4DC1A8D439C00F8C31F /* info-mapmarker@2x.png */; };
 		908DFF03188E932D00D526DC /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */; };
 		908E536519BE4F3900F1DA57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 908E536419BE4F3900F1DA57 /* Images.xcassets */; };
+		90969AD21BFF5D8D006EDD9D /* AssociationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90969AD11BFF5D8D006EDD9D /* AssociationStore.swift */; };
+		90969AD41BFF5F90006EDD9D /* RestoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90969AD31BFF5F90006EDD9D /* RestoStore.swift */; };
+		90969AD61BFF6014006EDD9D /* SchamperStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90969AD51BFF6014006EDD9D /* SchamperStore.swift */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90B1EF0C1B7A5DC300E733C1 /* tabbar-home.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF0B1B7A5DC300E733C1 /* tabbar-home.png */; };
 		90B1EF0E1B7A5EF000E733C1 /* tabbar-resto.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF0D1B7A5EF000E733C1 /* tabbar-resto.png */; };
@@ -338,6 +341,9 @@
 		908CA4DC1A8D439C00F8C31F /* info-mapmarker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-mapmarker@2x.png"; sourceTree = "<group>"; };
 		908DFF02188E932D00D526DC /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		908E536419BE4F3900F1DA57 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		90969AD11BFF5D8D006EDD9D /* AssociationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociationStore.swift; sourceTree = "<group>"; };
+		90969AD31BFF5F90006EDD9D /* RestoStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoStore.swift; sourceTree = "<group>"; };
+		90969AD51BFF6014006EDD9D /* SchamperStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchamperStore.swift; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
 		90B1EF0B1B7A5DC300E733C1 /* tabbar-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-home.png"; sourceTree = "<group>"; };
 		90B1EF0D1B7A5EF000E733C1 /* tabbar-resto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-resto.png"; sourceTree = "<group>"; };
@@ -664,14 +670,17 @@
 			children = (
 				F5F43C4215BAD2EB003C2AAE /* AssociationStore.h */,
 				F5F43C4315BAD2EB003C2AAE /* AssociationStore.m */,
+				90969AD11BFF5D8D006EDD9D /* AssociationStore.swift */,
 				90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */,
 				9035BF191B6CF663008E7875 /* LocationService.swift */,
 				F5C6093616D2DFCB0043BD44 /* PreferencesService.h */,
 				F5C6093716D2DFCB0043BD44 /* PreferencesService.m */,
 				F55895C515B6100C0001B399 /* RestoStore.h */,
 				F55895C615B610130001B399 /* RestoStore.m */,
+				90969AD31BFF5F90006EDD9D /* RestoStore.swift */,
 				F5D36BBF15B5BDA500B6E017 /* SchamperStore.h */,
 				F5D36BC015B5BDA500B6E017 /* SchamperStore.m */,
+				90969AD51BFF6014006EDD9D /* SchamperStore.swift */,
 				3B93FBA81630969900C962DC /* UrgentPlayer.h */,
 				3B93FBA91630969900C962DC /* UrgentPlayer.m */,
 			);
@@ -1538,6 +1547,7 @@
 			files = (
 				F5BAEC971518868200F6A1B1 /* main.m in Sources */,
 				907CD3CA1B7E52B600DD7539 /* RestoMenuViewController.swift in Sources */,
+				90969AD41BFF5F90006EDD9D /* RestoStore.swift in Sources */,
 				F5BAEC9B1518868200F6A1B1 /* AppDelegate.m in Sources */,
 				F5EBF11D159E092300EB5D26 /* SchamperViewController.m in Sources */,
 				90EE4CD01BB7193900C2DD32 /* RestoMenuInfoCollectionViewCell.swift in Sources */,
@@ -1557,6 +1567,7 @@
 				395C117D1627437000B99F9B /* NewsDetailViewController.m in Sources */,
 				90BAB266162749BD0043BA92 /* SchamperDetailViewController.m in Sources */,
 				F5016BA6162756F300BBDB0A /* ActivitiesController.m in Sources */,
+				90969AD21BFF5D8D006EDD9D /* AssociationStore.swift in Sources */,
 				9041C3681B7E67B600E4A50C /* RestoMenuCollectionCell.swift in Sources */,
 				F5016BA91627665800BBDB0A /* ActivityDetailController.m in Sources */,
 				3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */,
@@ -1580,6 +1591,7 @@
 				90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */,
 				F55E89EC16A4AF8E008595CB /* ShareKitConfigurator.m in Sources */,
 				F569582716AA095800C45D00 /* UINavigationController+ReplaceController.m in Sources */,
+				90969AD61BFF6014006EDD9D /* SchamperStore.swift in Sources */,
 				9041C36D1B7E801B00E4A50C /* RestoMenuHeader.swift in Sources */,
 				9035BF1A1B6CF663008E7875 /* LocationService.swift in Sources */,
 				445C81F516C3DB0B0080819C /* AssociationPreferenceController.m in Sources */,
