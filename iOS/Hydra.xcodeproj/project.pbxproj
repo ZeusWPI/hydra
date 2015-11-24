@@ -28,6 +28,8 @@
 		9035BF161B6C37FE008E7875 /* home-zeus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9035BF151B6C37FE008E7875 /* home-zeus.png */; };
 		9035BF181B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9035BF171B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift */; };
 		9035BF1A1B6CF663008E7875 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9035BF191B6CF663008E7875 /* LocationService.swift */; };
+		903A8AF61C04F369002DAF5B /* ActivityOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903A8AF51C04F369002DAF5B /* ActivityOverviewCell.swift */; };
+		903A8AF81C04FBF7002DAF5B /* ActivityOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 903A8AF71C04FBF7002DAF5B /* ActivityOverviewCell.xib */; };
 		90410B101848DF9100331F6C /* info-guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0E1848DF9100331F6C /* info-guide.png */; };
 		90410B111848DF9100331F6C /* info-guide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90410B0F1848DF9100331F6C /* info-guide@2x.png */; };
 		904166231B7A689500D231EF /* tabbar-urgent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 904166211B7A689500D231EF /* tabbar-urgent@2x.png */; };
@@ -319,6 +321,8 @@
 		9035BF151B6C37FE008E7875 /* home-zeus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-zeus.png"; sourceTree = "<group>"; };
 		9035BF171B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeActivityCollectionViewCell.swift; sourceTree = "<group>"; };
 		9035BF191B6CF663008E7875 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		903A8AF51C04F369002DAF5B /* ActivityOverviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityOverviewCell.swift; sourceTree = "<group>"; };
+		903A8AF71C04FBF7002DAF5B /* ActivityOverviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityOverviewCell.xib; sourceTree = "<group>"; };
 		90410B0E1848DF9100331F6C /* info-guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide.png"; sourceTree = "<group>"; };
 		90410B0F1848DF9100331F6C /* info-guide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-guide@2x.png"; sourceTree = "<group>"; };
 		904166211B7A689500D231EF /* tabbar-urgent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-urgent@2x.png"; sourceTree = "<group>"; };
@@ -793,6 +797,8 @@
 				F5016BA81627665800BBDB0A /* ActivityDetailController.m */,
 				F52A8B7717CD366E00C3379C /* ActivityMapController.h */,
 				F52A8B7817CD366E00C3379C /* ActivityMapController.m */,
+				903A8AF51C04F369002DAF5B /* ActivityOverviewCell.swift */,
+				903A8AF71C04FBF7002DAF5B /* ActivityOverviewCell.xib */,
 			);
 			name = Activities;
 			sourceTree = "<group>";
@@ -1333,6 +1339,7 @@
 				F57E7E0E15B837F100D2A59E /* icon-meal.png in Resources */,
 				F57E7E0F15B837F100D2A59E /* icon-soup.png in Resources */,
 				F57E7E1015B837F100D2A59E /* icon-vegetables.png in Resources */,
+				903A8AF81C04FBF7002DAF5B /* ActivityOverviewCell.xib in Resources */,
 				F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */,
 				F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */,
 				904BC46C17E2014A0000FED6 /* dot-question.png in Resources */,
@@ -1601,6 +1608,7 @@
 				F5ACC3B116D2694000626EAE /* CustomTableViewCell.m in Sources */,
 				F5C6093816D2DFCB0043BD44 /* PreferencesService.m in Sources */,
 				906C1D8917C8A4A600145CD3 /* MapViewController.m in Sources */,
+				903A8AF61C04F369002DAF5B /* ActivityOverviewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,10 +15,8 @@
 #import "NSDateFormatter+AppLocale.h"
 #import "PreferencesService.h"
 #import "RMPickerViewController.h"
+#import "Hydra-Swift.h"
 #import <SVProgressHUD/SVProgressHUD.h>
-
-#define kCellTitleLabel 101
-#define kCellSubtitleLabel 102
 
 @interface ActivitiesController () <ActivityListDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UISearchDisplayDelegate, RMPickerViewControllerDelegate>
 
@@ -87,6 +85,9 @@
     
     [RMPickerViewController setLocalizedTitleForCancelButton:@"Sluit"];
     [RMPickerViewController setLocalizedTitleForSelectButton:@"Gereed"];
+    
+    UINib *nib = [UINib nibWithNibName:@"ActivityOverviewCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"ActivityOverviewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -209,91 +210,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 46;
+    return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UILabel *titleLabel, *subtitleLabel;
-
     NSDate *date = self.days[indexPath.section];
     AssociationActivity *activity = self.data[date][indexPath.row];
-    static NSString *NoHighlightCellIdentifier = @"ActivityCellNoHighlight";
-    static NSString *HighlightCellIdentifier = @"ActivityCellHighlight";
-    UITableViewCell *cell;
+    static NSString *CellIdentifier = @"ActivityOverviewCell";
+    ActivityOverviewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-    if (!activity.highlighted) {
-        // request cell without the special star view
-        cell = [tableView dequeueReusableCellWithIdentifier:NoHighlightCellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:NoHighlightCellIdentifier];
-            [self setupCell:cell withRightMargin:10];
-        }
-    }
-    else {
-        // request cell with special star view
-        cell = [tableView dequeueReusableCellWithIdentifier:HighlightCellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:HighlightCellIdentifier];
-            [self setupCell:cell withRightMargin:40];
-
-            UIImageView *star = [[UIImageView alloc] initWithImage:
-                                 [UIImage imageNamed:@"icon-star"]];
-            star.frame = CGRectMake(286, 8, 27, 27);
-            [cell.contentView addSubview:star];
-        }
-    }
-    titleLabel = (UILabel *)[cell viewWithTag:kCellTitleLabel];
-    subtitleLabel = (UILabel *)[cell viewWithTag:kCellSubtitleLabel];
-
-    static NSDateFormatter *dateFormatter = nil;
-    if (!dateFormatter) {
-        dateFormatter = [NSDateFormatter H_dateFormatterWithAppLocale];
-        dateFormatter.dateFormat = @"HH.mm";
-    }
-
-    cell.textLabel.text = [dateFormatter stringFromDate:activity.start];
-    titleLabel.text = activity.title;
-    subtitleLabel.text = activity.association.displayName;
-
+    cell.activity = activity;
     return cell;
-}
-
-- (void)setupCell:(UITableViewCell *)cell withRightMargin:(int)rightMargin
-{
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0f];
-    cell.textLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
-    cell.textLabel.highlightedTextColor = [UIColor colorWithWhite:0.94 alpha:1];
-
-    cell.separatorInset = UIEdgeInsetsZero;
-
-    CGFloat offsetX = 64;
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
-    {
-        if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
-            offsetX = 96; // TODO: rewrite this class in auto-layout
-        } else {
-            offsetX = 224;
-        }
-    }
-    CGFloat width = self.view.bounds.size.width - offsetX - rightMargin;
-
-    CGRect titleFrame = CGRectMake(offsetX, 4, width, 20);
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
-    titleLabel.tag = kCellTitleLabel;
-    titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
-    titleLabel.highlightedTextColor = [UIColor whiteColor];
-    [cell.contentView addSubview:titleLabel];
-
-    CGRect subtitleFrame = CGRectMake(offsetX, 24, width, 16);
-    UILabel *subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
-    subtitleLabel.tag = kCellSubtitleLabel;
-    subtitleLabel.font = [UIFont systemFontOfSize:13.0f];
-    subtitleLabel.textColor = [UIColor colorWithWhite:0.2 alpha:1];
-    subtitleLabel.highlightedTextColor = [UIColor whiteColor];
-    [cell.contentView addSubview:subtitleLabel];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
