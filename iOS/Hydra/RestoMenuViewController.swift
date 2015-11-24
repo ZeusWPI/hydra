@@ -87,6 +87,12 @@ class RestoMenuViewController: UIViewController {
         UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
     }
     
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        // this is called when changing layout :)
+        self.collectionView?.collectionViewLayout.invalidateLayout()
+        self.scrollToIndex(currentIndex, animated: true)
+    }
+    
     func loadMenu() {
         // New menus are available
         let store = RestoStore.sharedStore()

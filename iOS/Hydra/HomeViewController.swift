@@ -78,6 +78,11 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: animated)
     }
     
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        // this is called when changing layout :)
+        self.feedCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     func startRefresh() {
         self.homeFeedService.refreshStores()
     }
