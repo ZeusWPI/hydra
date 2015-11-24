@@ -22,6 +22,8 @@ import UIKit
             let dateStartFormatter = NSDateFormatter.H_dateFormatterWithAppLocale()
             dateStartFormatter.dateFormat = "H:mm";
             dateLabel.text = "\(dateStartFormatter.stringFromDate((self.activity?.start)!))"
+            
+            //TODO: do something if highlighted
         }
     }
 
