@@ -25,6 +25,7 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
             let dateEndFormatter = NSDateFormatter.H_dateFormatterWithAppLocale()
             titleLabel.text = activity?.title
             dateEndFormatter.dateFormat = "H:mm";
+            
             if (self.activity!.end != nil) {
                 if self.activity!.start.dateByAddingDays(1).isLaterThanDate(self.activity!.end) {
                     dateLabel.text = "\(dateStartFormatter.stringFromDate((self.activity?.start)!)) - \(dateEndFormatter.stringFromDate((self.activity?.end)!))"
@@ -58,5 +59,4 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    
 }
