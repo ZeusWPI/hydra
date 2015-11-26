@@ -26,7 +26,19 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
             titleLabel.text = activity?.title
             dateEndFormatter.dateFormat = "H:mm";
             
-            if (self.activity!.end != nil) {
+            if (self.activity!.start.isToday()) {
+                if self.activity!.start.dateByAddingDays(1).isLaterThanDate(self.activity!.end) {
+                    dateLabel.text = "vandaag \(dateEndFormatter.stringFromDate((self.activity?.start)!)) - \(dateEndFormatter.stringFromDate((self.activity?.end)!))"
+                } else {
+                    dateLabel.text = "vandaag \(dateEndFormatter.stringFromDate((self.activity?.start)!)) - \(dateStartFormatter.stringFromDate((self.activity?.end)!))"
+                }
+            } else if (self.activity!.start.isTomorrow()) {
+                if self.activity!.start.dateByAddingDays(1).isLaterThanDate(self.activity!.end) {
+                    dateLabel.text = "morgen \(dateEndFormatter.stringFromDate((self.activity?.start)!)) - \(dateEndFormatter.stringFromDate((self.activity?.end)!))"
+                } else {
+                    dateLabel.text = "morgen \(dateEndFormatter.stringFromDate((self.activity?.start)!)) - \(dateStartFormatter.stringFromDate((self.activity?.end)!))"
+                }
+            } else if (self.activity!.end != nil) {
                 if self.activity!.start.dateByAddingDays(1).isLaterThanDate(self.activity!.end) {
                     dateLabel.text = "\(dateStartFormatter.stringFromDate((self.activity?.start)!)) - \(dateEndFormatter.stringFromDate((self.activity?.end)!))"
                 } else {
