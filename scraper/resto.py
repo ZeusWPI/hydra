@@ -8,6 +8,7 @@ import sys
 
 # Where to write to.
 OUTFILE = "resto/1.0/menu/{}/{}.json"
+OUTFILE_1_1 = "resto/1.1/menu/{}/{}.json"
 
 # Languages
 TYPES = ['nl', 'en', 'nl-sintjansvest']
@@ -82,7 +83,7 @@ def get_day_menu(which, url):
     #       and \2 is the price.
     daymenu = pq(url=url)
     vegetables = []
-    meats = []
+    meals = []
     soups = []
 
     if CLOSED[which] in daymenu(CLOSED_SELECTOR).html():
@@ -93,14 +94,15 @@ def get_day_menu(which, url):
         if '€' in meal:
             price = meal.split('-')[-1].strip()
             name = '-'.join(meal.split('-')[:-1]).strip()
-            if ':' in meal:  # Meat
+            if ':' in meal:  # Meat, Fish, Vegetarian
                 kind, name = [s.strip() for s in name.split(':')]
-                meats.append(dict(price=price, name=name, kind=kind))
+                kindLower = kind.lower()
+                meals.append(dict(price=price, name=name, kind=kindLower))
             else:  # Soup
                 soups.append(dict(price=price, name=name))
         else:
             vegetables.append(meal)
-    r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats)
+    r = dict(open=True, vegetables=vegetables, soup=soups, meals=meals)
     return r
 
 
@@ -179,12 +181,11 @@ def write_1_0(menus):
             else:
                 daymenu1_0 = {
                     "open": True,
-                    "soup": daymenu["soup"][0],
-                    "meat": [daymenu["soup"][1]],
+                    "soup": daymenu["soup"],
+                    "meat": [],
                     "vegetables": daymenu["vegetables"]
                 }
-                daymenu1_0["meat"][0]["recommended"] = False
-                for meat in daymenu["meat"]:
+                for meat in daymenu["meals"]:
                     name = meat["name"]
                     price = meat["price"]
                     if "Vegetarisch" in meat["kind"]:
@@ -194,6 +195,41 @@ def write_1_0(menus):
                     )
             menu[str(day)] = daymenu1_0
         json.dump(menu, open(OUTFILE.format(year, week), 'w'), sort_keys=True)
+
+
+
+def write_1_1(menus):
+    # 1.1 is only nl.
+    for weekyear, weekmenu in menus['nl'].items():
+        year, week = weekyear
+        menu = {}
+        for day, daymenu in weekmenu.items():
+            daymenu1_1 = {}
+            if not daymenu["open"]:
+                daymenu1_1 = {"open": False}
+            else:
+                meats = []
+                fishes = []
+                vegetarians = []
+                for meal in daymenu["meals"]:
+                    if meal["kind"] == 'vlees':
+                        meats.append(dict(price=meal["price"], name=meal["name"]))
+                    elif meal["kind"] == 'vis':
+                        fishes.append(dict(price=meal["price"], name=meal["name"]))
+                    else:
+                        vegetarians.append(dict(price=meal["price"], name=meal["name"]))
+
+
+                daymenu1_1 = {
+                    "open": True,
+                    "soup": daymenu["soup"],
+                    "meat": meats,
+                    "fish": fishes,
+                    "vegetarian": vegetarians,
+                    "vegetables": daymenu["vegetables"]
+                }
+            menu[str(day)] = daymenu1_1
+        json.dump(menu, open(OUTFILE_1_1.format(year, week), 'w'), sort_keys=True)
 
 
 def main():
@@ -253,6 +289,7 @@ def main():
         pprint(all_problems, stream=sys.stderr)
 
     write_1_0(menus)
+    write_1_1(menus)
 
 
 if __name__ == '__main__':
