@@ -15,37 +15,29 @@ class HomeActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-    
+
     var activity: AssociationActivity? {
         didSet {
+            let longDateFormatter = NSDateFormatter.H_dateFormatterWithAppLocale()
+            longDateFormatter.timeStyle = .ShortStyle
+            longDateFormatter.dateStyle = .LongStyle
+            longDateFormatter.doesRelativeDateFormatting = true
+            
+            let shortDateFormatter = NSDateFormatter.H_dateFormatterWithAppLocale()
+            shortDateFormatter.timeStyle = .ShortStyle
+            shortDateFormatter.dateStyle = .NoStyle
+            
             associationLabel.text = activity?.association.displayName
-            
-            let dateStartFormatter = NSDateFormatter.H_dateFormatterWithAppLocale()
-            dateStartFormatter.dateFormat = "EEE d MMMM H:mm";
-            let dateEndFormatter = NSDateFormatter.H_dateFormatterWithAppLocale()
             titleLabel.text = activity?.title
-            dateEndFormatter.dateFormat = "H:mm";
             
-            if (self.activity!.start.isToday()) {
+            if (self.activity!.end != nil) {
                 if self.activity!.start.dateByAddingDays(1).isLaterThanDate(self.activity!.end) {
-                    dateLabel.text = "vandaag \(dateEndFormatter.stringFromDate((self.activity?.start)!)) - \(dateEndFormatter.stringFromDate((self.activity?.end)!))"
+                    dateLabel.text = "\(longDateFormatter.stringFromDate((self.activity?.start)!)) - \(shortDateFormatter.stringFromDate((self.activity?.end)!))"
                 } else {
-                    dateLabel.text = "vandaag \(dateEndFormatter.stringFromDate((self.activity?.start)!)) - \(dateStartFormatter.stringFromDate((self.activity?.end)!))"
-                }
-            } else if (self.activity!.start.isTomorrow()) {
-                if self.activity!.start.dateByAddingDays(1).isLaterThanDate(self.activity!.end) {
-                    dateLabel.text = "morgen \(dateEndFormatter.stringFromDate((self.activity?.start)!)) - \(dateEndFormatter.stringFromDate((self.activity?.end)!))"
-                } else {
-                    dateLabel.text = "morgen \(dateEndFormatter.stringFromDate((self.activity?.start)!)) - \(dateStartFormatter.stringFromDate((self.activity?.end)!))"
-                }
-            } else if (self.activity!.end != nil) {
-                if self.activity!.start.dateByAddingDays(1).isLaterThanDate(self.activity!.end) {
-                    dateLabel.text = "\(dateStartFormatter.stringFromDate((self.activity?.start)!)) - \(dateEndFormatter.stringFromDate((self.activity?.end)!))"
-                } else {
-                    dateLabel.text = "\(dateStartFormatter.stringFromDate((self.activity?.start)!)) - \(dateStartFormatter.stringFromDate((self.activity?.end)!))"
+                    dateLabel.text = "\(longDateFormatter.stringFromDate((self.activity?.start)!)) - \(longDateFormatter.stringFromDate((self.activity?.end)!))"
                 }
             } else {
-                dateLabel.text = "\(dateStartFormatter.stringFromDate((self.activity?.start)!))"
+                dateLabel.text = longDateFormatter.stringFromDate((self.activity?.start)!)
             }
             
             descriptionLabel.text = activity?.descriptionText

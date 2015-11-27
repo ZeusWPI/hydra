@@ -24,7 +24,7 @@ class HomeRestoCollectionViewCell: UICollectionViewCell, UITableViewDataSource, 
                 } else {
                     let formatter = NSDateFormatter.H_dateFormatterWithAppLocale()
                     formatter.dateFormat = "EEEE d MMMM"
-                    dayLabel.text = "" + formatter.stringFromDate(restoMenu!.day)
+                    dayLabel.text = formatter.stringFromDate(restoMenu!.day)
                 }
             } else {
                 dayLabel.text = ""
