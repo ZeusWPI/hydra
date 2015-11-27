@@ -7,7 +7,6 @@
 //
 
 #import "RestoMapController.h"
-#import "RestoMenuController.h"
 #import "RestoLocation.h"
 #import "RestoStore.h"
 #import "UINavigationController+ReplaceController.h"
@@ -67,12 +66,6 @@
 {
     [super viewDidLoad];
     self.title = @"Resto Map";
-
-    // Add button to navigation bar
-    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self action:@selector(menuButtonTapped:)];
-    self.navigationItem.rightBarButtonItem = menuButton;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -84,13 +77,6 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)menuButtonTapped:(id)sender
-{
-    RestoMenuController *menuController = [[RestoMenuController alloc] init];
-    [self.navigationController H_replaceViewControllerWith:menuController
-                                                   options:UIViewAnimationOptionTransitionFlipFromLeft];
 }
 
 - (void)mapLocationUpdated
@@ -243,10 +229,7 @@
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
 
-        // iOS7
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            cell.separatorInset = UIEdgeInsetsZero;
-        }
+        cell.separatorInset = UIEdgeInsetsZero;
     }
 
     RestoLocation *resto = self.filteredMapItems[indexPath.row];

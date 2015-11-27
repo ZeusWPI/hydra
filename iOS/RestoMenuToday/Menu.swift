@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Menu: NSObject, Printable {
+class Menu: NSObject {
     
     // MARK: Properties
     

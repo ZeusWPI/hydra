@@ -46,11 +46,7 @@
 {
     [super viewDidLoad];
 
-#ifdef __IPHONE_7_0
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-#endif
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     // Set state for highlighted|selected
     UIImage *selectedImage = [self.playButton imageForState:UIControlStateSelected];
@@ -82,6 +78,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (self.parentViewController != self.tabBarController.moreNavigationController) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
     GAI_Track(@"Urgent");
 }
 
@@ -94,6 +93,11 @@
     [self showUpdated:nil];
 
     [MarqueeLabel controllerViewAppearing:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 #pragma mark - Buttons

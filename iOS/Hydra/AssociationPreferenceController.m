@@ -26,7 +26,7 @@
 - (id)init
 {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
-        [self loadAssocations];
+        [self loadAssociations];
     }
     return self;
 }
@@ -34,11 +34,11 @@
 - (void)loadView
 {
     [super loadView];
-
+    
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     searchBar.placeholder = @"Zoek een vereniging";
     self.tableView.tableHeaderView = searchBar;
-
+    
     // TODO: replace cancel button in search-mode by 'OK'
     self.searchController = [[UISearchDisplayController alloc]
                              initWithSearchBar:searchBar contentsController:self];
@@ -64,16 +64,16 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)loadAssocations
+- (void)loadAssociations
 {
-    NSArray *all = [[AssociationStore sharedStore] assocations];
-
+    NSArray *all = [[AssociationStore sharedStore] associations];
+    
     // Get all unique parent organisations
     NSSet *convents = [NSSet setWithArray:[all valueForKey:@"parentAssociation"]];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
     self.convents = [convents sortedArrayUsingDescriptors:@[sort]];
     self.filteredConvents = [self.convents mutableCopy];
-
+    
     // Group by parentAssociation
     NSMutableDictionary *grouped = [[NSMutableDictionary alloc] init];
     sort = [NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES];
@@ -97,7 +97,7 @@
                 return [evaluatedObject matches:query];
             }];
             self.filteredAssociations[convent] = [self.associations[convent] filteredArrayUsingPredicate:filter];
-
+            
             // Remove convent from list if it does not have any items
             if ([self.filteredAssociations[convent] count] == 0) {
                 [self.filteredConvents removeObject:convent];
@@ -115,7 +115,7 @@
         self.filteredAssociations = [self.associations mutableCopy];
         self.filteredConvents = [self.convents mutableCopy];
     }
-
+    
     return YES;
 }
 
@@ -135,7 +135,7 @@
     else {
         internalName = self.filteredConvents[section];
     }
-
+    
     Association *association = [[AssociationStore sharedStore] associationWithName:internalName];
     return association.displayName;
 }
@@ -168,7 +168,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
     }
-
+    
     Association *association;
     if (tableView == self.tableView) {
         NSString *convent = self.convents[indexPath.section];
@@ -179,7 +179,7 @@
         association = self.filteredAssociations[convent][indexPath.row];
     }
     cell.textLabel.text = association.fullName;
-
+    
     NSArray *preferred = [PreferencesService sharedService].preferredAssociations;
     if ([preferred containsObject:association.internalName]){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -187,7 +187,7 @@
     else {
         cell.accessoryType = nil;
     }
-
+    
     return cell;
 }
 
@@ -202,7 +202,7 @@
         NSString *convent = self.filteredConvents[indexPath.section];
         name = [self.filteredAssociations[convent][indexPath.row] internalName];
     }
-
+    
     PreferencesService *prefs = [PreferencesService sharedService];
     NSMutableArray *preferred = [prefs.preferredAssociations mutableCopy];
     if ([preferred containsObject:name]) {
@@ -212,7 +212,7 @@
         [preferred addObject:name];
     }
     prefs.preferredAssociations = preferred;
-
+    
     [tableView reloadRowsAtIndexPaths:@[indexPath]
                      withRowAnimation:UITableViewRowAnimationAutomatic];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

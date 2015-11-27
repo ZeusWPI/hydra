@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Zeus WPI. All rights reserved.
 //
 
+@import SafariServices;
+
 #import "InfoViewController.h"
 #import "WebViewController.h"
 
@@ -76,10 +78,7 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
-        // iOS7
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            cell.separatorInset = UIEdgeInsetsZero;
-        }
+        cell.separatorInset = UIEdgeInsetsZero;
     }
 
     cell.contentView.backgroundColor = [UIColor whiteColor];
@@ -141,8 +140,12 @@
         NSURL *url = nil;
         if (item[@"url-ios"]) url = [NSURL URLWithString:item[@"url-ios"]];
         else url = [NSURL URLWithString:item[@"url"]];
-
-        [[UIApplication sharedApplication] openURL:url];
+        if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9")) {
+            SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:url];
+            [self.navigationController presentViewController:svc animated:YES completion:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:url];
+        }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     else {

@@ -29,11 +29,8 @@
 
 - (void)viewDidLoad
 {
-#ifdef __IPHONE_7_0
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-#endif
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     CGSize viewSize = self.view.bounds.size;
     CGSize contentSize = CGSizeMake(viewSize.width - 20, CGFLOAT_MAX);
     self.view.backgroundColor = [UIColor whiteColor];

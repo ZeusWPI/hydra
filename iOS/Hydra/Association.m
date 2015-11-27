@@ -1,5 +1,5 @@
 //
-//  Assocation.m
+//  Association.m
 //  Hydra
 //
 //  Created by Pieter De Baets on 21/07/12.
@@ -10,55 +10,7 @@
 #import "NSDate+Utilities.h"
 #import <RestKit/RestKit.h>
 
-NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
-
 @implementation Association
-
-+ (NSDictionary *)updateAssociations:(NSDictionary *)associations
-{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDate *lastModified = [userDefaults valueForKey:AssociationsLastUpdatedPref];
-    NSDate *currentVersion = [self currentVersion];
-    
-    if (!associations || [currentVersion isLaterThanDate:lastModified]) {
-        associations = [self loadFromPlist];
-        [userDefaults setObject:currentVersion forKey:AssociationsLastUpdatedPref];
-    }
-    return associations;
-}
-
-+ (NSString *)initializationPath
-{
-    return [[NSBundle mainBundle] pathForResource:@"Associations" ofType:@"plist"];
-}
-
-+ (NSDate *)currentVersion
-{
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSString *filePath = [self initializationPath];
-
-    NSDictionary *attributes = [manager attributesOfItemAtPath:filePath error:nil];
-    return attributes[NSFileModificationDate];
-}
-
-+ (NSDictionary *)loadFromPlist
-{
-    NSArray *bundled = [NSArray arrayWithContentsOfFile:[self initializationPath]];
-
-    NSMutableDictionary *associations = [NSMutableDictionary dictionaryWithCapacity:bundled.count];
-    for (NSUInteger i = 0; i < bundled.count; i++) {
-        NSDictionary *props = bundled[i];
-
-        Association *assoc = [[Association alloc] init];
-        assoc.displayName = props[@"displayName"];
-        assoc.fullName = props[@"fullName"];
-        assoc.internalName = props[@"internalName"];
-        assoc.parentAssociation = props[@"parentAssociation"];
-
-        associations[assoc.internalName] = assoc;
-    }
-    return associations;
-}
 
 - (NSString *)displayedFullName
 {
@@ -84,8 +36,8 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
 {
     NSStringCompareOptions opts = NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch;
     return (_internalName && [_internalName rangeOfString:query options:opts].location != NSNotFound) ||
-           (_displayName && [_displayName rangeOfString:query options:opts].location != NSNotFound) ||
-           (_fullName && [_fullName rangeOfString:query options:opts].location != NSNotFound);
+    (_displayName && [_displayName rangeOfString:query options:opts].location != NSNotFound) ||
+    (_fullName && [_fullName rangeOfString:query options:opts].location != NSNotFound);
 }
 
 - (NSString *)description
@@ -93,14 +45,23 @@ NSString *const AssociationsLastUpdatedPref = @"AssociationsLastUpdated";
     return [NSString stringWithFormat:@"<Association: %@>", self.displayName];
 }
 
-+ (RKObjectMapping *)objectMapping
++ (RKObjectMapping *)objectMappingActivities
 {
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self];
     [mapping addAttributeMappingsFromDictionary:@{
-        @"internal_name": @"internalName",
-        @"full_name": @"fullName",
-        @"display_name": @"displayName"
-    }];
+                                                  @"internal_name": @"internalName",
+                                                  @"full_name": @"fullName",
+                                                  @"display_name": @"displayName"
+                                                  }];
+    return mapping;
+}
+
++ (RKObjectMapping *)objectMapping
+{
+    RKObjectMapping *mapping = [RKObjectMapping mappingForClass:self];
+    [mapping addAttributeMappingsFromArray:@[
+                                             @"displayName", @"fullName", @"internalName", @"parentAssociation"
+                                             ]];
     return mapping;
 }
 

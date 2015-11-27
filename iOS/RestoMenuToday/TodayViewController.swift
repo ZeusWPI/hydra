@@ -89,7 +89,7 @@ class TodayViewController: UIViewController, UITableViewDataSource, UITableViewD
         let calendar = NSCalendar.currentCalendar()
         
         // Call the completion with no data as update result when we already have a menu for the given date
-        if self.menu != nil && calendar.ordinalityOfUnit(.DayCalendarUnit, inUnit: .EraCalendarUnit, forDate: self.menu.date) ==  calendar.ordinalityOfUnit(.DayCalendarUnit, inUnit: .EraCalendarUnit, forDate: NSDate()){
+        if self.menu != nil && calendar.ordinalityOfUnit(.NSDayCalendarUnit, inUnit: .NSEraCalendarUnit, forDate: self.menu.date) ==  calendar.ordinalityOfUnit(.NSDayCalendarUnit, inUnit: .NSEraCalendarUnit, forDate: NSDate()){
             completionHandler(.NoData)
             return
         }

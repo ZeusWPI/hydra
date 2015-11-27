@@ -274,12 +274,7 @@
                     // Different calculation for UITextView
                     if (!self.descriptionView) {
                         self.descriptionView = [self createDescriptionView];
-                        if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-                            width = tableView.frame.size.width;
-                        } else {
-                            width = tableView.frame.size.width - 20;
-                            self.descriptionView.frame = CGRectMake(0, 0, width, 0);
-                        }
+                        width = tableView.frame.size.width;
                     }
                     if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
                         UIEdgeInsets textContainerInsets = self.descriptionView.textContainerInset;
@@ -502,11 +497,7 @@
             cell.textLabel.text = @"Gasten";
             cell.alignToTop = YES;
 
-            if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
-                cell.accessoryType = UITableViewCellAccessoryDetailButton;
-            } else {
-                cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-            }
+            cell.accessoryType = UITableViewCellAccessoryDetailButton;
 
             FacebookEvent *event = self.activity.facebookEvent;
             if (event.friendsAttending.count > 0) {
@@ -683,16 +674,12 @@
 - (void)addEventToCalendar
 {
     EKEventStore *store = [[EKEventStore alloc] init];
-    if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
-        [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-            if (!granted) return;
-            [self performSelectorOnMainThread:@selector(addEventWithCalendarStore:)
-                                   withObject:store waitUntilDone:NO];
-        }];
-    }
-    else {
-        [self addEventWithCalendarStore:store];
-    }
+    
+    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        if (!granted) return;
+        [self performSelectorOnMainThread:@selector(addEventWithCalendarStore:)
+                               withObject:store waitUntilDone:NO];
+    }];
 }
 
 - (void)addEventWithCalendarStore:(EKEventStore *)store

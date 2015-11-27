@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "UIColor+AppColors.h"
-#import "DashboardViewController.h"
 #import "ShareKitConfigurator.h"
 #import "FacebookSession.h"
 #import "SchamperStore.h"
@@ -65,18 +64,14 @@
     // Restore Facebook-session
     [[FacebookSession sharedSession] openWithAllowLoginUI:NO];
 
-    // Create and setup controllers
-    DashboardViewController *dashboard = [[DashboardViewController alloc] init];
-    self.navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
-    self.navController.navigationBar.tintColor = [UIColor hydraTintColor];
-
-    // iOS7 specific appearance
-    if (IOS_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        self.navController.view.backgroundColor = [UIColor hydraBackgroundColor];
-    }
-
+    // Start storyboard
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle mainBundle]];
+    UIViewController *rootvc = [storyboard instantiateInitialViewController];
+    
+    // Set root view controller and make windows visible
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = self.navController;
+    self.window.rootViewController = rootvc;
+    
     [self.window makeKeyAndVisible];
 
     return YES;
