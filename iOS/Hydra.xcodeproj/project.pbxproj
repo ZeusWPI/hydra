@@ -69,6 +69,11 @@
 		90BE1F911B6AB8780061888C /* home-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BE1F8F1B6AB8780061888C /* home-background.png */; };
 		90C532AB16A325A200857EB0 /* FacebookEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C532AA16A325A200857EB0 /* FacebookEvent.m */; };
 		90C8CA2E1B6AE3E80073E026 /* HomeFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */; };
+		90CDD89D1C0A2A1300394F42 /* home-location.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDD89C1C0A2A1300394F42 /* home-location.png */; };
+		90CDD89F1C0A2A1800394F42 /* home-location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDD89E1C0A2A1800394F42 /* home-location@2x.png */; };
+		90CDD8A11C0A2BE200394F42 /* home-location@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDD8A01C0A2BE200394F42 /* home-location@3x.png */; };
+		90CDD8A31C0A2CEE00394F42 /* home-clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDD8A21C0A2CEE00394F42 /* home-clock.png */; };
+		90CDD8A51C0A2D0F00394F42 /* home-clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDD8A41C0A2D0F00394F42 /* home-clock@2x.png */; };
 		90D55B9B1B7A4CE800813179 /* HydraTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D55B9A1B7A4CE800813179 /* HydraTabbarController.swift */; };
 		90DDFB791B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDFB781B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift */; };
 		90E814F31854C76C00075F96 /* ios7-Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */; };
@@ -366,6 +371,11 @@
 		90C532A916A325A200857EB0 /* FacebookEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookEvent.h; sourceTree = "<group>"; };
 		90C532AA16A325A200857EB0 /* FacebookEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookEvent.m; sourceTree = "<group>"; };
 		90C8CA2D1B6AE3E80073E026 /* HomeFeedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFeedService.swift; sourceTree = "<group>"; };
+		90CDD89C1C0A2A1300394F42 /* home-location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-location.png"; sourceTree = "<group>"; };
+		90CDD89E1C0A2A1800394F42 /* home-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-location@2x.png"; sourceTree = "<group>"; };
+		90CDD8A01C0A2BE200394F42 /* home-location@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-location@3x.png"; sourceTree = "<group>"; };
+		90CDD8A21C0A2CEE00394F42 /* home-clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-clock.png"; sourceTree = "<group>"; };
+		90CDD8A41C0A2D0F00394F42 /* home-clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-clock@2x.png"; sourceTree = "<group>"; };
 		90D55B9A1B7A4CE800813179 /* HydraTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HydraTabbarController.swift; sourceTree = "<group>"; };
 		90DDFB781B6BB3D300DDAFA0 /* HomeRestoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRestoCollectionViewCell.swift; sourceTree = "<group>"; };
 		90E814F11854C76C00075F96 /* ios7-Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -894,7 +904,12 @@
 				F5E7F06B15EF9407004024AA /* header-bg@2x.png */,
 				90BE1F8F1B6AB8780061888C /* home-background.png */,
 				90E8DDC01B6AD45C0059F71B /* home-button-bar.png */,
+				90CDD8A21C0A2CEE00394F42 /* home-clock.png */,
+				90CDD8A41C0A2D0F00394F42 /* home-clock@2x.png */,
 				90BE1F8E1B6AB8780061888C /* home-header.png */,
+				90CDD89C1C0A2A1300394F42 /* home-location.png */,
+				90CDD89E1C0A2A1800394F42 /* home-location@2x.png */,
+				90CDD8A01C0A2BE200394F42 /* home-location@3x.png */,
 				9035BF151B6C37FE008E7875 /* home-zeus.png */,
 				F5E851D216C44BD7003DF993 /* hydra-logo.png */,
 				F5E851D316C44BD7003DF993 /* hydra-logo@2x.png */,
@@ -1316,6 +1331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F53D248A159DB50800F408AB /* header-bg.png in Resources */,
+				90CDD89F1C0A2A1800394F42 /* home-location@2x.png in Resources */,
 				F58408B7159DDA0E00EE7010 /* button-activities-active.png in Resources */,
 				908CA4DD1A8D439C00F8C31F /* info-mapmarker.png in Resources */,
 				905EB0151BC80A3800F38679 /* tabbar-news@2x.png in Resources */,
@@ -1342,6 +1358,7 @@
 				903A8AF81C04FBF7002DAF5B /* ActivityOverviewCell.xib in Resources */,
 				F5329E0215B9858900C4C5DF /* resto-closed.jpg in Resources */,
 				F5329E0315B9858900C4C5DF /* resto-closed@2x.jpg in Resources */,
+				90CDD89D1C0A2A1300394F42 /* home-location.png in Resources */,
 				904BC46C17E2014A0000FED6 /* dot-question.png in Resources */,
 				F59D16F415BD693F00B6F892 /* info-academiccalendar.png in Resources */,
 				90B1EF141B7A60B000E733C1 /* tabbar-news.png in Resources */,
@@ -1377,6 +1394,7 @@
 				90B1EF101B7A5FDB00E733C1 /* tabbar-info.png in Resources */,
 				F5E7F07215EFAA51004024AA /* button-activities-active@2x.png in Resources */,
 				90B1EF0C1B7A5DC300E733C1 /* tabbar-home.png in Resources */,
+				90CDD8A51C0A2D0F00394F42 /* home-clock@2x.png in Resources */,
 				F5E7F07315EFAA51004024AA /* button-activities@2x.png in Resources */,
 				F5D2B6B515EFE2DE003EA54C /* button-news@2x.png in Resources */,
 				F5D2B6B715EFEAAF003EA54C /* button-news-active@2x.png in Resources */,
@@ -1388,6 +1406,7 @@
 				9068BA7C1B7BB684005F79FA /* tabbar-info@2x.png in Resources */,
 				90B1EF181B7A61DD00E733C1 /* tabbar-schamper.png in Resources */,
 				F5FC117315F0211300B3F127 /* button-schamper-active@2x.png in Resources */,
+				90CDD8A11C0A2BE200394F42 /* home-location@3x.png in Resources */,
 				9068BA7A1B7BB560005F79FA /* tabbar-home@2x.png in Resources */,
 				F5FC117415F0211300B3F127 /* button-schamper@2x.png in Resources */,
 				F5BC3D8E162EBB5100E4A902 /* Default-568h@2x.png in Resources */,
@@ -1468,6 +1487,7 @@
 				90B1EF0E1B7A5EF000E733C1 /* tabbar-resto.png in Resources */,
 				F5E851C716C43174003DF993 /* btn-urgent-twitter@2x.png in Resources */,
 				F5B9F2E817CEA96F0042C8A4 /* Icon-iOS6.png in Resources */,
+				90CDD8A31C0A2CEE00394F42 /* home-clock.png in Resources */,
 				F5E851CC16C447C4003DF993 /* urgent-nowplaying.jpg in Resources */,
 				F5E851CD16C447C4003DF993 /* urgent-nowplaying@2x.jpg in Resources */,
 				90B1EF161B7A60FC00E733C1 /* tabbar-schamper@2x.png in Resources */,
