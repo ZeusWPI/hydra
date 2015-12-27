@@ -40,3 +40,4 @@
 
 // Remove from bridiging header when removing iOS 7 support, so we can use the iOS >= 8 frameworks in Cocoapods
 #import "UIImageView+WebCache.h"
+#import <RestKit/RestKit.h>
