@@ -11,9 +11,10 @@
 */
 
 #import "NSDate+Utilities.h"
+#import "Hydra-Swift.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
-#define CURRENT_CALENDAR [NSCalendar currentCalendar]
+#define CURRENT_CALENDAR [NSCalendar hydraCalendar]
 
 @implementation NSDate (Utilities)
 

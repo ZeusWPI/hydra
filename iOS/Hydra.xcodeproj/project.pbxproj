@@ -53,6 +53,7 @@
 		90969AD41BFF5F90006EDD9D /* RestoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90969AD31BFF5F90006EDD9D /* RestoStore.swift */; };
 		90969AD61BFF6014006EDD9D /* SchamperStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90969AD51BFF6014006EDD9D /* SchamperStore.swift */; };
 		90B010A31C305F73000DE080 /* RestoSandwich.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B010A21C305F73000DE080 /* RestoSandwich.swift */; };
+		90B010A51C308CB2000DE080 /* NSCalendar+HydraCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B010A41C308CB2000DE080 /* NSCalendar+HydraCalendar.swift */; };
 		90B1029717A85E9200669CCD /* kalender.css in Resources */ = {isa = PBXBuildFile; fileRef = 90B1029617A85E9200669CCD /* kalender.css */; };
 		90B1EF0C1B7A5DC300E733C1 /* tabbar-home.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF0B1B7A5DC300E733C1 /* tabbar-home.png */; };
 		90B1EF0E1B7A5EF000E733C1 /* tabbar-resto.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B1EF0D1B7A5EF000E733C1 /* tabbar-resto.png */; };
@@ -317,6 +318,7 @@
 		90969AD31BFF5F90006EDD9D /* RestoStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoStore.swift; sourceTree = "<group>"; };
 		90969AD51BFF6014006EDD9D /* SchamperStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchamperStore.swift; sourceTree = "<group>"; };
 		90B010A21C305F73000DE080 /* RestoSandwich.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoSandwich.swift; sourceTree = "<group>"; };
+		90B010A41C308CB2000DE080 /* NSCalendar+HydraCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCalendar+HydraCalendar.swift"; sourceTree = "<group>"; };
 		90B1029617A85E9200669CCD /* kalender.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = kalender.css; sourceTree = "<group>"; };
 		90B1EF0B1B7A5DC300E733C1 /* tabbar-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-home.png"; sourceTree = "<group>"; };
 		90B1EF0D1B7A5EF000E733C1 /* tabbar-resto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-resto.png"; sourceTree = "<group>"; };
@@ -903,16 +905,17 @@
 		F57CB9DB15B84C4E00D87CB3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				F54B160515B8118C000A4407 /* UIColor+AppColors.h */,
-				F54B160615B8118C000A4407 /* UIColor+AppColors.m */,
+				90B010A41C308CB2000DE080 /* NSCalendar+HydraCalendar.swift */,
 				F57CB9D815B84C4B00D87CB3 /* NSDate+Utilities.h */,
 				F57CB9D915B84C4B00D87CB3 /* NSDate+Utilities.m */,
 				F52B9B75168507BD000B71D6 /* NSDateFormatter+AppLocale.h */,
 				F52B9B76168507BD000B71D6 /* NSDateFormatter+AppLocale.m */,
-				F569582516AA095800C45D00 /* UINavigationController+ReplaceController.h */,
-				F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */,
 				F56B176F16C9069300AB59D6 /* NSMutableArray+Shuffling.h */,
 				F56B177016C9069300AB59D6 /* NSMutableArray+Shuffling.m */,
+				F54B160515B8118C000A4407 /* UIColor+AppColors.h */,
+				F54B160615B8118C000A4407 /* UIColor+AppColors.m */,
+				F569582516AA095800C45D00 /* UINavigationController+ReplaceController.h */,
+				F569582616AA095800C45D00 /* UINavigationController+ReplaceController.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1459,6 +1462,7 @@
 				3B93FBAA1630969900C962DC /* UrgentPlayer.m in Sources */,
 				90C8CA2E1B6AE3E80073E026 /* HomeFeedService.swift in Sources */,
 				F52A8B7917CD366E00C3379C /* ActivityMapController.m in Sources */,
+				90B010A51C308CB2000DE080 /* NSCalendar+HydraCalendar.swift in Sources */,
 				F5EBF0E1164BE583002C14BF /* SORelativeDateTransformer.m in Sources */,
 				9035BF181B6CB52A008E7875 /* HomeActivityCollectionViewCell.swift in Sources */,
 				F53A5E7716700242009EA4CC /* UrgentViewController.m in Sources */,

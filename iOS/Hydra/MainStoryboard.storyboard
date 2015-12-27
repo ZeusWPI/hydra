@@ -187,16 +187,6 @@
                                                                 </mask>
                                                             </variation>
                                                         </label>
-                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gesloten" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKL-EY-ZSU">
-                                                            <rect key="frame" x="260" y="49" width="80" height="24"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="80" id="XPj-tz-5bC"/>
-                                                                <constraint firstAttribute="height" constant="24" id="jbi-UF-Z3Q"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="17" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="idm-Oh-InY">
                                                             <rect key="frame" x="0.0" y="60" width="600" height="62"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -250,6 +240,16 @@
                                                                 <constraint firstAttribute="height" constant="6" id="Qqf-lF-4VY"/>
                                                             </constraints>
                                                         </view>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gesloten" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKL-EY-ZSU">
+                                                            <rect key="frame" x="260" y="65" width="80" height="24"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="80" id="XPj-tz-5bC"/>
+                                                                <constraint firstAttribute="height" constant="24" id="jbi-UF-Z3Q"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="112" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vandaag" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWs-cx-6kf">
                                                             <rect key="frame" x="8" y="37" width="107" height="15"/>
                                                             <constraints>
@@ -277,7 +277,7 @@
                                                         <constraint firstItem="FTC-2g-92l" firstAttribute="leading" secondItem="b6Y-V9-Kvu" secondAttribute="leading" constant="8" id="M1e-lw-Kkx"/>
                                                         <constraint firstItem="iWs-cx-6kf" firstAttribute="leading" secondItem="b6Y-V9-Kvu" secondAttribute="leading" constant="8" id="WHU-1z-9aQ"/>
                                                         <constraint firstItem="idm-Oh-InY" firstAttribute="top" secondItem="iWs-cx-6kf" secondAttribute="bottom" constant="8" id="ZI7-rH-kmq"/>
-                                                        <constraint firstItem="dKL-EY-ZSU" firstAttribute="centerY" secondItem="b6Y-V9-Kvu" secondAttribute="centerY" id="gGB-vj-6Ot"/>
+                                                        <constraint firstItem="dKL-EY-ZSU" firstAttribute="centerY" secondItem="b6Y-V9-Kvu" secondAttribute="centerY" constant="16" id="gGB-vj-6Ot"/>
                                                         <constraint firstAttribute="trailing" secondItem="idm-Oh-InY" secondAttribute="trailing" id="vGN-bH-W7Y"/>
                                                     </constraints>
                                                     <variation key="default">
@@ -742,7 +742,7 @@
                         <viewControllerLayoutGuide type="bottom" id="DW7-3I-QRb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dcS-j6-SmR">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ya9-ae-ZCE" customClass="RestoMenuHeaderView" customModule="Hydra" customModuleProvider="target">
@@ -1042,7 +1042,7 @@
                                 </connections>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Lg-qQ-xHf">
-                                <rect key="frame" x="0.0" y="187" width="600" height="364"/>
+                                <rect key="frame" x="0.0" y="187" width="600" height="564"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="m01-YE-sWC">
                                     <size key="itemSize" width="320" height="300"/>
@@ -1052,7 +1052,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="infoCell" id="Pst-lM-91v" customClass="RestoMenuInfoCollectionViewCell" customModule="Hydra" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="7" width="320" height="350"/>
+                                        <rect key="frame" x="0.0" y="107" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
@@ -1221,14 +1221,18 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restoMenuClosedCell" id="zbb-GU-mNt" userLabel="restoMenuClosedCell">
-                                        <rect key="frame" x="320" y="7" width="320" height="350"/>
+                                        <rect key="frame" x="320" y="107" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gesloten" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6U-y4-P8O">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gesloten" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6U-y4-P8O">
                                                     <rect key="frame" x="116" y="161" width="88" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27" id="0Ms-om-SHh"/>
+                                                        <constraint firstAttribute="width" constant="88" id="pl6-g8-fDn"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1237,10 +1241,14 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="F6U-y4-P8O" firstAttribute="centerY" secondItem="zbb-GU-mNt" secondAttribute="centerY" id="7rA-E0-NRm"/>
+                                            <constraint firstItem="F6U-y4-P8O" firstAttribute="centerX" secondItem="zbb-GU-mNt" secondAttribute="centerX" id="Pbp-hL-d8u"/>
+                                        </constraints>
                                         <size key="customSize" width="320" height="350"/>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="restoMenuOpenCell" id="G7w-Gu-YVD" customClass="RestoMenuCollectionCell" customModule="Hydra" customModuleProvider="target">
-                                        <rect key="frame" x="640" y="7" width="320" height="350"/>
+                                        <rect key="frame" x="640" y="107" width="320" height="350"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
@@ -1416,7 +1424,7 @@
         <image name="urgent-logo.png" width="234" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qmm-Xi-e8Z"/>
+        <segue reference="4k1-4g-6AZ"/>
         <segue reference="XzD-4w-vIU"/>
     </inferredMetricsTieBreakers>
 </document>
