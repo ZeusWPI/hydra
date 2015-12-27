@@ -15,6 +15,7 @@ class RestoMenuViewController: UIViewController {
     var days: [NSDate] = []
     var menus: [RestoMenu?] = []
     var legend: [RestoLegendItem] = []
+    var sandwiches: [RestoSandwich] = []
     
     var currentIndex: Int = 1
     
@@ -32,6 +33,7 @@ class RestoMenuViewController: UIViewController {
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "reloadMenu", name: RestoStoreDidReceiveMenuNotification, object: nil)
         center.addObserver(self, selector: "reloadInfo", name: RestoStoreDidUpdateInfoNotification, object: nil)
+        center.addObserver(self, selector: "reloadInfo", name: RestoStoreDidUpdateSandwichesNotification, object: nil)
         center.addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         days = calculateDays()
@@ -45,6 +47,7 @@ class RestoMenuViewController: UIViewController {
         super.viewDidLoad()
         self.loadMenu()
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
+        self.sandwiches = (RestoStore.sharedStore().sandwiches as? [RestoSandwich])!
         
         // update days and reloadData
         self.restoMenuHeader?.updateDays()
@@ -114,6 +117,8 @@ class RestoMenuViewController: UIViewController {
         // New info is available
         debugPrint("Reloading info")
         self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
+        self.sandwiches = (RestoStore.sharedStore().sandwiches as? [RestoSandwich])!
+
         self.collectionView?.reloadData()
     }
     
@@ -164,6 +169,7 @@ extension RestoMenuViewController: UICollectionViewDataSource, UICollectionViewD
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("infoCell", forIndexPath: indexPath) as! RestoMenuInfoCollectionViewCell
 
             cell.legend = self.legend
+            cell.sandwiches = self.sandwiches
             return cell
         case 1...self.days.count:
             let menu = self.menus[indexPath.row-1]
