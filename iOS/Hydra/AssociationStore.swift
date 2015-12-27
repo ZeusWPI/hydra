@@ -22,8 +22,12 @@ extension AssociationStore: FeedItemProtocol {
                 let associations = preferencesService.preferredAssociations
                 filter = { activity in activity.highlighted || associations.contains { activity.association.internalName == ($0 as! String) } }
             } else {
-                filter = { $0.highlighted }
-                feedItems.append(FeedItem(itemType: .SettingsItem, object: nil, priority: 850))
+                if preferencesService.showActivitiesInFeed {
+                    filter = { _ in true }
+                } else {
+                    filter = { $0.highlighted }
+                    feedItems.append(FeedItem(itemType: .SettingsItem, object: nil, priority: 850))
+                }
             }
             
             for activity in activities.filter(filter) {

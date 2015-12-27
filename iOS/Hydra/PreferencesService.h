@@ -13,6 +13,7 @@
 + (PreferencesService *)sharedService;
 
 @property (nonatomic, assign) BOOL filterAssociations;
+@property (nonatomic, assign) BOOL showActivitiesInFeed;
 @property (nonatomic, strong) NSArray *preferredAssociations;
 @property (nonatomic, strong) NSArray *hydraTabBarOrder;
 @property (nonatomic, assign) BOOL shownFacebookPrompt;

@@ -69,7 +69,7 @@
 {
     switch (section) {
         case kFilterSection:
-            return 2;
+            return 3;
         case kFacebookSection:
             return 1;
         case kInfoSection:
@@ -101,20 +101,34 @@
         case kFilterSection:
             switch (indexPath.row) {
                 case 0: {
-                    cell.textLabel.text = @"Toon alle verenigingen";
+                    cell.textLabel.text = @"Toon activiteiten in feed";
                     cell.detailTextLabel.text = @"";
 
                     CGFloat screenWidth = self.view.frame.size.width;
                     CGRect toggleRect = CGRectMake(screenWidth - 60, 9, 0, 0);
                     UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
                     toggle.tag = kSwitchTag;
-                    toggle.on = !prefs.filterAssociations;
-                    [toggle addTarget:self action:@selector(filterSwitch:didToggle:)
+                    toggle.on = prefs.showActivitiesInFeed;
+                    [toggle addTarget:self action:@selector(showActivitiesSwitch:didToggle:)
                                  forControlEvents:UIControlEventValueChanged];
                     [cell addSubview:toggle];
                 } break;
-
+                
                 case 1: {
+                    cell.textLabel.text = @"Toon alle verenigingen";
+                    cell.detailTextLabel.text = @"";
+                    
+                    CGFloat screenWidth = self.view.frame.size.width;
+                    CGRect toggleRect = CGRectMake(screenWidth - 60, 9, 0, 0);
+                    UISwitch *toggle = [[UISwitch alloc] initWithFrame:toggleRect];
+                    toggle.tag = kSwitchTag;
+                    toggle.on = !prefs.filterAssociations;
+                    [toggle addTarget:self action:@selector(filterSwitch:didToggle:)
+                     forControlEvents:UIControlEventValueChanged];
+                    [cell addSubview:toggle];
+                } break;
+                
+                case 2: {
                     cell.textLabel.text = @"Selectie";
                     NSUInteger count = prefs.preferredAssociations.count;
                     cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu %@", (unsigned long)count,
@@ -243,6 +257,14 @@
 {
     PreferencesService *prefs = [PreferencesService sharedService];
     prefs.filterAssociations = !toggle.on;
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:kFilterSection];
+    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)showActivitiesSwitch:(UISwitch *)toggle didToggle:(NSNotification *)notification
+{
+    PreferencesService *prefs = [PreferencesService sharedService];
+    prefs.showActivitiesInFeed = toggle.on;
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:kFilterSection];
     [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
 }
