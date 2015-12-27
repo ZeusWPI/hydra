@@ -100,6 +100,11 @@ def get_day_menu(which, url):
                 soups.append(dict(price=price, name=name))
         else:
             vegetables.append(meal)
+
+    # sometimes the closed indicator has a different layout.
+    if len(vegetables) == len(soups) == len(meats) == 0:
+        return dict(open=False)
+
     r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats)
     return r
 

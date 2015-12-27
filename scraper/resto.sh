@@ -9,6 +9,8 @@ ln -s "menu/$(date +%Y)" resto/1.0/week
 
 # Ensure datadir
 mkdir -p "resto/1.0/menu/$(date +%Y)"
+# Ensure datadir at year change
+mkdir -p "resto/1.0/menu/$(date --date='next week' +%Y)"
 
 # Run scraper
 python3 resto.py
