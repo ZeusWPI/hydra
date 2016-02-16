@@ -5,9 +5,11 @@ import json
 import datetime
 import collections
 import sys
+import os
 
 # Where to write to.
 OUTFILE = "resto/1.0/menu/{}/{}.json"
+OUTFILE_2_0 = "resto/2.0/menu/{}/{}/{}/{}.json"
 
 # Languages
 TYPES = ['nl', 'en', 'nl-sintjansvest']
@@ -35,6 +37,15 @@ MEAL_SELECTOR = "#content-core li"
 
 # The string indicating a closed day.
 CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
+
+# Dictionary to translate dutch kinds to English
+TRANSLATE_KIND = {
+    'vegetarisch': 'vegetarian',
+    'veggie': 'vegetarian',
+    'vis': 'fish',
+    'vlees': 'meat',
+    'vegetarische wrap': 'vegetarian wrap'
+}
 
 
 def get_weeks(which):
@@ -80,6 +91,7 @@ def get_day_menu(which, url):
     # - Second item is the meal soup. (unused in old JSON)
     # - Priced items are of the form "\(.*\)-\([^-]*\)" where \1 is the name
     #       and \2 is the price.
+    # TODO: parse heading f.e Soup, Main course soup, Main course, ...
     daymenu = pq(url=url)
     vegetables = []
     meats = []
@@ -95,6 +107,8 @@ def get_day_menu(which, url):
             name = '-'.join(meal.split('-')[:-1]).strip()
             if ':' in meal:  # Meat
                 kind, name = [s.strip() for s in name.split(':')]
+                kind = kind.lower()
+                kind = TRANSLATE_KIND.get(kind, kind)
                 meats.append(dict(price=price, name=name, kind=kind))
             else:  # Soup
                 soups.append(dict(price=price, name=name))
@@ -172,6 +186,13 @@ class DateStuff(object):
         return problems
 
 
+def write_json(menu, filename):
+    directory = os.path.dirname(filename)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    json.dump(menu, open(filename, 'w'), sort_keys=True)
+
+
 def write_1_0(menus):
     # 1.0 is only nl.
     prev_weekmenu = None # do not care for the current week
@@ -198,14 +219,44 @@ def write_1_0(menus):
                 for meat in daymenu["meat"]:
                     name = meat["name"]
                     price = meat["price"]
-                    if "Vegetarisch" in meat["kind"]:
+                    if "vegetarian" in meat["kind"]:
                         name = "Veg. " + name
                     daymenu1_0["meat"].append(
                         dict(name=name, price=price, recommended=False)
                     )
             menu[str(day)] = daymenu1_0
-        json.dump(menu, open(OUTFILE.format(year, week), 'w'), sort_keys=True)
+        write_json(menu, OUTFILE.format(year, week))
 
+
+def write_2_0(menus):
+    for resto, restomenu in menus.items():
+        for weekyear, weekmenu in restomenu.items():
+            for day, daymenu in weekmenu.items():
+                menu = {'open': daymenu['open']}
+                if daymenu['open']:
+                    meals = []
+                    for i, meal in enumerate(daymenu['soup']):
+                        meals.append(
+                            {
+                                'kind': 'soup',
+                                'name': meal['name'],
+                                'price': meal['price'],
+                                'type': 'side' if i == 1 else 'main'
+                            }
+                        )
+                    for meal in daymenu['meat']:
+                        meals.append(
+                            {
+                                'kind': meal['kind'],
+                                'name': meal['name'],
+                                'price': meal['price'],
+                                'type': 'main'
+                            }
+                        )
+                    menu['meals'] = meals
+                    menu['vegetables'] = daymenu['vegetables']
+
+                    write_json(menu, OUTFILE_2_0.format(resto, day.year, day.month, day.day))
 
 def main():
     "The main method."
@@ -264,6 +315,7 @@ def main():
         pprint(all_problems, stream=sys.stderr)
 
     write_1_0(menus)
+    write_2_0(menus)
 
 
 if __name__ == '__main__':
