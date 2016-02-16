@@ -9,6 +9,7 @@
 #import "PreferencesService.h"
 
 #define kFilterAssociationsKey @"useAssociationFilter"
+#define kShowActivitiesInFeedKey @"showActivitiesInFeed"
 #define kPreferredAssociationsKey @"preferredAssociations"
 #define kHydraTabBarOrder @"hydraTabBarOrder"
 #define kShownFacebookPrompt @"shownFacebookPrompt"
@@ -48,6 +49,18 @@
     [self willChangeValueForKey:@"filterAssociations"];
     [self.settings setBool:filterAssociations forKey:kFilterAssociationsKey];
     [self didChangeValueForKey:@"filterAssociations"];
+}
+
+- (BOOL)showActivitiesInFeed
+{
+    return [self.settings boolForKey:kShowActivitiesInFeedKey];
+}
+
+- (void)setShowActivitiesInFeed:(BOOL)showActivitiesInFeed
+{
+    [self willChangeValueForKey:@"showActivitiesInFeed"];
+    [self.settings setBool:showActivitiesInFeed forKey:kShowActivitiesInFeedKey];
+    [self didChangeValueForKey:@"showActivitiesInFeed"];
 }
 
 - (BOOL)shownFacebookPrompt
