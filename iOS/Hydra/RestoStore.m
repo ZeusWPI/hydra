@@ -12,20 +12,24 @@
 #import "RestoLocation.h"
 #import "NSDate+Utilities.h"
 #import "AppDelegate.h"
+#import "Hydra-Swift.h"
 #import <RestKit/RestKit.h>
 
 #define kRestoUrl @"https://zeus.ugent.be/hydra/api/1.0/resto/"
 #define kRestoInfoPath @"meta.json"
+#define kRestoSandwichesPath @"sandwiches.json"
 #define kRestoMenuPath @"menu/%lu/%lu.json"
 
-//#define kInfoUpdateIterval (24 * 60 * 60) /* one day */
-#define kInfoUpdateIterval 20
+#define kInfoUpdateIterval (24 * 60 * 60) /* one day */
+#define kSandwichesUpdateInterval kInfoUpdateIterval
 #define kMenuUpdateIterval (12 * 60 * 60)
 
 NSString *const RestoStoreDidReceiveMenuNotification =
     @"RestoStoreDidReceiveMenuNotification";
 NSString *const RestoStoreDidUpdateInfoNotification =
     @"RestoStoreDidUpdateInfoNotification";
+NSString *const RestoStoreDidUpdateSandwichesNotification =
+    @"RestoStoreDidUpdateSandwichesNotification";
 
 @interface RestoStore () <NSCoding>
 
@@ -35,7 +39,9 @@ NSString *const RestoStoreDidUpdateInfoNotification =
 @property (atomic, strong) NSMutableDictionary *menus;
 @property (nonatomic, strong) NSArray *locations;
 @property (nonatomic, strong) NSArray *legend;
+@property (nonatomic, strong) NSArray *sandwiches;
 @property (nonatomic, strong) NSDate *infoLastUpdated;
+@property (nonatomic, strong) NSDate *sandwichesLastUpdated;
 
 @end
 
@@ -87,6 +93,10 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     if (!self.infoLastUpdated) {
         self.infoLastUpdated = [NSDate dateWithTimeIntervalSince1970:0];
     }
+    
+    if (!self.sandwichesLastUpdated) {
+        self.sandwichesLastUpdated = [NSDate dateWithTimeIntervalSince1970:0];
+    }
 
     // Initialize objectManager
     self.objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:kRestoUrl]];
@@ -103,8 +113,12 @@ NSString *const RestoStoreDidUpdateInfoNotification =
         AssertClassOrNil(self.locations, NSArray);
         self.legend = [decoder decodeObjectForKey:@"legend"];
         AssertClassOrNil(self.legend, NSArray);
+        self.sandwiches = [decoder decodeObjectForKey:@"sandwiches"];
+        AssertClassOrNil(self.sandwiches, NSArray);
         self.infoLastUpdated = [decoder decodeObjectForKey:@"infoLastUpdated"];
         AssertClassOrNil(self.infoLastUpdated, NSDate);
+        self.sandwichesLastUpdated = [decoder decodeObjectForKey:@"sandwichesLastUpdated"];
+        AssertClassOrNil(self.sandwichesLastUpdated, NSDate);
 
         [self sharedInit];
     }
@@ -116,7 +130,9 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     [coder encodeObject:self.menus forKey:@"menus"];
     [coder encodeObject:self.locations forKey:@"locations"];
     [coder encodeObject:self.legend forKey:@"legend"];
+    [coder encodeObject:self.sandwiches forKey:@"sandwiches"];
     [coder encodeObject:self.infoLastUpdated forKey:@"infoLastUpdated"];
+    [coder encodeObject:self.sandwichesLastUpdated forKey:@"sandwichesLastUpdated"];
 }
 
 + (NSString *)menuCachePath
@@ -225,6 +241,12 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     return _legend;
 }
 
+-(NSArray *)sandwiches
+{
+    [self refreshSandwiches];
+    return _sandwiches;
+}
+
 - (void)refreshInfo
 {
     // Check if an update is required
@@ -275,6 +297,48 @@ NSString *const RestoStoreDidUpdateInfoNotification =
     [center postNotificationName:RestoStoreDidUpdateInfoNotification object:self];
 
     [self updateStoreCache];
+}
+
+- (void)refreshSandwiches
+{
+    if ([self.sandwichesLastUpdated timeIntervalSinceNow] > -kSandwichesUpdateInterval) {
+        return;
+    }
+    
+    if ([self.activeRequests containsObject:kRestoSandwichesPath]) {
+        return;
+    }
+    
+    DLog(@"Updating sandwiches");
+    [self.activeRequests addObject:kRestoSandwichesPath];
+    [self.objectManager addResponseDescriptor:
+        [RKResponseDescriptor responseDescriptorWithMapping:[RestoSandwich objectMapping]
+                                                     method:RKRequestMethodGET
+                                                pathPattern:kRestoSandwichesPath
+                                                    keyPath:nil
+                                                statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [self.objectManager getObjectsAtPath:kRestoSandwichesPath
+                              parameters:nil
+                                 success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                     NSArray *sandwiches = [mappingResult array];
+                                     if ([sandwiches count] > 0) {
+                                         self.sandwiches = sandwiches;
+                                     }
+                                     self.sandwichesLastUpdated = [NSDate date];
+                                     
+                                     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                                     [center postNotificationName:RestoStoreDidUpdateSandwichesNotification object:self];
+                                     
+                                     [self updateStoreCache];
+                                     
+                                 }
+                                 failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                     AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                                     [app handleError:error];
+                                     [self _delayActiveRequestRemoval:kRestoSandwichesPath];
+                                 }];
+    
 }
 
 #pragma mark - RestKit Object loading

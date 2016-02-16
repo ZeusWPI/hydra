@@ -174,10 +174,16 @@ class DateStuff(object):
 
 def write_1_0(menus):
     # 1.0 is only nl.
+    prev_weekmenu = None # do not care for the current week
     for weekyear, weekmenu in menus['nl'].items():
         year, week = weekyear
         menu = {}
-        for day, daymenu in weekmenu.items():
+        combined_weekmenu = dict() # fix divergent calendars (Issue #225)
+        if prev_weekmenu:
+            combined_weekmenu.update(prev_weekmenu)
+        combined_weekmenu.update(weekmenu)
+        prev_weekmenu = weekmenu
+        for day, daymenu in combined_weekmenu.items():
             daymenu1_0 = {}
             if not daymenu["open"]:
                 daymenu1_0 = {"open": False}
