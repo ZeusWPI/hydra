@@ -11,6 +11,10 @@ Android, iOS, BlackBerry 10 and Windows Phone application providing all the info
 
 This application was developed by [Zeus WPI](http://zeus.ugent.be), the computer science working group. Please contact [hydra@zeus.ugent.be](mailto:hydra@zeus.ugent.be) with any questions.
 
+# This repo only contains up-to-date scraper code, not for the applications
+
+Links to the [Android repo](https://github.com/ZeusWPI/hydra-android) and the [iOS repo](https://github.com/ZeusWPI/hydra-iOS).
+
 ## Resto API
 
 The scraper pulls the menu from the UGent website and parses into a workable json format. The current API is located at http://zeus.ugent.be/hydra/api/1.0/resto. The number at the end of the URL indicates the version of the API. Currently the API is at version 1.0
