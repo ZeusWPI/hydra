@@ -232,7 +232,7 @@ def write_2_0(menus):
     for resto, restomenu in menus.items():
         for weekyear, weekmenu in restomenu.items():
             for day, daymenu in weekmenu.items():
-                menu = {'open': daymenu['open']}
+                menu = {'open': daymenu['open'], 'date': day.strftime('%Y-%m-%d')}
                 if daymenu['open']:
                     meals = []
                     for i, meal in enumerate(daymenu['soup']):
