@@ -10,6 +10,7 @@
 
 extern NSString *const RestoStoreDidReceiveMenuNotification;
 extern NSString *const RestoStoreDidUpdateInfoNotification;
+extern NSString *const RestoStoreDidUpdateSandwichesNotification;
 
 @class RestoMenu;
 
@@ -17,6 +18,7 @@ extern NSString *const RestoStoreDidUpdateInfoNotification;
 
 @property (nonatomic, strong, readonly) NSArray *locations;
 @property (nonatomic, strong, readonly) NSArray *legend;
+@property (nonatomic, strong, readonly) NSArray *sandwiches;
 
 + (RestoStore *)sharedStore;
 - (RestoMenu *)menuForDay:(NSDate *)day;
