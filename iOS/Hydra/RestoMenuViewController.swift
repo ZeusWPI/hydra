@@ -14,8 +14,8 @@ class RestoMenuViewController: UIViewController {
     
     var days: [NSDate] = []
     var menus: [RestoMenu?] = []
-    var legend: [RestoLegendItem] = []
-    var sandwiches: [RestoSandwich] = []
+    var legend: [RestoLegendItem]?
+    var sandwiches: [RestoSandwich]?
     
     var currentIndex: Int = 1
     
@@ -46,8 +46,8 @@ class RestoMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadMenu()
-        self.legend = (RestoStore.sharedStore().legend as? [RestoLegendItem])!
-        self.sandwiches = (RestoStore.sharedStore().sandwiches as? [RestoSandwich])!
+        self.legend = RestoStore.sharedStore().legend as? [RestoLegendItem]
+        self.sandwiches = RestoStore.sharedStore().sandwiches as? [RestoSandwich]
         
         // update days and reloadData
         self.restoMenuHeader?.updateDays()
