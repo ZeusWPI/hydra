@@ -241,7 +241,7 @@ def write_2_0(menus):
                                 'kind': 'soup',
                                 'name': meal['name'],
                                 'price': meal['price'],
-                                'type': 'side' if i == 1 else 'main'
+                                'type': 'side' if i == 0 else 'main'
                             }
                         )
                     for meal in daymenu['meat']:
