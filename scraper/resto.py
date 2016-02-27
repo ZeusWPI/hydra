@@ -255,8 +255,12 @@ def write_2_0(menus):
                         )
                     menu['meals'] = meals
                     menu['vegetables'] = daymenu['vegetables']
+                else:
+                    # resto closed
+                    menu['meals'] = []
+                    menu['vegetables'] = []
 
-                    write_json(menu, OUTFILE_2_0.format(resto, day.year, day.month, day.day))
+                write_json(menu, OUTFILE_2_0.format(resto, day.year, day.month, day.day))
 
 def main():
     "The main method."
