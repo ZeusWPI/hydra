@@ -17,9 +17,12 @@ TYPES = ['nl', 'en', 'nl-sintjansvest']
 
 # The url containing the list of weekmenu's.
 WEEKMENU_URL = {
-    "nl": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu/overzicht/@@rss2json",
-    "en": "http://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
-    "nl-sintjansvest": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest/overzicht/@@rss2json"
+    "nl": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu/"
+          "overzicht/@@rss2json",
+    "en": "http://www.ugent.be/en/facilities/restaurants/weekly-menu/"
+          "overzicht/@@rss2json",
+    "nl-sintjansvest": "http://www.ugent.be/student/nl/meer-dan-studeren/resto"
+                       "/weekmenu-sintjansvest/overzicht/@@rss2json"
 }
 
 # The jQuery selector for each weekmenu <a> element on the WEEKMENU_URL page.
@@ -198,11 +201,11 @@ def write_json(menu, filename):
 
 def write_1_0(menus):
     # 1.0 is only nl.
-    prev_weekmenu = None # do not care for the current week
+    prev_weekmenu = None  # do not care for the current week
     for weekyear, weekmenu in menus['nl'].items():
         year, week = weekyear
         menu = {}
-        combined_weekmenu = dict() # fix divergent calendars (Issue #225)
+        combined_weekmenu = dict()  # fix divergent calendars (Issue #225)
         if prev_weekmenu:
             combined_weekmenu.update(prev_weekmenu)
         combined_weekmenu.update(weekmenu)
@@ -235,35 +238,35 @@ def write_2_0(menus):
     for resto, restomenu in menus.items():
         for weekyear, weekmenu in restomenu.items():
             for day, daymenu in weekmenu.items():
-                menu = {'open': daymenu['open'], 'date': day.strftime('%Y-%m-%d')}
+                menu = dict(
+                    open=daymenu['open'],
+                    date=day.strftime('%Y-%m-%d'),
+                    meals=[],
+                    vegetables=[],
+                )
                 if daymenu['open']:
-                    meals = []
                     for i, meal in enumerate(daymenu['soup']):
-                        meals.append(
-                            {
-                                'kind': 'soup',
-                                'name': meal['name'],
-                                'price': meal['price'],
-                                'type': 'side' if i == 0 else 'main'
-                            }
-                        )
+                        menu['meals'].append(dict(
+                            kind='soup',
+                            name=meal['name'],
+                            price=meal['price'],
+                            # side comes first, FIXME
+                            type='side' if i == 0 else 'main',
+                        ))
                     for meal in daymenu['meat']:
-                        meals.append(
-                            {
-                                'kind': meal['kind'],
-                                'name': meal['name'],
-                                'price': meal['price'],
-                                'type': 'main'
-                            }
-                        )
-                    menu['meals'] = meals
+                        menu['meals'].append(dict(
+                            kind=meal['kind'],
+                            name=meal['name'],
+                            price=meal['price'],
+                            type='main',
+                        ))
                     menu['vegetables'] = daymenu['vegetables']
-                else:
-                    # resto closed
-                    menu['meals'] = []
-                    menu['vegetables'] = []
 
-                write_json(menu, OUTFILE_2_0.format(resto, day.year, day.month, day.day))
+                write_json(
+                    menu,
+                    OUTFILE_2_0.format(resto, day.year, day.month, day.day)
+                )
+
 
 def main():
     "The main method."
