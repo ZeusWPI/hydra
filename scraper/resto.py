@@ -1,6 +1,7 @@
 
 from pprint import pprint
 from pyquery import PyQuery as pq
+import requests
 import json
 import datetime
 import collections
@@ -16,9 +17,9 @@ TYPES = ['nl', 'en', 'nl-sintjansvest']
 
 # The url containing the list of weekmenu's.
 WEEKMENU_URL = {
-    "nl": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "en": "http://www.ugent.be/en/facilities/restaurants/weekly-menu",
-    "nl-sintjansvest": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest"
+    "nl": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu/overzicht/@@rss2json",
+    "en": "http://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
+    "nl-sintjansvest": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest/overzicht/@@rss2json"
 }
 
 # The jQuery selector for each weekmenu <a> element on the WEEKMENU_URL page.
@@ -52,13 +53,15 @@ def get_weeks(which):
     """Retrieves a dictionary of weeknumbers to the url of the menu for that
     week from the given weekmenu overview.
     """
-    weekmenu = pq(url=WEEKMENU_URL[which])
-    week_urls = (pq(e).attr("href") for e in weekmenu(WEEK_SELECTOR[which]))
-
+    page = requests.get(WEEKMENU_URL[which])
+    weekmenu = json.loads(page.text)
+    week_urls = [x["identifier"] for x in weekmenu]
     r = {}
     for url in week_urls:
         iso_week = int(url.split("week")[-1])
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
+        if iso_year == 2016 and which != "nl-sintjansvest" and iso_week > 10:
+            iso_week -= 1
         r[(iso_year, iso_week)] = url
     return r
 
