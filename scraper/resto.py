@@ -11,6 +11,7 @@ import os
 # Where to write to.
 OUTFILE = "resto/1.0/menu/{}/{}.json"
 OUTFILE_2_0 = "resto/2.0/menu/{}/{}/{}/{}.json"
+OVERVIEWFILE_2_0 = "resto/2.0/menu/{}/overview.json"
 
 # Languages
 TYPES = ['nl', 'en', 'nl-sintjansvest']
@@ -63,7 +64,7 @@ def get_weeks(which):
     for url in week_urls:
         iso_week = int(url.split("week")[-1])
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
-        if iso_year == 2016 and which != "nl-sintjansvest" and iso_week > 10:
+        if iso_year == 2016 and which == "nl" and iso_week > 10:
             iso_week -= 1
         r[(iso_year, iso_week)] = url
     return r
@@ -236,6 +237,7 @@ def write_1_0(menus):
 
 def write_2_0(menus):
     for resto, restomenu in menus.items():
+        overview = []
         for weekyear, weekmenu in restomenu.items():
             for day, daymenu in weekmenu.items():
                 menu = dict(
@@ -262,11 +264,21 @@ def write_2_0(menus):
                         ))
                     menu['vegetables'] = daymenu['vegetables']
 
+                if day >= datetime.date.today():
+                    overview.append(menu)
+
                 write_json(
                     menu,
                     OUTFILE_2_0.format(resto, day.year, day.month, day.day)
                 )
 
+        write_json(
+            sorted(
+                overview,
+                key=lambda x: datetime.datetime.strptime(x['date'], '%Y-%m-%d')
+            )[:10],
+            OVERVIEWFILE_2_0.format(resto)
+        )
 
 def main():
     "The main method."
