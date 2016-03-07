@@ -1,22 +1,22 @@
 [
     {
-        "image": "info-library",
+        "image": "info_library",
         "title": "Bibliotheek",
         "url-android": "market://details?id=com.bredir.boopsie.ubgent",
         "url-ios": "itms-apps://itunes.apple.com/us/app/ub-gent/id362022518?mt=8"
     },
     {
-        "image": "info-minerva",
+        "image": "info_minerva",
         "title": "Minerva Mobile",
         "url": "https://minerva.ugent.be/mobile/"
     },
     {
-        "image": "info-guide",
+        "image": "info_guide",
         "title": "GUIDe",
         "url": "http://www.ugent.be/nl/vragen"
     },
     {
-        "image": "info-sports",
+        "image": "info_sports",
         "subcontent": [
             {
                 "html": "info-sport-openingsuren.html",
@@ -35,26 +35,26 @@
     },
     {
         "html": "info-fietsen.html",
-        "image": "info-bicycle",
+        "image": "info_bicycle",
         "title": "Fietsen"
     },
     {
         "html": "info-studentenartsen.html",
-        "image": "info-doctors",
+        "image": "info_doctors",
         "title": "Studentenartsen"
     },
     {
         "html": "info-kalender.html",
-        "image": "info-academiccalendar",
+        "image": "info_academiccalendar",
         "title": "Academische kalender"
     },
     {
         "html": "info-bloklocaties.html",
-        "image": "info-mapmarker",
+        "image": "info_mapmarker",
         "title": "Bloklocaties"
     },
     {
-        "image": "info-more",
+        "image": "info_more",
         "subcontent": [
             {
                 "title": "UGent.be \u00bb Studenten",
