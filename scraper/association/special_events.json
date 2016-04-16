@@ -14,11 +14,11 @@
     {
       "name": "Stuver16",
       "link": "http://durfdoen.be/verkiezingen",
-      "simple-text": "Vind uw juiste kandidaat voor de studetenverkiezingen!",
+      "simple-text": "Vind uw juiste kandidaat voor de studentenverkiezingen!",
       "image": "https://zeus.ugent.be/hydra/api/2.0/association/logo/stuver16.png",
       "html": "http://durfdoen.be/verkiezingen-mobile",
       "priority": 1001,
-      "start": "2016-04-14T00:00:00+02:00",
+      "start": "2016-04-18T00:00:00+02:00",
       "end": "2016-04-28T00:00:00+02:00",
       "in-app": "verkiezingen",
       "development": true
