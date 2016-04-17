@@ -3,7 +3,7 @@
     {
       "name": "12urenloop",
       "link": "https://live.12urenloop.be",
-      "simple-text": "Volg de tussenstand van de 12urenloop",
+      "simple-text": "Volg live de tussenstand van de 12urenloop",
       "image": "https://12urenloop.be/images/logo.png",
       "html": "https://live.12urenloop.be/generated-card.html",
       "priority": 990,
