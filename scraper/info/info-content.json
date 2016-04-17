@@ -2,8 +2,7 @@
     {
         "image": "info_library",
         "title": "Bibliotheek",
-        "url-android": "com.bredir.boopsie.ubgent",
-        "url-ios": "itms-apps://itunes.apple.com/us/app/ub-gent/id362022518?mt=8"
+        "url": "https://lib.ugent.be"
     },
     {
         "image": "info_minerva",
