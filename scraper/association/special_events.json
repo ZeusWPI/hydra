@@ -6,10 +6,10 @@
       "simple-text": "Volg de tussenstand van de 12urenloop",
       "image": "https://12urenloop.be/images/logo.png",
       "html": "https://live.12urenloop.be/generated-card.html",
-      "priority": 999,
+      "priority": 990,
       "start": "2016-04-21T00:00:00+02:00",
       "end": "2016-04-22T00:00:00+02:00",
-      "development": false
+      "development": true
     },
     {
       "name": "Stuver16",
@@ -18,7 +18,7 @@
       "image": "https://zeus.ugent.be/hydra/api/2.0/association/logo/stuver16.png",
       "html": "http://durfdoen.be/verkiezingen-mobile",
       "priority": 1001,
-      "start": "2016-04-18T00:00:00+02:00",
+      "start": "2016-04-20T00:00:00+02:00",
       "end": "2016-04-28T00:00:00+02:00",
       "in-app": "verkiezingen",
       "development": true
