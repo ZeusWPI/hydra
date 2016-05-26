@@ -1,4 +1,3 @@
-
 from pprint import pprint
 from pyquery import PyQuery as pq
 import requests
@@ -280,6 +279,7 @@ def write_2_0(menus):
             OVERVIEWFILE_2_0.format(resto)
         )
 
+
 def main():
     "The main method."
 
@@ -308,7 +308,8 @@ def main():
                 days = get_days(which, week, week_url)
                 problems.extend([
                     "{} is not available in week {}.".format(day, week)
-                    for day in days if days[day] is None
+                    for day in days
+                    if days[day] is None and day >= datetime.date.today()
                 ])
             except:
                 problem = "Failed to parse days from {}.".format(week_url)
