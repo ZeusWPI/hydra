@@ -1,4 +1,3 @@
-
 from pprint import pprint
 from pyquery import PyQuery as pq
 import requests
@@ -64,8 +63,6 @@ def get_weeks(which):
     for url in week_urls:
         iso_week = int(url.split("week")[-1])
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
-        if iso_year == 2016 and which == "nl" and iso_week > 10:
-            iso_week -= 1
         r[(iso_year, iso_week)] = url
     return r
 
@@ -280,6 +277,7 @@ def write_2_0(menus):
             OVERVIEWFILE_2_0.format(resto)
         )
 
+
 def main():
     "The main method."
 
@@ -295,9 +293,10 @@ def main():
             # following.
             weeks = get_weeks(which)
             problems.extend(DateStuff.problems_with_weeks(weeks))
-        except:
+        except Exception as error:
             problems.append("Failed to parse the weekmenu on {}.".format(
                 WEEKMENU_URL[which]))
+            print(error, file=sys.stderr)
 
         for week, week_url in weeks.items():
 
@@ -308,11 +307,13 @@ def main():
                 days = get_days(which, week, week_url)
                 problems.extend([
                     "{} is not available in week {}.".format(day, week)
-                    for day in days if days[day] is None
+                    for day in days
+                    if days[day] is None and day >= datetime.date.today()
                 ])
-            except:
+            except Exception as error:
                 problem = "Failed to parse days from {}.".format(week_url)
                 problems.append(problem)
+                print(error, file=sys.stderr)
 
             week_dict = {}
             for day, day_url in days.items():
@@ -322,10 +323,10 @@ def main():
                 try:
                     menu = get_day_menu(which, day_url)
                     week_dict[day] = menu
-                except Exception as e:
+                except Exception as error:
                     problems.append("Failed parsing daymenu from {}.".format(
                         day_url))
-                    print(e)
+                    print(error, file=sys.stderr)
 
             menus[which][(year, week)] = week_dict
 
