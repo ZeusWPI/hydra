@@ -63,8 +63,6 @@ def get_weeks(which):
     for url in week_urls:
         iso_week = int(url.split("week")[-1])
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
-        if iso_year == 2016 and which == "nl" and iso_week > 10:
-            iso_week -= 1
         r[(iso_year, iso_week)] = url
     return r
 
