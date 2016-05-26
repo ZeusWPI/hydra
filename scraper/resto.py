@@ -293,9 +293,10 @@ def main():
             # following.
             weeks = get_weeks(which)
             problems.extend(DateStuff.problems_with_weeks(weeks))
-        except:
+        except Exception as error:
             problems.append("Failed to parse the weekmenu on {}.".format(
                 WEEKMENU_URL[which]))
+            print(error, file=sys.stderr)
 
         for week, week_url in weeks.items():
 
@@ -309,9 +310,10 @@ def main():
                     for day in days
                     if days[day] is None and day >= datetime.date.today()
                 ])
-            except:
+            except Exception as error:
                 problem = "Failed to parse days from {}.".format(week_url)
                 problems.append(problem)
+                print(error, file=sys.stderr)
 
             week_dict = {}
             for day, day_url in days.items():
@@ -321,10 +323,10 @@ def main():
                 try:
                     menu = get_day_menu(which, day_url)
                     week_dict[day] = menu
-                except Exception as e:
+                except Exception as error:
                     problems.append("Failed parsing daymenu from {}.".format(
                         day_url))
-                    print(e)
+                    print(error, file=sys.stderr)
 
             menus[which][(year, week)] = week_dict
 
