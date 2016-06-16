@@ -4,8 +4,11 @@
 import os
 import re
 import sys
+import json
 import urllib.parse
 import urllib.request
+import locale
+from datetime import datetime
 
 import lxml.html
 
@@ -14,7 +17,7 @@ from bs4 import BeautifulSoup, CData, Tag
 
 BASE_URL = 'http://www.schamper.ugent.be'
 RSS_URL = BASE_URL + '/dagelijks'
-API_PATH = './schamper/daily.xml'
+API_PATH = './schamper/'
 XML_PARSER = 'lxml-xml'
 HTML_PARSER = 'lxml'
 
@@ -25,7 +28,9 @@ def process_schamper(destination_path):
     for item in rss_feed('item'):
         transform_item_in_feed(item)
 
-    write_xml_to_file(rss_feed, destination_path)
+    write_xml_to_file(rss_feed, destination_path + 'daily.xml')
+    articles = convert_rss_to_json(rss_feed)
+    write_json_to_file(articles, destination_path + 'daily.json')
 
 
 def read_xml_from_url(url, parser=XML_PARSER):
@@ -45,6 +50,27 @@ def write_xml_to_file(doc, path):
     os.makedirs(directory, exist_ok=True)
     with open(path, 'w') as file_:
         file_.write(str(doc))
+
+def write_json_to_file(articles, path):
+    json.dump(articles, open(path, 'w'), sort_keys=True)
+
+def convert_rss_to_json(rss_feed):
+    articles = []
+    for item in rss_feed('item'):
+        articles.append(rss_item_to_object(item))
+    return {'daily': articles}
+
+def rss_item_to_object(rss_item):
+    def convert_date(date):
+        locale.setlocale(locale.LC_TIME, "en_US")
+        return datetime.strptime(date, "%a, %d %b %Y %H:%M:%S %z").isoformat()
+    return {
+        'title': rss_item.title.text,
+        'link': rss_item.link.text,
+        'text': "".join(rss_item.description.contents),
+        'pub_date': convert_date(rss_item.pubDate.text),
+        'author': rss_item.creator.text
+    }
 
 
 def transform_item_in_feed(item):
