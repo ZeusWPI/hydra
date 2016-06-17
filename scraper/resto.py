@@ -194,7 +194,8 @@ def write_json(menu, filename):
     directory = os.path.dirname(filename)
     if not os.path.exists(directory):
         os.makedirs(directory)
-    json.dump(menu, open(filename, 'w'), sort_keys=True)
+    with open(filename, 'w') as f:
+        json.dump(menu, f, sort_keys=True)
 
 
 def write_1_0(menus):
