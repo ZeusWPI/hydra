@@ -52,7 +52,8 @@ def write_xml_to_file(doc, path):
         file_.write(str(doc))
 
 def write_json_to_file(articles, path):
-    json.dump(articles, open(path, 'w'), sort_keys=True)
+    with open(path, 'w') as f:
+        json.dump(articles, f, sort_keys=True)
 
 def convert_rss_to_json(rss_feed):
     articles = []
