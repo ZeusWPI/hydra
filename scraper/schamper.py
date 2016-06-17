@@ -58,7 +58,7 @@ def convert_rss_to_json(rss_feed):
     articles = []
     for item in rss_feed('item'):
         articles.append(rss_item_to_object(item))
-    return {'daily': articles}
+    return articles
 
 def rss_item_to_object(rss_item):
     def convert_date(date):
