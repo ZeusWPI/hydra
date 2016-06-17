@@ -62,7 +62,7 @@ def convert_rss_to_json(rss_feed):
 
 def rss_item_to_object(rss_item):
     def convert_date(date):
-        locale.setlocale(locale.LC_TIME, "en_US")
+        locale.setlocale(locale.LC_TIME, "en_US.utf8")
         return datetime.strptime(date, "%a, %d %b %Y %H:%M:%S %z").isoformat()
     return {
         'title': rss_item.title.text,
