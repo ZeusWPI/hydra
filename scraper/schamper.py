@@ -55,22 +55,32 @@ def write_json_to_file(articles, path):
     with open(path, 'w') as f:
         json.dump(articles, f, sort_keys=True)
 
+
 def convert_rss_to_json(rss_feed):
     articles = []
     for item in rss_feed('item'):
         articles.append(rss_item_to_object(item))
     return articles
 
+
 def rss_item_to_object(rss_item):
     def convert_date(date):
         locale.setlocale(locale.LC_TIME, "en_US.utf8")
         return datetime.strptime(date, "%a, %d %b %Y %H:%M:%S %z").isoformat()
+    def find_first_image_in_content(content):
+        soupified = BeautifulSoup(content, HTML_PARSER)
+        images = [x.get('src') for x in soupified.find_all('img')]
+        if len(images) > 0:
+            return images[0]
+        return None
+    content = "".join(rss_item.description.contents)
     return {
         'title': rss_item.title.text,
         'link': rss_item.link.text,
-        'text': "".join(rss_item.description.contents),
+        'text': content,
         'pub_date': convert_date(rss_item.pubDate.text),
-        'author': rss_item.creator.text
+        'author': rss_item.creator.text,
+        'image': find_first_image_in_content(content)
     }
 
 
