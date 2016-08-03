@@ -31,6 +31,8 @@ def process_schamper(destination_path):
     write_xml_to_file(rss_feed, destination_path + 'daily.xml')
     articles = convert_rss_to_json(rss_feed)
     write_json_to_file(articles, destination_path + 'daily.json')
+    android_articles = parse_content_in_json(articles)
+    write_json_to_file(android_articles, destination_path + 'daily_android.json')
 
 
 def read_xml_from_url(url, parser=XML_PARSER):
@@ -63,7 +65,7 @@ def convert_rss_to_json(rss_feed):
 
 def rss_item_to_object(rss_item):
     def convert_date(date):
-        locale.setlocale(locale.LC_TIME, "en_US.utf8")
+        locale.setlocale(locale.LC_TIME, "en_US.utf8") #TODO: choose based on OS
         return datetime.strptime(date, "%a, %d %b %Y %H:%M:%S %z").isoformat()
     return {
         'title': rss_item.title.text,
@@ -72,6 +74,47 @@ def rss_item_to_object(rss_item):
         'pub_date': convert_date(rss_item.pubDate.text),
         'author': rss_item.creator.text
     }
+
+def parse_content_in_json(articles):
+    new_articles = []
+    for article in articles:
+        new_articles.append(parse_content_object_in_json(article))
+    return new_articles
+
+def parse_content_object_in_json(json):
+    text = BeautifulSoup(json['text'], HTML_PARSER)
+    intro = text.find('p', class_='introduction').extract()
+
+    img = text.img
+    if img:
+        image = img["src"]
+    else:
+        image = None
+
+    images = []
+    for img in text.find_all('img'):
+        p = img.parent.extract()
+        images.append({
+            'url': img['src'],
+            'caption': p.text.strip()
+        })
+
+    for el in text.find_all(['p', 'div']):
+        #remove empty tags
+        if not el.contents and (not el.string or not el.string.strip()):
+            el.extract()
+
+    return {
+            'author': json['author'],
+            'title': json['title'],
+            'link': json['link'],
+            'pub_date': json['pub_date'],
+            'intro': intro.text.strip(),
+            'image': image,
+            'images': images,
+            'body': str(text),
+            'category': None #TODO: fill in
+        }
 
 
 def transform_item_in_feed(item):
