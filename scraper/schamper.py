@@ -67,12 +67,21 @@ def rss_item_to_object(rss_item):
     def convert_date(date):
         locale.setlocale(locale.LC_TIME, "en_US.utf8") #TODO: choose based on OS
         return datetime.strptime(date, "%a, %d %b %Y %H:%M:%S %z").isoformat()
+    def find_category(rss_item):
+        for category in rss_item.find_all('category'):
+            domain = category.get("domain")
+            if domain is None:
+                return None
+            if 'schamper.ugent.be/categorie/' in domain:
+                return category.text
+        return None
     return {
         'title': rss_item.title.text,
         'link': rss_item.link.text,
         'text': "".join(rss_item.description.contents),
         'pub_date': convert_date(rss_item.pubDate.text),
-        'author': rss_item.creator.text
+        'author': rss_item.creator.text,
+        'category': find_category(rss_item)
     }
 
 def parse_content_in_json(articles):
@@ -113,7 +122,7 @@ def parse_content_object_in_json(json):
             'image': image,
             'images': images,
             'body': str(text),
-            'category': None #TODO: fill in
+            'category': json['category']
         }
 
 
