@@ -67,7 +67,7 @@ def convert_rss_to_json(rss_feed):
 
 def rss_item_to_object(rss_item):
     def convert_date(date):
-        locale.setlocale(locale.LC_TIME, "en_US") #TODO: choose based on OS
+        locale.setlocale(locale.LC_TIME, "en_US.utf8") #TODO: choose based on OS
         return datetime.strptime(date, "%a, %d %b %Y %H:%M:%S %z").isoformat()
     def find_category(rss_item):
         for category in rss_item.find_all('category'):
