@@ -68,6 +68,10 @@
     [super viewDidAppear:animated];
     GAI_Track(@"News");
 
+    //TODO After update to Restkit 0.20 and delete these lines
+    // reload activities, refresh the data if it's not later than today
+    [[AssociationStore sharedStore] reloadNewsItems];
+
     // TODO: what if there are 0 due to filters
     if (self.newsItems.count == 0) {
         [SVProgressHUD show];
