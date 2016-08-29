@@ -102,7 +102,15 @@ def parse_content_in_json(articles):
 
 def parse_content_object_in_json(json):
     text = BeautifulSoup(json['text'], HTML_PARSER)
-    intro = text.find('p', class_='introduction').extract()
+    intro = None
+    if text.find('p', class_='introduction') != None:
+        intro = text.find('p', class_='introduction').extract()
+    else:
+        intro = text.find('body').find('p', recursive=False).extract()
+
+    if intro == None:
+        print('Error: {}: intro is None'.format(json['link']))
+        intro = '...' # Always have some intro text!
 
     images = []
     for img in text.find_all('img'):
