@@ -149,10 +149,11 @@ a#store-wp8 {
 }
 
 .carousel-frame {
-    height: 700px;
+    height: 885px;
     width: 100%;
-    background: url(../img/iphone-frame.png) no-repeat;
+    background: url(../img/iphone2-frame.png) no-repeat;
     z-index: 100;
+    background-size: contain;
 }
 
 .carousel .slides img {
@@ -180,11 +181,7 @@ a#store-wp8 {
     }
 
     .carousel .slides img, .flex-viewport {
-        width: 227px;
-    }
-
-    .flex-viewport {
-        top: 94px; left: 23px;
+        width: 300px;
     }
 
     .flex-control-nav {
