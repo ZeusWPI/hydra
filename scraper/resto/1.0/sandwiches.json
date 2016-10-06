@@ -1,17 +1,5 @@
 [
   {
-    "name": "Kruidenkaas",
-    "ingredients": [
-      "kruidenkaas",
-      "tomaat",
-      "sla",
-      "komkommer",
-      "ei"
-    ],
-    "price_small": "1.30",
-    "price_medium": "1.90"
-  },
-  {
     "name": "Kaas",
     "ingredients": [
       "kaas",
@@ -20,6 +8,18 @@
       "komkommer",
       "ei",
       "mayonaise"
+    ],
+    "price_small": "1.40",
+    "price_medium": "2.00"
+  },
+  {
+    "name": "Kruidenkaas",
+    "ingredients": [
+      "kruidenkaas",
+      "tomaat",
+      "sla",
+      "komkommer",
+      "ei"
     ],
     "price_small": "1.30",
     "price_medium": "2.00"
@@ -34,7 +34,7 @@
       "ei"
     ],
     "price_small": "1.40",
-    "price_medium": "2.00"
+    "price_medium": "2.10"
   },
   {
     "name": "Kip curry hawaï",
@@ -46,19 +46,19 @@
       "ananas"
     ],
     "price_small": "1.40",
-    "price_medium": "2.00"
+    "price_medium": "2.10"
   },
   {
-    "name": "Préparé",
+    "name": "Makreelsalade",
     "ingredients": [
-      "préparé",
+      "makreelsalade",
       "tomaat",
       "sla",
       "komkommer",
       "ei"
     ],
     "price_small": "1.40",
-    "price_medium": "2.00"
+    "price_medium": "2.10"
   },
   {
     "name": "Martino",
@@ -73,6 +73,18 @@
     "price_medium": "2.10"
   },
   {
+    "name": "Préparé",
+    "ingredients": [
+      "préparé",
+      "tomaat",
+      "sla",
+      "komkommer",
+      "ei"
+    ],
+    "price_small": "1.40",
+    "price_medium": "2.10"
+  },
+  {
     "name": "Ham",
     "ingredients": [
       "ham",
@@ -82,8 +94,8 @@
       "ei",
       "mayonaise"
     ],
-    "price_small": "1.40",
-    "price_medium": "2.10"
+    "price_small": "1.50",
+    "price_medium": "2.20"
   },
   {
     "name": "Brie",
@@ -93,17 +105,22 @@
       "honing",
       "pijnboompitten"
     ],
-    "price_small": "1.40",
+    "price_small": "1.50",
     "price_medium": "2.30"
   },
   {
-    "name": "Gerookte zalm - kruidenkaas",
+    "name": "Maison",
     "ingredients": [
-      "gerookte zalm",
-      "kruidenkaas",
-      "ui"
+      "ham",
+      "kaas",
+      "tomaat",
+      "sla",
+      "ei",
+      "augurk",
+      "mayonaise",
+      "cocktailsaus"
     ],
-    "price_small": "1.40",
+    "price_small": "1.50",
     "price_medium": "2.30"
   },
   {
@@ -118,62 +135,14 @@
       "cocktailsaus"
     ],
     "price_small": "1.50",
-    "price_medium": "2.20"
-  },
-  {
-    "name": "Maison",
-    "ingredients": [
-      "ham",
-      "kaas",
-      "tomaat",
-      "sla",
-      "ei",
-      "augurk",
-      "mayonaise",
-      "cocktailsaus"
-    ],
-    "price_small": "1.40",
-    "price_medium": "2.20"
-  },
-  {
-    "name": "Boulet Bicky",
-    "ingredients": [
-      "gevogelte boulet",
-      "geroosterde ui",
-      "Bicky-dressing",
-      "augurk"
-    ],
-    "price_small": "1.50",
     "price_medium": "2.30"
   },
   {
-    "name": "Kabeljauwsalade",
+    "name": "Gerookte zalm - kruidenkaas",
     "ingredients": [
-      "kabeljauwsalade",
-      "tomaat",
-      "sla",
-      "komkommer",
-      "ei"
-    ],
-    "price_small": "1.50",
-    "price_medium": "2.30"
-  },
-  {
-    "name": "Ecologisch",
-    "ingredients": [
-      "wisselend broodbeleg",
-      "sla"
-    ],
-    "price_small": "1.50",
-    "price_medium": "2.40"
-  },
-  {
-    "name": "Tomaat-mozzarella",
-    "ingredients": [
-      "mozarella",
-      "tomaat",
-      "sla",
-      "groene pesto met basilicum"
+      "gerookte zalm",
+      "kruidenkaas",
+      "ui"
     ],
     "price_small": "1.50",
     "price_medium": "2.40"
@@ -189,4 +158,35 @@
     "price_small": "1.60",
     "price_medium": "2.40"
   }
+  {
+    "name": "Tomaat-mozzarella",
+    "ingredients": [
+      "mozarella",
+      "tomaat",
+      "sla",
+      "groene pesto met basilicum"
+    ],
+    "price_small": "1.60",
+    "price_medium": "2.40"
+  },
+  {
+    "name": "Ecologisch",
+    "ingredients": [
+      "wisselend broodbeleg",
+      "sla"
+    ],
+    "price_small": "1.50",
+    "price_medium": "2.50"
+  },
+  {
+    "name": "Toscane",
+    "ingredients": [
+      "tomatensalsa",
+      "prosciutto ham",
+      "sla",
+      "mozarella"
+    ],
+    "price_small": "1.50",
+    "price_medium": "2.50"
+  },
 ]
