@@ -204,70 +204,70 @@ def _remove_authors(article):
     article.find('div', class_='field-name-field-auteurs').decompose()
 
 
-def _extract_article_body(page):
-    article = page.find(id='artikel').find(class_='content')
-
-    body = Tag(name='temporary_tag')
-
-    # +1 internetz for the person who can tell me why I can't write:
-    #   for element in article.children:
-    # or
-    #   for element in article.contents:
-    for element in list(article.children):
-        # Ignore the comment form
-        if element.name == 'form':
-            continue
-
-        # Ignore whitespace
-        if element.name is None and re.search('\S', str(element)) is None:
-            continue
-
-        # Nor div, nor form, nor whitespace: probably article content
-        if element.name != 'div':
-            body.append(element.extract())
-            continue
-
-        # TODO uncomment me when the app is ready to support subtitles
-        # Oh, and change the next if with an elif
-        #  if 'field-field-ondertitel' in element['class']:
-        #      paragraph = _extract_paragraph(element, 'subtitle')
-        #      body.append(paragraph)
-
-        if 'field-field-inleiding' in element['class']:
-            paragraph = _extract_paragraph(element, 'introduction')
-            body.append(paragraph)
-
-        elif 'field-field-img-regulier' in element['class']:
-            images_div = Tag(name='div', attrs={'class': 'image'})
-            for image_and_caption in element(id='image-and-caption'):
-                image = image_and_caption.img
-                caption = image_and_caption.find(class_='caption-text')
-
-                paragraph = Tag(name='p')
-                paragraph.append(image)
-                if caption is not None:
-                    paragraph.append(caption.text)
-
-                images_div.append(paragraph)
-            body.append(images_div)
-
-        elif 'field-field-website' in element['class']:
-            label = element.find(class_='field-label').text
-            label_p = Tag(name='p')
-            label_s = Tag(name='strong')
-            label_s.append(label)
-            label_p.append(label_s)
-            body.append(label_p)
-
-            websites = element.find(class_='field-item').contents
-            for website in list(websites):
-                body.append(website)
-
-        else:
-            # Ignore other divs
-            pass
-
-    return body
+# def _extract_article_body(page):
+#     article = page.find(id='artikel').find(class_='content')
+#
+#     body = Tag(name='temporary_tag')
+#
+#     # +1 internetz for the person who can tell me why I can't write:
+#     #   for element in article.children:
+#     # or
+#     #   for element in article.contents:
+#     for element in list(article.children):
+#         # Ignore the comment form
+#         if element.name == 'form':
+#             continue
+#
+#         # Ignore whitespace
+#         if element.name is None and re.search('\S', str(element)) is None:
+#             continue
+#
+#         # Nor div, nor form, nor whitespace: probably article content
+#         if element.name != 'div':
+#             body.append(element.extract())
+#             continue
+#
+#         # TODO uncomment me when the app is ready to support subtitles
+#         # Oh, and change the next if with an elif
+#         #  if 'field-field-ondertitel' in element['class']:
+#         #      paragraph = _extract_paragraph(element, 'subtitle')
+#         #      body.append(paragraph)
+#
+#         if 'field-field-inleiding' in element['class']:
+#             paragraph = _extract_paragraph(element, 'introduction')
+#             body.append(paragraph)
+#
+#         elif 'field-field-img-regulier' in element['class']:
+#             images_div = Tag(name='div', attrs={'class': 'image'})
+#             for image_and_caption in element(id='image-and-caption'):
+#                 image = image_and_caption.img
+#                 caption = image_and_caption.find(class_='caption-text')
+#
+#                 paragraph = Tag(name='p')
+#                 paragraph.append(image)
+#                 if caption is not None:
+#                     paragraph.append(caption.text)
+#
+#                 images_div.append(paragraph)
+#             body.append(images_div)
+#
+#         elif 'field-field-website' in element['class']:
+#             label = element.find(class_='field-label').text
+#             label_p = Tag(name='p')
+#             label_s = Tag(name='strong')
+#             label_s.append(label)
+#             label_p.append(label_s)
+#             body.append(label_p)
+#
+#             websites = element.find(class_='field-item').contents
+#             for website in list(websites):
+#                 body.append(website)
+#
+#         else:
+#             # Ignore other divs
+#             pass
+#
+#     return body
 
 
 def _extract_paragraph(element, name):
