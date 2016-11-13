@@ -106,6 +106,8 @@ def get_day_menu(which, url):
 
     for meal in daymenu(MEAL_SELECTOR):
         meal = pq(meal).html()
+        if meal is None: # meal is empty li
+            continue
         if '€' in meal:
             price = meal.split('-')[-1].strip()
             name = '-'.join(meal.split('-')[:-1]).strip()
