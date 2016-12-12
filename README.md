@@ -5,9 +5,8 @@
 
 [![Available on the App Store](http://student.ugent.be/hydra/img/store-ios.png)](https://itunes.apple.com/be/app/hydra/id602640924)
 [![Get it on Google Play](http://student.ugent.be/hydra/img/store-android.png)](http://play.google.com/store/apps/details?id=be.ugent.zeus.hydra)
-[![Get it on the Marketplace](http://student.ugent.be/hydra/img/store-windows.png)](http://www.windowsphone.com/s?appId=08d3268e-aad6-48fa-ae83-5ccd1663e73a)
 
-Android, iOS, BlackBerry 10 and Windows Phone application providing all the information a student at [Ghent University](http://www.ugent.be/) needs.
+Android and iOS app providing all the information a student at [Ghent University](http://www.ugent.be/) needs.
 
 This application was developed by [Zeus WPI](http://zeus.ugent.be), the computer science working group. Please contact [hydra@zeus.ugent.be](mailto:hydra@zeus.ugent.be) with any questions.
 
@@ -17,7 +16,7 @@ Links to the [Android repo](https://github.com/ZeusWPI/hydra-android) and the [i
 
 ## Resto API
 
-The scraper pulls the menu from the UGent website and parses into a workable json format. The current API is located at http://zeus.ugent.be/hydra/api/1.0/resto. The number at the end of the URL indicates the version of the API. Currently the API is at version 1.0
+The scraper pulls the menu from the UGent website and parses into a workable json format. The current API is located at http://zeus.ugent.be/hydra/api/2.0/resto. The number at the end of the URL indicates the version of the API. Currently the API is at version 2.0
 
 The API currently only supports the JSON format.
 
