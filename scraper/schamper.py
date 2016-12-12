@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import json
 import os
 import re
-import sys
-import json
+import locale
 import urllib.parse
 import urllib.request
-import locale
 from datetime import datetime
 
-import lxml.html
-
 import htmlmin
+import lxml.html
 from bs4 import BeautifulSoup, CData, Tag
 
 BASE_URL = 'http://www.schamper.ugent.be'
-RSS_URL = BASE_URL + '/dagelijks'
+RSS_URL = BASE_URL + '/rss'
 API_PATH = './schamper/'
 XML_PARSER = 'lxml-xml'
 HTML_PARSER = 'lxml'
@@ -40,8 +38,9 @@ def read_xml_from_url(url, parser=XML_PARSER):
         return BeautifulSoup(rss_feed, parser)
 
 
-def read_html_from_url(url):
-    soup = read_xml_from_url(url, parser=HTML_PARSER)
+def read_html_from_string(string):
+    """Parse a string as HTML"""
+    soup = BeautifulSoup(string, HTML_PARSER)
     prettified = soup.prettify()
     absolutified = lxml.html.make_links_absolute(prettified, base_url=BASE_URL)
     return BeautifulSoup(absolutified, HTML_PARSER)
@@ -50,39 +49,32 @@ def read_html_from_url(url):
 def write_xml_to_file(doc, path):
     directory = os.path.dirname(path)
     os.makedirs(directory, exist_ok=True)
-    with open(path, 'w') as file_:
+    with open(path, mode='w', encoding="utf-8") as file_:
         file_.write(str(doc))
 
+
 def write_json_to_file(articles, path):
-    with open(path, 'w') as f:
+    with open(path, mode='w', encoding="utf-8") as f:
         json.dump(articles, f, sort_keys=True)
 
 
 def convert_rss_to_json(rss_feed):
-    articles = []
-    for item in rss_feed('item'):
-        articles.append(rss_item_to_object(item))
-    return articles
+    return list(map(rss_item_to_object, rss_feed('item')))
 
 
 def rss_item_to_object(rss_item):
     def convert_date(date):
-        locale.setlocale(locale.LC_TIME, "en_US.utf8") #TODO: choose based on OS
+        # TODO: Maybe convert this to ISO time or something?
+        locale.setlocale(locale.LC_TIME, "en_US.utf8")
         return datetime.strptime(date, "%a, %d %b %Y %H:%M:%S %z").isoformat()
-    def find_category(rss_item):
-        for category in rss_item.find_all('category'):
-            domain = category.get("domain")
-            if domain is None:
-                return None
-            if 'schamper.ugent.be/categorie/' in domain:
-                return category.text
-        return None
-    def find_first_image_in_content(content):
-        soupified = BeautifulSoup(content, HTML_PARSER)
+
+    def find_first_image_in_content(article_content):
+        soupified = BeautifulSoup(article_content, HTML_PARSER)
         images = [x.get('src') for x in soupified.find_all('img')]
         if len(images) > 0:
             return images[0]
         return None
+
     content = "".join(rss_item.description.contents)
     return {
         'title': rss_item.title.text,
@@ -90,155 +82,192 @@ def rss_item_to_object(rss_item):
         'text': content,
         'pub_date': convert_date(rss_item.pubDate.text),
         'author': rss_item.creator.text,
-        'category': find_category(rss_item),
+        'category': rss_item.find('category').text,
         'image': find_first_image_in_content(content)
     }
 
+
 def parse_content_in_json(articles):
-    new_articles = []
-    for article in articles:
-        new_articles.append(parse_content_object_in_json(article))
-    return new_articles
+    """Loop through articles and parse them"""
+    return list(map(parse_content_object_in_json, articles))
 
-def parse_content_object_in_json(json):
-    text = BeautifulSoup(json['text'], HTML_PARSER)
-    intro = None
-    if text.find('p', class_='introduction') != None:
-        intro = text.find('p', class_='introduction').extract()
+
+def parse_content_object_in_json(json_content):
+    """Extract stuff from the actual article"""
+    # The parsed article content
+    text = BeautifulSoup(json_content['text'], HTML_PARSER)
+
+    intro_node = text.select_one('div.field-name-field-inleiding p')
+
+    if intro_node is not None:
+        intro = intro_node.text.strip()
+        text.find('div', class_='field-name-field-inleiding').decompose()
     else:
-        intro = text.find('body').find('p', recursive=False).extract()
+        intro = ""  # Use empty text when there is no intro.
 
-    if intro == None:
-        print('Error: {}: intro is None'.format(json['link']))
-        intro = '...' # Always have some intro text!
-
+    # Extract images
     images = []
-    for img in text.find_all('img'):
-        p = img.parent.extract()
+    for wrapper in text.find_all('div', class_='article-image-wrapper'):
         images.append({
-            'url': img['src'],
-            'caption': p.text.strip()
+            'url': wrapper.find('img')['src'],
+            'caption': wrapper.text.strip()
         })
 
+    # Remove empty tags
     for el in text.find_all(['p', 'div']):
-        #remove empty tags
         if not el.contents and (not el.string or not el.string.strip()):
-            el.extract()
+            el.decompose()
 
     return {
-            'author': json['author'],
-            'title': json['title'],
-            'link': json['link'],
-            'pub_date': json['pub_date'],
-            'intro': intro.text.strip(),
-            'image': json['image'],
+            'author': json_content['author'],
+            'title': json_content['title'],
+            'link': json_content['link'],
+            'pub_date': json_content['pub_date'],
+            'intro': intro,
+            'image': json_content['image'],
             'images': images,
-            'body': str(text),
-            'category': json['category']
+            'body': "".join(text.find('body').decode_contents(formatter='html')),
+            'category': json_content['category']
         }
 
 
 def transform_item_in_feed(item):
+    """Transform an <item>"""
+
     link = item.link.text
     print('Processing {}'.format(link))
 
-    article = read_html_from_url(link)
-
-    # Remove and ignore articles without title
-    title_node = item.title
-    if title_node is None or len(title_node.text) == 0:
+    # Ignore empty articles
+    if item.description is None or len(item.description.contents) == 0:
+        print('Empty article body, ignoring...')
         item.decompose()
         return
 
-    author_node = item.creator
-    author_node.string = _parse_article_authors(article)
+    # Ignore articles without title
+    if item.title is None or len(item.title) == 0:
+        print('Article without title, ignoring...')
+        item.decompose()
+        return
 
-    parsed_body = _extract_article_body(article)
-    encoded = parsed_body.decode_contents(formatter='html')
-    minified = htmlmin.minify(encoded, remove_optional_attribute_quotes=False)
-    item.description.contents = [CData(minified)]
+    # Parse the article content as HTML
+    article = read_html_from_string(item.description.contents[0])
+
+    # The creator in the RSS is a username, so try first to parse from the HTML.
+    html_authors = _parse_article_authors(article)
+
+    if html_authors is not None:
+        item.creator.string = html_authors
+        _remove_authors(article)
+
+    # Get the category
+    category_tag = Tag(name='category')
+    category_node = article.select_one('div.field-name-field-rubriek a')
+
+    if category_node is not None:
+        category_tag.string = category_node.text.strip()
+        category_tag['domain'] = category_node['href']
+        # Remove category from the article body
+        article.find('div', class_='field-name-field-rubriek').decompose()
+
+    item.append(category_tag)
+
+    # Remove edition from article body if present
+    edition_node = article.find('div', class_='field-name-field-editie')
+    if edition_node is not None:
+        edition_node.decompose()
+
+    encoded = article.find('body').decode_contents(formatter='html')
+    item.description.contents = [CData(htmlmin.minify(encoded, remove_optional_attribute_quotes=False))]
 
 
 def _parse_article_authors(article):
-    authors = article.find('span', class_='submitted')
+    """Parse authors from the article"""
+    author_urls = article.select("div.field-name-field-auteurs a")
 
-    if len(authors) == 0:
-        return ''
+    if len(author_urls) == 0:
+        return None
 
-    match = re.search('\sdoor\s+((.|\n)*\S)\s*$', authors.text)
-    if match is None:
-        print("Urgh, Schamper fucked up again. Can't parse authors",
-              authors.text, file=sys.stderr)
-        return ''
+    authors = list(map(lambda a: a.text.strip(), author_urls))
 
-    # Sometimes, there are random newlines and stuff
-    return re.sub(r'\s+', ' ', match.group(1))
+    assert len(authors) >= 1
+
+    if len(authors) == 1:
+        author_string = authors[0]
+    else:
+        author_string = ', '.join(authors[:-1]) + ' & ' + authors[-1]
+
+    return author_string
 
 
-def _extract_article_body(page):
-    article = page.find(id='artikel').find(class_='content')
+def _remove_authors(article):
+    """Remove the authors from an article"""
+    article.find('div', class_='field-name-field-auteurs').decompose()
 
-    body = Tag(name='temporary_tag')
 
-    # +1 internetz for the person who can tell me why I can't write:
-    #   for element in article.children:
-    # or
-    #   for element in article.contents:
-    for element in list(article.children):
-        # Ignore the comment form
-        if element.name == 'form':
-            continue
-
-        # Ignore whitespace
-        if element.name is None and re.search('\S', str(element)) is None:
-            continue
-
-        # Nor div, nor form, nor whitespace: probably article content
-        if element.name != 'div':
-            body.append(element.extract())
-            continue
-
-        # TODO uncomment me when the app is ready to support subtitles
-        # Oh, and change the next if with an elif
-        #  if 'field-field-ondertitel' in element['class']:
-        #      paragraph = _extract_paragraph(element, 'subtitle')
-        #      body.append(paragraph)
-
-        if 'field-field-inleiding' in element['class']:
-            paragraph = _extract_paragraph(element, 'introduction')
-            body.append(paragraph)
-
-        elif 'field-field-img-regulier' in element['class']:
-            images_div = Tag(name='div', attrs={'class': 'image'})
-            for image_and_caption in element(id='image-and-caption'):
-                image = image_and_caption.img
-                caption = image_and_caption.find(class_='caption-text')
-
-                paragraph = Tag(name='p')
-                paragraph.append(image)
-                if caption is not None:
-                    paragraph.append(caption.text)
-
-                images_div.append(paragraph)
-            body.append(images_div)
-
-        elif 'field-field-website' in element['class']:
-            label = element.find(class_='field-label').text
-            label_p = Tag(name='p')
-            label_s = Tag(name='strong')
-            label_s.append(label)
-            label_p.append(label_s)
-            body.append(label_p)
-
-            websites = element.find(class_='field-item').contents
-            for website in list(websites):
-                body.append(website)
-
-        else:
-            # Ignore other divs
-            pass
-
-    return body
+# def _extract_article_body(page):
+#     article = page.find(id='artikel').find(class_='content')
+#
+#     body = Tag(name='temporary_tag')
+#
+#     # +1 internetz for the person who can tell me why I can't write:
+#     #   for element in article.children:
+#     # or
+#     #   for element in article.contents:
+#     for element in list(article.children):
+#         # Ignore the comment form
+#         if element.name == 'form':
+#             continue
+#
+#         # Ignore whitespace
+#         if element.name is None and re.search('\S', str(element)) is None:
+#             continue
+#
+#         # Nor div, nor form, nor whitespace: probably article content
+#         if element.name != 'div':
+#             body.append(element.extract())
+#             continue
+#
+#         # TODO uncomment me when the app is ready to support subtitles
+#         # Oh, and change the next if with an elif
+#         #  if 'field-field-ondertitel' in element['class']:
+#         #      paragraph = _extract_paragraph(element, 'subtitle')
+#         #      body.append(paragraph)
+#
+#         if 'field-field-inleiding' in element['class']:
+#             paragraph = _extract_paragraph(element, 'introduction')
+#             body.append(paragraph)
+#
+#         elif 'field-field-img-regulier' in element['class']:
+#             images_div = Tag(name='div', attrs={'class': 'image'})
+#             for image_and_caption in element(id='image-and-caption'):
+#                 image = image_and_caption.img
+#                 caption = image_and_caption.find(class_='caption-text')
+#
+#                 paragraph = Tag(name='p')
+#                 paragraph.append(image)
+#                 if caption is not None:
+#                     paragraph.append(caption.text)
+#
+#                 images_div.append(paragraph)
+#             body.append(images_div)
+#
+#         elif 'field-field-website' in element['class']:
+#             label = element.find(class_='field-label').text
+#             label_p = Tag(name='p')
+#             label_s = Tag(name='strong')
+#             label_s.append(label)
+#             label_p.append(label_s)
+#             body.append(label_p)
+#
+#             websites = element.find(class_='field-item').contents
+#             for website in list(websites):
+#                 body.append(website)
+#
+#         else:
+#             # Ignore other divs
+#             pass
+#
+#     return body
 
 
 def _extract_paragraph(element, name):
