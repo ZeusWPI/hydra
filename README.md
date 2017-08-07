@@ -33,37 +33,41 @@ The API currently only supports the JSON format.
   If the `open` key is false, all restos are closed that day and no other keys are provided. If `open` is true, the keys `meat`, `soup` and `vegetables` are also provided.
 
   An example structure is provided below. This is a typical structure with 4 meat entries, 1 soup entry and 2 vegetable entries.
-
-		"2011-03-21": {
-			"open": true,
-			"meat": [
-				{
-					"name": "Kalkoengebraad",
-					"price": "\u20ac 2,80",
-					"recommended": true
-				}, {
-					"name": "Heekdelight#",
-					"price": "\u20ac 3,50",
-					"recommended": false
-				}, {
-					"name": "Rundshamburger*",
-					"price": "\u20ac 3,20",
-					"recommended": false
-				}, {
-					"name": "Veg. kaasburger",
-					"price": "\u20ac 3,60",
-					"recommended": false
-				}
-			],
-			"soup": {
-				"name": "Uiensoep",
-				"price": "\u20ac 0,50"
-			},
-			"vegetables": [
-				"Hutsepotgroenten",
-				"Appelcomote"
-			]
-		}
+  ```json
+  "2011-03-21": {
+    "open": true,
+    "meat": [
+      {
+        "name": "Kalkoengebraad",
+        "price": "\u20ac 2,80",
+        "recommended": true
+      },
+      {
+        "name": "Heekdelight#",
+        "price": "\u20ac 3,50",
+        "recommended": false
+      },
+      {
+        "name": "Rundshamburger*",
+        "price": "\u20ac 3,20",
+        "recommended": false
+      },
+      {
+        "name": "Veg. kaasburger",
+        "price": "\u20ac 3,60",
+        "recommended": false
+      }
+    ],
+    "soup": {
+      "name": "Uiensoep",
+      "price": "\u20ac 0,50"
+    },
+    "vegetables": [
+      "Hutsepotgroenten",
+      "Appelcomote"
+    ]
+  }
+  ```
   The menu data is property of Ghent University. We don't guarantee the correctness or completeness of the data.
 
 ## Contributors
