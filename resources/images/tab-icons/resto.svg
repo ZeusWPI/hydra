@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="8.7392712mm"
+   height="8.4499474mm"
+   viewBox="0 0 30.965921 29.940758"
+   id="svg6840"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="resto.svg">
+  <defs
+     id="defs6842" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="267.62582"
+     inkscape:cy="-222.17247"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1362"
+     inkscape:window-height="746"
+     inkscape:window-x="0"
+     inkscape:window-y="918"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata6845">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-107.37418,-280.24897)">
+    <path
+       inkscape:connector-curvature="0"
+       id="path3897"
+       d="m 108.34052,280.24897 c -1.37867,3.62453 -1.33923,6.74367 0.48833,8.76394 l 7.7769,7.9109 4.32222,-4.24846 -12.58745,-12.42638 z m 25.81283,0.80002 a 5.3529104,7.4142795 43.88621 0 0 -6.09786,2.79075 5.3529104,7.4142795 43.88621 0 0 -2.06762,7.96805 l -16.33716,16.12835 1.96161,1.98761 11.28871,-11.14533 11.55884,11.41131 1.96162,-1.98761 -11.53287,-11.38532 3.1492,-3.10971 a 5.3529104,7.4142795 43.88621 0 0 7.73326,-2.4458 5.3529104,7.4142795 43.88621 0 0 1.28211,-9.05487 5.3529104,7.4142795 43.88621 0 0 -2.89984,-1.15743 z"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/felix/Temporary/hydra.png"
+       inkscape:export-xdpi="179.99899"
+       inkscape:export-ydpi="179.99899" />
+  </g>
+</svg>
