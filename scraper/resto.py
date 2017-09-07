@@ -48,7 +48,8 @@ TRANSLATE_KIND = {
     'veggie': 'vegetarian',
     'vis': 'fish',
     'vlees': 'meat',
-    'vegetarische wrap': 'vegetarian wrap'
+    'vegetarische wrap': 'vegetarian',
+    'veganistisch': 'vegetarian'
 }
 
 
