@@ -11,8 +11,11 @@ Complete representation of all data.
 http://student.ugent.be/hydra/api  
 
 ## Zeus WPI: Resto, info & special events
-Data van de resto scraper, statische info, en soms wat speciale events
+Data van de resto scraper, statische info, en soms wat speciale events.
 https://zeus.ugent.be/hydra/api/
+
+Deze data wordt gescraped van https://www.ugent.be/student/nl/meer-dan-studeren/resto.  
+Potentieel komt ooit deze data daar ook bij: https://www.hogent.be/student/catering/weekmenu/.
 
 Example resto json
 ```
