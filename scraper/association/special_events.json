@@ -1,6 +1,18 @@
 {
   "special-events" : [
     {
+      "name": "Rectorverkiezingen",
+      "link": "https://www.ugentkiest.be",
+      "simple-text": "Stemmen voor rectorverkiezingen kan nog tot dinsdag 8u. Meer info op ugentkiest.be",
+      "image": "https://styleguide.ugent.be/files/uploads/logo_UGent_NL_RGB_2400_kleur_witbg.png",
+      "html": "",
+      "priority": 990,
+      "start": "2017-09-18T08:00:00+02:00",
+      "end": "2017-09-19T08:00:00+02:00",
+      "id": 4,
+      "development": false
+    },
+    {
       "name": "12urenloop",
       "link": "https://live.12urenloop.be",
       "simple-text": "Volg live de tussenstand van de 12urenloop",
