@@ -12,25 +12,25 @@ OUTFILE = "resto/1.0/menu/{}/{}.json"
 OUTFILE_2_0 = "resto/2.0/menu/{}/{}/{}/{}.json"
 OVERVIEWFILE_2_0 = "resto/2.0/menu/{}/overview.json"
 
-# Languages
-TYPES = ['nl', 'en', 'nl-sintjansvest']
+LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}/overzicht/@@rss2json"
+ALGEMEEN = LINK_FORMAT.format("weekmenu")
 
 # The url containing the list of weekmenu's.
 WEEKMENU_URL = {
-    "nl": "http://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu/"
-          "overzicht/@@rss2json",
-    "en": "http://www.ugent.be/en/facilities/restaurants/weekly-menu/"
-          "overzicht/@@rss2json",
-    "nl-sintjansvest": "http://www.ugent.be/student/nl/meer-dan-studeren/resto"
-                       "/weekmenu-sintjansvest/overzicht/@@rss2json"
+    "nl": ALGEMEEN,
+    "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
+    "nl-sintjansvest": LINK_FORMAT.format("weekmenu-sintjansvest"),
+    "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
+    "nl-coupure": ALGEMEEN,
+    "nl-dunant": ALGEMEEN,
+    "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
+    "nl-merelbeke": ALGEMEEN,
+    "nl-sterre": ALGEMEEN,
+    "nl-kantienberg": LINK_FORMAT.format("weekmenurestokantienberg")
 }
 
-# The jQuery selector for each weekmenu <a> element on the WEEKMENU_URL page.
-WEEK_SELECTOR = {
-    "nl": ".summary .url",
-    "en": ".summary .url",
-    "nl-sintjansvest": "#content-core .state-published"
-}
+# Languages
+TYPES = list(WEEKMENU_URL.keys())
 
 # The jQuery selector for each day title <a> element on each weekmenu.
 DAY_SELECTOR = ".summary.url"
