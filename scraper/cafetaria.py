@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from sandwiches import parse_money
+from util import parse_money
 import json
 
 HTML_PARSER = 'lxml'
