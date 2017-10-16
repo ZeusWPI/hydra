@@ -3,6 +3,7 @@ resto/1.0/menu
 resto/2.0/*/menu
 resto/2.0/menu
 resto/2.0/extrafood.json
+resto/2.0/sandwiches.json
 schamper
 __pycache__/
 .venv/

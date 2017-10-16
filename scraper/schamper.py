@@ -18,6 +18,11 @@ RSS_URL = BASE_URL + '/rss'
 API_PATH = './schamper/'
 XML_PARSER = 'lxml-xml'
 HTML_PARSER = 'lxml'
+CATEGORY_COLORS = {'Satire': '#F9B126',
+                   'Onderwijs': '#70BE93',
+                   'Wetenschap': '#46ADE2',
+                   'Cultuur': '#E83F68',
+                   'Opinie': '#292929'}
 
 
 def process_schamper(destination_path):
@@ -76,14 +81,17 @@ def rss_item_to_object(rss_item):
         return None
 
     content = "".join(rss_item.description.contents)
+    category = rss_item.find('category').text
+    category_color = CATEGORY_COLORS[category] if category in CATEGORY_COLORS else '#010101'
     return {
         'title': rss_item.title.text,
         'link': rss_item.link.text,
         'text': content,
         'pub_date': convert_date(rss_item.pubDate.text),
         'author': rss_item.creator.text,
-        'category': rss_item.find('category').text,
-        'image': find_first_image_in_content(content)
+        'category': category,
+        'image': find_first_image_in_content(content),
+        'category_color': category_color
     }
 
 
@@ -127,7 +135,8 @@ def parse_content_object_in_json(json_content):
             'image': json_content['image'],
             'images': images,
             'body': "".join(text.find('body').decode_contents(formatter='html')),
-            'category': json_content['category']
+            'category': json_content['category'],
+            'category_color': json_content['category_color']
         }
 
 
