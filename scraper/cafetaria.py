@@ -33,7 +33,7 @@ def get_desserts():
     r = requests.get('https://www.ugent.be/student/nl/meer-dan-studeren/resto/ophetmenu/desserten-drank.htm')
     soup = BeautifulSoup(r.text, HTML_PARSER)
     data = []
-    for row in soup.find_all('table')[0].find_all('tr'):
+    for row in soup.find_all('table')[1].find_all('tr'):
         columns = row.find_all('td')
         data.append({'name': columns[0].string,
                      'price': parse_money(columns[1].string)})
