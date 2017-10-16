@@ -77,4 +77,59 @@ Example resto json
 TODO
 
 ## Urgent.fm: Radio Stream
-TODO
+Data van de urgent scraper. Komt van http://urgent.fm/listen_live.config en http://urgent.fm.
+
+```
+{
+    "name": "LISTEN UP",
+    "url": "http://195.10.10.201/urgent/high.mp3?GKID=87baba5a83f011e7942300163ea2c744",
+    "validUntil": "2017-10-17T01:23:25.369161"
+}
+
+```
+
+## Desserts, drinks and breakfast
+Deze data wordt gescraped van https://www.ugent.be/student/nl/meer-dan-studeren/resto. (zie resto)
+
+```
+{
+    "breakfast": [
+        {
+            "name": "Chocoladekoek",
+            "price": "0.80"
+        },
+        {
+            "name": "Kiwi, mandarijn, clementine, meloen, watermeloen",
+            "price": "0.60"
+        }
+    ],
+    "desserts": [
+        {
+            "name": "Vruchtenyoghurt",
+            "price": "0.70"
+        },
+        {
+            "name": "Griekse vruchtenyoghurt",
+            "price": "1.30"
+        },
+        {
+            "name": "Chocomousse",
+            "price": "1.30"
+        }
+    ],
+    "drinks": [
+        {
+            "name": "Warme dranken Fair Trade",
+            "price": "0.60"
+        },
+        {
+            "name": "Rode wijn Fair Trade",
+            "price": "3.00"
+        },
+        {
+            "name": "Witte wijn Fair Trade",
+            "price": "3.00"
+        }
+    ]
+}
+```
