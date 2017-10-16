@@ -21,11 +21,7 @@ WEEKMENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
     "nl-sintjansvest": LINK_FORMAT.format("weekmenu-sintjansvest"),
     "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
-    "nl-coupure": ALGEMEEN,
-    "nl-dunant": ALGEMEEN,
     "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
-    "nl-merelbeke": ALGEMEEN,
-    "nl-sterre": ALGEMEEN,
     "nl-kantienberg": LINK_FORMAT.format("weekmenurestokantienberg")
 }
 
