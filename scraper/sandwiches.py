@@ -1,15 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import re
+from util import parse_money
+
 
 SANDWICHES_URL = "https://www.ugent.be/student/nl/meer-dan-studeren/resto/broodjes/overzicht.htm"
 OUTFILE = "resto/2.0/sandwiches.json"
 HTML_PARSER = 'lxml'
-
-
-def parse_money(moneystring):
-    return re.sub("[^0-9,]", "", str(moneystring)).replace(',', '.')
 
 
 def parse_ingredients(ingredients):
