@@ -6,6 +6,12 @@ Simpele RSS op: http://www.schamper.ugent.be/rss
 ## UGent: Nieuws
 Simpele RSS op:  https://www.ugent.be/nl/actueel/nieuws/recente_nieuwsberichten/@@rss2json  
 
+## UGent: Bibliotheken
+Alle bibliotheken (JSON): http://widgets.lib.ugent.be/libraries
+
+Agenda van specifieke bib (gebruikt het `code` attribuut van de bib als identifier):
+http://widgets.lib.ugent.be/libraries/BHSL/calendar.json?pretty=1
+
 ## DSA: Nieuws, Activiteiten & Verenigingen
 Complete representation of all data.
 http://student.ugent.be/hydra/api  
