@@ -44,8 +44,8 @@
       "image": "https://styleguide.ugent.be/files/uploads/logo_UGent_NL_RGB_2400_kleur_witbg.png",
       "html": "",
       "priority": 990,
-      "start": "2017-12-13T21:00:00+02:00",
-      "end": "",
+      "start": "2017-12-14T12:00:00+02:00",
+      "end": "2017-12-22T23:59:59+02:00",
       "id": 7,
       "development": false
     }
