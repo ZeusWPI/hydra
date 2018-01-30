@@ -58,7 +58,13 @@ def get_weeks(which):
     week_urls = [x["identifier"] for x in weekmenu]
     r = {}
     for url in week_urls:
-        iso_week = int(url.split("week")[-1])
+        try:
+            iso_week = url.split("week")[-1]
+            iso_week = int(iso_week)
+        except Exception as e:
+            print('Failure parsing week "{}", ignoring it.'.format(iso_week))
+            print(e)
+            continue
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
         r[(iso_year, iso_week)] = url
     return r
