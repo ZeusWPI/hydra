@@ -44,10 +44,10 @@ TRANSLATE_KIND = {
     'veggie': 'vegetarian',
     'vis': 'fish',
     'vlees': 'meat',
+    'vis/vlees': 'fish',
     'vegetarische wrap': 'vegetarian',
     'veganistisch': 'vegetarian'
 }
-
 
 def get_weeks(which):
     """Retrieves a dictionary of weeknumbers to the url of the menu for that
