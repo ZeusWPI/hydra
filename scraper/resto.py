@@ -39,7 +39,7 @@ MEAL_SELECTOR = "#content-core li"
 CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
 
 # Dictionary to translate dutch kinds to English
-TRANSLATE_KIND = {
+TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
     'vegetarisch': 'vegetarian',
     'veggie': 'vegetarian',
     'vis': 'fish',
@@ -47,7 +47,7 @@ TRANSLATE_KIND = {
     'vis/vlees': 'fish',
     'vegetarische wrap': 'vegetarian',
     'veganistisch': 'vegetarian'
-}
+})
 
 def get_weeks(which):
     """Retrieves a dictionary of weeknumbers to the url of the menu for that
@@ -117,7 +117,7 @@ def get_day_menu(which, url):
             if ':' in meal:  # Meat
                 kind, name = [s.strip() for s in name.split(':')]
                 kind = kind.lower()
-                kind = TRANSLATE_KIND.get(kind, kind)
+                kind = TRANSLATE_KIND[kind]
                 meats.append(dict(price=price, name=name, kind=kind))
             else:  # Soup
                 soups.append(dict(price=price, name=name))
