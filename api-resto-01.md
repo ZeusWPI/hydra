@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The resto API provides information about the UGents student restaurants. 
+The resto API provides information about the student restaurants of Ghent University. 
 
 This data is scraped from https://www.ugent.be/student/nl/meer-dan-studeren/resto.
 
@@ -21,7 +21,7 @@ This document describes the current version of the API, version 1.0.
 
 * **`meta.json`**
 
-  Some additional information on the UGent resto's such as the legend used and a list of their locations. For each resto a dictionary with 4 values is provided: the `name`, `address`, `latitude` and `longitude`.
+  Some additional information on the resto's such as the legend used and a list of their locations. For each resto a dictionary with 4 values is provided: the `name`, `address`, `latitude` and `longitude`.
 
 * **`menu/[0-9]{4}/[O-9]{2}.json`**
 
