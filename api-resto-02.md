@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The resto API provides information about the UGents student restaurants. 
+The resto API provides information about the student restaurants of Ghent University.
 
 This data is scraped from https://www.ugent.be/student/nl/meer-dan-studeren/resto.
 
