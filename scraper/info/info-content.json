@@ -6,28 +6,28 @@
   },
   {
     "image": "info_minerva",
-    "title": "Minerva Mobile",
-    "url": "https://minerva.ugent.be/mobile/"
+    "title": "Minerva",
+    "url": "https://minerva.ugent.be/"
   },
   {
     "image": "info_guide",
-    "title": "GUIDe",
-    "url": "http://www.ugent.be/nl/vragen"
+    "title": "Veelgestelde vragen",
+    "url": "https://www.ugent.be/nl/vragen"
   },
   {
     "image": "info_sports",
     "subcontent": [
       {
-        "html": "info-sport-openingsuren.html",
+        "url": "https://www.ugent.be/student/nl/meer-dan-studeren/sport/openingsuren",
         "title": "Openingsuren GUSB"
       },
       {
-        "html": "info-sport-aanbod.html",
+        "url": "https://www.ugent.be/student/nl/meer-dan-studeren/sport/aanbod",
         "title": "Sportaanbod"
       },
       {
         "title": "UGent.be \u00bb Sportvoorzieningen",
-        "url": "http://www.ugent.be/nl/voorzieningen/sport"
+        "url": "https://www.ugent.be/student/nl/meer-dan-studeren/sport"
       }
     ],
     "title": "Sportvoorzieningen"
@@ -38,17 +38,17 @@
     "title": "Fietsen"
   },
   {
-    "html": "info-studentenartsen.html",
+    "url": "https://www.ugent.be/student/nl/meer-dan-studeren/gezondheid/studentenartsen.htm",
     "image": "info_doctors",
     "title": "Studentenartsen"
   },
   {
-    "html": "info-kalender.html",
+    "url": "https://www.ugent.be/student/nl/studeren/kalender/kalender20172018.htm",
     "image": "info_academiccalendar",
     "title": "Academische kalender"
   },
   {
-    "html": "info-bloklocaties.html",
+    "url": "https://blok.ugent.be/",
     "image": "info_mapmarker",
     "title": "Bloklocaties"
   },
@@ -56,8 +56,8 @@
     "image": "info_more",
     "subcontent": [
       {
-        "title": "UGent.be \u00bb Studenten",
-        "url": "http://www.ugent.be/nl/studenten/"
+        "title": "UGent.be \u00bb Studentenportaal",
+        "url": "https://www.ugent.be/student/nl"
       },
       {
         "title": "Dienst StudentenActiviteiten",
@@ -65,7 +65,7 @@
       },
       {
         "title": "Gentse StudentenRaad",
-        "url": "http://gsr.ugent.be/"
+        "url": "https://gsr.ugent.be/"
       },
       {
         "title": "Durf Doen",
@@ -73,7 +73,7 @@
       },
       {
         "title": "Schamper",
-        "url": "http://www.schamper.ugent.be/"
+        "url": "https://www.schamper.ugent.be/"
       },
       {
         "title": "Urgent.fm",

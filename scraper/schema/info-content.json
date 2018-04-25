@@ -28,6 +28,7 @@
       "url": {
         "$id": "https://hydra.ugent.be/schema/info-content/items/properties/url",
         "type": "string",
+        "format": "uri",
         "title": "External URL",
         "description": "Defines the URL of the item. Applications should redirect the user to this URL.",
         "examples": [
