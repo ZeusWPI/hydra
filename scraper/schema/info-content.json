@@ -1,0 +1,58 @@
+{
+  "$id": "https://hydra.ugent.be/schema/info-content",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "$id": "https://hydra.ugent.be/schema/info-content/items",
+    "type": "object",
+    "required": ["title"],
+    "properties": {
+      "image": {
+        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/image",
+        "type": "string",
+        "title": "Image keyword",
+        "description": "Keyword for the image of the item. Applications must handle changes in these keywords.",
+        "examples": [
+          "info_library", "info_bicycle"
+        ]
+      },
+      "title": {
+        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/title",
+        "type": "string",
+        "title": "Name",
+        "description": "The name of the item.",
+        "examples": [
+          "Bibliotheek", "Minerva"
+        ]
+      },
+      "url": {
+        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/url",
+        "type": "string",
+        "title": "External URL",
+        "description": "Defines the URL of the item. Applications should redirect the user to this URL.",
+        "examples": [
+          "https://lib.ugent.be"
+        ]
+      },
+      "html": {
+        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/html",
+        "type": "string",
+        "title": "Internal HTML",
+        "description": "The name of the internal HTML document. Applications should redirect to these files. These files are available at `https://hydra.ugent.be/api/2.0/info/{name}`.",
+        "examples": [
+          "info-fietsen.html"
+        ]
+      },
+      "subcontent": {
+        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/subcontent",
+        "type": "array",
+        "title": "Subcontent",
+        "descriptions": "Contains the child items of this item. Applications should display the list of children.",
+        "$ref": "https://hydra.ugent.be/schema/info-content"
+      }
+    },
+    "oneOf": [
+      {"required": ["html"]}, {"required": ["url"]}, {"required": ["subcontent"]}
+    ]
+  }
+}
