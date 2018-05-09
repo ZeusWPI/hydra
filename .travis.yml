@@ -3,7 +3,7 @@ node_js:
   - "8"
 
 # Install the tool for the tests
-before_scripts:
+before_script:
   - npm install -g ajv-cli
 
 # Run our tests
