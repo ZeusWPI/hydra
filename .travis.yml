@@ -12,3 +12,7 @@ script: validation/validator.sh
 cache:
   directories:
     - "node_modules"
+
+branches:
+  only:
+    - master
