@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if ! command -v 'ajv' >/dev/null 2>&1; then
-    echo >&2 "Run 'npm install -g ajv-cli' to validate the json. Aborting."
+    echo >&2 "Run 'npm install -g ajv-cli' to validate the json."
     exit 1
 fi
 
