@@ -3,12 +3,12 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "array",
   "items": {
-    "$id": "https://hydra.ugent.be/schema/info-content/items",
+    "$id": "/items",
     "type": "object",
     "required": ["title"],
     "properties": {
       "image": {
-        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/image",
+        "$id": "/items/properties/image",
         "type": "string",
         "title": "Image keyword",
         "description": "Keyword for the image of the item. Applications must handle changes in these keywords.",
@@ -17,7 +17,7 @@
         ]
       },
       "title": {
-        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/title",
+        "$id": "/items/properties/title",
         "type": "string",
         "title": "Name",
         "description": "The name of the item.",
@@ -26,7 +26,7 @@
         ]
       },
       "url": {
-        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/url",
+        "$id": "/items/properties/url",
         "type": "string",
         "format": "uri",
         "title": "External URL",
@@ -36,7 +36,7 @@
         ]
       },
       "html": {
-        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/html",
+        "$id": "/items/properties/html",
         "type": "string",
         "title": "Internal HTML",
         "description": "The name of the internal HTML document. Applications should redirect to these files. These files are available at `https://hydra.ugent.be/api/2.0/info/{name}`.",
@@ -45,7 +45,7 @@
         ]
       },
       "subcontent": {
-        "$id": "https://hydra.ugent.be/schema/info-content/items/properties/subcontent",
+        "$id": "/items/properties/subcontent",
         "type": "array",
         "title": "Subcontent",
         "descriptions": "Contains the child items of this item. Applications should display the list of children.",
