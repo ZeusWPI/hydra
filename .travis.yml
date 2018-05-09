@@ -7,7 +7,7 @@ before_script:
   - npm install -g ajv-cli
 
 # Run our tests
-script: validation/validator.sh
+script: cd validation && validator.sh
 
 cache:
   directories:
