@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "8"
+
+# Install the tool for the tests
+before_scripts:
+  - npm install -g ajv-cli
+
+# Run our tests
+script: validation/validator.sh
+
+cache:
+  directories:
+    - "node_modules"

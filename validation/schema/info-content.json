@@ -49,7 +49,9 @@
         "type": "array",
         "title": "Subcontent",
         "descriptions": "Contains the child items of this item. Applications should display the list of children.",
-        "$ref": "https://hydra.ugent.be/schema/info-content"
+        "items": {
+          "$ref": "/items"
+        }
       }
     },
     "oneOf": [
