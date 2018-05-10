@@ -1,166 +1,18 @@
-<!-- Based on http://www.ugent.be/nl/onderwijs/administratie/kalender -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link href="webview.css" rel="stylesheet" type="text/css" />
-        <link href="kalender.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript">
-            function toggleDiv(el) {
-                element = document.getElementById(el + '-det');
-                arrow = document.getElementById(el + '-arrow');
-                if (element.className === "det hidden") {
-                    element.className = "det background";
-                    arrow.className = "arrow arrow-down";
-                } else {
-                    element.className = "det hidden";
-                    arrow.className = "arrow arrow-right";
-                }
-            }
-        </script>
-    </head>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width"/>
+  <script type="text/javascript">
+      window.location.replace("https://www.ugent.be/student/nl/studeren/kalender");
+  </script>
+</head>
 
-    <body>
-        <div class="wrapper">
-            <div onclick="toggleDiv('1sem');" class="title-background">
-                <div id="1sem" class="left">
-                    <h3>Eerste semester</h3>
-                    <p>26 september tot 24 december 2016</p>
-                </div>
-                <div id="1sem-arrow" class="arrow arrow-right"></div>
-            </div>
-            <div id="1sem-det" class="det hidden">
-                <ul class="detailed">
-                    <li>ma 26 sep 2016: start academiejaar</li>
-                    <li>ma 26 september t.e.m. za 17 december 2016:<br />
-                        <span class="indent">12 weken onderwijsactiviteiten eerste semester</span>
-                    </li>
-                    <li class="gesloten">ma 31 okt 2016: Allerheiligen (gesloten)</li>
-                    <li class="gesloten">di 1 nov 2016: Allerheiligen (gesloten)</li>
-                    <li class="gesloten">wo 2 nov 2016: Allerzielen (gesloten)</li>
-                    <li class="gesloten">vr 11 nov 2016: Wapenstilstand (gesloten)</li>
-                    <li class="gesloten">di 15 nov 2016: Koningsdag (gesloten)</li>
-                    <li>ma 19 dec t.e.m. za 24 dec 2016:<br />
-                        <span class="indent">1 week inhaalactiviteiten</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div class="title-background">
-                <div class="left">
-                    <h3>Kerstreces</h3>
-                    <p>26 december 2016 tot 7 jan 2017</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div class="title-background">
-                <div class="left">
-                    <h3>Eerste examenperiode</h3>
-                    <p>9 januari tot 4 februari 2017</p>
-                </div>
-              </div>
-        </div>
-
-        <div class="wrapper">
-            <div class="title-background">
-                <div class="left">
-                    <h3>Intersemestriële vakantie</h3>
-                    <p>6 februari t.e.m. 11 februari 2017</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div id="2sem" onclick="toggleDiv('2sem');" class="title-background">
-                <div class="left">
-                    <h3>Tweede semester</h3>
-                    <p>13 februari tot 27 mei 2017</p>
-                </div>
-                <div id="2sem-arrow" class="arrow arrow-right"></div>
-            </div>
-            <div id="2sem-det" class="det hidden">
-                <ul class="detailed">
-                    <li>ma 13 februari t.e.m. za 1 april 2017:<br />
-                        <span class="indent">7 weken onderwijsactiviteiten 2e semester</span>
-                    </li>
-                    <li class="gesloten">vr 24 maart 2017: Dies Natalis (gesloten)</li>
-                    <li>ma 3 april t.e.m. za 17 april 2017:<br />
-                        <span class="indent">2 weken paasreces (gesloten)</span>
-                    </li>
-                    <li class="gesloten">ma 17 april 2017: Paasmaandag (gesloten)</li>
-                    <li>ma 18 april t.e.m. za 20 mei 2017:<br />
-                        <span class="indent">5 weken onderwijsactiviteiten 2e semester</span>
-                    </li>
-                    <li class="gesloten">ma 1 mei 2017: Feest van de arbeid (gesloten)</li>
-                    <li class="gesloten">vr 6 mei 2017: brugdag (gesloten)</li>
-                    <li>ma 22 mei t.e.m. za 27 mei 2017:<br />
-                        <span class="indent">1 week inhaalactiviteiten</span>
-                    </li>
-                    <li class="gesloten">do 25 mei 2017: O.L.H. Hemelvaart (gesloten)</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div id="2exam" onclick="toggleDiv('2exam');" class="title-background">
-                <div class="left">
-                    <h3>Tweede examenperiode</h3>
-                    <p>29 mei tot 8 juli 2017</p>
-                </div>
-            </div>
-            <div id="2sem-det" class="det hidden">
-                <ul class="detailed">
-                    <li class="gesloten">ma 5 juni 2017: Pinkstermaandag (gesloten)</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div id="vak" onclick="toggleDiv('vak');" class="title-background">
-                <div class="left">
-                    <h3>Zomervakantie</h3>
-                    <p>10 juli tot 19 augustus 2017</p>
-                </div>
-                <div id="vak-arrow" class="arrow arrow-right"></div>
-            </div>
-            <div id="vak-det" class="det hidden">
-                <ul class="detailed">
-                    <li class="gesloten">di 11 juli 2017:<br />
-                        <span class="indent">Feest Vlaamse gemeenschap (gesloten)</span>
-                    </li>
-                    <li class="gesloten">ma 18 juli t.e.m. ma 22 juli 2017:<br />
-                        <span class="indent">week Gentse feesten (gesloten)</span>
-                    </li>
-                    <li class="gesloten">di 15 augustus 2017: O.L.V. Hemelvaart (gesloten)</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div id="3exam" onclick="toggleDiv('3exam');" class="title-background">
-                <div class="left">
-                    <h3>Derde examenperiode</h3>
-                    <p>21 augustus tot 23 september 2017</p>
-                </div>
-                <div id="3exam-arrow" class="arrow arrow-right"></div>
-            </div>
-            <div id="3exam-det" class="det hidden">
-                <ul class="detailed">
-                    <li>ma 18 september t.e.m. za 23 september 2017:<br />
-                        <span class="indent">feedback alle examenperiodes en heroriëntaties</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="title-background">
-            <h3>Start volgend academiejaar</h3>
-            <p>ma 25 september 2017</p>
-        </div>
-    </body>
+<body>
+<div id="content">
+  <div id="wrapper">
+    Redirecting to <a href="https://www.ugent.be/student/nl/studeren/kalender">https://www.ugent.be/student/nl/studeren/kalender</a>
+  </div>
+</div>
+</body>
 </html>
