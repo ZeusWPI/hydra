@@ -1,11 +1,13 @@
 from pprint import pprint
-from pyquery import PyQuery as pq
-import requests
+
 import json
-import datetime
 import collections
-import sys
+import datetime
 import os
+import sys
+import requests
+
+from pyquery import PyQuery as pq
 
 # Where to write to.
 OUTFILE = "resto/1.0/menu/{}/{}.json"
@@ -49,6 +51,7 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
     'veganistisch': 'vegetarian'
 })
 
+
 def get_weeks(which):
     """Retrieves a dictionary of weeknumbers to the url of the menu for that
     week from the given weekmenu overview.
@@ -78,7 +81,7 @@ def get_days(which, iso_week, url):
         for day in DateStuff.DAY_OF_THE_WEEK[which]
     }
 
-    # open on the avaible days
+    # open on the available days
     weekmenu = pq(url=url)
     r.update({
         DateStuff.from_iso_week_day(which, iso_week, pq(e).html()):
@@ -109,7 +112,7 @@ def get_day_menu(which, url):
 
     for meal in daymenu(MEAL_SELECTOR):
         meal = pq(meal).html()
-        if meal is None: # meal is empty li
+        if meal is None:  # meal is empty li
             continue
         if '€' in meal:
             price = meal.split('-')[-1].strip()
@@ -125,7 +128,7 @@ def get_day_menu(which, url):
             vegetables.append(meal)
 
     # sometimes the closed indicator has a different layout.
-    if len(vegetables) == len(soups) == len(meats) == 0:
+    if not vegetables and not soups and not meats:
         return dict(open=False)
 
     r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats)
@@ -151,25 +154,30 @@ class DateStuff(object):
         }
     })
 
+    @staticmethod
     def iso_year_start(iso_year):
         "The gregorian calendar date of the first day of the given ISO year"
         fourth_jan = datetime.date(iso_year, 1, 4)
         delta = datetime.timedelta(fourth_jan.isoweekday() - 1)
         return fourth_jan - delta
 
+    @staticmethod
     def iso_to_gregorian(iso_year, iso_week, iso_day):
         "Gregorian calendar date for the given ISO year, week and day"
         year_start = DateStuff.iso_year_start(iso_year)
         return year_start + datetime.timedelta(days=iso_day - 1,
                                                weeks=iso_week - 1)
 
+    @staticmethod
     def from_iso_week(iso_week):
         return DateStuff._from_iso_week_day(iso_week, 1)
 
+    @staticmethod
     def from_iso_week_day(which, iso_week, iso_day_name):
         iso_day = DateStuff.DAY_OF_THE_WEEK[which][iso_day_name]
         return DateStuff._from_iso_week_day(iso_week, iso_day)
 
+    @staticmethod
     def _from_iso_week_day(iso_week, iso_day):
         today_iso_calendar = datetime.date.today().isocalendar()
         iso_current_year, iso_current_week, _ = today_iso_calendar
@@ -181,6 +189,7 @@ class DateStuff(object):
             iso_year = iso_current_year
         return DateStuff.iso_to_gregorian(iso_year, iso_week, iso_day)
 
+    @staticmethod
     def problems_with_weeks(weeks):
         year, week, day = datetime.date.today().isocalendar()
         problems = []
@@ -239,9 +248,9 @@ def write_1_0(menus):
 
 
 def write_2_0(menus):
-    for resto, restomenu in menus.items():
+    for resto, resto_menu in menus.items():
         overview = []
-        for weekyear, weekmenu in restomenu.items():
+        for week_year, weekmenu in resto_menu.items():
             for day, daymenu in weekmenu.items():
                 menu = dict(
                     open=daymenu['open'],
