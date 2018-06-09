@@ -39,7 +39,7 @@ def process_schamper(destination_path):
 
 def read_xml_from_url(url, parser=XML_PARSER):
     response = retry_session.get(url)
-    return BeautifulSoup(response, parser)
+    return BeautifulSoup(response.text, parser)
 
 
 def read_html_from_string(string):
