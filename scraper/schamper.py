@@ -5,8 +5,7 @@ import json
 import os
 import re
 import locale
-import urllib.parse
-import urllib.request
+from backoff import retry_session
 from datetime import datetime
 
 import htmlmin
@@ -39,8 +38,8 @@ def process_schamper(destination_path):
 
 
 def read_xml_from_url(url, parser=XML_PARSER):
-    with urllib.request.urlopen(url) as rss_feed:
-        return BeautifulSoup(rss_feed, parser)
+    response = retry_session.get(url)
+    return BeautifulSoup(response, parser)
 
 
 def read_html_from_string(string):

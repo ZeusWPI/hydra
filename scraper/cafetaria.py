@@ -1,6 +1,6 @@
 from backoff import retry_session
 from bs4 import BeautifulSoup
-from util import parse_money
+from util import parse_money, stderr_print
 import json
 import sys
 from requests.exceptions import ConnectionError, Timeout
@@ -48,7 +48,7 @@ if __name__ == '__main__':
     try:
         data = {'breakfast': get_breakfast(), 'drinks': get_drinks(), 'desserts': get_desserts()}
     except (ConnectionError, Timeout) as e:
-        print("Failed to connect: ", e)
+        stderr_print("Failed to connect: ", e)
         sys.exit(1)
     with open(OUTFILE, 'w') as outfile:
         json.dump(data, outfile, sort_keys=True, indent=4, separators=(',', ': '))

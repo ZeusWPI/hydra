@@ -6,6 +6,7 @@ import datetime
 import os
 import sys
 
+from util import stderr_print
 from backoff import retry_session
 from requests.exceptions import ConnectionError, Timeout
 
@@ -61,7 +62,7 @@ def get_weeks(which):
     try:
         page = retry_session.get(WEEKMENU_URL[which])
     except (ConnectionError, Timeout) as e:
-        print("Failed to connect: ", e)
+        stderr_print("Failed to connect: ", e)
         raise e
     weekmenu = json.loads(page.text)
     week_urls = [x["identifier"] for x in weekmenu]

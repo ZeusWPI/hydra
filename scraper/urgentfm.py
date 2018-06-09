@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from requests.exceptions import ConnectionError, Timeout
 from backoff import retry_session
+from util import stderr_print
 
 URL = 'http://urgent.fm/'
 LIVE_URL = 'http://urgent.fm/listen_live.config'
@@ -34,7 +35,7 @@ if __name__ == '__main__':
         steamlink = get_streamlink()
         name = get_program()
     except (ConnectionError, Timeout) as e:
-        print("Failed to connect: ", e)
+        stderr_print("Failed to connect: ", e)
         sys.exit(1)
 
     urgentfm = {
