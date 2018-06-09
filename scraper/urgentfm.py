@@ -1,33 +1,42 @@
 import json
 import os
+import sys
 from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
-import requests as r
+from requests.exceptions import ConnectionError, Timeout
+from backoff import retry_session
 
 URL = 'http://urgent.fm/'
-LIVE_URl = 'http://urgent.fm/listen_live.config'
+LIVE_URL = 'http://urgent.fm/listen_live.config'
 FILENAME = 'urgentfm/status.json'
 
+
 def get_program():
-    p = r.get(URL)
-    b = BeautifulSoup(p.text, 'html.parser')
-    return b.select('#header-text > a')[-1].text
+    response = retry_session.get(URL)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    return soup.select('#header-text > a')[-1].text
 
 
 def get_streamlink():
-    p = r.get(LIVE_URl)
-    return p.text.strip()
+    return retry_session.get(LIVE_URL).text.strip()
 
 
 def write_json_to_file(obj, path):
-    directory = os.path.dirname(path)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    # Create parent directories if needed (like mkdir -p)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, mode='w') as f:
         json.dump(obj, f, sort_keys=True, indent=4, separators=(',', ': '))
 
+
 if __name__ == '__main__':
+    try:
+        steamlink = get_streamlink()
+        name = get_program()
+    except (ConnectionError, Timeout) as e:
+        print("Failed to connect: ", e)
+        sys.exit(1)
+
     urgentfm = {
         'url': get_streamlink(),
         'name': get_program(),
