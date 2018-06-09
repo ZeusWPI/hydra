@@ -8,9 +8,11 @@ from requests.exceptions import ConnectionError, Timeout
 HTML_PARSER = 'lxml'
 OUTFILE = "resto/2.0/extrafood.json"
 
+BASE_URL = 'https://www.ugent.be/student/nl/meer-dan-studeren/resto/ophetmenu/'
+
 
 def get_breakfast():
-    r = retry_session.get('https://www.ugent.be/student/nl/meer-dan-studeren/resto/ophetmenu/ontbijt.htm')
+    r = retry_session.get(BASE_URL + 'ontbijt.htm')
     soup = BeautifulSoup(r.text, HTML_PARSER)
     data = []
     for row in soup.table.find_all('tr'):
@@ -21,7 +23,7 @@ def get_breakfast():
 
 
 def get_drinks():
-    r = retry_session.get('https://www.ugent.be/student/nl/meer-dan-studeren/resto/ophetmenu/desserten-drank.htm')
+    r = retry_session.get(BASE_URL + 'desserten-drank.htm')
     soup = BeautifulSoup(r.text, HTML_PARSER)
     data = []
     for row in soup.table.find_all('tr'):
@@ -32,7 +34,7 @@ def get_drinks():
 
 
 def get_desserts():
-    r = retry_session.get('https://www.ugent.be/student/nl/meer-dan-studeren/resto/ophetmenu/desserten-drank.htm')
+    r = retry_session.get(BASE_URL + 'desserten-drank.htm')
     soup = BeautifulSoup(r.text, HTML_PARSER)
     data = []
     for row in soup.find_all('table')[1].find_all('tr'):
