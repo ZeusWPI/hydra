@@ -5,7 +5,10 @@ import collections
 import datetime
 import os
 import sys
-import requests
+
+from util import stderr_print
+from backoff import retry_session
+from requests.exceptions import ConnectionError, Timeout
 
 from pyquery import PyQuery as pq
 
@@ -56,7 +59,11 @@ def get_weeks(which):
     """Retrieves a dictionary of weeknumbers to the url of the menu for that
     week from the given weekmenu overview.
     """
-    page = requests.get(WEEKMENU_URL[which])
+    try:
+        page = retry_session.get(WEEKMENU_URL[which])
+    except (ConnectionError, Timeout) as e:
+        stderr_print("Failed to connect: ", e)
+        raise e
     weekmenu = json.loads(page.text)
     week_urls = [x["identifier"] for x in weekmenu]
     r = {}
