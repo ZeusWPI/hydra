@@ -3,7 +3,7 @@ from requests.packages.urllib3.util.retry import Retry
 
 TIMEOUT = 5  # Time before a request times out
 BACKOFF = 0.25  # Try 0.0s, 0.25s, 0.5s, 1s, 2s between requests
-AMOUNT = 5  # Amount of request to make before giving up
+AMOUNT = 13  # Amount of request to make before giving up
 
 
 class TimeoutHTTPAdapter(requests.adapters.HTTPAdapter):
@@ -21,4 +21,4 @@ retry_session = requests.Session()
 retries = Retry(total=AMOUNT, backoff_factor=BACKOFF)
 
 for type in ('http://', 'https://'):
-    retry_session.mount(type, TimeoutHTTPAdapter(timeout=5, max_retries=retries))
+    retry_session.mount(type, TimeoutHTTPAdapter(timeout=TIMEOUT, max_retries=retries))
