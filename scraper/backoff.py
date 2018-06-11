@@ -1,5 +1,5 @@
-import requests
-from requests.packages.urllib3.util.retry import Retry
+import requests.adapters
+from urllib3 import Retry
 
 TIMEOUT = 5  # Time before a request times out
 BACKOFF = 0.25  # Try 0.0s, 0.25s, 0.5s, 1s, 2s between requests
