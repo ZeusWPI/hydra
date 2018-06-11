@@ -1,0 +1,68 @@
+[
+  {
+    "image": "info_library",
+    "title": "Library",
+    "url": "https://lib.ugent.be"
+  },
+  {
+    "image": "info_minerva",
+    "title": "Minerva",
+    "url": "https://minerva.ugent.be/"
+  },
+  {
+    "image": "info_guide",
+    "title": "Frequently asked questions",
+    "url": "https://www.ugent.be/en/questions"
+  },
+  {
+    "image": "info_sports",
+    "url": "https://www.ugent.be/en/facilities/sport",
+    "title": "Sport accommodations"
+  },
+  {
+    "html": "info-fietsen.html",
+    "image": "info_bicycle",
+    "title": "Bicycles"
+  },
+  {
+    "url": "https://www.ugent.be/current-students/en/study-support/medical",
+    "image": "info_doctors",
+    "title": "Medical service"
+  },
+  {
+    "url": "https://www.ugent.be/current-students/en/class-exam-exchange-intern/class-exam/academiccalendar/academiccalendar2017-2018.htm",
+    "image": "info_academiccalendar",
+    "title": "Academic calendar"
+  },
+  {
+    "url": "https://blok.ugent.be/",
+    "image": "info_mapmarker",
+    "title": "Study locations"
+  },
+  {
+    "image": "info_more",
+    "subcontent": [
+      {
+        "title": "UGent.be \u00bb Student portal",
+        "url": "https://www.ugent.be/current-students/en"
+      },
+      {
+        "title": "Departement of StudentActivities",
+        "url": "http://www.student.ugent.be/"
+      },
+      {
+        "title": "Ghent Student Council",
+        "url": "https://gsr.ugent.be/english"
+      },
+      {
+        "title": "Schamper",
+        "url": "https://www.schamper.ugent.be/"
+      },
+      {
+        "title": "Urgent.fm",
+        "url": "http://urgent.fm/"
+      }
+    ],
+    "title": "More information"
+  }
+]
