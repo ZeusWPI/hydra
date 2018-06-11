@@ -21,5 +21,5 @@ echo "Finding all the desserts"
 python3 cafetaria.py
 
 echo "Pushing everything to the web"
-# rsync -a resto/1.0/ ~/public/api/1.0/resto/
-# rsync -a resto/2.0/ ~/public/api/2.0/resto/
+rsync -a resto/1.0/ ~/public/api/1.0/resto/
+rsync -a resto/2.0/ ~/public/api/2.0/resto/
