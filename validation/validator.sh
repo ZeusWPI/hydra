@@ -16,7 +16,8 @@ validate() {
 
 # Add new tests here.
 
-validate '../scraper/info/info-content.json' &&
+validate '../scraper/info/nl/info-content.json' &&
+validate '../scraper/info/en/info-content.json' &&
 validate '../scraper/association/special_events.json'
 
 exit $?
