@@ -10,7 +10,7 @@ The menu data is property of Ghent University. We don't guarantee the correctnes
 
 ## Versioning and status
 
-This document describes the current version of the API, version 1.0.
+This document describes version 1.0 of the API.
 
 | Version                | Endpoint                                   | Status     |
 |------------------------|--------------------------------------------|------------|
