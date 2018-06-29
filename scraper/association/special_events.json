@@ -48,6 +48,17 @@
       "end": "2017-12-22T23:59:59+02:00",
       "id": 7,
       "development": false
+    }, {
+      "name": "Zomerregeling Resto's",
+      "link": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/jaarplanningstudentenresto.htm",
+      "simple-text": "De resto's hebben in de zomer een aangepaste regeling.",
+      "image": "https://styleguide.ugent.be/files/uploads/logo_UGent_NL_RGB_2400_kleur_witbg.png",
+      "html": "",
+      "priority": 990,
+      "id": 7,
+      "development": false,
+      "start": "2018-06-29T08:00:00+02:00",
+      "end": "2018-09-23T08:00:00+02:00"
     }
   ]
 }
