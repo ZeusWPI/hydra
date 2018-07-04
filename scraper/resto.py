@@ -196,20 +196,6 @@ class DateStuff(object):
             iso_year = iso_current_year
         return DateStuff.iso_to_gregorian(iso_year, iso_week, iso_day)
 
-    @staticmethod
-    def problems_with_weeks(weeks):
-        year, week, day = datetime.date.today().isocalendar()
-        problems = []
-        # If before saturday, should contain the current week.
-        if(day < 6 and (year, week) not in weeks):
-            problems.append("Failed to retrieve the menu of the current week.")
-        # Should contain the next week, always.
-        one_week_from_now = datetime.date.today() + datetime.timedelta(weeks=1)
-        year, week, day = one_week_from_now.isocalendar()
-        if (year, week) not in weeks:
-            problems.append("Failed to retrieve the menu of the next week.")
-        return problems
-
 
 def write_json(menu, filename):
     directory = os.path.dirname(filename)
@@ -314,7 +300,6 @@ def main():
             # Get weeks. Expect at least this week (if <= friday) and the
             # following.
             weeks = get_weeks(which)
-            problems.extend(DateStuff.problems_with_weeks(weeks))
         except Exception as error:
             problems.append("Failed to parse the weekmenu on {}.".format(
                 WEEKMENU_URL[which]))
