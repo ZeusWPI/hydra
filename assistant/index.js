@@ -43,9 +43,7 @@ app.intent('show-menu', (conv, {resto, date}) => {
         }
         const url = constructUrl(RESTO_ENDPOINT_MAP[resto], date);
 
-
-
-        fetch(url).then(function (response) {
+        return fetch(url).then(function (response) {
             if (response.ok) {
                 return response.json();
             } else {
