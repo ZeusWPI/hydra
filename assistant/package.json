@@ -6,6 +6,7 @@
   "dependencies": {
     "actions-on-google": "^2.0.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "node-fetch": "^2.2.0"
   }
 }

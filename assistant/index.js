@@ -5,6 +5,7 @@
 // Server stuff
 const express = require('express');
 const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
 
 // Import the Dialogflow module from the Actions on Google client library.
 const {dialogflow, Table} = require('actions-on-google');
@@ -42,6 +43,8 @@ app.intent('show-menu', (conv, {resto, date}) => {
         }
         const url = constructUrl(RESTO_ENDPOINT_MAP[resto], date);
 
+
+
         fetch(url).then(function (response) {
             if (response.ok) {
                 return response.json();
@@ -49,7 +52,7 @@ app.intent('show-menu', (conv, {resto, date}) => {
                 conv.close('Er is geen menu gevonden.');
             }
         }).then(function(json) {
-            respondeWithJson(json, conv);
+            respondWithJson(json, conv);
         }).catch(reason => {
             conv.close('Er is geen menu gevonden.');
         });
@@ -58,7 +61,7 @@ app.intent('show-menu', (conv, {resto, date}) => {
     }
 });
 
-function respondeWithJson(json, conv) {
+function respondWithJson(json, conv) {
     if (json.open && json.meals !== null && json.meals !== undefined) {
         let names = json.meals
             .filter(m => m.type === 'main')
