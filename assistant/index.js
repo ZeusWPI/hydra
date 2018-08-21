@@ -24,6 +24,8 @@ const RESTO_ENDPOINT_MAP = {
     "Kantienberg": "nl-kantienberg"
 };
 
+const CARDS_DEBUG_ONLY = true;
+
 // TODO:
 // 1. Save the preferred resto (possible once the client library supports it)
 // 2. Add things like: 'Find the closest resto'.
@@ -60,12 +62,21 @@ app.intent('show-menu', (conv, {resto, date}) => {
 });
 
 function respondWithJson(json, conv) {
+    const hasScreen = conv.surface.capabilities.has('actions.capability.SCREEN_OUTPUT');
+
     if (json.open && json.meals !== null && json.meals !== undefined) {
         let names = json.meals
             .filter(m => m.type === 'main')
             .map(m => m.name)
             .join(', ');
-        conv.ask('De menu is ' + names);
+
+        // If screen is supported, show the menu. Otherwise, we read all names.
+        if (hasScreen && !CARDS_DEBUG_ONLY) {
+            conv.ask('Hier is de menu.');
+        } else {
+            conv.ask('De menu is ' + names);
+        }
+
         const mealRows = json.meals
             .filter((m => m.type === 'main'))
             .map(m => [m.name, m.price]);
