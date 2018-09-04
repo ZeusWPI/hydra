@@ -3,25 +3,12 @@ body {
   color: #ffffff;
 }
 
-a {
-  color: #eebd3c;
+a, a:hover, a:visited {
+  color: #FFD200;
 }
 
 a:hover {
-  color: #fed563;
-}
-
-/* Font sizes on mobile devices */
-@media (max-width: 767px) {
-  body {
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  .lead {
-    font-size: 16px;
-    line-height: 20px;
-  }
+  text-decoration: underline;
 }
 
 /* Background image */
@@ -43,11 +30,26 @@ a:hover {
   }
 }
 
+.snakes {
+  max-width: 100%;
+  width: 25em;
+}
+
+.snakes-wrapper {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 body {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+#screenshot-carousel {
+  margin: 2em 0 0;
+  max-width: 400px;
 }
 
 /* Content */
@@ -92,57 +94,5 @@ footer {
   background: black;
   padding-top: 1em;
   padding-bottom: 1em;
-}
-
-/* Carousel */
-.carousel-wrapper {
-  width: 358px;
-  margin: 20px auto;
-}
-
-.carousel {
-  position: absolute;
-}
-
-.carousel-frame {
-  height: 885px;
-  width: 100%;
-  background: url(../img/iphone2-frame.png) no-repeat;
-  z-index: 100;
-  background-size: contain;
-}
-
-.carousel .slides img {
-  display: block;
-  width: 302px;
-}
-
-.flex-viewport, .flex-control-nav {
-  width: 302px;
-  position: relative;
-  top: 126px;
-  left: 31px;
-}
-
-.flex-control-nav {
-  top: 260px;
-}
-
-@media (max-width: 767px) {
-  .carousel-wrapper, .carousel-frame {
-    width: 268px;
-    height: 525px;
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size: contain;
-  }
-
-  .carousel .slides img, .flex-viewport {
-    width: 300px;
-  }
-
-  .flex-control-nav {
-    display: none;
-  }
+  margin-top: 2em;
 }
