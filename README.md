@@ -16,7 +16,7 @@ This repo only contains the scraper code. Links to the [Android repo](https://gi
 
 ## APIs
 
-See the [API](api.md) for documentation about the APIs. Or jump directly to the [resto API](api-resto-02.md).
+See the [API](docs/api.md) for documentation about the APIs. Or jump directly to the [resto API](docs/apis/api-resto-02.md).
 
 ## Contributors
 
@@ -38,3 +38,4 @@ In order of first contribution:
 * Wouter Pinnoo
 * Titouan Vervack
 * Caroline De Brouwer
+* Niko Strijbol

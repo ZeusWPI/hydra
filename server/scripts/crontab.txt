@@ -1,0 +1,6 @@
+# Run the resto scraper every day, at 10:00
+10 0 * * * . ~/env/bin/activate && cd ~/app/scraper && ./resto.sh >> ~/log/resto-scraper.log
+# Run the Schamper scraper every two hours, at the 30th minute
+30 */2 * * * . ~/env/bin/activate && cd ~/app/scraper && ./schamper.sh >> ~/log/schamper-scraper.log
+# Run the Urgent.fm scraper every hour, at the 5th minute
+*/5 * * * * . ~/env/bin/activate && cd ~/app/scraper && ./urgentfm.sh >> ~/log/urgentfm-scraper.log
