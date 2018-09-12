@@ -5,28 +5,39 @@
 
 set -exuo pipefail
 
-mkdir -p ../api/association/
-mkdir -p ../api/association/logo
-# Remove any old logos
-rm ../api/association/logo/*
+if [ -d ../api/association/logo ]; then
+    # Get the date we last generated the images
+    generated=$(stat --format=%Y scripts)
+else
+    # Set to epoch of zero
+    generated=0
+    mkdir -p ../api/association/logo
+fi
 
-# First, copy the special events to the output folder.
+# Get date of most recently modified image in the directory
+modified=$(ls src/association/logo/*.png -t | head -n 1 | stat --format=%Y -)
+
+# If the modified date is after the generated date, we must regenerate the images.
+# The script will regenerate all images; it is currently not smart enough to find changed images.
+if [ ${modified} -ge ${generated} ]; then
+    # Generate new images. Start by deleting all existing ones.
+    rm ../api/association/logo/*
+    # Create the logos in the correct dimension using image magick
+    MAX_SIZE_PX=300
+    for logo in ../src/association/logo/*.png; do
+        filename=$(basename ${logo})
+        convert ${logo} -resize "${MAX_SIZE_PX}x${MAX_SIZE_PX}" "../api/association/logo/$filename"
+    done
+else
+    # We still need to remove any logos that were deleted, since this is not detected by the time comparison.
+    comm -23 <(ls ../api/association/logo/ | sort) <(ls ../src/association/logo/ | grep "\.png$" | sort) | xargs -I {} rm ../api/association/logo/{}
+fi
+
+# Save the generation date as the modified date on the folder
+touch ../api/association/logo
+
+# Copy the special events to the output folder.
 cp -a ../src/association/special_events.json ../api/association/
-
-# Create the logos in the correct dimension using image magick
-MAX_SIZE_PX=300
-LOGO_INPUT_GLOB="../src/association/logo/*.png"
-
-# Not currently used
-# It is not necessary to change all images. We try to use git to be intelligent.
-# First, find the images we deleted in the last commit.
-# TO_REMOVE=$(git log -1 --name-only --oneline --pretty=format: scripts/)
-# The above does work, but we cannot easily find when the last pull request was, making it useless.
-
-for logo in ${LOGO_INPUT_GLOB}; do
-    filename=$(basename ${logo})
-    convert ${logo} -resize "${MAX_SIZE_PX}x${MAX_SIZE_PX}" "../api/association/logo/$filename"
-done
 
 mkdir -p ~/public/api/2.0/association/
 rsync -a ../api/association/ ~/public/api/2.0/association/
