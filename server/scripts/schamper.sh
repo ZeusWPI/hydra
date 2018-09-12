@@ -8,7 +8,7 @@ set -euo pipefail
 OUTPUT_DIRECTORY="../api/schamper"
 
 echo "Reading Schamper articles..."
-python3 "../src/schamper.py" "$OUTPUT_DIRECTORY"
+python3 ../src/schamper.py ${OUTPUT_DIRECTORY}
 
 echo "Moving to web..."
-rsync -a "$OUTPUT_DIRECTORY" ~/public/api/1.0/schamper/
+rsync -a ${OUTPUT_DIRECTORY} ~/public/api/1.0/schamper/
