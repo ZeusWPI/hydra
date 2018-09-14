@@ -1,8 +1,0 @@
-beautifulsoup4==4.6.0
-cssselect==1.0.3
-htmlmin==0.1.12
-lxml==4.1.1
-pyquery==1.4.0
-requests==2.18.4
-wheel==0.30.0
-urllib3==1.23

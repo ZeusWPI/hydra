@@ -11,10 +11,13 @@
 
 set -exuo pipefail
 
-# 1. Set up the virtualenv for Python
-# TODO: the script currently assumes a virtual env is available, but we would like this script to set up everything
-#       in the future.
+# 1. Set up Python tools
+cd ../src/
+pip install --user pipenv
+pipenv install --ignore-pipfile
 
+echo "Installed Python environment. Using pipenv run {command} from now on."
+cd ../scripts
 echo "Creating static data..."
 
 # 2. Run the scripts for static data.
