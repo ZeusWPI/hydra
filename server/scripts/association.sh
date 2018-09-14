@@ -3,19 +3,24 @@
 # Produce the association logos and sync them.
 # This is run on deployment only.
 
-set -exuo pipefail
+set -euo pipefail
 
 if [ -d ../api/association/logo ]; then
     # Get the date we last generated the images
-    generated=$(stat --format=%Y scripts)
+    generated=$(stat --format=%Y ../api/association/logo)
 else
     # Set to epoch of zero
     generated=0
     mkdir -p ../api/association/logo
 fi
 
+# If the --force option is present, do all images.
+if [ ! -z "${1:-}" ] && [ $1 == "--force" ]; then
+    generated=0
+fi
+
 # Get date of most recently modified image in the directory
-modified=$(ls src/association/logo/*.png -t | head -n 1 | stat --format=%Y -)
+modified=$(ls ../src/association/logo/*.png -t | head -n 1 | xargs -I {} stat --format=%Y {})
 
 # If the modified date is after the generated date, we must regenerate the images.
 # The script will regenerate all images; it is currently not smart enough to find changed images.
