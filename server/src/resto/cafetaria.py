@@ -1,6 +1,6 @@
 from backoff import retry_session
 from bs4 import BeautifulSoup
-from resto.util import parse_money
+from resto import util
 import json
 import sys
 from requests.exceptions import ConnectionError, Timeout
@@ -18,7 +18,7 @@ def get_breakfast():
     for row in soup.table.find_all('tr'):
         columns = row.find_all('td')
         data.append({'name': columns[0].string,
-                     'price': parse_money(columns[1].string)})
+                     'price': util.parse_money(columns[1].string)})
     return data
 
 
@@ -29,7 +29,7 @@ def get_drinks():
     for row in soup.table.find_all('tr'):
         columns = row.find_all('td')
         data.append({'name': columns[0].string,
-                     'price': parse_money(columns[1].string)})
+                     'price': util.parse_money(columns[1].string)})
     return data
 
 
@@ -40,7 +40,7 @@ def get_desserts():
     for row in soup.find_all('table')[1].find_all('tr'):
         columns = row.find_all('td')
         data.append({'name': columns[0].string,
-                     'price': parse_money(columns[1].string)})
+                     'price': util.parse_money(columns[1].string)})
     return data
 
 

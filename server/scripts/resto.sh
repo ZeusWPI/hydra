@@ -16,9 +16,13 @@ cd ../src/
 
 # Run scraper
 echo "Starting a new scrape of the resto"
-pipenv run python3 resto.py ${OUTPUT_DIRECTORY}
+pipenv run python3 -m resto.resto ${OUTPUT_DIRECTORY}
 
 cd ../scripts/
+
+# Create the output directories
+mkdir -p ~/public/api/1.0/resto/
+mkdir -p ~/public/api/1.0/resto/
 
 echo "Pushing everything to the web"
 rsync -a "$OUTPUT_DIRECTORY/1.0/" ~/public/api/1.0/resto/

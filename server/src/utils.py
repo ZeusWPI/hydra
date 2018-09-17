@@ -7,6 +7,6 @@ def parse_output(description='Run script that produces API output') -> str:
     :return: The output directory.
     """
     parser = argparse.ArgumentParser(description=description)
-    parser.add_argument('output', type=str, required=True, help='the output directory for the data')
+    parser.add_argument('output', type=str, help='the output directory for the data')
     options = parser.parse_args()
     return options.output

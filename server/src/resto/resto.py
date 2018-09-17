@@ -12,11 +12,11 @@ Note tha the metadata is static data and available as json file.
 """
 import shutil
 
-import resto.cafetaria as cafetaria
-import resto.resto_manual as overrider
-import resto.sandwiches as sandwiches
-import resto.scraper as scraper
-from ...src.utils import parse_output
+from . import cafetaria
+from . import resto_manual as overrider
+from . import sandwiches
+from . import scraper
+from utils import parse_output
 
 
 def main():
@@ -34,10 +34,6 @@ def main():
 
     print('Finding all the desserts')
     cafetaria.main(output_directory)
-
-    print('Adding metadata')
-    meta_directory = '{}/2.0/'.format(output_directory)
-    shutil.copy2('meta.json', meta_directory)
 
 
 if __name__ == "__main__":
