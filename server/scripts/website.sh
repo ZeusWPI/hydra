@@ -5,8 +5,8 @@
 
 set -euo pipefail
 
-# Update symlink.
-# This symlink's paths are set to work within the public directory.
-# We assume the repo is clone in a folder called app.
+# Remove the sym link. Notice the absence of a trailing slash: this is required, otherwise rm cannot delete
+# the sym link.
 rm -f ~/public/website
-ln -s ~/app/server/website ~/public/website
+# We don't need any processing for the website, so just link it instead of copying.
+ln -s ~/app/server/website/ ~/public/

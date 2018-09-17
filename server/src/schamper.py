@@ -31,11 +31,11 @@ def process_schamper(destination_path):
     for item in rss_feed('item'):
         transform_item_in_feed(item)
 
-    write_xml_to_file(rss_feed, destination_path + 'daily.xml')
+    write_xml_to_file(rss_feed, destination_path + '/daily.xml')
     articles = convert_rss_to_json(rss_feed)
-    write_json_to_file(articles, destination_path + 'daily.json')
+    write_json_to_file(articles, destination_path + '/daily.json')
     android_articles = parse_content_in_json(articles)
-    write_json_to_file(android_articles, destination_path + 'daily_android.json')
+    write_json_to_file(android_articles, destination_path + '/daily_android.json')
 
 
 def read_xml_from_url(url, parser=XML_PARSER):
