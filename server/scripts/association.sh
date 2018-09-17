@@ -25,6 +25,7 @@ modified=$(ls ../src/association/logo/*.png -t | head -n 1 | xargs -I {} stat --
 # If the modified date is after the generated date, we must regenerate the images.
 # The script will regenerate all images; it is currently not smart enough to find changed images.
 if [ ${modified} -ge ${generated} ]; then
+    echo "Generating new images..."
     # Generate new images. Start by deleting all existing ones.
     rm ../api/association/logo/*
     # Create the logos in the correct dimension using image magick
@@ -34,6 +35,7 @@ if [ ${modified} -ge ${generated} ]; then
         convert ${logo} -resize "${MAX_SIZE_PX}x${MAX_SIZE_PX}" "../api/association/logo/$filename"
     done
 else
+    echo "Images up to date, skipping..."
     # We still need to remove any logos that were deleted, since this is not detected by the time comparison.
     comm -23 <(ls ../api/association/logo/ | sort) <(ls ../src/association/logo/ | grep "\.png$" | sort) | xargs -I {} rm ../api/association/logo/{}
 fi
