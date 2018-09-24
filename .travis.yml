@@ -1,8 +1,13 @@
 language: node_js
 node_js:
 - '8'
-before_script:
+addons:
+  apt:
+    packages:
+    - openjdk-8-jre  # install Java8 as required by vnu.jar
+install:
 - npm install -g ajv-cli
+- pip install html5validator --user
 script: cd server/tests && ./association.sh && ./info.sh && ./website.sh
 cache:
   directories:
