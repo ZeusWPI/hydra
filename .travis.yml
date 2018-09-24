@@ -1,18 +1,23 @@
 language: node_js
 node_js:
-  - "8"
-
-# Install the tool for the tests
+- '8'
 before_script:
-  - npm install -g ajv-cli
-
-# Run our tests
+- npm install -g ajv-cli
 script: cd validation && ./validator.sh
-
 cache:
   directories:
-    - "node_modules"
-
+  - node_modules
 branches:
   only:
-    - master
+  - master
+before_install:
+- openssl aes-256-cbc -K $encrypted_5ba2058eb1b7_key -iv $encrypted_5ba2058eb1b7_iv
+  -in id_travis_rsa.enc -out ~\/.ssh/id_travis_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 ./id_travis_rsa
+- ssh-add ./id_travis_rsa
+deploy:
+  provider: script
+  script: bash deploy.sh
+  on:
+    branch: master

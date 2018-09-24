@@ -10,13 +10,12 @@ Parses the data from the UGent servers. This module will parse all data:
 
 Note tha the metadata is static data and available as json file.
 """
-import shutil
 
+from utils import parse_output
 from . import cafetaria
 from . import resto_manual as overrider
 from . import sandwiches
 from . import scraper
-from utils import parse_output
 
 
 def main():
