@@ -3,7 +3,7 @@ node_js:
 - '8'
 before_script:
 - npm install -g ajv-cli
-script: cd validation && ./validator.sh
+script: cd server/tests && ./association.sh && ./info.sh && ./website.sh
 cache:
   directories:
   - node_modules
