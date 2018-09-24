@@ -4,7 +4,7 @@
 # This script will be run from in the "tests" directory.
 
 # Execute checks.
-prefix="../api/info"
+prefix="../src/info"
 ./validators/json.sh "$prefix/nl/info-content.json" "../api/schema/info-content.json" &&
 ./validators/json.sh "$prefix/en/info-content.json" "../api/schema/info-content.json" &&
 ./validators/html.sh "$prefix"
