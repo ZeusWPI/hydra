@@ -4,9 +4,8 @@
 
 set -euo pipefail
 
-# TODO: get credentials
-
 # Log on to King as the Hydra user
+# SSH keys should have been set up by Travis
 ssh hydra@zeus.ugent.be -p 2222
 
 # Pull the repo
