@@ -12,6 +12,9 @@ ssh hydra@zeus.ugent.be -p 2222
 cd app
 git pull
 
+# Update the submodules
+git submodule update --recursive --remote
+
 # Execute the deployment script
 cd server/scripts
 ./install.sh

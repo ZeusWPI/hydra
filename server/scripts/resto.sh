@@ -2,6 +2,7 @@
 
 # Run the resto scraper and synchronise the output directory.
 # This is run periodically.
+# This is run from the scripts directory.
 
 set -euo pipefail
 
@@ -20,10 +21,13 @@ pipenv run python3 -m resto.resto ${OUTPUT_DIRECTORY}
 
 cd ../scripts/
 
-# Create the output directories
-mkdir -p ~/public/api/1.0/resto/
-mkdir -p ~/public/api/1.0/resto/
-
 echo "Pushing everything to the web"
 rsync -a "$OUTPUT_DIRECTORY/1.0/" ~/public/api/1.0/resto/
 rsync -a "$OUTPUT_DIRECTORY/2.0/" ~/public/api/2.0/resto/
+
+# Add to the git repo and push it.
+echo "Committing data"
+cd ../api/resto/
+git add .
+git commit -S -m "Scraper update for $(date)"
+git push
