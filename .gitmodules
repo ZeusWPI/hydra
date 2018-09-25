@@ -1,0 +1,3 @@
+[submodule "server/api/resto"]
+	path = server/api/resto
+	url = ssh://git@git.zeus.gent:2222/hydra/data.git
