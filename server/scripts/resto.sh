@@ -29,5 +29,5 @@ rsync -a "$OUTPUT_DIRECTORY/2.0/" ~/public/api/2.0/resto/
 echo "Committing data"
 cd ../api/resto/
 git add .
-git commit -S -m "Scraper update for $(date)"
+git commit -m "Scraper update for $(date)"
 git push

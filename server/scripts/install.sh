@@ -26,6 +26,7 @@ echo "Creating static data..."
 ./association.sh
 ./info.sh
 ./resto_static.sh
+./assistant.sh
 
 # 3. Set up the cron jobs for the scrapers
 echo "Setting up cron jobs..."
