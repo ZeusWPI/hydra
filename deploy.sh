@@ -12,12 +12,6 @@ ssh hydra@zeus.ugent.be -p 2222
 cd app
 git pull
 
-# Init the submodule
-git submodule init
-
-# Change the URL to SSH
-git config submodule.server/api/resto.url ssh://git@git.zeus.gent:2222/hydra/data.git
-
 # Update the submodules
 git submodule update --recursive --remote
 
