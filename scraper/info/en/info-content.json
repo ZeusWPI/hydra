@@ -11,8 +11,33 @@
   },
   {
     "image": "info_guide",
-    "title": "Frequently asked questions",
-    "url": "https://www.ugent.be/en/questions"
+    "title": "Information for students",
+    "subcontent": [
+      {
+        "title": "Student portal",
+        "url": "https://www.ugent.be/student"
+      },
+      {
+        "title": "Class and exam timetables",
+        "url": "https://www.ugent.be/student/en/class-exam-exchange-intern/class-exam/timetables.htm"
+      },
+      {
+        "title": "Transcript of Records",
+        "url": "https://www.ugent.be/student/en/class-exam-exchange-intern/class-exam/transcript-of-records.htm"
+      },
+      {
+        "title": "Course catalogue",
+        "url": "https://www.ugent.be/en/education/coursecatalogue"
+      },
+      {
+        "title": "Oasis",
+        "url": "https://oasis.ugent.be/"
+      },
+      {
+        "title": "Phone book",
+        "url": "https://telefoonboek.ugent.be/en/"
+      }
+    ]
   },
   {
     "image": "info_sports",
@@ -22,7 +47,7 @@
   {
     "html": "info-fietsen.html",
     "image": "info_bicycle",
-    "title": "Bicycles"
+    "title": "Bicycle accommodations"
   },
   {
     "url": "https://www.ugent.be/current-students/en/study-support/medical",
@@ -30,7 +55,7 @@
     "title": "Medical service"
   },
   {
-    "url": "https://www.ugent.be/current-students/en/class-exam-exchange-intern/class-exam/academiccalendar/academiccalendar2017-2018.htm",
+    "url": "https://www.ugent.be/student/en/class-exam-exchange-intern/class-exam/academiccalendar/academiccalender2018-2019.htm",
     "image": "info_academiccalendar",
     "title": "Academic calendar"
   },
@@ -42,10 +67,6 @@
   {
     "image": "info_more",
     "subcontent": [
-      {
-        "title": "UGent.be \u00bb Student portal",
-        "url": "https://www.ugent.be/current-students/en"
-      },
       {
         "title": "Departement of StudentActivities",
         "url": "http://www.student.ugent.be/"
@@ -63,6 +84,6 @@
         "url": "http://urgent.fm/"
       }
     ],
-    "title": "More information"
+    "title": "Other links"
   }
 ]
