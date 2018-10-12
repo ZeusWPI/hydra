@@ -11,8 +11,33 @@
   },
   {
     "image": "info_guide",
-    "title": "Veelgestelde vragen",
-    "url": "https://www.ugent.be/nl/vragen"
+    "title": "Informatie voor studenten",
+    "subcontent": [
+      {
+        "title": "Studentenportaal",
+        "url": "https://www.ugent.be/student"
+      },
+      {
+        "title": "Les- en examenroosters",
+        "url": "https://www.ugent.be/student/nl/studeren/les-en-examenroosters"
+      },
+      {
+        "title": "Puntenlijst",
+        "url": "https://www.ugent.be/student/nl/studeren/examens/puntenlijst.htm"
+      },
+      {
+        "title": "Studiegids",
+        "url": "https://www.ugent.be/student/nl/studeren/studiegids"
+      },
+      {
+        "title": "Oasis",
+        "url": "https://oasis.ugent.be/"
+      },
+      {
+        "title": "Telefoonboek",
+        "url": "https://telefoonboek.ugent.be/nl/"
+      }
+    ]
   },
   {
     "image": "info_sports",
@@ -26,7 +51,7 @@
         "title": "Sportaanbod"
       },
       {
-        "title": "UGent.be \u00bb Sportvoorzieningen",
+        "title": "Alle sportvoorzieningen",
         "url": "https://www.ugent.be/student/nl/meer-dan-studeren/sport"
       }
     ],
@@ -35,7 +60,7 @@
   {
     "html": "info-fietsen.html",
     "image": "info_bicycle",
-    "title": "Fietsen"
+    "title": "Fietsvoorzieningen"
   },
   {
     "url": "https://www.ugent.be/student/nl/meer-dan-studeren/gezondheid/studentenartsen.htm",
@@ -43,7 +68,7 @@
     "title": "Studentenartsen"
   },
   {
-    "url": "https://www.ugent.be/student/nl/studeren/kalender/kalender20172018.htm",
+    "url": "https://www.ugent.be/student/nl/studeren/kalender/kalender20182019.htm",
     "image": "info_academiccalendar",
     "title": "Academische kalender"
   },
@@ -56,20 +81,12 @@
     "image": "info_more",
     "subcontent": [
       {
-        "title": "UGent.be \u00bb Studentenportaal",
-        "url": "https://www.ugent.be/student/nl"
-      },
-      {
         "title": "Dienst StudentenActiviteiten",
         "url": "http://www.student.ugent.be/"
       },
       {
         "title": "Gentse StudentenRaad",
         "url": "https://gsr.ugent.be/"
-      },
-      {
-        "title": "Durf Doen",
-        "url": "http://www.durfdoen.be/"
       },
       {
         "title": "Schamper",
@@ -80,6 +97,6 @@
         "url": "http://urgent.fm/"
       }
     ],
-    "title": "Meer informatie"
+    "title": "Andere links"
   }
 ]
