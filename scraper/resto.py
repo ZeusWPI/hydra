@@ -51,7 +51,7 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
     'vlees': 'meat',
     'vis/vlees': 'fish',
     'vegetarische wrap': 'vegetarian',
-    'veganistisch': 'vegetarian'
+    'veganistisch': 'vegan',
 })
 
 
