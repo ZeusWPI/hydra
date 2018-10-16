@@ -43,8 +43,9 @@ MEAL_SELECTOR = "#content-core li"
 # The string indicating a closed day.
 CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
 
-# Dictionary to translate dutch kinds to English
+# Dictionary to translate the kinds on the website to the internal kind.
 TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
+    # Dutch -> internal
     'vegetarisch': 'vegetarian',
     'veggie': 'vegetarian',
     'vis': 'fish',
@@ -52,6 +53,10 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
     'vis/vlees': 'fish',
     'vegetarische wrap': 'vegetarian',
     'veganistisch': 'vegan',
+    # English -> internal (except meat, since it is the default)
+    'vegan': 'vegan',
+    'vegetarian': 'vegetarian',
+    'fish': 'fish'
 })
 
 
