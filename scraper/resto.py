@@ -258,7 +258,7 @@ def write_2_0(menus):
                             name=meal['name'],
                             price=meal['price'],
                             # side comes first, FIXME
-                            type='side' if i == 0 else 'main',
+                            type='side' if i == 0 or i == 1 else 'main',
                         ))
                     for meal in daymenu['meat']:
                         menu['meals'].append(dict(
