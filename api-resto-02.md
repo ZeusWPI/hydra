@@ -252,7 +252,7 @@ A meal object consists of:
 
 | Field | Description
 |-------|------------
-| `kind` | The kind of the meal. Expected values are currently `meat`, `fish`, `soup` or `vegetarian`. Applications must be able to handle changes to the possible values.
+| `kind` | The kind of the meal. Expected values are currently `meat`, `fish`, `soup`, `vegetarian` or `vegan`. Applications must be able to handle changes to the possible values.
 | `name` | The name of the meal.
 | `price` | Textual representation of the price.
 | `type` | The meal type. Is currently `main` of `side`, but applications must be able to handle changes to the possible values.
