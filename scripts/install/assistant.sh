@@ -5,7 +5,7 @@ set -euo pipefail
 
 if [[ $# -lt 2 ]]; then
     echo "Missing parameters." >&2
-    echo "Use: install.sh source output" >&2
+    echo "Use: $0 source output" >&2
     exit 2
 fi
 
@@ -15,8 +15,8 @@ if [[ ! -d "$1" ]]; then
 fi
 
 if ! command -v npm &> /dev/null ; then
-    echo "The assistant requires npm to be installed and callable." >&2
-    exit 2
+    echo "$0 requires npm to be installed." >&2
+    exit 4
 fi
 
 if [[ -d "$2" ]]; then

@@ -11,19 +11,16 @@
 # Components can be nested; a child component inherits the values of the parent.
 #
 # # Source
-# By default, the input folder with the source file is assumed to be the same on as the table name. This can be
-# overriden. All paths start in the parent folder of this file by default (currently 'server').
-# This is passed as first argument to the deployment script.
+# By default, the input folder with the source file is assumed to be the same on as the table name.
+# These paths are relative against the "/server" folder in this repo.
 #
 # # Destination
 # The destination folder ('output). Required. By default, all paths start in the same folder, which is specified at
 # deployment time. The complete path will be passed as second argument to the deployment script.
 #
 # # Deployment
-# This indicates the name of a script, which will be run on every deployment. The value is a relative path starting
-# at the source directory.
-# The destination path (absolute) is passed as first parameter to the script.
-# This script is responsible for 'installing' the component (e.g. copying files, preprocessing HTML, etc.).
+# This indicates the path to a script, which will be run on every deployment.
+# The path is relative to the '/scripts/install' folder in this repo.
 #
 # # Type
 # The type can be 'server', 'static' or 'scraper'.
@@ -39,3 +36,9 @@
 type = "static"
 output = "assistant"
 deployment = "assistant.sh"
+
+[info]
+type = "static"
+ouput = "info"
+deployment = "info.sh"
+test_before = "info.sh"
