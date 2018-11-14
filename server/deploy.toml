@@ -1,0 +1,41 @@
+#
+# Hydra Deployment Configuration
+# ------------------------------
+#
+# This is the deployment configuration file.
+# It decides what does what and where it goes.
+#
+# This file lists a list of components, which are defined in the appropriate folders.
+#
+# Each 'component' should list some default data; if not, an error will occur during testing, so no worries.
+# Components can be nested; a child component inherits the values of the parent.
+#
+# # Source
+# By default, the input folder with the source file is assumed to be the same on as the table name. This can be
+# overriden. All paths start in the parent folder of this file by default (currently 'server').
+# This is passed as first argument to the deployment script.
+#
+# # Destination
+# The destination folder ('output). Required. By default, all paths start in the same folder, which is specified at
+# deployment time. The complete path will be passed as second argument to the deployment script.
+#
+# # Deployment
+# This indicates the name of a script, which will be run on every deployment. The value is a relative path starting
+# at the source directory.
+# The destination path (absolute) is passed as first parameter to the script.
+# This script is responsible for 'installing' the component (e.g. copying files, preprocessing HTML, etc.).
+#
+# # Type
+# The type can be 'server', 'static' or 'scraper'.
+# This has an impact on which scripts are run.
+#
+# # Test before (test_before)
+# A script that will execute a test before deployment.
+#
+# Test after (test_after)
+# A script that will execute a test after deployment.
+
+[assistant]
+type = "static"
+output = "assistant"
+deployment = "assistant.sh"
