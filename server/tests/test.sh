@@ -36,26 +36,29 @@ else
     server=$(realpath -s "$server")
 fi
 
+# Some utils
+static="$server/static"
+tests="$server/tests"
+
 ###############################################################################
 # HTML files
 ###############################################################################
 
 echo "Validating website..."
-html5validator --root "$server/static/website" --show-warnings --also-check-css --also-check-svg
+html5validator --root "$static/website" --show-warnings --also-check-css --also-check-svg
 
 echo "Validating information web pages..."
-html5validator --root "$server/static/info" --show-warnings --also-check-css --also-check-svg
+html5validator --root "$static/info" --show-warnings --also-check-css --also-check-svg
 
 ###############################################################################
 # JSON files
 ###############################################################################
 
 echo "Validating info..."
-info="server/static/info"
-ajv test -s "server/tests/schema_info-content.json" -d "$info/nl/schema_info-content.json"
-ajv test -s "server/tests/schema_info-content.json" -d "$info/en/schema_info-content.json"
+ajv test -s "$tests/schema_info-content.json" -d "$static/info/nl/schema_info-content.json"
+ajv test -s "$tests/schema_info-content.json" -d "$static/info/en/schema_info-content.json"
 
 echo "Validating special events..."
-ajv test -s "server/tests/schema_special_events.json" -d "server/static/association/special_events.json"
+ajv test -s "$tests/schema_special_events.json" -d "$static/association/special_events.json"
 
 echo "Tests completed successfully."

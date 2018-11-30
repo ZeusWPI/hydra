@@ -16,19 +16,19 @@ set -euo pipefail
 #   A series of commands to check.
 function check() {
     for i in "$@"; do
-        if ! command -v "$i" &> /dev/null; then
-            echo "$0 requires $i to be installed." >&2
-            exit 2
-        fi
+        command -v "$i" &>/dev/null || { echo >&2 "error: $i is not installed"; exit 1; }
     done
 }
 
 # System libraries
-check 'java', 'python', 'npm'
+check "java" "python" "npm"
 
 # Install packages
-pip install html5validator
-npm install -g ajv-cli
+# Use specific versions here, to enable semi-deterministic tests
+pip install "html5validator==0.3.1"
+npm install -g "ajv-cli@3.0.0"
 
 # Validate packages are installed correctly.
-check 'html5validator', 'ajv'
+check "html5validator" "ajv"
+
+echo "All dependencies are installed."
