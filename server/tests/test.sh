@@ -6,9 +6,6 @@
 #   test.sh server
 # Arguments:
 #   server  The path to the server directory.
-# EXIT CODES:
-#   0       Test were run successfully.
-#   other   The test failed or an unknown error occurred.
 
 set -euo pipefail
 
@@ -26,15 +23,14 @@ if [[ $# -lt 1 ]]; then
     exit 1
 fi
 
-server="$1"
-if [[ ! -d "$server" ]]; then
-    echo "error: $server is not a valid directory" >&2
+if [[ ! -d "$1" ]]; then
+    echo "error: '$1' is not a valid directory" >&2
     usage
     exit 1
-else
-    # Remove trailing slashes
-    server=$(realpath -s "$server")
 fi
+
+# Remove trailing slashes
+server=$(realpath -s "$1")
 
 # Some utils
 static="$server/static"

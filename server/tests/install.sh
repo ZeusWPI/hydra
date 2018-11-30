@@ -4,9 +4,6 @@
 #
 # Arguments:
 #   None.
-# Exit codes:
-#   0       All dependencies are present or could be installed.
-#   other   An error occurred.
 
 set -euo pipefail
 
