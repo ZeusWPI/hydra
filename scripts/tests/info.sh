@@ -17,7 +17,7 @@ if [[ ! -d "$1" ]]; then
     exit 2
 fi
 
-schema="info-content.json"
+schema="schema_info-content.json"
 
 if [[ ! -f ${schema} ]]; then
     echo "The JSON schema file could not be found." >&2
@@ -25,8 +25,8 @@ if [[ ! -f ${schema} ]]; then
 fi
 
 # Execute checks.
-./validators/json.sh "$1/nl/info-content.json" ${schema} &&
-./validators/json.sh "$1/en/info-content.json" ${schema} &&
+./validators/json.sh "$1/nl/schema_info-content.json" ${schema} &&
+./validators/json.sh "$1/en/schema_info-content.json" ${schema} &&
 ./validators/html.sh "$1"
 
 # Return the status code of the validator.
