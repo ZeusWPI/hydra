@@ -3,7 +3,7 @@ from urllib3 import Retry
 
 TIMEOUT = 5  # Time before a request times out
 BACKOFF = 0.25  # Try 0.0s, 0.25s, 0.5s, 1s, 2s between requests
-AMOUNT = 13  # Amount of request to make before giving up
+AMOUNT = 1  # Amount of request to make before giving up
 
 
 class TimeoutHTTPAdapter(requests.adapters.HTTPAdapter):
