@@ -139,7 +139,7 @@ you contact a sysadmin for assistance (unless you know what you're doing).
 │       ├── scraper             # python scraper scripts (~repo in capistrano)
 │       │   ├── venv            # virtual environment for python
 │       │   ├── resto-data      # historic resto data repo
-│       │   ├── *.py            # actual scripts
+│       │   ├── scripts         # the actual scripts
 │       │   └── jobs.cron       # cronjob planning
 │       └── public
 │           ├── api             # api related stuff (ansible)
