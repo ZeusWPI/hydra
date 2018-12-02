@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Omleiden...</title>
+</head>
+<body>
+<script>
+    let redirect = 'https://hydra.ugent.be/';
+
+    if (navigator.userAgent.toLowerCase().indexOf("iphone") > -1) {
+        redirect += 'ios';
+    }
+
+    if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+        redirect += 'android';
+    }
+
+    window.location.href = redirect;
+</script>
+<div lang="nl">
+  <p>U wordt omgeleid...</p>
+  <p><a href="https://hydra.ugent.be">Klik hier</a> indien dit niet gebeurt.</p>
+</div>
+<hr>
+<div lang="en">
+  <p>You are being redirected...</p>
+  <p><a href="https://hydra.ugent.be">Click here</a> if this does not happen.</p>
+</div>
+</body>
+</html>
