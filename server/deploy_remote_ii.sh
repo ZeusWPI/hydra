@@ -2,6 +2,9 @@
 #
 # Part of the deployment process. Executes on the deployment server.
 #
+# This script is part II of II that runs on the server. When updating this script,
+# do NOT forget to update the other parts as well.
+#
 # Arguments:
 #   source  Name of the folder containing the new deployment (on the remote server)
 #   target  Target folder for the deployment. When in doubt, use "~".

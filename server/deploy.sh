@@ -83,11 +83,11 @@ api="$output/api"
 
 # Create folder on server, install python and stuff
 folder=$(date '+%Y%m%d%H%M%S')
-w_ssh "deploy_new-deploy.sh $folder $prefix"
+w_ssh "deploy_remote_i.sh $folder $prefix"
 
 # Copy the files we need
 w_rsync "$output" "$prefix/deployment/$folder/public"
 w_rsync "$server/scraper" "$prefix/deployment/$folder/scraper"
 
 # Finalize install on remote
-w_ssh "deploy_remote-install.sh $folder $prefix"
+w_ssh "deploy_remote_ii.sh $folder $prefix"

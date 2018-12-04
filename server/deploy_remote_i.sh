@@ -2,12 +2,14 @@
 #
 # Part of the deployment process. Executes on the deployment server.
 #
+# This script is part I of II that runs on the server. When updating this script,
+# do NOT forget to update the other parts as well.
+#
 # Arguments:
 #   source  Name of the new folder for the deployment (on the remote server)
 #   target  Target folder for the deployment. When in doubt, use "~".
 
 set -euo pipefail
-
 
 if [[ $# -lt 2 ]]; then
     echo "error: source and target operands are required" >&2
@@ -25,7 +27,6 @@ mkdir -p "$prefix/deployment/$1/restodata"
 # Very safe, pipe remote files into bash
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
-# Update
 pyenv update
 
 pyenv global 3.7.1
