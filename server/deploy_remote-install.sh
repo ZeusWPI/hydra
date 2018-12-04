@@ -1,25 +1,31 @@
 #!/usr/bin/env bash
 #
-# Part of the deployment process.
+# Part of the deployment process. Executes on the deployment server.
 #
 # Arguments:
-#   input  Name of the new deployment server
+#   source  Name of the folder containing the new deployment (on the remote server)
+#   target  Target folder for the deployment. When in doubt, use "~".
 
 set -euo pipefail
 
-if [[ $# -lt 1 ]]; then
-    echo "error: input operand is required" >&2
+if [[ $# -lt 2 ]]; then
+    echo "error: source and target operands are required" >&2
     exit 1
 fi
 
-# Ensure we are in the home directory
-cd ~
+prefix=$(realpath -s "$2")
 
-# Create folders
-scraper="~/deployment/$1/scraper"
-public="~/deployment/$1/public"
-historic="~/deployment/$1/historic"
+# Where the scraper scripts will be copied to
+scraper="$prefix/deployment/$1/scraper"
+# Where the public data will reside
+public="$prefix/deployment/$1/public"
+# Where the resto data will be kept
+historic="$prefix/deployment/$1/restodata"
+# Where the public api data will be kept
 api="$public/api"
+
+# Activate venv
+. "$prefix/venv-scraper/activate.sh"
 
 # Install python
 pip install -r "$public/requirements.txt"
@@ -28,21 +34,22 @@ pip install -r "$public/requirements.txt"
 git clone "ssh://git@git.zeus.gent:2222/hydra/data.git" "$historic"
 
 # Run urgent.fm
-command="$scraper/urgentfm.py $api/2.0/urgentfm/"
-"$command"
+"$scraper/urgentfm.py" "$api/2.0/urgentfm/"
 
 # Run schamper
-command="$scraper/schamper.py $api/1.0/schamper/"
-"$command"
+"$scraper/schamper.py" "$api/1.0/schamper/"
 
 # Run resto
-command="$scraper/resto.sh $historic $api"
-"$command"
+"$scraper/resto.sh" "$historic" "$api"
 
-# Symlink public to new deployment
-ln -sf "$public" "~/public"
-ln -sf "$scraper" "~/scraper"
-ln -sf "$historic" "~/historic"
+cron="$scraper/hydra.cron"
 
-# Schedule cronjob again
-crontab "$scraper/crontab.txt"
+cat << EOF > "$cron"
+10 0 * * 0    ${scraper}/resto.sh    ${historic} ${api}   >> ${prefix}/log/resto-scraper.log
+5 * * * *     ${scraper}/schamper.py ${api}/1.0/schamper/ >> ${prefix}/log/schamper-scraper.log
+*/15 * * * *  ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
+EOF
+
+# Switch to new deployment
+ln -sf "$public" "$prefix/public"
+crontab "$cron"

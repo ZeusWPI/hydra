@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 #
-# Part of the deployment process.
+# Part of the deployment process. Executes on the deployment server.
 #
 # Arguments:
-#   input  Name of the new deployment server
+#   source  Name of the new folder for the deployment (on the remote server)
+#   target  Target folder for the deployment. When in doubt, use "~".
 
 set -euo pipefail
 
-if [[ $# -lt 1 ]]; then
-    echo "error: input operand is required" >&2
+
+if [[ $# -lt 2 ]]; then
+    echo "error: source and target operands are required" >&2
     exit 1
 fi
 
-# Ensure we are in the home directory
-cd ~
+prefix=$(realpath -s "$2")
 
 # Create folders
-mkdir -p "deployment/$1/scraper"
-mkdir -p "deployment/$1/public"
-mkdir -p "deployment/$1/historic"
+mkdir -p "$prefix/deployment/$1/scraper"
+mkdir -p "$prefix/deployment/$1/public"
+mkdir -p "$prefix/deployment/$1/restodata"
 
 # Install py-env
 # Very safe, pipe remote files into bash
@@ -30,4 +31,4 @@ pyenv update
 pyenv global 3.7.1
 
 # Create venv environment
-python -m venv ~/venv
+python -m venv "$prefix/venv-scraper"

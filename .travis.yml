@@ -8,17 +8,14 @@ jdk:
 python:
   - "3.7"
 
-# Install the tool for the tests
+# Install the tool for the tests.
+# The requirements for the deployment test are installed by the scripts themselves.
 before_script:
   - npm install -g ajv-cli@3.0.0
   - pip install html5validator==0.3.1
 
 script:
-  - cd server && ./tester.sh
-
-cache:
-  directories:
-    - "node_modules"
+  - cd ~/server && ./tester.sh
 
 branches:
   only:
@@ -26,6 +23,6 @@ branches:
 
 deploy:
   - provider: script
-    script: cd server  && ./deployer.sh
+    script: cd ~/server && ./deploy.sh
     on:
       branch: master
