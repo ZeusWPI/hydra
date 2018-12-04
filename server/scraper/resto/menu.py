@@ -1,3 +1,4 @@
+import argparse
 from pprint import pprint
 
 import json
@@ -6,23 +7,22 @@ import datetime
 import os
 import sys
 
-from util import stderr_print
 from backoff import retry_session
 from requests.exceptions import ConnectionError, Timeout
+from util import write_json_to_file
 
 from pyquery import PyQuery as pq
 
 # Where to write to.
-OUTFILE = "resto/1.0/menu/{}/{}.json"
-OUTFILE_2_0 = "resto/2.0/menu/{}/{}/{}/{}.json"
-OVERVIEWFILE_2_0 = "resto/2.0/menu/{}/overview.json"
+OUTFILE_1_0 = "menu/{}/{}.json"
+OUTFILE_2_0 = "menu/{}/{}/{}/{}.json"
+OVERVIEW_2_0 = "menu/{}/overview.json"
 
 LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}/overzicht/@@rss2json"
-ALGEMEEN = LINK_FORMAT.format("weekmenu")
 
-# The url containing the list of weekmenu's.
-WEEKMENU_URL = {
-    "nl": ALGEMEEN,
+# The url containing the list of week menus.
+WEEK_MENU_URL = {
+    "nl": (LINK_FORMAT.format("weekmenu")),
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
     "nl-sintjansvest": LINK_FORMAT.format("weekmenu-sintjansvest"),
     "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
@@ -31,9 +31,9 @@ WEEKMENU_URL = {
 }
 
 # Languages
-TYPES = list(WEEKMENU_URL.keys())
+TYPES = list(WEEK_MENU_URL.keys())
 
-# The jQuery selector for each day title <a> element on each weekmenu.
+# The jQuery selector for each day title <a> element on each week menu.
 DAY_SELECTOR = ".summary.url"
 
 # The jQuery selector for the meals on the menu page.
@@ -56,24 +56,25 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
 
 
 def get_weeks(which):
-    """Retrieves a dictionary of weeknumbers to the url of the menu for that
-    week from the given weekmenu overview.
+    """
+    Retrieves a dictionary of week numbers to the url of the menu for that
+    week from the given week menu overview.
     """
     try:
-        page = retry_session.get(WEEKMENU_URL[which])
+        page = retry_session.get(WEEK_MENU_URL[which])
     except (ConnectionError, Timeout) as e:
-        stderr_print("Failed to connect: ", e)
+        print("Failed to connect: ", e, file=sys.stderr)
         raise e
-    weekmenu = json.loads(page.text)
-    week_urls = [x["identifier"] for x in weekmenu]
+    week_menu = json.loads(page.text)
+    week_urls = [x["identifier"] for x in week_menu]
     r = {}
     for url in week_urls:
+        iso_week = "unknown"
         try:
-            iso_week = url.split("week")[-1]
-            iso_week = int(iso_week)
+            iso_week = int(url.split("week")[-1])
         except Exception as e:
-            print('Failure parsing week "{}", ignoring it.'.format(iso_week))
-            print(e)
+            print('Failure parsing week "{}", ignoring it.'.format(iso_week), file=sys.stderr)
+            print(e, file=sys.stderr)
             continue
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
         r[(iso_year, iso_week)] = url
@@ -81,7 +82,7 @@ def get_weeks(which):
 
 
 def get_days(which, iso_week, url):
-    "Retrieves a dictionary from isoweeks on which the resto is open."
+    """Retrieves a dictionary from iso weeks on which the resto is open."""
     # close all days by default.
     r = {
         DateStuff.from_iso_week_day(which, iso_week, day): None
@@ -89,18 +90,18 @@ def get_days(which, iso_week, url):
     }
 
     # open on the available days
-    weekmenu = pq(url=url)
+    week_menu = pq(url=url)
     r.update({
         DateStuff.from_iso_week_day(which, iso_week, pq(e).html()):
             str(pq(e).attr("href"))
-        for e in weekmenu(DAY_SELECTOR)
+        for e in week_menu(DAY_SELECTOR)
     })
 
     return r
 
 
 def get_day_menu(which, url):
-    "Parses the daymenu from the given url."
+    """Parses the day menu from the given url."""
     # Assumptions:
     # - The #content-core contains only <li> items belonging to the menu.
     # - Menu items without a price are vegetables.
@@ -108,16 +109,15 @@ def get_day_menu(which, url):
     # - Second item is the meal soup. (unused in old JSON)
     # - Priced items are of the form "\(.*\)-\([^-]*\)" where \1 is the name
     #       and \2 is the price.
-    # TODO: parse heading f.e Soup, Main course soup, Main course, ...
-    daymenu = pq(url=url)
+    day_menu = pq(url=url)
     vegetables = []
     meats = []
     soups = []
 
-    if CLOSED[which] in daymenu(CLOSED_SELECTOR).html():
+    if CLOSED[which] in day_menu(CLOSED_SELECTOR).html():
         return dict(open=False)
 
-    for meal in daymenu(MEAL_SELECTOR):
+    for meal in day_menu(MEAL_SELECTOR):
         meal = pq(meal).html()
         if meal is None:  # meal is empty li
             continue
@@ -143,7 +143,6 @@ def get_day_menu(which, url):
 
 
 class DateStuff(object):
-
     # Day names to day of the week.
     DAY_OF_THE_WEEK = collections.defaultdict(lambda: {
         "Maandag": 1,
@@ -152,25 +151,25 @@ class DateStuff(object):
         "Donderdag": 4,
         "Vrijdag": 5
     }, {
-        "en": {
-            "Monday": 1,
-            "Tuesday": 2,
-            "Wednesday": 3,
-            "Thursday": 4,
-            "Friday": 5
-        }
+      "en": {
+          "Monday": 1,
+          "Tuesday": 2,
+          "Wednesday": 3,
+          "Thursday": 4,
+          "Friday": 5
+      }
     })
 
     @staticmethod
     def iso_year_start(iso_year):
-        "The gregorian calendar date of the first day of the given ISO year"
+        """The gregorian calendar date of the first day of the given ISO year"""
         fourth_jan = datetime.date(iso_year, 1, 4)
         delta = datetime.timedelta(fourth_jan.isoweekday() - 1)
         return fourth_jan - delta
 
     @staticmethod
     def iso_to_gregorian(iso_year, iso_week, iso_day):
-        "Gregorian calendar date for the given ISO year, week and day"
+        """Gregorian calendar date for the given ISO year, week and day"""
         year_start = DateStuff.iso_year_start(iso_year)
         return year_start + datetime.timedelta(days=iso_day - 1,
                                                weeks=iso_week - 1)
@@ -197,62 +196,68 @@ class DateStuff(object):
         return DateStuff.iso_to_gregorian(iso_year, iso_week, iso_day)
 
 
-def write_json(menu, filename):
-    directory = os.path.dirname(filename)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    with open(filename, 'w') as f:
-        json.dump(menu, f, sort_keys=True)
-
-
-def write_1_0(menus):
-    # 1.0 is only nl.
-    prev_weekmenu = None  # do not care for the current week
-    for weekyear, weekmenu in menus['nl'].items():
-        year, week = weekyear
+def write_1_0(root_path, menus):
+    """
+    Write the menus for version 1.0 of the API. This is Dutch only.
+    :param root_path: The output path for version 1.0. This is the root path. The subfolder menu will be created.
+    :param menus: The menus to write.
+    """
+    prev_week_menu = None  # do not care for the current week
+    for week_year, week_menu in menus['nl'].items():
+        year, week = week_year
         menu = {}
-        combined_weekmenu = dict()  # fix divergent calendars (Issue #225)
-        if prev_weekmenu:
-            combined_weekmenu.update(prev_weekmenu)
-        combined_weekmenu.update(weekmenu)
-        prev_weekmenu = weekmenu
-        for day, daymenu in combined_weekmenu.items():
-            daymenu1_0 = {}
-            if not daymenu["open"]:
-                daymenu1_0 = {"open": False}
+        combined_week_menu = dict()  # fix divergent calendars (Issue #225)
+        if prev_week_menu:
+            combined_week_menu.update(prev_week_menu)
+        combined_week_menu.update(week_menu)
+        prev_week_menu = week_menu
+        for day, day_menu in combined_week_menu.items():
+            if not day_menu["open"]:
+                day_menu1_0 = {"open": False}
             else:
-                daymenu1_0 = {
+                day_menu1_0 = {
                     "open": True,
-                    "soup": daymenu["soup"][0],
-                    "meat": [daymenu["soup"][1]],
-                    "vegetables": daymenu["vegetables"]
+                    "soup": day_menu["soup"][0],
+                    "meat": [day_menu["soup"][1]],
+                    "vegetables": day_menu["vegetables"]
                 }
-                daymenu1_0["meat"][0]["recommended"] = False
-                for meat in daymenu["meat"]:
+                day_menu1_0["meat"][0]["recommended"] = False
+                for meat in day_menu["meat"]:
                     name = meat["name"]
                     price = meat["price"]
                     if "vegetarian" in meat["kind"]:
                         name = "Veg. " + name
-                    daymenu1_0["meat"].append(
-                        dict(name=name, price=price, recommended=False)
-                    )
-            menu[str(day)] = daymenu1_0
-        write_json(menu, OUTFILE.format(year, week))
+                    day_menu1_0["meat"].append({
+                        'name': name,
+                        'price': price,
+                        'recommended': False
+                    })
+            menu[str(day)] = day_menu1_0
+
+        output_file = os.path.join(root_path, OUTFILE_1_0.format(year, week))
+        write_json_to_file(menu, output_file)
 
 
-def write_2_0(menus):
+def write_2_0(root_path, menus):
+    """
+    Write the menus for version 2.0 of the API.
+    :param root_path: The output path for version 2.0. This is the root path. The subfolder menu will be created.
+    :param menus: The menus to write.
+    :return:
+    """
+
     for resto, resto_menu in menus.items():
         overview = []
-        for week_year, weekmenu in resto_menu.items():
-            for day, daymenu in weekmenu.items():
+        for week_year, week_menu in resto_menu.items():
+            for day, day_menu in week_menu.items():
                 menu = dict(
-                    open=daymenu['open'],
+                    open=day_menu['open'],
                     date=day.strftime('%Y-%m-%d'),
                     meals=[],
                     vegetables=[],
                 )
-                if daymenu['open']:
-                    for i, meal in enumerate(daymenu['soup']):
+                if day_menu['open']:
+                    for i, meal in enumerate(day_menu['soup']):
                         menu['meals'].append(dict(
                             kind='soup',
                             name=meal['name'],
@@ -260,34 +265,30 @@ def write_2_0(menus):
                             # side comes first, FIXME
                             type='side' if i == 0 else 'main',
                         ))
-                    for meal in daymenu['meat']:
+                    for meal in day_menu['meat']:
                         menu['meals'].append(dict(
                             kind=meal['kind'],
                             name=meal['name'],
                             price=meal['price'],
                             type='main',
                         ))
-                    menu['vegetables'] = daymenu['vegetables']
+                    menu['vegetables'] = day_menu['vegetables']
 
                 if day >= datetime.date.today():
                     overview.append(menu)
 
-                write_json(
-                    menu,
-                    OUTFILE_2_0.format(resto, day.year, day.month, day.day)
-                )
+                output_file_menu = os.path.join(root_path, OUTFILE_2_0.format(resto, day.year, day.month, day.day))
+                write_json_to_file(menu, output_file_menu)
 
-        write_json(
-            sorted(
-                overview,
-                key=lambda x: datetime.datetime.strptime(x['date'], '%Y-%m-%d')
-            )[:10],
-            OVERVIEWFILE_2_0.format(resto)
+        overview_file = os.path.join(root_path, OVERVIEW_2_0.format(resto))
+        write_json_to_file(
+            sorted(overview, key=lambda x: datetime.datetime.strptime(x['date'], '%Y-%m-%d'))[:10],
+            overview_file
         )
 
 
-def main():
-    "The main method."
+def main(output_v1, output_v2):
+    """The main method."""
 
     all_problems = {}
     menus = {}
@@ -302,7 +303,7 @@ def main():
             weeks = get_weeks(which)
         except Exception as error:
             problems.append("Failed to parse the weekmenu on {}.".format(
-                WEEKMENU_URL[which]))
+                WEEK_MENU_URL[which]))
             print(error, file=sys.stderr)
 
         for week, week_url in weeks.items():
@@ -344,9 +345,19 @@ def main():
     if all_problems:
         pprint(all_problems, stream=sys.stderr)
 
-    write_1_0(menus)
-    write_2_0(menus)
+    write_1_0(output_v1, menus)
+    write_2_0(output_v2, menus)
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Run resto scraper')
+    parser.add_argument('output1',
+                        help='Path of the folder in which the output for version 1.0 must be written. Will be created if needed.')
+    parser.add_argument('output2',
+                        help='Path of the folder in which the output for version 2.0 must be written. Will be created if needed.')
+    args = parser.parse_args()
+
+    output_path_v1 = os.path.abspath(args.output1)  # Like realpath
+    output_path_v2 = os.path.abspath(args.output2)  # Like realpath
+
+    main(output_path_v1, output_path_v2)
