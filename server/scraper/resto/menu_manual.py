@@ -1,3 +1,4 @@
+import argparse
 from string import Template
 
 import glob
@@ -6,15 +7,13 @@ import json
 # Common things ---------------------------------------------------------------
 # See main at bottom
 
-RESTO_PATH = "resto"
 
-
-class ManualChange():
+class ManualChange:
     """
     API v1 is not supported
     """
 
-    def __init__(self, replacer, api="*", year="*", resto="*", month="*", day="*"):
+    def __init__(self, replacer, root, year="*", resto="*", month="*", day="*"):
         """
         All parameters except the replacer should be a glob pattern that matches
         the respective attribute in the file path. Wildcards are allowed.
@@ -25,23 +24,23 @@ class ManualChange():
           month=[0-9]
         """
         self.replacer = replacer
-        self.api = api
+        self.root = root
         self.year = year
         self.resto = resto
         self.month = month
         self.day = day
 
     def to_glob(self):
-        api2_template = Template("{}/$api/menu/$resto/$year/$month/$day".format(RESTO_PATH))
+        api2_template = Template("$api/menu/$resto/$year/$month/$day")
         return api2_template.substitute(self.to_dict())
 
     def get_overview_glob(self):
-        api2_template = Template("{}/$api/menu/$resto/overview.json".format(RESTO_PATH))
+        api2_template = Template("$api/menu/$resto/overview.json")
         return api2_template.substitute(self.to_dict())
 
     def to_dict(self):
         return dict(
-            api=self.api,
+            root=self.root,
             resto=self.resto,
             year=self.year,
             month=self.month,
@@ -72,21 +71,23 @@ def restjesmaand18_replacer(_path, original):
     }
 
 
-restjesmaand18 = ManualChange(
-    api="2.0",
-    year="2018",
-    resto="nl-sintjansvest",
-    month="6",
-    day="*",
-    replacer=restjesmaand18_replacer)
+def create_changes(root_path):
+    return [
+        # Restjesmaand 2018
+        ManualChange(
+            root=root_path,
+            year="2018",
+            resto="nl-sintjansvest",
+            month="6",
+            day="*",
+            replacer=restjesmaand18_replacer)
+    ]
 
 # Actually do things ----------------------------------------------------------
 
 
-def main():
-    to_apply = [
-        restjesmaand18,
-    ]
+def main(output):
+    to_apply = create_changes(output)
     dates = dict()
     for manual_change in to_apply:
         match_glob = manual_change.to_glob()
@@ -136,4 +137,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Apply manual corrections to scraped menu')
+    parser.add_argument('output',
+                        help='Path to the root of the resto 2.0 output folder.')
+    args = parser.parse_args()
+
+    main(args.output)
