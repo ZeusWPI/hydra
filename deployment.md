@@ -133,11 +133,12 @@ you contact a sysadmin for assistance (unless you know what you're doing).
 ~
 ├── app
 │   └── assistant/public        # node.js server (ansible)
-├── deploys                     # contains deploys 
+├── deploys                     # contains deploys
+├── venv                        # virtual environment for python
+├── deployments
 │   ├── 20150080072500
 │   └── 20150080073000
 │       ├── scraper             # python scraper scripts (~repo in capistrano)
-│       │   ├── venv            # virtual environment for python
 │       │   ├── resto-data      # historic resto data repo
 │       │   ├── scripts         # the actual scripts
 │       │   └── jobs.cron       # cronjob planning

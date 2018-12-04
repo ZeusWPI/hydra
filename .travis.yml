@@ -2,12 +2,19 @@ language: node_js
 node_js:
   - "8"
 
+jdk:
+  openjdk8
+
+python:
+  - "3.7"
+
 # Install the tool for the tests
 before_script:
-  - npm install -g ajv-cli
+  - npm install -g ajv-cli@3.0.0
+  - pip install html5validator==0.3.1
 
-# Run our tests
-script: cd validation && ./validator.sh
+script:
+  - cd server && ./tester.sh
 
 cache:
   directories:
@@ -16,3 +23,9 @@ cache:
 branches:
   only:
     - master
+
+deploy:
+  - provider: script
+    script: cd server  && ./deployer.sh
+    on:
+      branch: master
