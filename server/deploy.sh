@@ -9,27 +9,29 @@
 #   [dry]     Optional path. If present, the server will be deployed to this path. Otherwise it will be deployed
 #             to King.
 
-set -euo pipefail
+set -exuo pipefail
 
+use_remote=false
 if [[ $# -eq 2 ]]; then
-    use_remote=0
+    use_remote=false
+    mkdir -p "$2"
     prefix=$(realpath -s "$2")
 else
-    use_remote=1
+    use_remote=true
     prefix="~"
 fi
 
 function w_ssh() {
     # Execute the script on SSH if present, otherwise not.
-    if [[ ${use_remote} ]]; then
+    if [[ "$use_remote" == true ]]; then
         ssh hydra@zeus.ugent.be "$1"
     else
-        "$1"
+        eval "$1"
     fi
 }
 
 function w_rsync() {
-    if [[ ${use_remote} ]]; then
+    if [[ "$use_remote" == tru ]]; then
         rsync -aze ssh "$1" "hydra@zeus.ugent.be:$2"
     else
         rsync -a "$1" "$2"
@@ -81,13 +83,21 @@ api="$output/api"
 # Server setup && add new deploy folder
 ###############################################################################
 
+SOURCE="${BASH_SOURCE[0]}"
+while [[ -h "$SOURCE" ]]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+dir="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
+
 # Create folder on server, install python and stuff
 folder=$(date '+%Y%m%d%H%M%S')
-w_ssh "deploy_remote_i.sh $folder $prefix"
+w_ssh "$dir/deploy_remote_i.sh $folder $prefix"
 
 # Copy the files we need
-w_rsync "$output" "$prefix/deployment/$folder/public"
-w_rsync "$server/scraper" "$prefix/deployment/$folder/scraper"
+w_rsync "$output/" "$prefix/deployment/$folder/public/"
+w_rsync "$server/scraper/" "$prefix/deployment/$folder/scraper/"
 
 # Finalize install on remote
-w_ssh "deploy_remote_ii.sh $folder $prefix"
+w_ssh "$dir/deploy_remote_ii.sh $folder $prefix"

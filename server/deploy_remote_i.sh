@@ -9,7 +9,7 @@
 #   source  Name of the new folder for the deployment (on the remote server)
 #   target  Target folder for the deployment. When in doubt, use "~".
 
-set -euo pipefail
+set -euxo pipefail
 
 if [[ $# -lt 2 ]]; then
     echo "error: source and target operands are required" >&2
@@ -27,8 +27,18 @@ mkdir -p "$prefix/deployment/$1/restodata"
 # Very safe, pipe remote files into bash
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
-pyenv update
+# Add to path if necessary
+if [[ ":$PATH:" != *":~/.pyenv/bin:"* ]]; then
+cat >>~/.bashrc <<'EOL'
+export PATH="~/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+EOL
+source ~/.bashrc
+fi
 
+pyenv update
+pyenv install -s 3.7.1
 pyenv global 3.7.1
 
 # Create venv environment

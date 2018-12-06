@@ -13,7 +13,7 @@ from requests import RequestException
 from backoff import retry_session
 from util import write_json_to_file
 
-URL = 'http://urgent.fm56/'
+URL = 'http://urgent.fm/'
 LIVE_URL = 'http://urgent.fm/listen_live.config'
 
 

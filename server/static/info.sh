@@ -49,7 +49,7 @@ echo "Copying static data..."
 rsync -a "$input" "$output"
 
 # As the Dutch content used to be available in the root, we must also copy that to that root.
-rsync -a "${input}nl/" "$output"
+rsync -a "${input}/nl/" "$output"
 
 echo "Providing compatibility..."
 # Ugly replace to fix CSS in the compatibility file.
