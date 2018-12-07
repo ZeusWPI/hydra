@@ -32,11 +32,11 @@ class ManualChange:
         self.day = day
 
     def to_glob(self):
-        api2_template = Template("$api/menu/$resto/$year/$month/$day")
+        api2_template = Template("$root/menu/$resto/$year/$month/$day")
         return api2_template.substitute(self.to_dict())
 
     def get_overview_glob(self):
-        api2_template = Template("$api/menu/$resto/overview.json")
+        api2_template = Template("$root/menu/$resto/overview.json")
         return api2_template.substitute(self.to_dict())
 
     def to_dict(self):

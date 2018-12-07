@@ -39,10 +39,8 @@ fi
 # Remove trailing slashes
 input=$(realpath -s "$1")
 output=$(realpath -s "$2")
-# Re-add trailing slash
-output="$output/"
 
 echo "Copying website data..."
-rsync -a "$input" "$output"
+rsync -a "$input/" "$output/"
 
 echo "Website copied successfully."

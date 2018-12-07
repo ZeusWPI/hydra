@@ -8,11 +8,16 @@ import datetime
 import os
 import sys
 
-from backoff import retry_session
 from requests.exceptions import ConnectionError, Timeout
+from pyquery import PyQuery as pq
+
+# Bad python module system
+sys.path.append('..')
+
+# Relative import, since Python cannot handle being a script
+from backoff import retry_session
 from util import write_json_to_file
 
-from pyquery import PyQuery as pq
 
 # Where to write to.
 OUTFILE_1_0 = "menu/{}/{}.json"

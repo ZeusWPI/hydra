@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 import argparse
 import os
+import sys
+
+from requests.exceptions import ConnectionError, Timeout
+from bs4 import BeautifulSoup
+
+# Bad python module system
+sys.path.append('..')
 
 from backoff import retry_session
-from bs4 import BeautifulSoup
 from util import parse_money, write_json_to_file
-import sys
-from requests.exceptions import ConnectionError, Timeout
 
 HTML_PARSER = 'lxml'
 BASE_URL = 'https://www.ugent.be/student/nl/meer-dan-studeren/resto/ophetmenu/'

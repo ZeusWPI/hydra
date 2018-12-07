@@ -8,13 +8,16 @@
 # Arguments:
 #   source  Name of the folder containing the new deployment (on the remote server)
 #   target  Target folder for the deployment. When in doubt, use "~".
+#   remote  True if using remote, false otherwise
 
 set -euo pipefail
 
-if [[ $# -lt 2 ]]; then
-    echo "error: source and target operands are required" >&2
+if [[ $# -lt 3 ]]; then
+    echo "error: source, target and remote operands are required" >&2
     exit 1
 fi
+
+remote="$3"
 
 prefix=$(realpath -s "$2")
 
@@ -43,8 +46,9 @@ git clone "ssh://git@git.zeus.gent:2222/hydra/data.git" "$historic"
 "$scraper/schamper.py" "$api/1.0/schamper/"
 
 # Run resto
-"$scraper/resto.sh" "$historic" "$api"
+"$scraper/resto.sh" "$historic" "$api" "$remote"
 
+echo "Setting up cron..."
 cron="$scraper/hydra.cron"
 
 # Path to activate venv
@@ -59,3 +63,5 @@ EOF
 # Switch to new deployment
 ln -sf "$public" "$prefix/public"
 crontab "$cron"
+
+echo "Deployment complete."

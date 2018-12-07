@@ -101,8 +101,7 @@ In this stage, we collect all data for the API.
 ### Scraping
 
 We run the actual scrapers. Normally these are run by cron, but we run it once manually to ensure
-they work. NOTE: this means deployment will fail if the network is down. Perhaps we want to
-provide a way to override this?
+they work.
 
 1. Run the schamper scraper. This is output directly to `NEW`.
 2. Run the urgent.fm scraper. This is output directly to `NEW`.
@@ -111,17 +110,15 @@ provide a way to override this?
 4. Commit and push the updated resto data. Tag the repo with the name of `NEW`.
    Not only useful, but allows us to undo the commit if necessary.
 5. Copy the historical data repo to `NEW`.
-5. Back-up existing cron jobs (to undo everything if needed).
-6. Schedule the new cron jobs. TODO: is this done by Ansible or not?
 
 ### Finalising
 
 Here we publish the new data, do some clean up and exit.
 
-1. Symlink `public` to `new`. At this point, the new version of the API is live.
-2. Do some clean-up: remove back-up files (such as the cron job back-up).
+1. Generate new cron job and schedule it.
+2. Symlink `public` to `new`. At this point, the new version of the API is live.
 3. We only keep one historical API data folder for emergencies. Check if there are older
-   ones and remove them.
+   ones and remove them. (TODO)
    
    
 ## Server folder structure
@@ -133,20 +130,18 @@ you contact a sysadmin for assistance (unless you know what you're doing).
 ~
 ├── app
 │   └── assistant/public        # node.js server (ansible)
-├── deploys                     # contains deploys
-├── venv                        # virtual environment for python
+├── venv-scraper                # virtual environment for python
 ├── deployments
 │   ├── 20150080072500
 │   └── 20150080073000
-│       ├── scraper             # python scraper scripts (~repo in capistrano)
-│       │   ├── resto-data      # historic resto data repo
+│       ├── scraper             # python scraper scripts
 │       │   ├── scripts         # the actual scripts
 │       │   └── jobs.cron       # cronjob planning
+│       ├── restodata      # historic resto data repo
 │       └── public
 │           ├── api             # api related stuff (ansible)
 │           └── website         # website related stuff (ansible)
-├── public -> ~/deploys/20150080073000/public
-└── deploys.log                 # contains a log of all deployments and rollbacks
+└── public -> ~/deploys/20150080073000/public
 ```
 
 ## Repo folder structure
@@ -159,7 +154,8 @@ server                          # does not include the assistant
 ├── tests                       # test scripts     
 ├── static                      # static data and scripts to produce them
 ├── scraper                     # contains the python files needed to scraper things
-└── deployment.sh               # deployment script, run by travis
+├── deploy.sh                   # deployment script
+└── test.sh                     # test script
 ```
 
 The scripts for the individual steps in the description above are called by `deployment.sh`. All
@@ -167,5 +163,3 @@ these scripts should be location independent; there are no guarantees in which w
 they are called.
 
 All paths passed to scripts should be absolute paths.
-
-TODO: update the document if certain scripts are split into multiple scripts.

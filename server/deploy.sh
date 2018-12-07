@@ -9,7 +9,7 @@
 #   [dry]     Optional path. If present, the server will be deployed to this path. Otherwise it will be deployed
 #             to King.
 
-set -exuo pipefail
+set -euo pipefail
 
 use_remote=false
 if [[ $# -eq 2 ]]; then
@@ -31,7 +31,7 @@ function w_ssh() {
 }
 
 function w_rsync() {
-    if [[ "$use_remote" == tru ]]; then
+    if [[ "$use_remote" == true ]]; then
         rsync -aze ssh "$1" "hydra@zeus.ugent.be:$2"
     else
         rsync -a "$1" "$2"
@@ -100,4 +100,4 @@ w_rsync "$output/" "$prefix/deployment/$folder/public/"
 w_rsync "$server/scraper/" "$prefix/deployment/$folder/scraper/"
 
 # Finalize install on remote
-w_ssh "$dir/deploy_remote_ii.sh $folder $prefix"
+w_ssh "$dir/deploy_remote_ii.sh $folder $prefix $use_remote"

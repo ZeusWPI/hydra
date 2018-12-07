@@ -43,13 +43,16 @@ while [[ -h "$SOURCE" ]]; do # resolve $SOURCE until the file is no longer a sym
 done
 dir="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
+# To prevent Python from being annoying with imports, cd into the folder
+pushd "$dir"
+
 # Run scraper
 echo "Scraping all the menus"
-command="$dir/resto.py $output1 $output2"
+command="$dir/menu.py $output1 $output2"
 eval ${command}
 
 echo "Applying manual changes"
-command="$dir/resto_manual.py $output2"
+command="$dir/menu_manual.py $output2"
 eval ${command}
 
 echo "Eating all the sandwiches"
@@ -59,5 +62,7 @@ eval ${command}
 echo "Finding all the desserts"
 command="$dir/cafetaria.py $output2"
 eval ${command}
+
+popd
 
 echo "Resto scraper ran successfully."

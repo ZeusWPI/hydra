@@ -4,6 +4,10 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+# Bad python module system
+import sys
+sys.path.append('..')
+
 from util import parse_money, write_json_to_file
 
 SANDWICHES_URL = "https://www.ugent.be/student/nl/meer-dan-studeren/resto/broodjes/overzicht.htm"

@@ -39,17 +39,15 @@ fi
 # Remove trailing slashes
 input=$(realpath -s "$1")
 output=$(realpath -s "$2")
-# Re-add trailing slash
-output="$output/"
 
 echo "Copying static data..."
 
 # We copy the whole folder into the public folder. (we cannot symlink, see later).
 # Note that all *.html files in the root are present for backwards compatibility only.
-rsync -a "$input" "$output"
+rsync -a "$input/" "$output/"
 
 # As the Dutch content used to be available in the root, we must also copy that to that root.
-rsync -a "${input}/nl/" "$output"
+rsync -a "${input}/nl/" "$output/"
 
 echo "Providing compatibility..."
 # Ugly replace to fix CSS in the compatibility file.
