@@ -15,7 +15,7 @@ before_script:
   - pip install html5validator==0.3.1
 
 script:
-  - cd ~/server && ./tester.sh
+  - ./server/test.sh
 
 branches:
   only:
@@ -23,6 +23,6 @@ branches:
 
 deploy:
   - provider: script
-    script: cd ~/server && ./deploy.sh
+    script: ./server/deploy.sh
     on:
       branch: master

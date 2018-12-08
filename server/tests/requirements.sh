@@ -20,11 +20,6 @@ function check() {
 # System libraries
 check "java" "python" "npm"
 
-# Install packages
-# Use specific versions here, to enable semi-deterministic tests
-pip install "html5validator==0.3.1"
-npm install -g "ajv-cli@3.0.0"
-
 # Validate packages are installed correctly.
 check "html5validator" "ajv"
 
