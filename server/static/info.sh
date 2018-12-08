@@ -51,6 +51,6 @@ rsync -a "${input}/nl/" "$output/"
 
 echo "Providing compatibility..."
 # Ugly replace to fix CSS in the compatibility file.
-sed -i 's;<link href="../webview.css" rel="stylesheet" type="text/css"/>;<link href="webview.css" rel="stylesheet" type="text/css"/>;' "${output}info-fietsen.html"
+sed -i 's;<link href="../webview.css" rel="stylesheet" type="text/css"/>;<link href="webview.css" rel="stylesheet" type="text/css"/>;' "${output}/info-fietsen.html"
 
 echo "Info copied successfully."
