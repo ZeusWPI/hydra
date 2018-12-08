@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Omleiden...</title>
-</head>
-<body>
-<script>
+  <title>Redirecting...</title>
+  <script>
     let redirect = 'https://hydra.ugent.be/';
 
     if (navigator.userAgent.toLowerCase().indexOf("iphone") > -1) {
-        redirect += 'ios';
+      redirect += 'ios';
     }
 
     if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
-        redirect += 'android';
+      redirect += 'android';
     }
 
-    window.location.href = redirect;
-</script>
+    window.location.replace(redirect);
+  </script>
+</head>
+<body>
 <div lang="nl">
   <p>U wordt omgeleid...</p>
   <p><a href="https://hydra.ugent.be">Klik hier</a> indien dit niet gebeurt.</p>

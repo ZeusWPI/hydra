@@ -51,10 +51,9 @@ html5validator --root "$static/info" --show-warnings --also-check-css --also-che
 ###############################################################################
 
 echo "Validating info..."
-ajv test -s "$tests/schema_info-content.json" -d "$static/info/nl/schema_info-content.json"
-ajv test -s "$tests/schema_info-content.json" -d "$static/info/en/schema_info-content.json"
+ajv -s "$tests/schema_info-content.json" -d "$static/info/*/info-content.json" --errors=text
 
 echo "Validating special events..."
-ajv test -s "$tests/schema_special_events.json" -d "$static/association/special_events.json"
+ajv -s "$tests/schema_special_events.json" -d "$static/association/special_events.json" --errors=text
 
 echo "Tests completed successfully."
