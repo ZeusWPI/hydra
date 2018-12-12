@@ -8,6 +8,14 @@ jdk:
 python:
   - "3.7"
 
+before_install:
+  - openssl aes-256-cbc -K $encrypted_543dd1a78d58_key -iv $encrypted_543dd1a78d58_iv
+    -in deploy_key.enc -out .\\deploy_key -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 ./deploy_key
+  - echo -e "Host zeus.ugent.be\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - ssh-add ./deploy_key
+
 # Install the tool for the tests.
 # The requirements for the deployment test are installed by the scripts themselves.
 before_script:
@@ -15,7 +23,7 @@ before_script:
   - pip install html5validator==0.3.1
 
 script:
-  - ./server/test.sh
+  - "./server/test.sh"
 
 branches:
   only:
@@ -23,6 +31,6 @@ branches:
 
 deploy:
   - provider: script
-    script: ./server/deploy.sh
+    script: "./server/deploy.sh"
     on:
       branch: master
