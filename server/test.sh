@@ -5,8 +5,7 @@
 # Use:
 #   resto.sh input output
 # Arguments:
-#   input   The path to the folder with the source data (server/static/association/)
-#   output  The root output path. The script will put the final output in that folder.
+#   server   The path to the folder with the server data (server/)
 
 set -euo pipefail
 

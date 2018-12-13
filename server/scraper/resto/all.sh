@@ -16,7 +16,7 @@ function usage() {
     echo "usage: $program input output"
     echo "where:"
     echo "    output1  path for v1.0 of the API"
-    echo "    output   path for v2.0 of the API"
+    echo "    output2  path for v2.0 of the API"
 }
 
 if [[ $# -lt 2 ]]; then
