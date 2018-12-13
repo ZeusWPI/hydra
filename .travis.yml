@@ -27,7 +27,7 @@ before_install:
 # The requirements for the deployment test are installed by the scripts themselves.
 before_script:
 - npm install -g ajv-cli@3.0.0
-- pip3.6.3 install html5validator==0.3.1 --user
+- pip install html5validator==0.3.1 --user
 
 script:
 - "./server/test.sh"
