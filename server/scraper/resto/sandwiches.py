@@ -20,10 +20,11 @@ def parse_ingredients(columns, ingredients):
             in columns[1].string.replace(' en ', ',').split(',')]
 
 
-def main(output):
+def main(output1, output2):
     """
     Parse sandwiches from the menu.
-    :param output: The root output folder.
+    :param output1: The root output folder for v1.
+    :param output2: The root output folder for v2.
     """
     r = requests.get(SANDWICHES_URL)
     soup = BeautifulSoup(r.text, HTML_PARSER)
@@ -38,17 +39,24 @@ def main(output):
             "price_medium": parse_money(''.join(columns[3].findAll(text=True)))  # workaround
         })
 
-    output_file = os.path.join(output, "sandwiches.json")
-    write_json_to_file(sandwiches, output_file)
+    # The output is the same in version 1 and version 2.
+    output_file1 = os.path.join(output1, "sandwiches.json")
+    write_json_to_file(sandwiches, output_file1)
+    output_file2 = os.path.join(output2, "sandwiches.json")
+    write_json_to_file(sandwiches, output_file2)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run sandwich scraper')
-    parser.add_argument('output',
-                        help='Path of the folder in which the output must be written. Will be created if needed.')
+    parser.add_argument('output1',
+                        help='Path of the folder v1 in which the output must be written. Will be created if needed.')
+    parser.add_argument('output2',
+                        help='Path of the folder v2 in which the output must be written. Will be created if needed.')
     args = parser.parse_args()
 
-    output_path = os.path.abspath(args.output)  # Like realpath
-    os.makedirs(output_path, exist_ok=True)  # Like mkdir -p
+    output_path1 = os.path.abspath(args.output1)  # Like realpath
+    os.makedirs(output_path1, exist_ok=True)  # Like mkdir -p
+    output_path2 = os.path.abspath(args.output2)
+    os.makedirs(output_path2, exist_ok=True)
 
-    main(output_path)
+    main(output_path1, output_path2)

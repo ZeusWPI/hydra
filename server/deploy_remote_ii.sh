@@ -10,7 +10,7 @@
 #   target  Target folder for the deployment. When in doubt, use "~".
 #   remote  True if using remote, false otherwise
 
-set -euo pipefail
+set -exuo pipefail
 
 if [[ $# -lt 3 ]]; then
     echo "error: source, target and remote operands are required" >&2
@@ -29,6 +29,8 @@ public="$prefix/deployment/$1/public"
 historic="$prefix/deployment/$1/restodata"
 # Where the public api data will be kept
 api="$public/api"
+# Where the website goes
+website="$public/website"
 
 # Activate venv
 . "$prefix/venv-scraper/bin/activate"
@@ -60,8 +62,11 @@ cat << EOF > "$cron"
 */15 * * * *  ${venv} && ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
 EOF
 
-# Switch to new deployment
-ln -sf "$public" "$prefix/public"
+# Map the API and server endpoint to the new data
+# DO NOT link the full public folder; it contains other data.
+# Todo: we can do this if we include the OAuth redirect in the repo (as we should)
+ln -sf "$api" "$prefix/public/api/"
+ln -sf "$website" "$prefix/public/website/"
 crontab "$cron"
 
 echo "Deployment complete."

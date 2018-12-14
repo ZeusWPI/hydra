@@ -9,7 +9,7 @@
 #   [dry]     Optional path. If present, the server will be deployed to this path. Otherwise it will be deployed
 #             to King.
 
-set -euo pipefail
+set -exuo pipefail
 
 use_remote=false
 if [[ $# -eq 2 ]]; then
@@ -24,9 +24,9 @@ fi
 function w_ssh() {
     # Execute the script on SSH if present, otherwise not.
     if [[ "$use_remote" == true ]]; then
-        ssh hydra@zeus.ugent.be "$1"
+        ssh hydra@zeus.ugent.be < "$1" "bash -s $2"
     else
-        eval "$1"
+        eval "$1" "$2"
     fi
 }
 
@@ -74,6 +74,7 @@ api="$output/api"
 # Check requirements
 "$server/static/requirements.sh"
 
+# Copy static data
 "$server/static/association.sh" "$server/static/association/" "$api/2.0/association/"
 
 "$server/static/info.sh" "$server/static/info/" "$api/2.0/info/"
@@ -96,11 +97,11 @@ dir="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
 # Create folder on server, install python and stuff
 folder=$(date '+%Y%m%d%H%M%S')
-w_ssh "$dir/deploy_remote_i.sh $folder $prefix"
+w_ssh "$dir/deploy_remote_i.sh" "$folder $prefix"
 
 # Copy the files we need
 w_rsync "$output/" "$prefix/deployment/$folder/public/"
 w_rsync "$server/scraper/" "$prefix/deployment/$folder/scraper/"
 
 # Finalize install on remote
-w_ssh "$dir/deploy_remote_ii.sh $folder $prefix $use_remote"
+w_ssh "$dir/deploy_remote_ii.sh" "$folder $prefix $use_remote"

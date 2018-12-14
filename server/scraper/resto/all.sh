@@ -56,7 +56,7 @@ command="$dir/menu_manual.py $output2"
 eval ${command}
 
 echo "Eating all the sandwiches"
-command="$dir/sandwiches.py $output2"
+command="$dir/sandwiches.py $output1 $output2"
 eval ${command}
 
 echo "Finding all the desserts"

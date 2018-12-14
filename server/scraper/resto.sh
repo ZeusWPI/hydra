@@ -55,7 +55,8 @@ rsync -a "$internal_v2" "$api_v2"
 today=$(date +%F)
 cd "$internal"
 git add .
-git commit -m "Scraper: new data from $today"
+# The first part prevents git from committing nothing, resulting in an error
+git diff-index --quiet HEAD || git commit -m "Scraper: new data from $today"
 
 if [[ "$push" == true ]]; then
     git push

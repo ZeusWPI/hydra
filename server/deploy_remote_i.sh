@@ -41,4 +41,4 @@ pyenv install -s 3.7.1
 pyenv global 3.7.1
 
 # Create venv environment
-python -m venv "$prefix/venv-scraper"
+python -m venv "$prefix/venv"

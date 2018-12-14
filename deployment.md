@@ -130,7 +130,7 @@ you contact a sysadmin for assistance (unless you know what you're doing).
 ~
 ├── app
 │   └── assistant/public        # node.js server (ansible)
-├── venv-scraper                # virtual environment for python
+├── venv                        # virtual environment for python
 ├── deployments
 │   ├── 20150080072500
 │   └── 20150080073000
@@ -141,7 +141,7 @@ you contact a sysadmin for assistance (unless you know what you're doing).
 │       └── public
 │           ├── api             # api related stuff (ansible)
 │           └── website         # website related stuff (ansible)
-└── public -> ~/deploys/20150080073000/public
+└── public -> ~/deployments/20150080073000/public
 ```
 
 ## Repo folder structure
