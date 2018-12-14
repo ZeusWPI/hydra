@@ -1,3 +1,0 @@
-10 0 * * 0 ~/scraper/resto.sh ~/historic/ ~/public/api/ ~/>> ~/log/resto-scraper.log
-5 * * * * ~/scraper/schamper.py ~/public/api/1.0/schamper/ >> ~/log/schamper-scraper.log
-*/15 * * * * ~/scraper/urgentfm.py ~/public/api//2.0/urgentfm/ >> ~/log/urgentfm-scraper.log

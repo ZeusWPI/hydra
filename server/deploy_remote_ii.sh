@@ -33,7 +33,7 @@ api="$public/api"
 website="$public/website"
 
 # Activate venv
-. "$prefix/venv-scraper/bin/activate"
+. "$prefix/venv/bin/activate"
 
 # Install python
 pip install -r "$scraper/requirements.txt"
@@ -54,19 +54,23 @@ echo "Setting up cron..."
 cron="$scraper/hydra.cron"
 
 # Path to activate venv
-venv=". \"$prefix/venv-scraper/bin/activate\""
+venv=". \"$prefix/venv/bin/activate\""
 
 cat << EOF > "$cron"
-10 0 * * 0    ${venv} && ${scraper}/resto.sh    ${historic} ${api}   >> ${prefix}/log/resto-scraper.log
-5 * * * *     ${venv} && ${scraper}/schamper.py ${api}/1.0/schamper/ >> ${prefix}/log/schamper-scraper.log
-*/15 * * * *  ${venv} && ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
+# Run resto scraper every day at 10 am
+0 10 * * *    ${venv} && ${scraper}/resto.sh    ${historic} ${api}   >> ${prefix}/log/resto-scraper.log
+# Run schamper scraper every day at 9 am
+0 9 * * *     ${venv} && ${scraper}/schamper.py ${api}/1.0/schamper/ >> ${prefix}/log/schamper-scraper.log
+# Run urgent.fm scraper every half our, at 3 offset (e.g. 15:03, 15:33, 16:03)
+# A programma normally ends at an hour (e.g. 17:00), but to be sure the website has updated, wait 3 minutes.
+3-59/30 * * * *  ${venv} && ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
 EOF
 
 # Map the API and server endpoint to the new data
 # DO NOT link the full public folder; it contains other data.
 # Todo: we can do this if we include the OAuth redirect in the repo (as we should)
-ln -sf "$api" "$prefix/public/api/"
-ln -sf "$website" "$prefix/public/website/"
+ln -sfn "$api" "$prefix/public/api"
+ln -sfn "$website" "$prefix/public/website"
 crontab "$cron"
 
 echo "Deployment complete."
