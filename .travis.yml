@@ -12,7 +12,7 @@ python:
   - "3.6"
 
 addons:
-  ssh_known_hosts: zeus.ugent.be
+  ssh_known_hosts: zeus.ugent.be:2222
 
 before_install:
 # - sudo apt-get update
