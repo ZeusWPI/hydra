@@ -1,4 +1,4 @@
-# Hydra
+# Hydra ![build status](https://travis-ci.org/ZeusWPI/hydra.svg?branch=master)
 
 ![hydra-icon-web](https://f.cloud.github.com/assets/5676/46955/0101cef4-58a8-11e2-8b16-06537c38a8cf.png)
 
