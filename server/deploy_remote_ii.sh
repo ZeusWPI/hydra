@@ -10,7 +10,7 @@
 #   target  Target folder for the deployment. When in doubt, use "~".
 #   remote  True if using remote, false otherwise
 
-set -exuo pipefail
+set -euo pipefail
 
 if [[ $# -lt 3 ]]; then
     echo "error: source, target and remote operands are required" >&2
