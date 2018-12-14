@@ -17,6 +17,10 @@ This document describes version 1.0 of the API.
 | 1.0 (this)             | https://zeus.ugent.be/hydra/api/1.0/resto/ | deprecated |
 | [2.0](api-resto-02.md) | https://zeus.ugent.be/hydra/api/2.0/resto/ | current    |
 
+This API is deprecated. Applications are encouraged to migrate to version 2.0 of the API.
+
+This means that although there are currently no concrete plans to retire the API, the API is no longer developed. New features will not be added and bugs may not be fixed.
+
 ## Technical description
 
 * **`meta.json`**
@@ -65,5 +69,3 @@ This document describes version 1.0 of the API.
     ]
   }
   ```
-  The menu data is property of Ghent University. We don't guarantee the correctness or completeness of the data.
-

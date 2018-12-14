@@ -1,3 +1,0 @@
-10 0 * * 0 . ~/env/bin/activate && cd ~/app/scraper && ./resto.sh >> ~/log/resto-scraper.log
-5 * * * * . ~/env/bin/activate && cd ~/app/scraper && ./schamper.sh >> ~/log/schamper-scraper.log
-*/15 * * * * . ~/env/bin/activate && cd ~/app/scraper && ./urgentfm.sh >> ~/log/urgentfm-scraper.log

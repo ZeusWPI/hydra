@@ -18,6 +18,12 @@ This repo only contains the scraper code. Links to the [Android repo](https://gi
 
 See the [API](api.md) for documentation about the APIs. Or jump directly to the [resto API](api-resto-02.md).
 
+
+The Hydra APIs and data are a mix of static data, apps on servers and scrapers.
+The 'server' folder contains all things to run.
+The scripts folder contains a bunch of scripts to test, deploy and run the server.
+
+
 ## Contributors
 
 In order of first contribution:
@@ -38,3 +44,4 @@ In order of first contribution:
 * Wouter Pinnoo
 * Titouan Vervack
 * Caroline De Brouwer
+* Niko Strijbol

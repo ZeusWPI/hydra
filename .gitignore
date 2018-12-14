@@ -1,7 +1,4 @@
 .DS_Store
-Thumbs.db
-android/private/
-/android/nbandroid/
-/android/libs/google-play-services_lib/nbandroid/
 .idea/
 *.iml
+deploy_key

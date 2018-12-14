@@ -23,17 +23,19 @@ This document describes the current version of the API, version 2.0.
 
 | Endpoint                              | Description                    |
 |---------------------------------------|--------------------------------|
-| [`GET /meta.json`](#metadata)         | Information about the resto's. |
-| [`GET /sandwiches.json`](#sandwiches) | List of available sandwiches   |
+| [`GET /meta.json`](#metadata)         | Information about the restos. |
+| [`GET /sandwiches.json`](#sandwiches) | List of available sandwiches.   |
 | [`GET /extrafood.json`](#extra-food)  | List of additional available items, such as breakfast or desserts. |
-| [`GET /menu/{endpoint}/overview.json`](#overview) | The future menu for a specific resto |
+| [`GET /menu/{endpoint}/overview.json`](#overview) | The future menu for a specific resto. |
 | [`GET /menu/{endpoint}/{year}/{month}/{day}.json`](#day-menu) | The menu for a particular day. |
+
+Date and hour specifiers are from ISO 8601:2014.
 
 ### Metadata
 
 **Endpoint**: `GET /meta.json`
 
-The main entry point for the API. Provides a list of all resto location supported by the API.
+The main entry point for the API. Provides a list of all locations known to the API. This data is manually curated; please raise an issue if data is missing or incorrect.
 Example response:
 
 ```json
@@ -65,17 +67,16 @@ Example response:
 }
 ```
 
-The response is an object with one field, `locations`, a list of resto locations. Most fields in the location
-self explanatory.
+The response is an object with one field, `locations`, a list of locations.
 
 | Field           | Description 
 |-----------------|-------------
-| `name`         | Name of the resto 
-| `address`      | Address of the resto
-| `latitude`, `longitude` | Coordinates of the resto
+| `name`         | Name of the location.
+| `address`      | Address of the location.
+| `latitude`, `longitude` | Coordinates of the location.
 | `type` | The main type of the resto. For example, `resto` indicates it is a resto, but it might also be a cafetaria.
 | `endpoint` | The endpoint for this resto. Can be used in `/resto/menu/{ENDPOINT}`. See [Overview](#overview) or [Day menu](#day-menu).
-| `open` | Lists the intervals in which each type is opened.
+| `open` | Lists the intervals in which this location is open, for each type of the location. Uses ISO 8601:2014's extended format with reduced accuracy (`hh:mm`).
 
 ### Sandwiches
 
@@ -104,15 +105,15 @@ Lists available sandwiches, their price and their ingredients. Sample output:
 |-------|-------------
 | `ingredients` | A list of the ingredients in the sandwich.
 | `name` | The name of the sandwich.
-| `price_medium` | The price in euros for a normal sandwich.
-| `price_medium` | The price in euros for a small sandwich.
+| `price_medium` | The (textual) price in euros for a normal sandwich.
+| `price_medium` | The (textual) price in euros for a small sandwich.
 
 
 ### Extra food
 
 **Endpoint**: `GET /extrafood.json`
 
-Returns additional items that are available. The availability depends on the location, but is not known. Sample output:
+Returns additional items that may be available. The actual availability varies per location, but this information is not known in the API. Sample output:
 
 ```json
 {
@@ -137,8 +138,9 @@ Returns additional items that are available. The availability depends on the loc
 }
 ```
 
-There are three lists in the response: `breakfast`, `desserts` and `drinks`. Each item in a list consists of a `name`,
-and a `price` in euros.
+There are three lists in the response: `breakfast`, `desserts` and `drinks`. Each item in a list consists of a `name` and a `price` in euros (textual).
+
+_Note_: the price format is not identical as the price format used by the [Day Menu](#day-menu) output.
 
 ### Overview
 
@@ -195,10 +197,12 @@ The output consists of an array, with a menu object for each day. See [Day Menu]
 
 **Parameters**:
 
+Date formatters in this section are from ISO 8601:2014. Dates are basically ISO, but without leading zeroes.
+
 - _endpoint_ — The endpoint for the resto. Available endpoint can be queried using the [Metadata](#metadata) request.
-- _year_ — The year of the date. Formatted in ISO 8601 (`YYYY`).
-- _month_ — The month of the date. Values must be in the interval [1-12], and formatted without zeroes (commonly indicated as `M`).
-- _day_ — The day of the date. Values must be in the interval [1-31], and formatted without zeroes (commonly indicated as `D`).
+- _year_ — The year of the date. Values must be a positive integer. Currently, the earliest available year is 2016 (but this might change in the future). ISO format: `Y̲Y`.
+- _month_ — The month of the date. Values must be in the interval [1-12], and formatted without leading zeroes. ISO format: `M̲M`
+- _day_ — The day of the date. Values must be in the interval [1-31], and formatted without leading zeroes. ISO format: `D̲D`.
 
 A sample endpoint is `/menu/nl/2017/5/18.json`. Sample output is:
 
@@ -243,7 +247,7 @@ A menu object consists of:
 
 | Field | Description
 |-------|------------
-| `date` | The date of the menu. The date's format follows ISO 8601 (`YYYY-MM-DD`).
+| `date` | The date of the menu. The date's format follows ISO 8601:2004's extended format (`YYYY-MM-DD`).
 | `open` | If set to `true`, the resto is open, otherwise not. If set to `false`, none of the fields below are present.<br><br>Note that this is no guarantee: some days (like the weekends) are simply not present in the output.
 | `vegetables` | A list of available vegetables.
 | `meals` | A list of meal objects (see below).
@@ -255,7 +259,7 @@ A meal object consists of:
 | `kind` | The kind of the meal. Expected values are currently `meat`, `fish`, `soup`, `vegetarian` or `vegan`. Applications must be able to handle changes to the possible values.
 | `name` | The name of the meal.
 | `price` | Textual representation of the price.
-| `type` | The meal type. Is currently `main` of `side`, but applications must be able to handle changes to the possible values.
+| `type` | The meal type. Is currently `main` or `side`, but applications must be able to handle changes to the possible values.
 
 How an application handles changes to possible values (indicated above where this is applicable), is not specified.
 The application might simply ignore new values.
