@@ -58,6 +58,7 @@ git add .
 # The first part prevents git from committing nothing, resulting in an error
 git diff-index --quiet HEAD || git commit -m "Scraper: new data from $today"
 
+# Porcelain prevents git from writing non-errors to stderr, resulting in emails
 if [[ "$push" == true ]]; then
-    git push
+    git push --porcelain
 fi
