@@ -21,6 +21,12 @@ This API is deprecated. Applications are encouraged to migrate to version 2.0 of
 
 This means that although there are currently no concrete plans to retire the API, the API is no longer developed. New features will not be added and bugs may not be fixed.
 
+## Data dump
+
+All data available in this API is also available as a [git repository](https://git.zeus.gent/hydra/data). If you need all available data, it is probably easier and faster to download or clone the repo.
+
+If or when this API version is sunset, the data will remain available in the repo above.
+
 ## Technical description
 
 * **`meta.json`**
