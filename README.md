@@ -1,4 +1,4 @@
-# Hydra [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/hydra/README.md?pixel)](https://github.com/igrigorik/ga-beacon)
+# Hydra ![build status](https://travis-ci.org/ZeusWPI/hydra.svg?branch=master)
 
 ![hydra-icon-web](https://f.cloud.github.com/assets/5676/46955/0101cef4-58a8-11e2-8b16-06537c38a8cf.png)
 
@@ -23,6 +23,9 @@ The Hydra APIs and data are a mix of static data, apps on servers and scrapers.
 The 'server' folder contains all things to run.
 The scripts folder contains a bunch of scripts to test, deploy and run the server.
 
+## Deployment
+
+The API and website are automatically deployed (from master) to the server by Travis. Since it uses a custom solution, read [the docs](deployment.md) first, before changing things (unless you know what you are doing).
 
 ## Contributors
 
