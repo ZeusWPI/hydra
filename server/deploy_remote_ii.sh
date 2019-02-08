@@ -80,11 +80,18 @@ ln -sfn "$website" "$prefix/public/website"
 crontab "$cron"
 
 echo "Deployment complete."
-echo "Check if we need clean-up"
+echo "Check if we need clean-up..."
 
 # At this point, the deployment is successful, so we can clean up some old deployments.
 # First, get an array of all deployments (all directories in the deployment directory).
-readarray -d '' all_deployments < <(find "$deployment" -regextype posix-egrep -maxdepth 1 -regex ".*/[0-9]{14}$" -print0 | sort -z)
+
+# The following only works in Bash 4.4, king has Bash 4.3.
+# readarray -d '' all_deployments < <(find "$deployment" -regextype posix-egrep -maxdepth 1 -regex ".*/[0-9]{14}$" -print0 | sort -z)
+# For now, do this instead:
+all_deployments=()
+while IFS=  read -r -d $'\0'; do
+    all_deployments+=("$REPLY")
+done < <(find "$deployment" -regextype posix-egrep -maxdepth 1 -regex ".*/[0-9]{14}$" -print0 | sort -z)
 
 # We keep the current version, and two older version: so total is 3.
 keep=3
