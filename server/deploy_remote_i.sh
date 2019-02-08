@@ -23,20 +23,28 @@ mkdir -p "$prefix/deployment/$1/scraper"
 mkdir -p "$prefix/deployment/$1/public"
 mkdir -p "$prefix/deployment/$1/restodata"
 
-# Install py-env
-# Very safe, pipe remote files into bash
-curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+############################
+# Install or update py-env #
+############################
 
-# Add to path if necessary
+# First, check if py-env is installed and available on the path.
 if ! command -v pyenv &>/dev/null; then
+
+  # Install py-env (specific version to have reproducible builds)
+  curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/b646a0105b6612ff5781b064c9e644795edfa06f/bin/pyenv-installer | bash
+
+  # Add it to the path
 cat >>~/.bash_profile <<'EOL'
 export PATH="~/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 EOL
-source ~/.bash_profile
+
+  source ~/.bash_profile
+else
+  # Else we just update
+  pyenv update
 fi
 
-pyenv update
 pyenv install -s 3.7.1
 pyenv global 3.7.1
 

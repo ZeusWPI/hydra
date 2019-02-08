@@ -21,12 +21,14 @@ remote="$3"
 
 prefix=$(realpath -s "$2")
 
+# Where deployments are located
+deployment="$prefix/deployment"
 # Where the scraper scripts will be copied to
-scraper="$prefix/deployment/$1/scraper"
+scraper="$deployment/$1/scraper"
 # Where the public data will reside
-public="$prefix/deployment/$1/public"
+public="$deployment/$1/public"
 # Where the resto data will be kept
-historic="$prefix/deployment/$1/restodata"
+historic="$deployment/$1/restodata"
 # Where the public api data will be kept
 api="$public/api"
 # Where the website goes
@@ -66,6 +68,10 @@ cat << EOF > "$cron"
 3-59/30 * * * *  ${venv} && ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
 EOF
 
+# Create directories before symlinking
+mkdir -p "$prefix/public/api"
+mkdir -p "$prefix/public/website"
+
 # Map the API and server endpoint to the new data
 # DO NOT link the full public folder; it contains other data.
 # Todo: we can do this if we include the OAuth redirect in the repo (as we should)
@@ -74,3 +80,29 @@ ln -sfn "$website" "$prefix/public/website"
 crontab "$cron"
 
 echo "Deployment complete."
+echo "Check if we need clean-up"
+
+# At this point, the deployment is successful, so we can clean up some old deployments.
+# First, get an array of all deployments (all directories in the deployment directory).
+readarray -d '' all_deployments < <(find "$deployment" -regextype posix-egrep -maxdepth 1 -regex ".*/[0-9]{14}$" -print0 | sort -z)
+
+# We keep the current version, and two older version: so total is 3.
+keep=3
+nr_of_deployments="${#all_deployments[@]}"
+
+# If there are less than 3, nothing needs to be done.
+if [[ "$nr_of_deployments" -le "$keep" ]]; then
+  echo "Nothing to clean up."
+  exit 0
+fi
+
+nr_to_remove=$(("$nr_of_deployments" - "$keep"))
+echo "Removing $nr_to_remove old deployment(s)..."
+
+to_remove=("${all_deployments[@]::$nr_to_remove}")
+
+for directory in "${to_remove[@]}"; do
+  rm -r "$directory"
+done
+
+echo "Clean-up done."

@@ -19,6 +19,10 @@ This document describes the current version of the API, version 2.0.
 | [1.0](api-resto-01.md) | https://zeus.ugent.be/hydra/api/1.0/resto/ | deprecated |
 | 2.0 (this)             | https://zeus.ugent.be/hydra/api/2.0/resto/ | current    |
 
+## Data dump
+
+All data available in this API is also available as a [git repository](https://git.zeus.gent/hydra/data). If you need all available data, it is probably easier and faster to download or clone the repo.
+
 ## Technical description
 
 | Endpoint                              | Description                    |
