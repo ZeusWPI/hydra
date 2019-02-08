@@ -49,18 +49,22 @@ pushd "$dir"
 # Run scraper
 echo "Scraping all the menus"
 command="$dir/menu.py $output1 $output2"
+# shellcheck disable=2086
 eval ${command}
 
 echo "Applying manual changes"
 command="$dir/menu_manual.py $output2"
+# shellcheck disable=2086
 eval ${command}
 
 echo "Eating all the sandwiches"
 command="$dir/sandwiches.py $output1 $output2"
+# shellcheck disable=2086
 eval ${command}
 
 echo "Finding all the desserts"
 command="$dir/cafetaria.py $output2"
+# shellcheck disable=2086
 eval ${command}
 
 popd

@@ -56,4 +56,12 @@ ajv -s "$tests/schema_info-content.json" -d "$static/info/*/info-content.json" -
 echo "Validating special events..."
 ajv -s "$tests/schema_special_events.json" -d "$static/association/special_events.json" --errors=text
 
+###############################################################################
+# Shell scripts
+###############################################################################
+
+echo "Running shellcheck on shell scripts..."
+shopt -s globstar
+shellcheck "$server"/**/*.sh
+
 echo "Tests completed successfully."

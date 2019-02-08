@@ -40,6 +40,7 @@ export PATH="~/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 EOL
 
+  # shellcheck source=/dev/null
   source ~/.bash_profile
 else
   echo "Py-env is installed, updating..."
