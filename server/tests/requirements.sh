@@ -18,7 +18,7 @@ function check() {
 }
 
 # System libraries
-check "java" "python" "npm"
+check "java" "python" "npm" "shellcheck"
 
 # Validate packages are installed correctly.
 check "html5validator" "ajv"

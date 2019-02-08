@@ -24,6 +24,8 @@ fi
 function w_ssh() {
     # Execute the script on SSH if present, otherwise not.
     if [[ "$use_remote" == true ]]; then
+        # We want $2 to expand on the client side.
+        # shellcheck disable=2029
         ssh hydra@zeus.ugent.be -p 2222 < "$1" "bash -l -s $2"
     else
         eval "$1" "$2"

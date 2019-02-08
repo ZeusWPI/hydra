@@ -35,6 +35,7 @@ api="$public/api"
 website="$public/website"
 
 # Activate venv
+# shellcheck source=/dev/null
 . "$prefix/venv/bin/activate"
 
 # Install python
