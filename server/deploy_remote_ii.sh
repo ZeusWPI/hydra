@@ -103,7 +103,7 @@ if [[ "$nr_of_deployments" -le "$keep" ]]; then
   exit 0
 fi
 
-nr_to_remove=$(("$nr_of_deployments" - "$keep"))
+nr_to_remove=$((nr_of_deployments - keep))
 echo "Removing $nr_to_remove old deployment(s)..."
 
 to_remove=("${all_deployments[@]::$nr_to_remove}")
