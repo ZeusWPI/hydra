@@ -24,7 +24,7 @@ fi
 function w_ssh() {
     # Execute the script on SSH if present, otherwise not.
     if [[ "$use_remote" == true ]]; then
-        ssh hydra@zeus.ugent.be -p 2222 < "$1" "bash -s $2"
+        ssh hydra@zeus.ugent.be -p 2222 < "$1" "bash -l -s $2"
     else
         eval "$1" "$2"
     fi
