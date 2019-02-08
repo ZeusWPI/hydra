@@ -29,6 +29,7 @@ mkdir -p "$prefix/deployment/$1/restodata"
 
 # First, check if py-env is installed and available on the path.
 if ! command -v pyenv &>/dev/null; then
+  echo "Py-env is not present, installing..."
 
   # Install py-env (specific version to have reproducible builds)
   curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/b646a0105b6612ff5781b064c9e644795edfa06f/bin/pyenv-installer | bash
@@ -41,7 +42,7 @@ EOL
 
   source ~/.bash_profile
 else
-  # Else we just update
+  echo "Py-env is installed, updating..."
   pyenv update
 fi
 
