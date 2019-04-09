@@ -116,7 +116,7 @@ def get_weeks(which):
             iso_week = int(url.split("week")[-1])
         except Exception as e:
             print(f"Failure parsing week page for {which}, with url {url}.", file=sys.stderr)
-            print(f"Week number {iso_week} is not an int, ignoring it.", file=sys.stderr)
+            print(f"Week number {url.split('week')[-1]} is not an int, ignoring it.", file=sys.stderr)
             print(e, file=sys.stderr)
             continue
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
