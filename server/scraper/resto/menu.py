@@ -18,7 +18,6 @@ sys.path.append('..')
 from backoff import retry_session
 from util import write_json_to_file
 
-
 # Where to write to.
 OUTFILE_1_0 = "menu/{}/{}.json"
 OUTFILE_2_0 = "menu/{}/{}/{}/{}.json"
@@ -30,11 +29,17 @@ LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}/overzic
 WEEK_MENU_URL = {
     "nl": (LINK_FORMAT.format("weekmenu")),
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
-    "nl-sintjansvest": LINK_FORMAT.format("weekmenu-sintjansvest"),
+    "nl-sintjansvest": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest/",
     "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
     "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
     "nl-kantienberg": LINK_FORMAT.format("weekmenurestokantienberg")
 }
+
+# Define the page type for the resto.
+# See also WEEK_MENU_PARSERS
+WEEK_MENU_PAGE_TYPE = collections.defaultdict(lambda: "rss-json", {
+    "nl-sintjansvest": "html"
+})
 
 # Languages
 TYPES = list(WEEK_MENU_URL.keys())
@@ -45,6 +50,8 @@ DAY_SELECTOR = ".summary.url"
 # The jQuery selector for the meals on the menu page.
 CLOSED_SELECTOR = "#content-core"
 MEAL_SELECTOR = "#content-core li"
+
+WEEK_MENU_HTML_SELECTOR_LINKS = "#content-core .linklist li a"
 
 # The string indicating a closed day.
 CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
@@ -66,18 +73,41 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
 })
 
 
+def get_weeks_rss_json(url):
+    """
+    Get the URL for the weekly menu's from the rss page.
+    """
+    try:
+        page = retry_session.get(url)
+    except (ConnectionError, Timeout) as e:
+        print("Failed to connect: ", e, file=sys.stderr)
+        raise e
+    week_menu = json.loads(page.text)
+    return [x["identifier"] for x in week_menu]
+
+
+def get_weeks_html(url):
+    """
+    Get the URL fro the weekly menu's from the HTML page.
+    """
+    page = pq(url=url)
+    return [link.attrib['href'] for link in page(WEEK_MENU_HTML_SELECTOR_LINKS)]
+
+
+WEEK_MENU_PARSERS = {
+    "rss-json": get_weeks_rss_json,
+    "html": get_weeks_html
+}
+
+
 def get_weeks(which):
     """
     Retrieves a dictionary of week numbers to the url of the menu for that
     week from the given week menu overview.
     """
-    try:
-        page = retry_session.get(WEEK_MENU_URL[which])
-    except (ConnectionError, Timeout) as e:
-        print("Failed to connect: ", e, file=sys.stderr)
-        raise e
-    week_menu = json.loads(page.text)
-    week_urls = [x["identifier"] for x in week_menu]
+    page_type = WEEK_MENU_PAGE_TYPE[which]
+    week_parser = WEEK_MENU_PARSERS[page_type]
+    week_urls = week_parser(WEEK_MENU_URL[which])
     r = {}
     for url in week_urls:
         iso_week = "unknown"
