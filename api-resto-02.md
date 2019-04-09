@@ -21,7 +21,11 @@ This document describes the current version of the API, version 2.0.
 
 ## Data dump
 
-All data available in this API is also available as a [git repository](https://git.zeus.gent/hydra/data). If you need all available data, it is probably easier and faster to download or clone the repo.
+All scraped data available in this API is also available as a [git repository](https://git.zeus.gent/hydra/data). If you need all available data, it is probably easier and faster to download or clone the repo.
+
+## Changelog
+
+- _April 2019_ - Added new `message` field to menu to indicate closures and changes in meals.
 
 ## Technical description
 
@@ -254,7 +258,7 @@ A menu object consists of:
 | Field | Description
 |-------|------------
 | `date` | The date of the menu. The date's format follows ISO 8601:2004's extended format (`YYYY-MM-DD`).
-| `open` | If set to `true`, the resto is open, otherwise not. If set to `false`, none of the fields below are present.<br><br>Note that this is no guarantee: some days (like the weekends) are simply not present in the output.
+| `open` | If set to `true`, the resto is open, otherwise not. If set to `false`. <br><br>Note that this is no guarantee: some days (like the weekends) are simply not present in the output.
 | `vegetables` | A list of available vegetables.
 | `meals` | A list of meal objects (see below).
 | `message` | Optional field containing a message to be displayed. Used for exceptional closures or changes in the menu. For example, if `open` is `false`, the message could be an explanation for the closure.
