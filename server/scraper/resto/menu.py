@@ -18,7 +18,6 @@ sys.path.append('..')
 from backoff import retry_session
 from util import write_json_to_file
 
-
 # Where to write to.
 OUTFILE_1_0 = "menu/{}/{}.json"
 OUTFILE_2_0 = "menu/{}/{}/{}/{}.json"
@@ -30,11 +29,17 @@ LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}/overzic
 WEEK_MENU_URL = {
     "nl": (LINK_FORMAT.format("weekmenu")),
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
-    "nl-sintjansvest": LINK_FORMAT.format("weekmenu-sintjansvest"),
+    "nl-sintjansvest": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest/",
     "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
     "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
     "nl-kantienberg": LINK_FORMAT.format("weekmenurestokantienberg")
 }
+
+# Define the page type for the resto.
+# See also WEEK_MENU_PARSERS
+WEEK_MENU_PAGE_TYPE = collections.defaultdict(lambda: "rss-json", {
+    "nl-sintjansvest": "html"
+})
 
 # Languages
 TYPES = list(WEEK_MENU_URL.keys())
@@ -45,6 +50,8 @@ DAY_SELECTOR = ".summary.url"
 # The jQuery selector for the meals on the menu page.
 CLOSED_SELECTOR = "#content-core"
 MEAL_SELECTOR = "#content-core li"
+
+WEEK_MENU_HTML_SELECTOR_LINKS = "#content-core .linklist li a"
 
 # The string indicating a closed day.
 CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
@@ -66,25 +73,50 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
 })
 
 
+def get_weeks_rss_json(url):
+    """
+    Get the URL for the weekly menus from the rss page.
+    """
+    try:
+        page = retry_session.get(url)
+    except (ConnectionError, Timeout) as e:
+        print("Failed to connect: ", e, file=sys.stderr)
+        raise e
+    week_menu = json.loads(page.text)
+    return [x["identifier"] for x in week_menu]
+
+
+def get_weeks_html(url):
+    """
+    Get the URL fro the weekly menus from the HTML page.
+    """
+    page = pq(url=url)
+    return [link.attrib['href'] for link in page(WEEK_MENU_HTML_SELECTOR_LINKS)]
+
+
+# Map of the various parsers for the week menu.
+WEEK_MENU_PARSERS = {
+    "rss-json": get_weeks_rss_json,
+    "html": get_weeks_html
+}
+
+
 def get_weeks(which):
     """
     Retrieves a dictionary of week numbers to the url of the menu for that
     week from the given week menu overview.
     """
-    try:
-        page = retry_session.get(WEEK_MENU_URL[which])
-    except (ConnectionError, Timeout) as e:
-        print("Failed to connect: ", e, file=sys.stderr)
-        raise e
-    week_menu = json.loads(page.text)
-    week_urls = [x["identifier"] for x in week_menu]
+    page_type = WEEK_MENU_PAGE_TYPE[which]
+    week_parser = WEEK_MENU_PARSERS[page_type]
+    week_urls = week_parser(WEEK_MENU_URL[which])
     r = {}
     for url in week_urls:
         iso_week = "unknown"
         try:
             iso_week = int(url.split("week")[-1])
         except Exception as e:
-            print('Failure parsing week "{}", ignoring it.'.format(iso_week), file=sys.stderr)
+            print(f"Failure parsing week page for {which}, with url {url}.", file=sys.stderr)
+            print(f"Week number {url.split('week')[-1]} is not an int, ignoring it.", file=sys.stderr)
             print(e, file=sys.stderr)
             continue
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
@@ -361,14 +393,12 @@ def main(output_v1, output_v2):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Run resto scraper')
-    parser.add_argument('output1',
-                        help='Path of the folder in which the output for version 1.0 must be written. Will be created if needed.')
-    parser.add_argument('output2',
-                        help='Path of the folder in which the output for version 2.0 must be written. Will be created if needed.')
+    parser = argparse.ArgumentParser(description='Run main resto scraper')
+    parser.add_argument('v1', help='Folder for v1 output. Will be created if needed.')
+    parser.add_argument('v2', help='Folder for v2 output. Will be created if needed.')
     args = parser.parse_args()
 
-    output_path_v1 = os.path.abspath(args.output1)  # Like realpath
-    output_path_v2 = os.path.abspath(args.output2)  # Like realpath
+    output_path_v1 = os.path.abspath(args.v1)  # Like realpath
+    output_path_v2 = os.path.abspath(args.v2)  # Like realpath
 
     main(output_path_v1, output_path_v2)
