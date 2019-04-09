@@ -75,7 +75,7 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
 
 def get_weeks_rss_json(url):
     """
-    Get the URL for the weekly menu's from the rss page.
+    Get the URL for the weekly menus from the rss page.
     """
     try:
         page = retry_session.get(url)
@@ -88,12 +88,13 @@ def get_weeks_rss_json(url):
 
 def get_weeks_html(url):
     """
-    Get the URL fro the weekly menu's from the HTML page.
+    Get the URL fro the weekly menus from the HTML page.
     """
     page = pq(url=url)
     return [link.attrib['href'] for link in page(WEEK_MENU_HTML_SELECTOR_LINKS)]
 
 
+# Map of the various parsers for the week menu.
 WEEK_MENU_PARSERS = {
     "rss-json": get_weeks_rss_json,
     "html": get_weeks_html
@@ -114,7 +115,8 @@ def get_weeks(which):
         try:
             iso_week = int(url.split("week")[-1])
         except Exception as e:
-            print('Failure parsing week "{}", ignoring it.'.format(iso_week), file=sys.stderr)
+            print(f"Failure parsing week page for {which}, with url {url}.", file=sys.stderr)
+            print(f"Week number {iso_week} is not an int, ignoring it.", file=sys.stderr)
             print(e, file=sys.stderr)
             continue
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
@@ -391,14 +393,12 @@ def main(output_v1, output_v2):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Run resto scraper')
-    parser.add_argument('output1',
-                        help='Path of the folder in which the output for version 1.0 must be written. Will be created if needed.')
-    parser.add_argument('output2',
-                        help='Path of the folder in which the output for version 2.0 must be written. Will be created if needed.')
+    parser = argparse.ArgumentParser(description='Run main resto scraper')
+    parser.add_argument('v1', help='Folder for v1 output. Will be created if needed.')
+    parser.add_argument('v2', help='Folder for v2 output. Will be created if needed.')
     args = parser.parse_args()
 
-    output_path_v1 = os.path.abspath(args.output1)  # Like realpath
-    output_path_v2 = os.path.abspath(args.output2)  # Like realpath
+    output_path_v1 = os.path.abspath(args.v1)  # Like realpath
+    output_path_v2 = os.path.abspath(args.v2)  # Like realpath
 
     main(output_path_v1, output_path_v2)
