@@ -80,11 +80,11 @@ The response is an object with one field, `locations`, a list of locations.
 | `latitude`, `longitude` | Coordinates of the location.
 | `type` | The main type of the resto. For example, `resto` indicates it is a resto, but it might also be a cafetaria.
 | `endpoint` | The endpoint for this resto. Can be used in `/resto/menu/{ENDPOINT}`. See [Overview](#overview) or [Day menu](#day-menu).
-| `open` | Lists the intervals in which this location is open, for each type of the location. Uses ISO 8601:2014's extended format with reduced accuracy (`hh:mm`).
+| `open` | Lists the intervals in which this location is open, for each type of the location. Uses ISO 8601:2014's extended format with reduced accuracy (`hh:mm`). These are the regular opening hours; holidays and other exceptional closures are not accounted for.
 
 ### Sandwiches
 
-**Endpoint**: `GET /sandwhiches.json`
+**Endpoint**: `GET /sandwiches.json`
 
 Lists available sandwiches, their price and their ingredients. Sample output:
 
@@ -188,7 +188,8 @@ Returns the menu for each available day in the future, including today. Sample o
     "vegetables": [
       "Bloemkool",
       "Prinsessengroenten"
-    ]
+    ],
+    "message": "Alle studenten krijgen op vertoon van Hydra 150% korting."
   }
 ]
 ```
@@ -243,7 +244,8 @@ A sample endpoint is `/menu/nl/2017/5/18.json`. Sample output is:
   "vegetables": [
     "Bloemkool",
     "Prinsessengroenten"
-  ]
+  ],
+  "message": "Alle studenten krijgen op vertoon van Hydra 150% korting."
 }
 ```
 
@@ -255,6 +257,7 @@ A menu object consists of:
 | `open` | If set to `true`, the resto is open, otherwise not. If set to `false`, none of the fields below are present.<br><br>Note that this is no guarantee: some days (like the weekends) are simply not present in the output.
 | `vegetables` | A list of available vegetables.
 | `meals` | A list of meal objects (see below).
+| `message` | Optional field containing a message to be displayed. Used for exceptional closures or changes in the menu. For example, if `open` is `false`, the message could be an explanation for the closure.
 
 A meal object consists of:
 
