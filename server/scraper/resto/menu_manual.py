@@ -57,31 +57,28 @@ def restjesmaand18_replacer(_path, original):
 
 # Paasvakantie 2019
 def paasvakantie19_general(_path, original):
-    original['message'] = ("Tijdens de paasvakantie zijn Resto Campus Sterre en Resto Campus Merelbeke geopend als "
+    original['message'] = ("Tijdens de paasvakantie zijn resto's Campus Sterre en Campus Merelbeke geopend als "
                            "cafetaria.")
     original['open'] = True
     return original
 
 
 def paasvakantie19_en(_path, original):
-    original['message'] = ("During the Easter Holiday, Resto Campus Sterre and Resto Campus Merelbeke are open as "
-                           "cafetaria.")
+    original['message'] = 'During the Easter Holiday restos Campus Sterre and Campus Merelbeke operate as cafetaria.'
     original['open'] = True
     return original
 
 
 def paasvakantie19_brug(_path, original):
-    # Simply add a message, keep the rest
     original['message'] = "Tijdens de paasvakantie is De Brug enkel 's middags geopend."
     return original
 
 
 # Werken in De Brug waardoor de resto gesloten is.
 def werken_brug19_replacer(_path, original):
-    message = ('De Brug is voor werken gesloten van 20 mei tot 20 september 2019 voor verbouwingswerken. '
-               'Vanaf volgend academiejaar zal de nieuwe ingang op het studentenplein in gebruik genomen worden.'
-               '\n\nTijdens de sluiting neemt resto Kantienberg de functies en het aanbod van de Brug over, zoals '
-               'de avondopening.')
+    message = ('De Brug sluit van 20 mei tot 20 september 2019 voor verbouwingswerken. Vanaf volgend academiejaar zal '
+               'de nieuwe ingang op het studentenplein in gebruik genomen worden. Tijdens de sluiting neemt resto '
+               'Kantienberg de functies en het aanbod van de Brug over, zoals de avondopening.')
     return {
         "message": message,
         "date": original["date"],
