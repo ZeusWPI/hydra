@@ -245,7 +245,6 @@ def write_1_0(root_path, menus):
     :param root_path: The output path for version 1.0. This is the root path. The subfolder menu will be created.
     :param menus: The menus to write.
     """
-    prev_week_menu = None  # do not care for the current week
     for week_year, week_menu in menus['nl'].items():
         year, week = week_year
         # Read existing data
@@ -255,12 +254,7 @@ def write_1_0(root_path, menus):
                 menu = json.loads(f.read())
         except FileNotFoundError:
             menu = {}
-        combined_week_menu = dict()  # fix divergent calendars (Issue #225)
-        if prev_week_menu:
-            combined_week_menu.update(prev_week_menu)
-        combined_week_menu.update(week_menu)
-        prev_week_menu = week_menu
-        for day, day_menu in combined_week_menu.items():
+        for day, day_menu in week_menu.items():
             if not day_menu["open"]:
                 day_menu1_0 = {"open": False}
             else:
