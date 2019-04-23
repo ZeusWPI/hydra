@@ -111,7 +111,6 @@ def get_weeks(which):
     week_urls = week_parser(WEEK_MENU_URL[which])
     r = {}
     for url in week_urls:
-        iso_week = "unknown"
         try:
             iso_week = int(url.split("week")[-1])
         except Exception as e:
@@ -239,22 +238,26 @@ class DateStuff(object):
         return DateStuff.iso_to_gregorian(iso_year, iso_week, iso_day)
 
 
-def write_1_0(root_path, menus):
+def write_1_0(root_path, menus, use_existing=True):
     """
     Write the menus for version 1.0 of the API. This is Dutch only.
+    :param use_existing: If existing data should be deleted or not. Set to true if re-writing all data.
     :param root_path: The output path for version 1.0. This is the root path. The subfolder menu will be created.
     :param menus: The menus to write.
     """
-    prev_week_menu = None  # do not care for the current week
     for week_year, week_menu in menus['nl'].items():
         year, week = week_year
-        menu = {}
-        combined_week_menu = dict()  # fix divergent calendars (Issue #225)
-        if prev_week_menu:
-            combined_week_menu.update(prev_week_menu)
-        combined_week_menu.update(week_menu)
-        prev_week_menu = week_menu
-        for day, day_menu in combined_week_menu.items():
+        # Read existing data
+        output_file = os.path.join(root_path, OUTFILE_1_0.format(year, week))
+        if use_existing:
+            try:
+                with open(output_file, 'r') as f:
+                    menu = json.load(f)
+            except FileNotFoundError:
+                menu = {}
+        else:
+            menu = {}
+        for day, day_menu in week_menu.items():
             if not day_menu["open"]:
                 day_menu1_0 = {"open": False}
             else:
@@ -277,7 +280,6 @@ def write_1_0(root_path, menus):
                     })
             menu[str(day)] = day_menu1_0
 
-        output_file = os.path.join(root_path, OUTFILE_1_0.format(year, week))
         write_json_to_file(menu, output_file)
 
 
