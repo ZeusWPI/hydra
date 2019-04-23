@@ -319,12 +319,6 @@ def write_2_0(root_path, menus):
                 if day >= datetime.date.today():
                     overview.append(menu)
 
-                # This used to be outside the loop, however apparently this causes issues sometimes.
-                # For example, during Easter 2019 the UGent replaced all days from Easter with empty days.
-                # Temporarily monitor changes.
-                if day < datetime.date.today():
-                    print(f"WARNING! Retroactively changing menu of {day}")
-
                 output_file_menu = os.path.join(root_path, OUTFILE_2_0.format(resto, day.year, day.month, day.day))
                 write_json_to_file(menu, output_file_menu)
 
