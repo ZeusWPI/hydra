@@ -248,7 +248,13 @@ def write_1_0(root_path, menus):
     prev_week_menu = None  # do not care for the current week
     for week_year, week_menu in menus['nl'].items():
         year, week = week_year
-        menu = {}
+        # Read existing data
+        output_file = os.path.join(root_path, OUTFILE_1_0.format(year, week))
+        try:
+            with open(output_file, 'r') as f:
+                menu = json.loads(f.read())
+        except FileNotFoundError:
+            menu = {}
         combined_week_menu = dict()  # fix divergent calendars (Issue #225)
         if prev_week_menu:
             combined_week_menu.update(prev_week_menu)
@@ -277,7 +283,6 @@ def write_1_0(root_path, menus):
                     })
             menu[str(day)] = day_menu1_0
 
-        output_file = os.path.join(root_path, OUTFILE_1_0.format(year, week))
         write_json_to_file(menu, output_file)
 
 
