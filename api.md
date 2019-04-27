@@ -29,10 +29,6 @@ Potentieel komt ooit deze data daar ook bij: https://www.hogent.be/student/cater
 
 Bekijk de API-documentatie van versie [2.0](api-resto-02.md) of versie [1.0](api-resto-01.md).
 
-## UGent: Minerva
-
-Bekijk de publieke API-documentatie op https://icto.ugent.be/en/content/minerva-api-v2.
-
 ## Urgent.fm: Radio Stream
 Data van de urgent scraper. Komt van http://urgent.fm/listen_live.config en http://urgent.fm.
 
