@@ -1,3 +1,4 @@
+dist: xenial
 language: generic
 
 # We need nodejs for some json tests
@@ -9,7 +10,7 @@ jdk:
   openjdk8
 
 python:
-  - "3.6"
+  - "3.7"
 
 addons:
   ssh_known_hosts: zeus.ugent.be:2222
@@ -25,7 +26,8 @@ before_install:
 #- echo -e "Host zeus.ugent.be\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 # Set global python version
-- pyenv global 3.6.3
+- pyenv install 3.7.3
+- pyenv global 3.7.3
 
 # Install the tool for the tests.
 # The requirements for the deployment test are installed by the scripts themselves.
