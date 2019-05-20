@@ -25,6 +25,7 @@ before_install:
 #- echo -e "Host zeus.ugent.be\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 # Set global python version
+- pyenv install 3.6.3
 - pyenv global 3.6.3
 
 # Install the tool for the tests.

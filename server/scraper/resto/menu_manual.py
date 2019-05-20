@@ -2,10 +2,12 @@
 import argparse
 import glob
 import json
+import os
 import re
 from collections import defaultdict
+from datetime import date, timedelta, datetime
 
-from datetime import date
+OVERVIEW_COUNT = 10
 
 
 # Common things ---------------------------------------------------------------
@@ -15,18 +17,21 @@ class ManualChange:
     Apply a change to a range of menus in the v2 API. v1 is not supported.
     """
 
-    def __init__(self, replacer, resto, start, end):
+    def __init__(self, replacer, resto, start, end, all_days=False):
         """
         :param replacer: The function that will do the replacements. It will receive the path to the file and the
         original menu.
         :param start: The start date (inclusive).
         :param end: The end date (inclusive).
-        :param resto: Which resto to apply to.
+        :param resto: Which restaurant to apply to.
+        :param all_days: If the message should be added for all weekdays in the range. If false (the default), the
+        changes will only be applied if there already is a menu for the day.
         """
         self.replacer = replacer
         self.start = start
         self.end = end
         self.resto = resto
+        self.all_days = all_days
 
     def is_applicable(self, menu_date):
         """Check if this change is applicable to the given date"""
@@ -35,6 +40,13 @@ class ManualChange:
     def get_overview_glob(self):
         """Get relative glob for the overview"""
         return f"menu/{self.resto}/overview.json"
+
+    def date_range(self):
+        """Return an iterator over the applicable range. Only weekdays are returned."""
+        for n in range(int((self.end - self.start).days) + 1):
+            result = self.start + timedelta(n)
+            if result.weekday() < 5:
+                yield result
 
 
 # Restjesmaand Zomer 18
@@ -119,41 +131,80 @@ def create_changes(root_path):
             replacer=werken_brug19_replacer,
             resto="nl-debrug",
             start=date(2019, 5, 20),
-            end=date(2019, 9, 20)
+            end=date(2019, 9, 20),
+            all_days=True
         ),
     ]
 
 
 # Actually do things ----------------------------------------------------------
 
+def apply_existing_menus_only(output, manual_change, dates):
+    """Apply the change to only existing menus"""
+    print(f"Matching existing menus from {manual_change.resto} between {manual_change.start} to {manual_change.end}")
+    print("====================================================================")
+
+    files = glob.glob(f"{output}/menu/{manual_change.resto}/*/*/*.json")
+    file_pattern = re.compile(r'.*/(\d+)/(\d+)/(\d+)\.json$')
+    for path in files:
+        # Check if this file applies or not.
+        m = file_pattern.search(path.replace("\\", "/"))
+        file_date = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        if not manual_change.is_applicable(file_date):
+            continue
+
+        with open(path, 'r') as f:
+            overview = json.loads(f.read())
+            _new_content = manual_change.replacer(path, overview)
+            dates[manual_change.resto][_new_content["date"]] = _new_content
+            new_content = json.dumps(_new_content)
+
+        with open(path, 'w') as f:
+            f.write(new_content)
+            print("Changed {} to".format(path))
+            print(new_content)
+            print("-------------------------------------------------------")
+
+
+def apply_all_menus(output, manual_change, dates):
+    """Apply the change to all dates in the applicable range. If no menu exist for a day, it will be created."""
+    print(f"Matching all menus from {manual_change.resto} between {manual_change.start} to {manual_change.end}")
+    print("====================================================================")
+
+    for applicable_date in manual_change.date_range():
+        year = applicable_date.year
+        month = applicable_date.month
+        day = applicable_date.day
+        # Get existing file if it exists
+        path = f"{output}/menu/{manual_change.resto}/{year}/{month}/{day}.json"
+        try:
+            with open(path, 'r') as f:
+                menu = json.loads(f.read())
+        except IOError:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            menu = {'open': False, 'date': applicable_date.strftime('%Y-%m-%d'), 'meals': [], 'vegetables': []}
+
+        # Apply the changes
+        _new_content = manual_change.replacer(path, menu)
+        dates[manual_change.resto][_new_content["date"]] = _new_content
+        new_content = json.dumps(_new_content)
+
+        with open(path, 'w+') as f:
+            f.write(new_content)
+            print("Changed {} to".format(path))
+            print(new_content)
+            print("-------------------------------------------------------")
+
 
 def main(output):
     to_apply = create_changes(output)
+
     dates = defaultdict(dict)
     for manual_change in to_apply:
-        print(f"Matching menus from {manual_change.resto} between {manual_change.start} to {manual_change.end}")
-        print("====================================================================")
-
-        files = glob.glob(f"{output}/menu/{manual_change.resto}/*/*/*.json")
-        file_pattern = re.compile(r'.*/(\d+)/(\d+)/(\d+)\.json$')
-        for path in files:
-            # Check if this file applies or not.
-            m = file_pattern.search(path.replace("\\", "/"))
-            file_date = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-            if not manual_change.is_applicable(file_date):
-                continue
-
-            with open(path, 'r') as f:
-                overview = json.loads(f.read())
-                _new_content = manual_change.replacer(path, overview)
-                dates[manual_change.resto][_new_content["date"]] = _new_content
-                new_content = json.dumps(_new_content)
-
-            with open(path, 'w') as f:
-                f.write(new_content)
-                print("Changed {} to".format(path))
-                print(new_content)
-                print("-------------------------------------------------------")
+        if manual_change.all_days:
+            apply_all_menus(output, manual_change, dates)
+        else:
+            apply_existing_menus_only(output, manual_change, dates)
 
     for manual_change in to_apply:
         print("Rebuilding overviews")
@@ -170,6 +221,7 @@ def main(output):
             with open(path, 'r') as f:
                 overview = json.loads(f.read())
 
+            last_day = date.today().strftime('%Y-%m-%d')
             # If the date is modified, replace it
             for day in overview:
                 if day["date"] in dates[manual_change.resto]:
@@ -178,6 +230,17 @@ def main(output):
                 else:
                     print(f"Keeping {day['date']}")
                     new_overview.append(day)
+                last_day = day["date"]
+
+            # We want to provide at least ten days in the future.
+            to_add = max(OVERVIEW_COUNT - len(overview), 0)
+            last_day = datetime.strptime(last_day, '%Y-%m-%d').date()
+            for day in dates[manual_change.resto]:
+                dday = datetime.strptime(day, '%Y-%m-%d').date()
+                if dday < last_day or to_add <= 0:
+                    continue
+                new_overview.append(dates[manual_change.resto][day])
+                to_add -= 1
 
             with open(path, 'w') as f:
                 f.write(json.dumps(new_overview))
