@@ -62,14 +62,14 @@
     }, {
       "name": "Minerva verdwijnt uit Hydra",
       "link": "https://hydra.ugent.be/help/minerva.html",
-      "simple-text": "Door de overgang naar Ufora verdwijnt Minerva nu al uit Hydra.",
+      "simple-text": "Door de overgang naar Ufora verdwijnt Minerva uit Hydra.",
       "image": "https://molmod.ugent.be/sites/default/files/Minerva.jpg",
       "html": "",
       "priority": 990,
       "id": 9,
       "development": false,
-      "start": "2019-04-23T08:00:00+02:00",
-      "end": "2018-05-14T08:00:00+02:00"
+      "start": "2019-05-27T08:00:00+02:00",
+      "end": "2016-02-06T08:00:00+02:00"
     }
   ]
 }
