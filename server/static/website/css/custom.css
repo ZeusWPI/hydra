@@ -96,3 +96,15 @@ footer {
   padding-bottom: 1em;
   margin-top: 2em;
 }
+
+.partner-logo {
+  width: 100%;
+  height: 100%;
+  max-width: 150px;
+}
+
+.partner-row {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 15px;
+}

@@ -55,10 +55,21 @@
       "image": "https://styleguide.ugent.be/files/uploads/logo_UGent_NL_RGB_2400_kleur_witbg.png",
       "html": "",
       "priority": 990,
-      "id": 7,
+      "id": 8,
       "development": false,
       "start": "2018-06-29T08:00:00+02:00",
       "end": "2018-09-23T08:00:00+02:00"
+    }, {
+      "name": "Minerva verdwijnt uit Hydra",
+      "link": "https://hydra.ugent.be/help/minerva.html",
+      "simple-text": "Door de overgang naar Ufora verdwijnt Minerva uit Hydra.",
+      "image": "https://molmod.ugent.be/sites/default/files/Minerva.jpg",
+      "html": "",
+      "priority": 990,
+      "id": 9,
+      "development": false,
+      "start": "2019-05-27T08:00:00+02:00",
+      "end": "2016-02-06T08:00:00+02:00"
     }
   ]
 }
