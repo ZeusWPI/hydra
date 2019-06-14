@@ -31,8 +31,6 @@ The Hydra API (and related services for now) entail the following:
     - Since the resto website is not always up-to-date, we need to be able to manually run
       the scrapers.
     
-The node.js server will move to its own repo, with its own deployment procedure. 
-    
 ### Current strategy
 
 0. Tests are run on Travis CI

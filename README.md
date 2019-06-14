@@ -12,7 +12,11 @@ This application was developed by [Zeus WPI](http://zeus.ugent.be), the computer
 
 ## Applications
 
-This repo only contains the scraper code. Links to the [Android repo](https://github.com/ZeusWPI/hydra-android) and the [iOS repo](https://github.com/ZeusWPI/hydra-iOS).
+This repo only contains the scraper code. Other repos:
+
+* [Android app](https://github.com/ZeusWPI/hydra-android)
+* [iOS app](https://github.com/ZeusWPI/hydra-iOS)
+* [Dialogflow fulfilment (assistant)](https://github.com/ZeusWPI/hydra-assistant)
 
 ## APIs
 
