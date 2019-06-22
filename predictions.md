@@ -106,9 +106,16 @@ Some questions remain:
 
 - In what interval should we calculate this (every minute, every 5, every 10, etc.)?
 - How should we model a menu?
-    - We should probably keep the time dimension, allowing us to capture tast shifts and menu changes
-    - How would we encode this? One-hot (meaning a different feature per menu item), or some binary encoding (e.g. a bit vector)?
-    - Should/can we include the price? Does the price have an impact on the number of students (e.g. if there is something expensive: does it merely push students to other items or does it decrease the total number)
+    - How would we encode this? One-hot (meaning a different feature per menu item), or some binary encoding (e.g. a bit vector)?  
+    -> Currently one-hot with with https://stackoverflow.com/a/51420716.
+    - Should/can we include the price? Does the price have an impact on the number of students (e.g. if there is something expensive: does it merely push students to other items or does it decrease the total number). Maybe split into average, min, max prices of the main dishes and include those?  
+    -> In a first instance, we will not consider the price.
+
+The data is probably a multivariate time series, which we split per resto. For example:
+
+| Timestamp | Customers | Spaghetti | Tomato soup | ... |
+| --------- | --------- | --------- | ----------- | --- |
+| 3/01/2019 9:10:00 | 100 | 1 | 0 | ... |
 
 ## Models
 
