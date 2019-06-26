@@ -1,0 +1,363 @@
+openapi: "3.0.0"
+info:
+  version: "2.1.0"
+  title: The Hydra Resto API
+  contact:
+    name: Zeus WPI
+    url: https://hydra.ugent.be
+  description: |
+    The resto API provides information about the student restaurants of Ghent University.
+
+    ## Data
+
+    This data is scraped from [here](https://www.ugent.be/student/nl/meer-dan-studeren/resto).
+    In the (far) future, we might also include data from [here](https://www.hogent.be/student/catering/weekmenu/).
+
+    The menu data is property of Ghent University. We don't guarantee the correctness or completeness of the data.
+
+    ## Usage
+
+    You should start by querying the `/meta.json` endpoint. It will list all available resto's. Each location has an `id`, which can be used to construct the following endpoints:
+
+    - `/menu/{id}/{lang}/...` Prefix for the menu's. The `id` is the one from the metadata, while the `lang` is the ISO BLABLA two letter language code. Only `nl` and `en` are available right now, and `en` is not available for all locations. Note that only locations with type `resto` have a menu.
+servers:
+  - url: https://hydra.ugent.be/api/2.0/resto
+    description: Main endpoint
+  - url: https://zeus.ugent.be/hydra/api/2.0/resto/
+    description: Legacy endpoint
+
+paths:
+  /meta.json:
+    get:
+      summary: Get resto locations
+      description: Get a list of all locations. This includes resto's, but also cafetaria's and other facilities. This data is maintained manually; please report all isssues, such as missing or outdated information.
+      operationId: meta
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [locations]
+                properties:
+                  locations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Location'
+  /sandwiches.json:
+    get:
+      summary: Get sandwiches
+      description: Get a list of all sandwiches. These are available in resto's and cafetaria's.
+      operationId: sandwiches
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sandwiches'
+  /extrafood.json:
+    get:
+      summary: Get extra food items
+      description: Get a list of all sandwiches. These are available in resto's and cafetaria's.
+      operationId: extra
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Some additional items. Clients should be able to handle the disappereance and addition of new categories (properties) here.
+                properties:
+                  breakfast:
+                    type: array
+                    description: Items available for breakfasts in cafetaria's. Local availability may vary.
+                    items:
+                      $ref: '#/components/schemas/FoodItem'
+                  desserts:
+                    type: array
+                    description: Items available as desserts. Local availability may vary.
+                    items:
+                      $ref: '#/components/schemas/FoodItem'
+                  drinks:
+                    type: array
+                    description: Drinks. Local availability may vary.
+                    items:
+                      $ref: '#/components/schemas/FoodItem'
+  /menu/{id}/{lang}/overview.json:
+    get:
+      summary: Get future menu's
+      operationId: overview
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The id of the resto. Obtain the id with a request to `meta.json`.
+          example: sterre
+        - in: path
+          name: lang
+          required: true
+          schema:
+            type: string
+          description: ISO 639-1 language code.
+          example: en
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: A list of future menu's.
+                items:
+                  $ref: '#/components/schemas/Menu'
+  /menu/{endpoint}/overview.json:
+    get:
+      deprecated: true
+      summary: Get future menu's
+      operationId: endpoint-overview
+      parameters:
+        - in: path
+          name: endpoint
+          required: true
+          schema:
+            type: string
+          description: The endpoint of the resto. Obtain the endpoint with a request to `meta.json`.
+          example: nl-debrug
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: A list of future menu's.
+                items:
+                  $ref: '#/components/schemas/Menu'
+  /menu/{id}/{lang}/{year}/{month}/{day}.json:
+    get:
+      summary: Get the menu for one day
+      description: |
+        Get a single menu for a single day at a single location. This allows you to access past menu's, as well as future menu's.
+
+        Date-related format specifiers are are from ISO 8601:2014. Dates are basically ISO, but without leading zeroes.
+      operationId: endpoint-day
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The id of the resto. Obtain the id with a request to `meta.json`.
+          example: sterre
+        - in: path
+          name: lang
+          required: true
+          schema:
+            type: string
+          description: ISO 639-1 language code.
+          example: en
+        - in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+          description: "The year of the date. Values must be a positive integer. Currently, the earliest available year is 2016 (but this might change in the future). ISO format: `Y̲Y`."
+          example: 2019
+        - in: path
+          name: month
+          required: true
+          schema:
+            type: integer
+          description: "The month of the date. Values must be in the interval [1-12], and formatted without leading zeroes. ISO format: `M̲M`."
+          example: 1
+        - in: path
+          name: day
+          required: true
+          schema:
+            type: integer
+          description: "The day of the date. Values must be in the interval [1-31], and formatted without leading zeroes. ISO format: `D̲D`."
+          example: 18
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+  /menu/{endpoint}/{year}/{month}/{day}.json:
+    get:
+      summary: Get the menu for one day
+      deprecated: true
+      description: |
+        Get a single menu for a single day at a single location. This allows you to access past menu's, as well as future menu's.
+
+        Date-related format specifiers are are from ISO 8601:2014. Dates are basically ISO, but without leading zeroes.
+      operationId: day
+      parameters:
+        - in: path
+          name: endpoint
+          required: true
+          schema:
+            type: string
+          description: The endpoint of the resto. Obtain the endpoint with a request to `meta.json`.
+          example: nl-debrug
+        - in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+          description: "The year of the date. Values must be a positive integer. Currently, the earliest available year is 2016 (but this might change in the future). ISO format: `Y̲Y`."
+          example: 2019
+        - in: path
+          name: month
+          required: true
+          schema:
+            type: integer
+          description: "The month of the date. Values must be in the interval [1-12], and formatted without leading zeroes. ISO format: `M̲M`."
+          example: 1
+        - in: path
+          name: day
+          required: true
+          schema:
+            type: integer
+          description: "The day of the date. Values must be in the interval [1-31], and formatted without leading zeroes. ISO format: `D̲D`."
+          example: 18
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+
+components:
+  schemas:
+    Location:
+      description: The location of a resto, cafetaria, etc.
+      required: [id, address, latitude, longitude, type, open]
+      properties:
+        id:
+          type: string
+          description: The ID of the location. Can be used to construct various urls. Clients must be able to handle new or deleted values. If `null`, the location is a legacy location for language support, and it should no longer be used.
+          example: sterre
+          nullable: true
+        address:
+          type: string
+          description: The textual address of the location.
+          example: Krijgslaan 281
+        latitude:
+          type: number
+          description: The latitude of the location.
+          example: 51.045113
+        longitude:
+          type: number
+          description: The longitude of the location.
+          example: 3.727347
+        type:
+          type: string
+          description: |
+            The main type of the location. The main type of the resto. For example, `resto` indicates it is a resto, but it might also be a cafetaria. Clients must be able to handle new or deleted types.
+          example: resto
+        endpoint:
+          type: string
+          deprecated: true
+          description: Legacy endpoint for the menu's. Clients should use the `id` to create urls, as described in the general API description.
+          example: nl
+        open:
+          type: object
+          description: A mapping of the type to its opening hours. Each type has an array of arrays. The inner arrays represent a time span in which the location is open in its capacity as type.
+          additionalProperties:
+            type: array
+            description: An array of opening hours ranges.
+            items:
+              type: array
+              description: A timespan in which the location is open.
+              items:
+                type: string
+              maxItems: 2
+              minItems: 2
+              uniqueItems: true
+          example:
+            resto: [["11:15", "14:00"], ["17:30", "21:00"]]
+            cafetaria: [["11:15", "14:00"], ["17:30", "20:00"]]
+    Sandwiches:
+      description: A sandwich.
+      required: [name, ingredients, price_medium, price_small]
+      properties:
+        name:
+          type: string
+          description: The name of the sandwich.
+          example: Brie
+        ingredients:
+          type: array
+          description: A list of the ingredients in the sandwich.
+          items:
+            type: string
+          example: ["ham", "asperge", "sla"]
+        price_medium:
+          type: string
+          description: The (textual) price in euros for a normal sandwich.
+          example: "2.70"
+        price_small:
+          type: string
+          description: The (textual) price in euros for a small sandwich.
+          example: "1.60"
+    FoodItem:
+      description: Simple food item.
+      required: [name, price]
+      properties:
+        name:
+          type: string
+          description: The name of the item
+          example: Kaasplank
+        price:
+          type: string
+          description: Textual representation of the price in Euros.
+          example: 25.39
+    Menu:
+      description: The menu for a location on a specific date.
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the menu
+        open:
+          type: boolean
+          description: If set to `true`, the resto is open, otherwise not. Note that some days may simply not be available in the API.
+        vegetables:
+          type: array
+          description: A list of available vegetables.
+          items:
+            type: string
+        message:
+          type: string
+          description: A message to be displayed. Used for exceptional closures or changes in the menu. For example, if `open` is `false`, the message could be an explanation for the closure.
+        meals:
+          type: array
+          description: A list of meals.
+          items:
+            type: object
+            properties:
+              kind:
+                type: string
+                description: The kind of the meal. Expected values are currently `meat`, `fish`, `soup`, `vegetarian` or `vegan`. Applications must be able to handle changes to the possible values.
+                example: meat
+              name:
+                type: string
+                description: The name of the meal.
+                example: Fish from the sea
+              price:
+                type: string
+                description: Textual representation of the price.
+                example: € 1,10
+              type:
+                type: string
+                description: The meal type. Is currently `main` or `side`, but applications must be able to handle changes to the possible values.
+                example: main

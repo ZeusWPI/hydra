@@ -114,7 +114,7 @@ Lists available sandwiches, their price and their ingredients. Sample output:
 | `ingredients` | A list of the ingredients in the sandwich.
 | `name` | The name of the sandwich.
 | `price_medium` | The (textual) price in euros for a normal sandwich.
-| `price_medium` | The (textual) price in euros for a small sandwich.
+| `price_small` | The (textual) price in euros for a small sandwich.
 
 
 ### Extra food
