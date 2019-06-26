@@ -1,0 +1,43 @@
+{
+  "$id": "https://hydra.ugent.be/schema/resto/extra",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Extra food",
+  "description": "Structure of the extra food file. Note: this is not API documentation; do not rely on it.",
+  "definitions": {
+    "item": {
+      "type": "object",
+      "required": ["name", "price"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the item.",
+          "examples": ["Kaasplank"]
+        },
+        "price": {
+          "type": "string",
+          "description": "Textual representation of the price in Euros.",
+          "examples": ["25.39"]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": ["breakfast", "desserts", "drinks"],
+  "properties": {
+    "breakfast": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/item"},
+      "description": "Items available for breakfasts in cafetaria's. Local availability may vary."
+    },
+    "desserts": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/item"},
+      "description": "Items available as desserts. Local availability may vary."
+    },
+    "drinks": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/item"},
+      "description": "Drinks. Local availability may vary."
+    }
+  }
+}

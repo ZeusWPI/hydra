@@ -1,0 +1,133 @@
+{
+  "$id": "https://hydra.ugent.be/schema/resto/meta",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Resto metadata",
+  "description": "Structure of the metadata. Note: this is not API documentation; do not rely on it.",
+  "type": "object",
+  "required": [
+    "locations"
+  ],
+  "properties": {
+    "locations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "address",
+          "latitude",
+          "longitude",
+          "type",
+          "open"
+        ],
+        "properties": {
+          "id": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "The ID of the location. Can be used to construct various urls. Clients must be able to handle new or deleted values. If `null`, the location is a legacy location for language support, and it should no longer be used.",
+            "enum": [
+              null,
+              "sterre",
+              "heymans",
+              "brug",
+              "merelbeke",
+              "dunant",
+              "coupure",
+              "jansvest",
+              "kantienberg",
+              "ardoyen",
+              "boekentoren",
+              "uz",
+              "ledeganck",
+              "aula",
+              "pand"
+            ]
+          },
+          "address": {
+            "type": "string",
+            "description": "The textual address of the location.",
+            "examples": [
+              "Krijgslaan 281"
+            ]
+          },
+          "latitude": {
+            "type": "number",
+            "description": "The latitude of the location.",
+            "example": [
+              51.045113
+            ]
+          },
+          "longitude": {
+            "type": "number",
+            "description": "The longitude of the location.",
+            "example": [
+              3.727347
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "The main type of the location. The main type of the resto. For example, `resto` indicates it is a resto, but it might also be a cafetaria. Clients must be able to handle new or deleted types.",
+            "enum": [
+              "resto",
+              "club",
+              "cafetaria"
+            ]
+          },
+          "endpoint": {
+            "type": "string",
+            "deprecated": true,
+            "description": "Legacy endpoint for the menu's. Clients should use the `id` to create urls, as described in the general API description.",
+            "examples": [
+              "nl",
+              "en"
+            ]
+          },
+          "open": {
+            "type": "object",
+            "description": "A mapping of the type to its opening hours. Each type has an array of arrays. The inner arrays represent a time span in which the location is open in its capacity as type.",
+            "additionalProperties": {
+              "type": "array",
+              "description": "An array of opening hours ranges.",
+              "items": {
+                "type": "array",
+                "description": "A timespan in which the location is open.",
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "uniqueItems": true
+              }
+            },
+            "examples": [
+              {
+                "resto": [
+                  [
+                    "11:15",
+                    "14:00"
+                  ],
+                  [
+                    "17:30",
+                    "21:00"
+                  ]
+                ],
+                "cafetaria": [
+                  [
+                    "11:15",
+                    "14:00"
+                  ],
+                  [
+                    "17:30",
+                    "20:00"
+                  ]
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

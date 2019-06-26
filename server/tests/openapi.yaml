@@ -5,6 +5,9 @@ info:
   contact:
     name: Zeus WPI
     url: https://hydra.ugent.be
+  x-logo:
+    url: https://hydra.ugent.be/img/hydra-logo.png
+    backgroundColor: "#1e64c8"
   description: |
     The resto API provides information about the student restaurants of Ghent University.
 
@@ -20,15 +23,19 @@ info:
     You should start by querying the `/meta.json` endpoint. It will list all available resto's. Each location has an `id`, which can be used to construct the following endpoints:
 
     - `/menu/{id}/{lang}/...` Prefix for the menu's. The `id` is the one from the metadata, while the `lang` is the ISO BLABLA two letter language code. Only `nl` and `en` are available right now, and `en` is not available for all locations. Note that only locations with type `resto` have a menu.
+
+    Note: this is a alpha, non-maintained file until https://github.com/OAI/OpenAPI-Specification/issues/1532 has been fixed, at which point this will be updated to use the JSON schema files as definitions.
 servers:
   - url: https://hydra.ugent.be/api/2.0/resto
     description: Main endpoint
-  - url: https://zeus.ugent.be/hydra/api/2.0/resto/
+  - url: https://zeus.ugent.be/hydra/api/2.0/resto
     description: Legacy endpoint
 
 paths:
   /meta.json:
     get:
+      tags:
+        - Meta
       summary: Get resto locations
       description: Get a list of all locations. This includes resto's, but also cafetaria's and other facilities. This data is maintained manually; please report all isssues, such as missing or outdated information.
       operationId: meta
@@ -47,6 +54,8 @@ paths:
                       $ref: '#/components/schemas/Location'
   /sandwiches.json:
     get:
+      tags:
+        - Extra
       summary: Get sandwiches
       description: Get a list of all sandwiches. These are available in resto's and cafetaria's.
       operationId: sandwiches
@@ -61,6 +70,8 @@ paths:
                   $ref: '#/components/schemas/Sandwiches'
   /extrafood.json:
     get:
+      tags:
+        - Extra
       summary: Get extra food items
       description: Get a list of all sandwiches. These are available in resto's and cafetaria's.
       operationId: extra
@@ -90,6 +101,8 @@ paths:
                       $ref: '#/components/schemas/FoodItem'
   /menu/{id}/{lang}/overview.json:
     get:
+      tags:
+        - Menu
       summary: Get future menu's
       operationId: overview
       parameters:
@@ -108,7 +121,7 @@ paths:
           description: ISO 639-1 language code.
           example: en
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -119,6 +132,8 @@ paths:
                   $ref: '#/components/schemas/Menu'
   /menu/{endpoint}/overview.json:
     get:
+      tags:
+        - Menu
       deprecated: true
       summary: Get future menu's
       operationId: endpoint-overview
@@ -131,7 +146,7 @@ paths:
           description: The endpoint of the resto. Obtain the endpoint with a request to `meta.json`.
           example: nl-debrug
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -142,6 +157,8 @@ paths:
                   $ref: '#/components/schemas/Menu'
   /menu/{id}/{lang}/{year}/{month}/{day}.json:
     get:
+      tags:
+        - Menu
       summary: Get the menu for one day
       description: |
         Get a single menu for a single day at a single location. This allows you to access past menu's, as well as future menu's.
@@ -185,7 +202,7 @@ paths:
           description: "The day of the date. Values must be in the interval [1-31], and formatted without leading zeroes. ISO format: `D̲D`."
           example: 18
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -193,6 +210,8 @@ paths:
                 $ref: '#/components/schemas/Menu'
   /menu/{endpoint}/{year}/{month}/{day}.json:
     get:
+      tags:
+        - Menu
       summary: Get the menu for one day
       deprecated: true
       description: |
@@ -230,7 +249,7 @@ paths:
           description: "The day of the date. Values must be in the interval [1-31], and formatted without leading zeroes. ISO format: `D̲D`."
           example: 18
       responses:
-        200:
+        '200':
           description: OK
           content:
             application/json:
@@ -361,3 +380,10 @@ components:
                 type: string
                 description: The meal type. Is currently `main` or `side`, but applications must be able to handle changes to the possible values.
                 example: main
+tags:
+  - name: Extra
+    description: Additional items that are available at some locations.
+  - name: Menu
+    description: Daily menu for the resto locations.
+  - name: Meta
+    description: Metadata about locations, such as their type, physical locations, opening hours, etc.

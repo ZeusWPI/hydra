@@ -1,0 +1,11 @@
+{
+  "$id": "https://hydra.ugent.be/schema/resto/menu-overview",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Overview menu",
+  "description": "Structure of multiple menus. Note: this is not API documentation; do not rely on it.",
+  "type": "array",
+  "required": ["date", "open", "vegetables", "meals"],
+  "items": {
+    "$ref": "./schema_resto_menu_day.json"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$id": "https://hydra.ugent.be/schema/resto/menu-day",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Menu for single day",
+  "description": "Structure of a single menu. Note: this is not API documentation; do not rely on it.",
+  "type": "object",
+  "required": ["date", "open", "vegetables", "meals"],
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "The date of the menu"
+    },
+    "open": {
+      "type": "boolean",
+      "description": "If set to `true`, the resto is open, otherwise not. Note that some days may simply not be available in the API."
+    },
+    "vegetables": {
+      "type": "array",
+      "description": "A list of available vegetables.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message": {
+      "type": "string",
+      "description": "A message to be displayed. Used for exceptional closures or changes in the menu. For example, if `open` is `false`, the message could be an explanation for the closure."
+    },
+    "meals": {
+      "type": "array",
+      "description": "A list of meals.",
+      "items": {
+        "type": "object",
+        "required": ["kind", "name", "price", "type"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "The kind of the meal. Expected values are currently `meat`, `fish`, `soup`, `vegetarian` or `vegan`. Applications must be able to handle changes to the possible values.",
+            "example": "meat"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the meal.",
+            "example": "Fish from the sea"
+          },
+          "price": {
+            "type": "string",
+            "description": "Textual representation of the price.",
+            "example": "€ 1,10"
+          },
+          "type": {
+            "type": "string",
+            "description": "The meal type. Is currently `main` or `side`, but applications must be able to handle changes to the possible values.",
+            "example": "main"
+          }
+        }
+      }
+    }
+  }
+}
