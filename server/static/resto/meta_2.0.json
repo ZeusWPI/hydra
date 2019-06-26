@@ -1,6 +1,7 @@
 {
   "locations": [
     {
+      "id": null,
       "name": "English customers",
       "address": "Sint-Pietersnieuwstraat",
       "latitude": 51.045113,
@@ -13,6 +14,7 @@
       }
     },
     {
+      "id": "sterre",
       "name": "Resto Campus Sterre",
       "address": "Krijgslaan 281",
       "latitude": 51.026024,
@@ -25,6 +27,7 @@
       }
     },
     {
+      "id": "heymans",
       "name": "Resto Campus Heymans",
       "address": "Harelbekestraat 70",
       "latitude": 51.026508,
@@ -37,6 +40,7 @@
       }
     },
     {
+      "id": "brug",
       "name": "Resto De Brug",
       "address": "Sint-Pietersnieuwstraat 45",
       "latitude": 51.045613,
@@ -49,6 +53,7 @@
       }
     },
     {
+      "id": "merelbeke",
       "name": "Resto Campus Merelbeke",
       "address": "Salisburylaan 133, Merelbeke",
       "latitude": 50.998369,
@@ -61,6 +66,7 @@
       }
     },
     {
+      "id": "dunant",
       "name": "Resto Campus Dunant",
       "address": "Henri Dunantlaan 2",
       "latitude": 51.049023,
@@ -73,6 +79,7 @@
       }
     },
     {
+      "id": "coupure",
       "name": "Resto Campus Coupure",
       "address": "Coupure Links 653",
       "latitude": 51.053252,
@@ -84,6 +91,7 @@
       }
     },
     {
+      "id": "jansvest",
       "name": "Resto Sint-Jansvest",
       "address": "Sint-Jansvest 24",
       "latitude": 51.049773,
@@ -95,6 +103,7 @@
       }
     },
     {
+      "id": "kantienberg",
       "name": "Resto Kantienberg",
       "address": "Stalhof 45",
       "latitude": 51.039852,
@@ -107,6 +116,7 @@
       }
     },
     {
+      "id": "ardoyen",
       "name": "Cafetaria Ardoyen",
       "address": "Technologie Zwijnaarde 904",
       "latitude": 51.010207,
@@ -118,6 +128,7 @@
       }
     },
     {
+      "id": "boekentoren",
       "name": "Cafetaria Campus Boekentoren",
       "address": "Blandijnberg 2",
       "latitude": 51.043960,
@@ -128,6 +139,7 @@
       }
     },
     {
+      "id": "uz",
       "name": "Cafetaria Campus UZ Gent",
       "address": "De Pintelaan 185",
       "latitude": 51.024360,
@@ -138,6 +150,7 @@
       }
     },
     {
+      "id": "ledeganck",
       "name": "Cafetaria Ledeganck",
       "address": "Ledeganckstraat 35",
       "latitude": 51.036520,
@@ -148,6 +161,7 @@
       }
     },
     {
+      "id": "aula",
       "name": "Cafetaria Campus Aula",
       "address": "Universiteitsstraat 4",
       "latitude": 51.051029,
@@ -158,6 +172,7 @@
       }
     },
     {
+      "id": "pand",
       "name": "Club Het Pand",
       "address": "Onderbergen 1",
       "latitude": 51.052945,
