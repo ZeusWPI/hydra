@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Run the tests for the Hydra API
+# Run the tests for the Hydra API on Travis. These tests do not require the API to be fully built to function.
 #
 # Use:
 #   test.sh server

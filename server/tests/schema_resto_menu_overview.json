@@ -6,6 +6,6 @@
   "type": "array",
   "required": ["date", "open", "vegetables", "meals"],
   "items": {
-    "$ref": "./schema_resto_menu_day.json"
+    "$ref": "https://hydra.ugent.be/schema/resto/menu-day"
   }
 }
