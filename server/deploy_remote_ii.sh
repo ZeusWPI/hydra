@@ -25,6 +25,8 @@ prefix=$(realpath -s "$2")
 deployment="$prefix/deployment"
 # Where the scraper scripts will be copied to
 scraper="$deployment/$1/scraper"
+# Where the remote test files are located
+tests="$deployment/$1/tests"
 # Where the public data will reside
 public="$deployment/$1/public"
 # Where the resto data will be kept
@@ -52,6 +54,14 @@ git clone "ssh://git@git.zeus.gent:2222/hydra/data.git" "$historic"
 
 # Run resto
 "$scraper/resto.sh" "$historic" "$api" "$remote"
+
+# Run tests to check if the API output is correct or not.
+# First, check for ajv
+command -v "ajv" &>/dev/null || { echo >&2 "error: ajv is not installed. Run npm install -g ajv-cli"; exit 1; }
+
+"$tests/resto_api.sh" "$tests" "$api/2.0/resto/"
+
+echo "Resto API tests completed."
 
 echo "Setting up cron..."
 cron="$scraper/hydra.cron"

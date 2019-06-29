@@ -5,7 +5,7 @@
 # Use:
 #   deploy.sh server dry
 # Arguments:
-#   server    The path to the server folder. This is the /server/ folder in thr git repo.
+#   server    The path to the server folder. This is the /server/ folder in the git repo.
 #   [dry]     Optional path. If present, the server will be deployed to this path. Otherwise it will be deployed
 #             to King.
 
@@ -104,6 +104,7 @@ w_ssh "$dir/deploy_remote_i.sh" "$folder $prefix"
 # Copy the files we need
 w_rsync "$output/" "$prefix/deployment/$folder/public/"
 w_rsync "$server/scraper/" "$prefix/deployment/$folder/scraper/"
+w_rsync "$server/tests/remote/" "$prefix/deployment/$folder/tests/"
 
 # Finalize install on remote
 w_ssh "$dir/deploy_remote_ii.sh" "$folder $prefix $use_remote"

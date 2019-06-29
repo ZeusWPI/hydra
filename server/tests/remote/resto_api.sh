@@ -3,10 +3,13 @@
 # Run the tests for the Hydra Resto API. These tests require the API to be fully built. As such, they are only run
 # on deployment. It is probably useful to run this test manually during development.
 #
+# This test is executed on the server, not the Travis. Therefor, it contains special code to ensure dependencies are
+# installed.
+#
 # Use:
-#   resto_api.sh server resto
+#   resto_api.sh json resto
 # Arguments:
-#   server  The path to the server directory.
+#   json  The path to the directory with the JSON schema's.
 #   resto   The path to the API output of the resto, v2.
 
 set -euo pipefail
@@ -16,7 +19,7 @@ program=$(basename "$0")
 function usage() {
   echo "usage: $program server"
   echo "where:"
-  echo "    server    path the server directory in the repo"
+  echo "    json      path the directory with the json schema's"
   echo "    resto     path the resto api output v2"
 }
 
@@ -39,10 +42,7 @@ if [[ ! -d "$2" ]]; then
 fi
 
 # Remove trailing slashes
-server=$(realpath -s "$1")
-
-# Some utils
-tests="$server/tests"
+schema=$(realpath -s "$1")
 
 # Map glob patterns to their schema
 # See https://github.com/isaacs/node-glob#glob-primer for glob patterns
@@ -61,7 +61,7 @@ shopt -s extglob
 for glob in "${!mapping[@]}"; do
     echo "Checking $glob..."
     if compgen -G "$2/$glob" > /dev/null; then
-      ajv -s "$tests/${mapping[$glob]}" -r "$tests/schema_*.json" -d "$2/$glob"
+      ajv -s "$schema/${mapping[$glob]}" -r "$schema/schema_*.json" -d "$2/$glob"
     else
       echo "$glob does not match any files."
     fi
