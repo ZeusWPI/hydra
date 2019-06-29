@@ -33,8 +33,6 @@ public="$deployment/$1/public"
 historic="$deployment/$1/restodata"
 # Where the public api data will be kept
 api="$public/api"
-# Where the website goes
-website="$public/website"
 
 # Activate venv
 # shellcheck source=/dev/null
@@ -79,15 +77,8 @@ cat << EOF > "$cron"
 3-59/30 * * * *  ${venv} && ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
 EOF
 
-# Create directories before symlinking
-mkdir -p "$prefix/public/api"
-mkdir -p "$prefix/public/website"
-
-# Map the API and server endpoint to the new data
-# DO NOT link the full public folder; it contains other data.
-# Todo: we can do this if we include the OAuth redirect in the repo (as we should)
-ln -sfn "$api" "$prefix/public/api"
-ln -sfn "$website" "$prefix/public/website"
+# Map the API and server endpoint to the new data.
+ln -sfn "$public" "$prefix/public"
 crontab "$cron"
 
 echo "Deployment complete."

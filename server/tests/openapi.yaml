@@ -99,7 +99,7 @@ paths:
                     description: Drinks. Local availability may vary.
                     items:
                       $ref: '#/components/schemas/FoodItem'
-  /menu/{id}/{lang}/overview.json:
+  /{id}/menu/{lang}/overview.json:
     get:
       tags:
         - Menu
@@ -155,7 +155,7 @@ paths:
                 description: A list of future menu's.
                 items:
                   $ref: '#/components/schemas/Menu'
-  /menu/{id}/{lang}/{year}/{month}/{day}.json:
+  /{id}/menu/{lang}/{year}/{month}/{day}.json:
     get:
       tags:
         - Menu

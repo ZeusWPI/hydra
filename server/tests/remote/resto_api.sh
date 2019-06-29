@@ -51,8 +51,8 @@ mapping=(
   ["extrafood.json"]=schema_resto_extra.json
   ["sandwiches.json"]=schema_resto_sandwiches.json
   ["meta.json"]=schema_resto_meta.json
-  ["menu/*/??/overview.json"]=schema_resto_menu_overview.json
-  ["menu/*/??/????/+(??|?)/+(??|?).json"]=schema_resto_menu_day.json
+  ["*/menu/??/overview.json"]=schema_resto_menu_overview.json
+  ["*/menu/??/????/+(??|?)/+(??|?).json"]=schema_resto_menu_day.json
   ["menu/*/overview.json"]=schema_resto_menu_overview.json # Old path with endpoint
   ["menu/*/????/+(??|?)/+(??|?).json"]=schema_resto_menu_day.json # Old path with endpoint
 )

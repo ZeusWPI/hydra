@@ -48,6 +48,37 @@ dir="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
 "$dir/resto/all.sh" "$internal_v1" "$internal_v2"
 
+menu_api_v2="$internal_v2/menu"
+
+# Create folders
+mkdir -p "$internal_v2/sterre/menu"
+mkdir -p "$internal_v2/heymans/menu"
+mkdir -p "$internal_v2/brug/menu"
+mkdir -p "$internal_v2/merelbeke/menu"
+mkdir -p "$internal_v2/dunant/menu"
+mkdir -p "$internal_v2/coupure/menu"
+mkdir -p "$internal_v2/jansvest/menu"
+mkdir -p "$internal_v2/kantienberg/menu"
+
+# Set up symlinks for new paths
+# Remove this if the scraper ever produces the correct paths
+ln -sfn "$menu_api_v2/nl"              "$internal_v2/sterre/menu/nl"
+ln -sfn "$menu_api_v2/en"              "$internal_v2/sterre/menu/en"
+ln -sfn "$menu_api_v2/nl-heymans"      "$internal_v2/heymans/menu/nl"
+ln -sfn "$menu_api_v2/nl-heymans"      "$internal_v2/heymans/menu/en"
+ln -sfn "$menu_api_v2/nl-debrug"       "$internal_v2/brug/menu/nl"
+ln -sfn "$menu_api_v2/nl-debrug"       "$internal_v2/brug/menu/en"
+ln -sfn "$menu_api_v2/nl"              "$internal_v2/merelbeke/menu/nl"
+ln -sfn "$menu_api_v2/en"              "$internal_v2/merelbeke/menu/en"
+ln -sfn "$menu_api_v2/nl"              "$internal_v2/dunant/menu/nl"
+ln -sfn "$menu_api_v2/en"              "$internal_v2/dunant/menu/en"
+ln -sfn "$menu_api_v2/nl"              "$internal_v2/coupure/menu/nl"
+ln -sfn "$menu_api_v2/en"              "$internal_v2/coupure/menu/en"
+ln -sfn "$menu_api_v2/nl-sintjansvest" "$internal_v2/jansvest/menu/nl"
+ln -sfn "$menu_api_v2/nl-sintjansvest" "$internal_v2/jansvest/menu/en"
+ln -sfn "$menu_api_v2/nl-kantienberg"  "$internal_v2/kantienberg/menu/nl"
+ln -sfn "$menu_api_v2/nl-kantienberg"  "$internal_v2/kantienberg/menu/en"
+
 # Copy to correct server
 rsync -a "$internal_v1" "$api_v1"
 rsync -a "$internal_v2" "$api_v2"
