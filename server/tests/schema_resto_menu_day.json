@@ -4,7 +4,14 @@
   "title": "Menu for single day",
   "description": "Structure of a single menu. Note: this is not API documentation; do not rely on it.",
   "type": "object",
-  "required": ["date", "open", "vegetables", "meals"],
+  "anyOf": [
+    {
+      "required": ["date", "open", "vegetables", "meals"]
+    },
+    {
+      "required": ["date", "open", "message"]
+    }
+  ],
   "properties": {
     "date": {
       "type": "string",
@@ -31,7 +38,12 @@
       "description": "A list of meals.",
       "items": {
         "type": "object",
-        "required": ["kind", "name", "price", "type"],
+        "required": [
+          "kind",
+          "name",
+          "price",
+          "type"
+        ],
         "properties": {
           "kind": {
             "type": "string",

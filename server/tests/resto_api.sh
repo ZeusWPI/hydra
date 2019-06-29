@@ -4,7 +4,7 @@
 # on deployment. It is probably useful to run this test manually during development.
 #
 # Use:
-#   resto_pi.sh server resto
+#   resto_api.sh server resto
 # Arguments:
 #   server  The path to the server directory.
 #   resto   The path to the API output of the resto, v2.
