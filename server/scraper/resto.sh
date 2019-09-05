@@ -60,5 +60,6 @@ git diff-index --quiet HEAD || git commit -m "Scraper: new data from $today"
 
 # Porcelain prevents git from writing non-errors to stderr, resulting in emails
 if [[ "$push" == true ]]; then
+    git pull
     git push --porcelain
 fi
