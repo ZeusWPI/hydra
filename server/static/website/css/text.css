@@ -1,0 +1,35 @@
+body {
+    max-width: 1000px;
+    margin: auto;
+    padding: 1em;
+}
+
+p {
+    max-width: 800px;
+}
+
+li {
+    max-width: 750px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1E64C8;
+}
+
+h2, h3 {
+    margin-top: 2em;
+}
+
+.example {
+    background-color: #1E64C840;
+    padding: 1em;
+}
+
+.example::before {
+    content: "Voorbeeld. ";
+    font-weight: bold;
+}
+
+.lower-list {
+    list-style: lower-alpha;
+}
