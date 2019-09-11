@@ -1,141 +1,212 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <meta charset="utf-8">
-    <title>Privacy policy</title>
-    <style>
-body {
-    font-family: Helvetica, Arial, Freesans, clean, sans-serif;
-padding:1em;
-margin:auto;
-max-width:42em;
-background:#fefefe;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
-}
-
-h1 {
-    color: #000000;
-    font-size: 28px;
-}
-
-h2 {
-    border-bottom: 1px solid #CCCCCC;
-    color: #000000;
-    font-size: 24px;
-}
-
-h3 {
-    font-size: 18px;
-}
-
-h4 {
-    font-size: 16px;
-}
-
-h5 {
-    font-size: 14px;
-}
-
-h6 {
-    color: #777777;
-    background-color: inherit;
-    font-size: 14px;
-}
-
-hr {
-    height: 0.2em;
-    border: 0;
-    color: #CCCCCC;
-    background-color: #CCCCCC;
-}
-
-p, blockquote, ul, ol, dl, li, table, pre {
-    margin: 15px 0;
-}
-
-code, pre {
-    border-radius: 3px;
-    background-color: #F8F8F8;
-    color: inherit;
-}
-
-code {
-    border: 1px solid #EAEAEA;
-    margin: 0 2px;
-    padding: 0 5px;
-}
-
-pre {
-    border: 1px solid #CCCCCC;
-    line-height: 1.25em;
-    overflow: auto;
-    padding: 6px 10px;
-}
-
-pre > code {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
-
-a, a:visited {
-    color: #4183C4;
-    background-color: inherit;
-    text-decoration: none;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Privacybeleid - Hydra</title>
+  <link rel="stylesheet" href="css/text.css">
 </head>
 <body>
 
-<h1>Privacy Policy</h1>
+<h1>Privacybeleid</h1>
 
-<p>This privacy policy governs your use of the software application Hydra (“Application”) for mobile devices that was created by Dienst StudentenActiviteiten.</p>
+<p>Laatst bijgewerkt op <strong><time datetime="2019-09-10">10 september 2019</time></strong>.</p>
 
-<h2>What information does the Application obtain and how is it used?</h2>
+<p>Met dit privacybeleid willen we duidelijk maken welke data we verzamelen als u van onze diensten gebruik maakt en waarvoor we die data gebruiken.</p>
 
-<h3>User Provided Information</h3>
-<p>The Application obtains the information you provide when you download and register the Application.</p>
+<h2>Inhoud</h2>
+<ol>
+  <li><a href="#wanneer">Wanneer geldt dit privacybeleid?</a></li>
+  <li><a href="#wie">Wie heeft toegang tot de verzamelde data?</a></li>
+  <li><a href="#data">Welke data worden verzameld en waarvoor?</a>
+    <ol class="lower-list">
+      <li><a href="#algemeen">Algemeen</a></li>
+      <li><a href="#api">Hydra-<span class="acronym">API</span></a></li>
+      <li><a href="#website">Website</a></li>
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#assistent">Assistent</a></li>
+    </ol>
+  </li>
+  <li><a href="#automatisch">Worden er geautomatiseerde, individuele besluiten genomen?</a></li>
+  <li><a href="#contact">Hoe contacteert u ons en laat u uw rechten gelden?</a></li>
+</ol>
 
-<h3>Automatically Collected Information</h3>
-<p>In addition, the Application may collect certain information automatically, including, but not limited to, the type of mobile device you use, your mobile devices unique device ID, the IP address of your mobile device, your mobile operating system, the type of mobile Internet browsers you use, and information about the way you use the Application.</p>
+<hr>
 
-<h2>Does the Application collect precise real time location information of the device?</h2>
-<p>When you use the mobile application, we may use GPS technology (or other similar technology) to determine your current location in order to determine the city you are located within and display a location map with relevant information. We will not share your current location with other users or partners.</p>
+<h2 id="wanneer">Wanneer geldt dit privacybeleid?</h2>
 
-<p>If you do not want us to use your location for the purposes set forth above, you should turn off the location services for the mobile application located in your account settings or in your mobile phone settings and/or within the mobile application.</p>
-
-<h2>Do third parties see and/or have access to information obtained by the Application?</h2>
-<p>We will share your information with third parties only in the ways that are described in this privacy statement.</p>
-<p>We may disclose User Provided and Automatically Collected Information:</p>
+<p>Het Hydra-project omhelst verschillende diensten en producten. Het privacybeleid is van toepassing op al deze diensten. Verschillende diensten hebben verschillende noden, waardoor er desgevallend een onderscheid dient gemaakt te worden tussen de diensten. Hieronder staat een overzicht van de diensten:</p>
 <ul>
-<li>as required by law, such as to comply with a subpoena, or similar legal process;</li>
-<li>when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;</li>
-<li>with our trusted services providers who work on our behalf, do not have an independent use of the information we disclose to them, and have agreed to adhere to the rules set forth in this privacy statement.</li>
+  <li>De <strong>website</strong>, beschikbaar op <a href="https://hydra.ugent.be">hydra.ugent.be</a>. Dit omvat ook alle onderliggende pagina's, maar niet de API (zie hieronder).</li>
+  <li>De <strong>Hydra-<span class="acronym">API</span></strong>, beschikbaar op <a href="https://hydra.ugent.be/api/">hydra.ugent.be/api/</a> en <a href="https://zeus.ugent.be/hydra/api/">zeus.ugent.be/hydra/api/</a>, alsook onderliggende pagina's.</li>
+  <li>De <strong>Android-app</strong>, beschikbaar via de <a href="https://play.google.com/store/apps/details?id=be.ugent.zeus.hydra">Play Store</a> of via de <a href="https://github.com/ZeusWPI/hydra-android/releases">repository</a>.</li>
+  <li>De <strong>iOS-app</strong>, beschikbaar via de <a href="https://apps.apple.com/be/app/hydra/id602640924">App Store</a>.</li>
+  <li><strong>Hydra van de UGent</strong>, een actie (soort chat bot) voor de Google Assistent.</li>
 </ul>
 
-<h2>What are my opt-out rights?</h2>
-<p>You can stop all collection of information by the Application easily by uninstalling the Application. You may use the standard uninstall processes as may be available as part of your mobile device or via the mobile application marketplace or network. You can also request to opt-out via email, at hydra@student.ugent.be.</p>
+<hr>
 
-<h2>Data Retention Policy, Managing Your Information</h2>
-<p>We will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. We will retain Automatically Collected information for up to 24 months and thereafter may store it in aggregate. If you’d like us to delete User Provided Data that you have provided via the Application, please contact us at hydra@student.ugent.beand we will respond in a reasonable time. Please note that some or all of the User Provided Data may be required in order for the Application to function properly.</p>
+<h2 id="wie">Wie heeft toegang tot de verzamelde data?</h2>
 
-<h2>Children</h2>
-<p>We do not use the Application to knowingly solicit data from or market to children under the age of 13. If a parent or guardian becomes aware that his or her child has provided us with information without their consent, he or she should contact us at hydra@student.ugent.be. We will delete such information from our files within a reasonable time.</p>
+<p>Het Hydra-project is een project van <a href="https://www.zeus.gent">Zeus <span class="acronym">WPI</span></a> in samenwerking met de <a href="http://student.ugent.be">Dienst Studentenactiviteiten</a> van de UGent. Zeus <span class="acronym">WPI</span> beheert het project en de verzamelde data. In de eerste plaats hebben de ontwikkelaars en beheerders van het Hydra-project toegang tot de data. Daarnaast hebben de systeemadministrators van Zeus <span class="acronym">WPI</span> toegang. In uitzonderlijk geval kunnen we geanonimiseerde data delen met de UGent, voornamelijk over het gebruik van de diensten.</p>
 
-<h2>Security</h2>
-<p>We are concerned about safeguarding the confidentiality of your information. We provide physical, electronic, and procedural safeguards to protect information we process and maintain. For example, we limit access to this information to authorized employees and contractors who need to know that information in order to operate, develop or improve our Application. Please be aware that, although we endeavor provide reasonable security for information we process and maintain, no security system can prevent all potential security breaches.</p>
+<hr>
 
-<h2>Changes</h2>
-<p>This Privacy Policy may be updated from time to time for any reason. We will notify you of any changes to our Privacy Policy by posting the new Privacy Policy here and informing you in the application. You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes. You can check the history of this policy by clicking here.</p>
+<h2 id="data">Welke data worden verzameld en waarvoor?</h2>
 
-<h2>Your Consent</h2>
-<p>By using the Application, you are consenting to our processing of your information as set forth in this Privacy Policy now and as amended by us. "Processing,” means using cookies on a computer/hand held device or using or touching information in any way, including, but not limited to, collecting, storing, deleting, using, combining and disclosing information, all of which activities will take place in the Belgium. If you reside outside the Belgium your information will be transferred, processed and stored there under Belgium privacy standards.</p>
+<p>Afhankelijk van het gebruikte product worden verschillende data verzameld. Soms gebruikt een product een ander product. Zo gebruiken de apps bv. ook de <span class="acronym">API</span>, wat betekent dat de gegevensverzameling van beide producten van toepassing zijn.</p>
 
-<h2>Contact us</h2>
-<p>If you have any questions regarding privacy while using the Application, or have questions about our practices, please contact us via email at hydra@student.ugent.be.</p>
+<h3 id="algemeen">Algemeen</h3>
+
+<h4 id="contacts">Contact</h4>
+<p>Als u ons contacteert, verzamelen we de gegevens die u ons verstrekt zodat we u kunnen antwoorden. We gebruiken deze gegevens enkel om u te antwoorden op basis van uw bericht.</p>
+
+<p class="example">Als u ons een e-mail stuurt, krijgen we de dingen die u ons stuurt, zoals uw e-mailadres en de inhoud van uw e-mail.</p>
+
+
+<h4 id="logs">Serverlogs</h4>
+
+<p>Bepaalde producten gebruiken serverlogs. Dit zijn logboeken van de verzoeken die gestuurd zijn naar een van onze servers. In deze logboeken zitten volgende data:</p>
+<ul>
+  <li><strong><span class="acronym">IP</span>-adressen</strong>, van wie de verzoeken maakte</li>
+  <li><strong>Tijdstippen</strong>, wanneer de verzoeken gemaakt werden</li>
+  <li><strong>Doel</strong>, wat er precies opgevraagd werd</li>
+  <li><strong>Technische gegevens</strong>, zoals welk apparaat en software er gebruikt zijn voor het verzoek, welk protocol er gebruikt wordt en hoeveel bytes er verstuurd zijn.</li>
+</ul>
+
+<p>Deze informatie wordt gebruikt om de toestand van de server in de gaten te houden, teneinde de dienstverlening van de server te garanderen. Zo kunnen we de belasting van de server in de gaten houden, misbruik detecteren en foute verzoeken (bv. missende webpagina's) verhelpen.</p>
+
+<p>Enkel de <a href="https://zeus.ugent.be/about/about/">systeemadministrators</a> van Zeus <span class="acronym">WPI</span> en de medewerkers van het Hydra-project hebben toegang tot deze data. Deze data worden niet automatisch verwerkt; ze dienen om manueel de oorzaken van problemen te vinden. Serverlogs worden onbeperkt bijgehouden.</p>
+
+<div class="example">
+  <p>Een typische gebeurtenis in het logboek ziet er als volgt uit:</p>
+  <code>94.XXX.XXX.XXX - [11/Sep/2019:11:18:59 +0200] "GET /api/2.0/association/logo/js.png HTTP/1.1" 200 34464 "-" "okhttp/3.12.2"</code>
+  <p>Deze informatie zegt ons:</p>
+  <ul>
+    <li>Het <span class="acronym">IP</span>-adres van de gebruiker (hier onherkenbaar gemaakt).</li>
+    <li>Het tijdstip waarop het verzoek naar de API gestuurd werd.</li>
+    <li>Technische informatie over het verzoek: wat is er opgevraagd, welk protocol is er gebruikt, hoeveel bytes zijn er verstuurd om aan het verzoek te voldoen.</li>
+    <li>De <em><a href="https://nl.wikipedia.org/wiki/Useragent">useragent</a></em> van het verzoek: welk apparaat stuurde het verzoek en waarmee. In dit voorbeeld gaat het bijvoorbeeld over de Android-app.</li>
+  </ul>
+  <p>Specifiek vraagt dit verzoek het logo van een studentenvereniging op, meer bepaald <a href="https://hydra.ugent.be/api/2.0/association/logo/js.png">dit logo</a>.</p>
+</div>
+
+<hr>
+
+<h3 id="api">Hydra-<span class="acronym">API</span></h3>
+
+<p>Als u de Hydra-<span class="acronym">API</span> gebruikt, verzamelen we enkel <a href="#logs">serverlogs</a>.</p>
+
+<hr>
+
+<h3 id="website">Website</h3>
+
+<p>Gegevensverzameling op de website geschiedt om twee redenen:</p>
+<ul>
+  <li><strong>Technische werking garanderen.</strong> Hiervoor verzamelen we <a href="#logs">serverlogs</a>.</li>
+  <li><strong>Analytics.</strong> We willen graag weten hoeveel de website gebruikt wordt, hoe gebruikers op de website komen (bv. via zoeken of via sociale media) en hoe lang ze er blijven. Hieronder staat meer informatie over wat we hiervoor verzamelen.</li>
+</ul>
+
+<p>Om de Analytics-gegevens te verzamelen, maken we gebruik van cookies. Concreet gebruiken we Google Analytics. Uitgebreide informatie over hoe Google met uw gegevens omgaat, vindt u <a href="https://www.google.com/policies/privacy/partners/">hier</a>. Verdere details over ons gebruik van Google Analytics:</p>
+
+<ul>
+  <li>Uw gegevens worden gedurende 14 maanden bewaard door Google Analytics. Enkel het bestuur van Zeus WPI en de medewerkers van het Hydra-project hebben toegang tot deze data.</li>
+  <li>Onder de Algemene Verordening Gegevensbescherming (<span class="acronym">AVG</span>/<span class="acronym">GDPR</span>) vervult Google de rol van gegevensverwerker. (Meer informatie over deze term vindt u <a href="https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/obligations/controller-processor/what-data-controller-or-data-processor_nl">hier</a>.) Uw gegevens worden niet gedeeld met derden.</li>
+  <li>Google verwerkt uw gegevens mogelijk buiten de <span class="acronym">EER</span>. Google is gecertificeerd in het kader van het EU-VS-privacyschild.</li>
+  <li>Er wordt geen informatie verzameld waarmee we u kunnen identificeren (zoals <span class="acronym">IP</span>-adressen).</li>
+  <li>Indien u niet wenst dat we uw gegevens verzamelen met Google Analytics, kan u o.a. deze <a href="https://tools.google.com/dlpage/gaoptout/?hl=nl">add-on</a> installeren.</li>
+</ul>
+
+Enkele voorbeelden van de verzamelde gegevens:
+<ul>
+  <li><strong>Softwareversies.</strong> Welke browser u gebruikt en zijn versie, welk besturingssysteem, enz.</li>
+  <li><strong>Gebruiksdata.</strong> Hoe u de website gebruik, wat u bezoekt, hoe lang u die onderdelen bezoekt, enz.</li>
+  <li><strong>Hardware-informatie.</strong> De resolutie van uw scherm.</li>
+</ul>
+
+<p class="example">Door deze informatie kunnen we ervoor zorgen dat de website goed werkt in de browsers die de bezoekers gebruiken. Als het merendeel van de gebruikers bv. een mobiel toestel gebruikt, kunnen we onze aandacht richten op het optimaliseren van de website voor mobiel gebruik.</p>
+
+<hr>
+
+<h3 id="apps">Apps</h3>
+
+<p>De gegevensverzameling op de apps kunnen in twee categorieën verdeeld worden: analytics en foutrapportage.</p>
+<ul>
+  <li><strong>Analytics.</strong> We willen graag weten hoe u de app gebruikt, welke onderdelen u het meest gebruikt, hoe lang u de app gebruikt, enzovoort. Dit om onze apps optimaal te kunnen afstellen op uw behoeften. We gebruiken deze data niet om gebruikers te identificeren.</li>
+  <li><strong>Foutrapportage.</strong> We willen weten wat u deed toen de crash zich voordeed, alsook welk apparaat u gebruikt, welke software-versies u hebt, enz. Hiermee kunnen we sneller de oorzaak van de fout opsporen en oplossen.</li>
+</ul>
+
+<p>Verzamelde data omvat onder andere:</p>
+<ul>
+  <li><strong>Anonieme identificatienummers.</strong> Hiermee kunnen we meerdere evenementen en bezoeken aan dezelfde gebruiker koppelen, om zo patronen te herkennen. Hiermee kunnen we zien welke delen van de app vaak gebruikt worden en welke niet. Ook crashes op hetzelfde apparaat bij dezelfde gebruiker worden zo herkend.</li>
+  <li><strong>Stacktraces.</strong> Dit teneinde de exacte oorsprong van crashes te kunnen vaststellen om zo snel mogelijk een oplossing te vinden.</li>
+  <li><strong>Technische gegevens over uw apparaat.</strong> Dit omhelst de versie van uw besturingssysteem, welk apparaat, hoeveel <span class="acronym">RAM</span> u hebt, enz.</li>
+  <li><strong>Gebruiksdata.</strong> Dit zijn individuele evenementen, zoals „onderdeel X is geopend” of „een gebruiker bleef X minuten bij onderdeel Y”.</li>
+</ul>
+
+<p class="example">Met de combinatie van deze gegevens kunnen we gebruikspatronen herkennen. Als vele gebruikers consequent naar het restomenu gaan, kunnen we dit opmerken en een snelkoppeling toevoegen. Als weinig gebruikers luisteren naar Urgent.fm, kunnen we overwegen deze functionaliteit niet meer aan te bieden.</p>
+
+<p>Voor zowel Analytics als Foutrapportage gebruiken we producten van Google (Google Analytics, Firebase Analytics en Crashlytics). Meer informatie over hoe Google met uw gegevens omgaat, vindt u <a href="https://www.google.com/policies/privacy/partners/">hier</a>. Uitgebreide details over ons gebruik van deze Google-producten:</p>
+
+<ul>
+  <li>U kan zowel Analytics als Foutrapportage uitschakelen in de instellingen van de app. Analytics zijn opt-in; Foutrapportage is opt-out.</li>
+  <li>Analytics-gegevens worden gedurende 14 maanden bewaard door Google.
+  <li>
+  <li>Stacktraces en bijhorende anonieme identificatienummers van crashes worden 90 dagen bewaard door Google.</li>
+  <li>Enkel het bestuur van Zeus <span class="acronym">WPI</span> en de medewerkers van het Hydra-project hebben toegang tot deze data.</li>
+  <li>Onder de Algemene Verordening Gegevensbescherming (<span class="acronym">AVG</span>/<span class="acronym">GDPR</span>) vervult Google de rol van gegevensverwerker. (Meer informatie over deze term vindt u <a href="https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/obligations/controller-processor/what-data-controller-or-data-processor_nl">hier</a>.) Uw gegevens worden niet gedeeld met derden.</li>
+  <li>Google verwerkt uw gegevens mogelijk buiten de <span class="acronym">EER</span>. Google is gecertificeerd in het kader van het <span class="acronym">EU</span>-<span class="acronym">VS</span>-privacyschild.</li>
+  <li>Er wordt geen informatie verzameld waarmee we u kunnen identificeren (zoals <span class="acronym">IP</span>-adressen).</li>
+</ul>
+
+<h4>Overige diensten</h4>
+
+<p>Als u een van deze functies gebruikt in de app, worden externe of andere diensten gebruikt. Zij kunnen hun eigen privacybeleid hebben:</p>
+<ul>
+  <li><strong>Urgent.fm-speler.</strong> Contacteer <a href="http://urgent.fm/wie-zijn-wij">Urgent.fm</a> voor meer informatie.</li>
+  <li><strong>Activiteiten van verenigingen.</strong> Contacteer de <a href="http://student.ugent.be/contact/">Dienst Studentenactiviteiten</a> voor meer informatie.</li>
+  <li><strong>Restolocaties.</strong> Hiervoor gebruiken we Google Maps. Indien u daar toestemming voor geeft, zal uw locatie gebruikt worden. Zelf verzamelen we deze gegevens niet. De door Google verzamelde data zijn onderhevig aan hun <a href="https://policies.google.com/privacy">privacybeleid</a>.</li>
+  <li><strong>Restomenu</strong> en <strong>artikels</strong>. Hiervoor gebruiken we onze eigen Hydra-API. Meer informatie <a href="#api">hier</a>, maar kort gezegd verzamelen we serverlogs.</li>
+  <li><strong>Informatie over bibliotheken.</strong> Raadpleeg de <a href="https://lib.ugent.be/nl/info/disclaimer">disclaimer hier</a>.</li>
+</ul>
+
+<hr>
+
+<h3 id="assistent">Assistent</h3>
+
+<p>Bij het gebruik van „Hydra van de UGent” in de Google Assistent gebruiken we deze diensten:</p>
+
+<ul>
+  <li><strong>Serverlogs.</strong> Zie <a href="#logs">hier</a> voor meer informatie.</li>
+  <li><strong>Hydra-API</strong>, voor het ophalen van het menu. Zie <a href="#api">hier</a> voor meer informatie.</li>
+  <li><strong>Dialogflow</strong>, voor de gespreksmogelijkheden (d.w.z. verstaan wat u bedoelt). Deze data is onderhevig aan het privacybeleid van <a href="https://policies.google.com/privacy">Google</a>.</li>
+</ul>
+
+<p>Dialogflow verzamelt geen persoonlijke data. Om de herkenning van de gesprekken tussen u en UGent Hydra te verbeteren, slaat Dialogflow de inhoud van de gesprekken in tekstuele vorm op. Deze kunnen door het bestuur van Zeus <span class="acronym">WPI</span> of de medewerkers van het Hydra-project beoordeeld worden, om zo de nauwkeurigheid van de herkenning te verbeteren.</p>
+
+<hr>
+
+<h2 id="automatisch">Worden er geautomatiseerde, individuele besluiten genomen?</h2>
+
+<p>In het Hydra-project worden geen beslissingen over u genomen die uitsluitend op geautomatiseerde wijze tot stand komen.</p>
+
+<hr>
+
+<h2 id="contact">Hoe contacteert u ons en laat u uw rechten gelden?</h2>
+
+<p>Om uw rechten te laten gelden, voor vragen of opmerkingen, kan u ons contacteren via <a href="mailto:hydra@zeus.ugent.be">hydra@zeus.ugent.be</a>.</p>
+
+<p>Hieronder sommen we kort uw rechten op:</p>
+
+<ul>
+  <li><strong>Recht op inzage.</strong> U mag weten of we gegevens we over u hebben, welke gegevens dat zijn en op welke manier en waarom we ze gebruiken. Ook heeft u het recht een overzicht te krijgen wie uw gegevens verwerkt.</li>
+  <li><strong>Recht op rectificatie en aanvulling.</strong> U heeft het recht in voorkomend geval foute gegevens te laten corrigeren, bv. door een rechtzetting of aanvulling te vragen.</li>
+  <li><strong>Recht op vergetelheid.</strong> U kan verzoeken dat we de gegevens die we over u hebben te wissen op grond van een aantal zaken.</li>
+  <li><strong>Recht op overdraagbaarheid.</strong> U hebt het recht om uw gegevens op te vragen en te ontvangen in een gestructureerd, door een machine leesbaar document.</li>
+  <li><strong>Recht op beperking van de verwerking.</strong> U heeft het recht om de verwerking van uw gegevens te beperken, bijvoorbeeld als er een juridische procedure loopt, een rechtzetting nog niet is doorgevoerd, of de gegevens onrechtmatig gebruikt worden.</li>
+  <li><strong>Recht van bezwaar.</strong> Indien u meent dat we uw gegevens verwerken op onrechtmatige basis, kan u bezwaar aantekenen.</li>
+</ul>
+
+<p>Merk op dat bovenstaande slechts een opsomming van de algemene rechten is. Zo zijn de meeste gegevens die we verzamelen van technische aard; rectificaties zijn niet relevant. Een ander voorbeeld is het recht op overdraagbaarheid: slechts zelden verzamelen we persoonlijke gegevens die hiervoor in aanmerking komen.</p>
 
 </body>
 </html>
