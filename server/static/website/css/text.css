@@ -36,3 +36,7 @@ hr {
 .lower-list {
     list-style: lower-alpha;
 }
+
+.acronym {
+    font-variant: all-small-caps;
+}
