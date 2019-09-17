@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+processed-data/
+raw-data/
+
+!/raw-data/csvinator.sh
