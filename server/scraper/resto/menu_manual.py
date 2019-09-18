@@ -88,8 +88,7 @@ def paasvakantie19_brug(_path, original):
 
 # Werken in De Brug waardoor de resto gesloten is.
 def werken_brug19_replacer(_path, original):
-    message = ('De Brug sluit van 20 mei tot 20 september 2019 voor verbouwingswerken. Vanaf volgend academiejaar zal '
-               'de nieuwe ingang op het studentenplein in gebruik genomen worden. Tijdens de sluiting neemt resto '
+    message = ('De Brug sluit van 20 mei tot 30 september 2019 voor verbouwingswerken. Tijdens de sluiting neemt resto '
                'Kantienberg de functies en het aanbod van de Brug over, zoals de avondopening.')
     return {
         "message": message,
@@ -131,7 +130,7 @@ def create_changes(root_path):
             replacer=werken_brug19_replacer,
             resto="nl-debrug",
             start=date(2019, 5, 20),
-            end=date(2019, 9, 20),
+            end=date(2019, 9, 29),
             all_days=True
         ),
     ]
