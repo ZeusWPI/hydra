@@ -117,7 +117,10 @@ def weekly_sandwiches(output, soup):
 
     today = datetime.date.today()
     # Write upcoming sandwiches to overview
-    upcoming = [sandwich['end'] >= today for sandwich in sandwiches]
+    upcoming = [sandwich.copy() for sandwich in sandwiches if sandwich['end'] >= today]
+    for sandwich in upcoming:
+        sandwich['start'] = sandwich['start'].isoformat()
+        sandwich['end'] = sandwich['end'].isoformat()
     upcoming_output = os.path.join(output, UPCOMING_SANDWICHES)
     write_json_to_file(upcoming, upcoming_output)
 
