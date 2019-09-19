@@ -1,5 +1,5 @@
 {
-  "special-events" : [
+  "special-events": [
     {
       "name": "Rectorverkiezingen",
       "link": "https://www.ugentkiest.be",
@@ -35,7 +35,7 @@
       "end": "2017-09-28T08:00:00+02:00",
       "id": 6,
       "in-app": "be.ugent.zeus.hydra.special.sko",
-      "development": true
+      "development": false
     },
     {
       "name": "Enquête UGent-restaurants",
@@ -48,7 +48,8 @@
       "end": "2017-12-22T23:59:59+02:00",
       "id": 7,
       "development": false
-    }, {
+    },
+    {
       "name": "Zomerregeling Resto's",
       "link": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/jaarplanningstudentenresto.htm",
       "simple-text": "De resto's hebben in de zomer een aangepaste regeling.",
@@ -59,7 +60,8 @@
       "development": false,
       "start": "2018-06-29T08:00:00+02:00",
       "end": "2018-09-23T08:00:00+02:00"
-    }, {
+    },
+    {
       "name": "Minerva verdwijnt uit Hydra",
       "link": "https://hydra.ugent.be/help/minerva.html",
       "simple-text": "Door de overgang naar Ufora verdwijnt Minerva uit Hydra.",
@@ -70,6 +72,19 @@
       "development": false,
       "start": "2019-05-27T08:00:00+02:00",
       "end": "2019-07-07T08:00:00+02:00"
+    },
+    {
+      "name": "Student Kick-Off",
+      "link": "https://studentkickoff.be",
+      "simple-text": "Ga naar de line-up voor de Student Kick-Off",
+      "image": "https://studentkickoff.be/assets/images/logo_sko.png",
+      "html": "",
+      "priority": 990,
+      "start": "2019-09-23T10:00:00+02:00",
+      "end": "2017-09-25T08:00:00+02:00",
+      "id": 10,
+      "in-app": "be.ugent.zeus.hydra.special.sko",
+      "development": true
     }
   ]
 }
