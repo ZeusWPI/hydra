@@ -57,10 +57,13 @@ command="$dir/menu_manual.py $output2"
 # shellcheck disable=2086
 eval ${command}
 
-echo "Eating all the sandwiches"
+echo "Scraping sandwiches"
 command="$dir/sandwiches.py $output1 $output2"
 # shellcheck disable=2086
 eval ${command}
+# Symlink old file for compatibility reasons
+rm -f "$output2/sandwiches.json"
+ln -s "$output2/sandwiches/static.json" "$output2/sandwiches.json"
 
 echo "Finding all the desserts"
 command="$dir/cafetaria.py $output2"
