@@ -313,7 +313,7 @@ Lists all sandwiches which were or are available in the specified year. Sample o
 | `ingredients` | A list of the ingredients in the sandwich.
 | `name` | The name of the sandwich.
 | `start` | Inclusive start date on which the sandwich is available. The date's format follows ISO 8601:2004's extended format (YYYY-MM-DD).
-| `end` | Inclusive start date on which the sandwich is available. The date's format follows ISO 8601:2004's extended format (YYYY-MM-DD).
+| `end` | Inclusive end date on which the sandwich is available. The date's format follows ISO 8601:2004's extended format (YYYY-MM-DD).
 | `vegan` | Boolean indicating if the sandwich is vegan or not (not to be confused with vegetarian).
 
 
