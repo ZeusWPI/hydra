@@ -26,6 +26,7 @@ All scraped data available in this API is also available as a [git repository](h
 ## Changelog
 
 - _April 2019_ - Added new `message` field to menu to indicate closures and changes in meals.
+- _September 2019_ - Added ecological sandwich of the week
 
 ## Technical description
 
