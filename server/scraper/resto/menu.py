@@ -49,7 +49,7 @@ DAY_SELECTOR = ".summary.url"
 
 # The jQuery selector for the meals on the menu page.
 CLOSED_SELECTOR = "#content-core"
-MEAL_SELECTOR = "#content-core li"
+MEAL_AND_HEADING_SELECTOR = "#content-core li, #content-core h3"
 
 WEEK_MENU_HTML_SELECTOR_LINKS = "#content-core .linklist li a"
 
@@ -61,6 +61,7 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
     # Dutch -> internal
     'vegetarisch': 'vegetarian',
     'veggie': 'vegetarian',
+    'vegi': 'vegetarian',
     'vis': 'fish',
     'vlees': 'meat',
     'vis/vlees': 'fish',
@@ -71,6 +72,34 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
     'vegetarian': 'vegetarian',
     'fish': 'fish'
 })
+
+KIND_ORDER = {
+    'soup': 1,
+    'vegan': 2,
+    'vegetarian': 3,
+    'fish': 4,
+    'meat': 5
+}
+
+POSSIBLE_VEGETARIAN = ['vegetarische', 'vegetarisch', 'veggie', 'vegi', 'vegetarian']
+POSSIBLE_VEGAN = ['veganistische', 'veganistisch', 'vegan']
+POSSIBLE_FISH = ['asc', 'msc']
+
+# Map headings to internal types.
+# TODO: both soups are mapped to same type and then later split again.
+#   Maybe directly split it?
+HEADING_TO_TYPE = {
+    'soep': 'soup',
+    'maaltijdsoep': 'soup',
+    'hoofdgerecht': 'meat',
+    'groenten': 'vegetables',
+    'steeds op het menu': 'meat',
+    # English
+    'soup': 'soup',
+    'meal soup': 'soup',
+    'main dish': 'meat',
+    'vegetables': 'vegetables'
+}
 
 
 def get_weeks_rss_json(url):
@@ -142,15 +171,21 @@ def get_days(which, iso_week, url):
     return r
 
 
+def split_price(meal):
+    price = meal.split('-')[-1].strip()
+    name = '-'.join(meal.split('-')[:-1]).strip()
+    return name, price
+
+
 def get_day_menu(which, url):
     """Parses the day menu from the given url."""
     # Assumptions:
-    # - The #content-core contains only <li> items belonging to the menu.
-    # - Menu items without a price are vegetables.
-    # - First item is the soup.
-    # - Second item is the meal soup. (unused in old JSON)
-    # - Priced items are of the form "\(.*\)-\([^-]*\)" where \1 is the name
-    #       and \2 is the price.
+    # - The #content-core contains only <li> items belonging to the menu and <h3> elements that indicate a type.
+    # - All menu items have a price, except vegetables.
+    # - Priced items are of the form "NAME - € X,XX".
+    # - Vegan and vegetarian is indicated by either the old system (KIND: name - price)
+    #   or the new system (name - KIND - price). The kind is optional; if not present, meat is assumed (in the new
+    #   system)
     day_menu = pq(url=url)
     vegetables = []
     meats = []
@@ -159,22 +194,59 @@ def get_day_menu(which, url):
     if CLOSED[which] in day_menu(CLOSED_SELECTOR).html():
         return dict(open=False)
 
-    for meal in day_menu(MEAL_SELECTOR):
-        meal = pq(meal).html()
-        if meal is None:  # meal is empty li
+    # We iterate through the html: the h3 headings are used to reliably (?) determine the kind of the meal.
+    meals_and_headings = day_menu(MEAL_AND_HEADING_SELECTOR).items()
+
+    last_heading = None
+    for current in meals_and_headings:
+        if current.is_('h3'):
+            if current.html() is not None:
+                last_heading = current.html().lower().strip()
             continue
-        if '€' in meal:
-            price = meal.split('-')[-1].strip()
-            name = '-'.join(meal.split('-')[:-1]).strip()
-            if ':' in meal:  # Meat
+        # We have a meal type.
+        meal = current.html()
+        if meal is None:
+            continue  # Ignore empty
+
+        meal = meal.strip()
+
+        if last_heading is None:
+            print(f'Ignoring {meal}, no header.')
+            continue
+
+        if HEADING_TO_TYPE[last_heading] == 'soup':
+            name, price = split_price(meal)
+            soups.append(dict(price=price, name=name))
+        elif HEADING_TO_TYPE[last_heading] == 'meat':
+            name, price = split_price(meal)
+            if ':' in meal:  # Meat in the old way
                 kind, name = [s.strip() for s in name.split(':')]
                 kind = kind.lower()
                 kind = TRANSLATE_KIND[kind]
                 meats.append(dict(price=price, name=name, kind=kind))
-            else:  # Soup
-                soups.append(dict(price=price, name=name))
-        else:
+            else:  # Meat in the new way
+                # If the name contains '-', it might be an indication of vegan/vegi
+                if '-' in name:
+                    kind = name.split('-')[-1].strip()
+                    stripped_name = '-'.join(name.split('-')[:-1]).strip()  # Re-join other splits
+                    if kind in TRANSLATE_KIND:
+                        meats.append(dict(price=price, name=stripped_name, kind=TRANSLATE_KIND[kind]))
+                    else:
+                        meats.append(dict(price=price, name=name, kind='meat'))
+                else:
+                    # Sometimes there is vegan/vegetarian in the name, in which case they don't repeat the type.
+                    if any(possible in name.lower() for possible in POSSIBLE_VEGETARIAN):
+                        meats.append(dict(price=price, name=name, kind='vegetarian'))
+                    elif any(possible in name.lower() for possible in POSSIBLE_VEGAN):
+                        meats.append(dict(price=price, name=name, kind='vegan'))
+                    elif any(possible in name.lower() for possible in POSSIBLE_FISH):
+                        meats.append(dict(price=price, name=name, kind='fish'))
+                    else:
+                        meats.append(dict(price=price, name=name, kind='meat'))
+        elif HEADING_TO_TYPE[last_heading] == 'vegetables':
             vegetables.append(meal)
+        else:
+            raise ValueError(f"Unknown header {last_heading} encountered")
 
     # sometimes the closed indicator has a different layout.
     if not vegetables and not soups and not meats:
@@ -322,6 +394,7 @@ def write_2_0(root_path, menus):
                 if day >= datetime.date.today():
                     overview.append(menu)
 
+                menu['meals'] = sorted(menu['meals'], key=lambda x: KIND_ORDER[x['kind']])
                 output_file_menu = os.path.join(root_path, OUTFILE_2_0.format(resto, day.year, day.month, day.day))
                 write_json_to_file(menu, output_file_menu)
 
