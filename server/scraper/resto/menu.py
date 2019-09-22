@@ -73,6 +73,18 @@ TRANSLATE_KIND = collections.defaultdict(lambda: 'meat', {
     'fish': 'fish'
 })
 
+KIND_ORDER = {
+    'soup': 1,
+    'vegan': 2,
+    'vegetarian': 3,
+    'fish': 4,
+    'meat': 5
+}
+
+POSSIBLE_VEGETARIAN = ['vegetarische', 'vegetarisch', 'veggie', 'vegi', 'vegetarian']
+POSSIBLE_VEGAN = ['veganistische', 'veganistisch', 'vegan']
+POSSIBLE_FISH = ['asc', 'msc']
+
 # Map headings to internal types.
 # TODO: both soups are mapped to same type and then later split again.
 #   Maybe directly split it?
@@ -221,8 +233,16 @@ def get_day_menu(which, url):
                         meats.append(dict(price=price, name=stripped_name, kind=TRANSLATE_KIND[kind]))
                     else:
                         meats.append(dict(price=price, name=name, kind='meat'))
-                else:  # Default is meat
-                    meats.append(dict(price=price, name=name, kind='meat'))
+                else:
+                    # Sometimes there is vegan/vegetarian in the name, in which case they don't repeat the type.
+                    if any(possible in name.lower() for possible in POSSIBLE_VEGETARIAN):
+                        meats.append(dict(price=price, name=name, kind='vegetarian'))
+                    elif any(possible in name.lower() for possible in POSSIBLE_VEGAN):
+                        meats.append(dict(price=price, name=name, kind='vegan'))
+                    elif any(possible in name.lower() for possible in POSSIBLE_FISH):
+                        meats.append(dict(price=price, name=name, kind='fish'))
+                    else:
+                        meats.append(dict(price=price, name=name, kind='meat'))
         elif HEADING_TO_TYPE[last_heading] == 'vegetables':
             vegetables.append(meal)
         else:
@@ -374,6 +394,7 @@ def write_2_0(root_path, menus):
                 if day >= datetime.date.today():
                     overview.append(menu)
 
+                menu['meals'] = sorted(menu['meals'], key=lambda x: KIND_ORDER[x['kind']])
                 output_file_menu = os.path.join(root_path, OUTFILE_2_0.format(resto, day.year, day.month, day.day))
                 write_json_to_file(menu, output_file_menu)
 
