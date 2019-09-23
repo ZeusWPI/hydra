@@ -26,16 +26,20 @@ All scraped data available in this API is also available as a [git repository](h
 ## Changelog
 
 - _April 2019_ - Added new `message` field to menu to indicate closures and changes in meals.
+- _September 2019_ - Added ecological sandwich of the week
 
 ## Technical description
 
 | Endpoint                              | Description                    |
 |---------------------------------------|--------------------------------|
 | [`GET /meta.json`](#metadata)         | Information about the restos. |
-| [`GET /sandwiches.json`](#sandwiches) | List of available sandwiches.   |
 | [`GET /extrafood.json`](#extra-food)  | List of additional available items, such as breakfast or desserts. |
-| [`GET /menu/{endpoint}/overview.json`](#overview) | The future menu for a specific resto. |
+| [`GET /menu/{endpoint}/overview.json`](#overview-menu) | The future menu for a specific resto. |
 | [`GET /menu/{endpoint}/{year}/{month}/{day}.json`](#day-menu) | The menu for a particular day. |
+| `GET /sandwiches.json` | (deprecated)   |
+| [`GET /sandwiches/static.json`](#regular-sandwiches)         | List of normal sandwiches. |
+| [`GET /sandwiches/overview.json`](#weekly-sandwiches-overview)         | Upcoming ecological sandwiches. |
+| [`GET /sandwiches/{year}.json`](#weekly-sandwiches-yearly)         | All ecological sandwiches. |
 
 Date and hour specifiers are from ISO 8601:2014.
 
@@ -86,37 +90,6 @@ The response is an object with one field, `locations`, a list of locations.
 | `endpoint` | The endpoint for this resto. Can be used in `/resto/menu/{ENDPOINT}`. See [Overview](#overview) or [Day menu](#day-menu).
 | `open` | Lists the intervals in which this location is open, for each type of the location. Uses ISO 8601:2014's extended format with reduced accuracy (`hh:mm`). These are the regular opening hours; holidays and other exceptional closures are not accounted for.
 
-### Sandwiches
-
-**Endpoint**: `GET /sandwiches.json`
-
-Lists available sandwiches, their price and their ingredients. Sample output:
-
-
-```json
-[
-  {
-    "ingredients": [
-      "brie",
-      "honing",
-      "pijnboompitten",
-      "sla"
-    ],
-    "name": "Brie",
-    "price_medium": "2.40",
-    "price_small": "1.50"
-  }
-]
-```
-
-| Field | Description
-|-------|-------------
-| `ingredients` | A list of the ingredients in the sandwich.
-| `name` | The name of the sandwich.
-| `price_medium` | The (textual) price in euros for a normal sandwich.
-| `price_medium` | The (textual) price in euros for a small sandwich.
-
-
 ### Extra food
 
 **Endpoint**: `GET /extrafood.json`
@@ -150,7 +123,7 @@ There are three lists in the response: `breakfast`, `desserts` and `drinks`. Eac
 
 _Note_: the price format is not identical as the price format used by the [Day Menu](#day-menu) output.
 
-### Overview
+### Overview menu
 
 **Endpoint**: `GET \menu\{endpoint}\overview.json`
 
@@ -274,4 +247,75 @@ A meal object consists of:
 
 How an application handles changes to possible values (indicated above where this is applicable), is not specified.
 The application might simply ignore new values.
+
+### Regular sandwiches
+
+**Endpoint**: `GET /sandwiches/static.json`
+
+Lists available regular sandwiches, their price and their ingredients. Sample output:
+
+
+```json
+[
+  {
+    "ingredients": [
+      "brie",
+      "honing",
+      "pijnboompitten",
+      "sla"
+    ],
+    "name": "Brie",
+    "price_medium": "2.40",
+    "price_small": "1.50"
+  }
+]
+```
+
+| Field | Description
+|-------|-------------
+| `ingredients` | A list of the ingredients in the sandwich.
+| `name` | The name of the sandwich.
+| `price_medium` | The (textual) price in euros for a normal sandwich.
+| `price_medium` | The (textual) price in euros for a small sandwich.
+
+### Weekly sandwiches overview
+
+**Endpoint**: `GET /sandwiches/overview.json`
+
+Lists all upcoming ecological sandwiches of the week ("ecologisch broodje van de week"). Output is in the same format as [Weekly sandwiches yearly](#weekly-sandwiches-yearly).
+
+### Weekly sandwiches yearly
+
+**Endpoint**: `GET /sandwiches/{year}.json`
+
+**Parameters**:
+- _year_ -- Which year you want the sandwiches of. Values must be a positive integer. Currently, the earliest available year is 2019 (but this might change in the future). ISO format: `YYYY`.
+
+Lists all sandwiches which were or are available in the specified year. Sample output:
+
+```json
+[
+  {
+    "start": "2019-09-16",
+    "end": "2019-09-20",
+    "ingredients": [
+      "gebakken champignons met tofu (soja)",
+      "mayonaise",
+      "basilicum"
+    ],
+    "name": "Champignonsalade",
+    "vegan": false
+  }
+]
+```
+
+| Field | Description
+|-------|-------------
+| `ingredients` | A list of the ingredients in the sandwich.
+| `name` | The name of the sandwich.
+| `start` | Inclusive start date on which the sandwich is available. The date's format follows ISO 8601:2004's extended format (YYYY-MM-DD).
+| `end` | Inclusive end date on which the sandwich is available. The date's format follows ISO 8601:2004's extended format (YYYY-MM-DD).
+| `vegan` | Boolean indicating if the sandwich is vegan or not (not to be confused with vegetarian).
+
+
 
