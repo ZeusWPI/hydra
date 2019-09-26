@@ -220,7 +220,7 @@ def main(output):
             with open(path, 'r') as f:
                 overview = json.loads(f.read())
 
-            last_day = date.today().strftime('%Y-%m-%d')
+            last_day = None
             # If the date is modified, replace it
             for day in overview:
                 if day["date"] in dates[manual_change.resto]:
@@ -233,10 +233,11 @@ def main(output):
 
             # We want to provide at least ten days in the future.
             to_add = max(OVERVIEW_COUNT - len(overview), 0)
-            last_day = datetime.strptime(last_day, '%Y-%m-%d').date()
+            if last_day:
+                last_day = datetime.strptime(last_day, '%Y-%m-%d').date()
             for day in dates[manual_change.resto]:
                 dday = datetime.strptime(day, '%Y-%m-%d').date()
-                if dday < last_day or to_add <= 0:
+                if ((last_day and dday <= last_day) or (last_day is None and dday < date.today())) or to_add <= 0:
                     continue
                 new_overview.append(dates[manual_change.resto][day])
                 to_add -= 1
