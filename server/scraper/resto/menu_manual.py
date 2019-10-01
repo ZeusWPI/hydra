@@ -97,6 +97,19 @@ def werken_brug19_replacer(_path, original):
     }
 
 
+def werken_brug19_replacer2(_path, original):
+    message = ("Resto De Brug en Cafetaria De Brug zijn nog even gesloten in afwachting van het voltooien van de"
+               " werken. Tot dan kan je's middags en 's avonds terecht in Resto Kantienberg. Wij houden jullie op de"
+               " hoogte!<br>'s Middags is Resto Sint-Jansvest tijdelijk een reguliere resto met een uitgebreid aanbod"
+               " aan belegde broodjes. Enkel soep of broodjes nodig? Dan is Cafetaria campus Boekentoren (via"
+               " Blandijnberg) zeer dichtbij.")
+    return {
+        "message": message,
+        "date": original["date"],
+        "open": False
+    }
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -125,12 +138,20 @@ def create_changes(root_path):
             start=date(2019, 4, 8),
             end=date(2019, 4, 19)
         ),
-        # Werken aan De Brug from 20/05/2019 - 20/09/2019
+        # Werken aan De Brug from 20/05/2019 - 30/09/2019
         ManualChange(
             replacer=werken_brug19_replacer,
             resto="nl-debrug",
             start=date(2019, 5, 20),
             end=date(2019, 9, 29),
+            all_days=True
+        ),
+        # Er is nog meer vertraging
+        ManualChange(
+            replacer=werken_brug19_replacer2,
+            resto="nl-debrug",
+            start=date(2019, 9, 30),
+            end=date(2019, 10, 4),
             all_days=True
         ),
     ]
