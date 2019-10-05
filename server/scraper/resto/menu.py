@@ -88,17 +88,15 @@ POSSIBLE_FISH = ['asc', 'msc', 'gap', 'hoki', 'kabeljauw', 'zalm', 'pollack', 'k
                  'heek', 'pollak', 'schol', 'hocki', 'salmon', 'tilapia', 'coley', 'loin']
 
 # Map headings to internal types.
-# TODO: both soups are mapped to same type and then later split again.
-#   Maybe directly split it?
 HEADING_TO_TYPE = {
     'soep': 'soup',
-    'maaltijdsoep': 'soup',
+    'maaltijdsoep': 'meal soup',
     'hoofdgerecht': 'meat',
     'groenten': 'vegetables',
     'steeds op het menu': 'meat',
     # English
     'soup': 'soup',
-    'meal soup': 'soup',
+    'meal soup': 'meal soup',
     'main dish': 'meat',
     'vegetables': 'vegetables'
 }
@@ -218,7 +216,10 @@ def get_day_menu(which, url):
 
         if HEADING_TO_TYPE[last_heading] == 'soup':
             name, price = split_price(meal)
-            soups.append(dict(price=price, name=name))
+            soups.append(dict(price=price, name=name, type='side'))
+        elif HEADING_TO_TYPE[last_heading] == 'meal soup':
+            name, price = split_price(meal)
+            soups.append(dict(price=price, name=name, type='main'))
         elif HEADING_TO_TYPE[last_heading] == 'meat':
             name, price = split_price(meal)
             if ':' in meal:  # Meat in the old way
@@ -381,8 +382,7 @@ def write_2_0(root_path, menus):
                             kind='soup',
                             name=meal['name'],
                             price=meal['price'],
-                            # side comes first, FIXME
-                            type='side' if i == 0 or i == 1 else 'main',
+                            type=meal['type'],
                         ))
                     for meal in day_menu['meat']:
                         menu['meals'].append(dict(
