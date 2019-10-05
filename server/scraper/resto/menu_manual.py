@@ -151,7 +151,7 @@ def create_changes(root_path):
             replacer=werken_brug19_replacer2,
             resto="nl-debrug",
             start=date(2019, 9, 30),
-            end=date(2019, 10, 4),
+            end=date(2019, 10, 11),
             all_days=True
         ),
     ]
