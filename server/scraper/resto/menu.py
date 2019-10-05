@@ -83,7 +83,9 @@ KIND_ORDER = {
 
 POSSIBLE_VEGETARIAN = ['vegetarische', 'vegetarisch', 'veggie', 'vegi', 'vegetarian']
 POSSIBLE_VEGAN = ['veganistische', 'veganistisch', 'vegan']
-POSSIBLE_FISH = ['asc', 'msc']
+# Not all fish dishes have these. Also included are some wrong spellings.
+POSSIBLE_FISH = ['asc', 'msc', 'gap', 'hoki', 'kabeljauw', 'zalm', 'pollack', 'koolvis', 'pangasius', 'vispannetje',
+                 'heek', 'pollak', 'schol', 'hocki', 'salmon', 'tilapia', 'coley', 'loin']
 
 # Map headings to internal types.
 # TODO: both soups are mapped to same type and then later split again.
