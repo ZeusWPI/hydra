@@ -18,10 +18,6 @@ function check() {
 }
 
 # System libraries
-check "python"
-
-# Install packages
-# Use specific versions here, to enable semi-deterministic tests
-pip install "Pillow==5.3.0" --user
+check "mogrify"
 
 echo "All dependencies are installed."

@@ -59,7 +59,14 @@ while [[ -h "$SOURCE" ]]; do # resolve $SOURCE until the file is no longer a sym
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
-command="$DIR/resizer.py $input/logo $logos"
-eval "${command}"
+# We need some advanced bash options here.
+shopt -s nullglob
+shopt -s extglob
+
+echo "Doing png/jpeg"
+mogrify -format png -resize "300x300>" -path "$logos" -print "%f\n" "$input"/logo/*.@(jpeg|jpg|png)
+
+echo "Doing svg"
+mogrify -format png -density 200 -resize "300x300>" -path "$logos" -print "%f\n" -background none "$input"/logo/*.@(svg)
 
 echo "Association-related successfully created."

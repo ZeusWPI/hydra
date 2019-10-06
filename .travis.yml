@@ -1,45 +1,38 @@
+dist: xenial
 language: generic
 
-# We need nodejs for some json tests
-node_js:
-  - "8"
-
-# We need the JDK for HTML test
-jdk:
-  openjdk8
-
-python:
-  - "3.6"
+# We need following base languages and versions:
+# - Python >= 3.6 (tested on 3.7)
+# - Node >= 8 (tested on 8.12)
+# - Java >= 8 (tested on 11)
 
 addons:
   ssh_known_hosts: zeus.ugent.be:2222
+  apt:
+    packages:
+      - coreutils
+      - shellcheck
+      - librsvg2-bin
+      - imagemagick
+      - libmagickcore-extra
 
 before_install:
-# - sudo apt-get update
-- sudo apt-get install -y realpath
-- sudo apt-get install -y shellcheck
-- openssl aes-256-cbc -K $encrypted_9715c79dd19b_key -iv $encrypted_9715c79dd19b_iv
-  -in deploy_key.enc -out ./deploy_key -d
-- eval "$(ssh-agent -s)"
-- chmod 600 ./deploy_key
-#- echo -e "Host zeus.ugent.be\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- ssh-add ./deploy_key
-# Set global python version
-- pyenv install 3.6.3
-- pyenv global 3.6.3
+  - openssl aes-256-cbc -K $encrypted_9715c79dd19b_key -iv $encrypted_9715c79dd19b_iv -in deploy_key.enc -out ./deploy_key -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 ./deploy_key
+  - ssh-add ./deploy_key
 
-# Install the tool for the tests.
-# The requirements for the deployment test are installed by the scripts themselves.
-before_script:
-- npm install -g ajv-cli@3.0.0
-- pip install html5validator==0.3.1 --user
+install:
+  - pyenv versions | grep '3.7' | xargs -I{} pyenv global {}
+  - npm install -g ajv-cli@3.0.0
+  - pip install html5validator==0.3.1 --user
 
 script:
-- "./server/test.sh"
+  - "./server/test.sh"
 
 branches:
   only:
-  - master
+    - master
 
 deploy:
   provider: script
