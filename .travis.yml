@@ -23,7 +23,7 @@ before_install:
   - ssh-add ./deploy_key
 
 install:
-  - pyenv global 3.7
+  - pyenv versions | grep '3.7' | xargs -I{} pyenv global {}
   - npm install -g ajv-cli@3.0.0
   - pip install html5validator==0.3.1 --user
 
