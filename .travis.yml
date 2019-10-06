@@ -10,11 +10,11 @@ addons:
   ssh_known_hosts: zeus.ugent.be:2222
   apt:
     packages:
-      - realpath
+      - coreutils
       - shellcheck
       - librsvg2-bin
       - imagemagick
-      - libmagickcore-extra
+      - libmagickcore-6.q16-3-extra
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_9715c79dd19b_key -iv $encrypted_9715c79dd19b_iv -in deploy_key.enc -out ./deploy_key -d
