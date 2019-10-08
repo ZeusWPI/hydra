@@ -141,9 +141,11 @@ def weekly_sandwiches(output, soup):
         # Filter outdated sandwiches: those with an existing start or end date.
         start_dates = [sandwich['start'] for sandwich in s]
         end_dates = [sandwich['end'] for sandwich in s]
-        existing = [x for x in existing
-                    if not (datetime.date.fromisoformat(x['start']) in start_dates
-                            or datetime.date.fromisoformat(x['end']) in end_dates)]
+        # Convert date strings to actual dates
+        for sandwich in existing:
+            sandwich['start'] = datetime.date.fromisoformat(sandwich['start'])
+            sandwich['end'] = datetime.date.fromisoformat(sandwich['end'])
+        existing = [x for x in existing if x['start'] not in start_dates and x['end'] not in end_dates]
         existing.extend(s)
         for sandwich in existing:
             sandwich['start'] = sandwich['start'].isoformat()
