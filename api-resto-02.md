@@ -87,7 +87,7 @@ The response is an object with one field, `locations`, a list of locations.
 | `address`      | Address of the location.
 | `latitude`, `longitude` | Coordinates of the location.
 | `type` | The main type of the resto. For example, `resto` indicates it is a resto, but it might also be a cafetaria.
-| `endpoint` | The endpoint for this resto. Can be used in `/resto/menu/{ENDPOINT}`. See [Overview](#overview) or [Day menu](#day-menu).
+| `endpoint` | The endpoint for this resto. Can be used in `/resto/menu/{ENDPOINT}`. See [Overview](#overview-menu) or [Day menu](#day-menu).
 | `open` | Lists the intervals in which this location is open, for each type of the location. Uses ISO 8601:2014's extended format with reduced accuracy (`hh:mm`). These are the regular opening hours; holidays and other exceptional closures are not accounted for.
 
 ### Extra food
