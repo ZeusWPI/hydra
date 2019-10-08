@@ -43,6 +43,7 @@ If or when this version of the API is sunset, the data will remain available in 
 
   An example structure is provided below. This is a typical structure with 4 meat entries, 1 soup entry and 2 vegetable entries.
   ```json
+  {
   "2011-03-21": {
     "open": true,
     "meat": [
@@ -52,12 +53,12 @@ If or when this version of the API is sunset, the data will remain available in 
         "recommended": true
       },
       {
-        "name": "Heekdelight#",
+        "name": "Heek delight",
         "price": "\u20ac 3,50",
         "recommended": false
       },
       {
-        "name": "Rundshamburger*",
+        "name": "Rundshamburger",
         "price": "\u20ac 3,20",
         "recommended": false
       },
@@ -73,7 +74,8 @@ If or when this version of the API is sunset, the data will remain available in 
     },
     "vegetables": [
       "Hutsepotgroenten",
-      "Appelcomote"
+      "Bloemkool in kaassaus"
     ]
+  }
   }
   ```
