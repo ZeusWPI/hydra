@@ -85,6 +85,18 @@
       "id": 10,
       "in-app": "be.ugent.zeus.hydra.special.sko",
       "development": true
+    },
+    {
+      "name": "Enquête UGent-restaurants",
+      "link": "https://febugent.eu.qualtrics.com/jfe/form/SV_ePfBVT0K0k6T3zD",
+      "simple-text": "Geef je mening over de resto’s en win mooie prijzen!",
+      "image": "https://styleguide.ugent.be/files/uploads/logo_UGent_NL_RGB_2400_kleur_witbg.png",
+      "html": "",
+      "priority": 990,
+      "id": 11,
+      "start": "2019-12-05T12:00:00+02:00",
+      "end": "2019-12-31T23:59:59+02:00",
+      "development": false
     }
   ]
 }
