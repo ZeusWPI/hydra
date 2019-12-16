@@ -110,6 +110,17 @@ def werken_brug19_replacer2(_path, original):
     }
 
 
+def tijdelijke_sluiting_sint_jansvest(_path, original):
+    message = "Resto Sint-Jansvest is tijdelijk gesloten wegens wegenwerken. Tijdens de werken kan u terecht in De " \
+              "Brug. "
+    return {
+        "message": message,
+        "date": original["date"],
+        "open": False,
+        "meals": original.get("meals", [])
+    }
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -154,6 +165,13 @@ def create_changes(root_path):
             end=date(2019, 11, 11),
             all_days=True
         ),
+        ManualChange(
+            replacer=tijdelijke_sluiting_sint_jansvest,
+            resto="nl-sintjansvest",
+            start=date(2019, 12, 16),
+            end=date(2020, 1, 10),
+            all_days=True,
+        )
     ]
 
 
