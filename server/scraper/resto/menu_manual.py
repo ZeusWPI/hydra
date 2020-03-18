@@ -122,7 +122,7 @@ def tijdelijke_sluiting_sint_jansvest(_path, original):
 
 
 def corona_sluiting_nl(_path, original):
-    message = "De studentenrestaurants en cafetaria’s sluiten vanaf maandag 16 maart 2020 de deuren. " \
+    message = "De studentenrestaurants en cafetaria's sluiten vanaf maandag 16 maart 2020 de deuren. " \
               "De UGent neemt die maatregel om verdere verspreiding van het coronavirus tot een minimum te beperken. " \
               "De sluiting loopt zeker tot het einde van de paasvakantie."
     return {
