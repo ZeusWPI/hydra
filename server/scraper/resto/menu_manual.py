@@ -123,7 +123,8 @@ def tijdelijke_sluiting_sint_jansvest(_path, original):
 
 def corona_sluiting_nl(_path, original):
     message = "De studentenrestaurants en cafetaria's sluiten vanaf maandag 16 maart 2020 de deuren. " \
-              "De UGent neemt die maatregel om verdere verspreiding van het coronavirus tot een minimum te beperken. "
+              "De UGent neemt die maatregel om verdere verspreiding van het coronavirus tot een minimum te beperken. " \
+              "De sluiting loopt zeker tot en met 7 juni 2020." 
     return {
         "message": message,
         "date": original["date"],
@@ -133,7 +134,8 @@ def corona_sluiting_nl(_path, original):
 
 def corona_sluiting_en(_path, original):
     message = "The student restaurants and cafeterias will be closed as from Monday 16 March 2020. " \
-              "Ghent University is taking this measure to minimize the further spreading of the coronavirus. "
+              "Ghent University is taking this measure to minimize the further spreading of the coronavirus. " \
+              "The closure will certainly last until 7 June 2020."  
     return {
         "message": message,
         "date": original["date"],
@@ -197,42 +199,42 @@ def create_changes(root_path):
             replacer=corona_sluiting_nl,
             resto="nl",
             start=date(2020, 3, 16),
-            end=date(2020, 5, 8),
+            end=date(2020, 6, 7),
             all_days=True
         ),
         ManualChange(
             replacer=corona_sluiting_nl,
             resto="nl-sintjansvest",
             start=date(2020, 3, 16),
-            end=date(2020, 5, 8),
+            end=date(2020, 6, 7),
             all_days=True
         ),
         ManualChange(
             replacer=corona_sluiting_nl,
             resto="nl-debrug",
             start=date(2020, 3, 16),
-            end=date(2020, 5, 8),
+            end=date(2020, 6, 7),
             all_days=True
         ),
         ManualChange(
             replacer=corona_sluiting_nl,
             resto="nl-heymans",
             start=date(2020, 3, 16),
-            end=date(2020, 5, 8),
+            end=date(2020, 6, 7),
             all_days=True
         ),
         ManualChange(
             replacer=corona_sluiting_nl,
             resto="nl-kantienberg",
             start=date(2020, 3, 16),
-            end=date(2020, 5, 8),
+            end=date(2020, 6, 7),
             all_days=True
         ),
         ManualChange(
             replacer=corona_sluiting_en,
             resto="en",
             start=date(2020, 3, 16),
-            end=date(2020, 5, 8),
+            end=date(2020, 6, 7),
             all_days=True
         ),
     ]
