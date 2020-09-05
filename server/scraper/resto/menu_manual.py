@@ -376,8 +376,6 @@ def apply_existing_menus_only(output, manual_change, dates):
         with open(path, 'w') as f:
             f.write(new_content)
             print("Changed {} to".format(path))
-            print(new_content)
-            print("-------------------------------------------------------")
 
 
 def apply_all_menus(output, manual_change, dates):
@@ -406,8 +404,6 @@ def apply_all_menus(output, manual_change, dates):
         with open(path, 'w+') as f:
             f.write(new_content)
             print("Changed {} to".format(path))
-            print(new_content)
-            print("-------------------------------------------------------")
 
 
 def main(output):
@@ -424,13 +420,11 @@ def main(output):
         print("Rebuilding overviews")
         match_glob = manual_change.get_overview_glob()
         print(match_glob)
-        print("===============================================================")
         overviews = glob.glob(f"{output}/{match_glob}")
 
         # For each overview that should be rebuild
         for path in overviews:
             print("Rebuilding {}".format(path))
-            print("-----------------------------------------------------------")
             new_overview = []
             with open(path, 'r') as f:
                 overview = json.loads(f.read())
