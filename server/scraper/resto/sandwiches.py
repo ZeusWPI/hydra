@@ -83,8 +83,8 @@ def static_sandwiches(output1, output2, soup):
         sandwiches.append({
             "name": columns[0].find(text=True),
             "ingredients": parse_ingredients(columns[1].string),
-            "price_small": parse_money(columns[2].string),
-            "price_medium": parse_money(''.join(columns[3].findAll(text=True)))  # workaround
+            "price_medium": parse_money(columns[2].string),
+            "price_small": ""  # workaround
         })
 
     # The output is the same in version 1 and version 2.
@@ -103,17 +103,20 @@ def weekly_sandwiches(output, soup):
     """
 
     sandwiches = []
-
-    for row in soup.find_all('table', limit=2)[1].find_all("tr", class_=lambda x: x != 'tabelheader'):
-        columns = row.find_all("td")
-        start, end = parse_dates(columns[0].text)
-        sandwiches.append({
-            'start': start,
-            'end': end,
-            'name': columns[1].text.strip(),
-            'ingredients': parse_ingredients(columns[2].text),
-            'vegan': 'x' in columns[3].text
-        })
+    
+    tables = soup.find_all('table', limit=2)
+    
+    if len(tables) >= 2:
+        for row in soup.find_all('table', limit=2)[1].find_all("tr", class_=lambda x: x != 'tabelheader'):
+            columns = row.find_all("td")
+            start, end = parse_dates(columns[0].text)
+            sandwiches.append({
+                'start': start,
+                'end': end,
+                'name': columns[1].text.strip(),
+                'ingredients': parse_ingredients(columns[2].text),
+                'vegan': 'x' in columns[3].text
+            })
 
     today = datetime.date.today()
     # Write upcoming sandwiches to overview
