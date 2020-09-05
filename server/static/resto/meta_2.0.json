@@ -15,9 +15,9 @@
             "latitude": 51.026024,
             "longitude": 3.712939,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-sterre",
             "open": {"resto":[["11:15", "14:00"]],
-              "cafetaria":[["08:00", "14:00"]]}
+              "cafetaria":[["08:30", "14:00"]]}
         }, {
             "name": "Resto Campus Heymans",
             "address": "Harelbekestraat 70",
@@ -53,7 +53,7 @@
             "type": "resto",
             "endpoint": "nl",
             "open": {"resto":[["11:15", "14:00"]],
-              "cafetaria":[["08:14", "14:00"]]}
+              "cafetaria":[["08:30", "14:00"]]}
         }, {
             "name": "Resto Campus Coupure",
             "address": "Coupure Links 653",
@@ -61,14 +61,6 @@
             "longitude": 3.707671,
             "type": "resto",
             "endpoint": "nl",
-            "open": {"resto":[["11:15", "14:00"]]}
-        }, {
-            "name": "Resto Sint-Jansvest",
-            "address": "Sint-Jansvest 24",
-            "latitude": 51.049773,
-            "longitude": 3.727377,
-            "type": "resto",
-            "endpoint": "nl-sintjansvest",
             "open": {"resto":[["11:15", "14:00"]]}
         }, {
             "name": "Resto Kantienberg",
