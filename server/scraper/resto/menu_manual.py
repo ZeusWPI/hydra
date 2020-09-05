@@ -375,7 +375,6 @@ def apply_existing_menus_only(output, manual_change, dates):
 
         with open(path, 'w') as f:
             f.write(new_content)
-            print("Changed {} to".format(path))
 
 
 def apply_all_menus(output, manual_change, dates):
@@ -403,7 +402,6 @@ def apply_all_menus(output, manual_change, dates):
 
         with open(path, 'w+') as f:
             f.write(new_content)
-            print("Changed {} to".format(path))
 
 
 def main(output):
