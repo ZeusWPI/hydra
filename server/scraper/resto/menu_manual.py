@@ -168,7 +168,8 @@ def corona_heropening_nl(_path, original):
             "type": "main",
             "name": "Salad bowl: Tomaat-Mozzarella",
             "price": ""
-        }]
+        }],
+        "vegetables": []
     }
 
 
@@ -196,7 +197,8 @@ def corona_heropening_en(_path, original):
             "type": "main",
             "name": "Salad bowl: Tomato-Mozzarella",
             "price": ""
-        }]
+        }],
+        "vegetables": []
     }
 
 
