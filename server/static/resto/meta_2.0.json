@@ -15,7 +15,7 @@
             "latitude": 51.026024,
             "longitude": 3.712939,
             "type": "resto",
-            "endpoint": "nl-sterre",
+            "endpoint": "nl",
             "open": {"resto":[["11:15", "14:00"]],
               "cafetaria":[["08:30", "14:00"]]}
         }, {
