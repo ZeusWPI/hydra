@@ -29,7 +29,6 @@ LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}/overzic
 WEEK_MENU_URL = {
     "nl": (LINK_FORMAT.format("weekmenu")),
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
-    "nl-sintjansvest": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu-sintjansvest/",
     "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
     "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
     "nl-kantienberg": LINK_FORMAT.format("weekmenurestokantienberg")
