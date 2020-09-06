@@ -1,36 +1,39 @@
 # API's used by the Hydra app(s)
 
-## Schamper: Artikels
-Simpele RSS op: http://www.schamper.ugent.be/rss  
+## Schamper: Articles
+Simple RSS at: http://www.schamper.ugent.be/rss
+Wrapper available in the Zeus API.
 
-## UGent: Nieuws
-Simpele RSS op:  https://www.ugent.be/nl/actueel/nieuws/recente_nieuwsberichten/@@rss2json  
+## UGent: News
+Simple RSS at:  https://www.ugent.be/nl/actueel/nieuws/recente_nieuwsberichten/@@rss2json
 
-## UGent: Bibliotheken
-Alle bibliotheken (JSON): http://widgets.lib.ugent.be/libraries
+## UGent: Libraries
+All libraries (JSON): http://widgets.lib.ugent.be/libraries
 
-Agenda van specifieke bib (gebruikt het `code` attribuut van de bib als identifier):
+Calendar of a spcific library (use the `code` attribute of the library as identifier):
 http://widgets.lib.ugent.be/libraries/BHSL/calendar.json?pretty=1
 
-## DSA: Nieuws, Activiteiten & Verenigingen
-Complete representation of all data.
-http://student.ugent.be/hydra/api  
+## DSA: Activities & Associations
+https://dsa.ugent.be/swagger or, if no UGent account, https://dsa.ugent.be/api/spec
 
 ## Zeus WPI: Resto, info & special events
-Data van de resto scraper, statische info, en soms wat speciale events.
+Data of the resto scraper, static information, and special events.
 https://zeus.ugent.be/hydra/api/
+
+Note that the association logo API is deprecated and nog longer receives updated (https://hydra.ugent.be/api/2.0/association/logo/).
+Use the official one from DSA instead.
 
 ### Resto
 
-Bevat alles wat met de resto's the maken heeft: metadata, menu's, drank, desserts, enz.
+Contains everything related to resto's.
 
-Deze data wordt gescraped van https://www.ugent.be/student/nl/meer-dan-studeren/resto.  
-Potentieel komt ooit deze data daar ook bij: https://www.hogent.be/student/catering/weekmenu/.
+Data is parsed from https://www.ugent.be/student/nl/meer-dan-studeren/resto.  
+Maybe this data will be included some day: https://www.hogent.be/student/catering/weekmenu/.
 
-Bekijk de API-documentatie van versie [2.0](api-resto-02.md) of versie [1.0](api-resto-01.md).
+View the API documentation at [2.0](api-resto-02.md) (or deprecated version at [1.0](api-resto-01.md)).
 
 ## Urgent.fm: Radio Stream
-Data van de urgent scraper. Komt van http://urgent.fm/listen_live.config en http://urgent.fm.
+Data of the urgent scraper. Scraped from http://urgent.fm/listen_live.config en http://urgent.fm.
 
 ```json
 {
