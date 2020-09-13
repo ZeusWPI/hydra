@@ -18,6 +18,10 @@
         "url": "https://www.ugent.be/student"
       },
       {
+        "title": "Corona measures",
+        "url": "https://www.ugent.be/en/news-events/coronavirus-updates.htm"
+      },
+      {
         "title": "Class and exam timetables",
         "url": "https://www.ugent.be/student/en/class-exam-exchange-intern/class-exam/timetables.htm"
       },
@@ -55,7 +59,7 @@
     "title": "Medical service"
   },
   {
-    "url": "https://www.ugent.be/student/en/class-exam-exchange-intern/class-exam/academiccalendar/academiccalender2019-2020.htm",
+    "url": "https://www.ugent.be/student/en/class-exam-exchange-intern/class-exam/academiccalendar/academiccalender2020-2021.htm",
     "image": "info_academiccalendar",
     "title": "Academic calendar"
   },
@@ -68,12 +72,12 @@
     "image": "info_more",
     "subcontent": [
       {
-        "title": "Departement of StudentActivities",
-        "url": "http://www.student.ugent.be/"
+        "title": "Student Activities Office",
+        "url": "https://dsa.ugent.be/?locale=en"
       },
       {
         "title": "Ghent Student Council",
-        "url": "https://gsr.ugent.be/english"
+        "url": "https://gentsestudentenraad.be/en/"
       },
       {
         "title": "Schamper",

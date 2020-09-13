@@ -144,11 +144,8 @@ def corona_sluiting_en(_path, original):
 
 
 def corona_heropening_nl(_path, original):
-    message = "Ter plaatse eten is momenteel niet mogelijk; enkel takeaway van een beperkt aanbod. " \
-              "De coronamaatregelen blijven van kracht! Volg de veiligheidsvoorschriften. " \
-              "Vanaf 7 september openen de deuren van resto Dunant, Coupure en Sterre en van cafetaria UZ Gent. " \
-              "Op 14 september volgen resto Merelbeke en cafetaria Boekentoren. Bij de start " \
-              "van het academiejaar volgen de andere locaties."
+    message = "Resto Dunant, Coupure en Sterre en van cafetaria UZ Gent en Boekentoren zijn opnieuw open. " \
+              "Enkel takeaway van een beperkt aanbod is mogelijk en de coronamaatregelen blijven van kracht."
     return {
         "message": message,
         "date": original["date"],
@@ -156,8 +153,8 @@ def corona_heropening_nl(_path, original):
         "meals": [{
             "kind": "meat",
             "type": "main",
-            "name": "Spaghetti bolognese",
-            "price": "\u20ac 3,20"
+            "name": "Spaghetti bolognese met kaas",
+            "price": "\u20ac 3,60"
         }, {
             "kind": "vegetarian",
             "type": "main",
@@ -168,16 +165,19 @@ def corona_heropening_nl(_path, original):
             "type": "main",
             "name": "Salad bowl: Tomaat-Mozzarella",
             "price": ""
+        }, {
+            "kind": "soup",
+            "type": "main",
+            "name": "Dagsoep",
+            "price": ""
         }],
         "vegetables": []
     }
 
 
 def corona_heropening_en(_path, original):
-    message = "Eating on the spot is not possible; only takeaway of a limited offering. " \
-              "The corona measures are still in force! Follow the safety instructions. " \
-              "Restaurant Dunant, Coupure and Sterre (08:30) and cafetaria UZ Gent (09:00) will " \
-              "reopen on Monday 7 September."
+    message = "Resto Dunant, Coupure & Sterre and cafetaria UZ Gent & Boekentoren are open. " \
+              "Only takeaway of a reduced offering is possible and the Corona measures remain active."
     return {
         "message": message,
         "date": original["date"],
@@ -185,8 +185,8 @@ def corona_heropening_en(_path, original):
         "meals": [{
             "kind": "meat",
             "type": "main",
-            "name": "Spaghetti bolognese",
-            "price": "\u20ac 3,20"
+            "name": "Spaghetti bolognese with cheese",
+            "price": "\u20ac 3,60"
         }, {
             "kind": "vegetarian",
             "type": "main",
@@ -197,15 +197,19 @@ def corona_heropening_en(_path, original):
             "type": "main",
             "name": "Salad bowl: Tomato-Mozzarella",
             "price": ""
+        }, {
+            "kind": "soup",
+            "type": "main",
+            "name": "Soup of the day",
+            "price": ""
         }],
         "vegetables": []
     }
 
 
 def corona_closed_for_now(_path, original):
-    message = "Vanaf 7 september openen de deuren van resto Dunant, Coupure en Sterre en van cafetaria UZ Gent. " \
-              "Op 14 september volgen resto Merelbeke en cafetaria Boekentoren. Bij de start " \
-              "van het academiejaar volgen de andere locaties."
+    message = "Resto Dunant, Coupure en Sterre en van cafetaria UZ Gent en Boekentoren zijn opnieuw open. " \
+              "Bij de start van het academiejaar volgen de andere locaties."
     return {
         "message": message,
         "date": original["date"],
@@ -215,7 +219,7 @@ def corona_closed_for_now(_path, original):
 
 def kantienberg_2020(_path, original):
     return {
-        "message": "Resto Kantienberg blijft voorlopig gesloten.",
+        "message": "Resto Kantienberg blijft voorlopig gesloten tijdens academiejaar 2020-2021.",
         "date": original["date"],
         "open": False
     }
