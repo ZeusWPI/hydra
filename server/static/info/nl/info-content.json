@@ -18,6 +18,10 @@
         "url": "https://www.ugent.be/student"
       },
       {
+        "title": "Coronamaatregelen",
+        "url": "https://www.ugent.be/nl/actueel/coronavirus.htm"
+      },
+      {
         "title": "Les- en examenroosters",
         "url": "https://www.ugent.be/student/nl/studeren/les-en-examenroosters"
       },
@@ -68,7 +72,7 @@
     "title": "Studentenartsen"
   },
   {
-    "url": "https://www.ugent.be/student/nl/studeren/kalender/kalender20192020.htm",
+    "url": "https://www.ugent.be/student/nl/studeren/kalender/kalender20202021.htm",
     "image": "info_academiccalendar",
     "title": "Academische kalender"
   },
@@ -82,7 +86,7 @@
     "subcontent": [
       {
         "title": "Dienst StudentenActiviteiten",
-        "url": "http://www.student.ugent.be/"
+        "url": "http://dsa.ugent.be/"
       },
       {
         "title": "Gentse StudentenRaad",
