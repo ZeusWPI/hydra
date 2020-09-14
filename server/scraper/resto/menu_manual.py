@@ -144,7 +144,7 @@ def corona_sluiting_en(_path, original):
 
 
 def corona_heropening_nl(_path, original):
-    message = "Resto Dunant, Coupure en Sterre en van cafetaria UZ Gent en Boekentoren zijn opnieuw open. " \
+    message = "Resto Dunant, Coupure en Sterre en cafetaria UZ Gent en Boekentoren zijn opnieuw open. " \
               "Enkel takeaway van een beperkt aanbod is mogelijk en de coronamaatregelen blijven van kracht."
     return {
         "message": message,
