@@ -177,7 +177,7 @@ def corona_heropening_nl(_path, original):
 
 
 def corona_heropening_en(_path, original):
-    message = "The canteen is closed; only takeaway of a reduced offering is possible. The Corona measures remain active! " \ 
+    message = "The canteen is closed; only takeaway of a reduced offering is possible. The Corona measures remain active! " \
               "Resto Dunant, Coupure & Sterre and cafetaria UZ Gent & Boekentoren are open. " \
               "At the start of the academic year, the other locations will follow."
     return {
