@@ -31,7 +31,8 @@ WEEK_MENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
     "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
     "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
-    "nl-kantienberg": LINK_FORMAT.format("weekmenurestokantienberg")
+    # Closed for this year.
+    #"nl-kantienberg": LINK_FORMAT.format("weekmenurestokantienberg")
 }
 
 # Define the page type for the resto.
@@ -97,8 +98,14 @@ HEADING_TO_TYPE = {
     'soup': 'soup',
     'meal soup': 'meal soup',
     'main dish': 'meat',
-    'vegetables': 'vegetables'
+    'vegetables': 'vegetables',
+    'warme gerechten': 'meat',
+    'koude gerechten (zelf op te warmen)': 'meat'
 }
+
+HOT_COLD_MAPPING = collections.defaultdict(lambda: 'hot', {
+    'koude gerechten (zelf op te warmen)': 'cold'
+})
 
 
 def get_weeks_rss_json(url):
@@ -214,31 +221,32 @@ def get_day_menu(which, url):
             name, price = split_price(meal)
             soups.append(dict(price=price, name=name, type='main'))
         elif HEADING_TO_TYPE[last_heading] == 'meat':
+            hot_cold = HOT_COLD_MAPPING[last_heading]
             name, price = split_price(meal)
             if ':' in meal:  # Meat in the old way
                 kind, name = [s.strip() for s in name.split(':')]
                 kind = kind.lower()
                 kind = TRANSLATE_KIND[kind]
-                meats.append(dict(price=price, name=name, kind=kind))
+                meats.append(dict(price=price, name=name, kind=kind, hot=hot_cold))
             else:  # Meat in the new way
                 # If the name contains '-', it might be an indication of vegan/vegi
                 if '-' in name:
                     kind = name.split('-')[-1].strip()
                     stripped_name = '-'.join(name.split('-')[:-1]).strip()  # Re-join other splits
                     if kind in TRANSLATE_KIND:
-                        meats.append(dict(price=price, name=stripped_name, kind=TRANSLATE_KIND[kind]))
+                        meats.append(dict(price=price, name=stripped_name, kind=TRANSLATE_KIND[kind], hot=hot_cold))
                     else:
-                        meats.append(dict(price=price, name=name, kind='meat'))
+                        meats.append(dict(price=price, name=name, kind='meat', hot=hot_cold))
                 else:
                     # Sometimes there is vegan/vegetarian in the name, in which case they don't repeat the type.
                     if any(possible in name.lower() for possible in POSSIBLE_VEGETARIAN):
-                        meats.append(dict(price=price, name=name, kind='vegetarian'))
+                        meats.append(dict(price=price, name=name, kind='vegetarian', hot=hot_cold))
                     elif any(possible in name.lower() for possible in POSSIBLE_VEGAN):
-                        meats.append(dict(price=price, name=name, kind='vegan'))
+                        meats.append(dict(price=price, name=name, kind='vegan', hot=hot_cold))
                     elif any(possible in name.lower() for possible in POSSIBLE_FISH):
-                        meats.append(dict(price=price, name=name, kind='fish'))
+                        meats.append(dict(price=price, name=name, kind='fish', hot=hot_cold))
                     else:
-                        meats.append(dict(price=price, name=name, kind='meat'))
+                        meats.append(dict(price=price, name=name, kind='meat', hot=hot_cold))
         elif HEADING_TO_TYPE[last_heading] == 'vegetables':
             vegetables.append(meal)
         else:
@@ -306,51 +314,6 @@ class DateStuff(object):
         return DateStuff.iso_to_gregorian(iso_year, iso_week, iso_day)
 
 
-def write_1_0(root_path, menus, use_existing=True):
-    """
-    Write the menus for version 1.0 of the API. This is Dutch only.
-    :param use_existing: If existing data should be deleted or not. Set to true if re-writing all data.
-    :param root_path: The output path for version 1.0. This is the root path. The subfolder menu will be created.
-    :param menus: The menus to write.
-    """
-    for week_year, week_menu in menus['nl'].items():
-        year, week = week_year
-        # Read existing data
-        output_file = os.path.join(root_path, OUTFILE_1_0.format(year, week))
-        if use_existing:
-            try:
-                with open(output_file, 'r') as f:
-                    menu = json.load(f)
-            except FileNotFoundError:
-                menu = {}
-        else:
-            menu = {}
-        for day, day_menu in week_menu.items():
-            if not day_menu["open"]:
-                day_menu1_0 = {"open": False}
-            else:
-                day_menu1_0 = {
-                    "open": True,
-                    "soup": day_menu["soup"][0],
-                    "meat": [day_menu["soup"][1]],
-                    "vegetables": day_menu["vegetables"]
-                }
-                day_menu1_0["meat"][0]["recommended"] = False
-                for meat in day_menu["meat"]:
-                    name = meat["name"]
-                    price = meat["price"]
-                    if "vegetarian" in meat["kind"]:
-                        name = "Veg. " + name
-                    day_menu1_0["meat"].append({
-                        'name': name,
-                        'price': price,
-                        'recommended': False
-                    })
-            menu[str(day)] = day_menu1_0
-
-        write_json_to_file(menu, output_file)
-
-
 def write_2_0(root_path, menus):
     """
     Write the menus for version 2.0 of the API.
@@ -382,7 +345,7 @@ def write_2_0(root_path, menus):
                             kind=meal['kind'],
                             name=meal['name'],
                             price=meal['price'],
-                            type='main',
+                            type='main' if meal['hot'] == 'hot' else 'cold',
                         ))
                     menu['vegetables'] = day_menu['vegetables']
 
@@ -400,7 +363,7 @@ def write_2_0(root_path, menus):
         )
 
 
-def main(output_v1, output_v2):
+def main(output_v2):
     """The main method."""
 
     all_problems = {}
@@ -458,17 +421,14 @@ def main(output_v1, output_v2):
     if all_problems:
         pprint(all_problems, stream=sys.stderr)
 
-    write_1_0(output_v1, menus)
     write_2_0(output_v2, menus)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run main resto scraper')
-    parser.add_argument('v1', help='Folder for v1 output. Will be created if needed.')
     parser.add_argument('v2', help='Folder for v2 output. Will be created if needed.')
     args = parser.parse_args()
 
-    output_path_v1 = os.path.abspath(args.v1)  # Like realpath
     output_path_v2 = os.path.abspath(args.v2)  # Like realpath
 
-    main(output_path_v1, output_path_v2)
+    main(output_path_v2)

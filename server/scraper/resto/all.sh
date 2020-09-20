@@ -48,7 +48,7 @@ pushd "$dir"
 
 # Run scraper
 echo "Scraping all the menus"
-command="$dir/menu.py $output1 $output2"
+command="$dir/menu.py $output2"
 # shellcheck disable=2086
 eval ${command}
 
@@ -58,7 +58,7 @@ command="$dir/menu_manual.py $output2"
 eval ${command}
 
 echo "Scraping sandwiches"
-command="$dir/sandwiches.py $output1 $output2"
+command="$dir/sandwiches.py $output2"
 # shellcheck disable=2086
 eval ${command}
 # Symlink old file for compatibility reasons

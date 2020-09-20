@@ -14,18 +14,16 @@ This document describes version 1.0 of the API.
 
 | Version                | Endpoint                                   | Status     |
 |------------------------|--------------------------------------------|------------|
-| 1.0 (this)             | https://zeus.ugent.be/hydra/api/1.0/resto/ | deprecated |
+| 1.0 (this)             | https://zeus.ugent.be/hydra/api/1.0/resto/ | retired    |
 | [2.0](api-resto-02.md) | https://zeus.ugent.be/hydra/api/2.0/resto/ | current    |
 
-This API is deprecated. Applications are encouraged to migrate to version 2.0 of the API.
+Applications are encouraged to migrate to version 2.0 of the API.
 
-This means that although there are currently no concrete plans to retire the API, the API is no longer developed. New features will not be added and bugs may not be fixed.
+This API is retired. Existing data will continue to be served for now, but the data is no longer updated.
 
 ## Data dump
 
 All scraped data available in this API is also available as a [git repository](https://git.zeus.gent/hydra/data). If you need all available data, it is probably easier and faster to download or clone the repo.
-
-If or when this version of the API is sunset, the data will remain available in the repo above.
 
 ## Technical description
 
