@@ -20,6 +20,7 @@ HTML_PARSER = 'lxml'
 STATIC_SANDWICHES = "sandwiches/static.json"
 UPCOMING_SANDWICHES = "sandwiches/overview.json"
 YEARLY_SANDWICHES = "sandwiches/{}.json"
+SALADS = "salads.json"
 
 
 def parse_ingredients(ingredients):
@@ -69,10 +70,9 @@ def parse_dates(week):
     return start_date, end_date
 
 
-def static_sandwiches(output1, output2, soup):
+def static_sandwiches(output2, soup):
     """
     Parse sandwiches from the menu.
-    :param output1: The root output folder for v1.
     :param output2: The root output folder for v2.
     :param soup: BeautifulSoup of the page with the data.
     """
@@ -87,9 +87,6 @@ def static_sandwiches(output1, output2, soup):
             "price_small": ""  # workaround
         })
 
-    # The output is the same in version 1 and version 2.
-    output_file1 = os.path.join(output1, "sandwiches.json")
-    write_json_to_file(sandwiches, output_file1)
     output_file2 = os.path.join(output2, STATIC_SANDWICHES)
     write_json_to_file(sandwiches, output_file2)
 
@@ -103,9 +100,9 @@ def weekly_sandwiches(output, soup):
     """
 
     sandwiches = []
-    
+
     tables = soup.find_all('table', limit=2)
-    
+
     if len(tables) >= 2:
         for row in soup.find_all('table', limit=2)[1].find_all("tr", class_=lambda x: x != 'tabelheader'):
             columns = row.find_all("td")
@@ -156,31 +153,50 @@ def weekly_sandwiches(output, soup):
         write_json_to_file(existing, output_file)
 
 
-def all_sandwiches(output1, output2):
+def salad_bowls(output, soup):
+    """
+    Get the salad bowls.
+    :param output: The root output folder for v2.
+    :param soup: BeautifulSoup of the page with the data.
+    """
+    bowls = []
+
+    tables = soup.find_all('table', limit=3)
+
+    if len(tables) >= 3:
+        for row in soup.find_all('table', limit=3)[2].find_all("tr", class_=lambda x: x != 'tabelheader'):
+            columns = row.find_all("td")
+            bowls.append({
+                'name': columns[0].text.strip(),
+                'description': columns[1].text.strip(),
+                'price': parse_money(columns[2].string)
+            })
+
+    output_file = os.path.join(output, SALADS)
+    write_json_to_file(bowls, output_file)
+
+
+def all_sandwiches(output2):
     """
     Get all sandwiches.
-    :param output1: The root output folder for v1.
     :param output2: The root output folder for v2.
     """
 
     r = requests.get(SANDWICHES_URL)
     soup = BeautifulSoup(r.text, HTML_PARSER)
 
-    static_sandwiches(output1, output2, soup)
+    static_sandwiches(output2, soup)
     weekly_sandwiches(output2, soup)
+    salad_bowls(output2, soup)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run sandwich scraper')
-    parser.add_argument('output1',
-                        help='Path of the folder v1 in which the output must be written. Will be created if needed.')
     parser.add_argument('output2',
                         help='Path of the folder v2 in which the output must be written. Will be created if needed.')
     args = parser.parse_args()
 
-    output_path1 = os.path.abspath(args.output1)  # Like realpath
-    os.makedirs(output_path1, exist_ok=True)  # Like mkdir -p
     output_path2 = os.path.abspath(args.output2)
     os.makedirs(output_path2, exist_ok=True)
 
-    all_sandwiches(output_path1, output_path2)
+    all_sandwiches(output_path2)
