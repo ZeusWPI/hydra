@@ -1,4 +1,4 @@
-# Resto API 2.0
+# Resto API 2.3
 
 ## Introduction
 
@@ -16,8 +16,8 @@ This document describes the current version of the API, version 2.0.
 
 | Version                | Endpoint                                   | Status     |
 |------------------------|--------------------------------------------|------------|
-| [1.0](api-resto-01.md) | https://zeus.ugent.be/hydra/api/1.0/resto/ | deprecated |
-| 2.0 (this)             | https://zeus.ugent.be/hydra/api/2.0/resto/ | current    |
+| [1.0](api-resto-01.md) | https://zeus.ugent.be/hydra/api/1.0/resto/ | retired |
+| 2.3 (this)             | https://zeus.ugent.be/hydra/api/2.0/resto/ | current    |
 
 ## Data dump
 
@@ -25,21 +25,27 @@ All scraped data available in this API is also available as a [git repository](h
 
 ## Changelog
 
-- _April 2019_ - Added new `message` field to menu to indicate closures and changes in meals.
-- _September 2019_ - Added ecological sandwich of the week
+- _April 2019_ - Added new `message` field to menu to indicate closures and changes in meals. (2.1)
+- _September 2019_ - Added ecological sandwich of the week (2.2)
+- _September 2020_ - Corona update (2.3):
+  - The meal type `side` is no longer used.
+  - A new meal type is present: `cold`.
+  - Add a new endpoint for salad bowls.
+  - API 1.0 has been retired.
 
 ## Technical description
 
-| Endpoint                              | Description                    |
-|---------------------------------------|--------------------------------|
-| [`GET /meta.json`](#metadata)         | Information about the restos. |
-| [`GET /extrafood.json`](#extra-food)  | List of additional available items, such as breakfast or desserts. |
-| [`GET /menu/{endpoint}/overview.json`](#overview-menu) | The future menu for a specific resto. |
-| [`GET /menu/{endpoint}/{year}/{month}/{day}.json`](#day-menu) | The menu for a particular day. |
-| `GET /sandwiches.json` | (deprecated)   |
-| [`GET /sandwiches/static.json`](#regular-sandwiches)         | List of normal sandwiches. |
-| [`GET /sandwiches/overview.json`](#weekly-sandwiches-overview)         | Upcoming ecological sandwiches. |
-| [`GET /sandwiches/{year}.json`](#weekly-sandwiches-yearly)         | All ecological sandwiches. |
+| Endpoint                                                          | Description                    |
+|-------------------------------------------------------------------|--------------------------------|
+| [`GET /meta.json`](#metadata)                                     | Information about the resto's. |
+| [`GET /extrafood.json`](#extra-food)                              | List of additional available items, such as breakfast or desserts. |
+| [`GET /menu/{endpoint}/overview.json`](#overview-menu)            | The future menu for a specific resto. |
+| [`GET /menu/{endpoint}/{year}/{month}/{day}.json`](#day-menu)     | The menu for a particular day. |
+| `GET /sandwiches.json`                                            | (deprecated)   |
+| [`GET /sandwiches/static.json`](#regular-sandwiches)              | List of normal sandwiches. |
+| [`GET /sandwiches/overview.json`](#weekly-sandwiches-overview)    | Upcoming ecological sandwiches. |
+| [`GET /sandwiches/{year}.json`](#weekly-sandwiches-yearly)        | All ecological sandwiches. |
+| [`GET /salads.json`](#salad-bowls)                                | Available salad bowls |
 
 Date and hour specifiers are from ISO 8601:2014.
 
@@ -276,7 +282,7 @@ Lists available regular sandwiches, their price and their ingredients. Sample ou
 | `ingredients` | A list of the ingredients in the sandwich.
 | `name` | The name of the sandwich.
 | `price_medium` | The (textual) price in euros for a normal sandwich.
-| `price_medium` | The (textual) price in euros for a small sandwich.
+| `price_small` | The (textual) price in euros for a small sandwich.
 
 ### Weekly sandwiches overview
 
@@ -290,6 +296,8 @@ Lists all upcoming ecological sandwiches of the week ("ecologisch broodje van de
 
 **Parameters**:
 - _year_ -- Which year you want the sandwiches of. Values must be a positive integer. Currently, the earliest available year is 2019 (but this might change in the future). ISO format: `YYYY`.
+
+Starting in academic year 2020-2021, this is listed as "groentespread".
 
 Lists all sandwiches which were or are available in the specified year. Sample output:
 
@@ -318,4 +326,25 @@ Lists all sandwiches which were or are available in the specified year. Sample o
 | `vegan` | Boolean indicating if the sandwich is vegan or not (not to be confused with vegetarian).
 
 
+### Salad bowls
 
+**Endpoint**: `GET /salads.json`
+
+Lists available salad bowls, their price and a description. Sample output:
+
+
+```json
+[
+  {
+    "description": "Assortiment groenten, mozzarella, tomaat, basilicum pesto en sla",
+    "name": "Tomaat-mozzarella",
+    "price": "3.00"
+  }
+]
+```
+
+| Field | Description
+|-------|-------------
+| `description` | A description of the salad bowl. Often contains information about ingredients.
+| `name` | The name of the salad bowl.
+| `price` | The price in euros for a normal sandwich (this is a string).

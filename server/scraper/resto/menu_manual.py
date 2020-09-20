@@ -221,10 +221,24 @@ def corona_closed_for_now(_path, original):
 
 def kantienberg_2020(_path, original):
     return {
-        "message": "Resto Kantienberg blijft voorlopig gesloten tijdens academiejaar 2020-2021.",
+        "message": "Resto Kantienberg blijft gesloten tijdens academiejaar 2020-2021.",
         "date": original["date"],
         "open": False
     }
+
+
+def corona_2020_2021_nl(_path, original):
+    message = "Door de coronamaatregelen veranderen enkele zaken: ter plaatse eten is niet mogelijk " \
+              "(enkel afhalen) en er is een beperkter aanbod."
+    original["message"] = message
+    return original
+
+
+def corona_2020_2021_en(_path, original):
+    message = "Due to the corona measures, some changes are made: only takeaway is possible " \
+              "and the offering is reduced."
+    original["message"] = message
+    return original
 
 
 def create_changes(root_path):
@@ -325,37 +339,61 @@ def create_changes(root_path):
             replacer=corona_heropening_nl,
             resto="nl",
             start=date(2020, 9, 7),
-            end=date(2020, 9, 30),
+            end=date(2020, 9, 20),
             all_days=True
         ),
         ManualChange(
             replacer=corona_heropening_en,
             resto="en",
             start=date(2020, 9, 7),
-            end=date(2020, 9, 30),
+            end=date(2020, 9, 20),
             all_days=True
         ),
         ManualChange(
             replacer=corona_closed_for_now,
             resto="nl-debrug",
             start=date(2020, 9, 7),
-            end=date(2020, 9, 30),
+            end=date(2020, 9, 20),
             all_days=True
         ),
         ManualChange(
             replacer=corona_closed_for_now,
             resto="nl-heymans",
             start=date(2020, 9, 7),
-            end=date(2020, 9, 30),
+            end=date(2020, 9, 20),
             all_days=True
         ),
         ManualChange(
             replacer=kantienberg_2020,
             resto="nl-kantienberg",
             start=date(2020, 9, 7),
-            end=date(2020, 9, 30),
+            end=date(2021, 7, 1),
             all_days=True
         ),
+        ManualChange(
+            replacer=corona_2020_2021_en,
+            resto="en",
+            start=date(2020, 9, 21),
+            end=date(2020, 12, 31)
+        ),
+        ManualChange(
+            replacer=corona_2020_2021_nl,
+            resto="nl",
+            start=date(2020, 9, 21),
+            end=date(2020, 12, 31)
+        ),
+        ManualChange(
+            replacer=corona_2020_2021_nl,
+            resto="nl-debrug",
+            start=date(2020, 9, 21),
+            end=date(2020, 12, 31)
+        ),
+        ManualChange(
+            replacer=corona_2020_2021_nl,
+            resto="nl-heymans",
+            start=date(2020, 9, 21),
+            end=date(2020, 12, 31)
+        )
     ]
 
 
