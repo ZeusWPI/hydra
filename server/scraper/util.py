@@ -25,6 +25,9 @@ def write_json_to_file(obj, path):
 
 
 def split_price(meal):
-    price = meal.split('-')[-1].strip()
-    name = '-'.join(meal.split('-')[:-1]).strip()
-    return name, price
+    if "-" in meal:
+        price = meal.split('-')[-1].strip()
+        name = '-'.join(meal.split('-')[:-1]).strip()
+        return name, price
+    else:
+        return meal.strip(), ""
