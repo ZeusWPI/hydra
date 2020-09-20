@@ -16,7 +16,7 @@ sys.path.append('..')
 
 # Relative import, since Python cannot handle being a script
 from backoff import retry_session
-from util import write_json_to_file
+from util import write_json_to_file, split_price
 
 # Where to write to.
 OUTFILE_1_0 = "menu/{}/{}.json"
@@ -168,12 +168,6 @@ def get_days(which, iso_week, url):
     })
 
     return r
-
-
-def split_price(meal):
-    price = meal.split('-')[-1].strip()
-    name = '-'.join(meal.split('-')[:-1]).strip()
-    return name, price
 
 
 def get_day_menu(which, url):

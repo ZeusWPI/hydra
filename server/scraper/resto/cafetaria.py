@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 sys.path.append('..')
 
 from backoff import retry_session
-from util import parse_money, write_json_to_file
+from util import parse_money, write_json_to_file, split_price
 
 HTML_PARSER = 'lxml'
 BASE_URL = 'https://www.ugent.be/student/nl/meer-dan-studeren/resto/ophetmenu/'
@@ -20,10 +20,15 @@ def get_breakfast():
     r = retry_session.get(BASE_URL + 'ontbijt.htm')
     soup = BeautifulSoup(r.text, HTML_PARSER)
     data = []
-    for row in soup.table.find_all('tr'):
-        columns = row.find_all('td')
-        data.append({'name': columns[0].string,
-                     'price': parse_money(columns[1].string)})
+    ul = soup.find(id="content-core").find(name="ul")
+    for item in ul.find_all(name="li"):
+        full = item.text
+        if '-' in full:
+            name, money = split_price(full)
+        else:
+            name, money = name, ""
+        data.append({'name': name,
+                     'price': parse_money(money)})
     return data
 
 
