@@ -241,6 +241,22 @@ def corona_2020_2021_en(_path, original):
     return original
 
 
+def corona_2020_2021_nl_red(_path, original):
+    message = "Door de coronamaatregelen veranderen enkele zaken: ter plaatse eten is niet mogelijk " \
+              "(enkel afhalen) en er is een beperkter aanbod. " \
+              "De resto's en cafetaria's blijven open tijdens code rood."
+    original["message"] = message
+    return original
+
+
+def corona_2020_2021_en_red(_path, original):
+    message = "Due to the corona measures, some changes are made: only takeaway is possible " \
+              "and the offering is reduced. " \
+              "The restaurants and cafetaria's will remain open in code red."
+    original["message"] = message
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -374,24 +390,48 @@ def create_changes(root_path):
             replacer=corona_2020_2021_en,
             resto="en",
             start=date(2020, 9, 21),
-            end=date(2020, 12, 31)
+            end=date(2020, 10, 18)
         ),
         ManualChange(
             replacer=corona_2020_2021_nl,
             resto="nl",
             start=date(2020, 9, 21),
-            end=date(2020, 12, 31)
+            end=date(2020, 10, 18)
         ),
         ManualChange(
             replacer=corona_2020_2021_nl,
             resto="nl-debrug",
             start=date(2020, 9, 21),
-            end=date(2020, 12, 31)
+            end=date(2020, 10, 18)
         ),
         ManualChange(
             replacer=corona_2020_2021_nl,
             resto="nl-heymans",
             start=date(2020, 9, 21),
+            end=date(2020, 10, 19)
+        ),
+        ManualChange(
+            replacer=corona_2020_2021_en_red,
+            resto="en",
+            start=date(2020, 10, 19),
+            end=date(2020, 12, 19)
+        ),
+        ManualChange(
+            replacer=corona_2020_2021_nl_red,
+            resto="nl",
+            start=date(2020, 10, 19),
+            end=date(2020, 12, 19)
+        ),
+        ManualChange(
+            replacer=corona_2020_2021_nl_red,
+            resto="nl-debrug",
+            start=date(2020, 10, 19),
+            end=date(2020, 12, 19)
+        ),
+        ManualChange(
+            replacer=corona_2020_2021_nl_red,
+            resto="nl-heymans",
+            start=date(2020, 10, 19),
             end=date(2020, 12, 31)
         )
     ]
