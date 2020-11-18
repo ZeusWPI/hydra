@@ -121,6 +121,18 @@
       "end": "2020-10-28T12:00:00+02:00",
       "id": 13,
       "development": false
+    },
+    {
+      "name": "De Sociale Dienst staat klaar",
+      "link": "http://www.ugent.be/socialedienst",
+      "simple-text": "Code groen, geel, oranje of rood? De Sociale Dienst helpt je er doorheen. Bekijk zeker de mogelijkheden voor studiefinanciering!",
+      "image": "https://styleguide.ugent.be/files/uploads/logo_UGent_NL_RGB_2400_kleur_witbg.png",
+      "html": "",
+      "priority": 990,
+      "start": "2020-11-18T12:00:00+02:00",
+      "end": "2020-12-18T12:00:00+02:00",
+      "id": 14,
+      "development": false
     }
   ]
 }

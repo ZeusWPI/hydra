@@ -59,6 +59,11 @@
     "title": "Medical service"
   },
   {
+    "url": "http://www.ugent.be/socialedienst",
+    "image": "info_heart",
+    "title": "Social service"
+  },
+  {
     "url": "https://www.ugent.be/student/en/class-exam-exchange-intern/class-exam/academiccalendar/academiccalender2020-2021.htm",
     "image": "info_academiccalendar",
     "title": "Academic calendar"
