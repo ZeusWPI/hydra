@@ -14,7 +14,7 @@
             "latitude": 51.026024,
             "longitude": 3.712939,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-sterre",
             "open": {"resto":[["08:30", "14:00"]]}
         }, {
             "name": "Resto Campus Heymans",
@@ -39,7 +39,7 @@
             "latitude": 50.998369,
             "longitude": 3.766454,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-merelbeke",
             "open": {"resto":[["08:30", "15:00"]]}
         }, {
             "name": "Resto Campus Dunant",
@@ -47,7 +47,7 @@
             "latitude": 51.049023,
             "longitude": 3.704017,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-dunant",
             "open": {"resto":[["08:30", "15:00"]]}
         }, {
             "name": "Resto Campus Coupure",
@@ -55,22 +55,15 @@
             "latitude": 51.053252,
             "longitude": 3.707671,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-coupure",
             "open": {"resto":[["08:30", "15:00"]]}
-        }, {
-            "name": "Resto Kantienberg",
-            "address": "Stalhof 45",
-            "latitude": 51.039852,
-            "longitude": 3.728759,
-            "type": "resto",
-            "endpoint": "nl-kantienberg",
-            "open": {}
         }, {
             "name": "Resto Ardoyen",
             "address": "Technologiepark-Zwijnaarde 75, 9052 Zwijnaarde",
             "latitude": 51.010207,
             "longitude": 3.707660,
             "type": "resto",
+            "endpoint": "nl-ardoyen",
             "open": {"resto":[["08:30", "15:00"]]}
         }, {
             "name": "Cafetaria Campus Boekentoren",
@@ -78,7 +71,7 @@
             "latitude": 51.043960,
             "longitude": 3.725230,
             "type": "cafetaria",
-            "open": {"cafetaria":[["08:00", "14:00"]]}
+            "open": {}
         }, {
             "name": "Cafetaria Campus UZ Gent",
             "address": "Corneel Heymanslaan",
@@ -92,21 +85,14 @@
             "latitude": 51.036520,
             "longitude": 3.723990,
             "type": "cafetaria",
-            "open": {"cafetaria":[["08:00", "14:30"]]}
+            "open": {}
         }, {
             "name": "Cafetaria Campus Aula",
             "address": "Universiteitsstraat 4",
             "latitude": 51.051029,
             "longitude": 3.723928,
             "type": "cafetaria",
-            "open": {"cafetaria":[["08:00", "14:30"]]}
-        }, {
-            "name": "Club Het Pand",
-            "address": "Onderbergen 1",
-            "latitude": 51.052945,
-            "longitude": 3.719700,
-            "type": "club",
-            "open": {"resto":[["12:00", "14:00"], ["18:00", "21:30"]]}
+            "open": {}
         }
     ]
 }
