@@ -23,7 +23,7 @@ class ManualChange:
         original menu.
         :param start: The start date (inclusive).
         :param end: The end date (inclusive).
-        :param resto: Which restaurant to apply to.
+        :param resto: Which restaurant(s) to apply to.
         :param all_days: If the message should be added for all weekdays in the range. If false (the default), the
         changes will only be applied if there already is a menu for the day.
         """
@@ -31,15 +31,14 @@ class ManualChange:
         self.start = start
         self.end = end
         self.resto = resto
+        if isinstance(self.resto, str):
+            self.resto = [self.resto]
+        assert isinstance(self.resto, list)
         self.all_days = all_days
 
     def is_applicable(self, menu_date):
         """Check if this change is applicable to the given date"""
         return self.start <= menu_date <= self.end
-
-    def get_overview_glob(self):
-        """Get relative glob for the overview"""
-        return f"menu/{self.resto}/overview.json"
 
     def date_range(self):
         """Return an iterator over the applicable range. Only weekdays are returned."""
@@ -242,9 +241,13 @@ def corona_2020_2021_en(_path, original):
 
 
 def corona_2020_2021_nl_red(_path, original):
-    message = "Door de coronamaatregelen veranderen enkele zaken: ter plaatse eten is niet mogelijk " \
-              "(enkel afhalen) en er is een beperkter aanbod. " \
-              "De resto's en cafetaria's blijven open tijdens code rood."
+    message = "Enkel afhalen en een beperkter aanbod. De coronamaatregelen blijven van kracht!"
+    original["message"] = message
+    return original
+
+
+def corona_2020_2021_cold(_path, original):
+    message = "Enkel cafetaria-aanbod en koude meeneemgerechten. De coronamaatregelen blijven van kracht!"
     original["message"] = message
     return original
 
@@ -311,35 +314,7 @@ def create_changes(root_path):
         # Corona
         ManualChange(
             replacer=corona_sluiting_nl,
-            resto="nl",
-            start=date(2020, 3, 16),
-            end=date(2020, 6, 7),
-            all_days=True
-        ),
-        ManualChange(
-            replacer=corona_sluiting_nl,
-            resto="nl-sintjansvest",
-            start=date(2020, 3, 16),
-            end=date(2020, 6, 7),
-            all_days=True
-        ),
-        ManualChange(
-            replacer=corona_sluiting_nl,
-            resto="nl-debrug",
-            start=date(2020, 3, 16),
-            end=date(2020, 6, 7),
-            all_days=True
-        ),
-        ManualChange(
-            replacer=corona_sluiting_nl,
-            resto="nl-heymans",
-            start=date(2020, 3, 16),
-            end=date(2020, 6, 7),
-            all_days=True
-        ),
-        ManualChange(
-            replacer=corona_sluiting_nl,
-            resto="nl-kantienberg",
+            resto=["nl", "nl-sintjansvest", "nl-debrug", "nl-heymans", "nl-kantienberg"],
             start=date(2020, 3, 16),
             end=date(2020, 6, 7),
             all_days=True
@@ -367,14 +342,7 @@ def create_changes(root_path):
         ),
         ManualChange(
             replacer=corona_closed_for_now,
-            resto="nl-debrug",
-            start=date(2020, 9, 7),
-            end=date(2020, 9, 20),
-            all_days=True
-        ),
-        ManualChange(
-            replacer=corona_closed_for_now,
-            resto="nl-heymans",
+            resto=["nl-debrug", "nl-heymans"],
             start=date(2020, 9, 7),
             end=date(2020, 9, 20),
             all_days=True
@@ -394,21 +362,9 @@ def create_changes(root_path):
         ),
         ManualChange(
             replacer=corona_2020_2021_nl,
-            resto="nl",
+            resto=["nl", "nl-debrug", "nl-heymans"],
             start=date(2020, 9, 21),
             end=date(2020, 10, 18)
-        ),
-        ManualChange(
-            replacer=corona_2020_2021_nl,
-            resto="nl-debrug",
-            start=date(2020, 9, 21),
-            end=date(2020, 10, 18)
-        ),
-        ManualChange(
-            replacer=corona_2020_2021_nl,
-            resto="nl-heymans",
-            start=date(2020, 9, 21),
-            end=date(2020, 10, 19)
         ),
         ManualChange(
             replacer=corona_2020_2021_en_red,
@@ -418,20 +374,14 @@ def create_changes(root_path):
         ),
         ManualChange(
             replacer=corona_2020_2021_nl_red,
-            resto="nl",
+            resto=["nl-debrug", "nl-heymans", "nl-sterre", "nl-ardoyen"],
             start=date(2020, 10, 19),
             end=date(2020, 12, 19)
         ),
         ManualChange(
-            replacer=corona_2020_2021_nl_red,
-            resto="nl-debrug",
-            start=date(2020, 10, 19),
-            end=date(2020, 12, 19)
-        ),
-        ManualChange(
-            replacer=corona_2020_2021_nl_red,
-            resto="nl-heymans",
-            start=date(2020, 10, 19),
+            replacer=corona_2020_2021_cold,
+            resto=["nl-coupure", "nl-dunant", "nl-merelbeke"],
+            start=date(2020, 11, 28),
             end=date(2020, 12, 31)
         )
     ]
@@ -444,23 +394,24 @@ def apply_existing_menus_only(output, manual_change, dates):
     print(f"Matching existing menus from {manual_change.resto} between {manual_change.start} to {manual_change.end}")
     print("====================================================================")
 
-    files = glob.glob(f"{output}/menu/{manual_change.resto}/*/*/*.json")
-    file_pattern = re.compile(r'.*/(\d+)/(\d+)/(\d+)\.json$')
-    for path in files:
-        # Check if this file applies or not.
-        m = file_pattern.search(path.replace("\\", "/"))
-        file_date = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-        if not manual_change.is_applicable(file_date):
-            continue
+    for resto in manual_change.resto:
+        files = glob.glob(f"{output}/menu/{resto}/*/*/*.json")
+        file_pattern = re.compile(r'.*/(\d+)/(\d+)/(\d+)\.json$')
+        for path in files:
+            # Check if this file applies or not.
+            m = file_pattern.search(path.replace("\\", "/"))
+            file_date = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            if not manual_change.is_applicable(file_date):
+                continue
 
-        with open(path, 'r') as f:
-            overview = json.loads(f.read())
-            _new_content = manual_change.replacer(path, overview)
-            dates[manual_change.resto][_new_content["date"]] = _new_content
-            new_content = json.dumps(_new_content)
+            with open(path, 'r') as f:
+                overview = json.loads(f.read())
+                _new_content = manual_change.replacer(path, overview)
+                dates[resto][_new_content["date"]] = _new_content
+                new_content = json.dumps(_new_content)
 
-        with open(path, 'w') as f:
-            f.write(new_content)
+            with open(path, 'w') as f:
+                f.write(new_content)
 
 
 def apply_all_menus(output, manual_change, dates):
@@ -473,21 +424,22 @@ def apply_all_menus(output, manual_change, dates):
         month = applicable_date.month
         day = applicable_date.day
         # Get existing file if it exists
-        path = f"{output}/menu/{manual_change.resto}/{year}/{month}/{day}.json"
-        try:
-            with open(path, 'r') as f:
-                menu = json.loads(f.read())
-        except IOError:
-            os.makedirs(os.path.dirname(path), exist_ok=True)
-            menu = {'open': False, 'date': applicable_date.strftime('%Y-%m-%d'), 'meals': [], 'vegetables': []}
-
-        # Apply the changes
-        _new_content = manual_change.replacer(path, menu)
-        dates[manual_change.resto][_new_content["date"]] = _new_content
-        new_content = json.dumps(_new_content)
-
-        with open(path, 'w+') as f:
-            f.write(new_content)
+        for resto in manual_change.resto:
+            path = f"{output}/menu/{resto}/{year}/{month}/{day}.json"
+            try:
+                with open(path, 'r') as f:
+                    menu = json.loads(f.read())
+            except IOError:
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                menu = {'open': False, 'date': applicable_date.strftime('%Y-%m-%d'), 'meals': [], 'vegetables': []}
+    
+            # Apply the changes
+            _new_content = manual_change.replacer(path, menu)
+            dates[resto][_new_content["date"]] = _new_content
+            new_content = json.dumps(_new_content)
+    
+            with open(path, 'w+') as f:
+                f.write(new_content)
 
 
 def main(output):
@@ -502,42 +454,43 @@ def main(output):
 
     for manual_change in to_apply:
         print("Rebuilding overviews")
-        match_glob = manual_change.get_overview_glob()
-        print(match_glob)
-        overviews = glob.glob(f"{output}/{match_glob}")
+        for resto in manual_change.resto:
+            match_glob = f"menu/{resto}/overview.json"
+            print(match_glob)
+            overviews = glob.glob(f"{output}/{match_glob}")
 
-        # For each overview that should be rebuild
-        for path in overviews:
-            print("Rebuilding {}".format(path))
-            new_overview = []
-            with open(path, 'r') as f:
-                overview = json.loads(f.read())
+            # For each overview that should be rebuild
+            for path in overviews:
+                print(f"Rebuilding {path}")
+                new_overview = []
+                with open(path, 'r') as f:
+                    overview = json.loads(f.read())
 
-            last_day = None
-            # If the date is modified, replace it
-            for day in overview:
-                if day["date"] in dates[manual_change.resto]:
-                    print(f"Updating {day['date']}")
-                    new_overview.append(dates[manual_change.resto][day["date"]])
-                else:
-                    print(f"Keeping {day['date']}")
-                    new_overview.append(day)
-                last_day = day["date"]
+                last_day = None
+                # If the date is modified, replace it
+                for day in overview:
+                    if day["date"] in dates[resto]:
+                        print(f"Updating {day['date']}")
+                        new_overview.append(dates[resto][day["date"]])
+                    else:
+                        print(f"Keeping {day['date']}")
+                        new_overview.append(day)
+                    last_day = day["date"]
 
-            # We want to provide at least ten days in the future.
-            to_add = max(OVERVIEW_COUNT - len(overview), 0)
-            if last_day:
-                last_day = datetime.strptime(last_day, '%Y-%m-%d').date()
-            for day in dates[manual_change.resto]:
-                dday = datetime.strptime(day, '%Y-%m-%d').date()
-                if ((last_day and dday <= last_day) or (last_day is None and dday < date.today())) or to_add <= 0:
-                    continue
-                new_overview.append(dates[manual_change.resto][day])
-                to_add -= 1
+                # We want to provide at least ten days in the future.
+                to_add = max(OVERVIEW_COUNT - len(overview), 0)
+                if last_day:
+                    last_day = datetime.strptime(last_day, '%Y-%m-%d').date()
+                for day in dates[resto]:
+                    dday = datetime.strptime(day, '%Y-%m-%d').date()
+                    if ((last_day and dday <= last_day) or (last_day is None and dday < date.today())) or to_add <= 0:
+                        continue
+                    new_overview.append(dates[resto][day])
+                    to_add -= 1
 
-            with open(path, 'w') as f:
-                f.write(json.dumps(new_overview))
-                print("Wrote updated overview")
+                with open(path, 'w') as f:
+                    f.write(json.dumps(new_overview))
+                    print("Wrote updated overview")
 
 
 if __name__ == '__main__':

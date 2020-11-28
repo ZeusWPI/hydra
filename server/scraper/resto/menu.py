@@ -23,23 +23,22 @@ OUTFILE_1_0 = "menu/{}/{}.json"
 OUTFILE_2_0 = "menu/{}/{}/{}/{}.json"
 OVERVIEW_2_0 = "menu/{}/overview.json"
 
-LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}/overzicht/@@rss2json"
+LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}"
 
 # The url containing the list of week menus.
 WEEK_MENU_URL = {
-    "nl": (LINK_FORMAT.format("weekmenu")),
-    "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu/overzicht/@@rss2json",
     "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
     "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
-    # Closed for this year.
-    #"nl-kantienberg": LINK_FORMAT.format("weekmenurestokantienberg")
+    "nl-dunant": LINK_FORMAT.format("weekmenurestocampusdunant"),
+    "nl-coupure": LINK_FORMAT.format("weekmenurestocampuscoupure"),
+    "nl-sterre": LINK_FORMAT.format("weekmenurestocampussterre"),
+    "nl-ardoyen": LINK_FORMAT.format("weekmenurestoardoyen"),
+    "nl-merelbeke": LINK_FORMAT.format("weekmenurestocampusmerelbeke")
 }
 
 # Define the page type for the resto.
 # See also WEEK_MENU_PARSERS
-WEEK_MENU_PAGE_TYPE = collections.defaultdict(lambda: "rss-json", {
-    "nl-sintjansvest": "html"
-})
+WEEK_MENU_PAGE_TYPE = collections.defaultdict(lambda: "html")
 
 # Languages
 TYPES = list(WEEK_MENU_URL.keys())
@@ -51,7 +50,7 @@ DAY_SELECTOR = ".summary.url"
 CLOSED_SELECTOR = "#content-core"
 MEAL_AND_HEADING_SELECTOR = "#content-core li, #content-core h3"
 
-WEEK_MENU_HTML_SELECTOR_LINKS = "#content-core .linklist li a"
+WEEK_MENU_HTML_SELECTOR_LINKS = "#content-core .entries a"
 
 # The string indicating a closed day.
 CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
