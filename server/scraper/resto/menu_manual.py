@@ -260,6 +260,27 @@ def corona_2020_2021_en_red(_path, original):
     return original
 
 
+def exam_closure_sterre_2020(_path, original):
+    message = "Door examens zal de resto gesloten zijn op 4-5, 8, 11, 15-19 en 26 januari."
+    original["message"] = message
+    original["open"] = False
+    return original
+
+
+def exam_closure_dunant_2020(_path, original):
+    message = "Door examens zal de resto gesloten zijn op 4, 8,15-19, 22 en 25 januari."
+    original["message"] = message
+    original["open"] = False
+    return original
+
+
+def christmas(_path, original):
+    original["message"] = "Naast de UGent-verlofdagen zijn de resto's ook gesloten tijdens de eerste week van de " \
+                          "kerstvakantie. "
+    original["open"] = False
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -383,6 +404,83 @@ def create_changes(root_path):
             resto=["nl-coupure", "nl-dunant", "nl-merelbeke"],
             start=date(2020, 11, 28),
             end=date(2020, 12, 31)
+        ),
+        ManualChange(
+            replacer=christmas,
+            resto=["nl-debrug", "nl-heymans", "nl-dunant", "nl-coupure", "nl-sterre", "nl-ardoyen", "nl-merelbeke"],
+            start=date(2020, 12, 21),
+            end=date(2020, 12, 25),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_dunant_2020,
+            resto="nl-dunant",
+            start=date(2021, 1, 4),
+            end=date(2021, 1, 4),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_dunant_2020,
+            resto="nl-dunant",
+            start=date(2021, 1, 8),
+            end=date(2021, 1, 8),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_dunant_2020,
+            resto="nl-dunant",
+            start=date(2021, 1, 15),
+            end=date(2021, 1, 19),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_dunant_2020,
+            resto="nl-dunant",
+            start=date(2021, 1, 22),
+            end=date(2021, 1, 22),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_dunant_2020,
+            resto="nl-dunant",
+            start=date(2021, 1, 25),
+            end=date(2021, 1, 25),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_sterre_2020,
+            resto="nl-sterre",
+            start=date(2021, 1, 4),
+            end=date(2021, 1, 5),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_sterre_2020,
+            resto="nl-sterre",
+            start=date(2021, 1, 8),
+            end=date(2021, 1, 8),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_sterre_2020,
+            resto="nl-sterre",
+            start=date(2021, 1, 11),
+            end=date(2021, 1, 11),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_sterre_2020,
+            resto="nl-sterre",
+            start=date(2021, 1, 15),
+            end=date(2021, 1, 19),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_sterre_2020,
+            resto="nl-sterre",
+            start=date(2021, 1, 26),
+            end=date(2021, 1, 26),
+            all_days=True
         )
     ]
 
