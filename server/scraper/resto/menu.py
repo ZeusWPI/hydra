@@ -27,6 +27,7 @@ LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}"
 
 # The url containing the list of week menus.
 WEEK_MENU_URL = {
+    "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu",
     "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
     "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
     "nl-dunant": LINK_FORMAT.format("weekmenurestocampusdunant"),
@@ -43,14 +44,11 @@ WEEK_MENU_PAGE_TYPE = collections.defaultdict(lambda: "html")
 # Languages
 TYPES = list(WEEK_MENU_URL.keys())
 
-# The jQuery selector for each day title <a> element on each week menu.
-DAY_SELECTOR = ".summary.url"
-
 # The jQuery selector for the meals on the menu page.
-CLOSED_SELECTOR = "#content-core"
+CONTENT_SELECTOR = "#content-core"
 MEAL_AND_HEADING_SELECTOR = "#content-core li, #content-core h3"
 
-WEEK_MENU_HTML_SELECTOR_LINKS = "#content-core .entries a"
+WEEK_MENU_HTML_SELECTOR_LINKS = "#content-core a"
 
 # The string indicating a closed day.
 CLOSED = collections.defaultdict(lambda: "GESLOTEN", en="CLOSED")
@@ -93,13 +91,15 @@ HEADING_TO_TYPE = {
     'hoofdgerecht': 'meat',
     'groenten': 'vegetables',
     'steeds op het menu': 'meat',
+    'warme gerechten': 'meat',
+    'koude gerechten (zelf op te warmen)': 'meat',
     # English
     'soup': 'soup',
     'meal soup': 'meal soup',
     'main dish': 'meat',
     'vegetables': 'vegetables',
-    'warme gerechten': 'meat',
-    'koude gerechten (zelf op te warmen)': 'meat'
+    'warm take away dishes': 'meat',
+    'cold take away dishes (to heat up)': 'meat'
 }
 
 HOT_COLD_MAPPING = collections.defaultdict(lambda: 'hot', {
@@ -107,22 +107,9 @@ HOT_COLD_MAPPING = collections.defaultdict(lambda: 'hot', {
 })
 
 
-def get_weeks_rss_json(url):
-    """
-    Get the URL for the weekly menus from the rss page.
-    """
-    try:
-        page = retry_session.get(url)
-    except (ConnectionError, Timeout) as e:
-        print("Failed to connect: ", e, file=sys.stderr)
-        raise e
-    week_menu = json.loads(page.text)
-    return [x["identifier"] for x in week_menu]
-
-
 def get_weeks_html(url):
     """
-    Get the URL fro the weekly menus from the HTML page.
+    Get the URLs to the weekly menus from the Dutch-style HTML page.
     """
     page = pq(url=url)
     return [link.attrib['href'] for link in page(WEEK_MENU_HTML_SELECTOR_LINKS)]
@@ -130,7 +117,6 @@ def get_weeks_html(url):
 
 # Map of the various parsers for the week menu.
 WEEK_MENU_PARSERS = {
-    "rss-json": get_weeks_rss_json,
     "html": get_weeks_html
 }
 
@@ -159,19 +145,23 @@ def get_weeks(which):
 
 def get_days(which, iso_week, url):
     """Retrieves a dictionary from iso weeks on which the resto is open."""
-    # close all days by default.
+    # All days are closed by default.
     r = {
         DateStuff.from_iso_week_day(which, iso_week, day): None
         for day in DateStuff.DAY_OF_THE_WEEK[which]
     }
 
-    # open on the available days
-    week_menu = pq(url=url)
-    r.update({
-        DateStuff.from_iso_week_day(which, iso_week, pq(e).html()):
-            str(pq(e).attr("href"))
-        for e in week_menu(DAY_SELECTOR)
-    })
+    # Get content core, containing the links to the days.
+    page = pq(url=url)
+    links = []
+    for anchor in page("#content-core a"):
+        links.append(anchor.attrib["href"].lower())
+
+    # For each possible day (and corresponding ISO day), try if the link exists.
+    for day in DateStuff.DAY_OF_THE_WEEK[which]:
+        potential = f"{url}/{day.lower()}.htm"
+        if potential in links:
+            r[DateStuff.from_iso_week_day(which, iso_week, day)] = potential
 
     return r
 
@@ -190,7 +180,7 @@ def get_day_menu(which, url):
     meats = []
     soups = []
 
-    if CLOSED[which] in day_menu(CLOSED_SELECTOR).html():
+    if CLOSED[which] in day_menu(CONTENT_SELECTOR).html():
         return dict(open=False)
 
     # We iterate through the html: the h3 headings are used to reliably (?) determine the kind of the meal.
