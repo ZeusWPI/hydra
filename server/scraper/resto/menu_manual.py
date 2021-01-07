@@ -261,14 +261,14 @@ def corona_2020_2021_en_red(_path, original):
 
 
 def exam_closure_sterre_2020(_path, original):
-    message = "Door examens zal de resto gesloten zijn op 4-5, 8, 11, 15-19 en 26 januari."
+    message = "Door examens zal de resto gesloten zijn op 4, 15, 18 en 26 januari."
     original["message"] = message
     original["open"] = False
     return original
 
 
 def exam_closure_dunant_2020(_path, original):
-    message = "Door examens zal de resto gesloten zijn op 4, 8,15-19, 22 en 25 januari."
+    message = "Door examens zal de resto gesloten zijn op 4, 8, 15, 18, 22, 25 en 29 januari."
     original["message"] = message
     original["open"] = False
     return original
@@ -278,6 +278,12 @@ def christmas(_path, original):
     original["message"] = "Naast de UGent-verlofdagen zijn de resto's ook gesloten tijdens de eerste week van de " \
                           "kerstvakantie. "
     original["open"] = False
+    return original
+
+
+def exam_closure_en_2020(_path, original):
+    original["message"] = "Resto Sterre and Dunant are closed on some days in January due to exams. Check the site " \
+                          "for more details."
     return original
 
 
@@ -430,7 +436,14 @@ def create_changes(root_path):
             replacer=exam_closure_dunant_2020,
             resto="nl-dunant",
             start=date(2021, 1, 15),
-            end=date(2021, 1, 19),
+            end=date(2021, 1, 15),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_dunant_2020,
+            resto="nl-dunant",
+            start=date(2021, 1, 18),
+            end=date(2021, 1, 18),
             all_days=True
         ),
         ManualChange(
@@ -448,6 +461,13 @@ def create_changes(root_path):
             all_days=True
         ),
         ManualChange(
+            replacer=exam_closure_dunant_2020,
+            resto="nl-dunant",
+            start=date(2021, 1, 29),
+            end=date(2021, 1, 29),
+            all_days=True
+        ),
+        ManualChange(
             replacer=exam_closure_sterre_2020,
             resto="nl-sterre",
             start=date(2021, 1, 4),
@@ -457,22 +477,22 @@ def create_changes(root_path):
         ManualChange(
             replacer=exam_closure_sterre_2020,
             resto="nl-sterre",
-            start=date(2021, 1, 8),
-            end=date(2021, 1, 8),
-            all_days=True
-        ),
-        ManualChange(
-            replacer=exam_closure_sterre_2020,
-            resto="nl-sterre",
-            start=date(2021, 1, 11),
-            end=date(2021, 1, 11),
+            start=date(2021, 1, 4),
+            end=date(2021, 1, 4),
             all_days=True
         ),
         ManualChange(
             replacer=exam_closure_sterre_2020,
             resto="nl-sterre",
             start=date(2021, 1, 15),
-            end=date(2021, 1, 19),
+            end=date(2021, 1, 15),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_sterre_2020,
+            resto="nl-sterre",
+            start=date(2021, 1, 18),
+            end=date(2021, 1, 18),
             all_days=True
         ),
         ManualChange(
@@ -481,6 +501,13 @@ def create_changes(root_path):
             start=date(2021, 1, 26),
             end=date(2021, 1, 26),
             all_days=True
+        ),
+        ManualChange(
+            replacer=exam_closure_en_2020,
+            resto="en",
+            start=date(2021, 1, 4),
+            end=date(2021, 1, 29),
+            all_days=False
         )
     ]
 
