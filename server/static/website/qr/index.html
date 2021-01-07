@@ -6,11 +6,11 @@
   <script>
     let redirect = 'https://hydra.ugent.be/';
 
-    if (navigator.userAgent.toLowerCase().indexOf("iphone") > -1) {
+    if (navigator.userAgent.toLowerCase().includes("iphone")) {
       redirect += 'ios';
     }
 
-    if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+    if (navigator.userAgent.toLowerCase().includes("android")) {
       redirect += 'android';
     }
 

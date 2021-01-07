@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Create the association-related data. The resizer.py script should be in the same directory as this script.
+# Create the association-related data.
 #
 # Use:
 #   info.sh input output
@@ -42,31 +42,5 @@ output=$(realpath -s "$2")
 
 echo "Copying special events..."
 cp "$input/special_events.json" "$output/special_events.json"
-
-# Create the output directory for images.
-logos="$output/logo/"
-mkdir -p "$logos"
-
-echo "Resizing images..."
-
-# Get the directory of this script file
-# see https://stackoverflow.com/a/246128/1831741
-SOURCE="${BASH_SOURCE[0]}"
-while [[ -h "$SOURCE" ]]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ "$SOURCE" != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
-
-# We need some advanced bash options here.
-shopt -s nullglob
-shopt -s extglob
-
-echo "Doing png/jpeg"
-mogrify -format png -resize "300x300>" -path "$logos" -print "%f\n" "$input"/logo/*.@(jpeg|jpg|png)
-
-echo "Doing svg"
-mogrify -format png -density 200 -resize "300x300>" -path "$logos" -print "%f\n" -background none "$input"/logo/*.@(svg)
 
 echo "Association-related successfully created."
