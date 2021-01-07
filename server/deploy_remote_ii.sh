@@ -62,6 +62,8 @@ venv=". \"$prefix/venv/bin/activate\""
 cat << EOF > "$cron"
 # Run resto scraper every day at 10 am
 0 10 * * *    ${venv} && ${scraper}/resto.sh    ${historic} ${api}   >> ${prefix}/log/resto-scraper.log
+# Run resto scraper every day at 8 pm
+0 20 * * *    ${venv} && ${scraper}/resto.sh    ${historic} ${api}   >> ${prefix}/log/resto-scraper.log
 # Run schamper scraper every day at 9 am
 0 9 * * *     ${venv} && ${scraper}/schamper.py ${api}/1.0/schamper/ >> ${prefix}/log/schamper-scraper.log
 # Run urgent.fm scraper every half our, at 3 offset (e.g. 15:03, 15:33, 16:03)
