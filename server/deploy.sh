@@ -73,9 +73,6 @@ fi
 output="output"
 api="$output/api"
 
-# Check requirements
-"$server/static/requirements.sh"
-
 # Copy static data
 "$server/static/association.sh" "$server/static/association/" "$api/2.0/association/"
 
