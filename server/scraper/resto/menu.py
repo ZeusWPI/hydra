@@ -99,11 +99,15 @@ HEADING_TO_TYPE = {
     'main dish': 'meat',
     'vegetables': 'vegetables',
     'warm take away dishes': 'meat',
-    'cold take away dishes (to heat up)': 'meat'
+    'cold take away dishes (to heat up)': 'meat',
+    'warm meals': 'meat',
+    'cold meals (to heat up)': 'meat'
 }
 
 HOT_COLD_MAPPING = collections.defaultdict(lambda: 'hot', {
-    'koude gerechten (zelf op te warmen)': 'cold'
+    'koude gerechten (zelf op te warmen)': 'cold',
+    'cold meals (to heat up)': 'cold',
+    'cold take away dishes (to heat up)': 'cold'
 })
 
 
