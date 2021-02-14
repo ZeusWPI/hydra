@@ -45,10 +45,12 @@ pip install -r "$scraper/requirements.txt"
 git clone "ssh://git@git.zeus.gent:2222/hydra/data.git" "$historic"
 
 # Run urgent.fm
-"$scraper/urgentfm.py" "$api/2.0/urgentfm/"
+# This is a non-critical scraper, so allow failure. Otherwise deploy is blocked.
+"$scraper/urgentfm.py" "$api/2.0/urgentfm/" || true
 
 # Run schamper
-"$scraper/schamper.py" "$api/1.0/schamper/"
+# This is a non-critical scraper, so allow failure. Otherwise deploy is blocked.
+"$scraper/schamper.py" "$api/1.0/schamper/" || true
 
 # Run resto
 "$scraper/resto.sh" "$historic" "$api" "$remote"
