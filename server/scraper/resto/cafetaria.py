@@ -44,7 +44,7 @@ def get_drinks(soup):
     # Drinks are the first ul in the div.
     for row in list_list[0].find_all("li"):
         name, price = row.text.split("€")
-        data.append({'name': name,
+        data.append({'name': name.strip(),
                      'price': parse_money(price)})
     return data
 
@@ -56,7 +56,7 @@ def get_desserts(soup):
     # Desserts are the second ul in the div.
     for row in list_list[1].find_all("li"):
         name, price = row.text.split("€")
-        data.append({'name': name,
+        data.append({'name': name.strip(),
                      'price': parse_money(price)})
     return data
 
