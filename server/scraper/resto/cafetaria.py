@@ -32,33 +32,41 @@ def get_breakfast():
     return data
 
 
-def get_drinks():
-    r = retry_session.get(BASE_URL + 'desserten-drank.htm')
-    soup = BeautifulSoup(r.text, HTML_PARSER)
+def get_page(url):
+    r = retry_session.get(url)
+    return BeautifulSoup(r.text, HTML_PARSER)
+
+
+def get_drinks(soup):
     data = []
-    for row in soup.table.find_all('tr'):
-        columns = row.find_all('td')
-        data.append({'name': columns[0].string,
-                     'price': parse_money(columns[1].string)})
+    container = soup.find(id='parent-fieldname-text')
+    list_list = container.find_all("ul")
+    # Drinks are the first ul in the div.
+    for row in list_list[0].find_all("li"):
+        name, price = row.text.split("€")
+        data.append({'name': name.strip(),
+                     'price': parse_money(price)})
     return data
 
 
-def get_desserts():
-    r = retry_session.get(BASE_URL + 'desserten-drank.htm')
-    soup = BeautifulSoup(r.text, HTML_PARSER)
+def get_desserts(soup):
     data = []
-    for row in soup.find_all('table')[1].find_all('tr'):
-        columns = row.find_all('td')
-        data.append({'name': columns[0].string,
-                     'price': parse_money(columns[1].string)})
+    container = soup.find(id='parent-fieldname-text')
+    list_list = container.find_all("ul")
+    # Desserts are the second ul in the div.
+    for row in list_list[1].find_all("li"):
+        name, price = row.text.split("€")
+        data.append({'name': name.strip(),
+                     'price': parse_money(price)})
     return data
 
 
 def main(output):
+    page = get_page(BASE_URL + 'takeawaymenudrankendesserten.htm')
     result = {
-        'breakfast': get_breakfast(),
-        'drinks': get_drinks(),
-        'desserts': get_desserts()
+        'breakfast': [],  # Not available at the moment.
+        'drinks': get_drinks(page),
+        'desserts': get_desserts(page)
     }
 
     output_file = os.path.join(output, "extrafood.json")
