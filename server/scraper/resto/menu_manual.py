@@ -287,6 +287,32 @@ def exam_closure_en_2020(_path, original):
     return original
 
 
+def dies_natalis_2021(_path, original):
+    original["message"] = "De resto's zijn gesloten op Dies Natalis."
+    original["open"] = False
+    return original
+
+
+def dies_natalis_2021_en(_path, original):
+    original["message"] = "The restaurants are closed on Dies Natalis."
+    original["open"] = False
+    return original
+
+
+def easter_2021_week1(_path, original):
+    original["message"] = "In de paasvakantie zullen resto's Sterre, Ardoyen, De Brug en UZ Gent open zijn, " \
+                          "maar enkel als cafetaria. "
+    original["open"] = True
+    return original
+
+
+def easter_2021_week2(_path, original):
+    original["message"] = "In de paasvakantie zullen resto's Sterre, Ardoyen, De Brug, UZ Gent en Coupure open zijn, " \
+                          "maar enkel als cafetaria. "
+    original["open"] = True
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -508,6 +534,34 @@ def create_changes(root_path):
             start=date(2021, 1, 4),
             end=date(2021, 1, 29),
             all_days=False
+        ),
+        ManualChange(
+            replacer=dies_natalis_2021,
+            resto=["nl-debrug", "nl-heymans", "nl-dunant", "nl-coupure", "nl-sterre", "nl-ardoyen", "nl-merelbeke"],
+            start=date(2021, 3, 19),
+            end=date(2021, 3, 19),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=dies_natalis_2021_en,
+            resto="en",
+            start=date(2021, 3, 19),
+            end=date(2021, 3, 19),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=easter_2021_week1,
+            resto=["nl-debrug", "nl-heymans", "nl-sterre", "nl-ardoyen"],
+            start=date(2021, 4, 5),
+            end=date(2021, 4, 9),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=easter_2021_week2,
+            resto=["nl-debrug", "nl-heymans", "nl-sterre", "nl-ardoyen", "nl-coupure"],
+            start=date(2021, 4, 12),
+            end=date(2021, 4, 16),
+            all_days=True
         )
     ]
 
