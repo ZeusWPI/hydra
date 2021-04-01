@@ -1,6 +1,6 @@
 beautifulsoup4==4.9.3
 htmlmin==0.1.12
-lxml==4.6.2
+lxml==4.6.3
 pyquery==1.4.3
 requests==2.25.1
 wheel==0.36.2
