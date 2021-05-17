@@ -27,7 +27,7 @@ def get_content(list_of_dicts):
 
 
 def do_run(url, language, output):
-    output_file = os.path.join(output, f"#{language}.json")  # Output file
+    output_file = os.path.join(output, f"{language}.json")  # Output file
     # Get Atom feed.
     response = retry_session.get(url)
     # Parse.
