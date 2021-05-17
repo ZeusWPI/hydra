@@ -32,7 +32,7 @@ if ! command -v pyenv &>/dev/null; then
   echo "Py-env is not present, installing..."
 
   # Install py-env (specific version to have reproducible builds)
-  curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/dd3f7d0914c5b4a416ca71ffabdf2954f2021596/bin/pyenv-installer | bash
+  curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/0a5ac813ba1ed660b201005f19be1e6a386d9ed5/bin/pyenv-installer | bash
 
   # Add it to the path
 cat >>~/.bash_profile <<'EOL'
@@ -47,8 +47,8 @@ else
   pyenv update
 fi
 
-pyenv install -s 3.9.0
-pyenv global 3.9.0
+pyenv install -s 3.9.4
+pyenv global 3.9.4
 
 # Create venv environment
 python -m venv "$prefix/venv"
