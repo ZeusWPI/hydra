@@ -52,6 +52,10 @@ git clone "ssh://git@git.zeus.gent:2222/hydra/data.git" "$historic"
 # This is a non-critical scraper, so allow failure. Otherwise deploy is blocked.
 "$scraper/schamper.py" "$api/1.0/schamper/" || true
 
+# Run news
+# This is a non-critical scraper, so allow failure. Otherwise deploy is blocked.
+"$scraper/news.py" "$api/2.0/news" || true
+
 # Run resto
 "$scraper/resto.sh" "$historic" "$api" "$remote"
 
@@ -68,6 +72,8 @@ cat << EOF > "$cron"
 0 20 * * *    ${venv} && ${scraper}/resto.sh    ${historic} ${api}   >> ${prefix}/log/resto-scraper.log
 # Run schamper scraper every day at 9 am
 0 9 * * *     ${venv} && ${scraper}/schamper.py ${api}/1.0/schamper/ >> ${prefix}/log/schamper-scraper.log
+# Run news scraper every day at 8 am
+0 8 * * *     ${venv} && ${scraper}/news.py ${api}/2.0/news/ >> ${prefix}/log/news-scraper.log
 # Run urgent.fm scraper every half our, at 3 offset (e.g. 15:03, 15:33, 16:03)
 # A programma normally ends at an hour (e.g. 17:00), but to be sure the website has updated, wait 3 minutes.
 3-59/30 * * * *  ${venv} && ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log

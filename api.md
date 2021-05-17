@@ -5,7 +5,8 @@ Simple RSS at: http://www.schamper.ugent.be/rss
 Wrapper available in the Zeus API.
 
 ## UGent: News
-Simple RSS at:  https://www.ugent.be/nl/actueel/nieuws/recente_nieuwsberichten/@@rss2json
+We run an ATOM to JSON converter every day.
+ATOM at https://www.ugent.be/nl/actueel/overzicht/atom.xml (Dutch)
 
 ## UGent: Libraries
 All libraries (JSON): http://widgets.lib.ugent.be/libraries
