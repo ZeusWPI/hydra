@@ -5,3 +5,4 @@ pyquery==1.4.3
 requests==2.25.1
 wheel==0.36.2
 urllib3==1.26.4
+feedparser==6.0.2
