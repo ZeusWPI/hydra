@@ -14,7 +14,7 @@ from backoff import retry_session
 from util import write_json_to_file
 
 URL_NL = 'https://www.ugent.be/nl/actueel/overzicht/atom.xml'
-URL_EN = '?'
+URL_EN = 'https://www.ugent.be/en/news-events/overview/atom.xml'
 
 
 def get_content(list_of_dicts):
@@ -67,7 +67,7 @@ def run(output):
     os.makedirs(output_path, exist_ok=True)  # Like mkdir -p
 
     do_run(URL_NL, 'nl', output_path)
-    # do_run(URL_EN, 'en', output_path)
+    do_run(URL_EN, 'en', output_path)
 
 
 if __name__ == '__main__':
