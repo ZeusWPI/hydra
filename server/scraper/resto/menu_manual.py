@@ -312,6 +312,17 @@ def easter_2021_week2(_path, original):
     original["open"] = True
     return original
 
+def summer_2021_1(_path, original):
+    original["message"] = "Cafetaria de Brug en resto's Ardoyen, Sterre en Merelbeke met een gewijzigd aanbod. Er zullen" \
+                          " dan enkel broodjes en salad bowls te verkrijgen zijn. De zitplaatsen kunnen nog niet gebruikt worden."
+    original["open"] = True
+    return original
+
+def summer_2021_2(_path, original):
+    original["message"] = "Cafetaria's de Brug en UZ Gent, en resto's Ardoyen, Sterre, Coupure en Merelbeke met een gewijzigd aanbod. Er zullen" \
+                          " dan enkel broodjes en salad bowls te verkrijgen zijn. De zitplaatsen kunnen nog niet gebruikt worden."
+    original["open"] = True
+    return original
 
 def create_changes(root_path):
     return [
@@ -562,6 +573,20 @@ def create_changes(root_path):
             start=date(2021, 4, 12),
             end=date(2021, 4, 16),
             all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2021_1,
+            resto=["nl-debrug", "nl-sterre", "nl-ardoyen", "nl-merelbeke"],
+            start=date(2021, 8, 9),
+            end=date(2021, 4, 16),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2021_2,
+            resto=["nl-debrug", "nl-sterre", "nl-ardoyen", "nl-merelbeke", "nl-coupure", "nl-heymans"],
+            start=date(2021, 8, 16),
+            end=date(2021, 9, 20),
+            all_days=True
         )
     ]
 
@@ -611,12 +636,12 @@ def apply_all_menus(output, manual_change, dates):
             except IOError:
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 menu = {'open': False, 'date': applicable_date.strftime('%Y-%m-%d'), 'meals': [], 'vegetables': []}
-    
+
             # Apply the changes
             _new_content = manual_change.replacer(path, menu)
             dates[resto][_new_content["date"]] = _new_content
             new_content = json.dumps(_new_content)
-    
+
             with open(path, 'w+') as f:
                 f.write(new_content)
 
