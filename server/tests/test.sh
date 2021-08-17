@@ -41,10 +41,10 @@ tests="$server/tests"
 ###############################################################################
 
 echo "Validating website..."
-html5validator --root "$static/website" --show-warnings --also-check-css --also-check-svg  --blacklist "bootstrap-4.5.3.min.css"
+html5validator --root "$static/website" --show-warnings
 
 echo "Validating information web pages..."
-html5validator --root "$static/info" --show-warnings --also-check-css --also-check-svg
+html5validator --root "$static/info" --show-warnings
 
 ###############################################################################
 # JSON files
