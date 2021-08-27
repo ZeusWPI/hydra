@@ -583,9 +583,23 @@ def create_changes(root_path):
         ),
         ManualChange(
             replacer=summer_2021_2,
-            resto=["nl-debrug", "nl-sterre", "nl-ardoyen", "nl-merelbeke", "nl-coupure", "nl-heymans"],
+            resto=["nl-sterre", "nl-merelbeke", "nl-coupure", "nl-heymans"],
             start=date(2021, 8, 16),
             end=date(2021, 9, 20),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2021_2,
+            resto="nl-debrug",
+            start=date(2021, 8, 16),
+            end=date(2021, 9, 1),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2021_2,
+            resto="nl-ardoyen",
+            start=date(2021, 8, 16),
+            end=date(2021, 8, 25),
             all_days=True
         )
     ]
