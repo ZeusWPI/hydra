@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
 import argparse
-from pprint import pprint
-
-import json
 import collections
 import datetime
 import os
 import sys
+import traceback
+from pprint import pprint
 
-from requests.exceptions import ConnectionError, Timeout
 from pyquery import PyQuery as pq
 
 # Bad python module system
 sys.path.append('..')
 
 # Relative import, since Python cannot handle being a script
-from backoff import retry_session
 from util import write_json_to_file, split_price
 
 # Where to write to.
@@ -36,6 +33,27 @@ WEEK_MENU_URL = {
     "nl-ardoyen": LINK_FORMAT.format("weekmenurestoardoyen"),
     "nl-merelbeke": LINK_FORMAT.format("weekmenurestocampusmerelbeke")
 }
+
+# Day names to day of the week.
+# The keys are the keys from WEEK_MENU_URL.
+# For english:
+# noinspection PyTypeChecker
+DAY_OF_THE_WEEK = collections.defaultdict(
+    lambda: {
+        "Maandag": 1,
+        "Dinsdag": 2,
+        "Woensdag": 3,
+        "Donderdag": 4,
+        "Vrijdag": 5
+    }, {
+        "en": {
+            "Monday": 1,
+            "Tuesday": 2,
+            "Wednesday": 3,
+            "Thursday": 4,
+            "Friday": 5
+        }
+    })
 
 # Define the page type for the resto.
 # See also WEEK_MENU_PARSERS
@@ -90,6 +108,7 @@ HEADING_TO_TYPE = {
     'maaltijdsoep': 'meal soup',
     'hoofdgerecht': 'meat',
     'groenten': 'vegetables',
+    'groente': 'vegetables',
     'steeds op het menu': 'meat',
     'warme gerechten': 'meat',
     'koude gerechten (zelf op te warmen)': 'meat',
@@ -137,10 +156,10 @@ def get_weeks(which):
     for url in week_urls:
         try:
             iso_week = int(url.split("week")[-1])
-        except Exception as e:
+        except Exception:
             print(f"Failure parsing week page for {which}, with url {url}.", file=sys.stderr)
             print(f"Week number {url.split('week')[-1]} is not an int, ignoring it.", file=sys.stderr)
-            print(e, file=sys.stderr)
+            traceback.print_exc()
             continue
         iso_year, iso_week, _ = DateStuff.from_iso_week(iso_week).isocalendar()
         r[(iso_year, iso_week)] = url
@@ -152,7 +171,7 @@ def get_days(which, iso_week, url):
     # All days are closed by default.
     r = {
         DateStuff.from_iso_week_day(which, iso_week, day): None
-        for day in DateStuff.DAY_OF_THE_WEEK[which]
+        for day in DAY_OF_THE_WEEK[which]
     }
 
     # Get content core, containing the links to the days.
@@ -162,7 +181,7 @@ def get_days(which, iso_week, url):
         links.append(anchor.attrib["href"].lower())
 
     # For each possible day (and corresponding ISO day), try if the link exists.
-    for day in DateStuff.DAY_OF_THE_WEEK[which]:
+    for day in DAY_OF_THE_WEEK[which]:
         potential = f"{url}/{day.lower()}.htm"
         if potential in links:
             r[DateStuff.from_iso_week_day(which, iso_week, day)] = potential
@@ -207,6 +226,9 @@ def get_day_menu(which, url):
             print(f'Ignoring {meal}, no header.')
             continue
 
+        if last_heading not in HEADING_TO_TYPE:
+            raise ValueError(f"Unknown header type {last_heading}, not mapped.")
+
         if HEADING_TO_TYPE[last_heading] == 'soup':
             name, price = split_price(meal)
             soups.append(dict(price=price, name=name, type='side'))
@@ -243,7 +265,7 @@ def get_day_menu(which, url):
         elif HEADING_TO_TYPE[last_heading] == 'vegetables':
             vegetables.append(meal)
         else:
-            raise ValueError(f"Unknown header {last_heading} encountered")
+            raise ValueError(f"Oops, HEADING_TO_TYPE contains unknown value for {last_heading}.")
 
     # sometimes the closed indicator has a different layout.
     if not vegetables and not soups and not meats:
@@ -254,22 +276,6 @@ def get_day_menu(which, url):
 
 
 class DateStuff(object):
-    # Day names to day of the week.
-    DAY_OF_THE_WEEK = collections.defaultdict(lambda: {
-        "Maandag": 1,
-        "Dinsdag": 2,
-        "Woensdag": 3,
-        "Donderdag": 4,
-        "Vrijdag": 5
-    }, {
-      "en": {
-          "Monday": 1,
-          "Tuesday": 2,
-          "Wednesday": 3,
-          "Thursday": 4,
-          "Friday": 5
-      }
-    })
 
     @staticmethod
     def iso_year_start(iso_year):
@@ -291,7 +297,7 @@ class DateStuff(object):
 
     @staticmethod
     def from_iso_week_day(which, iso_week, iso_day_name):
-        iso_day = DateStuff.DAY_OF_THE_WEEK[which][iso_day_name]
+        iso_day = DAY_OF_THE_WEEK[which][iso_day_name]
         return DateStuff._from_iso_week_day(iso_week, iso_day)
 
     @staticmethod
@@ -371,9 +377,8 @@ def main(output_v2):
             # following.
             weeks = get_weeks(which)
         except Exception as error:
-            problems.append("Failed to parse the weekmenu on {}.".format(
-                WEEK_MENU_URL[which]))
-            print(error, file=sys.stderr)
+            problems.append(f"Failed to parse the weekmenu on {WEEK_MENU_URL[which]}.")
+            traceback.print_exc()
 
         for week, week_url in weeks.items():
 
@@ -383,14 +388,14 @@ def main(output_v2):
                 # Get days. Expect every day to be there.
                 days = get_days(which, week, week_url)
                 problems.extend([
-                    "{} is not available in week {}.".format(day, week)
+                    f"{day} is not available in week {week}."
                     for day in days
                     if days[day] is None and day >= datetime.date.today()
                 ])
             except Exception as error:
-                problem = "Failed to parse days from {}.".format(week_url)
+                problem = f"Failed to parse days from {week_url}."
                 problems.append(problem)
-                print(error, file=sys.stderr)
+                traceback.print_exc()
 
             week_dict = {}
             for day, day_url in days.items():
@@ -401,9 +406,8 @@ def main(output_v2):
                     menu = get_day_menu(which, day_url)
                     week_dict[day] = menu
                 except Exception as error:
-                    problems.append("Failed parsing daymenu from {}.".format(
-                        day_url))
-                    print(error, file=sys.stderr)
+                    problems.append(f"Failed parsing daymenu from {day_url}.")
+                    traceback.print_exc()
 
             menus[which][(year, week)] = week_dict
 
