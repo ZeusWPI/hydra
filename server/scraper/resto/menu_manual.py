@@ -585,7 +585,7 @@ def create_changes(root_path):
             replacer=summer_2021_2,
             resto=["nl-sterre", "nl-merelbeke", "nl-coupure", "nl-heymans"],
             start=date(2021, 8, 16),
-            end=date(2021, 9, 20),
+            end=date(2021, 9, 13),
             all_days=True
         ),
         ManualChange(
