@@ -324,6 +324,10 @@ def summer_2021_2(_path, original):
     original["open"] = True
     return original
 
+def brug_avond(_path, original):
+    original["message"] = "De Brug is vrijdagavond gesloten."
+    return original
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -601,6 +605,12 @@ def create_changes(root_path):
             start=date(2021, 8, 16),
             end=date(2021, 8, 25),
             all_days=True
+        ),
+        ManualChange(
+            replacer=brug_avond,
+            resto="nl-debrug",
+            start=date(2021, 10, 1),
+            end=date(2021, 12, 31)
         )
     ]
 
