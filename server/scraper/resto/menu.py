@@ -159,7 +159,9 @@ def get_weeks(which):
     r = {}
     for url in week_urls:
         try:
-            iso_week = int(url.split("week")[-1])
+            week_part = url.split("week")[-1]
+            # Strip cyclus part
+            iso_week = int(week_part.split("-")[0])
         except Exception:
             print(f"Failure parsing week page for {which}, with url {url}.", file=sys.stderr)
             print(f"Week number {url.split('week')[-1]} is not an int, ignoring it.", file=sys.stderr)
