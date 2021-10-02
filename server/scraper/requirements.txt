@@ -1,4 +1,4 @@
-beautifulsoup4==4.9.3
+beautifulsoup4==4.10.0
 htmlmin==0.1.12
 lxml==4.6.3
 pyquery==1.4.3
