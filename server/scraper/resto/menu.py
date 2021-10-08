@@ -159,7 +159,7 @@ def get_weeks(which):
     r = {}
     for url in week_urls:
         try:
-            week_part = url.split("week")[-1]
+            week_part = url.rsplit("/")[-1].replace("week", "")
             # Strip cyclus part
             iso_week = int(week_part.split("-")[0])
         except Exception:
