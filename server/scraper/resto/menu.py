@@ -16,22 +16,13 @@ sys.path.append('..')
 from util import write_json_to_file, split_price
 
 # Where to write to.
-OUTFILE_1_0 = "menu/{}/{}.json"
 OUTFILE_2_0 = "menu/{}/{}/{}/{}.json"
 OVERVIEW_2_0 = "menu/{}/overview.json"
-
-LINK_FORMAT = "http://www.ugent.be/student/nl/meer-dan-studeren/resto/{}"
 
 # The url containing the list of week menus.
 WEEK_MENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu",
-    "nl-debrug": LINK_FORMAT.format("weekmenurestodebrug"),
-    "nl-heymans": LINK_FORMAT.format("weekmenurestocampusheymans"),
-    "nl-dunant": LINK_FORMAT.format("weekmenurestocampusdunant"),
-    "nl-coupure": LINK_FORMAT.format("weekmenurestocampuscoupure"),
-    "nl-sterre": LINK_FORMAT.format("weekmenurestocampussterre"),
-    "nl-ardoyen": LINK_FORMAT.format("weekmenurestoardoyen"),
-    "nl-merelbeke": LINK_FORMAT.format("weekmenurestocampusmerelbeke")
+    "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu"
 }
 
 # Day names to day of the week.
