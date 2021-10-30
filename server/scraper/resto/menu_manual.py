@@ -328,6 +328,16 @@ def brug_avond(_path, original):
     original["message"] = "De Brug is vrijdagavond gesloten."
     return original
 
+def november_12_2021(_path, original):
+    original["message"] = "Vrijdag 12 november zullen alle resto's en cafetaria's gesloten zijn, behalve cafetaria De Brug."
+    original["open"] = False
+    return original
+
+def november_12_2021_en(_path, original):
+    original["message"] = "Friday, the 12th of November, all restos and cafeterias will be closed except for cafeteria De Brug."
+    original["open"] = False
+    return original
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -611,6 +621,20 @@ def create_changes(root_path):
             resto="nl-debrug",
             start=date(2021, 10, 1),
             end=date(2021, 12, 31)
+        ),
+        ManualChange(
+            replacer=november_12_2021,
+            resto=["nl"],
+            start=date(2021, 11, 12),
+            end=date(2021, 11, 12),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=november_12_2021_en,
+            resto=["en"],
+            start=date(2021, 11, 12),
+            end=date(2021, 11, 12),
+            all_days=True
         )
     ]
 
