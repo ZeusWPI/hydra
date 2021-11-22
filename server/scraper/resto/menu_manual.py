@@ -626,12 +626,13 @@ def create_changes(root_path):
             end=date(2021, 8, 25),
             all_days=True
         ),
-        ManualChange(
+        *[ManualChange(
             replacer=brug_avond,
-            resto="nl-debrug",
-            start=date(2021, 10, 1),
-            end=date(2021, 12, 31)
-        ),
+            resto="nl",
+            start=date(2021, 11, 22) + timedelta(days=x),
+            end=date(2021, 11, 22) + timedelta(days=x)
+        ) for x in range((date(2021, 12, 31) - date(2021, 11, 22)).days + 1) if
+            (date(2021, 11, 22) + timedelta(days=x)).weekday() == 4],
         ManualChange(
             replacer=november_12_2021,
             resto=["nl"],
