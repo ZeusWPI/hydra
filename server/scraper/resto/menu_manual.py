@@ -358,6 +358,16 @@ def heymans_november_23_2021_en(_path, original):
     original["open"] = True
     return original
 
+def heymans_november_24_26_2021(_path, original):
+    original["message"] = "Cafetaria Heymans is gesloten op 24, 25 en 26 november. Cafetaria UZ Gent is open."
+    original["open"] = True
+    return original
+
+def heymans_november_24_26_2021_en(_path, original):
+    original["message"] = "Cafetaria Heymans will be closed on 24, 25 and 26 November. Cafeteria UZ Gent is open."
+    original["open"] = True
+    return original
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -683,6 +693,21 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2021, 11, 23),
             end=date(2021, 11, 23),
+            all_days=True
+        )
+        ,
+        ManualChange(
+            replacer=heymans_november_24_26_2021,
+            resto=["nl"],
+            start=date(2021, 11, 24),
+            end=date(2021, 11, 26),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=heymans_november_24_26_2021_en,
+            resto=["en"],
+            start=date(2021, 11, 24),
+            end=date(2021, 11, 26),
             all_days=True
         )
     ]
