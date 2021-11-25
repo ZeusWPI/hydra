@@ -25,7 +25,7 @@ jobs:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
       - name: Add known hosts
         run: |
-          ssh-keyscan -p 2222 -H 157.193.252.131 >> ~/.ssh/known_hosts
+          ssh-keyscan -p 2222 -H zeus.ugent.be >> ~/.ssh/known_hosts
       - name: Run script
         run: |
           ./server/deploy.sh ./server/
