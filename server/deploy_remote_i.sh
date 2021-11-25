@@ -9,7 +9,7 @@
 #   source  Name of the new folder for the deployment (on the remote server)
 #   target  Target folder for the deployment. When in doubt, use "~".
 
-set -euo pipefail
+set -euxo pipefail
 
 if [[ $# -lt 2 ]]; then
     echo "error: source and target operands are required" >&2

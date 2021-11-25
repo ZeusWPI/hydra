@@ -9,7 +9,7 @@
 #   [dry]     Optional path. If present, the server will be deployed to this path. Otherwise it will be deployed
 #             to King.
 
-set -euo pipefail
+set -exuo pipefail
 
 use_remote=false
 if [[ $# -eq 2 ]]; then
