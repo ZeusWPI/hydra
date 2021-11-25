@@ -37,7 +37,7 @@ if ! command -v pyenv &>/dev/null; then
   # Add it to the path
 cat >>~/.bash_profile <<'EOL'
 export PATH="~/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
 EOL
 
   # shellcheck source=/dev/null
@@ -50,5 +50,7 @@ fi
 pyenv install -s 3.9.4
 pyenv global 3.9.4
 
+which python3
+
 # Create venv environment
-python -m venv "$prefix/venv"
+python3 -m venv "$prefix/venv"
