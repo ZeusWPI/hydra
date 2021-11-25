@@ -5,7 +5,7 @@
 # Use:
 #   deploy.sh server dry
 # Arguments:
-#   server    The path to the server folder. This is the /server/ folder in thr git repo.
+#   server    The path to the server folder. This is the /server/ folder in the git repo.
 #   [dry]     Optional path. If present, the server will be deployed to this path. Otherwise it will be deployed
 #             to King.
 
