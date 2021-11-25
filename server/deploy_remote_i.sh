@@ -50,7 +50,5 @@ fi
 pyenv install -s 3.9.4
 pyenv global 3.9.4
 
-which python3
-
 # Create venv environment
 python3 -m venv "$prefix/venv"
