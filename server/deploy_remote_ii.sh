@@ -25,6 +25,8 @@ prefix=$(realpath -s "$2")
 deployment="$prefix/deployment"
 # Where the scraper scripts will be copied to
 scraper="$deployment/$1/scraper"
+# Where the admin scripts will be copied to
+admin="$deployment/$1/admin"
 # Where the public data will reside
 public="$deployment/$1/public"
 # Where the resto data will be kept
@@ -58,6 +60,11 @@ git clone "ssh://git@git.zeus.gent:2222/hydra/data.git" "$historic"
 
 # Run resto
 "$scraper/resto.sh" "$historic" "$api" "$remote"
+
+# (Re-)Start the admin stuff
+cd "$admin"
+docker-compose up --build -d
+cd -
 
 echo "Setting up cron..."
 cron="$scraper/hydra.cron"

@@ -20,6 +20,7 @@ prefix=$(realpath -s "$2")
 
 # Create folders
 mkdir -p "$prefix/deployment/$1/scraper"
+mkdir -p "$prefix/deployment/$1/admin"
 mkdir -p "$prefix/deployment/$1/public"
 mkdir -p "$prefix/deployment/$1/restodata"
 

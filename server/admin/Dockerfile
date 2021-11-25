@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.9-alpine
 
 RUN mkdir /app
 WORKDIR /app
@@ -8,4 +8,5 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD flask run --host=0.0.0.0
+#CMD flask run --host=0.0.0.0
+CMD gunicorn app:app -b 0.0.0.0

@@ -1,8 +1,5 @@
 import os
 
-# _mail_enabled = os.environ.get("MAIL_ENABLED", default="true")
-# MAIL_ENABLED = _mail_enabled.lower() in {"1", "t", "true"}
-
 PUBLIC_DIR = os.environ.get("PUBLIC_DIR")
 
 if not PUBLIC_DIR:
