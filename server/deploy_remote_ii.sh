@@ -25,8 +25,6 @@ prefix=$(realpath -s "$2")
 deployment="$prefix/deployment"
 # Where the scraper scripts will be copied to
 scraper="$deployment/$1/scraper"
-# Where the admin scripts will be copied to
-admin="$deployment/$1/admin"
 # Where the public data will reside
 public="$deployment/$1/public"
 # Where the resto data will be kept
@@ -34,7 +32,8 @@ historic="$deployment/$1/restodata"
 # Where the public api data will be kept
 api="$public/api"
 # Where the website goes
-website="$public/website"
+#website="$public/website"
+
 
 # Activate venv
 # shellcheck source=/dev/null
@@ -61,30 +60,20 @@ git clone "ssh://git@git.zeus.gent:2222/hydra/data.git" "$historic"
 # Run resto
 "$scraper/resto.sh" "$historic" "$api" "$remote"
 
-# (Re-)Start the admin stuff
-cd "$admin"
-docker-compose up --build -d
-cd -
+# Setup everything in the 'current folder'. This activates our deployment
+current="$prefix/current"
+current_scraper="$current/scraper"
+current_admin="$current/admin"
+current_public="$current/public"
+current_historic="$current/restodata"
+current_api="$current_public/api"
+current_website="$current_public/website"
 
-echo "Setting up cron..."
-cron="$scraper/hydra.cron"
+# Create directory before symlinking
+mkdir -p "$prefix/current"
 
-# Path to activate venv
-venv=". \"$prefix/venv/bin/activate\""
-
-cat << EOF > "$cron"
-# Run resto scraper every day at 10 am
-0 10 * * *    ${venv} && ${scraper}/resto.sh    ${historic} ${api}   >> ${prefix}/log/resto-scraper.log
-# Run resto scraper every day at 8 pm
-0 20 * * *    ${venv} && ${scraper}/resto.sh    ${historic} ${api}   >> ${prefix}/log/resto-scraper.log
-# Run schamper scraper every day at 9 am
-0 9 * * *     ${venv} && ${scraper}/schamper.py ${api}/1.0/schamper/ >> ${prefix}/log/schamper-scraper.log
-# Run news scraper every day at 8 am
-0 8 * * *     ${venv} && ${scraper}/news.py ${api}/2.0/news/ >> ${prefix}/log/news-scraper.log
-# Run urgent.fm scraper every half hour, at 3 offset (e.g. 15:03, 15:33, 16:03)
-# A programma normally ends at an hour (e.g. 17:00), but to be sure the website has updated, wait 3 minutes.
-3-59/30 * * * *  ${venv} && ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
-EOF
+# Map the new deployment to currently used stuff
+ln -sfn "$deployment/$1" "$current"
 
 # Create directories before symlinking
 mkdir -p "$prefix/public/api"
@@ -93,9 +82,36 @@ mkdir -p "$prefix/public/website"
 # Map the API and server endpoint to the new data
 # DO NOT link the full public folder; it contains other data.
 # Todo: we can do this if we include the OAuth redirect in the repo (as we should)
-ln -sfn "$api" "$prefix/public/api"
-ln -sfn "$website" "$prefix/public/website"
+ln -sfn "$current_api" "$prefix/public/api"
+ln -sfn "$current_website" "$prefix/public/website"
+
+
+echo "Setting up cron..."
+cron="$current_scraper/hydra.cron"
+
+# Path to activate venv
+venv=". \"$prefix/venv/bin/activate\""
+
+cat << EOF > "$cron"
+# Run resto scraper every day at 10 am
+0 10 * * *    ${venv} && ${current_scraper}/resto.sh    ${current_historic} ${current_api}   >> ${prefix}/log/resto-scraper.log
+# Run resto scraper every day at 8 pm
+0 20 * * *    ${venv} && ${current_scraper}/resto.sh    ${current_historic} ${current_api}   >> ${prefix}/log/resto-scraper.log
+# Run schamper scraper every day at 9 am
+0 9 * * *     ${venv} && ${current_scraper}/schamper.py ${current_api}/1.0/schamper/ >> ${prefix}/log/schamper-scraper.log
+# Run news scraper every day at 8 am
+0 8 * * *     ${venv} && ${current_scraper}/news.py ${current_api}/2.0/news/ >> ${prefix}/log/news-scraper.log
+# Run urgent.fm scraper every half hour, at 3 offset (e.g. 15:03, 15:33, 16:03)
+# A programma normally ends at an hour (e.g. 17:00), but to be sure the website has updated, wait 3 minutes.
+3-59/30 * * * *  ${venv} && ${current_scraper}/urgentfm.py ${current_api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
+EOF
+
 crontab "$cron"
+
+# (Re-)Start the admin docker
+cd "$current_admin"
+docker-compose up --build -d
+cd -
 
 echo "Deployment complete."
 echo "Check if we need clean-up..."
