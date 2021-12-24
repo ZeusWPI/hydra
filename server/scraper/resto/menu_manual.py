@@ -368,6 +368,26 @@ def heymans_november_24_26_2021_en(_path, original):
     original["open"] = True
     return original
 
+def christmas_2021(_path, original):
+    original["message"] = "De Brug Avond, cafetaria’s Boekentoren, Ledeganck en Heymans gesloten vanaf 20 december. Alle resto’s en cafetaria’s gesloten op 23 en 24 december en op 3 januari."
+    original["open"] = True
+    return original
+
+def christmas_2021_en(_path, original):
+    original["message"] = "De Brug Evening, cafeterias Boekentoren, Ledeganck and Heymans closed as of December 20. All restos and cafeterias closed on December 23 and 24 and on January 3."
+    original["open"] = True
+    return original
+
+def newyear_2022(_path, original):
+    original["message"] = "Van 4 t.e.m. 7 januari zijn enkel Resto De Brug, Resto Sterre, Resto Coupure, Resto Ardoyen en Cafetaria UZ Gent open. Enkel in Resto De Brug zijn er warme maaltijden."
+    original["open"] = True
+    return original
+
+def newyear_2022_en(_path, original):
+    original["message"] = "From 4 to 7 January only Resto De Brug, Resto Sterre, Resto Coupure, Resto Ardoyen and Cafetaria UZ Gent will be open. Only in Resto De Brug there are warm meals."
+    original["open"] = True
+    return original
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -694,8 +714,7 @@ def create_changes(root_path):
             start=date(2021, 11, 23),
             end=date(2021, 11, 23),
             all_days=True
-        )
-        ,
+        ),
         ManualChange(
             replacer=heymans_november_24_26_2021,
             resto=["nl"],
@@ -708,6 +727,34 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2021, 11, 24),
             end=date(2021, 11, 26),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=christmas_2021,
+            resto=["nl"],
+            start=date(2021, 12, 20),
+            end=date(2022, 1, 3),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=christmas_2021_en,
+            resto=["en"],
+            start=date(2021, 12, 20),
+            end=date(2022, 1, 3),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=newyear_2022,
+            resto=["nl"],
+            start=date(2022, 1, 4),
+            end=date(2022, 1, 7),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=newyear_2022_en,
+            resto=["en"],
+            start=date(2022, 1, 4),
+            end=date(2022, 1, 7),
             all_days=True
         )
     ]
