@@ -5,9 +5,9 @@
 # Use:
 #   deploy.sh server dry
 # Arguments:
-#   server    The path to the server folder. This is the /server/ folder in thr git repo.
-#   [dry]     Optional path. If present, the server will be deployed to this path. Otherwise it will be deployed
-#             to King.
+#   server    The path to the server folder. This is the /server/ folder in the git repo.
+#   [dry]     Optional path. If present, the server will be deployed to this path. Otherwise it will be deployed to the server.
+ssh_server="hydra@pratchett.ugent.be"
 
 set -euo pipefail
 
@@ -26,7 +26,7 @@ function w_ssh() {
     if [[ "$use_remote" == true ]]; then
         # We want $2 to expand on the client side.
         # shellcheck disable=2029
-        ssh hydra@zeus.ugent.be -p 2222 < "$1" "bash -l -s $2"
+        ssh "$ssh_server" -p 2222 < "$1" "bash -l -s $2"
     else
         eval "$1" "$2"
     fi
@@ -34,7 +34,7 @@ function w_ssh() {
 
 function w_rsync() {
     if [[ "$use_remote" == true ]]; then
-        rsync -az -e 'ssh -p 2222' "$1" "hydra@zeus.ugent.be:$2"
+        rsync -az -e 'ssh -p 2222' "$1" "$ssh_server:$2"
     else
         rsync -a "$1" "$2"
     fi
