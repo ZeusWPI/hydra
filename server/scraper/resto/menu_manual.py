@@ -388,6 +388,16 @@ def newyear_2022_en(_path, original):
     original["open"] = True
     return original
 
+def closures_january_2022(_path, original):
+    original["message"] = "Cafetaria’s Boekentoren en Ledeganck gesloten, geen warme maaltijden meer in resto’s Dunant en Merelbeke."
+    original["open"] = True
+    return original
+
+def closures_january_2022_en(_path, original):
+    original["message"] = "Cafeterias Boekentoren and Ledeganck closed, no more warm meals in restaurants Dunant and Merelbeke."
+    original["open"] = True
+    return original
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -755,6 +765,20 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2022, 1, 4),
             end=date(2022, 1, 7),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=closures_january_2022,
+            resto=["nl"],
+            start=date(2022, 1, 17),
+            end=date(2022, 1, 28),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=closures_january_2022_en,
+            resto=["en"],
+            start=date(2022, 1, 17),
+            end=date(2022, 1, 28),
             all_days=True
         )
     ]
