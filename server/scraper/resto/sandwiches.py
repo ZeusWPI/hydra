@@ -169,7 +169,7 @@ def salad_bowls(output, soup):
             bowls.append({
                 'name': columns[0].text.strip(),
                 'description': columns[1].text.strip(),
-                'price': parse_money(columns[2].string)
+                'price': parse_money(columns[2].string) if columns[2].string else ""
             })
 
     output_file = os.path.join(output, SALADS)
