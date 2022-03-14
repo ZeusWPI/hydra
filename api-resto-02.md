@@ -16,8 +16,8 @@ This document describes the current version of the API, version 2.0.
 
 | Version                | Endpoint                                   | Status     |
 |------------------------|--------------------------------------------|------------|
-| [1.0](api-resto-01.md) | https://zeus.ugent.be/hydra/api/1.0/resto/ | retired |
-| 2.3 (this)             | https://zeus.ugent.be/hydra/api/2.0/resto/ | current    |
+| [1.0](api-resto-01.md) | https://hydra.ugent.be/api/1.0/resto/      | retired |
+| 2.3 (this)             | https://hydra.ugent.be/api/2.0/resto/      | current    |
 
 ## Data dump
 
@@ -32,6 +32,7 @@ All scraped data available in this API is also available as a [git repository](h
   - A new meal type is present: `cold`.
   - Add a new endpoint for salad bowls.
   - API 1.0 has been retired.
+- At some point in 2021 or early 2022, the zeus.ugent.be/hydra endpoint stopped working. We could fix it, but we assume most clients have migrated or are able to.
 
 ## Technical description
 
