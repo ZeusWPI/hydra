@@ -398,6 +398,21 @@ def closures_january_2022_en(_path, original):
     original["open"] = True
     return original
 
+
+def paasvakantie2022(_path, original):
+    original["message"] = "In de paasvakantie wijzigt de dienstverlening grondig. " \
+                          "Warme maaltijden enkel in De Brug, uitgezonderd de sluiting op 8 en 15 april. " \
+                          "Bekijk de website voor alle details over alle locaties."
+    return original
+
+
+def easter2022(_path, original):
+    original["message"] = "In the easter recess, the service is heavily modified. " \
+                          "Hot meals only in the Brug, except the closure on April 8th and April 15th. " \
+                          "Check the website for more details on all locations."
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -779,6 +794,20 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2022, 1, 17),
             end=date(2022, 1, 28),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=paasvakantie2022,
+            resto=["nl"],
+            start=date(2022, 4, 4),
+            end=date(2022, 4, 17),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=easter2022,
+            resto=["en"],
+            start=date(2022, 4, 4),
+            end=date(2022, 4, 17),
             all_days=True
         )
     ]
