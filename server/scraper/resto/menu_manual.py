@@ -378,20 +378,24 @@ def christmas_2021_en(_path, original):
     original["open"] = True
     return original
 
+
 def newyear_2022(_path, original):
     original["message"] = "Van 4 t.e.m. 7 januari zijn enkel Resto De Brug, Resto Sterre, Resto Coupure, Resto Ardoyen en Cafetaria UZ Gent open. Enkel in Resto De Brug zijn er warme maaltijden."
     original["open"] = True
     return original
+
 
 def newyear_2022_en(_path, original):
     original["message"] = "From 4 to 7 January only Resto De Brug, Resto Sterre, Resto Coupure, Resto Ardoyen and Cafetaria UZ Gent will be open. Only in Resto De Brug there are warm meals."
     original["open"] = True
     return original
 
+
 def closures_january_2022(_path, original):
     original["message"] = "Cafetaria’s Boekentoren en Ledeganck gesloten, geen warme maaltijden meer in resto’s Dunant en Merelbeke."
     original["open"] = True
     return original
+
 
 def closures_january_2022_en(_path, original):
     original["message"] = "Cafeterias Boekentoren and Ledeganck closed, no more warm meals in restaurants Dunant and Merelbeke."
@@ -410,6 +414,30 @@ def easter2022(_path, original):
     original["message"] = "In the easter recess, the service is heavily modified. " \
                           "Hot meals only in the Brug, except the closure on April 8th and April 15th. " \
                           "Check the website for more details on all locations."
+    return original
+
+
+def zomer_2022_1(_path, original):
+    original["message"] = "In juli, augustus en september sluiten verschillende resto's of doen ze enkel dienst als cafetaria. " \
+                          "Kijk op de website voor alle details."
+    return original
+
+
+def summer_2022_1(_path, original):
+    original["message"] = "In July, August and September, multiple restaurants close or only act as a cafetaria. " \
+                          "Check the website for more details."
+    return original
+
+
+def zomer_2022_2(_path, original):
+    original["message"] = "Vanaf 18 juli tot en met 29 juli zijn alle resto's en cafetaria's gesloten."
+    original["open"] = False
+    return original
+
+
+def summer_2022_2(_path, original):
+    original["message"] = "From July 18th until July 29th, all restaurants and cafeterias are closed."
+    original["open"] = False
     return original
 
 
@@ -808,6 +836,48 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2022, 4, 4),
             end=date(2022, 4, 17),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=zomer_2022_1,
+            resto=["nl"],
+            start=date(2022, 6, 27),
+            end=date(2022, 7, 15),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2022_1,
+            resto=["en"],
+            start=date(2022, 6, 27),
+            end=date(2022, 7, 15),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=zomer_2022_2,
+            resto=["nl"],
+            start=date(2022, 7, 18),
+            end=date(2022, 7, 29),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2022_2,
+            resto=["en"],
+            start=date(2022, 7, 18),
+            end=date(2022, 7, 29),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=zomer_2022_1,
+            resto=["nl"],
+            start=date(2022, 8, 1),
+            end=date(2022, 9, 16),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2022_1,
+            resto=["en"],
+            start=date(2022, 8, 1),
+            end=date(2022, 9, 16),
             all_days=True
         )
     ]

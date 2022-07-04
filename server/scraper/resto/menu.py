@@ -3,6 +3,7 @@ import argparse
 import collections
 import datetime
 import os
+import string
 import sys
 import traceback
 from pprint import pprint
@@ -130,7 +131,15 @@ def get_weeks_html(url):
     Get the URLs to the weekly menus from the Dutch-style HTML page.
     """
     page = pq(url=url)
-    return [link.attrib['href'] for link in page(WEEK_MENU_HTML_SELECTOR_LINKS)]
+    # The page gives us the "cycli", which we open and parse to get the weeks.
+    cycli = [link.attrib['href'] for link in page(WEEK_MENU_HTML_SELECTOR_LINKS)]
+
+    week_urls = []
+    for cyclus in cycli:
+        cyclus_page = pq(url=cyclus)
+        week_urls.extend(link.attrib['href'] for link in cyclus_page(WEEK_MENU_HTML_SELECTOR_LINKS))
+
+    return week_urls
 
 
 # Map of the various parsers for the week menu.
@@ -152,7 +161,8 @@ def get_weeks(which):
         try:
             week_part = url.rsplit("/")[-1].replace("week", "")
             # Strip cyclus part
-            iso_week = int(week_part.split("-")[0])
+            supposedly_int = week_part.split("-")[0].rstrip(string.ascii_letters)
+            iso_week = int(supposedly_int)
         except Exception:
             print(f"Failure parsing week page for {which}, with url {url}.", file=sys.stderr)
             print(f"Week number {url.split('week')[-1]} is not an int, ignoring it.", file=sys.stderr)
