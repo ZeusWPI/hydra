@@ -80,11 +80,8 @@ cat << EOF > "$cron"
 3-59/30 * * * *  ${venv} && ${scraper}/urgentfm.py ${api}/2.0/urgentfm/ >> ${prefix}/log/urgentfm-scraper.log
 EOF
 
-# Create directories before symlinking
-mkdir -p "$prefix/public"
-
 # Link the public directory to our new deploy.
-ln -sfn "$public" "$prefix/public"
+ln -sfn "$public" "$prefix/public/"
 crontab "$cron"
 
 echo "Deployment complete."
