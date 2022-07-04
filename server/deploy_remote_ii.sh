@@ -81,7 +81,7 @@ cat << EOF > "$cron"
 EOF
 
 # Link the public directory to our new deploy.
-ln -sfn "$public" "$prefix/public/"
+ln -sfn -t "$prefix" "$public"
 crontab "$cron"
 
 echo "Deployment complete."
