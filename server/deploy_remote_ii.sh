@@ -32,6 +32,7 @@ historic="$deployment/$1/restodata"
 # Where the public api data will be kept
 api="$public/api"
 # Where the website goes
+# shellcheck disable=SC2034
 website="$public/website"
 
 # Activate venv
@@ -80,14 +81,10 @@ cat << EOF > "$cron"
 EOF
 
 # Create directories before symlinking
-mkdir -p "$prefix/public/api"
-mkdir -p "$prefix/public/website"
+mkdir -p "$prefix/public"
 
-# Map the API and server endpoint to the new data
-# DO NOT link the full public folder; it contains other data.
-# Todo: we can do this if we include the OAuth redirect in the repo (as we should)
-ln -sfn "$api" "$prefix/public/api"
-ln -sfn "$website" "$prefix/public/website"
+# Link the public directory to our new deploy.
+ln -sfn "$public" "$prefix/public"
 crontab "$cron"
 
 echo "Deployment complete."

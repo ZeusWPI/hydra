@@ -136,6 +136,10 @@ def get_weeks_html(url):
 
     week_urls = []
     for cyclus in cycli:
+        if cyclus.endswith("c"):
+            # Skip the cafetaria cyclus in the summer.
+            # See https://github.com/ZeusWPI/hydra/issues/412
+            continue
         cyclus_page = pq(url=cyclus)
         week_urls.extend(link.attrib['href'] for link in cyclus_page(WEEK_MENU_HTML_SELECTOR_LINKS))
 
