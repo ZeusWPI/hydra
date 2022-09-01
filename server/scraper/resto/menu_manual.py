@@ -441,6 +441,40 @@ def summer_2022_2(_path, original):
     return original
 
 
+def close_time_nl(_path, original):
+    if "message" in original:
+        original["message"] += " Op 20 september zijn alle resto’s en cafetaria’s gesloten door onze teambuilding."
+    else:
+        original["message"] = "Op 20 september zijn alle resto’s en cafetaria’s gesloten door onze teambuilding."
+    original["open"] = False
+    return original
+
+
+def close_time_en(_path, original):
+    if "message" in original:
+        original["message"] += " All restaurants and cafeterias are closed on 20 September, due to our team building."
+    else:
+        original["message"] = "All restaurants and cafeterias are closed on 20 September, due to our team building."
+    original["open"] = False
+    return original
+
+
+def close_ardoyen_nl(_path, original):
+    if "message" in original:
+        original["message"] += " Op 16 september is Resto Ardoyen gesloten wegens het openingsevent van het FSVM2 onderzoeksgebouw."
+    else:
+        original["message"] = "Op 16 september is Resto Ardoyen gesloten wegens het openingsevent van het FSVM2 onderzoeksgebouw."
+    return original
+
+
+def close_ardoyen_en(_path, original):
+    if "message" in original:
+        original["message"] += " Resto Ardoyen is closed on 16 September, due to the opening event of the FSVM2 research building."
+    else:
+        original["message"] = "Resto Ardoyen is closed on 16 September, due to the opening event of the FSVM2 research building."
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -877,6 +911,34 @@ def create_changes(root_path):
             replacer=summer_2022_1,
             resto=["en"],
             start=date(2022, 8, 1),
+            end=date(2022, 9, 16),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=close_time_nl,
+            resto=["nl"],
+            start=date(2022, 9, 14),
+            end=date(2022, 9, 20),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=close_time_en,
+            resto=["en"],
+            start=date(2022, 9, 14),
+            end=date(2022, 9, 20),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=close_ardoyen_nl,
+            resto=["nl"],
+            start=date(2022, 9, 15),
+            end=date(2022, 9, 16),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=close_ardoyen_en,
+            resto=["en"],
+            start=date(2022, 9, 15),
             end=date(2022, 9, 16),
             all_days=True
         )
