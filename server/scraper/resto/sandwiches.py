@@ -64,6 +64,11 @@ def parse_dates(week):
     end_day = int(match.group('end_day'))
     end_month = int(match.group('end_month'))
     end_year = guess_year(end_month)
+
+    # TODO: remove this once the wrong week has passed.
+    if start_month == 11 and start_day == 31:
+        start_month = 10
+
     start_date = datetime.date(start_year, start_month, start_day)
     end_date = datetime.date(end_year, end_month, end_day)
 
