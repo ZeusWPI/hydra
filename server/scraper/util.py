@@ -29,5 +29,8 @@ def split_price(meal):
         price = meal.split('-')[-1].strip()
         name = '-'.join(meal.split('-')[:-1]).strip()
         return name, price
+    elif "€" in meal:
+        meal, price = meal.split("€")
+        return meal.strip(), price
     else:
         return meal.strip(), ""
