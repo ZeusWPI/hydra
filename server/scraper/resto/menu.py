@@ -112,7 +112,11 @@ HEADING_TO_TYPE = {
     'warm take away dishes': 'meat',
     'cold take away dishes (to heat up)': 'meat',
     'warm meals': 'meat',
+    'warm dishes': 'meat',
+    'hot meals': 'meat',
     'cold meals (to heat up)': 'meat',
+    'cold dishes (to heat up)': 'meat',
+    'cold dishes (to be heated up)': 'meat',
     'cold meals <em>(to heat up)</em>': 'meat',
     'cold meals <em>(to heat up)</em>': 'meat'
 }
@@ -122,7 +126,9 @@ HOT_COLD_MAPPING = collections.defaultdict(lambda: 'hot', {
     'cold meals (to heat up)': 'cold',
     'cold take away dishes (to heat up)': 'cold',
     'cold meals <em>(to heat up)</em>': 'cold',
-    'cold meals <em>(to heat up)</em>': 'cold'
+    'cold meals <em>(to heat up)</em>': 'cold',
+    'cold dishes (to heat up)': 'cold',
+    'cold dishes (to be heated up)': 'cold',
 })
 
 
@@ -140,8 +146,17 @@ def get_weeks_html(url):
             # Skip the cafetaria cyclus in the summer.
             # See https://github.com/ZeusWPI/hydra/issues/412
             continue
-        cyclus_page = pq(url=cyclus)
-        week_urls.extend(link.attrib['href'] for link in cyclus_page(WEEK_MENU_HTML_SELECTOR_LINKS))
+        if cyclus.endswith("overzicht"):
+            # Skip the "overzicht" page, as we don't use it at all.
+            continue
+        if cyclus.endswith("y") or cyclus.endswith("z"):
+            # When working with cycli URLs, there is another level of indirection, which
+            # is not present in the regular week menus.
+            cyclus_page = pq(url=cyclus)
+            week_urls.extend(link.attrib['href'] for link in cyclus_page(WEEK_MENU_HTML_SELECTOR_LINKS))
+        else:
+            # Just append it...
+            week_urls.append(cyclus)
 
     return week_urls
 
