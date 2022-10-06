@@ -16,7 +16,6 @@ This repo only contains the scraper code. Other repos:
 
 * [Android app](https://github.com/ZeusWPI/hydra-android)
 * [iOS app](https://github.com/ZeusWPI/hydra-iOS)
-* [Dialogflow fulfilment (assistant)](https://github.com/ZeusWPI/hydra-assistant)
 
 ## APIs
 
