@@ -485,7 +485,7 @@ def no_more_soup_nl(_path, original):
 
 def no_more_soup_en(_path, original):
     original["message"] = "Due to serious production problems at the purveyor, soup will temporarily no longer be " \
-                          "available. We working hard to resolve this issue. Soup should be available again " \
+                          "available. We are working hard to resolve this issue. Soup should be available again " \
                           "November 7th at the latest. Watch our website and tv screens for the most up-to-date " \
                           "information. "
     return original
