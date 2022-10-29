@@ -962,14 +962,14 @@ def create_changes(root_path):
             replacer=no_more_soup_nl,
             resto=["nl"],
             start=date(2022, 10, 26),
-            end=date(2022, 11, 7),
+            end=date(2022, 11, 2),
             all_days=True
         ),
         ManualChange(
             replacer=no_more_soup_en,
             resto=["en"],
             start=date(2022, 10, 26),
-            end=date(2022, 11, 7),
+            end=date(2022, 11, 2),
             all_days=True
         )
     ]
