@@ -477,7 +477,7 @@ def close_ardoyen_en(_path, original):
 
 def no_more_soup_nl(_path, original):
     original["message"] = "Door ernstige productieproblemen bij de leverancier is er tijdelijk geen soep meer te " \
-                          "verkrijgen. We werken hard aan een oplossing en ten laatste 7 november zal er opnieuw " \
+                          "verkrijgen. We werken hard aan een oplossing en vanaf 3 november zal er opnieuw " \
                           "soep zijn. Hou onze website en de TV-schermen in de gaten voor de meest recente update " \
                           "hierover. "
     return original
@@ -485,8 +485,8 @@ def no_more_soup_nl(_path, original):
 
 def no_more_soup_en(_path, original):
     original["message"] = "Due to serious production problems at the purveyor, soup will temporarily no longer be " \
-                          "available. We are working hard to resolve this issue. Soup should be available again " \
-                          "November 7th at the latest. Watch our website and tv screens for the most up-to-date " \
+                          "available. We are working hard to resolve this issue. Soup will be available again " \
+                          "November 3th. Watch our website and tv screens for the most up-to-date " \
                           "information. "
     return original
 
