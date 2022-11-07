@@ -68,16 +68,13 @@ current_historic="$current/restodata"
 current_api="$current_public/api"
 
 # Create directory before symlinking
-mkdir -p "$prefix/current"
+mkdir -p "$current"
 
 # Map the new deployment to currently used stuff
 ln -sfn -t "$deployment/$1" "$current"
 
-# Create directories before symlinking
-mkdir -p "$prefix/public"
-
 # Link the public directory to our new deploy.
-ln -sfn "$public" "$prefix/public"
+ln -sfn "$public" "$prefix/public/"
 
 
 echo "Setting up cron..."
