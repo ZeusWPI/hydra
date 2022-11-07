@@ -32,6 +32,8 @@ The Hydra APIs and data are a mix of static data, apps on servers and scrapers.
 The 'server' folder contains all things to run.
 The scripts folder contains a bunch of scripts to test, deploy and run the server.
 
+View the status of the scrapers on https://hydra-admin.zeus.gent/.
+
 ## Deployment
 
 The API and website are automatically deployed (from master) to the server by Travis. Since it uses a custom solution, read [the docs](deployment.md) first, before changing things (unless you know what you are doing).
