@@ -67,11 +67,8 @@ current_public="$current/public"
 current_historic="$current/restodata"
 current_api="$current_public/api"
 
-# Create directory before symlinking
-mkdir -p "$current"
-
 # Map the new deployment to currently used stuff
-ln -sfn -t "$current" "$deployment/$1"
+ln -sfn "$deployment/$1" "$current"
 
 # Link the public directory to our new deploy.
 ln -sfn -t "$prefix" "$public"
