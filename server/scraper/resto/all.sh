@@ -46,6 +46,12 @@ dir="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 # To prevent Python from being annoying with imports, cd into the folder
 pushd "$dir"
 
+# Run allergen scraper
+echo "Scraping allergens"
+command="$dir/allergens.py $output2"
+# shellcheck disable=2086
+eval ${command}
+
 # Run scraper
 echo "Scraping all the menus"
 command="$dir/menu.py $output2"
