@@ -1,12 +1,14 @@
+#!/usr/bin/env python3
 import argparse
 import os
 import re
-# Bad python module system
 import sys
-sys.path.append('..')
 
 from bs4 import BeautifulSoup
 from requests import RequestException
+
+# Bad python module system
+sys.path.append('..')
 
 from backoff import retry_session
 from util import write_json_to_file
