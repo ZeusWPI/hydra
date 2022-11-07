@@ -157,6 +157,30 @@
       "end": "2021-05-05T12:00:00+02:00",
       "id": 16,
       "development": false
+    },
+    {
+      "name": "Win een UGent hoodie!",
+      "link": "https://febugent.eu.qualtrics.com/jfe/form/SV_8IaL6nehsba9ttA",
+      "simple-text": "Vul korte enquête in over resto’s en automaten.",
+      "image": "https://hydra.ugent.be/img/logo_17.png",
+      "html": "",
+      "priority": 990,
+      "start": "2022-03-14T14:45:00+02:00",
+      "end": "2022-03-28T22:00:00+02:00",
+      "id": 17,
+      "development": false
+    },
+    {
+      "name": "Smaakpanel 2022",
+      "link": "https://webappsx.ugent.be/eventManager/events/smaakpanelsstudentenrestaurants",
+      "simple-text": "Bepaal mee de smaak van de resto’s en kom proeven in onze testpanels! Schrijf je in: elke dinsdag, woensdag en donderdag van 21/04 – 19/05.",
+      "image": "https://hydra.ugent.be/img/logo_17.png",
+      "html": "",
+      "priority": 990,
+      "start": "2022-04-04T14:45:00+02:00",
+      "end": "2022-05-19T16:00:00+02:00",
+      "id": 18,
+      "development": false
     }
   ]
 }

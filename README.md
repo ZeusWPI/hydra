@@ -16,11 +16,16 @@ This repo only contains the scraper code. Other repos:
 
 * [Android app](https://github.com/ZeusWPI/hydra-android)
 * [iOS app](https://github.com/ZeusWPI/hydra-iOS)
-* [Dialogflow fulfilment (assistant)](https://github.com/ZeusWPI/hydra-assistant)
 
 ## APIs
 
 See the [API](api.md) for documentation about the APIs. Or jump directly to the [resto API](api-resto-02.md).
+
+Known users of the resto API include:
+
+- The Hydra apps ([Android](https://github.com/ZeusWPI/hydra-android) and [iOS](https://github.com/ZeusWPI/hydra-iOS))
+- The [`/resto`](https://github.com/ZeusWPI/mattermore) command in our Mattermost
+- [`ugent-resto`](https://github.com/stijndcl/ugent-food), a command line tool to view the resto by @stijndcl
 
 
 The Hydra APIs and data are a mix of static data, apps on servers and scrapers.

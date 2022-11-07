@@ -14,8 +14,8 @@ This document describes version 1.0 of the API.
 
 | Version                | Endpoint                                   | Status     |
 |------------------------|--------------------------------------------|------------|
-| 1.0 (this)             | https://zeus.ugent.be/hydra/api/1.0/resto/ | retired    |
-| [2.0](api-resto-02.md) | https://zeus.ugent.be/hydra/api/2.0/resto/ | current    |
+| 1.0 (this)             | https://hydra.ugent.be/api/1.0/resto/      | retired    |
+| [2.0](api-resto-02.md) | https://hydra.ugent.be/api/2.0/resto/      | current    |
 
 Applications are encouraged to migrate to version 2.0 of the API.
 

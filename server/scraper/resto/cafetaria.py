@@ -23,10 +23,7 @@ def get_breakfast():
     ul = soup.find(id="content-core").find(name="ul")
     for item in ul.find_all(name="li"):
         full = item.text
-        if '-' in full:
-            name, money = split_price(full)
-        else:
-            name, money = name, ""
+        name, money = split_price(full)
         data.append({'name': name,
                      'price': parse_money(money)})
     return data
@@ -64,7 +61,7 @@ def get_desserts(soup):
 def main(output):
     page = get_page(BASE_URL + 'takeawaymenudrankendesserten.htm')
     result = {
-        'breakfast': [],  # Not available at the moment.
+        'breakfast': get_breakfast(),
         'drinks': get_drinks(page),
         'desserts': get_desserts(page)
     }

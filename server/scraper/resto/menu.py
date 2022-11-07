@@ -3,6 +3,7 @@ import argparse
 import collections
 import datetime
 import os
+import string
 import sys
 import traceback
 from pprint import pprint
@@ -111,7 +112,11 @@ HEADING_TO_TYPE = {
     'warm take away dishes': 'meat',
     'cold take away dishes (to heat up)': 'meat',
     'warm meals': 'meat',
+    'warm dishes': 'meat',
+    'hot meals': 'meat',
     'cold meals (to heat up)': 'meat',
+    'cold dishes (to heat up)': 'meat',
+    'cold dishes (to be heated up)': 'meat',
     'cold meals <em>(to heat up)</em>': 'meat',
     'cold meals <em>(to heat up)</em>': 'meat'
 }
@@ -121,7 +126,9 @@ HOT_COLD_MAPPING = collections.defaultdict(lambda: 'hot', {
     'cold meals (to heat up)': 'cold',
     'cold take away dishes (to heat up)': 'cold',
     'cold meals <em>(to heat up)</em>': 'cold',
-    'cold meals <em>(to heat up)</em>': 'cold'
+    'cold meals <em>(to heat up)</em>': 'cold',
+    'cold dishes (to heat up)': 'cold',
+    'cold dishes (to be heated up)': 'cold',
 })
 
 
@@ -130,7 +137,28 @@ def get_weeks_html(url):
     Get the URLs to the weekly menus from the Dutch-style HTML page.
     """
     page = pq(url=url)
-    return [link.attrib['href'] for link in page(WEEK_MENU_HTML_SELECTOR_LINKS)]
+    # The page gives us the "cycli", which we open and parse to get the weeks.
+    cycli = [link.attrib['href'] for link in page(WEEK_MENU_HTML_SELECTOR_LINKS)]
+
+    week_urls = []
+    for cyclus in cycli:
+        if cyclus.endswith("c"):
+            # Skip the cafetaria cyclus in the summer.
+            # See https://github.com/ZeusWPI/hydra/issues/412
+            continue
+        if cyclus.endswith("overzicht"):
+            # Skip the "overzicht" page, as we don't use it at all.
+            continue
+        if cyclus.endswith("y") or cyclus.endswith("z"):
+            # When working with cycli URLs, there is another level of indirection, which
+            # is not present in the regular week menus.
+            cyclus_page = pq(url=cyclus)
+            week_urls.extend(link.attrib['href'] for link in cyclus_page(WEEK_MENU_HTML_SELECTOR_LINKS))
+        else:
+            # Just append it...
+            week_urls.append(cyclus)
+
+    return week_urls
 
 
 # Map of the various parsers for the week menu.
@@ -152,7 +180,8 @@ def get_weeks(which):
         try:
             week_part = url.rsplit("/")[-1].replace("week", "")
             # Strip cyclus part
-            iso_week = int(week_part.split("-")[0])
+            supposedly_int = week_part.split("-")[0].rstrip(string.ascii_letters)
+            iso_week = int(supposedly_int)
         except Exception:
             print(f"Failure parsing week page for {which}, with url {url}.", file=sys.stderr)
             print(f"Week number {url.split('week')[-1]} is not an int, ignoring it.", file=sys.stderr)

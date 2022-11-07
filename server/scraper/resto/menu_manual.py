@@ -368,6 +368,129 @@ def heymans_november_24_26_2021_en(_path, original):
     original["open"] = True
     return original
 
+def christmas_2021(_path, original):
+    original["message"] = "De Brug Avond, cafetaria’s Boekentoren, Ledeganck en Heymans gesloten vanaf 20 december. Alle resto’s en cafetaria’s gesloten op 23 en 24 december en op 3 januari."
+    original["open"] = True
+    return original
+
+def christmas_2021_en(_path, original):
+    original["message"] = "De Brug Evening, cafeterias Boekentoren, Ledeganck and Heymans closed as of December 20. All restos and cafeterias closed on December 23 and 24 and on January 3."
+    original["open"] = True
+    return original
+
+
+def newyear_2022(_path, original):
+    original["message"] = "Van 4 t.e.m. 7 januari zijn enkel Resto De Brug, Resto Sterre, Resto Coupure, Resto Ardoyen en Cafetaria UZ Gent open. Enkel in Resto De Brug zijn er warme maaltijden."
+    original["open"] = True
+    return original
+
+
+def newyear_2022_en(_path, original):
+    original["message"] = "From 4 to 7 January only Resto De Brug, Resto Sterre, Resto Coupure, Resto Ardoyen and Cafetaria UZ Gent will be open. Only in Resto De Brug there are warm meals."
+    original["open"] = True
+    return original
+
+
+def closures_january_2022(_path, original):
+    original["message"] = "Cafetaria’s Boekentoren en Ledeganck gesloten, geen warme maaltijden meer in resto’s Dunant en Merelbeke."
+    original["open"] = True
+    return original
+
+
+def closures_january_2022_en(_path, original):
+    original["message"] = "Cafeterias Boekentoren and Ledeganck closed, no more warm meals in restaurants Dunant and Merelbeke."
+    original["open"] = True
+    return original
+
+
+def paasvakantie2022(_path, original):
+    original["message"] = "In de paasvakantie wijzigt de dienstverlening grondig. " \
+                          "Warme maaltijden enkel in De Brug, uitgezonderd de sluiting op 8 en 15 april. " \
+                          "Bekijk de website voor alle details over alle locaties."
+    return original
+
+
+def easter2022(_path, original):
+    original["message"] = "In the easter recess, the service is heavily modified. " \
+                          "Hot meals only in the Brug, except the closure on April 8th and April 15th. " \
+                          "Check the website for more details on all locations."
+    return original
+
+
+def zomer_2022_1(_path, original):
+    original["message"] = "In juli, augustus en september sluiten verschillende resto's of doen ze enkel dienst als cafetaria. " \
+                          "Kijk op de website voor alle details."
+    return original
+
+
+def summer_2022_1(_path, original):
+    original["message"] = "In July, August and September, multiple restaurants close or only act as a cafetaria. " \
+                          "Check the website for more details."
+    return original
+
+
+def zomer_2022_2(_path, original):
+    original["message"] = "Vanaf 18 juli tot en met 29 juli zijn alle resto's en cafetaria's gesloten."
+    original["open"] = False
+    return original
+
+
+def summer_2022_2(_path, original):
+    original["message"] = "From July 18th until July 29th, all restaurants and cafeterias are closed."
+    original["open"] = False
+    return original
+
+
+def close_time_nl(_path, original):
+    if "message" in original:
+        original["message"] += " Op 20 september zijn alle resto’s en cafetaria’s gesloten door onze teambuilding."
+    else:
+        original["message"] = "Op 20 september zijn alle resto’s en cafetaria’s gesloten door onze teambuilding."
+    original["open"] = False
+    return original
+
+
+def close_time_en(_path, original):
+    if "message" in original:
+        original["message"] += " All restaurants and cafeterias are closed on 20 September, due to our team building."
+    else:
+        original["message"] = "All restaurants and cafeterias are closed on 20 September, due to our team building."
+    original["open"] = False
+    return original
+
+
+def close_ardoyen_nl(_path, original):
+    if "message" in original:
+        original["message"] += " Op 16 september is Resto Ardoyen gesloten wegens het openingsevent van het FSVM2 onderzoeksgebouw."
+    else:
+        original["message"] = "Op 16 september is Resto Ardoyen gesloten wegens het openingsevent van het FSVM2 onderzoeksgebouw."
+    return original
+
+
+def close_ardoyen_en(_path, original):
+    if "message" in original:
+        original["message"] += " Resto Ardoyen is closed on 16 September, due to the opening event of the FSVM2 research building."
+    else:
+        original["message"] = "Resto Ardoyen is closed on 16 September, due to the opening event of the FSVM2 research building."
+    return original
+
+
+def no_more_soup_nl(_path, original):
+    original["message"] = "Door ernstige productieproblemen bij de leverancier is er tijdelijk geen soep meer te " \
+                          "verkrijgen. We werken hard aan een oplossing en vanaf 3 november zal er opnieuw " \
+                          "soep zijn. Hou onze website en de TV-schermen in de gaten voor de meest recente update " \
+                          "hierover. "
+    return original
+
+
+def no_more_soup_en(_path, original):
+    original["message"] = "Due to serious production problems at the purveyor, soup will temporarily no longer be " \
+                          "available. We are working hard to resolve this issue. Soup will be available again " \
+                          "November 3th. Watch our website and tv screens for the most up-to-date " \
+                          "information. "
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -694,8 +817,7 @@ def create_changes(root_path):
             start=date(2021, 11, 23),
             end=date(2021, 11, 23),
             all_days=True
-        )
-        ,
+        ),
         ManualChange(
             replacer=heymans_november_24_26_2021,
             resto=["nl"],
@@ -708,6 +830,146 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2021, 11, 24),
             end=date(2021, 11, 26),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=christmas_2021,
+            resto=["nl"],
+            start=date(2021, 12, 20),
+            end=date(2022, 1, 3),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=christmas_2021_en,
+            resto=["en"],
+            start=date(2021, 12, 20),
+            end=date(2022, 1, 3),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=newyear_2022,
+            resto=["nl"],
+            start=date(2022, 1, 4),
+            end=date(2022, 1, 7),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=newyear_2022_en,
+            resto=["en"],
+            start=date(2022, 1, 4),
+            end=date(2022, 1, 7),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=closures_january_2022,
+            resto=["nl"],
+            start=date(2022, 1, 17),
+            end=date(2022, 1, 28),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=closures_january_2022_en,
+            resto=["en"],
+            start=date(2022, 1, 17),
+            end=date(2022, 1, 28),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=paasvakantie2022,
+            resto=["nl"],
+            start=date(2022, 4, 4),
+            end=date(2022, 4, 17),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=easter2022,
+            resto=["en"],
+            start=date(2022, 4, 4),
+            end=date(2022, 4, 17),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=zomer_2022_1,
+            resto=["nl"],
+            start=date(2022, 6, 27),
+            end=date(2022, 7, 15),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2022_1,
+            resto=["en"],
+            start=date(2022, 6, 27),
+            end=date(2022, 7, 15),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=zomer_2022_2,
+            resto=["nl"],
+            start=date(2022, 7, 18),
+            end=date(2022, 7, 29),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2022_2,
+            resto=["en"],
+            start=date(2022, 7, 18),
+            end=date(2022, 7, 29),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=zomer_2022_1,
+            resto=["nl"],
+            start=date(2022, 8, 1),
+            end=date(2022, 9, 16),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=summer_2022_1,
+            resto=["en"],
+            start=date(2022, 8, 1),
+            end=date(2022, 9, 16),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=close_time_nl,
+            resto=["nl"],
+            start=date(2022, 9, 14),
+            end=date(2022, 9, 20),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=close_time_en,
+            resto=["en"],
+            start=date(2022, 9, 14),
+            end=date(2022, 9, 20),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=close_ardoyen_nl,
+            resto=["nl"],
+            start=date(2022, 9, 15),
+            end=date(2022, 9, 16),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=close_ardoyen_en,
+            resto=["en"],
+            start=date(2022, 9, 15),
+            end=date(2022, 9, 16),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=no_more_soup_nl,
+            resto=["nl"],
+            start=date(2022, 10, 26),
+            end=date(2022, 11, 2),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=no_more_soup_en,
+            resto=["en"],
+            start=date(2022, 10, 26),
+            end=date(2022, 11, 2),
             all_days=True
         )
     ]

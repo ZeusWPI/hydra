@@ -64,6 +64,11 @@ def parse_dates(week):
     end_day = int(match.group('end_day'))
     end_month = int(match.group('end_month'))
     end_year = guess_year(end_month)
+
+    # TODO: remove this once the wrong week has passed.
+    if start_month == 11 and start_day == 31:
+        start_month = 10
+
     start_date = datetime.date(start_year, start_month, start_day)
     end_date = datetime.date(end_year, end_month, end_day)
 
@@ -169,7 +174,7 @@ def salad_bowls(output, soup):
             bowls.append({
                 'name': columns[0].text.strip(),
                 'description': columns[1].text.strip(),
-                'price': parse_money(columns[2].string)
+                'price': parse_money(columns[2].string) if columns[2].string else ""
             })
 
     output_file = os.path.join(output, SALADS)

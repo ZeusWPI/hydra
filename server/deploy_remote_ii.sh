@@ -34,7 +34,6 @@ api="$public/api"
 # Where the website goes
 #website="$public/website"
 
-
 # Activate venv
 # shellcheck source=/dev/null
 . "$prefix/venv/bin/activate"
