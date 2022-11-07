@@ -30,9 +30,7 @@ def parse_section_item(section_item: str) -> dict[str, list[str]] | None:
     if item_allergen_list == "":
         return None
 
-    item_allergens = list(
-        map(lambda a: a.strip(), item_allergen_list.split(","))
-    )
+    item_allergens = list(map(lambda a: a.strip(), item_allergen_list.split(",")))
 
     # Exclude last item, it is not an allergen but a diet name
     # eg. 'Vegetarian' or 'Vegan'
@@ -46,9 +44,7 @@ def make_sections(
 
     for meta_idx in range(len(section_indeces)):
         header_idx = section_indeces[meta_idx]
-        section_header = (
-            EXTRACTION_PATTERN.search(raw_parts[header_idx]).group(1)
-        )
+        section_header = EXTRACTION_PATTERN.search(raw_parts[header_idx]).group(1)
 
         if section_header.lower() == "meer info":
             continue
