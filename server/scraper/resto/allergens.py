@@ -1,7 +1,9 @@
 import argparse
 import os
 import re
+# Bad python module system
 import sys
+sys.path.append('..')
 
 from bs4 import BeautifulSoup
 from requests import RequestException
