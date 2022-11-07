@@ -72,17 +72,13 @@ current_website="$current_public/website"
 mkdir -p "$prefix/current"
 
 # Map the new deployment to currently used stuff
-ln -sfn "$deployment/$1" "$current"
+ln -sfn -t "$deployment/$1" "$current"
 
 # Create directories before symlinking
-mkdir -p "$prefix/public/api"
-mkdir -p "$prefix/public/website"
+mkdir -p "$prefix/public"
 
-# Map the API and server endpoint to the new data
-# DO NOT link the full public folder; it contains other data.
-# Todo: we can do this if we include the OAuth redirect in the repo (as we should)
-ln -sfn "$current_api" "$prefix/public/api"
-ln -sfn "$current_website" "$prefix/public/website"
+# Link the public directory to our new deploy.
+ln -sfn "$public" "$prefix/public"
 
 
 echo "Setting up cron..."
