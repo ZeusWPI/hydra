@@ -3,6 +3,7 @@ import argparse
 import os
 import re
 import sys
+from typing import Union
 
 from bs4 import BeautifulSoup
 from requests import RequestException
@@ -14,15 +15,15 @@ from backoff import retry_session
 from util import write_json_to_file
 
 URL = "https://www.ugent.be/student/nl/meer-dan-studeren/resto/allergenen"
-HEADER_PATTERN = re.compile(r"^<h2>.*<\/h2>$")
-EXTRACTION_PATTERN = re.compile(r"^<[^>]*>(.*)<\/[^>]*>$")
+HEADER_PATTERN = re.compile(r"^<h2>.*</h2>$")
+EXTRACTION_PATTERN = re.compile(r"^<[^>]*>(.*)</[^>]*>$")
 
 
 def get_section_indeces(raw_parts: list[str]) -> list[int]:
     return [idx for idx, val in enumerate(raw_parts) if HEADER_PATTERN.match(val)]
 
 
-def parse_section_item(section_item: str) -> dict[str, list[str]] | None:
+def parse_section_item(section_item: str) -> Union[dict[str, list[str]], None]:
     """
     Parses strings of the form `food: allergen, allergen, allergen`
     """
