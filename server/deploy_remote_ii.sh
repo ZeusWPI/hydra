@@ -66,7 +66,6 @@ current_admin="$current/admin"
 current_public="$current/public"
 current_historic="$current/restodata"
 current_api="$current_public/api"
-current_website="$current_public/website"
 
 # Create directory before symlinking
 mkdir -p "$prefix/current"
