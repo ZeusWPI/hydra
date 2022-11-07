@@ -491,6 +491,20 @@ def no_more_soup_en(_path, original):
     return original
 
 
+def strike_nl(_path, original):
+    original["message"] = "Opgelet: op woensdag 9 november kan de dienstverlening verstoord zijn door een " \
+                          "nationale stakingsactie. Wij zullen 's ochtends pas weten welke resto's en cafetaria's" \
+                          "open kunnen gaan en welk aanbod er zal zijn."
+    return original
+
+
+def strike_en(_path, original):
+    original["message"] = "On Wednesday November 9th our services may be interrupted due to a national strike." \
+                          "We will only know in the morning which restaurants and/or cafeterias wil " \
+                          "be open and what their offer will be."
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -970,6 +984,20 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2022, 10, 26),
             end=date(2022, 11, 2),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=strike_nl,
+            resto=["nl"],
+            start=date(2022, 11, 7),
+            end=date(2022, 11, 9),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=strike_en,
+            resto=["en"],
+            start=date(2022, 11, 7),
+            end=date(2022, 11, 9),
             all_days=True
         )
     ]
