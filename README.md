@@ -57,3 +57,4 @@ In order of first contribution:
 * Titouan Vervack
 * Caroline De Brouwer
 * Niko Strijbol
+* Maxime Bloch

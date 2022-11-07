@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - 8012:8000
+    environment:
+      FLASK_ENV: 'production'
+      PUBLIC_DIR: '/hydra_public'
+    volumes:
+    - ../public:/hydra_public

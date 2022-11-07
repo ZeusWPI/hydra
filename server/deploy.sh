@@ -101,6 +101,7 @@ w_ssh "$dir/deploy_remote_i.sh" "$folder $prefix"
 # Copy the files we need
 w_rsync "$output/" "$prefix/deployment/$folder/public/"
 w_rsync "$server/scraper/" "$prefix/deployment/$folder/scraper/"
+w_rsync "$server/admin/" "$prefix/deployment/$folder/admin/"
 
 # Finalize install on remote
 w_ssh "$dir/deploy_remote_ii.sh" "$folder $prefix $use_remote"
