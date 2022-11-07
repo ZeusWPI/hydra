@@ -71,7 +71,7 @@ current_api="$current_public/api"
 mkdir -p "$current"
 
 # Map the new deployment to currently used stuff
-ln -sfn "$deployment/$1" "$current"
+ln -sfn -t "$current" "$deployment/$1"
 
 # Link the public directory to our new deploy.
 ln -sfn -t "$prefix" "$public"
