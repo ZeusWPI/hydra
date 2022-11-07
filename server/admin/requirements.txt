@@ -1,2 +1,4 @@
 Flask
 gunicorn
+cron-converter
+cron-descriptor

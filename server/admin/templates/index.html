@@ -24,13 +24,12 @@
     <div class="row">
         {% for scrape_status_result in scrape_status_results %}
             <div class="col s6">
-
-                <div class="card darken-1 {% if scrape_status_result['scrape_failed_for_1_day'] %}red{% else %}blue-grey{% endif %}">
+                <div class="card darken-1 {% if scrape_status_result['last_scrape_failed'] %}red{% else %}blue-grey{% endif %}">
                     <div class="card-content white-text">
-                        <span class="card-title">{{ scrape_status_result.name }}</span>
-                        <p>Scrapes information {{ scrape_status_result.scrape_interval }}</p>
-                        <p>Last scrape: <b>{{ scrape_status_result.last_modification_time }}</b></p>
-                        {% if scrape_status_result['scrape_failed_for_1_day'] %}
+                        <span class="card-title">{{ scrape_status_result["name"] }}</span>
+                        <p>Schedule: {{ scrape_status_result["cron_pretty"] }}</p>
+                        <p>Last scrape: <b>{{ scrape_status_result["last_modification_time_pretty"] }}</b></p>
+                        {% if scrape_status_result['last_scrape_failed'] %}
                             <br/>
                             <p><b>Warning</b>: Last scrape was more then 1 day ago. You should look in the logs.</p>
                         {% endif %}

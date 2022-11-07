@@ -81,10 +81,8 @@ cron="$current_scraper/hydra.cron"
 venv=". \"$prefix/venv/bin/activate\""
 
 cat << EOF > "$cron"
-# Run resto scraper every day at 10 am
-0 10 * * *    ${venv} && ${current_scraper}/resto.sh    ${current_historic} ${current_api}   >> ${prefix}/log/resto-scraper.log
-# Run resto scraper every day at 8 pm
-0 20 * * *    ${venv} && ${current_scraper}/resto.sh    ${current_historic} ${current_api}   >> ${prefix}/log/resto-scraper.log
+# Run resto scraper every day at 10 am and 8 pm
+0 10,20 * * *    ${venv} && ${current_scraper}/resto.sh    ${current_historic} ${current_api}   >> ${prefix}/log/resto-scraper.log
 # Run schamper scraper every day at 9 am
 0 9 * * *     ${venv} && ${current_scraper}/schamper.py ${current_api}/1.0/schamper/ >> ${prefix}/log/schamper-scraper.log
 # Run news scraper every day at 8 am
