@@ -98,7 +98,7 @@ crontab "$cron"
 
 # (Re-)Start the admin docker
 cd "$current_admin"
-docker-compose up --build -d
+podman-compose up --force-recreate --build -d
 cd -
 
 echo "Deployment complete."
