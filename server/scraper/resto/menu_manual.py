@@ -505,6 +505,16 @@ def strike_en(_path, original):
     return original
 
 
+def leak_nl(_path, original):
+    original["message"] = "Deze week is cafetaria Heymans gesloten wegens een waterlek."
+    return original
+
+
+def leak_en(_path, original):
+    original["message"] = "Cafetaria Heymans is closed this week due to a water leak."
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -998,6 +1008,20 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2022, 11, 7),
             end=date(2022, 11, 9),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=leak_nl,
+            resto=["nl"],
+            start=date(2022, 11, 15),
+            end=date(2022, 11, 19),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=leak_en,
+            resto=["en"],
+            start=date(2022, 11, 15),
+            end=date(2022, 11, 19),
             all_days=True
         )
     ]
