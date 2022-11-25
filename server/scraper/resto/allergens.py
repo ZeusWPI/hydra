@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 import argparse
 import os
-import re
 import sys
 from typing import Union
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from requests import RequestException
 
 # Bad python module system
@@ -15,12 +14,14 @@ from backoff import retry_session
 from util import write_json_to_file
 
 URL = "https://www.ugent.be/student/nl/meer-dan-studeren/resto/allergenen"
-HEADER_PATTERN = re.compile(r"^<h2>.*</h2>$")
-EXTRACTION_PATTERN = re.compile(r"^<[^>]*>(.*)</[^>]*>$")
+SKIPPED_ELEMENTS = [
+    "vegetarisch",
+    "vegan"
+]
 
 
-def get_section_indeces(raw_parts: list[str]) -> list[int]:
-    return [idx for idx, val in enumerate(raw_parts) if HEADER_PATTERN.match(val)]
+def get_section_indeces(raw_parts: list[Tag]) -> list[int]:
+    return [idx for idx, val in enumerate(raw_parts) if val.name == "h2"]
 
 
 def parse_section_item(section_item: str) -> Union[dict[str, list[str]], None]:
@@ -39,38 +40,35 @@ def parse_section_item(section_item: str) -> Union[dict[str, list[str]], None]:
 
     # Exclude last item, it is not an allergen but a diet name
     # eg. 'Vegetarian' or 'Vegan'
-    return {item_name: item_allergens[:-1]}
+    return {item_name.lower(): sorted({x.strip(".") for x in item_allergens if x.strip(".") not in SKIPPED_ELEMENTS})}
 
 
 def make_sections(
-    section_indeces: list[int], raw_parts: list[str]
+        section_indices: list[int], raw_parts: list[Tag]
 ) -> dict[str, dict[str, list[str]]]:
     sections = dict()
 
-    for meta_idx in range(len(section_indeces)):
-        header_idx = section_indeces[meta_idx]
-        section_header = EXTRACTION_PATTERN.search(raw_parts[header_idx]).group(1)
+    for meta_idx in range(len(section_indices)):
+        header_idx = section_indices[meta_idx]
+        section_header = raw_parts[header_idx].get_text(strip=True).lower()
 
-        if section_header.lower() == "meer info":
+        if section_header == "meer info":
             continue
 
-        assert section_header is not None
         assert section_header not in sections
 
         next_header_idx = (
-            section_indeces[meta_idx + 1] if meta_idx < len(section_indeces) - 1 else -1
+            section_indices[meta_idx + 1] if meta_idx < len(section_indices) - 1 else -1
         )
 
         # Get the list of items from this header, up to the next
         # and filter out ones we don't need
-        raw_section_items = raw_parts[header_idx + 1 : next_header_idx]
-        raw_section_items = list(
-            filter(lambda i: i.startswith("<p>"), raw_section_items)
-        )
+        raw_section_items = raw_parts[header_idx + 1: next_header_idx]
+        raw_section_items = [x for x in raw_section_items if x.name == "p"]
 
         sections[section_header] = dict()
         for raw_section_item in raw_section_items:
-            section_item = EXTRACTION_PATTERN.search(raw_section_item).group(1)
+            section_item = raw_section_item.get_text(strip=True)
             assert section_item is not None
 
             section_item_map = parse_section_item(section_item)
@@ -93,13 +91,13 @@ def parse_allergens():
     # The ones we care about are
     #  - h2: name of the food group type
     #  - p: the food itself and its allergens
-    content_parts = content_div.decode().split("\n")
+    content_parts = content_div.find_all(True)
 
-    # Get the indeces of the h2 tags so the tag list can be
+    # Get the indices of the h2 tags so the tag list can be
     # split into sections
-    section_indeces = get_section_indeces(content_parts)
+    section_indices = get_section_indeces(content_parts)
 
-    sections = make_sections(section_indeces, content_parts)
+    sections = make_sections(section_indices, content_parts)
 
     # for sect_h, sect_i in sections.items():
     #     print(f"\"{sect_h}\":")
