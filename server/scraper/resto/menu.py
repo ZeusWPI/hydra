@@ -2,11 +2,13 @@
 import argparse
 import collections
 import datetime
+import json
 import os
 import string
 import sys
 import traceback
 from pprint import pprint
+from typing import Dict, Optional
 
 from pyquery import PyQuery as pq
 
@@ -131,6 +133,17 @@ HOT_COLD_MAPPING = collections.defaultdict(lambda: 'hot', {
     'cold dishes (to be heated up)': 'cold',
 })
 
+# Relevant sections from https://www.ugent.be/student/nl/meer-dan-studeren/resto/allergenen
+RELEVANT_ALLERGEN_SECTIONS = [
+    "warme maaltijden: vegetarisch",
+    "warme maaltijden: vegan",
+    "warme maaltijden: vis",
+    "warme maaltijden: vlees",
+    "groenten bij warme maaltijden",
+    "zetmeel",
+    "soep"
+]
+
 
 def get_weeks_html(url):
     """
@@ -215,7 +228,17 @@ def get_days(which, iso_week, url):
     return r
 
 
-def get_day_menu(which, url):
+def find_allergens_for_food(allergens: Dict[str, str], food: str) -> list[str]:
+    """Attempt to find the allergens for the given food."""
+    food = food.lower()
+    food_parts = [x.strip() for x in food.split("/")]
+    found = []
+    for part in food_parts:
+        found += allergens.get(part, [])
+    return found
+
+
+def get_day_menu(which, url, allergens: Dict[str, str]):
     """Parses the day menu from the given url."""
     # Assumptions:
     # - The #content-core contains only <li> items belonging to the menu and <h3> elements that indicate a type.
@@ -257,10 +280,12 @@ def get_day_menu(which, url):
 
         if HEADING_TO_TYPE[last_heading] == 'soup':
             name, price = split_price(meal)
-            soups.append(dict(price=price, name=name, type='side'))
+            food_allergens = find_allergens_for_food(allergens, name)
+            soups.append(dict(price=price, name=name, type='side', allergens=food_allergens))
         elif HEADING_TO_TYPE[last_heading] == 'meal soup':
             name, price = split_price(meal)
-            soups.append(dict(price=price, name=name, type='main'))
+            food_allergens = find_allergens_for_food(allergens, name)
+            soups.append(dict(price=price, name=name, type='main', allergens=food_allergens))
         elif HEADING_TO_TYPE[last_heading] == 'meat':
             hot_cold = HOT_COLD_MAPPING[last_heading]
             name, price = split_price(meal)
@@ -268,26 +293,32 @@ def get_day_menu(which, url):
                 kind, name = [s.strip() for s in name.split(':')]
                 kind = kind.lower()
                 kind = TRANSLATE_KIND[kind]
-                meats.append(dict(price=price, name=name, kind=kind, hot=hot_cold))
+                food_allergens = find_allergens_for_food(allergens, name)
+                meats.append(dict(price=price, name=name, kind=kind, hot=hot_cold, allergens=food_allergens))
             else:  # Meat in the new way
                 # If the name contains '-', it might be an indication of vegan/vegi
                 if '-' in name:
                     kind = name.split('-')[-1].strip()
                     stripped_name = '-'.join(name.split('-')[:-1]).strip()  # Re-join other splits
                     if kind in TRANSLATE_KIND:
-                        meats.append(dict(price=price, name=stripped_name, kind=TRANSLATE_KIND[kind], hot=hot_cold))
+                        food_allergens = find_allergens_for_food(allergens, stripped_name)
+                        meats.append(dict(price=price, name=stripped_name, kind=TRANSLATE_KIND[kind], hot=hot_cold,
+                                          allergens=food_allergens))
                     else:
-                        meats.append(dict(price=price, name=name, kind='meat', hot=hot_cold))
+                        food_allergens = find_allergens_for_food(allergens, name)
+                        meats.append(dict(price=price, name=name, kind='meat', hot=hot_cold, allergens=food_allergens))
                 else:
                     # Sometimes there is vegan/vegetarian in the name, in which case they don't repeat the type.
                     if any(possible in name.lower() for possible in POSSIBLE_VEGETARIAN):
-                        meats.append(dict(price=price, name=name, kind='vegetarian', hot=hot_cold))
+                        kind = 'vegetarian'
                     elif any(possible in name.lower() for possible in POSSIBLE_VEGAN):
-                        meats.append(dict(price=price, name=name, kind='vegan', hot=hot_cold))
+                        kind = 'vegan'
                     elif any(possible in name.lower() for possible in POSSIBLE_FISH):
-                        meats.append(dict(price=price, name=name, kind='fish', hot=hot_cold))
+                        kind = 'fish'
                     else:
-                        meats.append(dict(price=price, name=name, kind='meat', hot=hot_cold))
+                        kind = 'meat'
+                    food_allergens = find_allergens_for_food(allergens, name)
+                    meats.append(dict(price=price, name=name, kind=kind, hot=hot_cold, allergens=food_allergens))
         elif HEADING_TO_TYPE[last_heading] == 'vegetables':
             vegetables.append(meal)
         else:
@@ -364,6 +395,7 @@ def write_2_0(root_path, menus):
                             name=meal['name'],
                             price=meal['price'],
                             type=meal['type'],
+                            allergens=meal['allergens'],
                         ))
                     for meal in day_menu['meat']:
                         menu['meals'].append(dict(
@@ -371,6 +403,7 @@ def write_2_0(root_path, menus):
                             name=meal['name'],
                             price=meal['price'],
                             type='main' if meal['hot'] == 'hot' else 'cold',
+                            allergens=meal['allergens'],
                         ))
                     menu['vegetables'] = day_menu['vegetables']
 
@@ -391,6 +424,23 @@ def write_2_0(root_path, menus):
 def main(output_v2):
     """The main method."""
 
+    # We want to include allergens, so get the allergens and a number of relevant sections.
+    # This assumes you have run the allergen scraper first!
+    allergens = {}
+    try:
+        with open(f"{output_v2}/allergens.json", 'r') as allergen_file:
+            all_allergens = json.load(allergen_file)
+            for section in RELEVANT_ALLERGEN_SECTIONS:
+                allergens |= all_allergens[section]
+    except KeyError:
+        print(f"Could not find allergen section {section} in {all_allergens}.", file=sys.stderr)
+        print("Skipping allergens.", file=sys.stderr)
+        traceback.print_exc()
+    except IOError:
+        print("Could not find allergen file.", file=sys.stderr)
+        print("Using a default, but this is not normal.", file=sys.stderr)
+        traceback.print_exc()
+
     all_problems = {}
     menus = {}
     for which in TYPES:
@@ -398,11 +448,12 @@ def main(output_v2):
         menus[which] = {}
 
         weeks = {}
+        # noinspection PyBroadException
         try:
             # Get weeks. Expect at least this week (if <= friday) and the
             # following.
             weeks = get_weeks(which)
-        except Exception as error:
+        except Exception:
             problems.append(f"Failed to parse the weekmenu on {WEEK_MENU_URL[which]}.")
             traceback.print_exc()
 
@@ -410,6 +461,7 @@ def main(output_v2):
 
             year, week = week
             days = {}
+            # noinspection PyBroadException
             try:
                 # Get days. Expect every day to be there.
                 days = get_days(which, week, week_url)
@@ -418,7 +470,7 @@ def main(output_v2):
                     for day in days
                     if days[day] is None and day >= datetime.date.today()
                 ])
-            except Exception as error:
+            except Exception:
                 problem = f"Failed to parse days from {week_url}."
                 problems.append(problem)
                 traceback.print_exc()
@@ -428,10 +480,11 @@ def main(output_v2):
                 if day_url is None:
                     continue  # Skip unavailable days.
 
+                # noinspection PyBroadException
                 try:
-                    menu = get_day_menu(which, day_url)
+                    menu = get_day_menu(which, day_url, allergens)
                     week_dict[day] = menu
-                except Exception as error:
+                except Exception:
                     problems.append(f"Failed parsing daymenu from {day_url}.")
                     traceback.print_exc()
 
