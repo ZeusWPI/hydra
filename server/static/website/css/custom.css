@@ -79,8 +79,6 @@ body {
 }
 
 .badge-card a {
-    display: block;
-    float: left;
     height: 60px;
     margin-right: 20px;
 }
