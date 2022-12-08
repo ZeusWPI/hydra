@@ -515,6 +515,18 @@ def leak_en(_path, original):
     return original
 
 
+def winter_2022_nl(_path, original):
+    original["message"] = "Van 23/12 tot 2/01 sluiten de resto's. Sommige resto's of cafetaria's sluiten vroeger. " \
+                          "In resto Merelbeke zijn geen warme maaltijden tot en met 6 december."
+    return original
+
+
+def winter_2022_en(_path, original):
+    original["message"] = "From 23/12 until 2/01 de resto's are closed. Some locations close earlier. " \
+                          "In resto Merelbeke there are no hot meals until December 6th."
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -1022,6 +1034,20 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2022, 11, 15),
             end=date(2022, 11, 19),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=winter_2022_nl,
+            resto=["nl"],
+            start=date(2022, 12, 8),
+            end=date(2023, 1, 6),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=winter_2022_en,
+            resto=["en"],
+            start=date(2022, 12, 8),
+            end=date(2023, 1, 6),
             all_days=True
         )
     ]
