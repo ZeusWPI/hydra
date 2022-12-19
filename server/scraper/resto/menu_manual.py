@@ -517,13 +517,13 @@ def leak_en(_path, original):
 
 def winter_2022_nl(_path, original):
     original["message"] = "Van 23/12 tot 2/01 sluiten de resto's. Sommige resto's of cafetaria's sluiten vroeger. " \
-                          "In resto Merelbeke zijn geen warme maaltijden tot en met 6 december."
+                          "In resto Merelbeke zijn geen warme maaltijden tot en met 6 januari."
     return original
 
 
 def winter_2022_en(_path, original):
     original["message"] = "From 23/12 until 2/01 de resto's are closed. Some locations close earlier. " \
-                          "In resto Merelbeke there are no hot meals until December 6th."
+                          "In resto Merelbeke there are no hot meals until January 6th."
     return original
 
 
