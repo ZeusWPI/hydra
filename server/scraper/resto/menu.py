@@ -4,6 +4,7 @@ import collections
 import datetime
 import json
 import os
+from bs4 import BeautifulSoup
 import string
 import sys
 import traceback
@@ -280,15 +281,18 @@ def get_day_menu(which, url, allergens: Dict[str, str]):
 
         if HEADING_TO_TYPE[last_heading] == 'soup':
             name, price = split_price(meal)
+            name = BeautifulSoup(name, "html.parser").get_text()
             food_allergens = find_allergens_for_food(allergens, name)
             soups.append(dict(price=price, name=name, type='side', allergens=food_allergens))
         elif HEADING_TO_TYPE[last_heading] == 'meal soup':
             name, price = split_price(meal)
+            name = BeautifulSoup(name, "html.parser").get_text()
             food_allergens = find_allergens_for_food(allergens, name)
             soups.append(dict(price=price, name=name, type='main', allergens=food_allergens))
         elif HEADING_TO_TYPE[last_heading] == 'meat':
             hot_cold = HOT_COLD_MAPPING[last_heading]
             name, price = split_price(meal)
+            name = BeautifulSoup(name, "html.parser").get_text()
             if ':' in meal:  # Meat in the old way
                 kind, name = [s.strip() for s in name.split(':')]
                 kind = kind.lower()
