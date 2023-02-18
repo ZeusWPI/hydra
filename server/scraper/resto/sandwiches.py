@@ -86,7 +86,7 @@ def static_sandwiches(output2, soup):
     for row in soup.table.find_all("tr", class_=lambda x: x != 'tabelheader'):
         columns = row.find_all("td")
         sandwiches.append({
-            "name": columns[0].find(text=True),
+            "name": columns[0].find(string=True),
             "ingredients": parse_ingredients(columns[1].string or ""),
             "price_medium": parse_money(columns[2].string),
             "price_small": ""  # workaround
