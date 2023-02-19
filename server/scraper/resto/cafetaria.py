@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import os
+import re
 import sys
 
 from requests.exceptions import ConnectionError, Timeout
@@ -52,7 +53,10 @@ def get_desserts(soup):
     list_list = container.find_all("ul")
     # Desserts are the second ul in the div.
     for row in list_list[1].find_all("li"):
-        name, price = row.text.split("€")
+        name, price = row.text.split("€", 1)
+        # extract number from number possibly followed with other text
+        price = re.search(r'\d+,\d+', price).group(0)
+
         data.append({'name': name.strip(),
                      'price': parse_money(price)})
     return data
