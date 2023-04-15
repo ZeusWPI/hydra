@@ -14,7 +14,7 @@
             "latitude": 51.026024,
             "longitude": 3.712939,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-sterre",
             "open": {"resto":[["08:30", "14:00"]]}
         }, {
             "name": "Resto Campus Heymans",
@@ -22,7 +22,7 @@
             "latitude": 51.026508,
             "longitude": 3.730189,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-heymans",
             "open": {"resto":[["08:30", "15:00"]]}
         }, {
             "name": "Resto De Brug",
@@ -30,7 +30,7 @@
             "latitude": 51.045613,
             "longitude":  3.727147,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-debrug",
             "open": {"resto":[["08:30", "15:00"], ["17:30", "21:00"]],
               "cafetaria":[["08:00", "16:00"]]}
         }, {
@@ -39,7 +39,7 @@
             "latitude": 50.998369,
             "longitude": 3.766454,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-merelbeke",
             "open": {"resto":[["08:30", "15:00"]]}
         }, {
             "name": "Resto Campus Dunant",
@@ -47,7 +47,7 @@
             "latitude": 51.049023,
             "longitude": 3.704017,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-dunant",
             "open": {"resto":[["08:30", "15:00"]]}
         }, {
             "name": "Resto Campus Coupure",
@@ -55,7 +55,7 @@
             "latitude": 51.053252,
             "longitude": 3.707671,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-coupure",
             "open": {"resto":[["08:30", "15:00"]]}
         }, {
             "name": "Resto Ardoyen",
@@ -63,7 +63,7 @@
             "latitude": 51.010207,
             "longitude": 3.707660,
             "type": "resto",
-            "endpoint": "nl",
+            "endpoint": "nl-ardoyen",
             "open": {"resto":[["08:30", "15:00"]]}
         }, {
             "name": "Cafetaria Campus Boekentoren",

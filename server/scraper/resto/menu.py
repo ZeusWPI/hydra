@@ -29,6 +29,19 @@ WEEK_MENU_URL = {
     "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu"
 }
 
+# These endpoints are copies of another endpoint.
+# While this seems useless, it allows messages per endpoint,
+# which is very useful.
+COPIED_ENDPOINTS = {
+    "nl-debrug": "nl",
+    "nl-heymans": "nl",
+    "nl-dunant": "nl",
+    "nl-coupure": "nl",
+    "nl-sterre": "nl",
+    "nl-ardoyen": "nl",
+    "nl-merelbeke": "nl",
+}
+
 # Day names to day of the week.
 # The keys are the keys from WEEK_MENU_URL.
 # For english:
@@ -494,6 +507,10 @@ def main(output_v2):
 
         if problems:
             all_problems[which] = problems
+
+    # Support copies
+    for copy, original in COPIED_ENDPOINTS.items():
+        menus[copy] = menus[original]
 
     # Print the parsing problems.
     if all_problems:
