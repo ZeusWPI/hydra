@@ -2,7 +2,7 @@ beautifulsoup4==4.12.2
 htmlmin==0.1.12
 lxml==4.9.2
 pyquery==2.0.0
-requests==2.28.2
+requests==2.29.0
 wheel==0.40.0
 urllib3==1.26.15
 feedparser==6.0.10
