@@ -31,8 +31,16 @@
             "longitude":  3.727147,
             "type": "resto",
             "endpoint": "nl-debrug",
-            "open": {"resto":[["08:30", "15:00"], ["17:30", "21:00"]],
+            "open": {"resto":[["08:30", "15:00"]],
               "cafetaria":[["08:00", "16:00"]]}
+        }, {
+            "name": "Resto De Brug (avond)",
+            "address": "Sint-Pietersnieuwstraat 45",
+            "latitude": 51.045613,
+            "longitude":  3.727147,
+            "type": "resto",
+            "endpoint": "nl-debrug-avond",
+            "open": {"resto":[["17:30", "21:00"]]}
         }, {
             "name": "Resto Campus Merelbeke",
             "address": "Salisburylaan 133, Merelbeke",
