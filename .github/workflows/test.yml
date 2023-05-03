@@ -27,7 +27,7 @@ jobs:
           node-version: '18'
       - name: Install Node dependencies
         run: |
-          npm install -g ajv-cli@5.0.0
+          npm install -g ajv-cli@5.0.0 ajv-formats@2.1.1 ajv-keywords@5.1.0
       - name: Run tests
         run: |
           html5validator --version

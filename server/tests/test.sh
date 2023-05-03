@@ -51,10 +51,10 @@ html5validator --root "$static/info" --show-warnings
 ###############################################################################
 
 echo "Validating info..."
-ajv -s "$tests/schema_info-content.json" -d "$static/info/*/info-content.json" --errors=text
+ajv -c ajv-keywords -c ajv-formats -s "$tests/schema_info-content.json" -d "$static/info/*/info-content.json" --errors=text
 
 echo "Validating special events..."
-ajv -s "$tests/schema_special_events.json" -d "$static/association/special_events.json" --errors=text
+ajv -c ajv-keywords -c ajv-formats -s "$tests/schema_special_events.json" -d "$static/association/special_events.json" --errors=text
 
 ###############################################################################
 # Shell scripts
