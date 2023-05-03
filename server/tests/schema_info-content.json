@@ -48,7 +48,7 @@
         "$id": "/items/properties/subcontent",
         "type": "array",
         "title": "Subcontent",
-        "descriptions": "Contains the child items of this item. Applications should display the list of children.",
+        "description": "Contains the child items of this item. Applications should display the list of children.",
         "items": {
           "$ref": "/items"
         }
