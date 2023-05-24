@@ -4,5 +4,5 @@ lxml==4.9.2
 pyquery==2.0.0
 requests==2.29.0
 wheel==0.40.0
-urllib3==1.26.15
+urllib3==2.0.1
 feedparser==6.0.10
