@@ -4,12 +4,14 @@ import collections
 import datetime
 import json
 import os
+import re
+
 from bs4 import BeautifulSoup
 import string
 import sys
 import traceback
 from pprint import pprint
-from typing import Dict, Optional
+from typing import Dict
 
 from pyquery import PyQuery as pq
 
@@ -27,7 +29,17 @@ OVERVIEW_2_0 = "menu/{}/overview.json"
 WEEK_MENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu",
     "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "nl-debrug-avond": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenubrugavond"
+    "nl-debrug-avond": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenubrugavond",
+    "nl-coupure": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
+    "nl-dunant": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
+    "nl-merelbeke": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
+}
+
+NORMAL_WEEK = re.compile(r"week(\d+)$")
+INDIVIDUAL_DAY_URL_OVERRIDE = {
+    "nl-coupure": r"week(\d+)coupure$",
+    "nl-dunant": r"week(\d+)merelbekedunant$",
+    "nl-merelbeke": r"week(\d+)merelbekedunant$",
 }
 
 # These endpoints are copies of another endpoint.
@@ -160,7 +172,7 @@ RELEVANT_ALLERGEN_SECTIONS = [
 ]
 
 
-def get_weeks_html(url):
+def get_weeks_html(url, endpoint):
     """
     Get the URLs to the weekly menus from the Dutch-style HTML page.
     """
@@ -186,7 +198,25 @@ def get_weeks_html(url):
             # Just append it...
             week_urls.append(cyclus)
 
-    return week_urls
+    if last_part_regex := INDIVIDUAL_DAY_URL_OVERRIDE.get(endpoint):
+        last_part_regex = re.compile(last_part_regex)
+        filtered_urls = []
+        filtered_weeks = []
+        for url in week_urls:
+            if match := last_part_regex.search(url):
+                filtered_urls.append(url)
+                filtered_weeks.append(match[1])
+        # Determine which weeks have an override and which not.
+        # Weeks without override are still added.
+        for url in week_urls:
+            if match := NORMAL_WEEK.search(url):
+                week_number = match[1]
+                if week_number not in filtered_weeks:
+                    filtered_urls.append(url)
+    else:
+        filtered_urls = week_urls
+
+    return filtered_urls
 
 
 # Map of the various parsers for the week menu.
@@ -202,7 +232,7 @@ def get_weeks(which):
     """
     page_type = WEEK_MENU_PAGE_TYPE[which]
     week_parser = WEEK_MENU_PARSERS[page_type]
-    week_urls = week_parser(WEEK_MENU_URL[which])
+    week_urls = week_parser(WEEK_MENU_URL[which], which)
     r = {}
     for url in week_urls:
         try:
