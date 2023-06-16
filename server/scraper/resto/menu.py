@@ -38,8 +38,10 @@ WEEK_MENU_URL = {
 NORMAL_WEEK = re.compile(r"week(\d+)$")
 INDIVIDUAL_DAY_URL_OVERRIDE = {
     "nl-coupure": r"week(\d+)coupure$",
-    "nl-dunant": r"week(\d+)merelbekedunant$",
-    "nl-merelbeke": r"week(\d+)merelbekedunant$",
+    "nl-dunant": r"week(\d+)(merelbekedunant|dunant)$",
+    "nl-merelbeke": r"week(\d+)(merelbekedunant|merelbeke)$",
+    "nl-debrug": r"week(\d+)brugsterre",
+    "nl-sterre": r"week(\d+)(brugsterre|sterre)"
 }
 
 # These endpoints are copies of another endpoint.
@@ -198,9 +200,9 @@ def get_weeks_html(url, endpoint):
             # Just append it...
             week_urls.append(cyclus)
 
+    filtered_urls = []
     if last_part_regex := INDIVIDUAL_DAY_URL_OVERRIDE.get(endpoint):
         last_part_regex = re.compile(last_part_regex)
-        filtered_urls = []
         filtered_weeks = []
         for url in week_urls:
             if match := last_part_regex.search(url):
@@ -214,7 +216,20 @@ def get_weeks_html(url, endpoint):
                 if week_number not in filtered_weeks:
                     filtered_urls.append(url)
     else:
-        filtered_urls = week_urls
+        # In this case, we want all non-special URLs, so all URLs that don't match any override.
+        for potential_url in week_urls:
+            if NORMAL_WEEK.search(potential_url):
+                filtered_urls.append(potential_url)
+
+    # Diagnostics: check if there are URLs that don't match any pattern.
+    non_matching = []
+    for original_url in week_urls:
+        if not any(re.search(pattern, original_url) for pattern in INDIVIDUAL_DAY_URL_OVERRIDE.values()) and not NORMAL_WEEK.search(original_url):
+            non_matching.append(non_matching)
+
+    if non_matching:
+        pprint(f"WARNING: Some week URLs from {endpoint} where not recognized:", stream=sys.stderr)
+        pprint(str(non_matching), stream=sys.stderr)
 
     return filtered_urls
 
@@ -545,7 +560,14 @@ def main(output_v2):
 
     # Support copies
     for copy, original in COPIED_ENDPOINTS.items():
-        menus[copy] = menus[original]
+        if copy not in menus:
+            menus[copy] = {}
+        originals = menus[original]
+        copies = menus[copy]
+        for week, original_menu in originals.items():
+            # If the day already exists, don't copy it.
+            if week not in copies:
+                copies[week] = original_menu
 
     # Print the parsing problems.
     if all_problems:
