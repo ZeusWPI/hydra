@@ -40,8 +40,9 @@ INDIVIDUAL_DAY_URL_OVERRIDE = {
     "nl-coupure": r"week(\d+)coupure$",
     "nl-dunant": r"week(\d+)(merelbekedunant|dunant)$",
     "nl-merelbeke": r"week(\d+)(merelbekedunant|merelbeke)$",
-    "nl-debrug": r"week(\d+)brugsterre",
-    "nl-sterre": r"week(\d+)(brugsterre|sterre)"
+    "nl-debrug": r"week(\d+)brugsterre|week(27)duurzaam|week(28)duurzaam",
+    "nl-sterre": r"week(\d+)(brugsterre|sterre)|week(27)duurzaam",
+    "nl-ardoyen": r"week(\d+)ardoyen"
 }
 
 # These endpoints are copies of another endpoint.
@@ -225,7 +226,7 @@ def get_weeks_html(url, endpoint):
     non_matching = []
     for original_url in week_urls:
         if not any(re.search(pattern, original_url) for pattern in INDIVIDUAL_DAY_URL_OVERRIDE.values()) and not NORMAL_WEEK.search(original_url):
-            non_matching.append(non_matching)
+            non_matching.append(original_url)
 
     if non_matching:
         pprint(f"WARNING: Some week URLs from {endpoint} where not recognized:", stream=sys.stderr)

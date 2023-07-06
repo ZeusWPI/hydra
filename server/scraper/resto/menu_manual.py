@@ -66,6 +66,13 @@ def restjesmaand18_replacer(_path, original):
     }
 
 
+def add_or_append(menu, message):
+    if "message" in menu:
+        menu["message"] += "\n" + message
+    else:
+        menu["message"] = message
+
+
 # Paasvakantie 2019
 def paasvakantie19_general(_path, original):
     original['message'] = ("Tijdens de paasvakantie zijn resto's Campus Sterre en Campus Merelbeke geopend als "
@@ -524,6 +531,99 @@ def winter_2022_nl(_path, original):
 def winter_2022_en(_path, original):
     original["message"] = "From 23/12 until 2/01 de resto's are closed. Some locations close earlier. " \
                           "In resto Merelbeke there are no hot meals until January 6th."
+    return original
+
+
+def zomer_warning(_path, original):
+    add_or_append(original, "In de zomermaanden kan het menu onverwachts veranderen. Controleer de website voor de meest recente informatie.")
+    return original
+
+
+def july_10_2023_nl(_path, original):
+    add_or_append(original, "De resto's zijn gesloten op maandag 10 juli.")
+    original["open"] = False
+    return original
+
+
+def july_10_2023_en(_path, original):
+    add_or_append(original, "The restaurants are closed on Monday, July 10th.")
+    original["open"] = False
+    return original
+
+
+def august_14_2023_nl(_path, original):
+    add_or_append(original, "De resto's zijn gesloten op maandag 14 augustus.")
+    original["open"] = False
+    return original
+
+
+def august_14_2023_en(_path, original):
+    add_or_append(original, "The restaurants are closed on Monday, August 14th.")
+    original["open"] = False
+    return original
+
+
+def brug_coupure_middag_2023(_path, original):
+    add_or_append(original, "Gesloten van 15 juli tot en met 20 augustus.")
+    original["open"] = False
+    return original
+
+
+def brug_avond_2023(_path, original):
+    add_or_append(original, "De Brug Avond is gesloten van 30 juni tot en met 3 september.")
+    original["open"] = False
+    return original
+
+
+def coupure_2023_hot(_path, original):
+    add_or_append(original, "Geen warme maaltijden vanaf 12 juli tot en met 3 september.")
+    original["open"] = True
+    original["meals"] = []
+    return original
+
+
+def arodyen_2023(_path, original):
+    add_or_append(original, "Gesloten van 15 juli tot en met 30 juli.")
+    original["open"] = False
+    return original
+
+
+def ardoyen_2023_hot(_path, original):
+    add_or_append(original, "Geen warme maaltijden op vrijdagen 14 juli, en 4, 11, 18 en 25 augustus")
+    original["open"] = True
+    original["meals"] = []
+    return original
+
+
+def dunant_2023(_path, original):
+    add_or_append(original, "Gesloten van 7 juli tot en met 10 september.")
+    original["open"] = False
+    return original
+
+
+def dunant_merelbeke_2023_hot(_path, original):
+    add_or_append(original, "Géén warme maaltijden vanaf 3 juli tot en met start academiejaar.")
+    original["open"] = True
+    original["meals"] = []
+    return original
+
+
+def merelbeke_2023(_path, original):
+    add_or_append(original, "Gesloten van 15 juli tot en met 20 augustus.")
+    original["open"] = False
+    return original
+
+
+def sterre_2023(_path, original):
+    add_or_append(original, "Gesloten van 15 juli tot en met 30 juli.")
+    original["open"] = False
+    return original
+
+
+def sterre_2023_hot(_path, original):
+    add_or_append(original, "Géén warme maaltijden vanaf 12 juli tot en met 27 augustus.")
+    original["open"] = True
+    original["meals"] = []
     return original
 
 
@@ -1049,7 +1149,140 @@ def create_changes(root_path):
             start=date(2022, 12, 8),
             end=date(2023, 1, 6),
             all_days=True
-        )
+        ),
+        ManualChange(
+            replacer=july_10_2023_nl,
+            resto=["nl-debrug", "nl-debrug-avond", "nl-dunant", "nl-coupure", "nl-sterre", "nl-ardoyen", "nl-merelbeke", "nl"],
+            start=date(2023, 7, 10),
+            end=date(2023, 7, 10),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=july_10_2023_nl,
+            resto=["nl-debrug", "nl-debrug-avond", "nl-dunant", "nl-coupure", "nl-sterre", "nl-ardoyen", "nl-merelbeke", "nl"],
+            start=date(2023, 7, 1),
+            end=date(2023, 9, 22),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=july_10_2023_en,
+            resto=["en"],
+            start=date(2023, 7, 10),
+            end=date(2023, 7, 10),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=august_14_2023_nl,
+            resto=["nl-debrug", "nl-debrug-avond", "nl-dunant", "nl-coupure", "nl-sterre", "nl-ardoyen", "nl-merelbeke", "nl"],
+            start=date(2023, 8, 14),
+            end=date(2023, 8, 14),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=august_14_2023_en,
+            resto=["en"],
+            start=date(2023, 8, 14),
+            end=date(2023, 8, 14),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=brug_coupure_middag_2023,
+            resto=["nl-debrug", "nl", "nl-coupure"],
+            start=date(2023, 7, 15),
+            end=date(2023, 8, 20),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=brug_avond_2023,
+            resto=["nl-debrug-avond"],
+            start=date(2023, 6, 30),
+            end=date(2023, 9, 3),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=coupure_2023_hot,
+            resto=["nl-coupure"],
+            start=date(2023, 7, 12),
+            end=date(2023, 9, 3),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=arodyen_2023,
+            resto=["nl-ardoyen"],
+            start=date(2023, 6, 15),
+            end=date(2023, 6, 30),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=ardoyen_2023_hot,
+            resto=["nl-ardoyen"],
+            start=date(2023, 6, 14),
+            end=date(2023, 6, 14),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=ardoyen_2023_hot,
+            resto=["nl-ardoyen"],
+            start=date(2023, 8, 4),
+            end=date(2023, 8, 4),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=ardoyen_2023_hot,
+            resto=["nl-ardoyen"],
+            start=date(2023, 8, 11),
+            end=date(2023, 8, 11),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=ardoyen_2023_hot,
+            resto=["nl-ardoyen"],
+            start=date(2023, 8, 18),
+            end=date(2023, 8, 18),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=ardoyen_2023_hot,
+            resto=["nl-ardoyen"],
+            start=date(2023, 8, 25),
+            end=date(2023, 8, 25),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=dunant_2023,
+            resto=["nl-dunant"],
+            start=date(2023, 7, 7),
+            end=date(2023, 9, 10),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=dunant_merelbeke_2023_hot,
+            resto=["nl-dunant", "nl-merelbeke"],
+            start=date(2023, 7, 3),
+            end=date(2023, 9, 22),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=merelbeke_2023,
+            resto=["nl-merelbeke"],
+            start=date(2023, 7, 15),
+            end=date(2023, 8, 20),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=sterre_2023,
+            resto=["nl-sterre"],
+            start=date(2023, 7, 15),
+            end=date(2023, 7, 30),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=sterre_2023_hot,
+            resto=["nl-sterre"],
+            start=date(2023, 7, 12),
+            end=date(2023, 8, 27),
+            all_days=True
+        ),
     ]
 
 
