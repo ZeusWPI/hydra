@@ -1158,7 +1158,7 @@ def create_changes(root_path):
             all_days=True
         ),
         ManualChange(
-            replacer=july_10_2023_nl,
+            replacer=zomer_warning,
             resto=["nl-debrug", "nl-debrug-avond", "nl-dunant", "nl-coupure", "nl-sterre", "nl-ardoyen", "nl-merelbeke", "nl"],
             start=date(2023, 7, 1),
             end=date(2023, 9, 22),
