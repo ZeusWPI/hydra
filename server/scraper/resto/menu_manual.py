@@ -627,6 +627,18 @@ def sterre_2023_hot(_path, original):
     return original
 
 
+def teambuilding_2023_nl(_path, original):
+    add_or_append(original, "Op 19 september zijn alle resto’s en cafetaria’s gesloten wegens teambuilding.")
+    original["open"] = False
+    return original
+
+
+def teambuilding_2023_en(_path, original):
+    add_or_append(original, "On September 19th, all restaurants and cafeterias are closed due to teambuilding.")
+    original["open"] = False
+    return original
+
+
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -1281,6 +1293,20 @@ def create_changes(root_path):
             resto=["nl-sterre"],
             start=date(2023, 7, 12),
             end=date(2023, 8, 27),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=teambuilding_2023_nl,
+            resto=["nl-debrug", "nl-debrug-avond", "nl-dunant", "nl-coupure", "nl-sterre", "nl-ardoyen", "nl-merelbeke", "nl"],
+            start=date(2023, 9, 19),
+            end=date(2023, 9, 19),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=teambuilding_2023_en,
+            resto=["en"],
+            start=date(2023, 9, 19),
+            end=date(2023, 9, 19),
             all_days=True
         ),
     ]
