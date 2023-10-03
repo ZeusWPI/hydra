@@ -5,8 +5,9 @@ import datetime
 import json
 import os
 import re
+import warnings
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 import string
 import sys
 import traceback
@@ -14,6 +15,8 @@ from pprint import pprint
 from typing import Dict
 
 from pyquery import PyQuery as pq
+
+warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 # Bad python module system
 sys.path.append('..')
