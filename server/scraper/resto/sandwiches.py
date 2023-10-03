@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 import sys
 sys.path.append('..')
 
-from util import parse_money, write_json_to_file
+from util import parse_money, write_json_to_file, split_price
 
 SANDWICHES_URL = "https://www.ugent.be/student/nl/meer-dan-studeren/resto/broodjes/overzicht.htm"
 HTML_PARSER = 'lxml'
@@ -116,8 +116,7 @@ def weekly_sandwiches(output, soup):
                 'start': start,
                 'end': end,
                 'name': columns[1].text.strip(),
-                'ingredients': parse_ingredients(columns[2].text),
-                'vegan': 'x' in columns[3].text
+                'ingredients': parse_ingredients(columns[2].text)
             })
 
     today = datetime.date.today()
@@ -166,15 +165,17 @@ def salad_bowls(output, soup):
     """
     bowls = []
 
-    tables = soup.find_all('table', limit=3)
+    tables = soup.find_all('table', limit=4)
 
-    if len(tables) >= 3:
-        for row in soup.find_all('table', limit=3)[2].find_all("tr", class_=lambda x: x != 'tabelheader'):
+    if len(tables) >= 4:
+        header = soup.find('a', id="salad-bowls").parent
+        _, price = split_price(header.text) if header else (None, None)
+        for row in tables[3].find_all("tr", class_=lambda x: x != 'tabelheader'):
             columns = row.find_all("td")
             bowls.append({
                 'name': columns[0].text.strip(),
                 'description': columns[1].text.strip(),
-                'price': parse_money(columns[2].string) if columns[2].string else ""
+                'price': parse_money(price) if price else ""
             })
 
     output_file = os.path.join(output, SALADS)

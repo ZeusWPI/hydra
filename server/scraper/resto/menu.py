@@ -5,8 +5,9 @@ import datetime
 import json
 import os
 import re
+import warnings
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 import string
 import sys
 import traceback
@@ -14,6 +15,8 @@ from pprint import pprint
 from typing import Dict
 
 from pyquery import PyQuery as pq
+
+warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 # Bad python module system
 sys.path.append('..')
@@ -30,16 +33,11 @@ WEEK_MENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu",
     "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
     "nl-debrug-avond": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenubrugavond",
-    "nl-coupure": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "nl-dunant": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "nl-merelbeke": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
 }
 
 NORMAL_WEEK = re.compile(r"week(\d+)$")
 INDIVIDUAL_DAY_URL_OVERRIDE = {
     "nl-coupure": r"week(\d+)coupure$",
-    "nl-dunant": r"week(\d+)(merelbekedunant|dunant)$",
-    "nl-merelbeke": r"week(\d+)(merelbekedunant|merelbeke)$",
     "nl-debrug": r"week(\d+)brugsterre|week(27)duurzaam|week(28)duurzaam",
     "nl-sterre": r"week(\d+)(brugsterre|sterre)|week(27)duurzaam",
     "nl-ardoyen": r"week(\d+)ardoyen"
@@ -50,12 +48,9 @@ INDIVIDUAL_DAY_URL_OVERRIDE = {
 # which is very useful.
 COPIED_ENDPOINTS = {
     "nl-debrug": "nl",
-    "nl-heymans": "nl",
-    "nl-dunant": "nl",
     "nl-coupure": "nl",
     "nl-sterre": "nl",
     "nl-ardoyen": "nl",
-    "nl-merelbeke": "nl",
 }
 
 # Day names to day of the week.
@@ -346,8 +341,20 @@ def get_day_menu(which, url, allergens: Dict[str, str]):
 
         if HEADING_TO_TYPE[last_heading] == 'soup':
             name, price = split_price(meal)
+            if "€" in name:
+                name, price_large = split_price(name)
+            else:
+                price_large = None
             food_allergens = find_allergens_for_food(allergens, name)
-            soups.append(dict(price=price, name=name, type='side', allergens=food_allergens))
+            if price_large:
+                small = "klein" if "nl" in which else "small"
+                big = "groot" if "nl" in which else "big"
+                name_small = f"{name} {small}"
+                name_big = f"{name} {big}"
+                soups.append(dict(price=price, name=name_small, type='side', allergens=food_allergens))
+                soups.append(dict(price=price_large, name=name_big, type='side', allergens=food_allergens))
+            else:
+                soups.append(dict(price=price, name=name, type='side', allergens=food_allergens))
         elif HEADING_TO_TYPE[last_heading] == 'meal soup':
             name, price = split_price(meal)
             food_allergens = find_allergens_for_food(allergens, name)

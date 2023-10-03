@@ -28,12 +28,12 @@ def parse_section_item(section_item: str) -> Union[dict[str, list[str]], None]:
     """
     Parses strings of the form `food: allergen, allergen, allergen`
     """
-    
+
     if "soep van de dag" in section_item:
         item_name = "Soep van de dag"
         item_allergen_list = section_item
     else:
-        item_name, item_allergen_list = section_item.split(":")
+        item_name, item_allergen_list = section_item.split(":", maxsplit=1)
 
     # Sometimes a section will have extra info before the item list,
     # this should not be parsed
@@ -73,7 +73,8 @@ def make_sections(
         sections[section_header] = dict()
         for raw_section_item in raw_section_items:
             section_item = raw_section_item.get_text(strip=True)
-            assert section_item is not None
+            if not section_item:
+                continue
 
             section_item_map = parse_section_item(section_item)
             if section_item_map is None:
