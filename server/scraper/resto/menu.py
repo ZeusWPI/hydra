@@ -33,16 +33,11 @@ WEEK_MENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu",
     "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
     "nl-debrug-avond": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenubrugavond",
-    "nl-coupure": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "nl-dunant": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "nl-merelbeke": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
 }
 
 NORMAL_WEEK = re.compile(r"week(\d+)$")
 INDIVIDUAL_DAY_URL_OVERRIDE = {
     "nl-coupure": r"week(\d+)coupure$",
-    "nl-dunant": r"week(\d+)(merelbekedunant|dunant)$",
-    "nl-merelbeke": r"week(\d+)(merelbekedunant|merelbeke)$",
     "nl-debrug": r"week(\d+)brugsterre|week(27)duurzaam|week(28)duurzaam",
     "nl-sterre": r"week(\d+)(brugsterre|sterre)|week(27)duurzaam",
     "nl-ardoyen": r"week(\d+)ardoyen"
@@ -53,12 +48,9 @@ INDIVIDUAL_DAY_URL_OVERRIDE = {
 # which is very useful.
 COPIED_ENDPOINTS = {
     "nl-debrug": "nl",
-    "nl-heymans": "nl",
-    "nl-dunant": "nl",
     "nl-coupure": "nl",
     "nl-sterre": "nl",
     "nl-ardoyen": "nl",
-    "nl-merelbeke": "nl",
 }
 
 # Day names to day of the week.

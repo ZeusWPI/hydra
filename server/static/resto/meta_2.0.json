@@ -1,106 +1,169 @@
 {
-    "locations": [
-        {
-            "name": "English menu",
-            "address": "Sint-Pietersnieuwstraat",
-            "latitude": 51.045113,
-            "longitude": 3.727347,
-            "type": "resto",
-            "endpoint": "en",
-            "open": {"resto":[["08:30", "15:00"]]}
-        },{
-            "name": "Resto Campus Sterre",
-            "address": "Krijgslaan 281",
-            "latitude": 51.026024,
-            "longitude": 3.712939,
-            "type": "resto",
-            "endpoint": "nl-sterre",
-            "open": {"resto":[["08:30", "14:00"]]}
-        }, {
-            "name": "Resto Campus Heymans",
-            "address": "Harelbekestraat 70",
-            "latitude": 51.026508,
-            "longitude": 3.730189,
-            "type": "resto",
-            "endpoint": "nl-heymans",
-            "open": {"resto":[["08:30", "15:00"]]}
-        }, {
-            "name": "Resto De Brug",
-            "address": "Sint-Pietersnieuwstraat 45",
-            "latitude": 51.045613,
-            "longitude":  3.727147,
-            "type": "resto",
-            "endpoint": "nl-debrug",
-            "open": {"resto":[["08:30", "15:00"]],
-              "cafetaria":[["08:00", "16:00"]]}
-        }, {
-            "name": "Resto De Brug (avond)",
-            "address": "Sint-Pietersnieuwstraat 45",
-            "latitude": 51.045613,
-            "longitude":  3.727147,
-            "type": "resto",
-            "endpoint": "nl-debrug-avond",
-            "open": {"resto":[["17:30", "21:00"]]}
-        }, {
-            "name": "Resto Campus Merelbeke",
-            "address": "Salisburylaan 133, Merelbeke",
-            "latitude": 50.998369,
-            "longitude": 3.766454,
-            "type": "resto",
-            "endpoint": "nl-merelbeke",
-            "open": {"resto":[["08:30", "15:00"]]}
-        }, {
-            "name": "Resto Campus Dunant",
-            "address": "Henri Dunantlaan 2",
-            "latitude": 51.049023,
-            "longitude": 3.704017,
-            "type": "resto",
-            "endpoint": "nl-dunant",
-            "open": {"resto":[["08:30", "15:00"]]}
-        }, {
-            "name": "Resto Campus Coupure",
-            "address": "Coupure Links 653",
-            "latitude": 51.053252,
-            "longitude": 3.707671,
-            "type": "resto",
-            "endpoint": "nl-coupure",
-            "open": {"resto":[["08:30", "15:00"]]}
-        }, {
-            "name": "Resto Ardoyen",
-            "address": "Technologiepark-Zwijnaarde 75, 9052 Zwijnaarde",
-            "latitude": 51.010207,
-            "longitude": 3.707660,
-            "type": "resto",
-            "endpoint": "nl-ardoyen",
-            "open": {"resto":[["08:30", "15:00"]]}
-        }, {
-            "name": "Cafetaria Campus Boekentoren",
-            "address": "Blandijnberg 2",
-            "latitude": 51.043960,
-            "longitude": 3.725230,
-            "type": "cafetaria",
-            "open": {}
-        }, {
-            "name": "Cafetaria Campus UZ Gent",
-            "address": "Corneel Heymanslaan",
-            "latitude": 51.024360,
-            "longitude": 3.723540,
-            "type": "cafetaria",
-            "open": {"cafetaria":[["09:00", "14:30"]]}
-        }, {
-            "name": "Cafetaria Ledeganck",
-            "address": "Ledeganckstraat 35",
-            "latitude": 51.036520,
-            "longitude": 3.723990,
-            "type": "cafetaria",
-            "open": {}
-        }, {
-            "name": "Cafetaria Campus Aula",
-            "address": "Universiteitsstraat 4",
-            "latitude": 51.051029,
-            "longitude": 3.723928,
-            "type": "cafetaria",
-            "open": {}
-        }
-    ]
+  "locations": [
+    {
+      "name": "English menu",
+      "address": "Sint-Pietersnieuwstraat",
+      "latitude": 51.045113,
+      "longitude": 3.727347,
+      "type": "resto",
+      "endpoint": "en",
+      "open": {
+        "resto": [
+          [
+            "08:30",
+            "15:00"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Resto Campus Sterre",
+      "address": "Krijgslaan 281",
+      "latitude": 51.026024,
+      "longitude": 3.712939,
+      "type": "resto",
+      "endpoint": "nl-sterre",
+      "open": {
+        "resto": [
+          [
+            "08:30",
+            "14:00"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Resto De Brug",
+      "address": "Sint-Pietersnieuwstraat 45",
+      "latitude": 51.045613,
+      "longitude": 3.727147,
+      "type": "resto",
+      "endpoint": "nl-debrug",
+      "open": {
+        "resto": [
+          [
+            "08:30",
+            "15:00"
+          ]
+        ],
+        "cafetaria": [
+          [
+            "08:00",
+            "16:00"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Resto De Brug (avond)",
+      "address": "Sint-Pietersnieuwstraat 45",
+      "latitude": 51.045613,
+      "longitude": 3.727147,
+      "type": "resto",
+      "endpoint": "nl-debrug-avond",
+      "open": {
+        "resto": [
+          [
+            "17:30",
+            "21:00"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Resto Campus Coupure",
+      "address": "Coupure Links 653",
+      "latitude": 51.053252,
+      "longitude": 3.707671,
+      "type": "resto",
+      "endpoint": "nl-coupure",
+      "open": {
+        "resto": [
+          [
+            "08:30",
+            "15:00"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Resto Ardoyen",
+      "address": "Technologiepark-Zwijnaarde 75, 9052 Zwijnaarde",
+      "latitude": 51.010207,
+      "longitude": 3.707660,
+      "type": "resto",
+      "endpoint": "nl-ardoyen",
+      "open": {
+        "resto": [
+          [
+            "08:30",
+            "15:00"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Cafetaria Campus Boekentoren",
+      "address": "Blandijnberg 2",
+      "latitude": 51.043960,
+      "longitude": 3.725230,
+      "type": "cafetaria",
+      "open": {}
+    },
+    {
+      "name": "Cafetaria Campus UZ Gent",
+      "address": "Corneel Heymanslaan",
+      "latitude": 51.024360,
+      "longitude": 3.723540,
+      "type": "cafetaria",
+      "open": {
+        "cafetaria": [
+          [
+            "09:00",
+            "14:30"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Cafetaria Ledeganck",
+      "address": "Ledeganckstraat 35",
+      "latitude": 51.036520,
+      "longitude": 3.723990,
+      "type": "cafetaria",
+      "open": {}
+    },
+    {
+      "name": "Cafetaria Campus Aula",
+      "address": "Universiteitsstraat 4",
+      "latitude": 51.051029,
+      "longitude": 3.723928,
+      "type": "cafetaria",
+      "open": {}
+    },
+    {
+      "name": "Cafetaria Heymans",
+      "address": "Harelbekestraat 70",
+      "latitude": 51.026508,
+      "longitude": 3.730189,
+      "type": "cafetaria",
+      "open": {}
+    },
+    {
+      "name": "Cafetaria Merelbeke",
+      "address": "Salisburylaan 133, Merelbeke",
+      "latitude": 50.998369,
+      "longitude": 3.766454,
+      "type": "cafetaria",
+      "open": {}
+    },
+    {
+      "name": "Cafetaria Dunant",
+      "address": "Henri Dunantlaan 2",
+      "latitude": 51.049023,
+      "longitude": 3.704017,
+      "type": "cafetaria",
+      "open": {}
+    }
+  ]
 }
