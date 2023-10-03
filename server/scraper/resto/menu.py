@@ -346,8 +346,20 @@ def get_day_menu(which, url, allergens: Dict[str, str]):
 
         if HEADING_TO_TYPE[last_heading] == 'soup':
             name, price = split_price(meal)
+            if "€" in name:
+                name, price_large = split_price(name)
+            else:
+                price_large = None
             food_allergens = find_allergens_for_food(allergens, name)
-            soups.append(dict(price=price, name=name, type='side', allergens=food_allergens))
+            if price_large:
+                small = "klein" if "nl" in which else "small"
+                big = "groot" if "nl" in which else "big"
+                name_small = f"{name} {small}"
+                name_big = f"{name} {big}"
+                soups.append(dict(price=price, name=name_small, type='side', allergens=food_allergens))
+                soups.append(dict(price=price_large, name=name_big, type='side', allergens=food_allergens))
+            else:
+                soups.append(dict(price=price, name=name, type='side', allergens=food_allergens))
         elif HEADING_TO_TYPE[last_heading] == 'meal soup':
             name, price = split_price(meal)
             food_allergens = find_allergens_for_food(allergens, name)

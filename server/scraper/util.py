@@ -49,6 +49,11 @@ def split_price(meal):
         name = '-'.join(meal.split('-')[:-1]).strip()
         name, price = move_junk_from_price_to_name(name, price)
         return name, price
+    elif "/" in meal and "€" in meal:
+        price = meal.split('/')[-1].strip()
+        name = '/'.join(meal.split('/')[:-1]).strip()
+        name, price = move_junk_from_price_to_name(name, price)
+        return name, price
     elif "€" in meal:
         meal, price = meal.split("€")
         return meal.strip(), price
