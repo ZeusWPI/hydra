@@ -56,7 +56,7 @@ def split_price(meal):
         return name, price
     elif "€" in meal:
         meal, price = meal.split("€")
-        return meal.strip(), price
+        return meal.strip(), price.strip()
     else:
         return meal.strip(), ""
 
