@@ -19,6 +19,13 @@ function usage() {
     echo "    push      true or false, depending on if you want to push to the repo or not"
 }
 
+function suppress
+{
+   TMP=$(mktemp)
+   ${1+"$@"} > "$TMP" 2>&1 || ( echo "$* exited with $?" && cat "$TMP" )
+   rm "$TMP"
+}
+
 if [[ $# -lt 2 ]]; then
     echo "error: 2 operands are required" >&2
     usage
@@ -60,6 +67,6 @@ git diff-index --quiet HEAD || git commit -m "Scraper: new data from $today"
 
 # Porcelain prevents git from writing non-errors to stderr, resulting in emails
 if [[ "$push" == true ]]; then
-    git pull
-    git push --porcelain
+    suppress git pull
+    suppress git push --porcelain
 fi
