@@ -638,6 +638,17 @@ def teambuilding_2023_en(_path, original):
     original["open"] = False
     return original
 
+def newyear_dsv_2024_nl(_path, original):
+    add_or_append(original, "Op vrijdag 12 januari is resto De Brug gesloten, cafetaria De Brug is wel open. ")
+    original["open"] = True
+    return original
+
+
+def newyear_dsv_2024_en(_path, original):
+    add_or_append(original, "On Friday January 12th, resto De Brug will be closed, cafeteria De Brug will be open.")
+    original["open"] = True
+    return original
+
 
 def create_changes(root_path):
     return [
@@ -1307,6 +1318,20 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2023, 9, 19),
             end=date(2023, 9, 19),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=newyear_dsv_2024_nl,
+            resto=["nl-debrug", "nl"],
+            start=date(2024, 1, 12),
+            end=date(2024, 1, 12),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=newyear_dsv_2024_en,
+            resto=["en"],
+            start=date(2024, 1, 12),
+            end=date(2024, 1, 12),
             all_days=True
         ),
     ]
