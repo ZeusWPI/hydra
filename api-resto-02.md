@@ -15,7 +15,7 @@ This document describes the current version of the API, version 2.0.
 | Version                | Endpoint                              | Status  |
 |------------------------|---------------------------------------|---------|
 | [1.0](api-resto-01.md) | https://hydra.ugent.be/api/1.0/resto/ | retired |
-| 2.4 (this)             | https://hydra.ugent.be/api/2.0/resto/ | current |
+| 2.5 (this)             | https://hydra.ugent.be/api/2.0/resto/ | current |
 
 ## Data dump
 
@@ -34,6 +34,7 @@ need all available data, it is probably easier and faster to download or clone t
 - At some point in 2021 or early 2022, the zeus.ugent.be/hydra endpoint stopped working. We could fix it, but we assume
   most clients have migrated or are able to.
 - _October 2022_ - Allergen information was added.
+- _January 2024_ - Allergen information has been added to vegetables, with the field `vegetables2`.
 
 ## Technical description
 
@@ -187,6 +188,15 @@ Returns the menu for each available day in the future, including today. Sample o
    "Bloemkool",
    "Prinsessengroenten"
   ],
+  "vegetables2": [
+    {
+      "kind": "vegan",
+      "name": "Bloemkool",
+      "allergens": [
+        "Bloemkool"
+      ]
+    }
+  ], 
   "message": "Alle studenten krijgen op vertoon van Hydra 150% korting."
  }
 ]
@@ -256,13 +266,14 @@ A sample endpoint is `/menu/nl/2017/5/18.json`. Sample output is:
 
 A menu object consists of:
 
-| Field        | Description                                                                                                                                                                                        |
-|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `date`       | The date of the menu. The date's format follows ISO 8601:2004's extended format (`YYYY-MM-DD`).                                                                                                    |
-| `open`       | If set to `true`, the resto is open, otherwise not. If set to `false`. <br><br>Note that this is no guarantee: some days (like the weekends) are simply not present in the output.                 |
-| `vegetables` | A list of available vegetables.                                                                                                                                                                    |
-| `meals`      | A list of meal objects (see below).                                                                                                                                                                |
-| `message`    | Optional field containing a message to be displayed. Used for exceptional closures or changes in the menu. For example, if `open` is `false`, the message could be an explanation for the closure. |
+| Field         | Description                                                                                                                                                                                        |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `date`        | The date of the menu. The date's format follows ISO 8601:2004's extended format (`YYYY-MM-DD`).                                                                                                    |
+| `open`        | If set to `true`, the resto is open, otherwise not. If set to `false`. <br><br>Note that this is no guarantee: some days (like the weekends) are simply not present in the output.                 |
+| `vegetables`  | A list of available vegetables.                                                                                                                                                                    |
+| `vegetables2` | A list of available vegetables in object form, with the kind and allergen information present, see below.                                                                                          |
+| `meals`       | A list of meal objects (see below).                                                                                                                                                                |
+| `message`     | Optional field containing a message to be displayed. Used for exceptional closures or changes in the menu. For example, if `open` is `false`, the message could be an explanation for the closure. |
 
 A meal object consists of:
 
@@ -274,8 +285,16 @@ A meal object consists of:
 | `type`      | The meal type. Is currently `main` or `side`, but applications must be able to handle changes to the possible values.                                                    |
 | `allergens` | List of allergens, matched on a best-efforts basis from the [allergen information](#allergen-information).                                                               |
 
+A vegetable object consists of:
+
+| Field       | Description                                                                                                                                                           |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `kind`      | The kind of the vegetable. A subset of the meal kind, currently `meat`, `vegetarian`, or `vegan`. Applications must be able to handle changes to the possible values. |
+| `name`      | The name of the vegetable.                                                                                                                                            |
+| `allergens` | List of allergens, matched on a best-efforts basis from the [allergen information](#allergen-information).                                                            |
+
 > **Warning**
-> The allergen information, like all other information in the API, is available on a best-efforts basis.
+> The allergen information, like all other information in the API, is available on a best-effort basis.
 > Particularly, this information IS NOT FIT to replace the legally mandated information about allergens.
 > When showing these data to users, please inform them of this and link to the web page.
 
