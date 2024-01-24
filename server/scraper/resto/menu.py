@@ -295,6 +295,11 @@ def find_allergens_for_food(allergens: Dict[str, str], food: str) -> list[str]:
     found = []
     for part in food_parts:
         found += allergens.get(part, [])
+    # Also do the reverse search if we didn't find any allergens.
+    if not found:
+        for allergen_food, allergens in allergens.items():
+            if allergen_food in food:
+                found += allergens
     return found
 
 
