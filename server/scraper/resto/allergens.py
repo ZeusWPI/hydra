@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import itertools
 import os
 import sys
 from typing import Union
@@ -16,7 +17,10 @@ from util import write_json_to_file
 URL = "https://www.ugent.be/student/nl/meer-dan-studeren/resto/allergenen"
 SKIPPED_ELEMENTS = [
     "vegetarisch",
-    "vegan"
+    "vegan",
+    "veggie",
+    "msc",
+    "asc"
 ]
 
 
@@ -33,7 +37,7 @@ def parse_section_item(section_item: str) -> Union[dict[str, list[str]], None]:
         item_name = "Soep van de dag"
         item_allergen_list = section_item
     else:
-        item_name, item_allergen_list = section_item.split(":", maxsplit=1)
+        item_name, item_allergen_list = section_item.rsplit(":", maxsplit=1)
 
     # Sometimes a section will have extra info before the item list,
     # this should not be parsed
@@ -41,10 +45,13 @@ def parse_section_item(section_item: str) -> Union[dict[str, list[str]], None]:
         return None
 
     item_allergens = list(map(lambda a: a.strip(), item_allergen_list.split(",")))
+    # Split items with "-"
+    item_allergens = list(itertools.chain.from_iterable(item.split("-") for item in item_allergens))
+    item_allergens = [x.strip().strip(".") for x in item_allergens]
 
     # Exclude last item, it is not an allergen but a diet name
     # eg. 'Vegetarian' or 'Vegan'
-    return {item_name.lower(): sorted({x.strip(".") for x in item_allergens if x.strip(".") not in SKIPPED_ELEMENTS})}
+    return {item_name.lower(): sorted({x for x in item_allergens if x not in SKIPPED_ELEMENTS})}
 
 
 def make_sections(
