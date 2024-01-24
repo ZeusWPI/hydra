@@ -13,34 +13,27 @@ from requests import RequestException
 from backoff import retry_session
 from util import write_json_to_file
 
-URL = 'http://urgent.fm/'
-LIVE_URL = 'http://urgent.fm/listen_live.config'
+URL = 'https://urgent.fm/'
+LIVE_URL = 'https://urgentstream.radiostudio.be/aac'
 
 
 def get_programme():
     response = retry_session.get(URL)
     soup = BeautifulSoup(response.text, 'html.parser')
-    link = soup.select('#header-text > a')[-1]
-    programme_name = link.text
-    programme_link = link['href']
+    name_element = soup.select_one('body > div.content > section.hero.d-flex.align-items-center.justify-content-center > div > div > div:nth-child(1) > h1')
+    programme_name = name_element.text.strip()
+    link_element = soup.select_one("body > div.content > section.hero.d-flex.align-items-center.justify-content-center > div > div > div:nth-child(1) > div.mt-auto > a")
+    programme_link = link_element["href"]
     return programme_name, programme_link
 
 
-def get_stream_link():
-    """
-    Get the link to the current Urgent.fm stream.
-    :return: The link.
-    """
-    return retry_session.get(LIVE_URL).text.strip()
-
-
 def get_programme_description(link):
-    response = retry_session.get(URL + link)
+    response = retry_session.get(link)
     soup = BeautifulSoup(response.text, 'html.parser')
-    content = soup.select('.content')[0]
-    img = content.select('.field-name-field-radioprograms-image img')[0]['src']
-    text = content.select('.field-type-text-with-summary')[0].text
-    return img, text
+    image_element = soup.select_one("body > div.content > div > div > div.col-3.col-md-auto > img")
+    image_link = image_element["src"]
+    intro = soup.select_one(".programma-intro").text.strip()
+    return image_link, intro
 
 
 def run(output):
@@ -52,7 +45,6 @@ def run(output):
     os.makedirs(output_path, exist_ok=True)  # Like mkdir -p
     output_file = os.path.join(output_path, 'status.json')  # Output file
 
-    stream_link = get_stream_link()
     programme, programme_link = get_programme()
     try:
         programme_image, programme_description = get_programme_description(programme_link)
@@ -61,14 +53,15 @@ def run(output):
         programme_image, programme_description = None, None
 
     result = {
-        'url': stream_link,
+        'url': LIVE_URL,
         'name': programme,
         'meta': {
             'name': programme,
             'image': programme_image,
             'description': programme_description
         },
-        'validUntil': (datetime.now() + timedelta(hours=1)).isoformat()
+        # Change so that we are always valid until the next hour + 2 minutes.
+        'validUntil': (datetime.now() + timedelta(hours=1)).replace(minute=2).isoformat()
     }
     write_json_to_file(result, output_file)
 
