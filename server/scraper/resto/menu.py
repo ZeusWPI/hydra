@@ -403,14 +403,18 @@ def get_day_menu(which, url, allergens: Dict[str, str]):
             vegetables.append(meal)
             if ":" in meal:
                 kind, name = meal.split(":")
-                if kind != 'vegan' and kind != 'vegetarian':
+                if kind in POSSIBLE_VEGETARIAN:
+                    kind = 'vegetarian'
+                elif kind in POSSIBLE_VEGAN:
+                    kind = 'vegan'
+                else:
                     kind = 'meat'
             else:
                 kind = 'meat'
                 name = meal
             vegetable_allergens = find_allergens_for_food(allergens, name)
             vegetable = {
-                'name': name,
+                'name': name.strip(),
                 'kind': kind,
                 'allergens': vegetable_allergens
             }
