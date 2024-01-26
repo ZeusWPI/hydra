@@ -166,7 +166,8 @@ RELEVANT_ALLERGEN_SECTIONS = [
     "warme maaltijden: vlees",
     "groenten bij warme maaltijden",
     "zetmeel",
-    "soep"
+    "soep",
+    "groenten bij warme maaltijden"
 ]
 
 
@@ -295,6 +296,11 @@ def find_allergens_for_food(allergens: Dict[str, str], food: str) -> list[str]:
     found = []
     for part in food_parts:
         found += allergens.get(part, [])
+    # Also do the reverse search if we didn't find any allergens.
+    if not found:
+        for allergen_food, allergens in allergens.items():
+            if allergen_food in food:
+                found += allergens
     return found
 
 
@@ -309,6 +315,7 @@ def get_day_menu(which, url, allergens: Dict[str, str]):
     #   system)
     day_menu = pq(url=url)
     vegetables = []
+    vegetables2 = []
     meats = []
     soups = []
 
@@ -394,6 +401,20 @@ def get_day_menu(which, url, allergens: Dict[str, str]):
                     meats.append(dict(price=price, name=name, kind=kind, hot=hot_cold, allergens=food_allergens))
         elif HEADING_TO_TYPE[last_heading] == 'vegetables':
             vegetables.append(meal)
+            if ":" in meal:
+                kind, name = meal.split(":")
+                if kind != 'vegan' and kind != 'vegetarian':
+                    kind = 'meat'
+            else:
+                kind = 'meat'
+                name = meal
+            vegetable_allergens = find_allergens_for_food(allergens, name)
+            vegetable = {
+                'name': meal,
+                'kind': kind,
+                'allergens': vegetable_allergens
+            }
+            vegetables2.append(vegetable)
         else:
             raise ValueError(f"Oops, HEADING_TO_TYPE contains unknown value for {last_heading}.")
 
@@ -401,7 +422,7 @@ def get_day_menu(which, url, allergens: Dict[str, str]):
     if not vegetables and not soups and not meats:
         return dict(open=False)
 
-    r = dict(open=True, vegetables=vegetables, soup=soups, meat=meats)
+    r = dict(open=True, vegetables=vegetables, vegetables2=vegetables2, soup=soups, meat=meats)
     return r
 
 
