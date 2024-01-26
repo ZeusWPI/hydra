@@ -31,8 +31,7 @@ OVERVIEW_2_0 = "menu/{}/overview.json"
 # The url containing the list of week menus.
 WEEK_MENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu",
-    "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "nl-debrug-avond": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenubrugavond",
+    "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu"
 }
 
 NORMAL_WEEK = re.compile(r"week(\d+)$")
