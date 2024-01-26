@@ -410,7 +410,7 @@ def get_day_menu(which, url, allergens: Dict[str, str]):
                 name = meal
             vegetable_allergens = find_allergens_for_food(allergens, name)
             vegetable = {
-                'name': meal,
+                'name': name,
                 'kind': kind,
                 'allergens': vegetable_allergens
             }
