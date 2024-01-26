@@ -500,6 +500,7 @@ def write_2_0(root_path, menus):
                             allergens=meal['allergens'],
                         ))
                     menu['vegetables'] = day_menu['vegetables']
+                    menu['vegetables2'] = day_menu['vegetables2']
 
                 if day >= datetime.date.today():
                     overview.append(menu)
