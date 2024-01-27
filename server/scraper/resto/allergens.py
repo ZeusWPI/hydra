@@ -23,6 +23,13 @@ SKIPPED_ELEMENTS = [
     "asc"
 ]
 
+# Meals in the menu can have other names than here in the allergens.
+# This maps allergen names to menu names, so we can include both.
+ALIASES = {
+    "tortelloni in pittige tomatensaus": ["tortolloni in pittige tomatensaus"],
+    "penne prima vera": ["penne primavera"]
+}
+
 
 def get_section_indeces(raw_parts: list[Tag]) -> list[int]:
     return [idx for idx, val in enumerate(raw_parts) if val.name == "h2"]
@@ -51,7 +58,18 @@ def parse_section_item(section_item: str) -> Union[dict[str, list[str]], None]:
 
     # Exclude last item, it is not an allergen but a diet name
     # eg. 'Vegetarian' or 'Vegan'
-    return {item_name.lower(): sorted({x for x in item_allergens if x not in SKIPPED_ELEMENTS})}
+    items = {item_name.lower(): sorted({x for x in item_allergens if x not in SKIPPED_ELEMENTS})}
+
+    # Add aliases if possible.
+    for original, copies in ALIASES.items():
+        try:
+            allergens = items[original]
+            for copy in copies:
+                if copy not in items:
+                    items[copy] = allergens
+        except KeyError:
+            pass
+    return items
 
 
 def make_sections(
