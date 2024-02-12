@@ -68,7 +68,8 @@ def restjesmaand18_replacer(_path, original):
 
 def add_or_append(menu, message):
     if "message" in menu:
-        menu["message"] += "\n" + message
+        if message not in message["message"]:
+            menu["message"] += "\n" + message
     else:
         menu["message"] = message
 
