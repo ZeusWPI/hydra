@@ -31,20 +31,24 @@ OVERVIEW_2_0 = "menu/{}/overview.json"
 # The url containing the list of week menus.
 WEEK_MENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu",
-    "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu"
+    "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
+    "nl-sterre": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
+    "nl-debrug": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
+    "nl-coupure": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu"
 }
 
 NORMAL_WEEK = re.compile(r"week(\d+)$")
 INDIVIDUAL_DAY_URL_OVERRIDE = {
-    "nl-coupure": r"week(\d+)coupure$",
-    "nl-debrug": r"week(\d+)brugsterre|week(27)duurzaam|week(28)duurzaam",
-    "nl-sterre": r"week(\d+)(brugsterre|sterre)|week(27)duurzaam",
-    "nl-ardoyen": r"week(\d+)ardoyen"
+    "nl-coupure": r"week(\d+)-?(ardoyen-)?coupure$",
+    "nl-debrug": r"week(\d+)-?(brugsterre|brug)|week(27)duurzaam|week(28)duurzaam",
+    "nl-sterre": r"week(\d+)-?(brugsterre|sterre)|week(27)duurzaam",
+    "nl-ardoyen": r"week(\d+)-?ardoyen(-coupure)?"
 }
 
 # These endpoints are copies of another endpoint.
 # While this seems useless, it allows messages per endpoint,
 # which is very useful.
+# TODO: there is currently no "nl" endpoint, so this is pointless.
 COPIED_ENDPOINTS = {
     "nl-debrug": "nl",
     "nl-coupure": "nl",
@@ -244,6 +248,11 @@ def get_weeks(which):
     page_type = WEEK_MENU_PAGE_TYPE[which]
     week_parser = WEEK_MENU_PARSERS[page_type]
     week_urls = week_parser(WEEK_MENU_URL[which], which)
+    # If there are no week urls for "nl", which is our fallback,
+    # use those from "nl-debrug".
+    if not week_urls:
+        # This is an ugly hack :(
+        week_urls = week_parser(WEEK_MENU_URL["nl-debrug"], "nl-debrug")
     r = {}
     for url in week_urls:
         try:
