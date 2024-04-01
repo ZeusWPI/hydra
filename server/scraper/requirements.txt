@@ -3,5 +3,5 @@ htmlmin==0.1.12
 lxml==5.1.0
 pyquery==2.0.0
 requests==2.31.0
-wheel==0.42.0
+wheel==0.43.0
 feedparser==6.0.11
