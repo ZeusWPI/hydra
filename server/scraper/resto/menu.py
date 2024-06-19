@@ -34,7 +34,8 @@ WEEK_MENU_URL = {
     "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
     "nl-sterre": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
     "nl-debrug": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
-    "nl-coupure": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu"
+    "nl-coupure": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
+    "nl-ardoyen": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu"
 }
 
 NORMAL_WEEK = re.compile(r"week(\d+)$")
