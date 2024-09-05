@@ -28,6 +28,8 @@ def get_programme():
 
 
 def get_programme_description(link):
+    if link is None:
+        return None, None
     response = retry_session.get(link)
     soup = BeautifulSoup(response.text, 'html.parser')
     image_element = soup.select_one("body > div.content > div > div > div.col-3.col-md-auto > img")
@@ -45,7 +47,12 @@ def run(output):
     os.makedirs(output_path, exist_ok=True)  # Like mkdir -p
     output_file = os.path.join(output_path, 'status.json')  # Output file
 
-    programme, programme_link = get_programme()
+    try:
+        programme, programme_link = get_programme()
+    except AttributeError:
+        # The site is flaky again and I am tired of the mails.
+        programme, programme_link = "Onbekend", None
+
     try:
         programme_image, programme_description = get_programme_description(programme_link)
     except IndexError:
