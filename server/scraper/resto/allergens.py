@@ -43,6 +43,8 @@ def parse_section_item(section_item: str) -> Union[dict[str, list[str]], None]:
     if "soep van de dag" in section_item:
         item_name = "Soep van de dag"
         item_allergen_list = section_item
+    elif ":" not in section_item:  # Sometimes, it is just a message, so ignore it.
+        return None
     else:
         item_name, item_allergen_list = section_item.rsplit(":", maxsplit=1)
 
