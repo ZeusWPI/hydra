@@ -86,6 +86,10 @@ def make_sections(
         if section_header == "meer info":
             continue
 
+        # Strip information about the portion size.
+        section_header = section_header.removesuffix("(nutrionele info per portie, afgerond op een gram)")
+        section_header = section_header.strip()
+
         assert section_header not in sections
 
         next_header_idx = (
