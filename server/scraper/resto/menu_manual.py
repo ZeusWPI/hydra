@@ -662,6 +662,8 @@ def coupure_2024_nl(_path, original):
     return {
         "message": message,
         "date": original["date"],
+        "meals": [],
+        "vegetables": [],
         "open": True
     }
 
