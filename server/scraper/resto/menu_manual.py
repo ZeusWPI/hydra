@@ -6,6 +6,7 @@ import os
 import re
 from collections import defaultdict
 from datetime import date, timedelta, datetime
+from textwrap import dedent
 
 OVERVIEW_COUNT = 10
 
@@ -649,6 +650,20 @@ def newyear_dsv_2024_en(_path, original):
     add_or_append(original, "On Friday January 12th, resto De Brug will be closed, cafeteria De Brug will be open.")
     original["open"] = True
     return original
+
+
+def coupure_2024_nl(_path, original):
+    message = dedent("""\
+    In Resto Coupure starten we met een proefproject: we gaan terug vers koken!
+    In het vernieuwde restaurant kan je kiezen uit een ruim aanbod van deelgerechten waarbij vooral groenten een prominente plaats krijgen.
+    In de resto wordt ook dagelijks verse soep worden gemaakt. Voor het aanbod wordt gekeken naar het seizoen en de afstand die de ingrediënten moeten afleggen.
+    Ga ter plaatse om het aanbod te bekijken.
+    """)
+    return {
+        "message": message,
+        "date": original["date"],
+        "open": True
+    }
 
 
 def create_changes(root_path):
@@ -1333,6 +1348,13 @@ def create_changes(root_path):
             resto=["en"],
             start=date(2024, 1, 12),
             end=date(2024, 1, 12),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=coupure_2024_nl,
+            resto=["nl-coupure"],
+            start=date(2024, 9, 23),
+            end=date(2025, 7, 1),
             all_days=True
         ),
     ]
