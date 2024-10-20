@@ -667,6 +667,10 @@ def coupure_2024_nl(_path, original):
         "open": True
     }
 
+def cafetaria_aula(_path, original):
+    add_or_append(original, "Cafetaria Aula zal vanaf 21/10 alvast voor twee weken gesloten zijn door overmacht. update via ugent.be/studentenrestaurants.")
+    return original
+
 
 def create_changes(root_path):
     return [
@@ -1357,6 +1361,13 @@ def create_changes(root_path):
             resto=["nl-coupure"],
             start=date(2024, 9, 23),
             end=date(2025, 7, 1),
+            all_days=True
+        ),
+        ManualChange(
+            replacer=cafetaria_aula,
+            resto=["nl-debrug", "nl"],
+            start=date(2024, 10, 21),
+            end=date(2024, 11, 3),
             all_days=True
         ),
     ]
