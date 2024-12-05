@@ -205,6 +205,18 @@
       "end": "2023-12-31T23:30:00+02:00",
       "id": 20,
       "development": false
+    },
+    {
+      "name": "Tevredenheidsenquête resto's",
+      "link": "https://ugent.qualtrics.com/jfe/form/SV_8B3LGBzsOKiZ3mu",
+      "simple-text": "Hoe tevreden ben jij over de resto's? Vul de korte enquête in en win o.a. een cadeaubon Gent t.w.v. € 100.",
+      "image": "https://hydra.ugent.be/img/resto-survey.png",
+      "html": "",
+      "priority": 990,
+      "start": "2024-12-01T08:00:00+02:00",
+      "end": "2024-12-31T23:30:00+02:00",
+      "id": 21,
+      "development": false
     }
   ]
 }
