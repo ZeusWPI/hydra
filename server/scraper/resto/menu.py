@@ -140,6 +140,7 @@ HEADING_TO_TYPE = {
     'meal soup': 'meal soup',
     'main dish': 'meat',
     'vegetables': 'vegetables',
+    'vegetable': 'vegetables',
     'warm take away dishes': 'meat',
     'cold take away dishes (to heat up)': 'meat',
     'warm meals': 'meat',
