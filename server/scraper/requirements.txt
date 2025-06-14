@@ -1,7 +1,7 @@
-beautifulsoup4==4.13.3
+beautifulsoup4==4.13.4
 htmlmin==0.1.12
-lxml==5.3.1
+lxml==5.4.0
 pyquery==2.0.1
-requests==2.32.3
-wheel==0.45.1
+requests==2.32.4
+wheel==0.46.1
 feedparser==6.0.11
