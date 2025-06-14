@@ -48,8 +48,8 @@ else
   pyenv update
 fi
 
-pyenv install -s 3.11.3
-pyenv global 3.11.3
+pyenv install -s 3.13.5
+pyenv global 3.13.5
 
 # Create venv environment
 python3 -m venv "$prefix/venv"
