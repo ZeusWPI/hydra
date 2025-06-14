@@ -65,10 +65,6 @@ def parse_dates(week):
     end_month = int(match.group('end_month'))
     end_year = guess_year(end_month)
 
-    # TODO: remove this once the wrong week has passed.
-    if start_month == 11 and start_day == 31:
-        start_month = 10
-
     start_date = datetime.date(start_year, start_month, start_day)
     end_date = datetime.date(end_year, end_month, end_day)
 
@@ -85,8 +81,11 @@ def static_sandwiches(output2, soup):
 
     for row in soup.table.find_all("tr", class_=lambda x: x != 'tabelheader'):
         columns = row.find_all("td")
+        # Some names have superscript, remove that.
+        for sup in columns[0].find_all("sup"):
+            sup.decompose()
         sandwiches.append({
-            "name": columns[0].find(string=True),
+            "name": columns[0].get_text().strip(),
             "ingredients": parse_ingredients(columns[1].text.strip() or ""),
             "price_medium": parse_money(columns[2].text.strip()),
             "price_small": ""  # workaround
@@ -94,67 +93,6 @@ def static_sandwiches(output2, soup):
 
     output_file2 = os.path.join(output2, STATIC_SANDWICHES)
     write_json_to_file(sandwiches, output_file2)
-
-
-def weekly_sandwiches(output, soup):
-    """
-    Parse the weekly sandwiches.
-
-    :param soup: BeautifulSoup of the page with the data.
-    :param output: The root output for the sandwiches.
-    """
-
-    sandwiches = []
-
-    tables = soup.find_all('table', limit=2)
-
-    if len(tables) >= 2:
-        for row in soup.find_all('table', limit=2)[1].find_all("tr", class_=lambda x: x != 'tabelheader'):
-            columns = row.find_all("td")
-            start, end = parse_dates(columns[0].text)
-            sandwiches.append({
-                'start': start,
-                'end': end,
-                'name': columns[1].text.strip(),
-                'ingredients': parse_ingredients(columns[2].text)
-            })
-
-    today = datetime.date.today()
-    # Write upcoming sandwiches to overview
-    upcoming = [sandwich.copy() for sandwich in sandwiches if sandwich['end'] >= today]
-    for sandwich in upcoming:
-        sandwich['start'] = sandwich['start'].isoformat()
-        sandwich['end'] = sandwich['end'].isoformat()
-    upcoming_output = os.path.join(output, UPCOMING_SANDWICHES)
-    write_json_to_file(upcoming, upcoming_output)
-
-    # Sort into years
-    yearly_sandwiches = defaultdict(list)
-    for s in sandwiches:
-        yearly_sandwiches[s['start'].year].append(s)
-
-    for year, s in yearly_sandwiches.items():
-        # Read existing file if present.
-        output_file = os.path.join(output, YEARLY_SANDWICHES.format(year))
-        try:
-            with open(output_file, 'r') as file:
-                existing = json.load(file)
-        except (FileNotFoundError, json.decoder.JSONDecodeError):
-            existing = []
-
-        # Filter outdated sandwiches: those with an existing start or end date.
-        start_dates = [sandwich['start'] for sandwich in s]
-        end_dates = [sandwich['end'] for sandwich in s]
-        # Convert date strings to actual dates
-        for sandwich in existing:
-            sandwich['start'] = datetime.date.fromisoformat(sandwich['start'])
-            sandwich['end'] = datetime.date.fromisoformat(sandwich['end'])
-        existing = [x for x in existing if x['start'] not in start_dates and x['end'] not in end_dates]
-        existing.extend(s)
-        for sandwich in existing:
-            sandwich['start'] = sandwich['start'].isoformat()
-            sandwich['end'] = sandwich['end'].isoformat()
-        write_json_to_file(existing, output_file)
 
 
 def salad_bowls(output, soup):
@@ -192,7 +130,6 @@ def all_sandwiches(output2):
     soup = BeautifulSoup(r.text, HTML_PARSER)
 
     static_sandwiches(output2, soup)
-    weekly_sandwiches(output2, soup)
     salad_bowls(output2, soup)
 
 
