@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 import argparse
-import os
-import requests
-import re
 import datetime
-import json
-from collections import defaultdict
-from bs4 import BeautifulSoup
-
+import os
+import re
 # Bad python module system
 import sys
+
+import requests
+from bs4 import BeautifulSoup
+
 sys.path.append('..')
 
 from util import parse_money, write_json_to_file, split_price
@@ -105,10 +104,10 @@ def salad_bowls(output, soup):
 
     tables = soup.find_all('table', limit=4)
 
-    if len(tables) >= 4:
+    if len(tables) >= 1:
         header = soup.find('a', id="salad-bowls").parent
         _, price = split_price(header.text) if header else (None, None)
-        for row in tables[3].find_all("tr", class_=lambda x: x != 'tabelheader'):
+        for row in tables[1].find_all("tr", class_=lambda x: x != 'tabelheader'):
             columns = row.find_all("td")
             bowls.append({
                 'name': columns[0].text.strip(),
