@@ -5,3 +5,4 @@ pyquery==2.0.1
 requests==2.32.4
 wheel==0.46.1
 feedparser==6.0.11
+pyyaml==6.0.2

@@ -3,7 +3,9 @@ import argparse
 import glob
 import json
 import os
+import pathlib
 import re
+import yaml
 from collections import defaultdict
 from datetime import date, timedelta, datetime
 from textwrap import dedent
@@ -672,6 +674,7 @@ def cafetaria_aula(_path, original):
     return original
 
 
+# For simple changes, you can also use the menu_manual.yml file, which is easier.
 def create_changes(root_path):
     return [
         # Restjesmaand 2018
@@ -1373,6 +1376,26 @@ def create_changes(root_path):
     ]
 
 
+def read_changes_from_file() -> list[ManualChange]:
+    path = pathlib.Path(__file__).parent.resolve()
+    results = []
+    with open(path / 'menu_manual.yml') as f:
+        parsed = yaml.safe_load(f)
+        for change in parsed:
+            def replacer(_path, original):
+                add_or_append(original, change["message"])
+                if "open" in change:
+                    original["open"] = change["open"]
+                return original
+            results.append(ManualChange(
+                replacer=replacer,
+                resto=change["resto"],
+                start=change["start"],
+                end=change["end"],
+                all_days=change["all_days"]
+            ))
+    return results
+
 # Actually do things ----------------------------------------------------------
 
 def apply_existing_menus_only(output, manual_change, dates):
@@ -1430,15 +1453,17 @@ def apply_all_menus(output, manual_change, dates):
 
 def main(output):
     to_apply = create_changes(output)
+    yaml_to_apply = read_changes_from_file()
+    changes_to_apply = to_apply + yaml_to_apply
 
     dates = defaultdict(dict)
-    for manual_change in to_apply:
+    for manual_change in changes_to_apply:
         if manual_change.all_days:
             apply_all_menus(output, manual_change, dates)
         else:
             apply_existing_menus_only(output, manual_change, dates)
 
-    for manual_change in to_apply:
+    for manual_change in changes_to_apply:
         print("Rebuilding overviews")
         for resto in manual_change.resto:
             match_glob = f"menu/{resto}/overview.json"

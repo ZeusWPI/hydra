@@ -1,0 +1,53 @@
+- resto: ["nl", "nl-ardoyen"]
+  start: 2025-07-21
+  end: 2025-08-08
+  message: |
+    Alle resto's en cafetaria's zijn gesloten vanaf 21 juli tot en met 8 augustus
+  open: false
+  all_days: true
+- resto: ["en"]
+  start: 2025-07-21
+  end: 2025-08-08
+  message: |
+   All restaurants and cafetaria are closed start July 21st until August 8th.
+  open: false
+  all_days: true
+- resto: ["nl", "nl-sterre", "nl-debrug", "nl-coupure", "nl-ardoyen"]
+  start: 2025-09-16
+  end: 2025-09-16
+  message: |
+    Gesloten voor teambuilding.
+  open: false
+  all_days: true
+- resto: ["en"]
+  start: 2025-09-16
+  end: 2025-09-16
+  message: |
+    Closed for teambuilding.
+  open: false
+  all_days: true
+- resto: ["nl-debrug"]
+  start: 2025-06-30
+  end: 2025-09-15
+  message: |
+    Middag: Gesloten van 11 juli tot en met 31 augustus.
+    Geen saladbar vanaf 30 juni.
+    Avond: Gesloten van 30 juni tot en met 19 september.
+  open: false
+  all_days: true
+- resto: ["nl-coupure"]
+  start: 2025-07-21
+  end: 2025-08-31
+  message: |
+    Gesloten van 21 juli tot en met 31 augustus.
+    Géén buffet, enkel cafetaria.
+  open: false
+  all_days: true
+- resto: ["nl-sterre"]
+  start: 2025-07-21
+  end: 2025-08-31
+  message: |
+    Gesloten van 21 juli tot en met 31 augustus.
+    Géén warme maaltijden van 7 juli tot en met 10 juli.
+  open: false
+  all_days: true
