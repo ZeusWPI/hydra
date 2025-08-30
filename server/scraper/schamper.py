@@ -10,7 +10,6 @@ import sys
 from collections import defaultdict
 from datetime import datetime
 
-import htmlmin
 import lxml.html
 from bs4 import BeautifulSoup, CData, Tag
 from requests import RequestException
@@ -58,8 +57,6 @@ def convert_rss_to_json(rss_feed):
 
 def rss_item_to_object(rss_item):
     def convert_date(date):
-        # TODO: Maybe convert this to ISO time or something?
-        locale.setlocale(locale.LC_TIME, "en_US.utf8")
         return datetime.strptime(date, "%a, %d %b %Y %H:%M:%S %z").isoformat()
 
     def find_first_image_in_content(article_content):
@@ -175,7 +172,7 @@ def transform_item_in_feed(item):
         edition_node.decompose()
 
     encoded = article.find('body').decode_contents(formatter='html')
-    item.description.contents = [CData(htmlmin.minify(encoded, remove_optional_attribute_quotes=False))]
+    item.description.contents = [CData(encoded)]
 
 
 def _parse_article_authors(article):
