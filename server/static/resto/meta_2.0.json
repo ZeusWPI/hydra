@@ -107,14 +107,6 @@
       }
     },
     {
-      "name": "Cafetaria Campus Boekentoren",
-      "address": "Blandijnberg 2",
-      "latitude": 51.043960,
-      "longitude": 3.725230,
-      "type": "cafetaria",
-      "open": {}
-    },
-    {
       "name": "Cafetaria Campus UZ Gent",
       "address": "Corneel Heymanslaan",
       "latitude": 51.024360,
