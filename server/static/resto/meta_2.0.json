@@ -91,6 +91,22 @@
       }
     },
     {
+      "name": "Resto Merelbeke",
+      "address": "Salisburylaan 133, 9820 Merelbeke",
+      "latitude": 50.99843,
+      "longitude": 3.763221,
+      "type": "resto",
+      "endpoint": "nl-merelbeke",
+      "open": {
+        "resto": [
+          [
+            "11:15",
+            "14:00"
+          ]
+        ]
+      }
+    },
+    {
       "name": "Cafetaria Campus Boekentoren",
       "address": "Blandijnberg 2",
       "latitude": 51.043960,
