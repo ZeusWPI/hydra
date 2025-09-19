@@ -33,6 +33,7 @@ WEEK_MENU_URL = {
     "en": "https://www.ugent.be/en/facilities/restaurants/weekly-menu",
     "nl": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
     "nl-sterre": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
+    "nl-merelbeke": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
     "nl-debrug": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
     "nl-coupure": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu",
     "nl-ardoyen": "https://www.ugent.be/student/nl/meer-dan-studeren/resto/weekmenu"
@@ -43,7 +44,8 @@ INDIVIDUAL_DAY_URL_OVERRIDE = {
     "nl-coupure": r"week(\d+)-?(ardoyen-)?coupure$",
     "nl-debrug": r"week(\d+)-?(brugsterre|brug)|week(27)duurzaam|week(28)duurzaam",
     "nl-sterre": r"week(\d+)-?(brugsterre|sterre)|week(27)duurzaam",
-    "nl-ardoyen": r"week(\d+)-?ardoyen(-coupure)?"
+    "nl-ardoyen": r"week(\d+)-?ardoyen(-coupure)?",
+    "nl-merelbeke": r"week(\d+)-?merelbeke?"
 }
 
 # These endpoints are copies of another endpoint.
