@@ -148,6 +148,7 @@ HEADING_TO_TYPE = {
     'warm meals': 'meat',
     'warm dishes': 'meat',
     'hot meals': 'meat',
+    'hot dishes': 'meat',
     'cold meals (to heat up)': 'meat',
     'cold dishes (to heat up)': 'meat',
     'cold dishes (to be heated up)': 'meat',
