@@ -295,8 +295,10 @@ def get_days(which, iso_week, url):
 
     # For each possible day (and corresponding ISO day), try if the link exists.
     for day in DAY_OF_THE_WEEK[which]:
-        potential = f"{url}/{day.lower()}.htm"
-        if potential in links:
+        needle = day.lower()
+        filtered_urls = [link for link in links if needle in link]
+        if len(filtered_urls) > 0:
+            potential = filtered_urls[0]
             r[DateStuff.from_iso_week_day(which, iso_week, day)] = potential
 
     return r
