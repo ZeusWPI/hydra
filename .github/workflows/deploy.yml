@@ -1,13 +1,13 @@
 name: Deploy
 
 on:
- push:
-   branches:
-     - master
+  push:
+    branches:
+      - master
 
 concurrency:
   group: deploy
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -16,18 +16,22 @@ jobs:
     environment: production
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: 3.13
+          python-version: 3.14
+
       - name: Add SSH key
         uses: webfactory/ssh-agent@v0.9.1
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
       - name: Add known hosts
         run: |
           ssh-keyscan -p 2222 -H pratchett.ugent.be >> ~/.ssh/known_hosts
+
       - name: Run script
         run: |
           ./server/deploy.sh ./server/
