@@ -24,7 +24,7 @@ jobs:
           python-version: 3.14
 
       - name: Add SSH key
-        uses: webfactory/ssh-agent@v0.9.1
+        uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
