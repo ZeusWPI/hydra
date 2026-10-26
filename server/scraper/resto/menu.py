@@ -172,10 +172,9 @@ RELEVANT_ALLERGEN_SECTIONS = [
     "warme maaltijden: vegan",
     "warme maaltijden: vis",
     "warme maaltijden: vlees",
-    "groenten bij warme maaltijden",
+    "groenten of garnituren bij warme maaltijden",
     "zetmeel",
     "soep",
-    "groenten bij warme maaltijden"
 ]
 
 
@@ -544,12 +543,12 @@ def main(output_v2):
     try:
         with open(f"{output_v2}/allergens.json", 'r') as allergen_file:
             all_allergens = json.load(allergen_file)
-            for section in RELEVANT_ALLERGEN_SECTIONS:
+        for section in RELEVANT_ALLERGEN_SECTIONS:
+            if section in all_allergens:
                 allergens |= all_allergens[section]
-    except KeyError:
-        print(f"Could not find allergen section {section} in {all_allergens}.", file=sys.stderr)
-        print("Skipping allergens.", file=sys.stderr)
-        traceback.print_exc()
+            else:
+                print(f"Could not find allergen section {section} in {list(all_allergens)}.", file=sys.stderr)
+                print("Skipping allergens for this section.", file=sys.stderr)
     except IOError:
         print("Could not find allergen file.", file=sys.stderr)
         print("Using a default, but this is not normal.", file=sys.stderr)
