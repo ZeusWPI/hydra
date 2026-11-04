@@ -16,6 +16,10 @@ from util import write_json_to_file
 URL = 'https://urgent.fm/'
 LIVE_URL = 'https://urgentstream.radiostudio.be/aac'
 
+# The programme pages on urgent.fm regularly take 5-8 seconds to respond,
+# so use a longer read timeout than the default from backoff.py.
+PROGRAMME_TIMEOUT = (5, 20)  # (connect, read) in seconds
+
 
 def get_programme():
     response = retry_session.get(URL)
@@ -30,7 +34,7 @@ def get_programme():
 def get_programme_description(link):
     if link is None:
         return None, None
-    response = retry_session.get(link)
+    response = retry_session.get(link, timeout=PROGRAMME_TIMEOUT)
     soup = BeautifulSoup(response.text, 'html.parser')
     image_element = soup.select_one("body > div.content > div > div > div.col-3.col-md-auto > img")
     image_link = image_element["src"]
@@ -57,6 +61,11 @@ def run(output):
         programme_image, programme_description = get_programme_description(programme_link)
     except IndexError:
         # This means there is probably no information.
+        programme_image, programme_description = None, None
+    except RequestException as error:
+        # The image and description are optional; still write the stream and programme name.
+        # Log to stdout (the log file) instead of stderr, so cron does not mail about it.
+        print(f"Could not fetch Urgent.fm programme details: {error}")
         programme_image, programme_description = None, None
 
     result = {
